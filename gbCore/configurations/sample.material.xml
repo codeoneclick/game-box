@@ -15,9 +15,15 @@
         <attribute type="GLenum" property="culling_mode"  path="/material" name="cull_face_mode"/>
         <attribute type="bool" property="stencil_test" path="/material" name="is_stencil_test"/>
         <attribute type="GLenum" property="stencil_function" path="/material" name="stencil_function"/>
-        <attribute type="i32" property="stencil_function_parameter_1" path="/material" name="stencil_function_parameter_1"/>
-        <attribute type="i32" property="stencil_function_parameter_2" path="/material" name="stencil_function_parameter_2"/>
-        <attribute type="i32" property="stencil_mask_parameter" path="/material" name="stencil_mask_parameter"/>
+        <attribute type="GLenum" property="back_stencil_op_1" path="/material" name="back_stencil_op_1"/>
+        <attribute type="GLenum" property="back_stencil_op_2" path="/material" name="back_stencil_op_2"/>
+        <attribute type="GLenum" property="back_stencil_op_3" path="/material" name="back_stencil_op_3"/>
+        <attribute type="GLenum" property="front_stencil_op_1" path="/material" name="front_stencil_op_1"/>
+        <attribute type="GLenum" property="front_stencil_op_2" path="/material" name="front_stencil_op_2"/>
+        <attribute type="GLenum" property="front_stencil_op_3" path="/material" name="front_stencil_op_3"/>
+        <attribute type="i32" property="stencil_mask_read" path="/material" name="stencil_mask_read"/>
+        <attribute type="i32" property="stencil_mask_write" path="/material" name="stencil_mask_write"/>
+        <attribute type="i32" property="stencil_ref_value" path="/material" name="stencil_ref_value"/>
         <attribute type="i32" property="z_order" path="/material" name="z_order"/>
         <attribute type="bool" property="debugging" path="/material" name="is_debugging"/>
         <attribute type="bool" property="is_batching" path="/material" name="is_batching"/>

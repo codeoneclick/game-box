@@ -24,6 +24,7 @@
 #include "table_view.h"
 #include "action_console.h"
 #include "progress_bar.h"
+#include "ces_car_model_component.h"
 
 namespace game
 {
@@ -64,6 +65,15 @@ namespace game
         
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_back_from_garage_button)] = glm::vec2(32.f, 40.f);
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_back_from_garage_label)] = glm::vec2(32.f + k_image_button_size.x, 40.f);
+        
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_garage_preview_button)] = glm::vec2(32.f, 40.f + 8.f + k_image_button_size.y);
+        
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_apply_color_1_button)] = glm::vec2(32.f + 120.f, 40.f + 8.f + k_image_button_size.y);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_apply_color_2_button)] = glm::vec2(32.f + 120.f + (8.f + k_image_button_size.x), 40.f + 8.f + k_image_button_size.y);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_apply_color_3_button)] = glm::vec2(32.f + 120.f + (8.f + k_image_button_size.x) * 2.f, 40.f + 8.f + k_image_button_size.y);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_apply_color_4_button)] = glm::vec2(32.f + 120.f + (8.f + k_image_button_size.x) * 3.f, 40.f + 8.f + k_image_button_size.y);
+        
+        
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_next_car_in_garage_button)] = glm::vec2(m_screen_size.x - k_image_button_size.x - 32.f, m_screen_size.y - k_image_button_size.y - 8.f);
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_prev_car_in_garage_button)] = glm::vec2(32.f, m_screen_size.y - k_image_button_size.y - 8.f);
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_car_skin_1_button)] = glm::vec2(m_screen_size.x - k_image_button_size.x - 40.f, 40.f);
@@ -1162,4 +1172,96 @@ namespace game
     }
     
 #endif
+    
+    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_garage_preview_mode_button(const std::string& filename)
+    {
+        const auto button = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size, "ui_search.png", nullptr);
+        button->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_garage_preview_button)];
+        button->set_image_color(k_image_button_color);
+        button->set_background_color(k_image_button_background_color);
+        button->set_foreground_color(k_image_button_foreground_color);
+        button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
+        
+        auto ui_interaction_component = std::make_shared<ces_ui_interaction_component>();
+        ui_interaction_component->set_ui(game::ces_ui_interaction_component::e_ui::e_ui_garage_preview_button);
+        button->add_component(ui_interaction_component);
+        
+        return button;
+    }
+    
+    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_apply_color_1_button(const std::string& filename)
+    {
+        const auto button = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size, "ui_color.png", nullptr);
+        button->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_apply_color_1_button)];
+        button->set_image_color(glm::u8vec4(ces_car_model_component::k_car_color_1.x,
+                                            ces_car_model_component::k_car_color_1.z,
+                                            ces_car_model_component::k_car_color_1.y,
+                                            ces_car_model_component::k_car_color_1.w));
+        button->set_background_color(k_image_button_background_color);
+        button->set_foreground_color(k_image_button_foreground_color);
+        button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
+        
+        auto ui_interaction_component = std::make_shared<ces_ui_interaction_component>();
+        ui_interaction_component->set_ui(game::ces_ui_interaction_component::e_ui::e_ui_apply_color_1_button);
+        button->add_component(ui_interaction_component);
+        
+        return button;
+    }
+    
+    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_apply_color_2_button(const std::string& filename)
+    {
+        const auto button = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size, "ui_color.png", nullptr);
+        button->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_apply_color_2_button)];
+        button->set_image_color(glm::u8vec4(ces_car_model_component::k_car_color_2.x,
+                                            ces_car_model_component::k_car_color_2.z,
+                                            ces_car_model_component::k_car_color_2.y,
+                                            ces_car_model_component::k_car_color_2.w));
+        button->set_background_color(k_image_button_background_color);
+        button->set_foreground_color(k_image_button_foreground_color);
+        button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
+        
+        auto ui_interaction_component = std::make_shared<ces_ui_interaction_component>();
+        ui_interaction_component->set_ui(game::ces_ui_interaction_component::e_ui::e_ui_apply_color_2_button);
+        button->add_component(ui_interaction_component);
+        
+        return button;
+    }
+    
+    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_apply_color_3_button(const std::string& filename)
+    {
+        const auto button = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size, "ui_color.png", nullptr);
+        button->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_apply_color_3_button)];
+        button->set_image_color(glm::u8vec4(ces_car_model_component::k_car_color_3.x,
+                                            ces_car_model_component::k_car_color_3.z,
+                                            ces_car_model_component::k_car_color_3.y,
+                                            ces_car_model_component::k_car_color_3.w));
+        button->set_background_color(k_image_button_background_color);
+        button->set_foreground_color(k_image_button_foreground_color);
+        button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
+        
+        auto ui_interaction_component = std::make_shared<ces_ui_interaction_component>();
+        ui_interaction_component->set_ui(game::ces_ui_interaction_component::e_ui::e_ui_apply_color_3_button);
+        button->add_component(ui_interaction_component);
+        
+        return button;
+    }
+
+    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_apply_color_4_button(const std::string& filename)
+    {
+        const auto button = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size, "ui_color.png", nullptr);
+        button->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_apply_color_4_button)];
+        button->set_image_color(glm::u8vec4(ces_car_model_component::k_car_color_4.x,
+                                            ces_car_model_component::k_car_color_4.z,
+                                            ces_car_model_component::k_car_color_4.y,
+                                            ces_car_model_component::k_car_color_4.w));
+        button->set_background_color(k_image_button_background_color);
+        button->set_foreground_color(k_image_button_foreground_color);
+        button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
+        
+        auto ui_interaction_component = std::make_shared<ces_ui_interaction_component>();
+        ui_interaction_component->set_ui(game::ces_ui_interaction_component::e_ui::e_ui_apply_color_4_button);
+        button->add_component(ui_interaction_component);
+        
+        return button;
+    }
 }

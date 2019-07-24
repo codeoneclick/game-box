@@ -48,7 +48,7 @@ namespace gb
             
         public:
             
-            shader_uniforms(ces_shader_uniforms_component::e_shader_uniform_type type);
+            shader_uniforms(ces_shader_uniforms_component::e_shader_uniform_mode mode, const std::string& name);
             
             void* get_values() override;
             ui32 get_values_size() override;

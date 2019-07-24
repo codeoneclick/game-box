@@ -15,6 +15,13 @@ namespace game
 {
     class ces_car_model_component : public gb::ces_base_component
     {
+    public:
+        
+        static glm::u8vec4 k_car_color_1;
+        static glm::u8vec4 k_car_color_2;
+        static glm::u8vec4 k_car_color_3;
+        static glm::u8vec4 k_car_color_4;
+        
     private:
         
         f32 m_wheelbase;

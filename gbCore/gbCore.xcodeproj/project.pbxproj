@@ -5619,6 +5619,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "#python \"${SRCROOT}/../gbScripts/configuration_generator.py\" current_accessor_configuration_accessor\n";
+			showEnvVarsInLog = 0;
 		};
 		F36DF0F71E953B3C00EAE49B /* configuration_generator */ = {
 			isa = PBXShellScriptBuildPhase;

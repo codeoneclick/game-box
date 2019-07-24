@@ -1,5 +1,5 @@
 <shape_3d
-    mesh_filename="car_01.GB3DMESH">
+    mesh_filename="retro_car_01.GB3DMESH">
     <materials>
         <material filename="material.car_01.base.xml"/>
         <material filename="material.car.mask.xml"/>

@@ -10,6 +10,11 @@
 
 namespace game
 {
+    glm::u8vec4 ces_car_model_component::k_car_color_1 = glm::u8vec4(56, 120, 103, 255);
+    glm::u8vec4 ces_car_model_component::k_car_color_2 = glm::u8vec4(220, 218, 177, 255);
+    glm::u8vec4 ces_car_model_component::k_car_color_3 = glm::u8vec4(135, 38, 21, 255);
+    glm::u8vec4 ces_car_model_component::k_car_color_4 = glm::u8vec4(207, 159, 1, 255);
+    
     ces_car_model_component::ces_car_model_component()
     {
         m_mass = 1500.f;
@@ -35,7 +40,7 @@ namespace game
         m_max_grip = 4.5f;
         m_inv_max_grip = 1.f / m_max_grip;
         
-        m_max_speed = 35.f;
+        m_max_speed = 40.f;
         m_max_force = 300.f;
         
         m_density = 0.f;

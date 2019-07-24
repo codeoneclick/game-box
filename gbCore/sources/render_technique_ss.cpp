@@ -110,11 +110,11 @@ namespace gb
         gl::command::viewport(0, 0, m_frame_width, m_frame_height);
         
         gl::command::disable(gl::constant::depth_test);
-        material::get_cached_parameters()->m_is_depth_test = false;
+        material::get_cached_parameters()->set_is_depth_test(false);
         gl::command::depth_mask(gl::constant::no);
-        material::get_cached_parameters()->m_is_depth_mask = false;
+        material::get_cached_parameters()->set_is_depth_mask(false);
         gl::command::disable(gl::constant::stencil_test);
-        material::get_cached_parameters()->m_is_stencil_test = false;
+        material::get_cached_parameters()->set_is_stencil_test(false);
         
         gl::command::clear_color(m_clear_color.r, m_clear_color.g, m_clear_color.b, m_clear_color.a);
         gl::command::clear(gl::constant::color_buffer_bit | gl::constant::depth_buffer_bit);

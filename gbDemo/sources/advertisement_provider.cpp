@@ -55,7 +55,6 @@ static NSString* k_end_level_interstitial_video_id = @"ca-app-pub-15535808722849
         
         [GADRewardBasedVideoAd sharedInstance].delegate = self;
         GADRequest* request = [GADRequest request];
-        [request setTestDevices:@[@"38458765cb889fcffc9a79fb5f526a42"]];
         [[GADRewardBasedVideoAd sharedInstance] loadRequest:request
                                                withAdUnitID:k_ticket_reward_video_id];
         
@@ -63,7 +62,6 @@ static NSString* k_end_level_interstitial_video_id = @"ca-app-pub-15535808722849
                                  initWithAdUnitID:k_end_level_interstitial_video_id];
         self->_m_interstitial.delegate = self;
         request = [GADRequest request];
-        [request setTestDevices:@[@"38458765cb889fcffc9a79fb5f526a42"]];
         [self->_m_interstitial loadRequest:request];
         
         self.m_banner_view = nil;
@@ -119,7 +117,6 @@ static NSString* k_end_level_interstitial_video_id = @"ca-app-pub-15535808722849
     self->_m_banner_view.rootViewController = self->_m_root_navigation_controller;
     self->_m_banner_view.delegate = self;
     GADRequest* request = [GADRequest request];
-    [request setTestDevices:@[@"38458765cb889fcffc9a79fb5f526a42"]];
     [self->_m_banner_view loadRequest:request];
 }
 
@@ -174,7 +171,6 @@ static NSString* k_end_level_interstitial_video_id = @"ca-app-pub-15535808722849
 {
     NSLog(@"Reward based video ad is closed.");
     GADRequest* request = [GADRequest request];
-    [request setTestDevices:@[@"38458765cb889fcffc9a79fb5f526a42"]];
     [[GADRewardBasedVideoAd sharedInstance] loadRequest:request
                                            withAdUnitID:k_ticket_reward_video_id];
     
@@ -227,7 +223,6 @@ static NSString* k_end_level_interstitial_video_id = @"ca-app-pub-15535808722849
                              initWithAdUnitID:k_end_level_interstitial_video_id];
     self->_m_interstitial.delegate = self;
     GADRequest *request = [GADRequest request];
-    [request setTestDevices:@[@"38458765cb889fcffc9a79fb5f526a42"]];
     [self->_m_interstitial loadRequest:request];
     
     auto callback = game::advertisement_provider::shared_instance()->get_on_video_ended();

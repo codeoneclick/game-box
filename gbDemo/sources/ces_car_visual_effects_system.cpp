@@ -114,7 +114,9 @@ namespace game
             transformation_component = car_tire_rl->get_component<gb::ces_transformation_3d_component>()->as_3d();
             auto trail_component = tire_rl_trail->get_component<gb::ces_trail_component>();
             auto trail_position = transformation_component->get_absolute_position();
-            trail_position.y += .1f;
+            trail_position.x += trail_direction.x * .2f;
+            trail_position.y = .01f;
+            trail_position.z += trail_direction.z * .2f;
             trail_component->set_new_segment_position(trail_position);
             trail_component->set_new_segment_direction(trail_direction);
             
@@ -122,7 +124,9 @@ namespace game
             transformation_component = car_tire_rr->get_component<gb::ces_transformation_3d_component>()->as_3d();
             trail_component = tire_rr_trail->get_component<gb::ces_trail_component>();
             trail_position = transformation_component->get_absolute_position();
-            trail_position.y += .1f;
+            trail_position.x += trail_direction.x * .2f;
+            trail_position.y = .01f;
+            trail_position.z += trail_direction.z * .2f;
             trail_component->set_new_segment_position(trail_position);
             trail_component->set_new_segment_direction(trail_direction);
         }

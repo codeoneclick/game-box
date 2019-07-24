@@ -183,10 +183,6 @@ namespace game
                     const auto road_straight = general_fabricator->create_shape_3d("road_straight.xml");
                     scene->add_child(road_straight);
                     
-                    const auto shader_uniforms_component = std::make_shared<gb::ces_shader_uniforms_component>();
-                    shader_uniforms_component->construct_uniforms<sky_reflection_shader_uniforms>(gb::ces_shader_uniforms_component::e_shader_uniform_type_vertex);
-                    road_straight->add_component(shader_uniforms_component);
-                    
                     const auto road_straight_sidewalk = general_fabricator->create_shape_3d("road_straight_sidewalk.xml");
                     scene->add_child(road_straight_sidewalk);
                     
@@ -592,11 +588,15 @@ namespace game
         exhaust_particle_emitter_right->get_component<gb::ces_particle_emitter_component>()->set_enabled(true);*/
         
         const auto particle_emitter_smoke_01 = m_general_fabricator.lock()->create_particle_emitter("particle.emitter.smoke.xml");
-        particle_emitter_smoke_01->position = glm::vec3(-.7f, .1f, -1.55f);
+        particle_emitter_smoke_01->position = glm::vec3(car_configuration->get_rl_wheel_offset_x(),
+                                                        .00001f,
+                                                        car_configuration->get_rl_wheel_offset_z());
         car->add_child(particle_emitter_smoke_01);
         
         const auto particle_emitter_smoke_02 = m_general_fabricator.lock()->create_particle_emitter("particle.emitter.smoke.xml");
-        particle_emitter_smoke_02->position = glm::vec3(.7f, .1f, -1.55f);
+        particle_emitter_smoke_02->position = glm::vec3(car_configuration->get_rr_wheel_offset_x(),
+                                                        .00001f,
+                                                        car_configuration->get_rr_wheel_offset_z());
         car->add_child(particle_emitter_smoke_02);
         
         const auto light_source_01 = m_general_fabricator.lock()->create_deferred_spot_light_3d("cone_light_source.xml");
@@ -746,8 +746,18 @@ namespace game
         car->add_component(box2d_body_component);
         
         const auto shader_uniforms_component = std::make_shared<gb::ces_shader_uniforms_component>();
-        shader_uniforms_component->construct_uniforms<sky_reflection_shader_uniforms>(gb::ces_shader_uniforms_component::e_shader_uniform_type_vertex);
+        shader_uniforms_component->construct_uniforms_buffer<reflection_shader_uniforms>(gb::ces_shader_uniforms_component::e_shader_uniform_mode::e_vertex, "car_reflection", 2);
+        shader_uniforms_component->construct_uniforms_buffer<car_colorization_shader_uniforms>(gb::ces_shader_uniforms_component::e_shader_uniform_mode::e_fragment, "car_colorization", 0);
         car_body->add_component(shader_uniforms_component);
+        
+        const auto uniforms = shader_uniforms_component->get_uniforms(gb::ces_shader_uniforms_component::e_shader_uniform_mode::e_fragment, "car_colorization", 0);
+        const auto uniforms_set = uniforms->get_uniforms();
+        const auto body_color_uniform_it = uniforms_set.find(car_colorization_shader_uniforms::k_body_color);
+        if (body_color_uniform_it != uniforms_set.end())
+        {
+            uniforms->set(glm::vec4(0.f, 0.f, 1.f, 1.f), car_colorization_shader_uniforms::k_body_color);
+        }
+        
         return car;
     }
     
@@ -1090,7 +1100,8 @@ namespace game
                                        car_configuration->get_rr_light_offset_z());
         
         const auto shader_uniforms_component = std::make_shared<gb::ces_shader_uniforms_component>();
-        shader_uniforms_component->construct_uniforms<sky_reflection_shader_uniforms>(gb::ces_shader_uniforms_component::e_shader_uniform_type_vertex);
+        shader_uniforms_component->construct_uniforms_buffer<reflection_shader_uniforms>(gb::ces_shader_uniforms_component::e_shader_uniform_mode::e_vertex, "car_reflection", 2);
+        shader_uniforms_component->construct_uniforms_buffer<car_colorization_shader_uniforms>(gb::ces_shader_uniforms_component::e_shader_uniform_mode::e_fragment, "car_colorization", 0);
         car_body->add_component(shader_uniforms_component);
         
         auto car_fl_wheel = std::static_pointer_cast<gb::game_object_3d>(car_parts_component->get_part(ces_car_parts_component::parts::k_fl_tire));

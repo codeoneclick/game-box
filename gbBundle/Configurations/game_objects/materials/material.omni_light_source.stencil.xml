@@ -1,0 +1,37 @@
+<material
+    technique_name="ws.stencil.deferred.lighting"
+    technique_pass="0"
+    is_cull_face="1"
+    is_depth_test="0"
+    is_depth_mask="0"
+    is_color_mask_r="1"
+    is_color_mask_g="1"
+    is_color_mask_b="1"
+    is_color_mask_a="1"
+    cull_face_mode="GL_BACK"
+    is_stencil_test="1"
+    stencil_function="GL_ALWAYS"
+    back_stencil_op_1="KEEP"
+    back_stencil_op_2="DEC_WRAP"
+    back_stencil_op_3="KEEP"
+    front_stencil_op_1="KEEP"
+    front_stencil_op_2="INC_WRAP"
+    front_stencil_op_3="KEEP"
+    stencil_ref_value="128"
+    stencil_mask_read="0"
+    stencil_mask_write="255"
+    is_debugging="0"
+    is_batching="0"
+    z_order="1">
+    <shader filename="shader_stencil_deferred_point_light"/>
+    <textures>
+    </textures>
+    <blendings>
+        <blending
+        is_enabled="0"
+        attachment_index="0"
+        blending_function_source="GL_ZERO"
+        blending_function_destination="GL_ZERO"
+        blending_equation="GL_FUNC_ADD"/>
+    </blendings>
+</material>

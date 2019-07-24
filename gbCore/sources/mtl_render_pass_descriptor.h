@@ -29,7 +29,7 @@ namespace gb
         
         virtual void* get_mtl_render_pass_descriptor_ptr() const = 0;
         virtual void* get_mtl_render_commnad_encoder() const = 0;
-        virtual void* get_mtl_render_encoder(const std::string& guid) const = 0;
+        virtual void* get_mtl_render_encoder(ui32 *revision) const = 0;
         
         virtual ui32 get_color_attachments_num() const = 0;
         virtual bool is_color_attachment_exist(i32 index) const = 0;
@@ -66,7 +66,7 @@ namespace gb
  
         void* get_mtl_render_pass_descriptor_ptr() const;
         void* get_mtl_render_commnad_encoder() const;
-        void* get_mtl_render_encoder(const std::string& guid) const;
+        void* get_mtl_render_encoder(ui32 *revision) const;
         
         ui32 get_color_attachments_num() const;
         bool is_color_attachment_exist(i32 index) const;

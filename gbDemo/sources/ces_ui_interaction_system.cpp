@@ -222,7 +222,7 @@ namespace game
                 f32 current_speed_factor = glm::clamp(current_velocity_length_squared / max_speed_squared, 0.f, 1.f);
                 f32 motion_blur_effect_power = car_descriptor_component->motion_blur_effect_power;
                 
-                if (car_camera_follow_component->is_preview_mode == false)
+                if (car_camera_follow_component->preview_mode == ces_car_camera_follow_component::e_preview_mode::e_none)
                 {
                     current_position.x += velocity_wc.x * (current_speed_factor - motion_blur_effect_power * .5f) * .2f;
                     current_position.z += velocity_wc.y * (current_speed_factor - motion_blur_effect_power * .5f) * .2f;
@@ -264,11 +264,11 @@ namespace game
                 camera_3d->set_look_at(current_look_at);
                 
                 auto current_camera_rotation = camera_3d->get_rotation();
-                if (car_camera_follow_component->is_preview_mode == false)
+                if (car_camera_follow_component->preview_mode == ces_car_camera_follow_component::e_preview_mode::e_none)
                 {
                     current_camera_rotation = glm::mix(current_camera_rotation, glm::degrees(current_rotation.y) - 90.f, .05f);
                 }
-                else
+                else if (car_camera_follow_component->preview_mode == ces_car_camera_follow_component::e_preview_mode::e_1)
                 {
                     current_camera_rotation = glm::mix(current_camera_rotation, glm::degrees(current_rotation.y) + 45.f, .05f);
                 }
@@ -1035,6 +1035,144 @@ namespace game
                     }
                 }
                 break;
+                    
+                case ces_ui_interaction_component::e_ui::e_ui_garage_preview_button:
+                {
+                    const auto button = std::static_pointer_cast<gb::ui::image_button>(entity);
+                    if(!button->is_pressed_callback_exist())
+                    {
+                        button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                            if (!m_camera_follow_car.expired())
+                            {
+                                const auto car = m_camera_follow_car.lock();
+                                const auto car_camera_follow_component = car->get_component<ces_car_camera_follow_component>();
+                                ces_car_camera_follow_component::e_preview_mode current_preview_mode = car_camera_follow_component->preview_mode;
+                                if (current_preview_mode == ces_car_camera_follow_component::e_preview_mode::e_1)
+                                {
+                                    current_preview_mode = ces_car_camera_follow_component::e_preview_mode::e_2;
+                                }
+                                else if (current_preview_mode == ces_car_camera_follow_component::e_preview_mode::e_2)
+                                {
+                                    current_preview_mode = ces_car_camera_follow_component::e_preview_mode::e_1;
+                                }
+                                car_camera_follow_component->preview_mode = current_preview_mode;
+                            }
+                        });
+                    }
+                }
+                    break;
+                    
+                case ces_ui_interaction_component::e_ui::e_ui_apply_color_1_button:
+                {
+                    const auto button = std::static_pointer_cast<gb::ui::image_button>(entity);
+                    if(!button->is_pressed_callback_exist())
+                    {
+                        if (!m_camera_follow_car.expired())
+                        {
+                            const auto car = m_camera_follow_car.lock();
+                            const auto car_parts_component = car->get_component<ces_car_parts_component>();
+                            const auto car_body = car_parts_component->get_part(ces_car_parts_component::parts::k_body);
+                            const auto shader_uniforms_component = car_body->get_component<gb::ces_shader_uniforms_component>();
+                            button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                                const auto uniforms = shader_uniforms_component->get_uniforms(gb::ces_shader_uniforms_component::e_shader_uniform_mode::e_fragment, "car_colorization", 0);
+                                const auto uniforms_set = uniforms->get_uniforms();
+                                const auto body_color_uniform_it = uniforms_set.find(car_colorization_shader_uniforms::k_body_color);
+                                if (body_color_uniform_it != uniforms_set.end())
+                                {
+                                    uniforms->set(glm::vec4(static_cast<f32>(ces_car_model_component::k_car_color_1.x) / 255.f,
+                                                            static_cast<f32>(ces_car_model_component::k_car_color_1.y) / 255.f,
+                                                            static_cast<f32>(ces_car_model_component::k_car_color_1.z) / 255.f,
+                                                            1.f), car_colorization_shader_uniforms::k_body_color);
+                                }
+                            });
+                        }
+                    }
+                }
+                    break;
+                    
+                case ces_ui_interaction_component::e_ui::e_ui_apply_color_2_button:
+                {
+                    const auto button = std::static_pointer_cast<gb::ui::image_button>(entity);
+                    if(!button->is_pressed_callback_exist())
+                    {
+                        if (!m_camera_follow_car.expired())
+                        {
+                            const auto car = m_camera_follow_car.lock();
+                            const auto car_parts_component = car->get_component<ces_car_parts_component>();
+                            const auto car_body = car_parts_component->get_part(ces_car_parts_component::parts::k_body);
+                            const auto shader_uniforms_component = car_body->get_component<gb::ces_shader_uniforms_component>();
+                            button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                                const auto uniforms = shader_uniforms_component->get_uniforms(gb::ces_shader_uniforms_component::e_shader_uniform_mode::e_fragment, "car_colorization", 0);
+                                const auto uniforms_set = uniforms->get_uniforms();
+                                const auto body_color_uniform_it = uniforms_set.find(car_colorization_shader_uniforms::k_body_color);
+                                if (body_color_uniform_it != uniforms_set.end())
+                                {
+                                    uniforms->set(glm::vec4(static_cast<f32>(ces_car_model_component::k_car_color_2.x) / 255.f,
+                                                            static_cast<f32>(ces_car_model_component::k_car_color_2.y) / 255.f,
+                                                            static_cast<f32>(ces_car_model_component::k_car_color_2.z) / 255.f,
+                                                            1.f), car_colorization_shader_uniforms::k_body_color);
+                                }
+                            });
+                        }
+                    }
+                }
+                    break;
+                    
+                case ces_ui_interaction_component::e_ui::e_ui_apply_color_3_button:
+                {
+                    const auto button = std::static_pointer_cast<gb::ui::image_button>(entity);
+                    if(!button->is_pressed_callback_exist())
+                    {
+                        if (!m_camera_follow_car.expired())
+                        {
+                            const auto car = m_camera_follow_car.lock();
+                            const auto car_parts_component = car->get_component<ces_car_parts_component>();
+                            const auto car_body = car_parts_component->get_part(ces_car_parts_component::parts::k_body);
+                            const auto shader_uniforms_component = car_body->get_component<gb::ces_shader_uniforms_component>();
+                            button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                                const auto uniforms = shader_uniforms_component->get_uniforms(gb::ces_shader_uniforms_component::e_shader_uniform_mode::e_fragment, "car_colorization", 0);
+                                const auto uniforms_set = uniforms->get_uniforms();
+                                const auto body_color_uniform_it = uniforms_set.find(car_colorization_shader_uniforms::k_body_color);
+                                if (body_color_uniform_it != uniforms_set.end())
+                                {
+                                    uniforms->set(glm::vec4(static_cast<f32>(ces_car_model_component::k_car_color_3.x) / 255.f,
+                                                            static_cast<f32>(ces_car_model_component::k_car_color_3.y) / 255.f,
+                                                            static_cast<f32>(ces_car_model_component::k_car_color_3.z) / 255.f,
+                                                            1.f), car_colorization_shader_uniforms::k_body_color);
+                                }
+                            });
+                        }
+                    }
+                }
+                    break;
+                    
+                case ces_ui_interaction_component::e_ui::e_ui_apply_color_4_button:
+                {
+                    const auto button = std::static_pointer_cast<gb::ui::image_button>(entity);
+                    if(!button->is_pressed_callback_exist())
+                    {
+                        if (!m_camera_follow_car.expired())
+                        {
+                            const auto car = m_camera_follow_car.lock();
+                            const auto car_parts_component = car->get_component<ces_car_parts_component>();
+                            const auto car_body = car_parts_component->get_part(ces_car_parts_component::parts::k_body);
+                            const auto shader_uniforms_component = car_body->get_component<gb::ces_shader_uniforms_component>();
+                            button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                                const auto uniforms = shader_uniforms_component->get_uniforms(gb::ces_shader_uniforms_component::e_shader_uniform_mode::e_fragment, "car_colorization", 0);
+                                const auto uniforms_set = uniforms->get_uniforms();
+                                const auto body_color_uniform_it = uniforms_set.find(car_colorization_shader_uniforms::k_body_color);
+                                if (body_color_uniform_it != uniforms_set.end())
+                                {
+                                    uniforms->set(glm::vec4(static_cast<f32>(ces_car_model_component::k_car_color_4.x) / 255.f,
+                                                            static_cast<f32>(ces_car_model_component::k_car_color_4.y) / 255.f,
+                                                            static_cast<f32>(ces_car_model_component::k_car_color_4.z) / 255.f,
+                                                            1.f), car_colorization_shader_uniforms::k_body_color);
+                                }
+                            });
+                        }
+                    }
+                }
+                    break;
                     
                 default:
                     break;

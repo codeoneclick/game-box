@@ -21,7 +21,7 @@ namespace game
             switch (m_current_gear)
             {
                 default:
-                    if (m_current_rpm > 7000)
+                    if (m_current_rpm > 5000)
                     {
                         shift_up();
                         return;
@@ -37,7 +37,7 @@ namespace game
             switch (m_current_gear)
             {
                 default:
-                    if (m_current_rpm < 5000)
+                    if (m_current_rpm < 3000)
                     {
                         shift_down();
                         return;
@@ -125,7 +125,7 @@ namespace game
     {
         select_gear(speed_factor);
         glm::interpolated_f32 ispeed;
-        ispeed.set(speed_factor, .85f);
+        ispeed.set(speed_factor, .95f);
         f32 ispeed_factor = ispeed.get();
         
         f32 q = 11000;
@@ -134,11 +134,11 @@ namespace game
         glm::interpolated_f32 ifactor;
         if (speed_factor < m_previous_speed_factor)
         {
-            ifactor.set(factor, .6f);
+            ifactor.set(factor, .75f);
         }
         else
         {
-            ifactor.set(factor, .85f);
+            ifactor.set(factor, .95f);
         }
         
         m_current_rpm = 1000 + ifactor.get();

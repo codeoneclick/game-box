@@ -28,20 +28,28 @@ namespace game
             return m_max_distance_y_to_look_at;
         });
         
-        is_preview_mode.getter([=]() {
-            return m_is_preview_mode;
+        preview_mode.getter([=]() {
+            return m_preview_mode;
         });
         
-        is_preview_mode.setter([=](bool value) {
-            if (value)
+        preview_mode.setter([=](e_preview_mode value) {
+            if (value == e_preview_mode::e_2)
             {
-                m_min_distance_xz_to_look_at = 13.f;
-                m_max_distance_xz_to_look_at = 13.f;
+                m_min_distance_xz_to_look_at = 5.f;
+                m_max_distance_xz_to_look_at = 5.f;
+                
+                m_min_distance_y_to_look_at = 2.5f;
+                m_max_distance_y_to_look_at = 2.5f;
+            }
+            else if (value == e_preview_mode::e_1)
+            {
+                m_min_distance_xz_to_look_at = 12.f;
+                m_max_distance_xz_to_look_at = 12.f;
                 
                 m_min_distance_y_to_look_at = 9.f;
                 m_max_distance_y_to_look_at = 9.f;
             }
-            else
+            else if(value == e_preview_mode::e_none)
             {
                 m_min_distance_xz_to_look_at = 12.f;
                 m_max_distance_xz_to_look_at = 18.f;
@@ -49,7 +57,7 @@ namespace game
                 m_min_distance_y_to_look_at = 22.f;
                 m_max_distance_y_to_look_at = 28.f;
             }
-            m_is_preview_mode = value;
+            m_preview_mode = value;
         });
     }
 }

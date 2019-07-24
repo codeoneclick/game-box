@@ -1,5 +1,5 @@
 <material
-    technique_name="ss.compose.ui"
+    technique_name="ss.output"
     technique_pass="0"
     z_order="0"
     is_cull_face="0"
@@ -12,24 +12,23 @@
     is_color_mask_a="1"
     is_stencil_test="0"
     stencil_function="GL_ALWAYS"
-    stencil_function_parameter_1="1"
-    stencil_function_parameter_2="255"
-    stencil_mask_parameter="255"
+    back_stencil_op_1="KEEP"
+    back_stencil_op_2="KEEP"
+    back_stencil_op_3="KEEP"
+    front_stencil_op_1="KEEP"
+    front_stencil_op_2="KEEP"
+    front_stencil_op_3="KEEP"
+     stencil_ref_value="255"
+    stencil_mask_read="0"
+    stencil_mask_write="0"
     is_debugging="0"
     is_batching="0">
-    <shader filename="shader_ss_compose_ui"/>
+    <shader filename="shader_ss_output"/>
     <textures>
         <texture
         filename=""
-        render_operation_name="ss.crossfade.attachment_01"
+        render_operation_name="ss.compose.ui.attachment_01"
         sampler_index="0"
-        wrap_mode="GL_CLAMP_TO_EDGE"
-        mag_filter="GL_LINEAR"
-        min_filter="GL_LINEAR"/>
-        <texture
-        filename=""
-        render_operation_name="ws.ui.attachment_01"
-        sampler_index="1"
         wrap_mode="GL_CLAMP_TO_EDGE"
         mag_filter="GL_LINEAR"
         min_filter="GL_LINEAR"/>

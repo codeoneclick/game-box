@@ -56,7 +56,7 @@ namespace gb
     void shape_3d::setup_components()
     {
         const auto geometry_component = get_component<ces_geometry_component>();
-        geometry_component->bound_check = ces_geometry_component::e_bound_check_box;
+        geometry_component->bounding_mode = ces_geometry_component::e_box;
     }
     
     void shape_3d::play_animation(const std::string& animation_name, bool is_looped, const std::vector<std::pair<std::string, bool>>& additional_animations)

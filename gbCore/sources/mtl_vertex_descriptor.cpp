@@ -115,6 +115,9 @@ namespace gb
         m_vertex_descriptor.layouts[0].stepFunction = MTLVertexStepFunctionPerVertex;
     }
     
+    std::shared_ptr<mtl_vertex_descriptor> mtl_vertex_descriptor::m_PTNTC_vertex_descriptor = nullptr;
+    std::shared_ptr<mtl_vertex_descriptor> mtl_vertex_descriptor::m_PTC_vertex_descriptor = nullptr;
+    
     mtl_vertex_descriptor::mtl_vertex_descriptor()
     {
         
@@ -127,16 +130,22 @@ namespace gb
     
     std::shared_ptr<mtl_vertex_descriptor> mtl_vertex_descriptor::create_PTNTC_vertex_descriptor()
     {
-        const auto vertex_descriptor = std::make_shared<mtl_vertex_descriptor>();
-        vertex_descriptor->m_vertex_descriptor_impl = std::make_shared<mtl_vertex_descriptor_impl_PTNTC>();
-        return vertex_descriptor;
+        if (!m_PTNTC_vertex_descriptor)
+        {
+            m_PTNTC_vertex_descriptor = std::make_shared<mtl_vertex_descriptor>();
+            m_PTNTC_vertex_descriptor->m_vertex_descriptor_impl = std::make_shared<mtl_vertex_descriptor_impl_PTNTC>();
+        }
+        return m_PTNTC_vertex_descriptor;
     }
     
     std::shared_ptr<mtl_vertex_descriptor> mtl_vertex_descriptor::create_PTC_vertex_descriptor()
     {
-        const auto vertex_descriptor = std::make_shared<mtl_vertex_descriptor>();
-        vertex_descriptor->m_vertex_descriptor_impl = std::make_shared<mtl_vertex_descriptor_impl_PTC>();
-        return vertex_descriptor;
+        if (!m_PTC_vertex_descriptor)
+        {
+            m_PTC_vertex_descriptor = std::make_shared<mtl_vertex_descriptor>();
+            m_PTC_vertex_descriptor->m_vertex_descriptor_impl = std::make_shared<mtl_vertex_descriptor_impl_PTC>();
+        }
+        return m_PTC_vertex_descriptor;
     }
 
     void* mtl_vertex_descriptor::get_mtl_vertex_descriptor_ptr() const

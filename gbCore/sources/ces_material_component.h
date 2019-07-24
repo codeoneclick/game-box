@@ -42,6 +42,8 @@ namespace gb
         bool get_is_batching(const std::string& technique_name) const;
         bool get_is_batching() const;
         
+        void set_culling_mode(ui32 value);
+        
         material_shared_ptr get_material(const std::string& technique_name) const;
         
 #if USED_GRAPHICS_API == VULKAN_API

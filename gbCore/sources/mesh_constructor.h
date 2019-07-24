@@ -17,6 +17,10 @@ namespace gb
     {
     private:
         
+        static mesh_3d_shared_ptr m_shared_box_mesh;
+        static mesh_3d_shared_ptr m_shared_sphere_mesh;
+        static mesh_2d_shared_ptr m_shared_screen_quad_mesh;
+        
     protected:
         
     public:
@@ -29,8 +33,10 @@ namespace gb
         static mesh_2d_shared_ptr create_circle();
         
         static mesh_3d_shared_ptr create_plane_3d();
+        static mesh_3d_shared_ptr create_shared_box();
         static mesh_3d_shared_ptr create_box();
+        static mesh_3d_shared_ptr create_shared_sphere();
         static mesh_3d_shared_ptr create_sphere(ui32 sectors = 16, ui32 rings = 16);
-        static mesh_3d_shared_ptr create_trai(ui32 segments);
+        static mesh_3d_shared_ptr create_trail(ui32 segments);
     };
 };

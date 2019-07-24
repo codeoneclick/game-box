@@ -12,6 +12,8 @@
 
 #if USED_GRAPHICS_API != NO_GRAPHICS_API
 
+#define __USE_BATCHING__ 1
+
 namespace gb
 {
     class ces_render_system : public ces_base_system

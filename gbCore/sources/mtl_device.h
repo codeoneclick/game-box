@@ -80,7 +80,7 @@ namespace gb
         void* get_mtl_raw_ws_command_buffer_ptr() const;
         void* get_mtl_raw_ss_command_buffer_ptr() const;
         void* get_mtl_raw_output_command_buffer_ptr() const;
-        void* get_mtl_render_encoder(const std::string& guid) const;
+        void* get_mtl_render_encoder(ui32 *revision) const;
         void* get_mtl_raw_current_render_pass_descriptor();
         void* get_mtl_raw_color_attachment_ptr() const;
         void* get_mtl_raw_depth_stencil_attachment_ptr() const;

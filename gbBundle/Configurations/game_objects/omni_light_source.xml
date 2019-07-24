@@ -5,6 +5,7 @@
     color_b="1.0">
     <materials>
 		<material filename="material.omni_light_source.base.xml"/>
+        <!--<material filename="material.omni_light_source.stencil.xml"/>-->
 	</materials>
     <animations>
     </animations>

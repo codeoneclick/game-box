@@ -71,6 +71,5 @@ fragment half4 fragment_shader_ss_ssao(common_v_output_t in [[stage_in]],
     }
     
     ao /= (float)iterations * 4.f;
-    const float ao_power = 16.f;
-    return half4(pow(1.f - saturate(ao), ao_power));
+    return half4(1.f - ao);
 }

@@ -35,11 +35,11 @@ namespace gb
                 glm::vec2 max_bound = geometry_component->get_mesh()->get_vbo()->get_max_bound();
                 bounds.z = max_bound.x + absolute_transformation[3][0];
                 bounds.w = max_bound.y + absolute_transformation[3][1];
-                geometry_component->set_bounds(bounds, absolute_matrix_version);
+                geometry_component->set_bounding_box(bounds, absolute_matrix_version);
             }
             else
             {
-                bounds = geometry_component->get_bounds();
+                bounds = geometry_component->get_bounding_box();
             }
         }
         return bounds;

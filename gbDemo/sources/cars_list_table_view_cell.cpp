@@ -166,7 +166,7 @@ namespace game
                     {
                         material->set_stencil_test(true);
                         material->set_stencil_function(gb::gl::constant::equal);
-                        material->set_stencil_mask_parameter(1);
+                        material->set_stencil_ref_value(1);
                     }
                 }
                 
@@ -177,7 +177,7 @@ namespace game
                     {
                         material->set_stencil_test(true);
                         material->set_stencil_function(gb::gl::constant::equal);
-                        material->set_stencil_mask_parameter(1);
+                        material->set_stencil_ref_value(1);
                     }
                 });
             });

@@ -67,6 +67,11 @@ namespace game
             e_ui_garage_label,
             e_ui_back_from_garage_label,
             e_ui_shop_label,
+            e_ui_garage_preview_button,
+            e_ui_apply_color_1_button,
+            e_ui_apply_color_2_button,
+            e_ui_apply_color_3_button,
+            e_ui_apply_color_4_button,
             e_ui_max
         };
         

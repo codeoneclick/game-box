@@ -207,6 +207,18 @@ namespace gb
             extern ui32 func_min;
             extern ui32 func_max;
             
+            extern ui32 stencil_op_keep;
+            extern ui32 stencil_op_zero;
+            extern ui32 stencil_op_replace;
+            extern ui32 stencil_op_inc_clamp;
+            extern ui32 stencil_op_dec_clamp;
+            extern ui32 stencil_op_inv;
+            extern ui32 stencil_op_inc_wrap;
+            extern ui32 stencil_op_dec_wrap;
+            extern ui32 less;
+            extern ui32 less_equal;
+            
+            
         };
         
         namespace command

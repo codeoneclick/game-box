@@ -24,6 +24,15 @@ namespace gb
     {
     private:
         
+        std::string m_guid;
+        bool m_is_guid_computed = false;
+        
+        bool m_is_blending = false;
+        ui32 m_blending_function_source = 0;
+        ui32 m_blending_function_destination = 0;
+        ui32 m_blending_equation = 0;
+        ui32 m_attachment_index = 0;
+        
     protected:
         
     public:
@@ -31,17 +40,61 @@ namespace gb
         blending_parameters() = default;
         ~blending_parameters() = default;
         
-        bool m_is_blending;
-        ui32 m_blending_function_source;
-        ui32 m_blending_function_destination;
-        ui32 m_blending_equation;
+        bool get_is_blending() const;
+        ui32 get_blending_function_source() const;
+        ui32 get_blending_function_destination() const;
+        ui32 get_blending_equation() const;
+        ui32 get_attachment_index() const;
         
-        ui32 m_attachment_index = 0;
+        void set_is_blending(bool value);
+        void set_blending_function_source(ui32 value);
+        void set_blending_function_destination(ui32 value);
+        void set_blending_equation(ui32 value);
+        void set_attachment_index(ui32 value);
+        
+        std::string get_guid();
     };
     
     class material_cached_parameters
     {
     private:
+        
+        std::string m_guid;
+        bool m_is_guid_computed = false;
+        
+        std::string m_technique_name = "undefined";
+        
+        bool m_is_culling = false;
+        ui32 m_culling_mode = 0;
+        
+        bool m_is_stencil_test = false;
+        ui32 m_stencil_function = 0;
+        i32 m_stencil_mask_read = 0;
+        i32 m_stencil_mask_write = 0;
+        i32 m_stencil_ref_value = 0;
+        i32 m_back_stencil_op_1 = 0;
+        i32 m_back_stencil_op_2 = 0;
+        i32 m_back_stencil_op_3 = 0;
+        i32 m_front_stencil_op_1 = 0;
+        i32 m_front_stencil_op_2 = 0;
+        i32 m_front_stencil_op_3 = 0;
+        
+        bool m_is_depth_test = false;
+        bool m_is_depth_mask = false;
+        
+        bool m_is_color_mask_r = false;
+        bool m_is_color_mask_g = false;
+        bool m_is_color_mask_b = false;
+        bool m_is_color_mask_a = false;
+        
+        bool m_is_batching = false;
+        
+        ui32 m_z_order = 0;
+        
+        std::vector<std::shared_ptr<blending_parameters>> m_blending_parameters;
+        
+        shader_shared_ptr m_shader = nullptr;
+        std::array<texture_shared_ptr, e_shader_sampler_max> m_textures;
         
     protected:
         
@@ -50,32 +103,77 @@ namespace gb
         material_cached_parameters();
         ~material_cached_parameters() = default;
         
-        bool m_is_culling;
-        ui32 m_culling_mode;
+        std::string get_technique_name() const;
+        void set_technique_name(const std::string& value);
         
-        bool m_is_stencil_test;
-        ui32 m_stencil_function;
-        i32 m_stencil_function_parameter_1;
-        i32 m_stencil_function_parameter_2;
-        i32 m_stencil_mask_parameter;
+        bool get_is_culling() const;
+        ui32 get_culling_mode() const;
         
-        bool m_is_depth_test;
-        bool m_is_depth_mask;
+        bool get_is_stencil_test() const;
+        ui32 get_stencil_function() const;
+        i32 get_stencil_mask_read() const;
+        i32 get_stencil_mask_write() const;
+        i32 get_stencil_ref_value() const;
         
-        bool m_is_color_mask_r;
-        bool m_is_color_mask_g;
-        bool m_is_color_mask_b;
-        bool m_is_color_mask_a;
+        i32 get_back_stencil_op_1() const;
+        i32 get_back_stencil_op_2() const;
+        i32 get_back_stencil_op_3() const;
+        
+        i32 get_front_stencil_op_1() const;
+        i32 get_front_stencil_op_2() const;
+        i32 get_front_stencil_op_3() const;
+        
+        bool get_is_depth_test() const;
+        bool get_is_depth_mask() const;
+        
+        bool get_is_color_mask_r() const;
+        bool get_is_color_mask_g() const;
+        bool get_is_color_mask_b() const;
+        bool get_is_color_mask_a() const;
     
-        bool m_is_debugging;
-        bool m_is_batching;
+        bool get_is_batching() const;
         
-        ui32 m_z_order;
+        ui32 get_z_order() const;
         
-        std::vector<std::shared_ptr<blending_parameters>> m_blending_parameters;
+        const std::vector<std::shared_ptr<blending_parameters>>& get_blending_parameters() const;
         
-        shader_shared_ptr m_shader;
-        std::array<texture_shared_ptr, e_shader_sampler_max> m_textures;
+        shader_shared_ptr get_shader() const;
+        const std::array<texture_shared_ptr, e_shader_sampler_max>& get_textures() const;
+        
+        void set_is_culling(bool value);
+        void set_culling_mode(ui32 value);
+        
+        void set_is_stencil_test(bool value);
+        void set_stencil_function(ui32 value);
+        void set_stencil_mask_read(i32 value);
+        void set_stencil_mask_write(i32 value);
+        void set_stencil_ref_value(i32 value);
+        
+        void set_back_stencil_op_1(i32 value);
+        void set_back_stencil_op_2(i32 value);
+        void set_back_stencil_op_3(i32 value);
+        void set_front_stencil_op_1(i32 value);
+        void set_front_stencil_op_2(i32 value);
+        void set_front_stencil_op_3(i32 value);
+        
+        void set_is_depth_test(bool value);
+        void set_is_depth_mask(bool value);
+        
+        void set_is_color_mask_r(bool value);
+        void set_is_color_mask_g(bool value);
+        void set_is_color_mask_b(bool value);
+        void set_is_color_mask_a(bool value);
+        
+        void set_is_batching(bool value);
+        
+        void set_z_order(ui32 value);
+        
+        void add_blending_parameters(const std::shared_ptr<blending_parameters>& value);
+        
+        void set_shader(const shader_shared_ptr& value);
+        void add_texture(const texture_shared_ptr& value, e_shader_sampler sampler);
+        
+        std::string get_guid();
     };
     
     class material
@@ -83,7 +181,6 @@ namespace gb
     private:
         
         std::string m_technique_name;
-        i32 m_technique_pass;
         
     protected:
         
@@ -151,9 +248,17 @@ namespace gb
         
         bool is_stencil_test() const;
         ui32 get_stencil_function() const;
-        i32 get_stencil_function_parameter_1() const;
-        i32 get_stencil_function_parameter_2() const;
-        i32 get_stencil_mask_parameter() const;
+        i32 get_stencil_mask_read() const;
+        i32 get_stencil_mask_write() const;
+        i32 get_stencil_ref_value() const;
+        
+        i32 get_back_stencil_op_1() const;
+        i32 get_back_stencil_op_2() const;
+        i32 get_back_stencil_op_3() const;
+        
+        i32 get_front_stencil_op_1() const;
+        i32 get_front_stencil_op_2() const;
+        i32 get_front_stencil_op_3() const;
         
         bool is_depth_test() const;
         bool is_depth_mask() const;
@@ -163,7 +268,6 @@ namespace gb
         bool is_color_mask_b() const;
         bool is_color_mask_a() const;
         
-        bool is_debugging() const;
         bool get_is_batching() const;
         
         ui32 get_z_order() const;
@@ -184,9 +288,16 @@ namespace gb
         
         void set_stencil_test(bool value);
         void set_stencil_function(ui32 value);
-        void set_stencil_function_parameter_1(i32 value);
-        void set_stencil_function_parameter_2(i32 value);
-        void set_stencil_mask_parameter(i32 value);
+        void set_stencil_mask_read(i32 value);
+        void set_stencil_mask_write(i32 value);
+        void set_stencil_ref_value(i32 value);
+        
+        void set_back_stencil_op_1(i32 value);
+        void set_back_stencil_op_2(i32 value);
+        void set_back_stencil_op_3(i32 value);
+        void set_front_stencil_op_1(i32 value);
+        void set_front_stencil_op_2(i32 value);
+        void set_front_stencil_op_3(i32 value);
         
         void set_depth_test(bool value);
         void set_depth_mask(bool value);
@@ -196,7 +307,6 @@ namespace gb
         void set_color_mask_b(bool value);
         void set_color_mask_a(bool value);
         
-        void set_debugging(bool value);
         void set_is_batching(bool value);
         
         void set_z_order(ui32 z_order);

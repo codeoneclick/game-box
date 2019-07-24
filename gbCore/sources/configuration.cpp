@@ -38,6 +38,16 @@ namespace gb
         {"GL_FUNC_ADD", gl::constant::func_add},
         {"GL_FUNC_MIN", gl::constant::func_min},
         {"GL_FUNC_MAX", gl::constant::func_max},
+        {"KEEP", gl::constant::stencil_op_keep},
+        {"ZERO", gl::constant::stencil_op_zero},
+        {"REPLACE", gl::constant::stencil_op_replace},
+        {"INC_CLAMP", gl::constant::stencil_op_inc_clamp},
+        {"DEC_CLAMP", gl::constant::stencil_op_dec_clamp},
+        {"INV", gl::constant::stencil_op_inv},
+        {"INC_WRAP", gl::constant::stencil_op_inc_wrap},
+        {"DEC_WRAP", gl::constant::stencil_op_dec_wrap},
+        {"LESS", gl::constant::less},
+        {"LESS_EQUAL", gl::constant::less_equal},
     };
     
     std::map<ui32, std::string> g_glenum_to_string = {
@@ -65,6 +75,16 @@ namespace gb
         {gl::constant::func_add, "GL_FUNC_ADD"},
         {gl::constant::func_min, "GL_FUNC_MIN"},
         {gl::constant::func_max, "GL_FUNC_MAX"},
+        {gl::constant::stencil_op_keep, "KEEP"},
+        {gl::constant::stencil_op_zero, "ZERO"},
+        {gl::constant::stencil_op_replace, "REPLACE"},
+        {gl::constant::stencil_op_inc_clamp, "INC_CLAMP"},
+        {gl::constant::stencil_op_dec_clamp, "DEC_CLAMP"},
+        {gl::constant::stencil_op_inv, "INV"},
+        {gl::constant::stencil_op_inc_wrap, "INC_WRAP"},
+        {gl::constant::stencil_op_dec_wrap, "DEC_WRAP"},
+        {gl::constant::less, "LESS"},
+        {gl::constant::less_equal, "LESS_EQUAL"},
     };
 
 #else

@@ -24,9 +24,15 @@ namespace gb
     private:
         
         id<MTLRenderCommandEncoder> m_render_encoder = nil;
+        static ui32 m_cached_render_encoder_revision;
+        static std::string m_cached_render_technique_name;
+        bool m_is_same_revision = false;
         id<MTLBuffer> m_index_buffer = nil;
         ui32 m_indices_count = 0;
         ui32 m_indices_offset = 0;
+        
+        static std::string m_cached_render_pipeline_state_guid;
+        static std::string m_cached_depth_stencil_pipeline_state_guid;
         
     protected:
         
@@ -52,6 +58,11 @@ namespace gb
         void draw(const std::string& technique_name) override;
     };
     
+    ui32 mtl_render_encoder_impl::m_cached_render_encoder_revision = std::numeric_limits<ui32>::max();
+    std::string mtl_render_encoder_impl::m_cached_render_technique_name = "undedfined";
+    std::string mtl_render_encoder_impl::m_cached_render_pipeline_state_guid = "undefined";
+    std::string mtl_render_encoder_impl::m_cached_depth_stencil_pipeline_state_guid = "undefined";
+    
     mtl_render_encoder_impl::mtl_render_encoder_impl()
     {
         
@@ -64,7 +75,17 @@ namespace gb
     
     void mtl_render_encoder_impl::bind(const std::string& technique_name)
     {
-        m_render_encoder = (__bridge id<MTLRenderCommandEncoder>)gb::mtl_device::get_instance()->get_mtl_render_encoder(technique_name);
+        ui32 current_render_encoder_revision = 0;
+        m_render_encoder = (__bridge id<MTLRenderCommandEncoder>)gb::mtl_device::get_instance()->get_mtl_render_encoder(&current_render_encoder_revision);
+        if (current_render_encoder_revision != m_cached_render_encoder_revision || m_cached_render_technique_name != technique_name)
+        {
+            m_is_same_revision = false;
+            m_cached_render_encoder_revision = current_render_encoder_revision;
+            m_cached_render_technique_name = technique_name;
+            
+            m_cached_render_pipeline_state_guid = "undefined";
+            m_cached_depth_stencil_pipeline_state_guid = "undefined";
+        }
     }
     
     void mtl_render_encoder_impl::unbind(const std::string& technique_name)
@@ -75,13 +96,23 @@ namespace gb
     void mtl_render_encoder_impl::set_render_pipeline_state(const mtl_render_pipeline_state_shared_ptr& render_pipeline_state)
     {
         id<MTLRenderPipelineState> mtl_raw_render_pipeline_state = (__bridge id<MTLRenderPipelineState>)render_pipeline_state->get_mtl_raw_render_pipeline_state_ptr();
-        [m_render_encoder setRenderPipelineState:mtl_raw_render_pipeline_state];
+        const auto render_pipeline_state_guid = render_pipeline_state->get_guid();
+        if (render_pipeline_state_guid != m_cached_render_pipeline_state_guid)
+        {
+            [m_render_encoder setRenderPipelineState:mtl_raw_render_pipeline_state];
+            m_cached_render_pipeline_state_guid = render_pipeline_state_guid;
+        }
     }
     
     void mtl_render_encoder_impl::set_depth_stencil_state(const mtl_depth_stencil_state_shared_ptr& depth_stencil_state)
     {
         id<MTLDepthStencilState> mtl_raw_depth_stencil_state = (__bridge id<MTLDepthStencilState>)depth_stencil_state->get_mtl_raw_depth_stencil_state_ptr();
-        [m_render_encoder setDepthStencilState:mtl_raw_depth_stencil_state];
+        const auto depth_stencil_state_guid = depth_stencil_state->get_guid();
+        if (depth_stencil_state_guid != m_cached_depth_stencil_pipeline_state_guid)
+        {
+            [m_render_encoder setDepthStencilState:mtl_raw_depth_stencil_state];
+            m_cached_depth_stencil_pipeline_state_guid = depth_stencil_state_guid;
+        }
     }
     
     void mtl_render_encoder_impl::set_texture(const mtl_texture_shared_ptr& texture, ui32 index)

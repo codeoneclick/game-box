@@ -146,8 +146,6 @@ namespace gb
         material->set_depth_test(false);
         material->set_depth_mask(true);
         
-        material->set_debugging(false);
-        
 #if USED_GRAPHICS_API == VULKAN_API
 
 		material->bind(quad->get_vbo()->get_vertex_input_state());

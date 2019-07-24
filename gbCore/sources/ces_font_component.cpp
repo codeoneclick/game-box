@@ -29,7 +29,7 @@ namespace gb
     ces_font_component::ces_font_component() :
     m_text(""),
     m_font_size(k_font_default_size),
-    m_font_name("spincycle.otf"),
+    m_font_name("boogie_nights.ttf"),
     m_font_color(0.f, 0.f, 0.f, 1.f),
     m_min_bound(glm::vec2(0.f)),
     m_max_bound(glm::vec2(0.f)),

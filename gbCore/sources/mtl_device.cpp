@@ -478,10 +478,10 @@ namespace gb
         return impl_as<mtl_device_impl>()->get_depth_stencil_pixel_format();
     }
     
-    void* mtl_device::get_mtl_render_encoder(const std::string& guid) const
+    void* mtl_device::get_mtl_render_encoder(ui32 *revision) const
     {
         assert(m_current_render_pass_descriptor);
-        return m_current_render_pass_descriptor->get_mtl_render_encoder(guid);
+        return m_current_render_pass_descriptor->get_mtl_render_encoder(revision);
     }
     
     void* mtl_device::get_mtl_raw_current_render_pass_descriptor()

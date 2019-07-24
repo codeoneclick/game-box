@@ -215,6 +215,41 @@ namespace game
             ui_animation_helper::hide_to_left(std::static_pointer_cast<gb::ui::control>(back_from_garage_label), 1.f);
         }
         
+        const auto garage_preview_mode_button = gameplay_ui_fabricator->create_garage_preview_mode_button("");
+        root->add_child(garage_preview_mode_button);
+        if (hidden)
+        {
+            ui_animation_helper::hide_to_left(std::static_pointer_cast<gb::ui::control>(garage_preview_mode_button), 1.f);
+        }
+        
+        const auto apply_color_1_button = gameplay_ui_fabricator->create_apply_color_1_button("");
+        root->add_child(apply_color_1_button);
+        if (hidden)
+        {
+            ui_animation_helper::hide_to_left(std::static_pointer_cast<gb::ui::control>(apply_color_1_button), 1.f);
+        }
+        
+        const auto apply_color_2_button = gameplay_ui_fabricator->create_apply_color_2_button("");
+        root->add_child(apply_color_2_button);
+        if (hidden)
+        {
+            ui_animation_helper::hide_to_left(std::static_pointer_cast<gb::ui::control>(apply_color_2_button), 1.f);
+        }
+        
+        const auto apply_color_3_button = gameplay_ui_fabricator->create_apply_color_3_button("");
+        root->add_child(apply_color_3_button);
+        if (hidden)
+        {
+            ui_animation_helper::hide_to_left(std::static_pointer_cast<gb::ui::control>(apply_color_3_button), 1.f);
+        }
+        
+        const auto apply_color_4_button = gameplay_ui_fabricator->create_apply_color_4_button("");
+        root->add_child(apply_color_4_button);
+        if (hidden)
+        {
+            ui_animation_helper::hide_to_left(std::static_pointer_cast<gb::ui::control>(apply_color_4_button), 1.f);
+        }
+        
         const auto next_car_in_garage_button = gameplay_ui_fabricator->create_next_car_in_garage_button("");
         root->add_child(next_car_in_garage_button);
         if (hidden)

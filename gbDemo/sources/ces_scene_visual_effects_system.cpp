@@ -14,6 +14,7 @@
 #include "ces_car_statistic_component.h"
 #include "ces_car_drift_state_component.h"
 #include "ces_shader_uniforms_component.h"
+#include "ces_car_camera_follow_component.h"
 #include "game_object_3d.h"
 #include "camera_3d.h"
 #include "game_objects_custom_uniforms.h"
@@ -32,6 +33,10 @@ namespace game
         
         ces_base_system::add_required_component_guid(m_car_components_mask, ces_car_descriptor_component::class_guid());
         ces_base_system::add_required_components_mask(m_car_components_mask);
+        
+        ces_base_system::add_required_component_guid(m_camera_follow_components_mask, ces_car_camera_follow_component::class_guid());
+        ces_base_system::add_required_components_mask(m_camera_follow_components_mask);
+        
     }
     
     void ces_scene_visual_effects_system::on_feed_start(f32 dt)
@@ -45,17 +50,20 @@ namespace game
         ces_base_system::enumerate_entities_with_components(m_reflection_effect_components_mask, [=](const gb::ces_entity_shared_ptr& entity) {
             
             const auto shader_uniforms_component = entity->get_component<gb::ces_shader_uniforms_component>();
-            const auto uniforms = shader_uniforms_component->get_uniforms();
-            const auto uniforms_set = uniforms->get_uniforms();
-            const auto camera_position_uniform_it = uniforms_set.find(sky_reflection_shader_uniforms::k_camera_position_uniform);
-            if (camera_position_uniform_it != uniforms_set.end())
+            const auto uniforms = shader_uniforms_component->get_uniforms(gb::ces_shader_uniforms_component::e_shader_uniform_mode::e_vertex, "car_reflection", 2);
+            if (uniforms)
             {
-                  uniforms->set(glm::vec4(camera_3d->get_position(), 1.f), sky_reflection_shader_uniforms::k_camera_position_uniform);
-            }
-            const auto i_view_mat_uniform_it = uniforms_set.find(sky_reflection_shader_uniforms::k_i_view_mat_uniform);
-            if (i_view_mat_uniform_it != uniforms_set.end())
-            {
-               uniforms->set(glm::inverse(camera_3d->get_mat_v()), sky_reflection_shader_uniforms::k_i_view_mat_uniform);
+                const auto uniforms_set = uniforms->get_uniforms();
+                const auto camera_position_uniform_it = uniforms_set.find(reflection_shader_uniforms::k_camera_position_uniform);
+                if (camera_position_uniform_it != uniforms_set.end())
+                {
+                    uniforms->set(glm::vec4(camera_3d->get_position(), 1.f), reflection_shader_uniforms::k_camera_position_uniform);
+                }
+                const auto i_view_mat_uniform_it = uniforms_set.find(reflection_shader_uniforms::k_i_view_mat_uniform);
+                if (i_view_mat_uniform_it != uniforms_set.end())
+                {
+                    uniforms->set(glm::inverse(camera_3d->get_mat_v()), reflection_shader_uniforms::k_i_view_mat_uniform);
+                }
             }
         });
         
@@ -65,6 +73,10 @@ namespace game
             {
                 m_main_car = entity;
             }
+        });
+        
+        ces_base_system::enumerate_entities_with_components(m_camera_follow_components_mask, [=](const gb::ces_entity_shared_ptr& entity) {
+            m_camera_follow_car = entity;
         });
         
         ces_base_system::enumerate_entities_with_components(m_scene_visual_effects_components_mask, [=](const gb::ces_entity_shared_ptr& entity) {
@@ -138,45 +150,60 @@ namespace game
                 {
                     uniforms_wrapper = render_technique_uniforms_component->get_uniforms("ss.compose");
                     uniforms_wrapper->set(glm::vec4(.5f, 1.f, 1.f, 1.f), "vignetting_color");
-                    const auto vignetting_edge_size_uniform = uniforms_wrapper->get_uniforms()["vignetting_edge_size"];
-                    auto current_vignetting_edge_size = vignetting_edge_size_uniform->get_f32();
-                    uniforms_wrapper->set(glm::mix(current_vignetting_edge_size, glm::mix(-1.f, -.6f, motion_blur_effect_power), .1f),
-                                          "vignetting_edge_size");
+                    glm::vec4 compose_parameters_01 = uniforms_wrapper->get_uniforms()["parameters_01"]->get_vec4();
+                    auto current_vignetting_size = compose_parameters_01.x;
+                    current_vignetting_size = glm::mix(current_vignetting_size, glm::mix(-1.f, -.6f, motion_blur_effect_power), .1f);
+                    compose_parameters_01.x = current_vignetting_size;
+                    uniforms_wrapper->set(compose_parameters_01, "parameters_01");
                 }
                 else if (should_show_collision_vignetting)
                 {
                     uniforms_wrapper = render_technique_uniforms_component->get_uniforms("ss.compose");
                     uniforms_wrapper->set(glm::vec4(1.f, .0f, .0f, 1.f), "vignetting_color");
-                    const auto vignetting_edge_size_uniform = uniforms_wrapper->get_uniforms()["vignetting_edge_size"];
-                    auto current_vignetting_edge_size = vignetting_edge_size_uniform->get_f32();
-                    uniforms_wrapper->set(glm::mix(current_vignetting_edge_size, glm::mix(-1.f, -.6f, 1.f - collision_power), .1f),
-                                          "vignetting_edge_size");
-
+                    glm::vec4 compose_parameters_01 = uniforms_wrapper->get_uniforms()["parameters_01"]->get_vec4();
+                    auto current_vignetting_size = compose_parameters_01.x;
+                    current_vignetting_size = glm::mix(current_vignetting_size, glm::mix(-1.f, -.6f, 1.f - collision_power), .1f);
+                    compose_parameters_01.x = current_vignetting_size;
+                    uniforms_wrapper->set(compose_parameters_01, "parameters_01");
                 }
                 else
                 {
                     uniforms_wrapper = render_technique_uniforms_component->get_uniforms_as<ss_output_shader_uniforms>("ss.compose");
-                    const auto vignetting_edge_size_uniform = uniforms_wrapper->get_uniforms()["vignetting_edge_size"];
-                    auto current_vignetting_edge_size = vignetting_edge_size_uniform->get_f32();
-                    current_vignetting_edge_size = glm::mix(current_vignetting_edge_size, -1.f, .1f);
-                    uniforms_wrapper->set(current_vignetting_edge_size, "vignetting_edge_size");
-                    uniforms_wrapper = render_technique_uniforms_component->get_uniforms_as<ss_output_shader_uniforms>("ss.compose");
-                    
-                    
-                    
-                    //const auto current_motion_direction_value = uniforms_wrapper->get_uniforms()["motion_direction"];
-                    //uniforms_wrapper->set(glm::mix(current_motion_direction_value->get_vec4(),
-                    //                               glm::vec4(0.f, 0.f, 0.f, 0.f),
-                    //                               1.f - motion_blur_effect_power), "motion_direction");
-                    
-                    
+                    glm::vec4 compose_parameters_01 = uniforms_wrapper->get_uniforms()["parameters_01"]->get_vec4();
+                    auto current_vignetting_size = compose_parameters_01.x;
+                    current_vignetting_size = glm::mix(current_vignetting_size, -1.f, .1f);
+                    compose_parameters_01.x = current_vignetting_size;
+                    uniforms_wrapper->set(compose_parameters_01, "parameters_01");
                 }
             }
             else
             {
                 const auto uniforms_wrapper = render_technique_uniforms_component->get_uniforms("ss.compose");
-                uniforms_wrapper->set(-1.f, "vignetting_edge_size");
+                glm::vec4 compose_parameters_01 = uniforms_wrapper->get_uniforms()["parameters_01"]->get_vec4();
+                compose_parameters_01.x = -1;
+                uniforms_wrapper->set(compose_parameters_01, "parameters_01");
                 uniforms_wrapper->set(glm::vec4(0.f, 0.f, 0.f, 0.f), "motion_direction");
+            }
+            
+            if (!m_camera_follow_car.expired())
+            {
+                const auto camera_follow_component = m_camera_follow_car.lock()->get_component<ces_car_camera_follow_component>();
+                const auto uniforms_wrapper = render_technique_uniforms_component->get_uniforms("ss.compose");
+                glm::vec4 compose_parameters_01 = uniforms_wrapper->get_uniforms()["parameters_01"]->get_vec4();
+                ces_car_camera_follow_component::e_preview_mode current_preview_mode = camera_follow_component->preview_mode;
+                if (current_preview_mode == ces_car_camera_follow_component::e_preview_mode::e_1)
+                {
+                    compose_parameters_01.y = 0.f;
+                }
+                else if (current_preview_mode == ces_car_camera_follow_component::e_preview_mode::e_2)
+                {
+                    compose_parameters_01.y = 1.f;
+                }
+                else
+                {
+                    compose_parameters_01.y = 0.f;
+                }
+                uniforms_wrapper->set(compose_parameters_01, "parameters_01");
             }
         });
     }

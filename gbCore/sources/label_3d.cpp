@@ -101,6 +101,6 @@ namespace gb
     void label_3d::setup_components()
     {
         const auto geometry_component = get_component<ces_geometry_component>();
-        geometry_component->bound_check = ces_geometry_component::e_bound_check_box;
+        geometry_component->bounding_mode = ces_geometry_component::e_box;
     }
 }

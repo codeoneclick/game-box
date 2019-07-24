@@ -28,6 +28,8 @@ namespace gb
         id<MTLFunction> m_vertex_program = nil;
         id<MTLFunction> m_fragment_program = nil;
         
+        std::string m_guid;
+        
     protected:
         
         MTLBlendFactor convert_blend_factor_from_gl_to_mtl(ui32 value);
@@ -40,6 +42,8 @@ namespace gb
         ~mtl_render_pipeline_state_impl();
         
         void* get_mtl_raw_render_pipeline_state_ptr() const override;
+        
+        std::string get_guid() const override;
     };
     
     mtl_render_pipeline_state_impl::mtl_render_pipeline_state_impl(const std::shared_ptr<material_cached_parameters>& material_parameters,
@@ -51,10 +55,11 @@ namespace gb
         const auto mtl_render_pass_descriptor_wrapper = mtl_device_wrapper->get_current_render_pass_descriptor();
         MTLVertexDescriptor* mtl_vertex_descriptor = (__bridge MTLVertexDescriptor*)vertex_descriptor->get_mtl_vertex_descriptor_ptr();
         
+        std::string shader_guid = material_parameters->get_shader()->get_guid();
         std::string vertex_program_name = "vertex_";
-        vertex_program_name.append(material_parameters->m_shader->get_guid());
+        vertex_program_name.append(shader_guid);
         std::string fragment_program_name = "fragment_";
-        fragment_program_name.append(material_parameters->m_shader->get_guid());
+        fragment_program_name.append(shader_guid);
         m_vertex_program = [mtl_library_raw newFunctionWithName:[NSString stringWithCString:vertex_program_name.c_str() encoding:NSUTF8StringEncoding]];
         m_fragment_program = [mtl_library_raw newFunctionWithName:[NSString stringWithCString:fragment_program_name.c_str() encoding:NSUTF8StringEncoding]];
         
@@ -62,7 +67,7 @@ namespace gb
         
         [m_render_pipeline_state_descriptor setRasterSampleCount:mtl_device_wrapper->get_samples_count()];
         [m_render_pipeline_state_descriptor setSampleCount:mtl_device_wrapper->get_samples_count()];
-
+        
         [m_render_pipeline_state_descriptor setVertexFunction:m_vertex_program];
         [m_render_pipeline_state_descriptor setFragmentFunction:m_fragment_program];
         [m_render_pipeline_state_descriptor setVertexDescriptor:mtl_vertex_descriptor];
@@ -70,24 +75,21 @@ namespace gb
             m_render_pipeline_state_descriptor.vertexBuffers[0].mutability = MTLMutabilityImmutable;
         }
         
-        //[m_render_pipeline_state_descriptor setAlphaToCoverageEnabled:material_parameters->m_is_depth_mask ? NO : YES];
-        //[m_render_pipeline_state_descriptor setAlphaToOneEnabled:YES];
-        
         ui32 attachments_num = mtl_render_pass_descriptor_wrapper->get_color_attachments_num();
         for (ui32 i = 0; i < attachments_num; ++i)
         {
             MTLPixelFormat color_attachment_pixel_format = static_cast<MTLPixelFormat>(mtl_render_pass_descriptor_wrapper->get_color_attachment_pixel_format(i));
             m_render_pipeline_state_descriptor.colorAttachments[i].pixelFormat = color_attachment_pixel_format;
             
-            const auto blending_parameters = i < material_parameters->m_blending_parameters.size() ? material_parameters->m_blending_parameters.at(i) :
-            material_parameters->m_blending_parameters.at(0);
-            m_render_pipeline_state_descriptor.colorAttachments[i].blendingEnabled =blending_parameters->m_is_blending;
-            m_render_pipeline_state_descriptor.colorAttachments[i].rgbBlendOperation = convert_blend_operation_from_gl_to_mtl(blending_parameters->m_blending_equation);
-            m_render_pipeline_state_descriptor.colorAttachments[i].alphaBlendOperation = convert_blend_operation_from_gl_to_mtl(blending_parameters->m_blending_equation);
-            m_render_pipeline_state_descriptor.colorAttachments[i].sourceRGBBlendFactor = convert_blend_factor_from_gl_to_mtl(blending_parameters->m_blending_function_source);
-            m_render_pipeline_state_descriptor.colorAttachments[i].sourceAlphaBlendFactor = convert_blend_factor_from_gl_to_mtl(blending_parameters->m_blending_function_source);
-            m_render_pipeline_state_descriptor.colorAttachments[i].destinationRGBBlendFactor = convert_blend_factor_from_gl_to_mtl(blending_parameters->m_blending_function_destination);
-            m_render_pipeline_state_descriptor.colorAttachments[i].destinationAlphaBlendFactor = convert_blend_factor_from_gl_to_mtl(blending_parameters->m_blending_function_destination);
+            const auto blending_parameters = i < material_parameters->get_blending_parameters().size() ? material_parameters->get_blending_parameters().at(i) :
+            material_parameters->get_blending_parameters().at(0);
+            m_render_pipeline_state_descriptor.colorAttachments[i].blendingEnabled = blending_parameters->get_is_blending();
+            m_render_pipeline_state_descriptor.colorAttachments[i].rgbBlendOperation = convert_blend_operation_from_gl_to_mtl(blending_parameters->get_blending_equation());
+            m_render_pipeline_state_descriptor.colorAttachments[i].alphaBlendOperation = convert_blend_operation_from_gl_to_mtl(blending_parameters->get_blending_equation());
+            m_render_pipeline_state_descriptor.colorAttachments[i].sourceRGBBlendFactor = convert_blend_factor_from_gl_to_mtl(blending_parameters->get_blending_function_source());
+            m_render_pipeline_state_descriptor.colorAttachments[i].sourceAlphaBlendFactor = convert_blend_factor_from_gl_to_mtl(blending_parameters->get_blending_function_source());
+            m_render_pipeline_state_descriptor.colorAttachments[i].destinationRGBBlendFactor = convert_blend_factor_from_gl_to_mtl(blending_parameters->get_blending_function_destination());
+            m_render_pipeline_state_descriptor.colorAttachments[i].destinationAlphaBlendFactor = convert_blend_factor_from_gl_to_mtl(blending_parameters->get_blending_function_destination());
         }
         
         MTLPixelFormat depth_stencil_pixel_format = static_cast<MTLPixelFormat>(mtl_render_pass_descriptor_wrapper->get_depth_stencil_attachment_pixel_format());
@@ -102,6 +104,8 @@ namespace gb
             NSLog(@"failed to created render pipeline state, error %@", error);
             assert(false);
         }
+        
+        m_guid = material_parameters->get_guid();
     }
     
     mtl_render_pipeline_state_impl::~mtl_render_pipeline_state_impl()
@@ -166,6 +170,13 @@ namespace gb
         return (__bridge void*)m_render_pipeline_state;
     }
     
+    std::string mtl_render_pipeline_state_impl::get_guid() const
+    {
+        return m_guid;
+    }
+    
+    std::unordered_map<std::string, std::shared_ptr<mtl_render_pipeline_state>> mtl_render_pipeline_state::m_render_pipelines_pool;
+    
     mtl_render_pipeline_state::mtl_render_pipeline_state(const std::shared_ptr<material_cached_parameters>& material_parameters,
                                                          const mtl_vertex_descriptor_shared_ptr& vertex_descriptor)
     {
@@ -178,9 +189,32 @@ namespace gb
         
     }
     
+    std::shared_ptr<mtl_render_pipeline_state> mtl_render_pipeline_state::construct(const std::shared_ptr<material_cached_parameters>& material_parameters,
+                                                                                    const mtl_vertex_descriptor_shared_ptr& vertex_descriptor)
+    {
+        std::shared_ptr<mtl_render_pipeline_state> render_pipeline_state = nullptr;
+        std::string material_parameters_guid = material_parameters->get_guid();
+        const auto render_pipeline_state_it = m_render_pipelines_pool.find(material_parameters_guid);
+        if (render_pipeline_state_it != m_render_pipelines_pool.end())
+        {
+            render_pipeline_state = render_pipeline_state_it->second;
+        }
+        else
+        {
+            render_pipeline_state = std::make_shared<mtl_render_pipeline_state>(material_parameters, vertex_descriptor);
+            m_render_pipelines_pool.insert(std::make_pair(material_parameters_guid, render_pipeline_state));
+        }
+        return render_pipeline_state;
+    }
+    
     void* mtl_render_pipeline_state::get_mtl_raw_render_pipeline_state_ptr() const
     {
         return impl_as<mtl_render_pipeline_state_impl>()->get_mtl_raw_render_pipeline_state_ptr();
+    }
+    
+    std::string mtl_render_pipeline_state::get_guid() const
+    {
+        return impl_as<mtl_render_pipeline_state_impl>()->get_guid();
     }
 }
 

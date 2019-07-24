@@ -16,20 +16,21 @@ namespace gb
     {
     public:
         
-        enum e_bound_check
+        enum e_bounding_mode
         {
-            e_bound_check_none = -1,
-            e_bound_check_point = 0,
-            e_bound_check_radius,
-            e_bound_check_box
+            e_none = -1,
+            e_point = 0,
+            e_radius,
+            e_box
         };
         
     private:
         
     protected:
         
-        e_bound_check m_bound_check = e_bound_check_none;
-        glm::vec4 m_bounds;
+        e_bounding_mode m_bounding_mode = e_none;
+        glm::vec4 m_bounding_box;
+        f32 m_bounding_radius = 0.f;
         ui32 m_bounds_version;
         mesh_2d_shared_ptr m_mesh;
         
@@ -39,12 +40,16 @@ namespace gb
         ces_geometry_component();
         ~ces_geometry_component();
         
-        std::property_rw<e_bound_check> bound_check;
+        std::property_rw<e_bounding_mode> bounding_mode;
         
         mesh_2d_shared_ptr get_mesh() const;
         
-        void set_bounds(const glm::vec4& bounds, ui32 bounds_version);
-        glm::vec4 get_bounds() const;
+        void set_bounding_box(const glm::vec4& bounds, ui32 bounds_version);
+        glm::vec4 get_bounding_box() const;
+        
+        void set_bounding_radius(f32 radius);
+        f32 get_bounding_radius() const;
+        
         ui32 get_bounds_version() const;
     };
 };

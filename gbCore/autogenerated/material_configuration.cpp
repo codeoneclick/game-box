@@ -158,43 +158,121 @@ void material_configuration::set_stencil_function(ui32 stencil_function)
 configuration::set_attribute("/material/stencil_function", std::make_shared<configuration_attribute>(stencil_function));
 }
 #endif
-i32 material_configuration::get_stencil_function_parameter_1(void) const
+ui32 material_configuration::get_back_stencil_op_1(void) const
 {
-const auto& iterator = m_attributes.find("/material/stencil_function_parameter_1");
+const auto& iterator = m_attributes.find("/material/back_stencil_op_1");
 assert(iterator != m_attributes.end());
-i32 value; iterator->second->get(&value);
+ui32 value; iterator->second->get(&value);
 return value;
 }
 #if defined(__IS_CONFIGURATION_MUTABLE__)
-void material_configuration::set_stencil_function_parameter_1(i32 stencil_function_parameter_1)
+void material_configuration::set_back_stencil_op_1(ui32 back_stencil_op_1)
 {
-configuration::set_attribute("/material/stencil_function_parameter_1", std::make_shared<configuration_attribute>(stencil_function_parameter_1));
+configuration::set_attribute("/material/back_stencil_op_1", std::make_shared<configuration_attribute>(back_stencil_op_1));
 }
 #endif
-i32 material_configuration::get_stencil_function_parameter_2(void) const
+ui32 material_configuration::get_back_stencil_op_2(void) const
 {
-const auto& iterator = m_attributes.find("/material/stencil_function_parameter_2");
+const auto& iterator = m_attributes.find("/material/back_stencil_op_2");
 assert(iterator != m_attributes.end());
-i32 value; iterator->second->get(&value);
+ui32 value; iterator->second->get(&value);
 return value;
 }
 #if defined(__IS_CONFIGURATION_MUTABLE__)
-void material_configuration::set_stencil_function_parameter_2(i32 stencil_function_parameter_2)
+void material_configuration::set_back_stencil_op_2(ui32 back_stencil_op_2)
 {
-configuration::set_attribute("/material/stencil_function_parameter_2", std::make_shared<configuration_attribute>(stencil_function_parameter_2));
+configuration::set_attribute("/material/back_stencil_op_2", std::make_shared<configuration_attribute>(back_stencil_op_2));
 }
 #endif
-i32 material_configuration::get_stencil_mask_parameter(void) const
+ui32 material_configuration::get_back_stencil_op_3(void) const
 {
-const auto& iterator = m_attributes.find("/material/stencil_mask_parameter");
+const auto& iterator = m_attributes.find("/material/back_stencil_op_3");
+assert(iterator != m_attributes.end());
+ui32 value; iterator->second->get(&value);
+return value;
+}
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void material_configuration::set_back_stencil_op_3(ui32 back_stencil_op_3)
+{
+configuration::set_attribute("/material/back_stencil_op_3", std::make_shared<configuration_attribute>(back_stencil_op_3));
+}
+#endif
+ui32 material_configuration::get_front_stencil_op_1(void) const
+{
+const auto& iterator = m_attributes.find("/material/front_stencil_op_1");
+assert(iterator != m_attributes.end());
+ui32 value; iterator->second->get(&value);
+return value;
+}
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void material_configuration::set_front_stencil_op_1(ui32 front_stencil_op_1)
+{
+configuration::set_attribute("/material/front_stencil_op_1", std::make_shared<configuration_attribute>(front_stencil_op_1));
+}
+#endif
+ui32 material_configuration::get_front_stencil_op_2(void) const
+{
+const auto& iterator = m_attributes.find("/material/front_stencil_op_2");
+assert(iterator != m_attributes.end());
+ui32 value; iterator->second->get(&value);
+return value;
+}
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void material_configuration::set_front_stencil_op_2(ui32 front_stencil_op_2)
+{
+configuration::set_attribute("/material/front_stencil_op_2", std::make_shared<configuration_attribute>(front_stencil_op_2));
+}
+#endif
+ui32 material_configuration::get_front_stencil_op_3(void) const
+{
+const auto& iterator = m_attributes.find("/material/front_stencil_op_3");
+assert(iterator != m_attributes.end());
+ui32 value; iterator->second->get(&value);
+return value;
+}
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void material_configuration::set_front_stencil_op_3(ui32 front_stencil_op_3)
+{
+configuration::set_attribute("/material/front_stencil_op_3", std::make_shared<configuration_attribute>(front_stencil_op_3));
+}
+#endif
+i32 material_configuration::get_stencil_mask_read(void) const
+{
+const auto& iterator = m_attributes.find("/material/stencil_mask_read");
 assert(iterator != m_attributes.end());
 i32 value; iterator->second->get(&value);
 return value;
 }
 #if defined(__IS_CONFIGURATION_MUTABLE__)
-void material_configuration::set_stencil_mask_parameter(i32 stencil_mask_parameter)
+void material_configuration::set_stencil_mask_read(i32 stencil_mask_read)
 {
-configuration::set_attribute("/material/stencil_mask_parameter", std::make_shared<configuration_attribute>(stencil_mask_parameter));
+configuration::set_attribute("/material/stencil_mask_read", std::make_shared<configuration_attribute>(stencil_mask_read));
+}
+#endif
+i32 material_configuration::get_stencil_mask_write(void) const
+{
+const auto& iterator = m_attributes.find("/material/stencil_mask_write");
+assert(iterator != m_attributes.end());
+i32 value; iterator->second->get(&value);
+return value;
+}
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void material_configuration::set_stencil_mask_write(i32 stencil_mask_write)
+{
+configuration::set_attribute("/material/stencil_mask_write", std::make_shared<configuration_attribute>(stencil_mask_write));
+}
+#endif
+i32 material_configuration::get_stencil_ref_value(void) const
+{
+const auto& iterator = m_attributes.find("/material/stencil_ref_value");
+assert(iterator != m_attributes.end());
+i32 value; iterator->second->get(&value);
+return value;
+}
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void material_configuration::set_stencil_ref_value(i32 stencil_ref_value)
+{
+configuration::set_attribute("/material/stencil_ref_value", std::make_shared<configuration_attribute>(stencil_ref_value));
 }
 #endif
 i32 material_configuration::get_z_order(void) const
@@ -332,12 +410,36 @@ std::string stencil_function = node.node().attribute("stencil_function").as_stri
 assert(g_string_to_glenum.find(stencil_function) != g_string_to_glenum.end());
 ui32 stencil_function_enum = g_string_to_glenum.find(stencil_function)->second;
 configuration::set_attribute("/material/stencil_function", std::make_shared<configuration_attribute>(stencil_function_enum));
-i32 stencil_function_parameter_1 = node.node().attribute("stencil_function_parameter_1").as_int();
-configuration::set_attribute("/material/stencil_function_parameter_1", std::make_shared<configuration_attribute>(stencil_function_parameter_1));
-i32 stencil_function_parameter_2 = node.node().attribute("stencil_function_parameter_2").as_int();
-configuration::set_attribute("/material/stencil_function_parameter_2", std::make_shared<configuration_attribute>(stencil_function_parameter_2));
-i32 stencil_mask_parameter = node.node().attribute("stencil_mask_parameter").as_int();
-configuration::set_attribute("/material/stencil_mask_parameter", std::make_shared<configuration_attribute>(stencil_mask_parameter));
+std::string back_stencil_op_1 = node.node().attribute("back_stencil_op_1").as_string();
+assert(g_string_to_glenum.find(back_stencil_op_1) != g_string_to_glenum.end());
+ui32 back_stencil_op_1_enum = g_string_to_glenum.find(back_stencil_op_1)->second;
+configuration::set_attribute("/material/back_stencil_op_1", std::make_shared<configuration_attribute>(back_stencil_op_1_enum));
+std::string back_stencil_op_2 = node.node().attribute("back_stencil_op_2").as_string();
+assert(g_string_to_glenum.find(back_stencil_op_2) != g_string_to_glenum.end());
+ui32 back_stencil_op_2_enum = g_string_to_glenum.find(back_stencil_op_2)->second;
+configuration::set_attribute("/material/back_stencil_op_2", std::make_shared<configuration_attribute>(back_stencil_op_2_enum));
+std::string back_stencil_op_3 = node.node().attribute("back_stencil_op_3").as_string();
+assert(g_string_to_glenum.find(back_stencil_op_3) != g_string_to_glenum.end());
+ui32 back_stencil_op_3_enum = g_string_to_glenum.find(back_stencil_op_3)->second;
+configuration::set_attribute("/material/back_stencil_op_3", std::make_shared<configuration_attribute>(back_stencil_op_3_enum));
+std::string front_stencil_op_1 = node.node().attribute("front_stencil_op_1").as_string();
+assert(g_string_to_glenum.find(front_stencil_op_1) != g_string_to_glenum.end());
+ui32 front_stencil_op_1_enum = g_string_to_glenum.find(front_stencil_op_1)->second;
+configuration::set_attribute("/material/front_stencil_op_1", std::make_shared<configuration_attribute>(front_stencil_op_1_enum));
+std::string front_stencil_op_2 = node.node().attribute("front_stencil_op_2").as_string();
+assert(g_string_to_glenum.find(front_stencil_op_2) != g_string_to_glenum.end());
+ui32 front_stencil_op_2_enum = g_string_to_glenum.find(front_stencil_op_2)->second;
+configuration::set_attribute("/material/front_stencil_op_2", std::make_shared<configuration_attribute>(front_stencil_op_2_enum));
+std::string front_stencil_op_3 = node.node().attribute("front_stencil_op_3").as_string();
+assert(g_string_to_glenum.find(front_stencil_op_3) != g_string_to_glenum.end());
+ui32 front_stencil_op_3_enum = g_string_to_glenum.find(front_stencil_op_3)->second;
+configuration::set_attribute("/material/front_stencil_op_3", std::make_shared<configuration_attribute>(front_stencil_op_3_enum));
+i32 stencil_mask_read = node.node().attribute("stencil_mask_read").as_int();
+configuration::set_attribute("/material/stencil_mask_read", std::make_shared<configuration_attribute>(stencil_mask_read));
+i32 stencil_mask_write = node.node().attribute("stencil_mask_write").as_int();
+configuration::set_attribute("/material/stencil_mask_write", std::make_shared<configuration_attribute>(stencil_mask_write));
+i32 stencil_ref_value = node.node().attribute("stencil_ref_value").as_int();
+configuration::set_attribute("/material/stencil_ref_value", std::make_shared<configuration_attribute>(stencil_ref_value));
 i32 z_order = node.node().attribute("z_order").as_int();
 configuration::set_attribute("/material/z_order", std::make_shared<configuration_attribute>(z_order));
 bool is_debugging = node.node().attribute("is_debugging").as_bool();
@@ -397,12 +499,36 @@ std::string stencil_function = json.get("stencil_function", "unknown").asString(
 assert(g_string_to_glenum.find(stencil_function) != g_string_to_glenum.end());
 ui32 stencil_function_enum = g_string_to_glenum.find(stencil_function)->second;
 configuration::set_attribute("/material/stencil_function", std::make_shared<configuration_attribute>(stencil_function_enum));
-i32 stencil_function_parameter_1 = json.get("stencil_function_parameter_1", 0).asInt();
-configuration::set_attribute("/material/stencil_function_parameter_1", std::make_shared<configuration_attribute>(stencil_function_parameter_1));
-i32 stencil_function_parameter_2 = json.get("stencil_function_parameter_2", 0).asInt();
-configuration::set_attribute("/material/stencil_function_parameter_2", std::make_shared<configuration_attribute>(stencil_function_parameter_2));
-i32 stencil_mask_parameter = json.get("stencil_mask_parameter", 0).asInt();
-configuration::set_attribute("/material/stencil_mask_parameter", std::make_shared<configuration_attribute>(stencil_mask_parameter));
+std::string back_stencil_op_1 = json.get("back_stencil_op_1", "unknown").asString();
+assert(g_string_to_glenum.find(back_stencil_op_1) != g_string_to_glenum.end());
+ui32 back_stencil_op_1_enum = g_string_to_glenum.find(back_stencil_op_1)->second;
+configuration::set_attribute("/material/back_stencil_op_1", std::make_shared<configuration_attribute>(back_stencil_op_1_enum));
+std::string back_stencil_op_2 = json.get("back_stencil_op_2", "unknown").asString();
+assert(g_string_to_glenum.find(back_stencil_op_2) != g_string_to_glenum.end());
+ui32 back_stencil_op_2_enum = g_string_to_glenum.find(back_stencil_op_2)->second;
+configuration::set_attribute("/material/back_stencil_op_2", std::make_shared<configuration_attribute>(back_stencil_op_2_enum));
+std::string back_stencil_op_3 = json.get("back_stencil_op_3", "unknown").asString();
+assert(g_string_to_glenum.find(back_stencil_op_3) != g_string_to_glenum.end());
+ui32 back_stencil_op_3_enum = g_string_to_glenum.find(back_stencil_op_3)->second;
+configuration::set_attribute("/material/back_stencil_op_3", std::make_shared<configuration_attribute>(back_stencil_op_3_enum));
+std::string front_stencil_op_1 = json.get("front_stencil_op_1", "unknown").asString();
+assert(g_string_to_glenum.find(front_stencil_op_1) != g_string_to_glenum.end());
+ui32 front_stencil_op_1_enum = g_string_to_glenum.find(front_stencil_op_1)->second;
+configuration::set_attribute("/material/front_stencil_op_1", std::make_shared<configuration_attribute>(front_stencil_op_1_enum));
+std::string front_stencil_op_2 = json.get("front_stencil_op_2", "unknown").asString();
+assert(g_string_to_glenum.find(front_stencil_op_2) != g_string_to_glenum.end());
+ui32 front_stencil_op_2_enum = g_string_to_glenum.find(front_stencil_op_2)->second;
+configuration::set_attribute("/material/front_stencil_op_2", std::make_shared<configuration_attribute>(front_stencil_op_2_enum));
+std::string front_stencil_op_3 = json.get("front_stencil_op_3", "unknown").asString();
+assert(g_string_to_glenum.find(front_stencil_op_3) != g_string_to_glenum.end());
+ui32 front_stencil_op_3_enum = g_string_to_glenum.find(front_stencil_op_3)->second;
+configuration::set_attribute("/material/front_stencil_op_3", std::make_shared<configuration_attribute>(front_stencil_op_3_enum));
+i32 stencil_mask_read = json.get("stencil_mask_read", 0).asInt();
+configuration::set_attribute("/material/stencil_mask_read", std::make_shared<configuration_attribute>(stencil_mask_read));
+i32 stencil_mask_write = json.get("stencil_mask_write", 0).asInt();
+configuration::set_attribute("/material/stencil_mask_write", std::make_shared<configuration_attribute>(stencil_mask_write));
+i32 stencil_ref_value = json.get("stencil_ref_value", 0).asInt();
+configuration::set_attribute("/material/stencil_ref_value", std::make_shared<configuration_attribute>(stencil_ref_value));
 i32 z_order = json.get("z_order", 0).asInt();
 configuration::set_attribute("/material/z_order", std::make_shared<configuration_attribute>(z_order));
 bool is_debugging = json.get("is_debugging", false).asBool();

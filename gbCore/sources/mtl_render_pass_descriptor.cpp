@@ -21,6 +21,7 @@
 @property(nonatomic, readonly, nonnull) id<MTLRenderCommandEncoder> m_render_command_encoder;
 @property(nonatomic, readonly, nonnull) MTLRenderPassDescriptor* m_render_pass_descriptor;
 @property(nonatomic, readonly) BOOL m_should_reconstruct;
+@property(nonatomic, readonly) ui32 m_render_command_encoder_revision;
 
 - (void)bind;
 - (void)unbind;
@@ -38,7 +39,7 @@
     {
         _m_render_pass_descriptor = [MTLRenderPassDescriptor renderPassDescriptor];
         _m_should_reconstruct = YES;
-        
+        _m_render_command_encoder_revision = 0;
     }
     return self;
 }
@@ -58,6 +59,7 @@
 {
     _m_render_command_encoder = [command_buffer renderCommandEncoderWithDescriptor:_m_render_pass_descriptor];
     _m_should_reconstruct = NO;
+    _m_render_command_encoder_revision++;
 }
 
 - (void)reconstruct:(id<MTLCommandBuffer>) command_buffer with_custom_render_pass_descriptor:(MTLRenderPassDescriptor *) render_pass_descriptor
@@ -65,6 +67,7 @@
     _m_render_command_encoder = [command_buffer renderCommandEncoderWithDescriptor:render_pass_descriptor];
     _m_render_pass_descriptor = render_pass_descriptor;
     _m_should_reconstruct = NO;
+    _m_render_command_encoder_revision++;
 }
 
 @end
@@ -111,7 +114,7 @@ namespace gb
         
         void* get_mtl_render_pass_descriptor_ptr() const override;
         void* get_mtl_render_commnad_encoder() const override;
-        void* get_mtl_render_encoder(const std::string& guid) const override;
+        void* get_mtl_render_encoder(ui32 *revision) const override;
         
         ui32 get_color_attachments_num() const override;
         bool is_color_attachment_exist(i32 index) const override;
@@ -313,8 +316,9 @@ namespace gb
         return (__bridge void*)m_render_command_encoder_wrapper.m_render_command_encoder;
     }
     
-    void* mtl_render_pass_descriptor_impl::get_mtl_render_encoder(const std::string& guid) const
+    void* mtl_render_pass_descriptor_impl::get_mtl_render_encoder(ui32 *revision) const
     {
+        *revision = m_render_command_encoder_wrapper.m_render_command_encoder_revision;
         return (__bridge void*)m_render_command_encoder_wrapper.m_render_command_encoder;
     }
     
@@ -441,9 +445,9 @@ namespace gb
         return impl_as<mtl_render_pass_descriptor_impl>()->get_mtl_render_commnad_encoder();
     }
     
-    void* mtl_render_pass_descriptor::get_mtl_render_encoder(const std::string& guid) const
+    void* mtl_render_pass_descriptor::get_mtl_render_encoder(ui32 *revision) const
     {
-        return impl_as<mtl_render_pass_descriptor_impl>()->get_mtl_render_encoder(guid);
+        return impl_as<mtl_render_pass_descriptor_impl>()->get_mtl_render_encoder(revision);
     }
     
     ui32 mtl_render_pass_descriptor::get_color_attachments_num() const

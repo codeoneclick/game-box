@@ -484,7 +484,7 @@ namespace gb
             trail_component->set_parameters(configuration->get_segments(), configuration->get_segment_length(), configuration->get_width());
             
             auto geometry_3d_component = trail->get_component<ces_geometry_3d_component>();
-            geometry_3d_component->set_mesh(mesh_constructor::create_trai(configuration->get_segments()));
+            geometry_3d_component->set_mesh(mesh_constructor::create_trail(configuration->get_segments()));
             
 #if USED_GRAPHICS_API != NO_GRAPHICS_API
             

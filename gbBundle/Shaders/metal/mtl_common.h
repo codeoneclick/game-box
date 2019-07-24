@@ -7,12 +7,12 @@
 //
 
 #include <metal_stdlib>
+
 using namespace metal;
 
 constexpr sampler linear_sampler(mip_filter::linear, address::clamp_to_edge, mag_filter::linear, min_filter::linear);
 constexpr sampler repeat_sampler(coord::normalized, address::repeat, filter::linear);
 constexpr sampler mirrored_repeat_sampler(coord::normalized, address::mirrored_repeat, filter::linear);
-
 
 typedef struct
 {
@@ -86,7 +86,7 @@ typedef struct
 {
     float4 motion_direction;
     float4 vignetting_color;
-    float vignetting_edge_size;
+    float4 parameters_01;
 } __attribute__ ((aligned(256))) ss_output_u_input_t;
 
 typedef struct
@@ -106,6 +106,12 @@ typedef struct
     float4 camera_position;
     float4x4 mat_i_v;
 } __attribute__ ((aligned(256))) reflect_u_input_t;
+
+typedef struct
+{
+    float4 body_color;
+    float4 windows_color;
+} __attribute__ ((aligned(256))) colorization_u_input_t;
 
 typedef struct
 {

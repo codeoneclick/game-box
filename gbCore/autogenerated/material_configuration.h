@@ -60,17 +60,41 @@ ui32 get_stencil_function(void) const;
 #if defined(__IS_CONFIGURATION_MUTABLE__)
 void set_stencil_function(ui32 stencil_function);
 #endif
-i32 get_stencil_function_parameter_1(void) const;
+ui32 get_back_stencil_op_1(void) const;
 #if defined(__IS_CONFIGURATION_MUTABLE__)
-void set_stencil_function_parameter_1(i32 stencil_function_parameter_1);
+void set_back_stencil_op_1(ui32 back_stencil_op_1);
 #endif
-i32 get_stencil_function_parameter_2(void) const;
+ui32 get_back_stencil_op_2(void) const;
 #if defined(__IS_CONFIGURATION_MUTABLE__)
-void set_stencil_function_parameter_2(i32 stencil_function_parameter_2);
+void set_back_stencil_op_2(ui32 back_stencil_op_2);
 #endif
-i32 get_stencil_mask_parameter(void) const;
+ui32 get_back_stencil_op_3(void) const;
 #if defined(__IS_CONFIGURATION_MUTABLE__)
-void set_stencil_mask_parameter(i32 stencil_mask_parameter);
+void set_back_stencil_op_3(ui32 back_stencil_op_3);
+#endif
+ui32 get_front_stencil_op_1(void) const;
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void set_front_stencil_op_1(ui32 front_stencil_op_1);
+#endif
+ui32 get_front_stencil_op_2(void) const;
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void set_front_stencil_op_2(ui32 front_stencil_op_2);
+#endif
+ui32 get_front_stencil_op_3(void) const;
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void set_front_stencil_op_3(ui32 front_stencil_op_3);
+#endif
+i32 get_stencil_mask_read(void) const;
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void set_stencil_mask_read(i32 stencil_mask_read);
+#endif
+i32 get_stencil_mask_write(void) const;
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void set_stencil_mask_write(i32 stencil_mask_write);
+#endif
+i32 get_stencil_ref_value(void) const;
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void set_stencil_ref_value(i32 stencil_ref_value);
 #endif
 i32 get_z_order(void) const;
 #if defined(__IS_CONFIGURATION_MUTABLE__)

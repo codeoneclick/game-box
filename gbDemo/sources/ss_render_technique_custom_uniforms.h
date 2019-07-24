@@ -29,7 +29,7 @@ namespace game
         {
             glm::vec4 m_motion_direction;
             glm::vec4 m_vignetting_color;
-            f32 m_vignetting_edge_size;
+            glm::vec4 m_parameters_01;
         }
         
 #if defined(__OSX__) || defined(__IOS__) || defined(__TVOS__)
@@ -50,14 +50,14 @@ namespace game
         {
             m_uniforms["motion_direction"] = std::make_shared<gb::shader_uniform>(gb::e_uniform_type_vec4);
             m_uniforms["vignetting_color"] = std::make_shared<gb::shader_uniform>(gb::e_uniform_type_vec4);
-            m_uniforms["vignetting_edge_size"] = std::make_shared<gb::shader_uniform>(gb::e_uniform_type_f32);
+            m_uniforms["parameters_01"] = std::make_shared<gb::shader_uniform>(gb::e_uniform_type_vec4);
         }
         
         void* get_values() override
         {
             m_values.m_motion_direction = m_uniforms["motion_direction"]->get_vec4();
-            m_values.m_vignetting_edge_size = m_uniforms["vignetting_edge_size"]->get_f32();
             m_values.m_vignetting_color = m_uniforms["vignetting_color"]->get_vec4();
+            m_values.m_parameters_01 = m_uniforms["parameters_01"]->get_vec4();
             return static_cast<void*>(&m_values);
         }
         

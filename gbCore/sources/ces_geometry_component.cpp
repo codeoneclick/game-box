@@ -12,15 +12,15 @@ namespace gb
 {
     ces_geometry_component::ces_geometry_component() :
     m_mesh(nullptr),
-    m_bounds(0.f),
+    m_bounding_box(0.f),
     m_bounds_version(-1)
     {
-        bound_check.setter([=](e_bound_check value) {
-            m_bound_check = value;
+        bounding_mode.setter([=](e_bounding_mode value) {
+            m_bounding_mode = value;
         });
         
-        bound_check.getter([=]() {
-            return m_bound_check;
+        bounding_mode.getter([=]() {
+            return m_bounding_mode;
         });
     }
     
@@ -34,19 +34,29 @@ namespace gb
         return m_mesh;
     }
     
-    void ces_geometry_component::set_bounds(const glm::vec4& bounds, ui32 bounds_version)
+    void ces_geometry_component::set_bounding_box(const glm::vec4& box, ui32 bounds_version)
     {
-        m_bounds = bounds;
+        m_bounding_box = box;
         m_bounds_version = bounds_version;
     }
     
-    glm::vec4 ces_geometry_component::get_bounds() const
+    glm::vec4 ces_geometry_component::get_bounding_box() const
     {
-        return m_bounds;
+        return m_bounding_box;
     }
     
     ui32 ces_geometry_component::get_bounds_version() const
     {
         return m_bounds_version;
+    }
+    
+    void ces_geometry_component::set_bounding_radius(f32 radius)
+    {
+        m_bounding_radius = radius;
+    }
+    
+    f32 ces_geometry_component::get_bounding_radius() const
+    {
+        return m_bounding_radius;
     }
 }

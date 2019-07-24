@@ -130,7 +130,7 @@ namespace gb
             std::shared_ptr<material_configuration> material_configuration = ss_technique_configuration->get_material_configuration();
             assert(material_configuration);
             std::cout<<"ss render technque added: "<<ss_technique_configuration->get_guid()<<std::endl;
-            std::shared_ptr<material> material = material::construct(material_configuration);
+            const auto material = material::construct(material_configuration);
             deferred_render_techniques_initialization.push_back([=](){
                 gb::material::set_shader(material, material_configuration, resource_accessor);
                 gb::material::set_textures(material, material_configuration, resource_accessor);

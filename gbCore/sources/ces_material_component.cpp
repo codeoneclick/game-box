@@ -156,6 +156,14 @@ namespace gb
         }
     }
     
+    void ces_material_component::set_culling_mode(ui32 value)
+    {
+        for (const auto& material_it : m_materials)
+        {
+            material_it.second->set_culling_mode(value);
+        }
+    }
+    
     bool ces_material_component::get_is_batching(const std::string& technique_name) const
     {
         material_shared_ptr material = ces_material_component::get_material(technique_name);

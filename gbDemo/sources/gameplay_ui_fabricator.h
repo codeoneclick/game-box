@@ -114,6 +114,13 @@ namespace game
         
 #endif
         
+        gb::game_object_2d_shared_ptr create_garage_preview_mode_button(const std::string& filename);
+        
+        gb::game_object_2d_shared_ptr create_apply_color_1_button(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_apply_color_2_button(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_apply_color_3_button(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_apply_color_4_button(const std::string& filename);
+        
     };
 };
 

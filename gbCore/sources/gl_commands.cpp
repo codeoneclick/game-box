@@ -228,6 +228,16 @@ namespace gb
             ui32 triangles = 79;
             ui32 func_min = 80;
             ui32 func_max = 81;
+            ui32 stencil_op_keep = 82;
+            ui32 stencil_op_zero = 83;
+            ui32 stencil_op_replace = 84;
+            ui32 stencil_op_inc_clamp = 85;
+            ui32 stencil_op_dec_clamp = 86;
+            ui32 stencil_op_inv = 87;
+            ui32 stencil_op_inc_wrap = 88;
+            ui32 stencil_op_dec_wrap = 89;
+            ui32 less = 90;
+            ui32 less_equal = 91;
             
 #endif
             

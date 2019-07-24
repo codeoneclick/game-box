@@ -34,6 +34,9 @@ namespace gb
         
         std::shared_ptr<i_mtl_vertex_descriptor_impl> m_vertex_descriptor_impl = nullptr;
         
+        static std::shared_ptr<mtl_vertex_descriptor> m_PTNTC_vertex_descriptor;
+        static std::shared_ptr<mtl_vertex_descriptor> m_PTC_vertex_descriptor;
+        
     protected:
         
         template <typename T>

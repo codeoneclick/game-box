@@ -13,7 +13,7 @@
 
 namespace gb
 {
-    deferred_spot_light_3d::shader_uniforms::shader_uniforms(ces_shader_uniforms_component::e_shader_uniform_type type) : ces_shader_uniforms_component::shader_uniforms(type)
+    deferred_spot_light_3d::shader_uniforms::shader_uniforms(ces_shader_uniforms_component::e_shader_uniform_mode mode, const std::string& name) : ces_shader_uniforms_component::shader_uniforms(mode, name)
     {
         m_uniforms[ces_deferred_light_source_3d_component::k_light_position_uniform] = std::make_shared<shader_uniform>(e_uniform_type_vec3);
         m_uniforms[ces_deferred_light_source_3d_component::k_light_direction_uniform] = std::make_shared<shader_uniform>(e_uniform_type_vec3);
@@ -85,9 +85,9 @@ namespace gb
     void deferred_spot_light_3d::setup_components()
     {
         const auto geometry_component = ces_entity::get_component<ces_geometry_component>();
-        geometry_component->bound_check = ces_geometry_component::e_bound_check_box;
+        geometry_component->bounding_mode = ces_geometry_component::e_box;
         
         const auto shader_uniforms_component = ces_entity::get_component<ces_shader_uniforms_component>();
-        shader_uniforms_component->construct_uniforms<deferred_spot_light_3d::shader_uniforms>(ces_shader_uniforms_component::e_shader_uniform_type_fragment);
+        shader_uniforms_component->construct_uniforms_buffer<deferred_spot_light_3d::shader_uniforms>(ces_shader_uniforms_component::e_shader_uniform_mode::e_fragment, "deferred_spot_light", 0);
     }
 }

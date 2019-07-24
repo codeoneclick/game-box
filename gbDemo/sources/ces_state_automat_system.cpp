@@ -306,6 +306,21 @@ namespace game
                     ui_animation_helper::hide_to_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_back_from_garage_label),
                                                       hide_progress);
                     
+                    ui_animation_helper::hide_to_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_garage_preview_button),
+                                                      hide_progress);
+                    
+                    ui_animation_helper::hide_to_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_color_1_button),
+                                                      hide_progress);
+                    
+                    ui_animation_helper::hide_to_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_color_2_button),
+                                                      hide_progress);
+                    
+                    ui_animation_helper::hide_to_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_color_3_button),
+                                                      hide_progress);
+                    
+                    ui_animation_helper::hide_to_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_color_4_button),
+                                                      hide_progress);
+                    
                     ui_animation_helper::hide_to_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_open_shop_button),
                                                       hide_progress);
                     
@@ -422,7 +437,7 @@ namespace game
                         const auto main_car = gameplay_fabricator->create_ai_car(selected_car_configuration_filename.str());
                         gameplay_fabricator->place_car_on_level(level, main_car, 0);
                         main_car->add_component(std::make_shared<ces_car_camera_follow_component>());
-                        main_car->get_component<ces_car_camera_follow_component>()->is_preview_mode = false;
+                        main_car->get_component<ces_car_camera_follow_component>()->preview_mode = ces_car_camera_follow_component::e_preview_mode::e_none;
                         gameplay_fabricator->reskin_car(main_car, selected_car_configuration_filename.str(), selected_car->get_skin_id());
                         root->add_child(main_car);
                         
@@ -462,7 +477,7 @@ namespace game
                         const auto main_car = gameplay_fabricator->create_ai_car(selected_car_configuration_filename.str());
                         gameplay_fabricator->place_car_on_level(level, main_car, 0);
                         main_car->add_component(std::make_shared<ces_car_camera_follow_component>());
-                        main_car->get_component<ces_car_camera_follow_component>()->is_preview_mode = true;
+                        main_car->get_component<ces_car_camera_follow_component>()->preview_mode = ces_car_camera_follow_component::e_preview_mode::e_1;
                         gameplay_fabricator->reskin_car(main_car, selected_car_configuration_filename.str(), selected_car->get_skin_id());
                         root->add_child(main_car);
                         
@@ -650,6 +665,21 @@ namespace game
                                                             show_progress);
                         
                         ui_animation_helper::show_from_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_back_from_garage_label),
+                                                            show_progress);
+                        
+                        ui_animation_helper::show_from_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_garage_preview_button),
+                                                            show_progress);
+                        
+                        ui_animation_helper::show_from_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_color_1_button),
+                                                            show_progress);
+                        
+                        ui_animation_helper::show_from_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_color_2_button),
+                                                            show_progress);
+                        
+                        ui_animation_helper::show_from_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_color_3_button),
+                                                            show_progress);
+                        
+                        ui_animation_helper::show_from_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_color_4_button),
                                                             show_progress);
                         
                         ui_animation_helper::show_from_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_next_car_in_garage_button),

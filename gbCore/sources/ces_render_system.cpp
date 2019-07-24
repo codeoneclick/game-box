@@ -197,8 +197,8 @@ namespace gb
                     {
                         if (transformation_component->is_in_camera_space())
                         {
-                            ces_geometry_component::e_bound_check bound_check = geometry_component->bound_check;
-                            if (bound_check == ces_geometry_component::e_bound_check_box)
+                            ces_geometry_component::e_bounding_mode bounding_mode = geometry_component->bounding_mode;
+                            if (bounding_mode == ces_geometry_component::e_box)
                             {
                                 const auto max_bound = mesh->as_3d()->get_max_bound();
                                 const auto min_bound = mesh->as_3d()->get_min_bound();
@@ -207,15 +207,15 @@ namespace gb
                                 if((result == frustum_3d::e_frustum_bounds_result_inside ||
                                     result == frustum_3d::e_frustum_bounds_result_intersect))
                                 {
-                                    glm::vec3 absolute_min_bound = glm::transform(min_bound, mat_m);
-                                    glm::vec3 absolute_max_bound = glm::transform(max_bound, mat_m);
-                                    if (camera_3d_position.x >= absolute_min_bound.x && camera_3d_position.x <= absolute_max_bound.x &&
-                                        camera_3d_position.y >= absolute_min_bound.y && camera_3d_position.y <= absolute_max_bound.y &&
-                                        camera_3d_position.z >= absolute_min_bound.z && camera_3d_position.z <= absolute_max_bound.z)
+                                    //glm::vec3 absolute_min_bound = glm::transform(min_bound, mat_m);
+                                    //glm::vec3 absolute_max_bound = glm::transform(max_bound, mat_m);
+                                    //if (camera_3d_position.x >= absolute_min_bound.x && camera_3d_position.x <= absolute_max_bound.x &&
+                                    //    camera_3d_position.y >= absolute_min_bound.y && camera_3d_position.y <= absolute_max_bound.y &&
+                                    //    camera_3d_position.z >= absolute_min_bound.z && camera_3d_position.z <= absolute_max_bound.z)
                                     {
-                                        is_visible = false;
+                                        //is_visible = false;
                                     }
-                                    else
+                                    //else
                                     {
                                         is_visible = true;
                                     }
@@ -225,9 +225,20 @@ namespace gb
                                     is_visible = false;
                                 }
                             }
-                            if (bound_check == ces_geometry_component::e_bound_check_radius)
+                            if (bounding_mode == ces_geometry_component::e_radius)
                             {
-                                
+                                const auto position = transformation_component->as_3d()->get_absolute_position();
+                                const auto radius = geometry_component->get_bounding_radius();
+                                i32 result = frustum_3d->is_sphere_in_frustum(position, radius);
+                                if((result == frustum_3d::e_frustum_bounds_result_inside ||
+                                    result == frustum_3d::e_frustum_bounds_result_intersect))
+                                {
+                                    is_visible = true;
+                                }
+                                else
+                                {
+                                    is_visible = false;
+                                }
                             }
                         }
                     }
@@ -282,8 +293,19 @@ namespace gb
                     const auto shader_uniforms_component = entity->get_component<ces_shader_uniforms_component>();
                     if (shader_uniforms_component)
                     {
-                        const auto uniforms = shader_uniforms_component->get_uniforms()->get_uniforms();
-                        material_component->set_custom_shader_uniforms(uniforms, technique_name);
+                        auto buffers = shader_uniforms_component->get_vertex_buffers();
+                        for (const auto& buffer_it : buffers)
+                        {
+                            const auto uniforms = buffer_it.second->get_uniforms();
+                            material_component->set_custom_shader_uniforms(uniforms, technique_name);
+                        }
+                        
+                        buffers = shader_uniforms_component->get_fragment_buffers();
+                        for (const auto& buffer_it : buffers)
+                        {
+                            const auto uniforms = buffer_it.second->get_uniforms();
+                            material_component->set_custom_shader_uniforms(uniforms, technique_name);
+                        }
                     }
                     
                     auto material = material_component->get_material(technique_name);
@@ -346,18 +368,32 @@ namespace gb
                         render_encoder->set_vertex_uniforms(mvp_uniforms_buffer_id, 1);
                         if (shader_uniforms_component)
                         {
-                            const auto uniforms = shader_uniforms_component->get_uniforms()->get_uniforms();
-                            void* custom_uniforms_value = shader_uniforms_component->get_uniforms()->get_values();
-                            ui32 custom_uniforms_size = shader_uniforms_component->get_uniforms()->get_values_size();
-                            const auto custom_uniforms_buffer_id = material->get_custom_uniform_buffer(custom_uniforms_size);
-                            custom_uniforms_buffer_id->update(custom_uniforms_value, custom_uniforms_size);
-                            if (shader_uniforms_component->get_uniforms()->get_type() == ces_shader_uniforms_component::e_shader_uniform_type_vertex)
+                            auto buffers = shader_uniforms_component->get_vertex_buffers();
+                            for (const auto& buffer_it : buffers)
                             {
-                                render_encoder->set_vertex_uniforms(custom_uniforms_buffer_id, 2);
+                                void* custom_uniforms_value = buffer_it.second->get_values();
+                                ui32 custom_uniforms_size = buffer_it.second->get_values_size();
+                                const auto custom_uniforms_buffer_id = material->get_custom_uniform_buffer(custom_uniforms_size);
+                                custom_uniforms_buffer_id->update(custom_uniforms_value, custom_uniforms_size);
+                                
+                                if (buffer_it.second->get_mode() == ces_shader_uniforms_component::e_shader_uniform_mode::e_vertex)
+                                {
+                                    render_encoder->set_vertex_uniforms(custom_uniforms_buffer_id, buffer_it.first);
+                                }
                             }
-                            else if (shader_uniforms_component->get_uniforms()->get_type() == ces_shader_uniforms_component::e_shader_uniform_type_fragment)
+                            
+                            buffers = shader_uniforms_component->get_fragment_buffers();
+                            for (const auto& buffer_it : buffers)
                             {
-                                render_encoder->set_fragment_uniforms(custom_uniforms_buffer_id, 0);
+                                void* custom_uniforms_value = buffer_it.second->get_values();
+                                ui32 custom_uniforms_size = buffer_it.second->get_values_size();
+                                const auto custom_uniforms_buffer_id = material->get_custom_uniform_buffer(custom_uniforms_size);
+                                custom_uniforms_buffer_id->update(custom_uniforms_value, custom_uniforms_size);
+                                
+                                if (buffer_it.second->get_mode() == ces_shader_uniforms_component::e_shader_uniform_mode::e_fragment)
+                                {
+                                    render_encoder->set_fragment_uniforms(custom_uniforms_buffer_id, buffer_it.first);
+                                }
                             }
                         }
                         render_encoder->set_index_buffer(ibo_mtl_buffer_id, mesh->get_ibo()->get_used_size(), 0);
@@ -390,8 +426,19 @@ namespace gb
                     const auto shader_uniforms_component = entity->get_component<ces_shader_uniforms_component>();
                     if (shader_uniforms_component)
                     {
-                        const auto uniforms = shader_uniforms_component->get_uniforms()->get_uniforms();
-                        material_component->set_custom_shader_uniforms(uniforms, technique_name);
+                        auto buffers = shader_uniforms_component->get_vertex_buffers();
+                        for (const auto& buffer_it : buffers)
+                        {
+                            const auto uniforms = buffer_it.second->get_uniforms();
+                            material_component->set_custom_shader_uniforms(uniforms, technique_name);
+                        }
+                        
+                        buffers = shader_uniforms_component->get_fragment_buffers();
+                        for (const auto& buffer_it : buffers)
+                        {
+                            const auto uniforms = buffer_it.second->get_uniforms();
+                            material_component->set_custom_shader_uniforms(uniforms, technique_name);
+                        }
                     }
                     
                     auto material = material_component->get_material(technique_name);
@@ -452,18 +499,32 @@ namespace gb
                         render_encoder->set_vertex_uniforms(mvp_uniforms_buffer_id, 1);
                         if (shader_uniforms_component)
                         {
-                            const auto uniforms = shader_uniforms_component->get_uniforms()->get_uniforms();
-                            void* custom_uniforms_value = shader_uniforms_component->get_uniforms()->get_values();
-                            ui32 custom_uniforms_size = shader_uniforms_component->get_uniforms()->get_values_size();
-                            const auto custom_uniforms_buffer_id = material->get_custom_uniform_buffer(custom_uniforms_size);
-                            custom_uniforms_buffer_id->update(custom_uniforms_value, custom_uniforms_size);
-                            if (shader_uniforms_component->get_uniforms()->get_type() == ces_shader_uniforms_component::e_shader_uniform_type_vertex)
+                            auto buffers = shader_uniforms_component->get_vertex_buffers();
+                            for (const auto& buffer_it : buffers)
                             {
-                                render_encoder->set_vertex_uniforms(custom_uniforms_buffer_id, 2);
+                                void* custom_uniforms_value = buffer_it.second->get_values();
+                                ui32 custom_uniforms_size = buffer_it.second->get_values_size();
+                                const auto custom_uniforms_buffer_id = material->get_custom_uniform_buffer(custom_uniforms_size);
+                                custom_uniforms_buffer_id->update(custom_uniforms_value, custom_uniforms_size);
+                                
+                                if (buffer_it.second->get_mode() == ces_shader_uniforms_component::e_shader_uniform_mode::e_vertex)
+                                {
+                                    render_encoder->set_vertex_uniforms(custom_uniforms_buffer_id, buffer_it.first);
+                                }
                             }
-                            else if (shader_uniforms_component->get_uniforms()->get_type() == ces_shader_uniforms_component::e_shader_uniform_type_fragment)
+                            
+                            buffers = shader_uniforms_component->get_fragment_buffers();
+                            for (const auto& buffer_it : buffers)
                             {
-                                render_encoder->set_fragment_uniforms(custom_uniforms_buffer_id, 0);
+                                void* custom_uniforms_value = buffer_it.second->get_values();
+                                ui32 custom_uniforms_size = buffer_it.second->get_values_size();
+                                const auto custom_uniforms_buffer_id = material->get_custom_uniform_buffer(custom_uniforms_size);
+                                custom_uniforms_buffer_id->update(custom_uniforms_value, custom_uniforms_size);
+                                
+                                if (buffer_it.second->get_mode() == ces_shader_uniforms_component::e_shader_uniform_mode::e_fragment)
+                                {
+                                    render_encoder->set_fragment_uniforms(custom_uniforms_buffer_id, buffer_it.first);
+                                }
                             }
                         }
                         render_encoder->set_index_buffer(ibo_mtl_buffer_id, mesh->get_ibo()->get_used_size(), 0);
@@ -487,8 +548,19 @@ namespace gb
     {
         if (shader_uniforms_component)
         {
-            const auto uniforms = shader_uniforms_component->get_uniforms()->get_uniforms();
-            material_component->set_custom_shader_uniforms(uniforms, technique_name);
+            auto buffers = shader_uniforms_component->get_vertex_buffers();
+            for (const auto& buffer_it : buffers)
+            {
+                const auto uniforms = buffer_it.second->get_uniforms();
+                material_component->set_custom_shader_uniforms(uniforms, technique_name);
+            }
+            
+            buffers = shader_uniforms_component->get_fragment_buffers();
+            for (const auto& buffer_it : buffers)
+            {
+                const auto uniforms = buffer_it.second->get_uniforms();
+                material_component->set_custom_shader_uniforms(uniforms, technique_name);
+            }
         }
         
         const auto material = material_component->get_material(technique_name);
@@ -543,18 +615,32 @@ namespace gb
             render_encoder->set_vertex_uniforms(mvp_uniforms_buffer_id, 1);
             if (shader_uniforms_component)
             {
-                const auto uniforms = shader_uniforms_component->get_uniforms()->get_uniforms();
-                void* custom_uniforms_value = shader_uniforms_component->get_uniforms()->get_values();
-                ui32 custom_uniforms_size = shader_uniforms_component->get_uniforms()->get_values_size();
-                const auto custom_uniforms_buffer_id = material->get_custom_uniform_buffer(custom_uniforms_size);
-                custom_uniforms_buffer_id->update(custom_uniforms_value, custom_uniforms_size);
-                if (shader_uniforms_component->get_uniforms()->get_type() == ces_shader_uniforms_component::e_shader_uniform_type_vertex)
+                auto buffers = shader_uniforms_component->get_vertex_buffers();
+                for (const auto& buffer_it : buffers)
                 {
-                    render_encoder->set_vertex_uniforms(custom_uniforms_buffer_id, 2);
+                    void* custom_uniforms_value = buffer_it.second->get_values();
+                    ui32 custom_uniforms_size = buffer_it.second->get_values_size();
+                    const auto custom_uniforms_buffer_id = material->get_custom_uniform_buffer(custom_uniforms_size);
+                    custom_uniforms_buffer_id->update(custom_uniforms_value, custom_uniforms_size);
+                    
+                    if (buffer_it.second->get_mode() == ces_shader_uniforms_component::e_shader_uniform_mode::e_vertex)
+                    {
+                        render_encoder->set_vertex_uniforms(custom_uniforms_buffer_id, buffer_it.first);
+                    }
                 }
-                else if (shader_uniforms_component->get_uniforms()->get_type() == ces_shader_uniforms_component::e_shader_uniform_type_fragment)
+                
+                buffers = shader_uniforms_component->get_fragment_buffers();
+                for (const auto& buffer_it : buffers)
                 {
-                    render_encoder->set_fragment_uniforms(custom_uniforms_buffer_id, 0);
+                    void* custom_uniforms_value = buffer_it.second->get_values();
+                    ui32 custom_uniforms_size = buffer_it.second->get_values_size();
+                    const auto custom_uniforms_buffer_id = material->get_custom_uniform_buffer(custom_uniforms_size);
+                    custom_uniforms_buffer_id->update(custom_uniforms_value, custom_uniforms_size);
+                    
+                    if (buffer_it.second->get_mode() == ces_shader_uniforms_component::e_shader_uniform_mode::e_fragment)
+                    {
+                        render_encoder->set_fragment_uniforms(custom_uniforms_buffer_id, buffer_it.first);
+                    }
                 }
             }
             render_encoder->set_index_buffer(ibo_mtl_buffer_id, mesh->get_ibo()->get_used_size(), 0);

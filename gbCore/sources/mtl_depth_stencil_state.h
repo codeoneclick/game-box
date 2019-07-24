@@ -26,6 +26,8 @@ namespace gb
         };
         
         virtual void* get_mtl_raw_depth_stencil_state_ptr() const = 0;
+        
+        virtual std::string get_guid() const = 0;
     };
     
     class mtl_depth_stencil_state
@@ -33,6 +35,8 @@ namespace gb
     private:
         
         std::shared_ptr<i_mtl_depth_stencil_state_impl> m_mtl_depth_stencil_state_impl = nullptr;
+        
+        static std::unordered_map<std::string, std::shared_ptr<mtl_depth_stencil_state>> m_depth_stencil_pipelines_pool;
         
     protected:
         
@@ -47,7 +51,11 @@ namespace gb
         mtl_depth_stencil_state(const std::shared_ptr<material_cached_parameters>& material_parameters);
         ~mtl_depth_stencil_state();
         
+        static std::shared_ptr<mtl_depth_stencil_state> construct(const std::shared_ptr<material_cached_parameters>& material_parameters);
+        
         void* get_mtl_raw_depth_stencil_state_ptr() const;
+        
+        std::string get_guid() const;
     };
 };
 

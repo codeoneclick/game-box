@@ -14,7 +14,7 @@
 
 namespace gb
 {
-    deferred_point_light_3d::shader_uniforms::shader_uniforms(ces_shader_uniforms_component::e_shader_uniform_type type) : ces_shader_uniforms_component::shader_uniforms(type)
+    deferred_point_light_3d::shader_uniforms::shader_uniforms(ces_shader_uniforms_component::e_shader_uniform_mode mode, const std::string& name) : ces_shader_uniforms_component::shader_uniforms(mode, name)
     {
         m_uniforms[ces_deferred_light_source_3d_component::k_light_position_uniform] = std::make_shared<shader_uniform>(e_uniform_type_vec3);
         m_uniforms[ces_deferred_light_source_3d_component::k_light_ray_length_uniform] = std::make_shared<shader_uniform>(e_uniform_type_f32);
@@ -44,7 +44,9 @@ namespace gb
             const auto deferred_light_source_3d_component = ces_entity::get_component<ces_deferred_light_source_3d_component>();
             deferred_light_source_3d_component->set_ray_length(ray_length);
             const auto transformation_component = ces_entity::get_component<ces_transformation_3d_component>();
-            transformation_component->set_scale(glm::vec3(ray_length));
+            transformation_component->set_scale(glm::vec3(ray_length * 2.f));
+            const auto geometry_component = ces_entity::get_component<ces_geometry_3d_component>();
+            geometry_component->set_bounding_radius(ray_length);
         });
         ray_length.getter([=]() {
             const auto deferred_light_source_3d_component = ces_entity::get_component<ces_deferred_light_source_3d_component>();
@@ -60,10 +62,10 @@ namespace gb
     void deferred_point_light_3d::setup_components()
     {
         const auto geometry_component = ces_entity::get_component<ces_geometry_3d_component>();
-        geometry_component->set_mesh(mesh_constructor::create_sphere());
-        geometry_component->bound_check = ces_geometry_component::e_bound_check_box;
+        geometry_component->set_mesh(mesh_constructor::create_shared_box());
+        geometry_component->bounding_mode = ces_geometry_component::e_box;
         
         const auto shader_uniforms_component = ces_entity::get_component<ces_shader_uniforms_component>();
-        shader_uniforms_component->construct_uniforms<deferred_point_light_3d::shader_uniforms>(ces_shader_uniforms_component::e_shader_uniform_type_fragment);
+        shader_uniforms_component->construct_uniforms_buffer<deferred_point_light_3d::shader_uniforms>(ces_shader_uniforms_component::e_shader_uniform_mode::e_fragment, "deferred_point_light", 0);
     }
 }

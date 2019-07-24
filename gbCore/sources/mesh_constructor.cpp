@@ -18,6 +18,10 @@ namespace gb
     std::once_flag g_screen_quad_created;
     std::once_flag g_shape_quad_created;
     
+    mesh_3d_shared_ptr mesh_constructor::m_shared_box_mesh = nullptr;
+    mesh_3d_shared_ptr mesh_constructor::m_shared_sphere_mesh = nullptr;
+    mesh_2d_shared_ptr mesh_constructor::m_shared_screen_quad_mesh = nullptr;
+    
     mesh_2d_shared_ptr mesh_constructor::create_screen_quad()
     {
         static mesh_2d_shared_ptr mesh = nullptr;
@@ -221,6 +225,15 @@ namespace gb
         
         mesh_3d_shared_ptr mesh = gb::mesh_3d::construct("primitive.plane.3d", vbo, ibo);
         return mesh;
+    }
+    
+    mesh_3d_shared_ptr mesh_constructor::create_shared_box()
+    {
+        if (!m_shared_box_mesh)
+        {
+            m_shared_box_mesh = mesh_constructor::create_box();
+        }
+        return m_shared_box_mesh;
     }
     
     mesh_3d_shared_ptr mesh_constructor::create_box()
@@ -436,7 +449,17 @@ namespace gb
         return mesh;
     }
     
-    mesh_3d_shared_ptr mesh_constructor::create_trai(ui32 segments)
+    
+    mesh_3d_shared_ptr mesh_constructor::create_shared_sphere()
+    {
+        if (!m_shared_sphere_mesh)
+        {
+            m_shared_sphere_mesh = mesh_constructor::create_sphere();
+        }
+        return m_shared_sphere_mesh;
+    }
+    
+    mesh_3d_shared_ptr mesh_constructor::create_trail(ui32 segments)
     {
         ui32 vertices_count = segments * 4;
         std::shared_ptr<vbo::vertex_declaration_PTNTC> vertex_declaration = std::make_shared<vbo::vertex_declaration_PTNTC>(vertices_count);
