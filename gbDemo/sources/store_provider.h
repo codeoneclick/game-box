@@ -15,15 +15,22 @@ namespace game
 {
     class store_provider
     {
-        private:
+    public:
         
-            std::function<void()> m_on_purchases_restored = nullptr;
+        static const i32 k_no_ads_product_id;
+        static const i32 k_cash_pack_1_product_id;
+        static const i32 k_cash_pack_2_product_id;
+        static const i32 k_cash_pack_3_product_id;
         
-        protected:
+    private:
         
-            static std::shared_ptr<store_provider> m_instance;
+        std::function<void()> m_on_purchases_restored = nullptr;
         
-        public:
+    protected:
+        
+        static std::shared_ptr<store_provider> m_instance;
+        
+    public:
         
         store_provider();
         ~store_provider();

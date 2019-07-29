@@ -55,6 +55,18 @@ namespace gb
             return font_component->get_font_size();
         });
         
+        font_name.setter([=](const std::string& value) {
+            auto font_component = ces_entity::get_component<ces_font_component>();
+            auto geometry_component = ces_entity::get_component<ces_geometry_freeform_component>();
+            auto material_component = ces_entity::get_component<ces_material_component>();
+            font_component->set_font_name(value);
+            geometry_component->set_mesh(font_component->request_mesh_2d());
+            material_component->set_texture(font_component->get_texture(), gb::e_shader_sampler_01);
+        });
+        font_name.getter([=]() {
+            return "";
+        });
+        
         font_color.setter([=](const glm::u8vec4& color) {
             auto font_component = ces_entity::get_component<ces_font_component>();
             auto geometry_component = ces_entity::get_component<ces_geometry_freeform_component>();

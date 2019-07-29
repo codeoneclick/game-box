@@ -58,6 +58,7 @@
 #include "audio_engine.h"
 #include "facebook_provider.h"
 #include "store_provider.h"
+#include "ui_menus_helper.h"
 
 namespace game
 {
@@ -115,7 +116,7 @@ namespace game
                         else
                         {
                             countdown_value_label->text = "GO";
-                            countdown_value_label->scale = glm::vec3(.2f);
+                            countdown_value_label->scale = glm::vec3(.1f);
                             countdown_value_label->position = glm::vec3(countdown_value_label->get_content_size().x * .5f, 3.f, 4.f);
                             glm::u8vec4 font_color = countdown_value_label->font_color;
                             f32 font_color_alpha = font_color.a;
@@ -266,11 +267,17 @@ namespace game
                 auto current_camera_rotation = camera_3d->get_rotation();
                 if (car_camera_follow_component->preview_mode == ces_car_camera_follow_component::e_preview_mode::e_none)
                 {
-                    current_camera_rotation = glm::mix(current_camera_rotation, glm::degrees(current_rotation.y) - 90.f, .05f);
+                    auto car_input_component = car->get_component<ces_car_input_component>();
+                    if (car_input_component)
+                    {
+                        f32 current_steer_angle = car_input_component->steer_angle;
+                        current_rotation.y = glm::mix(current_rotation.y, current_rotation.y + current_steer_angle * 1.66f, .1f);
+                    }
+                    current_camera_rotation = glm::mix_angles_degrees(current_camera_rotation, glm::degrees(current_rotation.y) - 90.f, .05f);
                 }
                 else if (car_camera_follow_component->preview_mode == ces_car_camera_follow_component::e_preview_mode::e_1)
                 {
-                    current_camera_rotation = glm::mix(current_camera_rotation, glm::degrees(current_rotation.y) + 45.f, .05f);
+                    current_camera_rotation = glm::mix_angles_degrees(current_camera_rotation, glm::degrees(current_rotation.y) + 45.f, .05f);
                 }
                 camera_3d->set_rotation(current_camera_rotation);
                 
@@ -552,49 +559,19 @@ namespace game
                     {
                         button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
                             pop_current_dialog();
+                            ui_menus_helper::hide_customization_ui();
                             if (!m_camera_follow_car.expired())
                             {
                                 const auto main_car = std::static_pointer_cast<gb::game_object_3d>(m_camera_follow_car.lock());
-                                const auto scene_fabricator_component = root->get_component<ces_scene_fabricator_component>();
-                                const gameplay_fabricator_shared_ptr gameplay_fabricator = scene_fabricator_component->gameplay_fabricator;
-                                
-                                if (!m_level.expired())
+                                const auto garage_database_component = root->get_component<ces_garage_database_component>();
+                                auto selected_car_id = garage_database_component->get_previewed_car_id();
+                                selected_car_id++;
+                                if (selected_car_id > garage_database_component->get_max_cars_count())
                                 {
-                                    const auto garage_database_component = root->get_component<ces_garage_database_component>();
-                                    auto selected_car_id = garage_database_component->get_previewed_car_id();
-                                    selected_car_id++;
-                                    if (selected_car_id > garage_database_component->get_max_cars_count())
-                                    {
-                                        selected_car_id = 1;
-                                    }
-                                    garage_database_component->set_previewed_car_id(selected_car_id);
-                                    std::stringstream car_configuration_filename;
-                                    car_configuration_filename<<"car_0"<<selected_car_id;
-                                    gameplay_fabricator->reconstruct_car_geometry(main_car, car_configuration_filename.str());
-                                    
-                                    bool is_car_oppenned = garage_database_component->is_car_oppenned(1, selected_car_id);
-                                    
-                                    const auto select_car_button = ui_controls_helper::get_control_as<gb::ui::image_button>(ces_ui_interaction_component::e_ui::e_ui_select_car_button);
-                                    const auto unlock_car_button = ui_controls_helper::get_control_as<gb::ui::image_button>(ces_ui_interaction_component::e_ui::e_ui_unlock_car_button);
-                                    
-                                    if (select_car_button)
-                                    {
-                                        select_car_button->visible = is_car_oppenned;
-                                        if (selected_car_id == garage_database_component->get_selected_car(1)->get_id())
-                                        {
-                                            select_car_button->set_image_color(glm::u8vec4(64, 64, 255, 255));
-                                        }
-                                        else
-                                        {
-                                            select_car_button->set_image_color(glm::u8vec4(255, 255, 255, 255));
-                                        }
-                                    }
-                                    
-                                    if (unlock_car_button)
-                                    {
-                                        unlock_car_button->visible = !is_car_oppenned;
-                                    }
+                                    selected_car_id = 1;
                                 }
+                                garage_database_component->set_previewed_car_id(selected_car_id);
+                                ui_menus_helper::fill_selected_car_in_garage_ui(root, main_car);
                             }
                         });
                     }
@@ -608,49 +585,19 @@ namespace game
                     {
                         button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
                             pop_current_dialog();
+                            ui_menus_helper::hide_customization_ui();
                             if (!m_camera_follow_car.expired())
                             {
                                 const auto main_car = std::static_pointer_cast<gb::game_object_3d>(m_camera_follow_car.lock());
-                                const auto scene_fabricator_component = root->get_component<ces_scene_fabricator_component>();
-                                const gameplay_fabricator_shared_ptr gameplay_fabricator = scene_fabricator_component->gameplay_fabricator;
-                                
-                                if (!m_level.expired())
+                                const auto garage_database_component = root->get_component<ces_garage_database_component>();
+                                auto selected_car_id = garage_database_component->get_previewed_car_id();
+                                selected_car_id--;
+                                if (selected_car_id < 1)
                                 {
-                                    const auto garage_database_component = root->get_component<ces_garage_database_component>();
-                                    auto selected_car_id = garage_database_component->get_previewed_car_id();
-                                    selected_car_id--;
-                                    if (selected_car_id < 1)
-                                    {
-                                        selected_car_id = garage_database_component->get_max_cars_count();
-                                    }
-                                    garage_database_component->set_previewed_car_id(selected_car_id);
-                                    std::stringstream car_configuration_filename;
-                                    car_configuration_filename<<"car_0"<<selected_car_id;
-                                    gameplay_fabricator->reconstruct_car_geometry(main_car, car_configuration_filename.str());
-                                    
-                                    bool is_car_oppenned = garage_database_component->is_car_oppenned(1, selected_car_id);
-                                    
-                                    const auto select_car_button = ui_controls_helper::get_control_as<gb::ui::image_button>(ces_ui_interaction_component::e_ui::e_ui_select_car_button);
-                                    const auto unlock_car_button = ui_controls_helper::get_control_as<gb::ui::image_button>(ces_ui_interaction_component::e_ui::e_ui_unlock_car_button);
-                                    
-                                    if (select_car_button)
-                                    {
-                                        select_car_button->visible = is_car_oppenned;
-                                        if (selected_car_id == garage_database_component->get_selected_car(1)->get_id())
-                                        {
-                                            select_car_button->set_image_color(glm::u8vec4(64, 64, 255, 255));
-                                        }
-                                        else
-                                        {
-                                            select_car_button->set_image_color(glm::u8vec4(255, 255, 255, 255));
-                                        }
-                                    }
-                                    
-                                    if (unlock_car_button)
-                                    {
-                                        unlock_car_button->visible = !is_car_oppenned;
-                                    }
+                                    selected_car_id = garage_database_component->get_max_cars_count();
                                 }
+                                garage_database_component->set_previewed_car_id(selected_car_id);
+                                ui_menus_helper::fill_selected_car_in_garage_ui(root, main_car);
                             }
                         });
                     }
@@ -664,18 +611,8 @@ namespace game
                     {
                         button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
                             pop_current_dialog();
-                            const auto main_car = std::static_pointer_cast<gb::game_object_3d>(m_camera_follow_car.lock());
-                            const auto scene_fabricator_component = root->get_component<ces_scene_fabricator_component>();
-                            const gameplay_fabricator_shared_ptr gameplay_fabricator = scene_fabricator_component->gameplay_fabricator;
-                            if (!m_level.expired())
-                            {
-                                const auto garage_database_component = root->get_component<ces_garage_database_component>();
-                                auto selected_car_id = garage_database_component->get_previewed_car_id();
-                                std::stringstream car_configuration_filename;
-                                car_configuration_filename<<"car_0"<<selected_car_id;
-                                gameplay_fabricator->reskin_car(main_car, car_configuration_filename.str(), 1);
-                                garage_database_component->select_car_skin(1, selected_car_id, 1);
-                            }
+                            ui_menus_helper::hide_customization_ui();
+                            ui_menus_helper::show_body_paint_ui();
                         });
                     }
                 }
@@ -688,18 +625,8 @@ namespace game
                     {
                         button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
                             pop_current_dialog();
-                            const auto main_car = std::static_pointer_cast<gb::game_object_3d>(m_camera_follow_car.lock());
-                            const auto scene_fabricator_component = root->get_component<ces_scene_fabricator_component>();
-                            const gameplay_fabricator_shared_ptr gameplay_fabricator = scene_fabricator_component->gameplay_fabricator;
-                            if (!m_level.expired())
-                            {
-                                const auto garage_database_component = root->get_component<ces_garage_database_component>();
-                                auto selected_car_id = garage_database_component->get_previewed_car_id();
-                                std::stringstream car_configuration_filename;
-                                car_configuration_filename<<"car_0"<<selected_car_id;
-                                gameplay_fabricator->reskin_car(main_car, car_configuration_filename.str(), 2);
-                                garage_database_component->select_car_skin(1, selected_car_id, 2);
-                            }
+                            ui_menus_helper::hide_customization_ui();
+                            ui_menus_helper::show_windshield_paint_ui();
                         });
                     }
                 }
@@ -712,18 +639,8 @@ namespace game
                     {
                         button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
                             pop_current_dialog();
-                            const auto main_car = std::static_pointer_cast<gb::game_object_3d>(m_camera_follow_car.lock());
-                            const auto scene_fabricator_component = root->get_component<ces_scene_fabricator_component>();
-                            const gameplay_fabricator_shared_ptr gameplay_fabricator = scene_fabricator_component->gameplay_fabricator;
-                            if (!m_level.expired())
-                            {
-                                const auto garage_database_component = root->get_component<ces_garage_database_component>();
-                                auto selected_car_id = garage_database_component->get_previewed_car_id();
-                                std::stringstream car_configuration_filename;
-                                car_configuration_filename<<"car_0"<<selected_car_id;
-                                gameplay_fabricator->reskin_car(main_car, car_configuration_filename.str(), 3);
-                                garage_database_component->select_car_skin(1, selected_car_id, 3);
-                            }
+                            ui_menus_helper::hide_customization_ui();
+                            ui_menus_helper::show_upgrade_performance_ui();
                         });
                     }
                 }
@@ -1062,114 +979,206 @@ namespace game
                 }
                     break;
                     
-                case ces_ui_interaction_component::e_ui::e_ui_apply_color_1_button:
+                case ces_ui_interaction_component::e_ui::e_ui_apply_body_color_1_button:
                 {
                     const auto button = std::static_pointer_cast<gb::ui::image_button>(entity);
                     if(!button->is_pressed_callback_exist())
                     {
+                        button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                            if (!m_camera_follow_car.expired())
+                            {
+                                gameplay_fabricator::paint_car_body(m_camera_follow_car.lock(), ces_car_model_component::k_car_color_1);
+                                const auto car_descriptor_component = m_camera_follow_car.lock()->get_component<ces_car_descriptor_component>();
+                                car_descriptor_component->get_car_upgrade_cache()->m_car_body_color_id = 1;
+                            }
+                        });
+                    }
+                }
+                break;
+                    
+                case ces_ui_interaction_component::e_ui::e_ui_apply_body_color_2_button:
+                {
+                    const auto button = std::static_pointer_cast<gb::ui::image_button>(entity);
+                    if(!button->is_pressed_callback_exist())
+                    {
+                        button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                            if (!m_camera_follow_car.expired())
+                            {
+                                gameplay_fabricator::paint_car_body(m_camera_follow_car.lock(), ces_car_model_component::k_car_color_2);
+                                const auto car_descriptor_component = m_camera_follow_car.lock()->get_component<ces_car_descriptor_component>();
+                                car_descriptor_component->get_car_upgrade_cache()->m_car_body_color_id = 2;
+                            }
+                        });
+                    }
+                }
+                break;
+                
+                case ces_ui_interaction_component::e_ui::e_ui_apply_body_color_3_button:
+                {
+                    const auto button = std::static_pointer_cast<gb::ui::image_button>(entity);
+                    if(!button->is_pressed_callback_exist())
+                    {
+                        button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                            if (!m_camera_follow_car.expired())
+                            {
+                                gameplay_fabricator::paint_car_body(m_camera_follow_car.lock(), ces_car_model_component::k_car_color_3);
+                                const auto car_descriptor_component = m_camera_follow_car.lock()->get_component<ces_car_descriptor_component>();
+                                car_descriptor_component->get_car_upgrade_cache()->m_car_body_color_id = 3;
+                            }
+                        });
+                    }
+                }
+                break;
+                
+                case ces_ui_interaction_component::e_ui::e_ui_apply_body_color_4_button:
+                {
+                    const auto button = std::static_pointer_cast<gb::ui::image_button>(entity);
+                    if(!button->is_pressed_callback_exist())
+                    {
+                        button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                            if (!m_camera_follow_car.expired())
+                            {
+                                gameplay_fabricator::paint_car_body(m_camera_follow_car.lock(), ces_car_model_component::k_car_color_4);
+                                const auto car_descriptor_component = m_camera_follow_car.lock()->get_component<ces_car_descriptor_component>();
+                                car_descriptor_component->get_car_upgrade_cache()->m_car_body_color_id = 4;
+                            }
+                        });
+                    }
+                }
+                break;
+                
+                case ces_ui_interaction_component::e_ui::e_ui_apply_windows_color_1_button:
+                {
+                    const auto button = std::static_pointer_cast<gb::ui::image_button>(entity);
+                    if(!button->is_pressed_callback_exist())
+                    {
+                        button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                            if (!m_camera_follow_car.expired())
+                            {
+                                gameplay_fabricator::paint_car_windows(m_camera_follow_car.lock(), ces_car_model_component::k_car_color_1);
+                                const auto car_descriptor_component = m_camera_follow_car.lock()->get_component<ces_car_descriptor_component>();
+                                car_descriptor_component->get_car_upgrade_cache()->m_car_windshield_color_id = 1;
+                            }
+                        });
+                    }
+                }
+                break;
+                    
+                case ces_ui_interaction_component::e_ui::e_ui_apply_windows_color_2_button:
+                {
+                    const auto button = std::static_pointer_cast<gb::ui::image_button>(entity);
+                    if(!button->is_pressed_callback_exist())
+                    {
+                        button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                            if (!m_camera_follow_car.expired())
+                            {
+                                gameplay_fabricator::paint_car_windows(m_camera_follow_car.lock(), ces_car_model_component::k_car_color_2);
+                                const auto car_descriptor_component = m_camera_follow_car.lock()->get_component<ces_car_descriptor_component>();
+                                car_descriptor_component->get_car_upgrade_cache()->m_car_windshield_color_id = 2;
+                            }
+                        });
+                    }
+                }
+                break;
+                
+                case ces_ui_interaction_component::e_ui::e_ui_apply_windows_color_3_button:
+                {
+                    const auto button = std::static_pointer_cast<gb::ui::image_button>(entity);
+                    if(!button->is_pressed_callback_exist())
+                    {
+                        button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                            if (!m_camera_follow_car.expired())
+                            {
+                                gameplay_fabricator::paint_car_windows(m_camera_follow_car.lock(), ces_car_model_component::k_car_color_3);
+                                const auto car_descriptor_component = m_camera_follow_car.lock()->get_component<ces_car_descriptor_component>();
+                                car_descriptor_component->get_car_upgrade_cache()->m_car_windshield_color_id = 3;
+                            }
+                        });
+                    }
+                }
+                break;
+                
+                case ces_ui_interaction_component::e_ui::e_ui_apply_windows_color_4_button:
+                {
+                    const auto button = std::static_pointer_cast<gb::ui::image_button>(entity);
+                    if(!button->is_pressed_callback_exist())
+                    {
+                        button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                            if (!m_camera_follow_car.expired())
+                            {
+                                gameplay_fabricator::paint_car_windows(m_camera_follow_car.lock(), ces_car_model_component::k_car_color_4);
+                                const auto car_descriptor_component = m_camera_follow_car.lock()->get_component<ces_car_descriptor_component>();
+                                car_descriptor_component->get_car_upgrade_cache()->m_car_windshield_color_id = 4;
+                            }
+                        });
+                    }
+                }
+                    break;
+                    
+                case ces_ui_interaction_component::e_ui::e_ui_buy_upgrade_button:
+                {
+                    if (!m_scene.expired() && m_scene.lock()->get_component<ces_scene_state_automat_component>()->mode == ces_scene_state_automat_component::e_mode_garage)
+                    {
                         if (!m_camera_follow_car.expired())
                         {
-                            const auto car = m_camera_follow_car.lock();
-                            const auto car_parts_component = car->get_component<ces_car_parts_component>();
-                            const auto car_body = car_parts_component->get_part(ces_car_parts_component::parts::k_body);
-                            const auto shader_uniforms_component = car_body->get_component<gb::ces_shader_uniforms_component>();
-                            button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
-                                const auto uniforms = shader_uniforms_component->get_uniforms(gb::ces_shader_uniforms_component::e_shader_uniform_mode::e_fragment, "car_colorization", 0);
-                                const auto uniforms_set = uniforms->get_uniforms();
-                                const auto body_color_uniform_it = uniforms_set.find(car_colorization_shader_uniforms::k_body_color);
-                                if (body_color_uniform_it != uniforms_set.end())
-                                {
-                                    uniforms->set(glm::vec4(static_cast<f32>(ces_car_model_component::k_car_color_1.x) / 255.f,
-                                                            static_cast<f32>(ces_car_model_component::k_car_color_1.y) / 255.f,
-                                                            static_cast<f32>(ces_car_model_component::k_car_color_1.z) / 255.f,
-                                                            1.f), car_colorization_shader_uniforms::k_body_color);
-                                }
-                            });
+                            const auto car_descriptor_component = m_camera_follow_car.lock()->get_component<ces_car_descriptor_component>();
+                            if (car_descriptor_component->get_car_upgrade()->is_equal(car_descriptor_component->get_car_upgrade_cache()))
+                            {
+                                entity->visible = false;
+                            }
+                            else
+                            {
+                                entity->visible = true;
+                            }
                         }
                     }
                 }
                     break;
                     
-                case ces_ui_interaction_component::e_ui::e_ui_apply_color_2_button:
+                case ces_ui_interaction_component::e_ui::e_ui_buy_upgrade_label:
                 {
-                    const auto button = std::static_pointer_cast<gb::ui::image_button>(entity);
-                    if(!button->is_pressed_callback_exist())
+                    if (!m_scene.expired() && m_scene.lock()->get_component<ces_scene_state_automat_component>()->mode == ces_scene_state_automat_component::e_mode_garage)
                     {
                         if (!m_camera_follow_car.expired())
                         {
-                            const auto car = m_camera_follow_car.lock();
-                            const auto car_parts_component = car->get_component<ces_car_parts_component>();
-                            const auto car_body = car_parts_component->get_part(ces_car_parts_component::parts::k_body);
-                            const auto shader_uniforms_component = car_body->get_component<gb::ces_shader_uniforms_component>();
-                            button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
-                                const auto uniforms = shader_uniforms_component->get_uniforms(gb::ces_shader_uniforms_component::e_shader_uniform_mode::e_fragment, "car_colorization", 0);
-                                const auto uniforms_set = uniforms->get_uniforms();
-                                const auto body_color_uniform_it = uniforms_set.find(car_colorization_shader_uniforms::k_body_color);
-                                if (body_color_uniform_it != uniforms_set.end())
-                                {
-                                    uniforms->set(glm::vec4(static_cast<f32>(ces_car_model_component::k_car_color_2.x) / 255.f,
-                                                            static_cast<f32>(ces_car_model_component::k_car_color_2.y) / 255.f,
-                                                            static_cast<f32>(ces_car_model_component::k_car_color_2.z) / 255.f,
-                                                            1.f), car_colorization_shader_uniforms::k_body_color);
-                                }
-                            });
+                            const auto car_descriptor_component = m_camera_follow_car.lock()->get_component<ces_car_descriptor_component>();
+                            if (car_descriptor_component->get_car_upgrade()->is_equal(car_descriptor_component->get_car_upgrade_cache()))
+                            {
+                                entity->visible = false;
+                            }
+                            else
+                            {
+                                entity->visible = true;
+                            }
                         }
                     }
                 }
                     break;
                     
-                case ces_ui_interaction_component::e_ui::e_ui_apply_color_3_button:
+                case ces_ui_interaction_component::e_ui::e_ui_buy_car_button:
                 {
                     const auto button = std::static_pointer_cast<gb::ui::image_button>(entity);
                     if(!button->is_pressed_callback_exist())
                     {
-                        if (!m_camera_follow_car.expired())
-                        {
-                            const auto car = m_camera_follow_car.lock();
-                            const auto car_parts_component = car->get_component<ces_car_parts_component>();
-                            const auto car_body = car_parts_component->get_part(ces_car_parts_component::parts::k_body);
-                            const auto shader_uniforms_component = car_body->get_component<gb::ces_shader_uniforms_component>();
-                            button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
-                                const auto uniforms = shader_uniforms_component->get_uniforms(gb::ces_shader_uniforms_component::e_shader_uniform_mode::e_fragment, "car_colorization", 0);
-                                const auto uniforms_set = uniforms->get_uniforms();
-                                const auto body_color_uniform_it = uniforms_set.find(car_colorization_shader_uniforms::k_body_color);
-                                if (body_color_uniform_it != uniforms_set.end())
-                                {
-                                    uniforms->set(glm::vec4(static_cast<f32>(ces_car_model_component::k_car_color_3.x) / 255.f,
-                                                            static_cast<f32>(ces_car_model_component::k_car_color_3.y) / 255.f,
-                                                            static_cast<f32>(ces_car_model_component::k_car_color_3.z) / 255.f,
-                                                            1.f), car_colorization_shader_uniforms::k_body_color);
-                                }
-                            });
-                        }
-                    }
-                }
-                    break;
-                    
-                case ces_ui_interaction_component::e_ui::e_ui_apply_color_4_button:
-                {
-                    const auto button = std::static_pointer_cast<gb::ui::image_button>(entity);
-                    if(!button->is_pressed_callback_exist())
-                    {
-                        if (!m_camera_follow_car.expired())
-                        {
-                            const auto car = m_camera_follow_car.lock();
-                            const auto car_parts_component = car->get_component<ces_car_parts_component>();
-                            const auto car_body = car_parts_component->get_part(ces_car_parts_component::parts::k_body);
-                            const auto shader_uniforms_component = car_body->get_component<gb::ces_shader_uniforms_component>();
-                            button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
-                                const auto uniforms = shader_uniforms_component->get_uniforms(gb::ces_shader_uniforms_component::e_shader_uniform_mode::e_fragment, "car_colorization", 0);
-                                const auto uniforms_set = uniforms->get_uniforms();
-                                const auto body_color_uniform_it = uniforms_set.find(car_colorization_shader_uniforms::k_body_color);
-                                if (body_color_uniform_it != uniforms_set.end())
-                                {
-                                    uniforms->set(glm::vec4(static_cast<f32>(ces_car_model_component::k_car_color_4.x) / 255.f,
-                                                            static_cast<f32>(ces_car_model_component::k_car_color_4.y) / 255.f,
-                                                            static_cast<f32>(ces_car_model_component::k_car_color_4.z) / 255.f,
-                                                            1.f), car_colorization_shader_uniforms::k_body_color);
-                                }
-                            });
-                        }
+                        button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                            const auto user_database_component = root->get_component<ces_user_database_component>();
+                            const auto cash_amount = user_database_component->get_cash(1);
+                            const auto garage_database_component = root->get_component<ces_garage_database_component>();
+                            const auto selected_car_id = garage_database_component->get_previewed_car_id();
+                            const auto selected_car_data = garage_database_component->get_car(1, selected_car_id);
+                            const auto car_price = selected_car_data->get_price();
+                            if (cash_amount < car_price)
+                            {
+                                pop_current_dialog();
+                                push_cash_shop_dialog(root);
+                            }
+                            else
+                            {
+                                garage_database_component->buy_car(1, selected_car_id);
+                                user_database_component->dec_cash(1, car_price);
+                                ui_menus_helper::fill_selected_car_in_garage_ui(root, m_camera_follow_car.lock());
+                            }
+                        });
                     }
                 }
                     break;
@@ -1527,9 +1536,9 @@ namespace game
             star2_image->color = glm::u8vec4(32, 32, 32, 255);
             star3_image->color = glm::u8vec4(32, 32, 32, 255);
             
-            star1_achievment_label->set_font_color(glm::u8vec4(255, 64, 64, 255));
-            star2_achievment_label->set_font_color(glm::u8vec4(255, 64, 64, 255));
-            star3_achievment_label->set_font_color(glm::u8vec4(255, 64, 64, 255));
+            star1_achievment_label->set_text_color(glm::u8vec4(255, 64, 64, 255));
+            star2_achievment_label->set_text_color(glm::u8vec4(255, 64, 64, 255));
+            star3_achievment_label->set_text_color(glm::u8vec4(255, 64, 64, 255));
             
             i32 stars_count = 0;
             
@@ -1545,7 +1554,7 @@ namespace game
                     levels_database_component->set_star_received(levels_database_component->get_playing_level_id(), 1);
                     stars_count++;
                 }
-                star2_achievment_label->set_font_color(glm::u8vec4(64, 255, 64, 255));
+                star2_achievment_label->set_text_color(glm::u8vec4(64, 255, 64, 255));
                 star2_image->color = glm::u8vec4(192, 0, 192, 255);
                 is_first_place = 1;
             }
@@ -1562,18 +1571,12 @@ namespace game
                 place_label->set_text("FINISHED LAST");
             }
             
-            /*if (place != 1 && levels_database_component->get_is_star_received(levels_database_component->get_playing_level_id(), 1))
-            {
-                star2_achievment_label->set_font_color(glm::u8vec4(64, 64, 255, 255));
-                star2_image->color = glm::u8vec4(96, 0, 96, 255);
-            }*/
-            
             f32 current_damage = car_descriptor_component->current_damage;
             f32 max_damage = car_descriptor_component->max_damage;
             f32 complexity = level_descriptor_component->complexity;
             if (current_damage <= max_damage * glm::mix(.6f, .3f, complexity))
             {
-                star1_achievment_label->set_font_color(glm::u8vec4(64, 255, 64, 255));
+                star1_achievment_label->set_text_color(glm::u8vec4(64, 255, 64, 255));
                 star1_image->color = glm::u8vec4(192, 0, 192, 255);
                 if (!levels_database_component->get_is_star_received(levels_database_component->get_playing_level_id(), 0))
                 {
@@ -1582,11 +1585,6 @@ namespace game
                 }
                 is_low_damage = 1;
             }
-            /*else if (levels_database_component->get_is_star_received(levels_database_component->get_playing_level_id(), 0))
-            {
-                star1_achievment_label->set_font_color(glm::u8vec4(64, 64, 255, 255));
-                star1_image->color = glm::u8vec4(128, 0, 128, 255);
-            }*/
             
             const auto drift_time_label = std::static_pointer_cast<gb::ui::textfield>(std::static_pointer_cast<gb::ui::dialog>(win_dialog)->get_control(ces_ui_interaction_component::k_end_game_dialog_drift_time_label));
             
@@ -1607,7 +1605,7 @@ namespace game
             f32 round_time = level_descriptor_component->round_time;
             if (seconds >= round_time * glm::mix(.3f, .6f, complexity))
             {
-                star3_achievment_label->set_font_color(glm::u8vec4(64, 255, 64, 255));
+                star3_achievment_label->set_text_color(glm::u8vec4(64, 255, 64, 255));
                 star3_image->color = glm::u8vec4(192, 0, 192, 255);
                 if (!levels_database_component->get_is_star_received(levels_database_component->get_playing_level_id(), 2))
                 {
@@ -1616,16 +1614,20 @@ namespace game
                 }
                 is_good_drift = 1;
             }
-            /*else if (levels_database_component->get_is_star_received(levels_database_component->get_playing_level_id(), 2))
-             {
-             star3_achievment_label->set_font_color(glm::u8vec4(64, 64, 255, 255));
-             star3_image->color = glm::u8vec4(128, 0, 128, 255);
-             }*/
             
             ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_pause_button)->visible = false;
             
             const auto user_database_component = root->get_component<ces_user_database_component>();
             user_database_component->inc_stars_count(1, glm::clamp(stars_count, 0, 3));
+            
+            i32 earn_cash = static_cast<f32>(user_database_component->get_cash_per_level()) * complexity;
+            earn_cash += seconds * user_database_component->get_cash_per_drift_seconds();
+            user_database_component->inc_cash(1, earn_cash);
+            
+             const auto cash_label = std::static_pointer_cast<gb::ui::textfield>(std::static_pointer_cast<gb::ui::dialog>(win_dialog)->get_control(ces_ui_interaction_component::k_win_dialog_cash_label));
+            std::string cash_value = "CASH: ";
+            cash_value.append(std::to_string(earn_cash));
+            cash_label->set_text(cash_value);
             
             if (!levels_database_component->is_level_passed(levels_database_component->get_playing_level_id()))
             {
@@ -2047,6 +2049,96 @@ namespace game
                 return 96.f;
             });
             shop_table_view->reload_data();
+        }
+    }
+    
+    void ces_ui_interaction_system::push_cash_shop_dialog(const gb::ces_entity_shared_ptr& root)
+    {
+        const auto dialog = ui_controls_helper::get_control_as<gb::ces_entity>(ces_ui_interaction_component::e_ui::e_ui_cash_shop_dialog);
+        if (dialog)
+        {
+            dialog->visible = true;
+            m_current_pushed_dialog = dialog;
+            ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_screen_overlay)->visible = true;
+            
+            const auto table_view = std::static_pointer_cast<gb::ui::table_view>(std::static_pointer_cast<gb::ui::dialog>(dialog)->get_control(ces_ui_interaction_component::k_cash_shop_dialog_table_view));
+            
+            std::vector<gb::ui::table_view_cell_data_shared_ptr> data;
+            auto shop_item_cell_data = std::make_shared<ui::shop_table_view_cell_data>();
+            shop_item_cell_data->id = store_provider::k_cash_pack_1_product_id;
+            shop_item_cell_data->product_name = "SMALL   CASH   PACK";
+            shop_item_cell_data->product_description = "WILL ADD 3000 $";
+            shop_item_cell_data->product_price = .99f;
+            shop_item_cell_data->is_bought = false;
+            shop_item_cell_data->is_restore = false;
+            data.push_back(shop_item_cell_data);
+            
+            shop_item_cell_data = std::make_shared<ui::shop_table_view_cell_data>();
+            shop_item_cell_data->id = store_provider::k_cash_pack_2_product_id;
+            shop_item_cell_data->product_name = "MEDIUM   CASH   PACK";
+            shop_item_cell_data->product_description = "WILL ADD 10000 $";
+            shop_item_cell_data->product_price = 2.99;
+            shop_item_cell_data->is_bought = false;
+            shop_item_cell_data->is_restore = false;
+            data.push_back(shop_item_cell_data);
+            
+            shop_item_cell_data = std::make_shared<ui::shop_table_view_cell_data>();
+            shop_item_cell_data->id = store_provider::k_cash_pack_3_product_id;
+            shop_item_cell_data->product_name = "BIG   CASH   PACK";
+            shop_item_cell_data->product_description = "WILL ADD 20000 $";
+            shop_item_cell_data->product_price = 4.99;
+            shop_item_cell_data->is_bought = false;
+            shop_item_cell_data->is_restore = false;
+            data.push_back(shop_item_cell_data);
+            
+            table_view->set_data_source(data);
+            table_view->set_on_get_cell_callback([=](i32 index, const gb::ui::table_view_cell_data_shared_ptr& data, const gb::ces_entity_shared_ptr& table_view) {
+                gb::ui::table_view_cell_shared_ptr cell = nullptr;
+                cell = std::static_pointer_cast<gb::ui::table_view>(table_view)->reuse_cell("shop_cell", index);
+                if(!cell)
+                {
+                    cell = gb::ces_entity::construct<ui::shop_table_view_cell>(std::static_pointer_cast<gb::ui::table_view>(table_view)->get_fabricator(),
+                                                                               index, "shop_cell");
+                    
+                    cell->create();
+                    cell->size = glm::vec2(256.f, 92.f);
+                    
+                    std::static_pointer_cast<ui::shop_table_view_cell>(cell)->set_buy_product_button_callback([=](i32 index) {
+                        auto data_source = std::static_pointer_cast<gb::ui::table_view>(table_view)->get_data_source();
+                        auto data = data_source.at(index);
+                        const auto product_item_data = std::static_pointer_cast<ui::shop_table_view_cell_data>(data);
+                        store_provider::shared_instance()->buy_no_ads_product();
+                        pop_current_dialog();
+                    });
+                }
+                
+                const auto product_item_data = std::static_pointer_cast<ui::shop_table_view_cell_data>(data);
+                std::string name = product_item_data->product_name;
+                std::static_pointer_cast<ui::shop_table_view_cell>(cell)->set_product_name(name);
+                std::string description = product_item_data->product_description;
+                std::static_pointer_cast<ui::shop_table_view_cell>(cell)->set_product_description(description);
+                f32 price = product_item_data->product_price;
+                std::static_pointer_cast<ui::shop_table_view_cell>(cell)->set_product_price(price);
+                bool is_bought = product_item_data->is_bought;
+                std::static_pointer_cast<ui::shop_table_view_cell>(cell)->set_is_bought(is_bought);
+                bool is_restore = product_item_data->is_restore;
+                std::static_pointer_cast<ui::shop_table_view_cell>(cell)->set_is_restore(is_restore);
+                
+                return cell;
+            });
+            table_view->set_on_get_table_cell_height_callback([](i32 index) {
+                return 96.f;
+            });
+            table_view->reload_data();
+            
+            const auto ok_button = std::static_pointer_cast<gb::ui::image_button>(std::static_pointer_cast<gb::ui::dialog>(dialog)->get_control(ces_ui_interaction_component::k_cash_shop_ok_button));
+            
+            if(ok_button && !ok_button->is_pressed_callback_exist())
+            {
+                ok_button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                    pop_current_dialog();
+                });
+            }
         }
     }
     

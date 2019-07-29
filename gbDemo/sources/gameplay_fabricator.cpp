@@ -63,6 +63,7 @@
 #include "ces_garage_database_component.h"
 #include "db_level_table.h"
 #include "ces_levels_database_component.h"
+#include "ces_camera_collision_component.h"
 
 namespace game
 {
@@ -491,6 +492,7 @@ namespace game
             custom_mesh_filename.append(".GB3DMESH");
             const auto building_object = general_fabricator->create_shape_3d("buildings_shared.xml", custom_mesh_filename);
             scene->add_child(building_object);
+            building_object->add_component<gb::ces_camera_collision_component>();
             building_object->position = glm::vec3(position.x, -.1f, position.y);
             building_object->rotation = glm::vec3(0.f, rotation, 0.f);
         }
@@ -601,21 +603,21 @@ namespace game
         
         const auto light_source_01 = m_general_fabricator.lock()->create_deferred_spot_light_3d("cone_light_source.xml");
         car->add_child(light_source_01);
-        light_source_01->color = glm::vec4(1.0, 1.0, 1.0, 1.0);
+        light_source_01->color = glm::vec4(0.0, 1.0, 0.0, 1.0);
         light_source_01->position = glm::vec3(.25f, .75f, .0f);
         light_source_01->rotation = glm::vec3(0.f, 10.f, 0.f);
         light_source_01->outer_cutoff_angle = glm::cos(glm::radians(15.f));
         light_source_01->inner_cutoff_angle = glm::cos(glm::radians(10.f));
-        light_source_01->scale = glm::vec3(5.f);
+        light_source_01->scale = glm::vec3(7.f, 7.f, 7.f);
 
         const auto light_source_02 = m_general_fabricator.lock()->create_deferred_spot_light_3d("cone_light_source.xml");
         car->add_child(light_source_02);
-        light_source_02->color = glm::vec4(1.0, 1.0, 1.0, 1.0);
+        light_source_02->color = glm::vec4(0.0, 0.0, 1.0, 1.0);
         light_source_02->position = glm::vec3(-.25f, .75f, .0f);
         light_source_02->rotation = glm::vec3(0.f, -10.f, 0.f);
         light_source_02->outer_cutoff_angle = glm::cos(glm::radians(15.f));
         light_source_02->inner_cutoff_angle = glm::cos(glm::radians(10.f));
-        light_source_02->scale = glm::vec3(5.f);
+        light_source_02->scale = glm::vec3(7.f, 7.f, 7.f);
         
         const auto light_rr = m_general_fabricator.lock()->create_deferred_point_light_3d("omni_light_source.xml");
         car_body->add_child(light_rr);
@@ -1056,7 +1058,7 @@ namespace game
         car->rotation = glm::vec3(0.f, glm::degrees(rotation), 0.f);
     }
     
-    void gameplay_fabricator::reconstruct_car_geometry(const gb::game_object_3d_shared_ptr& car, const std::string& filename)
+    void gameplay_fabricator::reconstruct_car_geometry(const gb::ces_entity_shared_ptr& car, const std::string& filename)
     {
         std::string configuration_filename = filename;
         configuration_filename.append("_configuration.xml");
@@ -1159,35 +1161,91 @@ namespace game
         car_parts_component->add_part(car_rr_wheel, ces_car_parts_component::parts::k_rr_tire);
     }
     
-    void gameplay_fabricator::reskin_car(const gb::game_object_3d_shared_ptr& car, const std::string& filename, ui32 skin_index)
+    void gameplay_fabricator::customize_car(const gb::ces_entity_shared_ptr& car, const std::shared_ptr<ces_garage_database_component::garage_dto::car_dto>& car_data)
     {
-        std::string configuration_filename = filename;
-        configuration_filename.append("_configuration.xml");
-        const auto car_configuration = std::static_pointer_cast<gb::car_configuration>(m_gameplay_configuration_accessor->get_car_configuration(configuration_filename));
+        i32 car_body_color_id = car_data->get_car_body_color_id();
+        i32 car_windshield_color_id = car_data->get_car_windows_color_id();
         
+        switch (car_body_color_id)
+        {
+            case 1:
+                paint_car_body(car, ces_car_model_component::k_car_color_1);
+                break;
+                
+            case 2:
+                paint_car_body(car, ces_car_model_component::k_car_color_2);
+                break;
+                
+            case 3:
+                paint_car_body(car, ces_car_model_component::k_car_color_3);
+                break;
+                
+            case 4:
+                paint_car_body(car, ces_car_model_component::k_car_color_4);
+                break;
+                
+            default:
+                
+                paint_car_body(car, ces_car_model_component::k_car_color_1);
+                break;
+        }
+        
+        switch (car_windshield_color_id)
+        {
+            case 1:
+                paint_car_windows(car, ces_car_model_component::k_car_color_1);
+                break;
+                
+            case 2:
+                paint_car_windows(car, ces_car_model_component::k_car_color_2);
+                break;
+                
+            case 3:
+                paint_car_windows(car, ces_car_model_component::k_car_color_3);
+                break;
+                
+            case 4:
+                paint_car_windows(car, ces_car_model_component::k_car_color_4);
+                break;
+                
+            default:
+                
+                paint_car_windows(car, ces_car_model_component::k_car_color_1);
+                break;
+        }
+    }
+    
+    void gameplay_fabricator::paint_car_body(const gb::ces_entity_shared_ptr& car, const glm::u8vec4& color)
+    {
         const auto car_parts_component = car->get_component<ces_car_parts_component>();
         const auto car_body = car_parts_component->get_part(ces_car_parts_component::parts::k_body);
-        const auto material_compomnent = car_body->get_component<gb::ces_material_component>();
-        
-        std::string skin_filename;
-        if (skin_index == 1)
+        const auto shader_uniforms_component = car_body->get_component<gb::ces_shader_uniforms_component>();
+        const auto uniforms = shader_uniforms_component->get_uniforms(gb::ces_shader_uniforms_component::e_shader_uniform_mode::e_fragment, "car_colorization", 0);
+        const auto uniforms_set = uniforms->get_uniforms();
+        const auto body_color_uniform_it = uniforms_set.find(car_colorization_shader_uniforms::k_body_color);
+        if (body_color_uniform_it != uniforms_set.end())
         {
-            skin_filename = car_configuration->get_skin_1_filename();
+            uniforms->set(glm::vec4(static_cast<f32>(color.x) / 255.f,
+                                    static_cast<f32>(color.y) / 255.f,
+                                    static_cast<f32>(color.z) / 255.f,
+                                    1.f), car_colorization_shader_uniforms::k_body_color);
         }
-        
-        if (skin_index == 2)
+    }
+    
+    void gameplay_fabricator::paint_car_windows(const gb::ces_entity_shared_ptr& car, const glm::u8vec4& color)
+    {
+        const auto car_parts_component = car->get_component<ces_car_parts_component>();
+        const auto car_body = car_parts_component->get_part(ces_car_parts_component::parts::k_body);
+        const auto shader_uniforms_component = car_body->get_component<gb::ces_shader_uniforms_component>();
+        const auto uniforms = shader_uniforms_component->get_uniforms(gb::ces_shader_uniforms_component::e_shader_uniform_mode::e_fragment, "car_colorization", 0);
+        const auto uniforms_set = uniforms->get_uniforms();
+        const auto body_color_uniform_it = uniforms_set.find(car_colorization_shader_uniforms::k_windows_color);
+        if (body_color_uniform_it != uniforms_set.end())
         {
-            skin_filename = car_configuration->get_skin_2_filename();
+            uniforms->set(glm::vec4(static_cast<f32>(color.x) / 255.f,
+                                    static_cast<f32>(color.y) / 255.f,
+                                    static_cast<f32>(color.z) / 255.f,
+                                    1.f), car_colorization_shader_uniforms::k_windows_color);
         }
-        
-        if (skin_index == 3)
-        {
-            skin_filename = car_configuration->get_skin_3_filename();
-        }
-        
-        const auto general_fabricator = m_general_fabricator.lock();
-        const auto resource_accessor = general_fabricator->get_resource_accessor();
-        auto texture = resource_accessor->get_resource<gb::texture, gb::texture_loading_operation>(skin_filename, true);
-        material_compomnent->set_texture(texture, gb::e_shader_sampler::e_shader_sampler_01);
     }
 }

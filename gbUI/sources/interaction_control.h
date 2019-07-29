@@ -50,6 +50,8 @@ namespace gb
 			void set_on_drag_started_callback(const t_on_drag_started_callback& callback);
 			void set_on_dragging_callback(const t_on_dragging_callback& callback);
 			void set_on_drag_ended_callback(const t_on_drag_started_callback& callback);
+            
+            virtual void disable(bool value) override;
 		};
 	};
 };

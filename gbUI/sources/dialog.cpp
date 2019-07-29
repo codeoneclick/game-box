@@ -39,7 +39,7 @@ namespace gb
             dialog::add_child(title_background);
             
             gb::label_shared_ptr label = control::get_fabricator()->create_label_2d("button_label.xml");
-            label->font_size = 48.f;
+            label->font_size = 32.f;
             label->text = "LABEL";
             label->font_color = k_white_color;
             m_elements[k_label_element_name] = label;
@@ -97,8 +97,8 @@ namespace gb
                 get_element_as<gb::game_object_2d>("title_background")->size = glm::vec2(m_bounds.z - m_bounds.x + 32.f, 48.f);
                 
                 size = glm::vec2(m_bounds.z - m_bounds.x + 32.f, m_bounds.w - m_bounds.y + 32.f);
-                std::static_pointer_cast<gb::label>(m_elements[k_label_element_name])->position = glm::vec2(0.f, m_bounds.y - 48.f);
-                std::static_pointer_cast<gb::label>(m_elements[k_label_element_name])->size = glm::vec2(m_bounds.z - m_bounds.x + 32.f, 48.f);
+                std::static_pointer_cast<gb::label>(m_elements[k_label_element_name])->position = glm::vec2(0.f, m_bounds.y - 56.f);
+                std::static_pointer_cast<gb::label>(m_elements[k_label_element_name])->size = glm::vec2(m_bounds.z - m_bounds.x + 32.f, 32.f);
                 control::set_element_horizontal_aligment(m_elements[k_label_element_name], e_element_horizontal_aligment_left);
             }
             else

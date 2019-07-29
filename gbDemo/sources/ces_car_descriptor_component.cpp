@@ -10,6 +10,25 @@
 
 namespace game
 {
+    
+    bool ces_car_descriptor_component::car_upgrade::is_equal(const std::shared_ptr<car_upgrade>& other)
+    {
+        return m_car_body_color_id == other->m_car_body_color_id &&
+        m_car_windshield_color_id == other->m_car_windshield_color_id &&
+        m_car_speed_upgrade_value == other->m_car_speed_upgrade_value &&
+        m_car_handling_upgrade_value == other->m_car_handling_upgrade_value &&
+        m_car_rigidity_upgrade_value == other->m_car_rigidity_upgrade_value;
+    }
+    
+    void ces_car_descriptor_component::car_upgrade::apply(const std::shared_ptr<car_upgrade>& other)
+    {
+        m_car_body_color_id = other->m_car_body_color_id;
+        m_car_windshield_color_id = other->m_car_windshield_color_id;
+        m_car_speed_upgrade_value = other->m_car_speed_upgrade_value;
+        m_car_handling_upgrade_value = other->m_car_handling_upgrade_value;
+        m_car_rigidity_upgrade_value = other->m_car_rigidity_upgrade_value;
+    }
+    
     ces_car_descriptor_component::ces_car_descriptor_component()
     {
         position_wc.getter([=]() {
@@ -171,5 +190,15 @@ namespace game
         motion_blur_effect_power.setter([=](f32 value) {
             m_motion_blur_effect_power = value;
         });
+    }
+    
+    std::shared_ptr<ces_car_descriptor_component::car_upgrade> ces_car_descriptor_component::get_car_upgrade() const
+    {
+        return m_car_upgrade;
+    }
+    
+    std::shared_ptr<ces_car_descriptor_component::car_upgrade> ces_car_descriptor_component::get_car_upgrade_cache() const
+    {
+        return m_car_upgrade_cache;
     }
 }

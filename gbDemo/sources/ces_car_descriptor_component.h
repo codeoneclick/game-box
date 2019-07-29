@@ -16,6 +16,20 @@ namespace game
 {
     class ces_car_descriptor_component : public gb::ces_base_component
     {
+    public:
+        
+        struct car_upgrade
+        {
+            i32 m_car_body_color_id = 1;
+            i32 m_car_windshield_color_id = 1;
+            f32 m_car_speed_upgrade_value = 0.f;
+            f32 m_car_handling_upgrade_value = 0.f;
+            f32 m_car_rigidity_upgrade_value = 0.f;
+            
+            bool is_equal(const std::shared_ptr<car_upgrade>& other);
+            void apply(const std::shared_ptr<car_upgrade>& other);
+        };
+        
     private:
     
         glm::vec2 m_position_wc = glm::vec2(0.f);
@@ -49,6 +63,9 @@ namespace game
         std::string m_racer_name = "";
         
         f32 m_motion_blur_effect_power = 0.f;
+        
+        std::shared_ptr<car_upgrade> m_car_upgrade = std::make_shared<car_upgrade>();
+        std::shared_ptr<car_upgrade> m_car_upgrade_cache = std::make_shared<car_upgrade>();
         
     protected:
         
@@ -89,6 +106,9 @@ namespace game
         std::property_rw<f32> current_damage;
         
         std::property_rw<f32> motion_blur_effect_power;
+        
+        std::shared_ptr<car_upgrade> get_car_upgrade() const;
+        std::shared_ptr<car_upgrade> get_car_upgrade_cache() const;
     };
 };
 

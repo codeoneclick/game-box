@@ -16,10 +16,10 @@
 
 namespace gb
 {
-    static const f32 k_font_csf = 3.f;
+    static const f32 k_font_csf = 1.f;
     static const f32 k_font_invert_csf = 1.f / k_font_csf;
     static const i32 k_font_max_size = 32;
-    static const i32 k_font_default_size = 24;
+    static const i32 k_font_default_size = 8;
     static const i32 k_font_atlas_size = 1024;
     static const i32 k_max_symbols = 256;
     static const i32 k_max_num_vertices = k_max_symbols * 4;
@@ -112,10 +112,10 @@ namespace gb
                 x0 += glyph->offset_x * k_font_invert_csf;
                 x1 += glyph->offset_x * k_font_invert_csf;
                 
-                vertices[vertices_offset++].m_position = glm::vec3(x0, y0 + m_font_size * .75f, 0.f);
-                vertices[vertices_offset++].m_position = glm::vec3(x0, y1 + m_font_size * .75f, 0.f);
-                vertices[vertices_offset++].m_position = glm::vec3(x1, y1 + m_font_size * .75f, 0.f);
-                vertices[vertices_offset++].m_position = glm::vec3(x1, y0 + m_font_size * .75f, 0.f);
+                vertices[vertices_offset++].m_position = glm::vec3(x0, y0 + m_font_size, 0.f);
+                vertices[vertices_offset++].m_position = glm::vec3(x0, y1 + m_font_size, 0.f);
+                vertices[vertices_offset++].m_position = glm::vec3(x1, y1 + m_font_size, 0.f);
+                vertices[vertices_offset++].m_position = glm::vec3(x1, y0 + m_font_size, 0.f);
                 
                 vertices_offset -= 4;
                 
@@ -162,10 +162,16 @@ namespace gb
         {
             ftgl::texture_atlas_t* atlas = ftgl::texture_atlas_new(k_font_atlas_size, k_font_atlas_size, 1);
             font = texture_font_new_from_file(atlas, m_font_size * k_font_csf, bundlepath().append(m_font_name).c_str());
+           
             if (m_font_mode == e_font_mode_edge)
             {
                 font->rendermode = ftgl::RENDER_OUTLINE_EDGE;
-                font->outline_thickness = 2;
+                font->outline_thickness = 1.f;
+            }
+            else
+            {
+                font->rendermode = ftgl::RENDER_OUTLINE_POSITIVE;
+                font->outline_thickness = .5f;
             }
             texture_font_load_glyphs(font, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!№;%:?*()_+-=.,/|\\\"'@#$^&{}[]");
             
@@ -264,5 +270,10 @@ namespace gb
     ces_font_component::e_font_mode ces_font_component::get_font_mode() const
     {
         return m_font_mode;
+    }
+    
+    void ces_font_component::set_font_name(const std::string& font_name)
+    {
+        m_font_name = font_name;
     }
 }

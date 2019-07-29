@@ -198,6 +198,7 @@ namespace gb
         
         auto bound_touch_component = entity->get_component<ces_bound_touch_component>();
         if (bound_touch_component &&
+            !bound_touch_component->is_disabled() &&
             !intersected_entity &&
             bound_touch_component->is_respond_to(std::get<1>(touch_event), std::get<0>(touch_event)) &&
             entity->visible)

@@ -33,8 +33,14 @@ namespace game
                 
                 i32 m_id;
                 i32 m_garage_id;
-                bool m_is_openned;
-                i32 m_car_skin_id;
+                i32 m_is_openned;
+                i32 m_is_bought;
+                i32 m_price;
+                i32 m_car_body_color_id;
+                i32 m_car_windows_color_id;
+                i32 m_car_speed_upgrade;
+                i32 m_car_handling_upgrade;
+                i32 m_car_rigidity_upgrade;
                 
             protected:
                 
@@ -44,7 +50,14 @@ namespace game
                 ~car_dto() = default;
                 
                 i32 get_id() const;
-                i32 get_skin_id() const;
+                bool get_is_openned() const;
+                bool get_is_bought() const;
+                i32 get_price() const;
+                i32 get_car_body_color_id() const;
+                i32 get_car_windows_color_id() const;
+                f32 get_car_speed_upgrade() const;
+                f32 get_car_handling_upgrade() const;
+                f32 get_car_rigidity_upgrade() const;
             };
             
         private:
@@ -98,6 +111,8 @@ namespace game
         void open_car(i32 garage_id, i32 car_id);
         void close_car(i32 garage_id, i32 car_id);
         bool is_car_oppenned(i32 garage_id, i32 car_id) const;
+        
+        void buy_car(i32 garage_id, i32 car_id);
         
         i32 get_car_unlocked_rank(i32 car_id) const;
         

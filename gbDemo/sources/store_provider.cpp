@@ -140,6 +140,11 @@ static NSString* k_no_ads_product_id = @"com.drift.hyper.no_ads";
 
 namespace game
 {
+    const i32 store_provider::k_no_ads_product_id = 1;
+    const i32 store_provider::k_cash_pack_1_product_id = 2;
+    const i32 store_provider::k_cash_pack_2_product_id = 3;
+    const i32 store_provider::k_cash_pack_3_product_id = 4;
+    
     std::shared_ptr<store_provider> store_provider::m_instance = nullptr;
     
     store_provider::store_provider()

@@ -163,7 +163,7 @@ namespace game
         selected_car_configuration_filename<<"car_0";
         selected_car_configuration_filename<<selected_car->get_id();
         const auto car = m_gameplay_fabricator->create_ai_car(selected_car_configuration_filename.str());
-        m_gameplay_fabricator->reskin_car(car, selected_car_configuration_filename.str(), selected_car->get_skin_id());
+        m_gameplay_fabricator->customize_car(car, selected_car);
         m_gameplay_fabricator->place_car_on_level(level, car, 0);
         car->add_component(std::make_shared<ces_car_camera_follow_component>());
         add_child(car);

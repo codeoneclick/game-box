@@ -11,6 +11,7 @@
 #include "main_headers.h"
 #include "declarations.h"
 #include "ns_declarations.h"
+#include "ces_ui_interaction_component.h"
 
 namespace game
 {
@@ -19,15 +20,31 @@ namespace game
     public:
         
         static const glm::vec2   k_image_button_size;
-        static const glm::u8vec4 k_font_color;
-        static const glm::u8vec4 k_image_button_color;
-        static const glm::u8vec4 k_image_button_background_color;
-        static const glm::u8vec4 k_image_button_foreground_color;
+        static const glm::vec2   k_label_size;
+        static const glm::vec2   k_progress_bar_size;
+        
+        static const glm::u8vec4 k_control_image_color;
+        static const glm::u8vec4 k_control_text_color;
         static const glm::u8vec4 k_control_background_color;
         static const glm::u8vec4 k_control_foreground_color;
+        static const glm::u8vec4 k_control_image_disabled_color;
+        static const glm::u8vec4 k_control_text_disabled_color;
+        static const glm::u8vec4 k_control_background_disabled_color;
+        static const glm::u8vec4 k_control_foreground_disabled_color;
+        static const glm::u8vec4 k_control_image_focused_color;
+        static const glm::u8vec4 k_control_text_focused_color;
+        static const glm::u8vec4 k_control_background_focused_color;
+        static const glm::u8vec4 k_control_foreground_focused_color;
+        
         static const glm::u8vec4 k_control_transparent_color;
         
+        
     private:
+        
+        static void colorize_ui_control(const gb::ui::textfield_shared_ptr& control);
+        static void colorize_ui_control(const gb::ui::image_button_shared_ptr& control);
+        static void colorize_ui_control(const gb::ui::button_shared_ptr& control);
+        static void add_ui_interaction_component(const gb::ces_entity_shared_ptr& control, ces_ui_interaction_component::e_ui ui);
         
     protected:
         
@@ -44,7 +61,7 @@ namespace game
         
         glm::ivec2 get_screen_size() const;
         
-        gb::game_object_2d_shared_ptr create_open_levels_list_dialog_button(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_career_button(const std::string& filename);
         gb::game_object_2d_shared_ptr create_open_garage_button(const std::string& filename);
         gb::game_object_2d_shared_ptr create_back_from_garage_button(const std::string& filename);
         gb::game_object_2d_shared_ptr create_next_car_in_garage_button(const std::string& filename);
@@ -76,6 +93,8 @@ namespace game
         gb::game_object_2d_shared_ptr create_loose_dialog(const std::string& filename);
         gb::game_object_2d_shared_ptr create_select_car_button(const std::string& filename);
         gb::game_object_2d_shared_ptr create_unlock_car_button(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_buy_car_button(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_buy_car_label(const std::string& filename);
         gb::game_object_2d_shared_ptr create_stars_progress_label(const std::string& filename);
         gb::game_object_2d_shared_ptr create_stars_progress_bar(const std::string& filename);
         gb::game_object_2d_shared_ptr create_stars_progress_info_label(const std::string& filename);
@@ -86,6 +105,7 @@ namespace game
         gb::game_object_2d_shared_ptr create_full_tickets_dialog(const std::string& filename);
         gb::game_object_2d_shared_ptr create_not_enough_tickets_dialog(const std::string& filename);
         gb::game_object_2d_shared_ptr create_shop_dialog(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_cash_shop_dialog(const std::string& filename);
         gb::game_object_2d_shared_ptr create_screen_overlay(const std::string& filename);
         
 #if defined(__FACEBOOK_LOGIN__)
@@ -116,11 +136,33 @@ namespace game
         
         gb::game_object_2d_shared_ptr create_garage_preview_mode_button(const std::string& filename);
         
-        gb::game_object_2d_shared_ptr create_apply_color_1_button(const std::string& filename);
-        gb::game_object_2d_shared_ptr create_apply_color_2_button(const std::string& filename);
-        gb::game_object_2d_shared_ptr create_apply_color_3_button(const std::string& filename);
-        gb::game_object_2d_shared_ptr create_apply_color_4_button(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_apply_body_color_1_button(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_apply_body_color_2_button(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_apply_body_color_3_button(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_apply_body_color_4_button(const std::string& filename);
         
+        gb::game_object_2d_shared_ptr create_apply_windows_color_1_button(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_apply_windows_color_2_button(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_apply_windows_color_3_button(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_apply_windows_color_4_button(const std::string& filename);
+        
+        gb::game_object_2d_shared_ptr create_cash_label(const std::string& filename);
+        
+        gb::game_object_2d_shared_ptr create_body_paint_label(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_windshield_paint_label(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_performance_label(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_upgrade_speed_label(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_upgrade_speed_progress_bar(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_upgrade_speed_plus_button(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_upgrade_handling_label(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_upgrade_handling_progress_bar(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_upgrade_handling_plus_button(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_upgrade_rigidity_label(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_upgrade_rigidity_progress_bar(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_upgrade_rigidity_plus_button(const std::string& filename);
+        
+        gb::game_object_2d_shared_ptr create_buy_upgrade_button(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_buy_upgrade_label(const std::string& filename);
     };
 };
 

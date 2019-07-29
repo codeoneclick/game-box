@@ -39,6 +39,9 @@ namespace gb
             
             bool insert(const std::string& command, const char* data, i32 size, i32 index, const std::string& operation_name = "");
             bool remove(const std::string& command);
+            
+            bool is_column_exist(const std::string& table_name, const std::string& column_name);
+            bool add_new_column(const std::string& table_name, const std::string& column_name);
         };
     };
 };

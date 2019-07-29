@@ -219,7 +219,7 @@ namespace game
             {
                 current_slow_motion_power = distance / distance_to_activate_motion_trigger;
                 auto current_box2d_update_interval = root->get_component<gb::ces_box2d_world_component>()->get_update_interval();
-                current_box2d_update_interval = glm::mix(current_box2d_update_interval, glm::mix(glm::mix(.33f, .66f, complexity), 1.f, current_slow_motion_power), .1f);
+                current_box2d_update_interval = glm::mix(current_box2d_update_interval, glm::mix(glm::mix(.75f, .9f, complexity), 1.f, current_slow_motion_power), .1f);
                 root->get_component<gb::ces_box2d_world_component>()->set_update_interval(current_box2d_update_interval);
             }
             else

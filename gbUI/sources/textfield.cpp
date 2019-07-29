@@ -144,14 +144,20 @@ namespace gb
             m_vertical_aligment = aligment;
         }
         
-        void textfield::set_font_color(const glm::u8vec4& color)
+        void textfield::set_text_color(const glm::u8vec4& color, e_control_state state)
         {
             control::set_color(k_label_element_name, color);
+            m_text_color[static_cast<i32>(state)] = color;
         }
         
         void textfield::set_font_size(const f32 font_size)
         {
             std::static_pointer_cast<gb::label>(m_elements[k_label_element_name])->font_size = font_size;
+        }
+        
+        void textfield::set_font_name(const std::string& font_name)
+        {
+            std::static_pointer_cast<gb::label>(m_elements[k_label_element_name])->font_name = font_name;
         }
         
         void textfield::on_focus_changed(bool value)
@@ -223,12 +229,13 @@ namespace gb
         
         void textfield::set_font_mode(ces_font_component::e_font_mode font_mode)
         {
-             std::static_pointer_cast<gb::label>(m_elements[k_label_element_name])->font_mode = font_mode;
+            std::static_pointer_cast<gb::label>(m_elements[k_label_element_name])->font_mode = font_mode;
         }
         
-        void textfield::set_foreground_color(const glm::u8vec4& color)
+        void textfield::set_foreground_color(const glm::u8vec4& color, e_control_state state)
         {
-              control::set_color(k_foreground_element_name, color);
+            control::set_color(k_foreground_element_name, color);
+            m_foreground_color[static_cast<i32>(state)] = color;
         }
     }
 }

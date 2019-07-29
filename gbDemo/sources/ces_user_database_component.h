@@ -34,6 +34,7 @@ namespace game
             
             i32 m_id;
             i32 m_tickets = 0;
+            i32 m_cash = 0;
             i32 m_last_ticket_dec_timestamp = 0;
             i32 m_rank = 1;
             i32 m_claimed_rank = 1;
@@ -60,6 +61,8 @@ namespace game
             i32 get_collected_stars() const;
             
             i32 get_is_purchased_no_ads() const;
+            
+            i32 get_cash() const;
         };
         
     private:
@@ -76,6 +79,9 @@ namespace game
 #endif
         i32 m_user_start_level_with_rank = 0;
         i32 m_max_rank = 0;
+        
+        i32 m_cash_per_level = 1000.f;
+        i32 m_cash_per_drift_seconds = 10.f;
         
         std::unordered_map<ui32, std::shared_ptr<gb::car_progression_configuration>> m_cars_progression_configurations;
         
@@ -94,6 +100,8 @@ namespace game
         std::shared_ptr<user_dto> get_user(i32 user_id);
         
         i32 get_tickets(i32 user_id);
+        
+        i32 get_cash(i32 user_id);
         
         i32 get_last_ticket_dec_timestamp(i32 user_id);
         i32 get_max_time_interval_for_ticket_generation() const;
@@ -121,6 +129,12 @@ namespace game
         
         bool get_is_purchased_no_ads(i32 user_id) const;
         void set_is_purchased_no_ads(i32 user_id, bool value) const;
+        
+        i32 get_cash_per_level() const;
+        i32 get_cash_per_drift_seconds() const;
+        
+        void inc_cash(i32 user_id, i32 value);
+        void dec_cash(i32 user_id, i32 value);
     };
 };
 

@@ -43,6 +43,9 @@ namespace gb
             virtual bool load_from_db_with_custom_predicate(const std::string& predicate, const read_data_callback_t& callback);
             virtual bool load_from_db_with_custom_predicate(const std::string& predicate, const read_record_callback_t& callback);
             virtual bool delete_from_db(i32 id);
+            
+            bool is_column_exist(const std::string& column_name);
+            bool add_new_column(const std::string& column_name);
         };
     };
 };

@@ -27,6 +27,7 @@ namespace game
             e_ui_back_from_garage_button,
             e_ui_levels_list_dialog,
             e_ui_shop_dialog,
+            e_ui_cash_shop_dialog,
             e_ui_cars_list_dialog,
             e_ui_scores_label,
             e_ui_countdown_label,
@@ -68,10 +69,32 @@ namespace game
             e_ui_back_from_garage_label,
             e_ui_shop_label,
             e_ui_garage_preview_button,
-            e_ui_apply_color_1_button,
-            e_ui_apply_color_2_button,
-            e_ui_apply_color_3_button,
-            e_ui_apply_color_4_button,
+            e_ui_apply_body_color_1_button,
+            e_ui_apply_body_color_2_button,
+            e_ui_apply_body_color_3_button,
+            e_ui_apply_body_color_4_button,
+            e_ui_apply_windows_color_1_button,
+            e_ui_apply_windows_color_2_button,
+            e_ui_apply_windows_color_3_button,
+            e_ui_apply_windows_color_4_button,
+            e_ui_cash_label,
+            e_ui_cash_plus_button,
+            e_ui_body_paint_label,
+            e_ui_windshield_paint_label,
+            e_ui_performance_label,
+            e_ui_upgrade_speed_label,
+            e_ui_upgrade_speed_progress_bar,
+            e_ui_upgrade_speed_plus_button,
+            e_ui_upgrade_handling_label,
+            e_ui_upgrade_handling_progress_bar,
+            e_ui_upgrade_handling_plus_button,
+            e_ui_upgrade_rigidity_label,
+            e_ui_upgrade_rigidity_progress_bar,
+            e_ui_upgrade_rigidity_plus_button,
+            e_ui_buy_upgrade_button,
+            e_ui_buy_upgrade_label,
+            e_ui_buy_car_button,
+            e_ui_buy_car_label,
             e_ui_max
         };
         
@@ -94,6 +117,7 @@ namespace game
         static const i32 k_end_game_dialog_star1_image;
         static const i32 k_end_game_dialog_star2_image;
         static const i32 k_end_game_dialog_star3_image;
+        static const i32 k_win_dialog_cash_label;
         static const i32 k_win_dialog_star1_achievement_label;
         static const i32 k_win_dialog_star2_achievement_label;
         static const i32 k_win_dialog_star3_achievement_label;
@@ -108,6 +132,8 @@ namespace game
         static const i32 k_shop_dialog_table_view;
         static const i32 k_car_unlock_dialog_label;
         static const i32 k_car_unlock_dialog_ok_button;
+        static const i32 k_cash_shop_dialog_table_view;
+        static const i32 k_cash_shop_ok_button;
         
         static std::array<glm::vec2, static_cast<i32>(e_ui::e_ui_max)> k_controls_position;
         

@@ -44,6 +44,12 @@ namespace game
         return m_tickets;
     }
     
+    
+    i32 ces_user_database_component::user_dto::get_cash() const
+    {
+        return m_cash;
+    }
+    
     i32 ces_user_database_component::user_dto::get_last_ticket_dec_timestamp() const
     {
         return m_last_ticket_dec_timestamp;
@@ -83,6 +89,7 @@ namespace game
             data.m_last_ticket_dec_timestamp = 0;
             data.m_stars_collected = 0;
             data.m_is_purchased_no_ads = 0;
+            data.m_cash = 0;
             user_record->save_to_db();
         }
     }
@@ -100,6 +107,7 @@ namespace game
             user_dto = std::make_shared<ces_user_database_component::user_dto>(m_database_coordinator.lock());
             user_dto->m_id = user_record->get_data().m_id;
             user_dto->m_tickets = user_record->get_data().m_tickets;
+            user_dto->m_cash = user_record->get_data().m_cash;
             user_dto->m_rank = user_record->get_data().m_rank;
             user_dto->m_claimed_rank = user_record->get_data().m_claimed_rank;
             user_dto->m_stars_collected = user_record->get_data().m_stars_collected;
@@ -117,6 +125,17 @@ namespace game
         if (user)
         {
             result = user->get_tickets();
+        }
+        return result;
+    }
+    
+    i32 ces_user_database_component::get_cash(i32 user_id)
+    {
+        i32 result = 0;
+        const auto user = get_user(user_id);
+        if (user)
+        {
+            result = user->get_cash();
         }
         return result;
     }
@@ -395,5 +414,47 @@ namespace game
             data.m_is_purchased_no_ads = value ? 1 : 0;
             user_record->save_to_db();
         }
+    }
+    
+    void ces_user_database_component::inc_cash(i32 user_id, i32 value)
+    {
+        auto user_record = std::make_shared<gb::db::database_entity<db_user_table, db_user_data>>(m_database_coordinator.lock());
+        if(!user_record->load_from_db(user_id))
+        {
+            assert(false);
+        }s
+        else
+        {
+            auto& data = user_record->get_data();
+            data.m_cash += value;
+            user_record->save_to_db();
+        }
+    }
+    
+    void ces_user_database_component::dec_cash(i32 user_id, i32 value)
+    {
+        auto user_record = std::make_shared<gb::db::database_entity<db_user_table, db_user_data>>(m_database_coordinator.lock());
+        if(!user_record->load_from_db(user_id))
+        {
+            assert(false);
+        }
+        else
+        {
+            auto& data = user_record->get_data();
+            i32 current_cash = data.m_cash - value;
+            current_cash = std::max(0, current_cash);
+            data.m_cash = current_cash;
+            user_record->save_to_db();
+        }
+    }
+    
+    i32 ces_user_database_component::get_cash_per_level() const
+    {
+        return m_cash_per_level;
+    }
+    
+    i32 ces_user_database_component::get_cash_per_drift_seconds() const
+    {
+        return m_cash_per_drift_seconds;
     }
 }

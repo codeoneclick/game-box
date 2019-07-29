@@ -106,9 +106,9 @@ namespace game
             buy_product_button->create("ui_cart.png");
             buy_product_button->size = glm::vec2(32.f, 32.f);
             buy_product_button->position = glm::vec2(220.f, 54.f);
-            buy_product_button->set_image_color(gameplay_ui_fabricator::k_image_button_color);
-            buy_product_button->set_background_color(gameplay_ui_fabricator::k_image_button_background_color);
-            buy_product_button->set_foreground_color(gameplay_ui_fabricator::k_image_button_foreground_color);
+            buy_product_button->set_image_color(gameplay_ui_fabricator::k_control_image_color);
+            buy_product_button->set_background_color(gameplay_ui_fabricator::k_control_background_color);
+            buy_product_button->set_foreground_color(gameplay_ui_fabricator::k_control_foreground_color);
             m_elements[k_buy_product_button_id] = buy_product_button;
             add_child(buy_product_button);
             
@@ -117,8 +117,8 @@ namespace game
             restore_products_button->size = glm::vec2(128.f, 32.f);
             restore_products_button->position = glm::vec2(124.f, 54.f);
             restore_products_button->set_text("RESTORE");
-            restore_products_button->set_text_color(gameplay_ui_fabricator::k_font_color);
-            restore_products_button->set_background_color(gameplay_ui_fabricator::k_image_button_background_color);
+            restore_products_button->set_text_color(gameplay_ui_fabricator::k_control_text_color);
+            restore_products_button->set_background_color(gameplay_ui_fabricator::k_control_background_color);
             restore_products_button->visible = false;
             m_elements[k_restore_products_button_id] = restore_products_button;
             add_child(restore_products_button);
@@ -129,7 +129,7 @@ namespace game
             product_name_label->set_text("PRODUCT");
             product_name_label->set_font_mode(gb::ces_font_component::e_font_mode_regular);
             product_name_label->position = glm::vec2(8.f, 8.f);
-            product_name_label->set_font_color(gameplay_ui_fabricator::k_font_color);
+            product_name_label->set_text_color(gameplay_ui_fabricator::k_control_text_color);
             product_name_label->set_text_horizontal_aligment(gb::ui::e_element_horizontal_aligment::e_element_horizontal_aligment_left);
             product_name_label->set_visible_edges(false);
             m_elements[k_product_name_label_id] = product_name_label;
@@ -140,8 +140,9 @@ namespace game
             product_description_label->size = glm::vec2(225.f, 24.f);
             product_description_label->set_text("DESCRIPTION");
             product_description_label->set_font_mode(gb::ces_font_component::e_font_mode_regular);
+            product_description_label->set_font_name("spincycle.otf");
             product_description_label->position = glm::vec2(8.f, 40.f);
-            product_description_label->set_font_color(gameplay_ui_fabricator::k_font_color);
+            product_description_label->set_text_color(gameplay_ui_fabricator::k_control_text_color);
             product_description_label->set_font_size(18.f);
             product_description_label->set_multiline(true);
             product_description_label->set_visible_edges(false);
@@ -153,8 +154,9 @@ namespace game
             product_price_label->size = glm::vec2(24.f, 24.f);
             product_price_label->set_text("0.99$");
             product_price_label->set_font_mode(gb::ces_font_component::e_font_mode_edge);
+            product_price_label->set_font_name("spincycle.otf");
             product_price_label->position = glm::vec2(180.f, 60.f);
-            product_price_label->set_font_color(gameplay_ui_fabricator::k_font_color);
+            product_price_label->set_text_color(gameplay_ui_fabricator::k_control_text_color);
             product_price_label->set_visible_edges(false);
             m_elements[k_product_price_label_id] = product_price_label;
             add_child(product_price_label);
@@ -209,7 +211,6 @@ namespace game
         {
             const auto product_description_label = get_element_as<gb::ui::textfield>(k_product_description_label_id);
             product_description_label->set_text(value);
-            product_description_label->set_font_size(10.f);
         }
         
         void shop_table_view_cell::set_product_price(f32 value)

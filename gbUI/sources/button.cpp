@@ -26,6 +26,8 @@ namespace gb
         const std::string button::k_pressed_state = "pressed";
         const std::string button::k_released_state = "released";
         
+        std::string button::k_foreground_element_name = "foreground_element";
+        
         void i_button_callbacks::set_on_pressed_callback(const t_on_pressed_callback& callback)
         {
             m_on_pressed_callback = callback;
@@ -40,8 +42,7 @@ namespace gb
         gb::ui::interaction_control(fabricator),
         m_is_selected(false),
         m_horizontal_aligment(e_element_horizontal_aligment_center),
-        m_vertical_aligment(e_element_vertical_aligment_center),
-        m_background_color(control::k_dark_gray_color)
+        m_vertical_aligment(e_element_vertical_aligment_center)
         {
             ces_entity::add_deferred_component_constructor<ces_bound_touch_2d_component>();
             
@@ -51,7 +52,11 @@ namespace gb
 				interaction_control::on_touch_size_changed(m_size);
 
                 std::static_pointer_cast<gb::sprite>(m_elements[k_background_element_name])->size = size;
+                std::static_pointer_cast<gb::sprite>(m_elements[k_foreground_element_name])->size = size * .9f;
                 std::static_pointer_cast<gb::label>(m_elements[k_label_element_name])->font_size = size.y * .75f;
+                
+                control::set_element_horizontal_aligment(m_elements[k_foreground_element_name], m_horizontal_aligment);
+                control::set_element_vertical_aligment(m_elements[k_foreground_element_name], m_vertical_aligment);
                 
                 control::set_element_horizontal_aligment(m_elements[k_label_element_name], m_horizontal_aligment);
                 control::set_element_vertical_aligment(m_elements[k_label_element_name], m_vertical_aligment);
@@ -74,11 +79,13 @@ namespace gb
             m_elements[k_background_element_name] = button_background;
             button::add_child(button_background);
             
+            const auto button_foreground = control::get_fabricator()->create_sprite("button_background.xml");
+            m_elements[k_foreground_element_name] = button_foreground;
+            add_child(button_foreground);
+            
             gb::label_shared_ptr button_label = control::get_fabricator()->create_label_2d("button_label.xml");
             m_elements[k_label_element_name] = button_label;
             button::add_child(button_label);
-            
-            m_label_color = k_white_color;
             
             button::set_is_selected(false);
             
@@ -139,13 +146,13 @@ namespace gb
                                                  mat_m);
             glm::vec4 bound = glm::vec4(min_bound.x, min_bound.y, max_bound.x, max_bound.y);
             
-            if(!glm::intersect(bound, touch_point))
+            if (!glm::intersect(bound, touch_point))
             {
                 control::set_color(k_background_element_name, glm::u8vec4(255, 0, 0, 255));
             }
 			else 
 			{
-				control::set_color(k_background_element_name, m_is_selected ? control::k_light_gray_color : m_background_color);
+                set_is_selected(m_is_selected);
 			}
         }
         
@@ -167,8 +174,9 @@ namespace gb
         void button::set_is_selected(bool value)
         {
             m_is_selected = value;
-            control::set_color(k_background_element_name, m_is_selected ? control::k_light_gray_color : m_background_color);
-            control::set_color(k_label_element_name, m_is_selected ? control::k_black_color : m_label_color);
+            set_color(k_background_element_name, m_is_selected ? m_background_color[static_cast<i32>(e_control_state::e_selected)] : m_background_color[static_cast<i32>(e_control_state::e_none)]);
+            set_color(k_foreground_element_name, m_is_selected ? m_foreground_color[static_cast<i32>(e_control_state::e_selected)] : m_foreground_color[static_cast<i32>(e_control_state::e_none)]);
+            set_color(k_label_element_name, m_is_selected ? m_text_color[static_cast<i32>(e_control_state::e_selected)] : m_text_color[static_cast<i32>(e_control_state::e_none)]);
         }
         
         void button::set_text_horizontal_aligment(e_element_horizontal_aligment aligment)
@@ -183,16 +191,21 @@ namespace gb
             m_vertical_aligment = aligment;
         }
         
-        void button::set_background_color(const glm::u8vec4& color)
+        void button::set_foreground_color(const glm::u8vec4& color, e_control_state state)
         {
-            m_background_color = color;
-            control::set_background_color(color);
+            control::set_color(k_foreground_element_name, color);
+            m_foreground_color[static_cast<i32>(state)] = color;
         }
         
-        void button::set_text_color(const glm::u8vec4& color)
+        void button::set_text_color(const glm::u8vec4& color, e_control_state state)
         {
-            m_label_color = color;
-            control::set_color(k_label_element_name, m_label_color);
+            control::set_color(k_label_element_name, color);
+            m_text_color[static_cast<i32>(state)] = color;
+        }
+        
+        void button::set_font_size(const f32 font_size)
+        {
+            std::static_pointer_cast<gb::label>(m_elements[k_label_element_name])->font_size = font_size;
         }
     }
 }

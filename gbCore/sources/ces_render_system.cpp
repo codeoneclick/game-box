@@ -41,6 +41,7 @@
 #include "ogl_graveyard_controller.h"
 #include "render_target.h"
 #include "ces_render_technique_uniforms_component.h"
+#include "ces_camera_collision_component.h"
 
 #if USED_GRAPHICS_API == METAL_API
 
@@ -207,18 +208,20 @@ namespace gb
                                 if((result == frustum_3d::e_frustum_bounds_result_inside ||
                                     result == frustum_3d::e_frustum_bounds_result_intersect))
                                 {
-                                    //glm::vec3 absolute_min_bound = glm::transform(min_bound, mat_m);
-                                    //glm::vec3 absolute_max_bound = glm::transform(max_bound, mat_m);
-                                    //if (camera_3d_position.x >= absolute_min_bound.x && camera_3d_position.x <= absolute_max_bound.x &&
-                                    //    camera_3d_position.y >= absolute_min_bound.y && camera_3d_position.y <= absolute_max_bound.y &&
-                                    //    camera_3d_position.z >= absolute_min_bound.z && camera_3d_position.z <= absolute_max_bound.z)
+                                    is_visible = true;
+                                    const auto camera_collision_component = entity->get_component<ces_camera_collision_component>();
+                                    if (camera_collision_component)
                                     {
-                                        //is_visible = false;
+                                        glm::vec3 absolute_min_bound = glm::transform(min_bound, mat_m);
+                                        glm::vec3 absolute_max_bound = glm::transform(max_bound, mat_m);
+                                        if (camera_3d_position.x >= absolute_min_bound.x && camera_3d_position.x <= absolute_max_bound.x &&
+                                            camera_3d_position.y >= absolute_min_bound.y && camera_3d_position.y <= absolute_max_bound.y &&
+                                            camera_3d_position.z >= absolute_min_bound.z && camera_3d_position.z <= absolute_max_bound.z)
+                                        {
+                                            is_visible = false;
+                                        }
                                     }
-                                    //else
-                                    {
-                                        is_visible = true;
-                                    }
+                                    
                                 }
                                 else
                                 {

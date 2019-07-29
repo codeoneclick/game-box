@@ -19,7 +19,6 @@ namespace gb
 			gb::ui::interaction_control(fabricator),
 			m_horizontal_aligment(e_element_horizontal_aligment_center),
 			m_vertical_aligment(e_element_vertical_aligment_center),
-			m_background_color(control::k_light_gray_color),
 			m_header_color(control::k_dark_gray_color),
 			m_header_height(16.f)
 		{
@@ -56,7 +55,7 @@ namespace gb
 		{
 			gb::sprite_shared_ptr background_element = control::get_fabricator()->create_sprite("button_background.xml");
 			m_elements[k_background_element_name] = background_element;
-			control::set_color(k_background_element_name, m_background_color);
+            control::set_color(k_background_element_name, m_background_color[static_cast<i32>(e_control_state::e_none)]);
 			panel::add_child(background_element);
 
 			gb::sprite_shared_ptr header_element = control::get_fabricator()->create_sprite("button_background.xml");
@@ -145,9 +144,8 @@ namespace gb
 			m_vertical_aligment = aligment;
 		}
 
-		void panel::set_background_color(const glm::u8vec4& color)
+		void panel::set_background_color(const glm::u8vec4& color, e_control_state state)
 		{
-			m_background_color = color;
 			control::set_background_color(color);
 		}
 

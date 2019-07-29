@@ -101,16 +101,26 @@ namespace gb
 			}
 		}
 
-		void interaction_control::set_on_drag_started_callback(const t_on_drag_started_callback& callback) {
+		void interaction_control::set_on_drag_started_callback(const t_on_drag_started_callback& callback)
+        {
 			m_on_drag_started_callback = callback;
 		}
 
-		void interaction_control::set_on_dragging_callback(const t_on_dragging_callback& callback) {
+		void interaction_control::set_on_dragging_callback(const t_on_dragging_callback& callback)
+        {
 			m_on_dragging_callback = callback;
 		}
 
-		void interaction_control::set_on_drag_ended_callback(const t_on_drag_started_callback& callback) {
+		void interaction_control::set_on_drag_ended_callback(const t_on_drag_started_callback& callback)
+        {
 			m_on_drag_ended_callback = callback;
 		}
+        
+        void interaction_control::disable(bool value)
+        {
+            control::disable(value);
+            const auto& bound_touch_component = get_component<ces_bound_touch_component>();
+            bound_touch_component->set_disabled(value);
+        }
 	}
 }

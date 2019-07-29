@@ -363,7 +363,7 @@ namespace gb
         assert(configuration);
         
         deferred_point_light_3d_shared_ptr light_source = nullptr;
-        if(configuration)
+        if (configuration)
         {
             light_source = gb::ces_entity::construct<gb::deferred_point_light_3d>();
             light_source->ray_length = configuration->get_radius();

@@ -26,6 +26,7 @@ namespace gb
         
         std::property_rw<std::string> text;
         std::property_rw<f32> font_size;
+        std::property_rw<std::string> font_name;
         std::property_rw<glm::u8vec4> font_color;
         std::property_rw<ces_font_component::e_font_mode> font_mode;
         void set_multiline(bool value, i32 max_line_width);

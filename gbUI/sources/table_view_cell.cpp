@@ -105,7 +105,7 @@ namespace gb
             m_loading_time = value ? m_max_loading_time : 0.f;
         }
         
-        void table_view_cell::set_background_color(const glm::u8vec4& color)
+        void table_view_cell::set_background_color(const glm::u8vec4& color, e_control_state state)
         {
             control::set_background_color(color);
             m_alpha = color.w;

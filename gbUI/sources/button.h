@@ -37,11 +37,14 @@ namespace gb
         
         class button : public interaction_control, public i_button_callbacks
         {
+        public:
+            
+            static std::string k_foreground_element_name;
             
         private:
             
-            glm::u8vec4 m_background_color;
-            glm::u8vec4 m_label_color;
+            std::array<glm::u8vec4, static_cast<i32>(e_control_state::e_max)> m_foreground_color;
+            std::array<glm::u8vec4, static_cast<i32>(e_control_state::e_max)> m_text_color;
             
         protected:
             
@@ -80,8 +83,9 @@ namespace gb
             
             void set_is_selected(bool value);
             
-            void set_background_color(const glm::u8vec4& color) override;
-            void set_text_color(const glm::u8vec4& color);
+            void set_foreground_color(const glm::u8vec4& color, e_control_state state = e_control_state::e_none);
+            void set_text_color(const glm::u8vec4& color, e_control_state state = e_control_state::e_none);
+            void set_font_size(const f32 font_size);
         };
     };
 };

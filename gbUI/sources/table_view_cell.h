@@ -62,7 +62,7 @@ namespace gb
             
             void set_loading(bool value);
             
-            void set_background_color(const glm::u8vec4& color) override;
+            void set_background_color(const glm::u8vec4& color, e_control_state state = e_control_state::e_none) override;
         };
     };
 };

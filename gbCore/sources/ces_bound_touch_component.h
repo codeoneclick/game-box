@@ -21,9 +21,9 @@ namespace gb
     public:
         
         typedef std::function<void(const ces_entity_shared_ptr&,
-        const glm::vec2&,
-        e_input_source,
-        e_input_state)> t_callback;
+                                   const glm::vec2&,
+                                   e_input_source,
+                                   e_input_state)> t_callback;
         
         enum e_mode
         {
@@ -33,6 +33,8 @@ namespace gb
         };
         
     private:
+        
+        bool m_is_disabled = false;
         
     protected:
         
@@ -46,6 +48,9 @@ namespace gb
         STTI_CLASS_GUID(ces_bound_touch_component, ces_base_component::g_guids_container)
         ces_bound_touch_component();
         ~ces_bound_touch_component();
+        
+        void set_disabled(bool value);
+        bool is_disabled() const;
         
         void enable(e_input_state state, e_input_source source, bool value);
         bool is_respond_to(e_input_state state, e_input_source source) const;

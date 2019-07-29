@@ -33,6 +33,16 @@ namespace gb
         
     }
     
+    void ces_bound_touch_component::set_disabled(bool value)
+    {
+        m_is_disabled = value;
+    }
+    
+    bool ces_bound_touch_component::is_disabled() const
+    {
+        return m_is_disabled;
+    }
+    
     void ces_bound_touch_component::enable(gb::e_input_state state, gb::e_input_source source, bool value)
     {
         m_responders[state][source] = value;

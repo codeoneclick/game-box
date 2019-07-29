@@ -177,7 +177,7 @@ fragment half4 fragment_shader_ss_compose(common_v_output_t in [[stage_in]],
                                          texture2d<half> mask_texture [[texture(3)]],
                                          texture2d<half> bloom_texture [[texture(4)]])
 {
-    const float bloom_intensity = 4.f;
+    const float bloom_intensity = 2.f;
     const float original_intensity = 2.f;
     const float bloom_saturation = .75f;
     const float original_saturation = 1.f;
@@ -424,7 +424,7 @@ fragment g_buffer_output_t fragment_shader_shape_3d(common_v_output_t in [[stage
     
 #else
     
-    out.normal = half4(half3(in.normal), 1.0);
+    out.normal = half4(half3(in.normal), 0.0);
     
 #endif
     
@@ -445,16 +445,21 @@ vertex reflect_v_output_t vertex_shader_shape_3d_reflect(common_v_input_t in [[s
     float4 in_position = float4(in.position, 1.0);
     float4x4 mvp = get_mat_mvp(uniforms);
     out.position = mvp * in_position;
-    out.view_space_position = get_mat_m(uniforms) * in_position;
+    out.position_m = get_mat_m(uniforms) * in_position;
     out.texcoord = in.texcoord;
     
     float4x4 mat_n = get_mat_n(uniforms);
     float3 normal = normalize((mat_n * in.normal).xyz);
     out.normal = normal;
     
-    float3 camera_direction = normalize(out.view_space_position.xyz - reflect_uniforms.camera_position.xyz);
+    float3 normal_vm = normalize((get_mat_v(uniforms) * get_mat_m(uniforms) * in.normal).xyz);
+    out.normal_vm = normal_vm;
+    float3 position_vm = (get_mat_v(uniforms) * get_mat_m(uniforms) * in_position).xyz;
+    out.camera_direction_vm = normalize(-position_vm);
+    
+    float3 camera_direction = normalize(out.position_m.xyz - reflect_uniforms.camera_position.xyz);
     out.cube_texcoord = reflect(camera_direction, normal);
-    out.camera_direction = normalize(reflect_uniforms.camera_position.xyz - out.view_space_position.xyz);
+
     return out;
 }
 
@@ -467,19 +472,23 @@ fragment g_buffer_output_t fragment_shader_shape_3d_reflect(reflect_v_output_t i
 {
     g_buffer_output_t out;
     
-    float4 reflect_color = (float4)reflection_texture.sample(linear_sampler, in.cube_texcoord);
-    float4 color = (float4)diffuse_texture.sample(linear_sampler, in.texcoord);
+    float4 reflect_color = static_cast<float4>(reflection_texture.sample(linear_sampler, in.cube_texcoord));
+    float4 color = static_cast<float4>(diffuse_texture.sample(linear_sampler, in.texcoord));
     float3 body_color = colorization_uniforms.body_color.rgb;
-    float4 color_body_mask = (float4)color_body_mask_texture.sample(linear_sampler, in.texcoord);
+    float4 color_body_mask = static_cast<float4>(color_body_mask_texture.sample(linear_sampler, in.texcoord));
     color.rgb = mix(color.rgb, body_color, color_body_mask.r);
-    float4 color_windows_mask = (float4)color_windows_mask_texture.sample(linear_sampler, in.texcoord);
-    float3 windows_color = float3(1.f, 0.f, 0.f);
+    float4 color_windows_mask = static_cast<float4>(color_windows_mask_texture.sample(linear_sampler, in.texcoord));
+    float3 windows_color = colorization_uniforms.windows_color.rgb;
     color.rgb = mix(color.rgb, windows_color, color_windows_mask.r);
     out.color = mix(pow(reflect_color, 4), color, 0.66);
     out.color.a = 1.0;
-    out.normal = half4(half3(in.normal), 1.0);
-    out.position = in.view_space_position;
+    out.normal = half4(half3(in.normal), 1.f);
+    out.position = in.position_m;
     out.position.w = in.position.z;
+    
+    float rim_power = 8.f;
+    float rim = smoothstep(.7f , 1.f , 1.f - max(dot(in.camera_direction_vm, in.normal_vm), 0.f));
+    out.color.rgb += rim * colorization_uniforms.body_color.rgb * color_body_mask.r * rim_power;
     
     return out;
 }
@@ -750,9 +759,11 @@ fragment half4 fragment_shader_deferred_point_light(common_v_output_t in [[stage
                                                     texture2d<float> position_texture [[texture(1)]])
 {
     uint2 screen_space_position = uint2(in.position.xy);
+    float2 texcoord = float2((float)screen_space_position.x / position_texture.get_width(),
+                             (float)screen_space_position.y / position_texture.get_height());
     
-    float4 normal = (float4)normal_texture.read(screen_space_position);
-    float4 position = position_texture.read(screen_space_position);
+    float4 position = position_texture.sample(linear_sampler, texcoord);
+    float4 normal = (float4)normal_texture.sample(linear_sampler, texcoord);
     
     float light_range = custom_uniforms.light_position_and_ray_length.w;
     float3 light_vector = custom_uniforms.light_position_and_ray_length.xyz - position.xyz;
@@ -776,7 +787,7 @@ fragment half4 fragment_shader_deferred_point_light(common_v_output_t in [[stage
     float3 reflection_vector = normalize(reflect(-light_direction, normal.xyz));
     float3 camera_direction = normalize(custom_uniforms.camera_position.xyz - position.xyz);
     float4 specular = saturate(custom_uniforms.light_color * specular_intensity * pow(saturate(dot(reflection_vector, camera_direction)), specular_power));
-    specular *= attenuation;
+    specular *= attenuation * normal.w;
     color += specular;
     
     return (half4)color;
@@ -822,8 +833,11 @@ fragment half4 fragment_shader_deferred_spot_light(common_v_output_t in [[stage_
                                                         texture2d<float> position_texture [[texture(1)]])
 {
     uint2 screen_space_position = uint2(in.position.xy);
-    float4 normal = (float4)normal_texture.read(screen_space_position);
-    float4 position = position_texture.read(screen_space_position);
+    float2 texcoord = float2((float)screen_space_position.x / position_texture.get_width(),
+                             (float)screen_space_position.y / position_texture.get_height());
+    
+    float4 position = position_texture.sample(linear_sampler, texcoord);
+    float4 normal = (float4)normal_texture.sample(linear_sampler, texcoord);
     
     float3 light_vector = custom_uniforms.light_position.xyz - position.xyz;
     float3 light_direction = normalize(light_vector);
@@ -842,7 +856,7 @@ fragment half4 fragment_shader_deferred_spot_light(common_v_output_t in [[stage_
     float3 reflection_vector = normalize(reflect(-light_direction, normal.xyz));
     float3 camera_direction = normalize(custom_uniforms.camera_position.xyz - position.xyz);
     float4 specular = saturate(custom_uniforms.light_color * specular_intensity * pow(saturate(dot(reflection_vector, camera_direction)), specular_power));
-    specular *= attenuation;
+    specular *= attenuation * normal.w;
     color += specular;
     
     return (half4)color;

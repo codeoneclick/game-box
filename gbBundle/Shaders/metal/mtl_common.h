@@ -38,10 +38,11 @@ typedef struct
 {
     float4 position [[position]];
     float2 texcoord;
-    float4 view_space_position;
     float3 normal;
     float3 cube_texcoord;
-    float3 camera_direction;
+    float4 position_m;
+    float3 normal_vm;
+    float3 camera_direction_vm;
 } reflect_v_output_t;
 
 typedef struct

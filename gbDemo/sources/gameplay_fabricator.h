@@ -14,6 +14,7 @@
 #include "db_declarations.h"
 #include "levels_set_configuration.h"
 #include "cars_progression_configuration.h"
+#include "ces_garage_database_component.h"
 
 namespace game
 {
@@ -54,8 +55,10 @@ namespace game
         gb::game_object_3d_shared_ptr create_ai_car(const std::string& filename);
         
         void place_car_on_level(const gb::game_object_3d_shared_ptr& level, const gb::game_object_3d_shared_ptr& car, i32 spawner_position);
-        void reconstruct_car_geometry(const gb::game_object_3d_shared_ptr& car, const std::string& filename);
-        void reskin_car(const gb::game_object_3d_shared_ptr& car, const std::string& filename, ui32 skin_index);
+        void reconstruct_car_geometry(const gb::ces_entity_shared_ptr& car, const std::string& filename);
+        void customize_car(const gb::ces_entity_shared_ptr& car, const std::shared_ptr<ces_garage_database_component::garage_dto::car_dto>& car_data);
+        static void paint_car_body(const gb::ces_entity_shared_ptr& car, const glm::u8vec4& color);
+        static void paint_car_windows(const gb::ces_entity_shared_ptr& car, const glm::u8vec4& color);
     };
 };
 

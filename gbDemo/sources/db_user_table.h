@@ -19,11 +19,13 @@ namespace game
     {
         i32 m_id;
         i32 m_tickets;
+        i32 m_cash;
         i32 m_last_ticket_dec_timestamp;
         i32 m_rank;
         i32 m_claimed_rank;
         i32 m_stars_collected;
         i32 m_is_purchased_no_ads;
+        i32 m_revision;
     };
     
     class db_user_table : public gb::db::database_table

@@ -91,5 +91,15 @@ namespace gb
             predicate<<" where id=="<<id;
             return m_database->remove(predicate.str());
         }
+        
+        bool database_table::is_column_exist(const std::string& column_name)
+        {
+            return m_database->is_column_exist(m_name, column_name);
+        }
+        
+        bool database_table::add_new_column(const std::string& column_name)
+        {
+            return m_database->add_new_column(m_name, column_name);
+        }
     }
 }

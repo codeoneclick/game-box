@@ -177,19 +177,19 @@ namespace game
                         }
                         if (!m_tutorial_steer_left_label.expired())
                         {
-                            std::static_pointer_cast<gb::ui::textfield>(m_tutorial_steer_left_label.lock())->set_font_color(glm::u8vec4(255, 255, 255, blinking));
+                            std::static_pointer_cast<gb::ui::textfield>(m_tutorial_steer_left_label.lock())->set_text_color(glm::u8vec4(255, 255, 255, blinking));
                         }
                         
                         if (!m_tutorial_steer_right_label.expired())
                         {
-                            std::static_pointer_cast<gb::ui::textfield>(m_tutorial_steer_right_label.lock())->set_font_color(glm::u8vec4(255, 255, 255, blinking));
+                            std::static_pointer_cast<gb::ui::textfield>(m_tutorial_steer_right_label.lock())->set_text_color(glm::u8vec4(255, 255, 255, blinking));
                         }
                         
 #if defined(__OSX__)
                         
                         if (tutorial_steer_label)
                         {
-                            std::static_pointer_cast<gb::ui::textfield>(tutorial_steer_label)->set_font_color(glm::u8vec4(255, 255, 255, blinking));
+                            std::static_pointer_cast<gb::ui::textfield>(tutorial_steer_label)->set_text_color(glm::u8vec4(255, 255, 255, blinking));
                         }
                         
 #endif

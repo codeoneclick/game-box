@@ -25,6 +25,9 @@ namespace gb
             
         private:
             
+            std::array<glm::u8vec4, static_cast<i32>(e_control_state::e_max)> m_foreground_color;
+            std::array<glm::u8vec4, static_cast<i32>(e_control_state::e_max)> m_text_color;
+            
         protected:
 
 			e_element_horizontal_aligment m_horizontal_aligment;
@@ -59,8 +62,9 @@ namespace gb
             
             void set_text_validator(const text_validator_callback_t& callback);
             
-            void set_font_color(const glm::u8vec4& color);
+            void set_text_color(const glm::u8vec4& color, e_control_state state = e_control_state::e_none);
             void set_font_size(const f32 font_size);
+            void set_font_name(const std::string& font_name);
             
             void set_multiline(bool value);
             
@@ -68,7 +72,7 @@ namespace gb
             
             void set_font_mode(ces_font_component::e_font_mode font_mode);
             
-            void set_foreground_color(const glm::u8vec4& color);
+            void set_foreground_color(const glm::u8vec4& color, e_control_state state = e_control_state::e_none);
             
             glm::vec2 get_content_size();
         };

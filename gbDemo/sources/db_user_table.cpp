@@ -21,11 +21,28 @@ namespace game
     void db_user_table::construct()
     {
         bool result = m_database->execute("CREATE TABLE IF NOT EXISTS [user]"
-                                          "([id] INTEGER NO NULL, [tickets] INTEGER NO NULL, [last_ticket_dec_timestamp] INTEGER NO NULL, [rank] INTEGER NO NULL, [claimed_rank] INTEGER NO NULL, [stars_collected] INTEGER NO NULL, [data] BLOB NOT NULL, constraint [pk_id] primary key ([id]));");
+                                          "([id] INTEGER NO NULL, [tickets] INTEGER NO NULL, [cash] INTEGER NO NULL, [last_ticket_dec_timestamp] INTEGER NO NULL, [rank] INTEGER NO NULL, [claimed_rank] INTEGER NO NULL, [stars_collected] INTEGER NO NULL, [revision] INTEGER NO NULL, [data] BLOB NOT NULL, constraint [pk_id] primary key ([id]));");
+        if (!is_column_exist("cash"))
+        {
+            if (!add_new_column("cash"))
+            {
+                assert(false);
+            }
+        }
+        
+        if (!is_column_exist("revision"))
+        {
+            if (!add_new_column("revision"))
+            {
+                assert(false);
+            }
+        }
+
         if (!result)
         {
             assert(false);
         }
+       
     }
     
     bool db_user_table::save_to_db(i32 id, const db_user_data& data)
@@ -35,7 +52,7 @@ namespace game
         memcpy(raw_data, &data, size);
         
         std::stringstream predicate;
-        predicate<<"insert or replace into user(id, tickets, last_ticket_dec_timestamp, rank, claimed_rank, stars_collected, data) values("<<id<<","<<data.m_tickets<<","<<data.m_last_ticket_dec_timestamp<<","<<data.m_rank<<","<<data.m_claimed_rank<<","<<data.m_stars_collected<<", ?);";
+        predicate<<"insert or replace into user(id, tickets, cash, last_ticket_dec_timestamp, rank, claimed_rank, stars_collected, revision, data) values("<<id<<","<<data.m_tickets<<","<<data.m_cash<<","<<data.m_last_ticket_dec_timestamp<<","<<data.m_rank<<","<<data.m_claimed_rank<<","<<data.m_stars_collected<<","<<data.m_revision<<", ?);";
         bool result = m_database->insert(predicate.str(), raw_data, size, 1);
         return result;
     }

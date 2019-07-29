@@ -25,9 +25,8 @@ namespace gb
             
         private:
             
-            glm::u8vec4 m_background_color = glm::u8vec4(0, 0, 0, 255);
-            glm::u8vec4 m_foreground_color = glm::u8vec4(0, 0, 0, 0);
-            glm::u8vec4 m_image_color = glm::u8vec4(255, 255, 255, 255);
+            std::array<glm::u8vec4, static_cast<i32>(e_control_state::e_max)> m_foreground_color;
+            std::array<glm::u8vec4, static_cast<i32>(e_control_state::e_max)> m_image_color;
             
         protected:
             
@@ -63,9 +62,11 @@ namespace gb
             
             void set_is_selected(bool value);
             
-            void set_background_color(const glm::u8vec4& color) override;
-            void set_foreground_color(const glm::u8vec4& color);
-            void set_image_color(const glm::u8vec4& color);
+            void set_background_color(const glm::u8vec4& color, e_control_state state = e_control_state::e_none) override;
+            void set_foreground_color(const glm::u8vec4& color, e_control_state state = e_control_state::e_none);
+            void set_image_color(const glm::u8vec4& color, e_control_state state = e_control_state::e_none);
+            
+            void focus(bool value, f32 focus_interval_in_seconds = 1.f, const on_focus_callback_t& callback = nullptr) override;
         };
     };
 };

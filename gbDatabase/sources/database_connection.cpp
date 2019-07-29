@@ -126,5 +126,26 @@ namespace gb
         {
             return database_connection::execute(command);
         }
+        
+        bool database_connection::is_column_exist(const std::string& table_name, const std::string& column_name)
+        {
+            bool result = false;
+            i32 status = sqlite3_table_column_metadata(m_db, NULL, table_name.c_str(), column_name.c_str(), 0, 0, 0, 0, 0);
+            result = status == SQLITE_OK;
+            return result;
+        }
+        
+        bool database_connection::add_new_column(const std::string& table_name, const std::string& column_name)
+        {
+            std::stringstream command_stream;
+            command_stream<<"ALTER TABLE [";
+            command_stream<<table_name<<"] ";
+            command_stream<<"ADD COLUMN [";
+            command_stream<<column_name<<"] INTEGER NO NULL";
+            
+            std::string command = command_stream.str();
+            bool retval = execute(command);
+            return retval;
+        }
     }
 }

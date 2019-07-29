@@ -23,6 +23,7 @@
 #include "glm_extensions.h"
 #include "ces_level_route_component.h"
 #include "ces_car_drift_state_component.h"
+#include "ces_car_camera_follow_component.h"
 
 namespace game
 {
@@ -33,6 +34,9 @@ namespace game
         
         ces_base_system::add_required_component_guid(m_car_components_mask, ces_car_statistic_component::class_guid());
         ces_base_system::add_required_components_mask(m_car_components_mask);
+        
+        ces_base_system::add_required_component_guid(m_camera_follow_car_components_mask, ces_car_camera_follow_component::class_guid());
+        ces_base_system::add_required_components_mask(m_camera_follow_car_components_mask);
     }
     
     void ces_interaction_system::on_feed_start(f32 dt)
@@ -53,6 +57,10 @@ namespace game
                 m_main_car = entity;
             }
             m_all_cars[key] = entity;
+        });
+        
+        ces_base_system::enumerate_entities_with_components(m_camera_follow_car_components_mask, [=](const gb::ces_entity_shared_ptr& entity) {
+            m_camera_follow_car = entity;
         });
         
         ces_base_system::enumerate_entities_with_components(m_level_components_mask, [this](const gb::ces_entity_shared_ptr& entity) {
@@ -130,7 +138,7 @@ namespace game
                         }
                         
                         car_input_component->throttle = car_model_component->get_max_force() * (1.f - collision_power);
-                        car_input_component->steer_angle = steer_angle;
+                        car_input_component->steer_angle = steer_angle * .33f;
                         car_input_component->brake = 200.f * collision_power;
                         
                         
@@ -187,7 +195,21 @@ namespace game
     void ces_interaction_system::on_touched(const gb::ces_entity_shared_ptr& entity, const glm::vec2& touch_point,
                                             gb::e_input_source input_source, gb::e_input_state input_state)
     {
-        if(input_state == gb::e_input_state_dragged ||
+        if (!m_camera_follow_car.expired() && input_state == gb::e_input_state_dragged)
+        {
+            const auto car = std::static_pointer_cast<gb::game_object_3d>(m_camera_follow_car.lock());
+            const auto car_camera_follow_component = car->get_component<ces_car_camera_follow_component>();
+            if (car_camera_follow_component && car_camera_follow_component->preview_mode == ces_car_camera_follow_component::e_preview_mode::e_2)
+            {
+                const auto delta = touch_point - m_interaction_point;
+                const auto camera_3d = get_current_camera_3d();
+                auto rotation = camera_3d->get_rotation();
+                rotation -= .5f * delta.x;
+                camera_3d->set_rotation(rotation);
+            }
+        }
+        
+        if (input_state == gb::e_input_state_dragged ||
            input_state == gb::e_input_state_pressed)
         {
             m_interaction_point = touch_point;

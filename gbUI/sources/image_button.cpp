@@ -33,8 +33,7 @@ namespace gb
         gb::ui::interaction_control(fabricator),
         m_is_selected(false),
         m_horizontal_aligment(e_element_horizontal_aligment_center),
-        m_vertical_aligment(e_element_vertical_aligment_center),
-        m_background_color(control::k_dark_gray_color)
+        m_vertical_aligment(e_element_vertical_aligment_center)
         {
             ces_entity::add_deferred_component_constructor<ces_bound_touch_2d_component>();
             
@@ -140,16 +139,16 @@ namespace gb
             }
             else
             {
-                control::set_color(k_background_element_name, m_is_selected ? control::k_dark_gray_color : m_background_color);
-                control::set_color(k_foreground_element_name, m_is_selected ? control::k_dark_gray_color : m_foreground_color);
+                 set_is_selected(m_is_selected);
             }
         }
         
         void image_button::set_is_selected(bool value)
         {
             m_is_selected = value;
-            control::set_color(k_background_element_name, m_is_selected ? control::k_dark_gray_color : m_background_color);
-            control::set_color(k_foreground_element_name, m_is_selected ? control::k_dark_gray_color : m_foreground_color);
+            set_color(k_background_element_name, m_is_selected ? m_background_color[static_cast<i32>(e_control_state::e_selected)] : m_background_color[static_cast<i32>(e_control_state::e_none)]);
+            set_color(k_foreground_element_name, m_is_selected ? m_foreground_color[static_cast<i32>(e_control_state::e_selected)] : m_foreground_color[static_cast<i32>(e_control_state::e_none)]);
+            set_color(k_image_element_name, m_is_selected ? m_image_color[static_cast<i32>(e_control_state::e_selected)] : m_image_color[static_cast<i32>(e_control_state::e_none)]);
         }
         
         void image_button::set_image_horizontal_aligment(e_element_horizontal_aligment aligment)
@@ -164,22 +163,38 @@ namespace gb
             m_vertical_aligment = aligment;
         }
         
-        void image_button::set_background_color(const glm::u8vec4& color)
+        void image_button::set_background_color(const glm::u8vec4& color, e_control_state state)
         {
-            m_background_color = color;
-            control::set_background_color(color);
+            control::set_background_color(color, state);
         }
         
-        void image_button::set_foreground_color(const glm::u8vec4& color)
+        void image_button::set_foreground_color(const glm::u8vec4& color, e_control_state state)
         {
-            m_foreground_color = color;
             control::set_color(k_foreground_element_name, color);
+            m_foreground_color[static_cast<i32>(state)] = color;
         }
         
-        void image_button::set_image_color(const glm::u8vec4& color)
+        void image_button::set_image_color(const glm::u8vec4& color, e_control_state state)
         {
-            m_image_color = color;
             control::set_color(k_image_element_name, color);
+            m_image_color[static_cast<i32>(state)] = color;
+        }
+        
+        void image_button::focus(bool value, f32 focus_interval_in_seconds, const on_focus_callback_t& callback)
+        {
+            control::focus(value, focus_interval_in_seconds, [=](f32 dt) {
+                f32 delta = glm::clamp(m_current_focus_interval / m_focus_interval_in_seconds, 0.f, 1.f);
+                control::set_color(k_foreground_element_name, glm::mix(m_foreground_color[static_cast<i32>(e_control_state::e_none)],
+                                                                       m_foreground_color[static_cast<i32>(e_control_state::e_focused)],
+                                                                       delta));
+                control::set_color(k_image_element_name, glm::mix(m_image_color[static_cast<i32>(e_control_state::e_none)],
+                                                                  m_image_color[static_cast<i32>(e_control_state::e_focused)],
+                                                                  delta));
+                if (callback)
+                {
+                    callback(dt);
+                }
+            });
         }
     }
 }

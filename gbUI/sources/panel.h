@@ -4,7 +4,7 @@
 //  gbUI
 //
 //  Created by sergey.sergeev on 1/13/16.
-//  Copyright © 2016 sergey.sergeev. All rights reserved.
+//  Copyright ï¿½ 2016 sergey.sergeev. All rights reserved.
 //
 
 #pragma once
@@ -24,7 +24,6 @@ namespace gb
 
 		private:
 
-			glm::u8vec4 m_background_color;
 			glm::u8vec4 m_header_color;
 			f32 m_header_height;
 
@@ -60,7 +59,7 @@ namespace gb
 			void set_text_horizontal_aligment(e_element_horizontal_aligment aligment);
 			void set_text_vertical_aligment(e_element_vertical_aligment aligment);
 
-			void set_background_color(const glm::u8vec4& color) override;
+			void set_background_color(const glm::u8vec4& color, e_control_state state = e_control_state::e_none) override;
 			void set_header_color(const glm::u8vec4& color);
 		};
 	};

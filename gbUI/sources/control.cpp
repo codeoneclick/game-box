@@ -17,6 +17,7 @@
 #include "scene_fabricator.h"
 #include "ces_sound_component.h"
 #include "ces_ui_control_component.h"
+#include "ces_action_component.h"
 
 namespace gb
 {
@@ -36,6 +37,8 @@ namespace gb
         m_fabricator(fabricator)
         {
             ces_entity::add_deferred_component_constructor<ces_ui_control_component>();
+            
+            m_background_color.fill(k_gray_color);
             
             size.setter([=](const glm::vec2& size) {
                 m_size = size;
@@ -138,10 +141,10 @@ namespace gb
         void control::set_color(const std::string& element_name, const glm::u8vec4& color)
         {
             const auto& element = m_elements[element_name];
-            if(element)
+            if (element)
             {
                 const auto& font_component = element->get_component<ces_font_component>();
-                if(font_component)
+                if (font_component)
                 {
                     font_component->set_font_color(color);
                     font_component->request_mesh_2d();
@@ -149,10 +152,10 @@ namespace gb
                 else
                 {
                     const auto& geometry_component = element->get_component<ces_geometry_component>();
-                    if(geometry_component)
+                    if (geometry_component)
                     {
                         const auto& mesh = geometry_component->get_mesh();
-                        if(mesh)
+                        if (mesh)
                         {
                             vbo::vertex_attribute_PTNTC* vertices = mesh->get_vbo()->lock<vbo::vertex_attribute_PTNTC>();
                             i32 vertices_count = mesh->get_vbo()->get_used_size();
@@ -179,9 +182,10 @@ namespace gb
             m_sounds_linkage.insert(std::make_pair(state, filename));
         }
         
-        void control::set_background_color(const glm::u8vec4& color)
+        void control::set_background_color(const glm::u8vec4& color, e_control_state state)
         {
             control::set_color(control::k_background_element_name, color);
+            m_background_color[static_cast<i32>(state)] = color;
         }
         
         void control::set_alpha(ui8 alpha)
@@ -189,12 +193,12 @@ namespace gb
             for(const auto& element : m_elements)
             {
                 const auto ui_control_component = element.second->get_component<ces_ui_control_component>();
-                if(ui_control_component)
+                if (ui_control_component)
                 {
                     element.second->as<control>()->set_alpha(alpha);
                 }
                 const auto& font_component = element.second->get_component<ces_font_component>();
-                if(font_component)
+                if (font_component)
                 {
                     glm::u8vec4 current_color = font_component->get_font_color();
                     current_color.a = alpha;
@@ -204,10 +208,10 @@ namespace gb
                 else
                 {
                     const auto& geometry_component = element.second->get_component<ces_geometry_component>();
-                    if(geometry_component)
+                    if (geometry_component)
                     {
                         const auto& mesh = geometry_component->get_mesh();
-                        if(mesh)
+                        if (mesh)
                         {
                             vbo::vertex_attribute_PTNTC* vertices = mesh->get_vbo()->lock<vbo::vertex_attribute_PTNTC>();
                             i32 vertices_count = mesh->get_vbo()->get_used_size();
@@ -223,5 +227,54 @@ namespace gb
                 }
             }
         }
+        
+        void control::focus(bool value, f32 focus_interval_in_seconds, const on_focus_callback_t& callback)
+        {
+            if (value)
+            {
+                m_on_focus_callback = callback;
+                m_focus_interval_in_seconds = focus_interval_in_seconds;
+                auto action_component = get_component<ces_action_component>();
+                if (!action_component)
+                {
+                    action_component = std::make_shared<ces_action_component>();
+                    add_component(action_component);
+                }
+                action_component->set_update_callback([=](const ces_entity_shared_ptr& entity, f32 dt) {
+                    m_current_focus_interval += (m_focus_state == e_focus_state::e_inc) ? dt : -dt;
+                    m_current_focus_interval = glm::clamp(m_current_focus_interval, 0.f, m_focus_interval_in_seconds);
+                    if (m_current_focus_interval >= m_focus_interval_in_seconds || m_current_focus_interval <= 0.f)
+                    {
+                        m_focus_state = m_focus_state == e_focus_state::e_inc ? e_focus_state::e_dec : e_focus_state::e_inc;
+                    }
+                    f32 delta = glm::clamp(m_current_focus_interval / m_focus_interval_in_seconds, 0.f, 1.f);
+                    control::set_color(control::k_background_element_name, glm::mix(m_background_color[static_cast<i32>(e_control_state::e_none)],
+                                                                                    m_background_color[static_cast<i32>(e_control_state::e_focused)],
+                                                                                    delta));
+                    
+                    if (m_on_focus_callback)
+                    {
+                        m_on_focus_callback(dt);
+                    }
+                });
+            }
+            else
+            {
+                remove_component(ces_action_component::class_guid());
+            }
+        }
+        
+        void control::disable(bool value)
+        {
+            if (value)
+            {
+                control::set_color(control::k_background_element_name, m_background_color[static_cast<i32>(e_control_state::e_disabled)]);
+            }
+            else
+            {
+                control::set_color(control::k_background_element_name, m_background_color[static_cast<i32>(e_control_state::e_none)]);
+            }
+        }
+
     }
 }
