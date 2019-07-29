@@ -41,5 +41,8 @@ namespace game
                 return nullptr;
             }
         };
+        
+        static void disable_all_and_focus_on(const std::vector<ces_ui_interaction_component::e_ui>& controls);
+        static void enable_all_and_unfocus();
     };
 };

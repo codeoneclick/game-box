@@ -44,7 +44,6 @@ namespace game
         return m_tickets;
     }
     
-    
     i32 ces_user_database_component::user_dto::get_cash() const
     {
         return m_cash;
@@ -58,6 +57,11 @@ namespace game
     i32 ces_user_database_component::user_dto::get_is_purchased_no_ads() const
     {
         return m_is_purchased_no_ads;
+    }
+    
+    i32 ces_user_database_component::user_dto::get_ftue_step() const
+    {
+        return m_ftue_step;
     }
     
     ces_user_database_component::ces_user_database_component()
@@ -90,6 +94,7 @@ namespace game
             data.m_stars_collected = 0;
             data.m_is_purchased_no_ads = 0;
             data.m_cash = 0;
+            data.m_ftue_step = 0;
             user_record->save_to_db();
         }
     }
@@ -113,6 +118,7 @@ namespace game
             user_dto->m_stars_collected = user_record->get_data().m_stars_collected;
             user_dto->m_last_ticket_dec_timestamp = user_record->get_data().m_last_ticket_dec_timestamp;
             user_dto->m_is_purchased_no_ads = user_record->get_data().m_is_purchased_no_ads;
+            user_dto->m_ftue_step = user_record->get_data().m_ftue_step;
         }
         return user_dto;
     
@@ -422,7 +428,7 @@ namespace game
         if(!user_record->load_from_db(user_id))
         {
             assert(false);
-        }s
+        }
         else
         {
             auto& data = user_record->get_data();
@@ -456,5 +462,31 @@ namespace game
     i32 ces_user_database_component::get_cash_per_drift_seconds() const
     {
         return m_cash_per_drift_seconds;
+    }
+    
+    i32 ces_user_database_component::get_ftue_step(i32 user_id)
+    {
+        i32 result = 0;
+        const auto user = get_user(user_id);
+        if (user)
+        {
+            result = user->get_ftue_step();
+        }
+        return result;
+    }
+    
+    void ces_user_database_component::inc_ftue_step(i32 user_id)
+    {
+        auto user_record = std::make_shared<gb::db::database_entity<db_user_table, db_user_data>>(m_database_coordinator.lock());
+        if(!user_record->load_from_db(user_id))
+        {
+            assert(false);
+        }
+        else
+        {
+            auto& data = user_record->get_data();
+            data.m_ftue_step += 1;
+            user_record->save_to_db();
+        }
     }
 }

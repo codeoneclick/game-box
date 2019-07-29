@@ -40,6 +40,7 @@ namespace game
             i32 m_claimed_rank = 1;
             i32 m_stars_collected = 0;
             i32 m_is_purchased_no_ads = 0;
+            i32 m_ftue_step;
             
         protected:
             
@@ -63,6 +64,8 @@ namespace game
             i32 get_is_purchased_no_ads() const;
             
             i32 get_cash() const;
+            
+            i32 get_ftue_step() const;
         };
         
     private:
@@ -135,6 +138,9 @@ namespace game
         
         void inc_cash(i32 user_id, i32 value);
         void dec_cash(i32 user_id, i32 value);
+        
+        i32 get_ftue_step(i32 user_id);
+        void inc_ftue_step(i32 user_id);
     };
 };
 

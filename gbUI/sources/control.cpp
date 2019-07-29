@@ -275,6 +275,5 @@ namespace gb
                 control::set_color(control::k_background_element_name, m_background_color[static_cast<i32>(e_control_state::e_none)]);
             }
         }
-
     }
 }

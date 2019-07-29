@@ -547,6 +547,7 @@ namespace game
                         
                         std::shared_ptr<ces_garage_database_component::garage_dto::car_dto> selected_car = nullptr;
                         const auto garage_database_component = root->get_component<ces_garage_database_component>();
+                        garage_database_component->update_cars_according_rank(1, user_database_component->get_rank(1));
                         i32 current_rank = user_database_component->get_rank(1);
                         i32 claimed_rank = user_database_component->get_claimed_rank(1);
                         if (current_rank != claimed_rank)

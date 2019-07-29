@@ -38,4 +38,44 @@ namespace game
             }
         }
     }
+    
+    void ui_controls_helper::disable_all_and_focus_on(const std::vector<ces_ui_interaction_component::e_ui>& controls)
+    {
+        for (const auto& control : m_all_ui_controls)
+        {
+            if (!control.expired())
+            {
+                const auto ui_interaction_component = control.lock()->get_component<ces_ui_interaction_component>();
+                if (ui_interaction_component->get_ui() != ces_ui_interaction_component::e_ui::e_ui_screen_overlay)
+                {
+                    control.lock()->disable(true);
+                }
+            }
+        }
+        
+        for (const auto ui_id_it : controls)
+        {
+            if (!m_all_ui_controls.at(static_cast<i32>(ui_id_it)).expired())
+            {
+                m_all_ui_controls.at(static_cast<i32>(ui_id_it)).lock()->disable(false);
+                m_all_ui_controls.at(static_cast<i32>(ui_id_it)).lock()->focus(true, .33f);
+            }
+        }
+    }
+    
+    void ui_controls_helper::enable_all_and_unfocus()
+    {
+        for (const auto& control : m_all_ui_controls)
+        {
+            if (!control.expired())
+            {
+                const auto ui_interaction_component = control.lock()->get_component<ces_ui_interaction_component>();
+                if (ui_interaction_component->get_ui() != ces_ui_interaction_component::e_ui::e_ui_screen_overlay)
+                {
+                    control.lock()->focus(false);
+                    control.lock()->disable(false);
+                }
+            }
+        }
+    }
 }

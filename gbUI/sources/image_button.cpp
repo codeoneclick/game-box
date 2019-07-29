@@ -184,10 +184,10 @@ namespace gb
         {
             control::focus(value, focus_interval_in_seconds, [=](f32 dt) {
                 f32 delta = glm::clamp(m_current_focus_interval / m_focus_interval_in_seconds, 0.f, 1.f);
-                control::set_color(k_foreground_element_name, glm::mix(m_foreground_color[static_cast<i32>(e_control_state::e_none)],
+                control::set_color(k_foreground_element_name, glm::mix(m_foreground_color[static_cast<i32>(e_control_state::e_disabled)],
                                                                        m_foreground_color[static_cast<i32>(e_control_state::e_focused)],
                                                                        delta));
-                control::set_color(k_image_element_name, glm::mix(m_image_color[static_cast<i32>(e_control_state::e_none)],
+                control::set_color(k_image_element_name, glm::mix(m_image_color[static_cast<i32>(e_control_state::e_disabled)],
                                                                   m_image_color[static_cast<i32>(e_control_state::e_focused)],
                                                                   delta));
                 if (callback)
@@ -195,6 +195,21 @@ namespace gb
                     callback(dt);
                 }
             });
+        }
+        
+        void image_button::disable(bool value)
+        {
+            interaction_control::disable(value);
+            if (value)
+            {
+                control::set_color(k_foreground_element_name, m_foreground_color[static_cast<i32>(e_control_state::e_disabled)]);
+                control::set_color(k_image_element_name, m_image_color[static_cast<i32>(e_control_state::e_disabled)]);
+            }
+            else
+            {
+                control::set_color(k_foreground_element_name, m_foreground_color[static_cast<i32>(e_control_state::e_none)]);
+                control::set_color(k_image_element_name, m_image_color[static_cast<i32>(e_control_state::e_none)]);
+            }
         }
     }
 }

@@ -86,6 +86,9 @@ namespace gb
             void set_foreground_color(const glm::u8vec4& color, e_control_state state = e_control_state::e_none);
             void set_text_color(const glm::u8vec4& color, e_control_state state = e_control_state::e_none);
             void set_font_size(const f32 font_size);
+            
+            void focus(bool value, f32 focus_interval_in_seconds = 1.f, const on_focus_callback_t& callback = nullptr) override;
+            void disable(bool value) override;
         };
     };
 };

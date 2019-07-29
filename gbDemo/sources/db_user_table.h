@@ -25,6 +25,7 @@ namespace game
         i32 m_claimed_rank;
         i32 m_stars_collected;
         i32 m_is_purchased_no_ads;
+        i32 m_ftue_step;
         i32 m_revision;
     };
     

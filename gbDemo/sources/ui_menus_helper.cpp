@@ -207,6 +207,12 @@ namespace game
         root->add_child(quit_game_dialog);
         
 #endif
+        
+        if (user_database_component->get_ftue_step(1) == 0)
+        {
+            ui_controls_helper::disable_all_and_focus_on({ces_ui_interaction_component::e_ui::e_ui_goto_racing1_button,
+                ces_ui_interaction_component::e_ui::e_ui_goto_racing2_button});
+        }
     }
     
     void ui_menus_helper::create_garage_menu_ui(const gb::ces_entity_shared_ptr& root,

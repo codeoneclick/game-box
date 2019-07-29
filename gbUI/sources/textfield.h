@@ -75,6 +75,9 @@ namespace gb
             void set_foreground_color(const glm::u8vec4& color, e_control_state state = e_control_state::e_none);
             
             glm::vec2 get_content_size();
+            
+            void focus(bool value, f32 focus_interval_in_seconds = 1.f, const on_focus_callback_t& callback = nullptr) override;
+            void disable(bool value) override;
         };
     };
 };

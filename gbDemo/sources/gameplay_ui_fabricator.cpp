@@ -44,14 +44,14 @@ namespace game
     const glm::u8vec4 gameplay_ui_fabricator::k_control_text_color = glm::u8vec4(214, 214, 157, 255);
     const glm::u8vec4 gameplay_ui_fabricator::k_control_background_color = glm::u8vec4(26, 47, 52, 127);
     const glm::u8vec4 gameplay_ui_fabricator::k_control_foreground_color = glm::u8vec4(26, 47, 52, 127);
-    const glm::u8vec4 gameplay_ui_fabricator::k_control_image_disabled_color = glm::u8vec4(214 - 16, 157 - 16, 214 - 16, 255 - 64);
-    const glm::u8vec4 gameplay_ui_fabricator::k_control_text_disabled_color = glm::u8vec4(214 - 16, 214 - 16, 157 - 16, 255 - 64);
+    const glm::u8vec4 gameplay_ui_fabricator::k_control_image_disabled_color = glm::u8vec4(214 - 32, 157 - 32, 214 - 32, 255 - 64);
+    const glm::u8vec4 gameplay_ui_fabricator::k_control_text_disabled_color = glm::u8vec4(214 - 32, 214 - 32, 157 - 32, 255 - 64);
     const glm::u8vec4 gameplay_ui_fabricator::k_control_background_disabled_color = glm::u8vec4(26 - 16, 47 - 16, 52 - 16, 127 - 64);
     const glm::u8vec4 gameplay_ui_fabricator::k_control_foreground_disabled_color = glm::u8vec4(26 - 16, 47 - 16, 52 - 16, 127 - 64);
     const glm::u8vec4 gameplay_ui_fabricator::k_control_image_focused_color = glm::u8vec4(214 + 32, 157 + 32, 214 + 32, 255);
     const glm::u8vec4 gameplay_ui_fabricator::k_control_text_focused_color = glm::u8vec4(214 + 32, 214 + 32, 157 + 32, 255);
-    const glm::u8vec4 gameplay_ui_fabricator::k_control_background_focused_color = glm::u8vec4(26 + 32, 47 + 32, 52 + 32, 127 + 64);
-    const glm::u8vec4 gameplay_ui_fabricator::k_control_foreground_focused_color = glm::u8vec4(26 + 32, 47 + 32, 52 + 32, 127 + 64);
+    const glm::u8vec4 gameplay_ui_fabricator::k_control_background_focused_color = glm::u8vec4(26 + 64, 47 + 64, 52 + 64, 127 + 64);
+    const glm::u8vec4 gameplay_ui_fabricator::k_control_foreground_focused_color = glm::u8vec4(26 + 64, 47 + 64, 52 + 64, 127 + 64);
     
     const glm::vec2 gameplay_ui_fabricator::k_label_size = glm::vec2(220.f, 32.f);
     const glm::vec2 gameplay_ui_fabricator::k_progress_bar_size = glm::vec2(220.f, 32.f);
@@ -559,22 +559,18 @@ namespace game
     
     gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_tickets_label(const std::string &filename)
     {
-        const auto label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(240.f, 24.f), "TICKETS: 3");
+        const auto label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(210.f, k_label_size.y), "TICKETS: 3");
         add_ui_interaction_component(label, game::ces_ui_interaction_component::e_ui::e_ui_tickets_label);
         label->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_tickets_label)];
-        label->set_font_color(k_font_color);
-        label->set_foreground_color(k_control_foreground_color);
-        label->set_background_color(k_control_background_color);
+        label->set_font_size(18.f);
+        colorize_ui_control(label);
         
-        const auto plus_button = m_ui_base_fabricator.lock()->create_button(glm::vec2(32.f, 24.f), nullptr);
+        const auto plus_button =  m_ui_base_fabricator.lock()->create_image_button(glm::vec2(32.f, 32.f), "ui_plus.png", nullptr);
         add_ui_interaction_component(plus_button, game::ces_ui_interaction_component::e_ui::e_ui_tickets_plus_button);
         plus_button->position = glm::vec2(208.f, 0.f);
-        plus_button->set_background_color(k_control_background_color);
-        plus_button->set_text("+");
-        plus_button->set_text_color(k_font_color);
+        colorize_ui_control(plus_button);
         plus_button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
         label->add_child(plus_button);
-        
         return label;
     }
     

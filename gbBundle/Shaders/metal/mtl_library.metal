@@ -606,7 +606,7 @@ fragment half4 fragment_shader_shape_2d_texture_color(common_v_output_t in [[sta
                                                       texture2d<half> diffuse_texture [[texture(0)]])
 {
     float4 color = float4(in.color.rbg, 1.0);
-    color.a = (float)diffuse_texture.sample(linear_sampler, in.texcoord).a;
+    color.a = (float)diffuse_texture.sample(linear_sampler, in.texcoord).a * in.color.a;
     return half4(color);
 }
 

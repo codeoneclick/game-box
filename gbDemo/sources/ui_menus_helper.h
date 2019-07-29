@@ -11,6 +11,7 @@
 #include "control.h"
 #include "ui_controls_helper.h"
 #include "ui_animation_helper.h"
+#include "ces_ui_interaction_component.h"
 
 namespace game
 {
