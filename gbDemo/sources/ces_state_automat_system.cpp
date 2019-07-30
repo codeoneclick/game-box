@@ -365,6 +365,10 @@ namespace game
                                                        gameplay_ui_fabricator->get_screen_size(),
                                                        hide_progress);
                     
+                    ui_animation_helper::hide_to_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_speed_reset_button),
+                                                       gameplay_ui_fabricator->get_screen_size(),
+                                                       hide_progress);
+                    
                     ui_animation_helper::hide_to_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_handling_label),
                                                        gameplay_ui_fabricator->get_screen_size(),
                                                        hide_progress);
@@ -377,6 +381,10 @@ namespace game
                                                        gameplay_ui_fabricator->get_screen_size(),
                                                        hide_progress);
                     
+                    ui_animation_helper::hide_to_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_handling_reset_button),
+                                                       gameplay_ui_fabricator->get_screen_size(),
+                                                       hide_progress);
+                    
                     ui_animation_helper::hide_to_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_rigidity_label),
                                                        gameplay_ui_fabricator->get_screen_size(),
                                                        hide_progress);
@@ -386,6 +394,10 @@ namespace game
                                                        hide_progress);
                     
                     ui_animation_helper::hide_to_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_rigidity_plus_button),
+                                                       gameplay_ui_fabricator->get_screen_size(),
+                                                       hide_progress);
+                    
+                    ui_animation_helper::hide_to_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_durability_reset_button),
                                                        gameplay_ui_fabricator->get_screen_size(),
                                                        hide_progress);
                     
@@ -430,6 +442,9 @@ namespace game
                                                        hide_progress);
                     
                     ui_animation_helper::hide_to_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_tickets_label),
+                                                      hide_progress);
+                    
+                    ui_animation_helper::hide_to_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_tickets_plus_button),
                                                       hide_progress);
                     
                     ui_animation_helper::hide_to_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_cash_label),
@@ -829,6 +844,10 @@ namespace game
                                                              gameplay_ui_fabricator->get_screen_size(),
                                                              show_progress);
                         
+                        ui_animation_helper::show_from_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_speed_reset_button),
+                                                             gameplay_ui_fabricator->get_screen_size(),
+                                                             show_progress);
+                        
                         ui_animation_helper::show_from_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_handling_label),
                                                            gameplay_ui_fabricator->get_screen_size(),
                                                            show_progress);
@@ -841,6 +860,10 @@ namespace game
                                                            gameplay_ui_fabricator->get_screen_size(),
                                                            show_progress);
                         
+                        ui_animation_helper::show_from_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_handling_reset_button),
+                                                             gameplay_ui_fabricator->get_screen_size(),
+                                                             show_progress);
+                        
                         ui_animation_helper::show_from_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_rigidity_label),
                                                            gameplay_ui_fabricator->get_screen_size(),
                                                            show_progress);
@@ -852,6 +875,10 @@ namespace game
                         ui_animation_helper::show_from_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_rigidity_plus_button),
                                                            gameplay_ui_fabricator->get_screen_size(),
                                                            show_progress);
+                        
+                        ui_animation_helper::show_from_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_durability_reset_button),
+                                                             gameplay_ui_fabricator->get_screen_size(),
+                                                             show_progress);
                         
                         ui_animation_helper::show_from_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_buy_upgrade_button),
                                                            gameplay_ui_fabricator->get_screen_size(),

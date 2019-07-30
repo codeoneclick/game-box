@@ -43,7 +43,10 @@ namespace gb
         
         void* get_mtl_raw_render_pipeline_state_ptr() const override;
         
-        std::string get_guid() const override;
+        inline std::string get_guid() const override
+        {
+            return m_guid;
+        };
     };
     
     mtl_render_pipeline_state_impl::mtl_render_pipeline_state_impl(const std::shared_ptr<material_cached_parameters>& material_parameters,
@@ -170,11 +173,6 @@ namespace gb
         return (__bridge void*)m_render_pipeline_state;
     }
     
-    std::string mtl_render_pipeline_state_impl::get_guid() const
-    {
-        return m_guid;
-    }
-    
     std::unordered_map<std::string, std::shared_ptr<mtl_render_pipeline_state>> mtl_render_pipeline_state::m_render_pipelines_pool;
     
     mtl_render_pipeline_state::mtl_render_pipeline_state(const std::shared_ptr<material_cached_parameters>& material_parameters,
@@ -193,7 +191,7 @@ namespace gb
                                                                                     const mtl_vertex_descriptor_shared_ptr& vertex_descriptor)
     {
         std::shared_ptr<mtl_render_pipeline_state> render_pipeline_state = nullptr;
-        std::string material_parameters_guid = material_parameters->get_guid();
+        const auto& material_parameters_guid = material_parameters->get_guid();
         const auto render_pipeline_state_it = m_render_pipelines_pool.find(material_parameters_guid);
         if (render_pipeline_state_it != m_render_pipelines_pool.end())
         {

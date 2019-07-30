@@ -42,7 +42,7 @@ namespace game
             }
         };
         
-        static void disable_all_and_focus_on(const std::vector<ces_ui_interaction_component::e_ui>& controls);
+        static void disable_all_and_focus_on(const std::vector<ces_ui_interaction_component::e_ui>& controls, bool focus = true);
         static void enable_all_and_unfocus();
     };
 };

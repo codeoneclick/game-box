@@ -131,7 +131,7 @@ namespace game
         m_gameplay_configuration_accessor = std::make_shared<gb::gameplay_configuration_accessor>();
         
         m_database_coordinator = std::make_shared<gb::db::database_coordinator>();
-        m_database_coordinator->open("game.db");
+        m_database_coordinator->open("game-retro.db");
         m_database_coordinator->register_table<db_user_table>();
         m_database_coordinator->register_table<db_garage_table>();
         m_database_coordinator->register_table<db_car_table>();
@@ -603,7 +603,7 @@ namespace game
         
         const auto light_source_01 = m_general_fabricator.lock()->create_deferred_spot_light_3d("cone_light_source.xml");
         car->add_child(light_source_01);
-        light_source_01->color = glm::vec4(0.0, 1.0, 0.0, 1.0);
+        light_source_01->color = glm::vec4(1.f, 1.f, .75f, 1.f);
         light_source_01->position = glm::vec3(.25f, .75f, .0f);
         light_source_01->rotation = glm::vec3(0.f, 10.f, 0.f);
         light_source_01->outer_cutoff_angle = glm::cos(glm::radians(15.f));
@@ -612,7 +612,7 @@ namespace game
 
         const auto light_source_02 = m_general_fabricator.lock()->create_deferred_spot_light_3d("cone_light_source.xml");
         car->add_child(light_source_02);
-        light_source_02->color = glm::vec4(0.0, 0.0, 1.0, 1.0);
+        light_source_02->color = glm::vec4(1.f, 1.f, .75f, 1.f);
         light_source_02->position = glm::vec3(-.25f, .75f, .0f);
         light_source_02->rotation = glm::vec3(0.f, -10.f, 0.f);
         light_source_02->outer_cutoff_angle = glm::cos(glm::radians(15.f));

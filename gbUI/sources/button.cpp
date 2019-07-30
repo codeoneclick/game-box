@@ -193,14 +193,20 @@ namespace gb
         
         void button::set_foreground_color(const glm::u8vec4& color, e_control_state state)
         {
-            control::set_color(k_foreground_element_name, color);
-            m_foreground_color[static_cast<i32>(state)] = color;
+            if (m_foreground_color[static_cast<i32>(state)] != color)
+            {
+                control::set_color(k_foreground_element_name, color);
+                m_foreground_color[static_cast<i32>(state)] = color;
+            }
         }
         
         void button::set_text_color(const glm::u8vec4& color, e_control_state state)
         {
-            control::set_color(k_label_element_name, color);
-            m_text_color[static_cast<i32>(state)] = color;
+            if ( m_text_color[static_cast<i32>(state)] != color)
+            {
+                control::set_color(k_label_element_name, color);
+                m_text_color[static_cast<i32>(state)] = color;
+            }
         }
         
         void button::set_font_size(const f32 font_size)

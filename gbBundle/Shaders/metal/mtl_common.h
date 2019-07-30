@@ -7,6 +7,7 @@
 //
 
 #include <metal_stdlib>
+#include <simd/simd.h>
 
 using namespace metal;
 
@@ -16,11 +17,11 @@ constexpr sampler mirrored_repeat_sampler(coord::normalized, address::mirrored_r
 
 typedef struct
 {
-    float3 position [[ attribute(0) ]];
-    float2 texcoord [[ attribute(1) ]];
-    float4 normal [[ attribute(2) ]];
-    float4 tangent [[ attribute(3) ]];
-    float4 color [[ attribute(4) ]];
+    vector_float3 position [[ attribute(0) ]];
+    vector_float2 texcoord [[ attribute(1) ]];
+    vector_float4 normal [[ attribute(2) ]];
+    vector_float4 tangent [[ attribute(3) ]];
+    vector_float4 color [[ attribute(4) ]];
 } common_v_input_t;
 
 typedef struct
@@ -47,7 +48,7 @@ typedef struct
 
 typedef struct
 {
-    float4 color [[color(0)]];
+    half4  color [[color(0)]];
     half4  normal [[color(1)]];
     float4 position [[color(2)]];
 } g_buffer_output_t;
@@ -61,10 +62,10 @@ typedef struct
 
 typedef struct
 {
-    float4x4 mat_m;
-    float4x4 mat_v;
-    float4x4 mat_p;
-    float4x4 mat_n;
+    matrix_float4x4 mat_m;
+    matrix_float4x4 mat_v;
+    matrix_float4x4 mat_p;
+    matrix_float4x4 mat_n;
 } __attribute__ ((aligned(256))) common_u_input_t;
 
 typedef struct
@@ -119,27 +120,27 @@ typedef struct
     float4x4 mat_v;
 } __attribute__ ((aligned(256))) ssao_u_input_t;
 
-inline float4x4 get_mat_m(common_u_input_t uniforms)
+inline float4x4 get_mat_m(constant common_u_input_t& uniforms)
 {
     return uniforms.mat_m;
 }
 
-inline float4x4 get_mat_v(common_u_input_t uniforms)
+inline float4x4 get_mat_v(constant common_u_input_t& uniforms)
 {
     return uniforms.mat_v;
 }
 
-inline float4x4 get_mat_p(common_u_input_t uniforms)
+inline float4x4 get_mat_p(constant common_u_input_t& uniforms)
 {
     return uniforms.mat_p;
 }
 
-inline float4x4 get_mat_n(common_u_input_t uniforms)
+inline float4x4 get_mat_n(constant common_u_input_t& uniforms)
 {
     return uniforms.mat_n;
 }
 
-inline float4x4 get_mat_mvp(common_u_input_t uniforms)
+inline float4x4 get_mat_mvp(constant common_u_input_t& uniforms)
 {
     return get_mat_p(uniforms) *  get_mat_v(uniforms) *  get_mat_m(uniforms);
 }

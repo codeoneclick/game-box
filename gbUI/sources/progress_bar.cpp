@@ -100,14 +100,22 @@ namespace gb
             return m_progress;
         }
         
-        void progress_bar::set_progress_line_color(const glm::u8vec4& color)
+        void progress_bar::set_progress_line_color(const glm::u8vec4& color, e_control_state state)
         {
-            control::set_color(k_progress_line_element_name, color);
+            if (m_progress_line_color[static_cast<i32>(state)] != color)
+            {
+                control::set_color(k_progress_line_element_name, color);
+                m_progress_line_color[static_cast<i32>(state)] = color;
+            }
         }
         
-        void progress_bar::set_foreground_color(const glm::u8vec4& color)
+        void progress_bar::set_foreground_color(const glm::u8vec4& color, e_control_state state)
         {
-            control::set_color(k_foreground_element_name, color);
+            if (m_foreground_color[static_cast<i32>(state)] != color)
+            {
+                control::set_color(k_foreground_element_name, color);
+                m_foreground_color[static_cast<i32>(state)] = color;
+            }
         }
     }
 }

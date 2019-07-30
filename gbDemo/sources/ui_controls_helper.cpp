@@ -39,7 +39,7 @@ namespace game
         }
     }
     
-    void ui_controls_helper::disable_all_and_focus_on(const std::vector<ces_ui_interaction_component::e_ui>& controls)
+    void ui_controls_helper::disable_all_and_focus_on(const std::vector<ces_ui_interaction_component::e_ui>& controls, bool focus)
     {
         for (const auto& control : m_all_ui_controls)
         {
@@ -58,7 +58,7 @@ namespace game
             if (!m_all_ui_controls.at(static_cast<i32>(ui_id_it)).expired())
             {
                 m_all_ui_controls.at(static_cast<i32>(ui_id_it)).lock()->disable(false);
-                m_all_ui_controls.at(static_cast<i32>(ui_id_it)).lock()->focus(true, .33f);
+                m_all_ui_controls.at(static_cast<i32>(ui_id_it)).lock()->focus(focus, .33f);
             }
         }
     }

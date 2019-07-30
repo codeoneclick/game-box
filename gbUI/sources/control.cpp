@@ -184,8 +184,11 @@ namespace gb
         
         void control::set_background_color(const glm::u8vec4& color, e_control_state state)
         {
-            control::set_color(control::k_background_element_name, color);
-            m_background_color[static_cast<i32>(state)] = color;
+            if (m_background_color[static_cast<i32>(state)] != color)
+            {
+                control::set_color(control::k_background_element_name, color);
+                m_background_color[static_cast<i32>(state)] = color;
+            }
         }
         
         void control::set_alpha(ui8 alpha)

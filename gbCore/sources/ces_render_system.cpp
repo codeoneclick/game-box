@@ -176,15 +176,15 @@ namespace gb
             bool is_visible = entity->get_is_visible() && entity->get_is_visible_in_next_frame();
             if(is_visible)
             {
-                const auto material_component = entity->get_component<ces_material_component>();
-                const auto geometry_component = entity->get_component<ces_geometry_component>();
+                const auto& material_component = entity->get_component<ces_material_component>();
+                const auto& geometry_component = entity->get_component<ces_geometry_component>();
                 
-                const auto material = material_component->get_material(technique_name);
-                const auto mesh = geometry_component->get_mesh();
+                const auto& material = material_component->get_material(technique_name);
+                const auto& mesh = geometry_component->get_mesh();
                 
                 if(material && material->get_shader()->is_commited() && mesh)
                 {
-                    const auto transformation_component = entity->get_component<ces_transformation_component>();
+                    const auto& transformation_component = entity->get_component<ces_transformation_component>();
                     
                     if (transformation_component->is_2d())
                     {
@@ -209,7 +209,7 @@ namespace gb
                                     result == frustum_3d::e_frustum_bounds_result_intersect))
                                 {
                                     is_visible = true;
-                                    const auto camera_collision_component = entity->get_component<ces_camera_collision_component>();
+                                    const auto& camera_collision_component = entity->get_component<ces_camera_collision_component>();
                                     if (camera_collision_component)
                                     {
                                         glm::vec3 absolute_min_bound = glm::transform(min_bound, mat_m);
@@ -551,23 +551,23 @@ namespace gb
     {
         if (shader_uniforms_component)
         {
-            auto buffers = shader_uniforms_component->get_vertex_buffers();
-            for (const auto& buffer_it : buffers)
+            const auto& vertex_buffers = shader_uniforms_component->get_vertex_buffers();
+            for (const auto& buffer_it : vertex_buffers)
             {
-                const auto uniforms = buffer_it.second->get_uniforms();
+                const auto& uniforms = buffer_it.second->get_uniforms();
                 material_component->set_custom_shader_uniforms(uniforms, technique_name);
             }
             
-            buffers = shader_uniforms_component->get_fragment_buffers();
-            for (const auto& buffer_it : buffers)
+            const auto& fragment_buffers = shader_uniforms_component->get_fragment_buffers();
+            for (const auto& buffer_it : fragment_buffers)
             {
                 const auto uniforms = buffer_it.second->get_uniforms();
                 material_component->set_custom_shader_uniforms(uniforms, technique_name);
             }
         }
         
-        const auto material = material_component->get_material(technique_name);
-        const auto mesh = geometry_component->get_mesh();
+        const auto& material = material_component->get_material(technique_name);
+        const auto& mesh = geometry_component->get_mesh();
         
 #if USED_GRAPHICS_API == VULKAN_API
         

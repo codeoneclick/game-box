@@ -84,6 +84,13 @@ namespace game
         i32 m_max_cars_count = 8;
         i32 m_previewed_car_id = -1;
         
+        const i32 m_initial_price_for_color_switch = 100;
+        const f32 m_price_for_color_switch_increase_coefficient = 1.33f;
+        
+        const i32 m_initial_price_for_performance_upgrade = 100;
+        const f32 m_price_for_performance_upgrade_increase_coefficient_per_car = 1.66f;
+        const f32 m_price_for_performance_upgrade_increase_coefficient_per_upgrade = 2.f;
+        
         std::unordered_map<ui32, std::shared_ptr<gb::car_progression_configuration>> m_cars_progression_configurations;
         
     protected:
@@ -124,5 +131,10 @@ namespace game
         void add_car_progression(i32 car_id, const std::shared_ptr<gb::car_progression_configuration>& car_progression_configuration);
         
         void update_cars_according_rank(i32 garage_id, i32 rank);
+        
+        i32 get_price_for_color_switch(i32 garage_id, i32 car_id);
+        i32 get_price_for_speed_upgrade(i32 garage_id, i32 car_id, f32 delta);
+        i32 get_price_for_handling_upgrade(i32 garage_id, i32 car_id, f32 delta);
+        i32 get_price_for_durability_upgrade(i32 garage_id, i32 car_id, f32 delta);
     };
 };

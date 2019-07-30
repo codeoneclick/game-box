@@ -213,7 +213,7 @@ namespace game
             advertisement_provider::shared_instance()->show_banner();
         }
 
-        store_provider::shared_instance()->set_on_puchases_restored_callback([=]() {
+        store_provider::shared_instance()->set_on_puchases_restored_callback([=](i32 product_id) {
             if (store_provider::shared_instance()->is_no_ads_product_bought())
             {
                 user_database_component->set_is_purchased_no_ads(1, true);

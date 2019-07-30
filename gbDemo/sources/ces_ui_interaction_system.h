@@ -71,6 +71,8 @@ namespace game
         void mute_sounds(const gb::ces_entity_shared_ptr& root);
         void unmute_sounds(const gb::ces_entity_shared_ptr& root);
         
+        i32 calculate_upgrades_price(const gb::ces_entity_shared_ptr& root);
+        
     protected:
         
         void on_feed_start(f32 dt);

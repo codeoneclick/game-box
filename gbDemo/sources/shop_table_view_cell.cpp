@@ -132,6 +132,7 @@ namespace game
             product_name_label->set_text_color(gameplay_ui_fabricator::k_control_text_color);
             product_name_label->set_text_horizontal_aligment(gb::ui::e_element_horizontal_aligment::e_element_horizontal_aligment_left);
             product_name_label->set_visible_edges(false);
+            product_name_label->remove_component(gb::ces_bound_touch_component::class_guid());
             m_elements[k_product_name_label_id] = product_name_label;
             add_child(product_name_label);
             
@@ -146,6 +147,7 @@ namespace game
             product_description_label->set_font_size(18.f);
             product_description_label->set_multiline(true);
             product_description_label->set_visible_edges(false);
+            product_description_label->remove_component(gb::ces_bound_touch_component::class_guid());
             m_elements[k_product_description_label_id] = product_description_label;
             add_child(product_description_label);
             
@@ -158,6 +160,7 @@ namespace game
             product_price_label->position = glm::vec2(180.f, 60.f);
             product_price_label->set_text_color(gameplay_ui_fabricator::k_control_text_color);
             product_price_label->set_visible_edges(false);
+            product_price_label->remove_component(gb::ces_bound_touch_component::class_guid());
             m_elements[k_product_price_label_id] = product_price_label;
             add_child(product_price_label);
             
@@ -170,7 +173,11 @@ namespace game
                     {
                         material->set_stencil_test(true);
                         material->set_stencil_function(gb::gl::constant::equal);
-                        material->set_stencil_ref_value(1);
+                        material->set_stencil_ref_value(128);
+                        material->set_stencil_mask_read(255);
+                        material->set_front_stencil_op_1(gb::gl::constant::keep);
+                        material->set_front_stencil_op_2(gb::gl::constant::keep);
+                        material->set_front_stencil_op_3(gb::gl::constant::keep);
                     }
                 }
                 
@@ -181,7 +188,11 @@ namespace game
                     {
                         material->set_stencil_test(true);
                         material->set_stencil_function(gb::gl::constant::equal);
-                        material->set_stencil_ref_value(1);
+                        material->set_stencil_ref_value(128);
+                        material->set_stencil_mask_read(255);
+                        material->set_front_stencil_op_1(gb::gl::constant::keep);
+                        material->set_front_stencil_op_2(gb::gl::constant::keep);
+                        material->set_front_stencil_op_3(gb::gl::constant::keep);
                     }
                 });
             });

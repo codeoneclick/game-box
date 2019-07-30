@@ -163,21 +163,22 @@ namespace gb
             m_vertical_aligment = aligment;
         }
         
-        void image_button::set_background_color(const glm::u8vec4& color, e_control_state state)
-        {
-            control::set_background_color(color, state);
-        }
-        
         void image_button::set_foreground_color(const glm::u8vec4& color, e_control_state state)
         {
-            control::set_color(k_foreground_element_name, color);
-            m_foreground_color[static_cast<i32>(state)] = color;
+            if (m_foreground_color[static_cast<i32>(state)] != color)
+            {
+                control::set_color(k_foreground_element_name, color);
+                m_foreground_color[static_cast<i32>(state)] = color;
+            }
         }
         
         void image_button::set_image_color(const glm::u8vec4& color, e_control_state state)
         {
-            control::set_color(k_image_element_name, color);
-            m_image_color[static_cast<i32>(state)] = color;
+            if (m_image_color[static_cast<i32>(state)] != color)
+            {
+                control::set_color(k_image_element_name, color);
+                m_image_color[static_cast<i32>(state)] = color;
+            }
         }
         
         void image_button::focus(bool value, f32 focus_interval_in_seconds, const on_focus_callback_t& callback)

@@ -149,10 +149,14 @@ namespace game
                 data.m_car_body_color_id = possible_colors.at(std::get_random_i(0, 3));
                 possible_colors[data.m_car_body_color_id - 1] = possible_colors.at((data.m_car_body_color_id + 1) % possible_colors.size());
                 data.m_car_windows_color_id = possible_colors.at(std::get_random_i(0, 3));
-                data.m_car_speed_upgrade = std::get_random_i(0, upgrade_points);
-                upgrade_points -= data.m_car_speed_upgrade;
-                data.m_car_handling_upgrade = std::get_random_i(0, upgrade_points);
-                upgrade_points -= data.m_car_speed_upgrade;
+                i32 car_speed_upgrade = std::get_random_i(0, upgrade_points);
+                car_speed_upgrade -= car_speed_upgrade % 10;
+                data.m_car_speed_upgrade = car_speed_upgrade;
+                upgrade_points -= car_speed_upgrade;
+                i32 car_handling_upgrade = std::get_random_i(0, upgrade_points);
+                car_handling_upgrade -= car_handling_upgrade % 10;
+                data.m_car_handling_upgrade = car_handling_upgrade;
+                upgrade_points -= car_handling_upgrade;
                 data.m_car_rigidity_upgrade = upgrade_points;
                 data.m_car_skin_id = 1;
                 car_record->save_to_db();
@@ -398,6 +402,59 @@ namespace game
         if (car_progression_it != m_cars_progression_configurations.end())
         {
             result = car_progression_it->second->get_required_rank();
+        }
+        return result;
+    }
+    
+    i32 ces_garage_database_component::get_price_for_color_switch(i32 garage_id, i32 car_id)
+    {
+        i32 result = 0;
+        const auto car_data = get_car(garage_id, car_id);
+        result = car_data->get_id() * m_initial_price_for_color_switch * m_price_for_color_switch_increase_coefficient;
+        return result;
+    }
+    
+    i32 ces_garage_database_component::get_price_for_speed_upgrade(i32 garage_id, i32 car_id, f32 delta)
+    {
+        i32 result = 0;
+        i32 delta_upgrades_amount = std::floor(delta * 10.f);
+        if (delta_upgrades_amount > 0)
+        {
+            const auto car_data = get_car(garage_id, car_id);
+            i32 current_upgrades_amount = std::ceil(car_data->get_car_speed_upgrade() * 10.f);
+            i32 one_upgrade_price = car_data->get_id() * m_initial_price_for_performance_upgrade * m_price_for_performance_upgrade_increase_coefficient_per_car;
+            result += current_upgrades_amount * one_upgrade_price * m_price_for_performance_upgrade_increase_coefficient_per_upgrade;
+            result += delta_upgrades_amount * one_upgrade_price * m_price_for_performance_upgrade_increase_coefficient_per_upgrade;
+        }
+        return result;
+    }
+    
+    i32 ces_garage_database_component::get_price_for_handling_upgrade(i32 garage_id, i32 car_id, f32 delta)
+    {
+        i32 result = 0;
+        i32 delta_upgrades_amount = std::floor(delta * 10.f);
+        if (delta_upgrades_amount > 0)
+        {
+            const auto car_data = get_car(garage_id, car_id);
+            i32 current_upgrades_amount = std::ceil(car_data->get_car_handling_upgrade() * 10.f);
+            i32 one_upgrade_price = car_data->get_id() * m_initial_price_for_performance_upgrade * m_price_for_performance_upgrade_increase_coefficient_per_car;
+            result += current_upgrades_amount * one_upgrade_price * m_price_for_performance_upgrade_increase_coefficient_per_upgrade;
+            result += delta_upgrades_amount * one_upgrade_price * m_price_for_performance_upgrade_increase_coefficient_per_upgrade;
+        }
+        return result;
+    }
+    
+    i32 ces_garage_database_component::get_price_for_durability_upgrade(i32 garage_id, i32 car_id, f32 delta)
+    {
+        i32 result = 0;
+        i32 delta_upgrades_amount = std::floor(delta * 10.f);
+        if (delta_upgrades_amount > 0)
+        {
+            const auto car_data = get_car(garage_id, car_id);
+            i32 current_upgrades_amount = std::ceil(car_data->get_car_rigidity_upgrade() * 10.f);
+            i32 one_upgrade_price = car_data->get_id() * m_initial_price_for_performance_upgrade * m_price_for_performance_upgrade_increase_coefficient_per_car;
+            result += current_upgrades_amount * one_upgrade_price * m_price_for_performance_upgrade_increase_coefficient_per_upgrade;
+            result += delta_upgrades_amount * one_upgrade_price * m_price_for_performance_upgrade_increase_coefficient_per_upgrade;
         }
         return result;
     }

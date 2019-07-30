@@ -97,7 +97,7 @@ namespace game
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_level_tutorial_steer_right_label)] = glm::vec2(m_screen_size.x - 128.f, m_screen_size.y * .5f + 24.f);
          ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_level_tutorial_steer_label)] = glm::vec2(m_screen_size.x * .5f - 200.f, m_screen_size.y * .5f - 300.f);
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_goto_racing1_button)] = glm::vec2(m_screen_size.x - k_image_button_size.x - 32.f, m_screen_size.y - k_image_button_size.y - 8.f);
-         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_goto_racing2_button)] = glm::vec2(m_screen_size.x - k_image_button_size.x - 32.f - k_image_button_size.x, m_screen_size.y - k_image_button_size.y - 8.f);
+         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_goto_racing2_button)] = glm::vec2(m_screen_size.x - k_image_button_size.x * 2.f - 32.f - k_image_button_size.x, m_screen_size.y - k_image_button_size.y - 8.f);
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_pause_button)] = glm::vec2(m_screen_size.x - k_image_button_size.x - 32.f, 8.f);
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_tickets_label)] = glm::vec2(32.f, 8.f);
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_cash_label)] = glm::vec2(m_screen_size.x - 32.f - 210.f, 8.f);
@@ -123,16 +123,19 @@ namespace game
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_buy_upgrade_button)] = glm::vec2(m_screen_size.x * .5f - k_image_button_size.x, m_screen_size.y - (k_image_button_size.y + 8.f) * 2.f);
         
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_upgrade_speed_label)] = glm::vec2(m_screen_size.x - 32.f - 8.f - k_image_button_size.x - (k_image_button_size.x * .5f + 8.f) * 4.f + 8.f, 40.f + k_image_button_size.y + 8.f + k_image_button_size.y + 8.f);
-        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_upgrade_speed_progress_bar)] = glm::vec2(m_screen_size.x - 32.f - 8.f - k_image_button_size.x - (k_image_button_size.x * .5f + 8.f) * 4.f + 8.f, 40.f + k_image_button_size.y + 8.f + k_image_button_size.y + 8.f + k_image_button_size.y * .5f);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_upgrade_speed_progress_bar)] = glm::vec2(m_screen_size.x - 32.f - 8.f - k_image_button_size.x - (k_image_button_size.x * .5f + 8.f) * 4.f + k_image_button_size.x * .5f + 8.f, 40.f + k_image_button_size.y + 8.f + k_image_button_size.y + 8.f + k_image_button_size.y * .5f);
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_upgrade_speed_plus_button)] = glm::vec2(m_screen_size.x - 32.f - 8.f - k_image_button_size.x - k_image_button_size.y * .5f, 40.f + k_image_button_size.y + 8.f + k_image_button_size.y + 8.f + k_image_button_size.y * .5f);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_upgrade_speed_reset_button)] = glm::vec2(m_screen_size.x - 32.f - 8.f - k_image_button_size.x - (k_image_button_size.x * .5f + 8.f) * 4.f + 8.f, 40.f + k_image_button_size.y + 8.f + k_image_button_size.y + 8.f + k_image_button_size.y * .5f);
         
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_upgrade_handling_label)] = glm::vec2(m_screen_size.x - 32.f - 8.f - k_image_button_size.x - (k_image_button_size.x * .5f + 8.f) * 4.f + 8.f, 40.f + k_image_button_size.y + 8.f + k_image_button_size.y + 8.f + k_image_button_size.y + 8.f);
-        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_upgrade_handling_progress_bar)] = glm::vec2(m_screen_size.x - 32.f - 8.f - k_image_button_size.x - (k_image_button_size.x * .5f + 8.f) * 4.f + 8.f, 40.f + k_image_button_size.y + 8.f + k_image_button_size.y + 8.f + k_image_button_size.y + 8.f + k_image_button_size.y * .5f);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_upgrade_handling_progress_bar)] = glm::vec2(m_screen_size.x - 32.f - 8.f - k_image_button_size.x - (k_image_button_size.x * .5f + 8.f) * 4.f + k_image_button_size.x * .5f + 8.f, 40.f + k_image_button_size.y + 8.f + k_image_button_size.y + 8.f + k_image_button_size.y + 8.f + k_image_button_size.y * .5f);
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_upgrade_handling_plus_button)] = glm::vec2(m_screen_size.x - 32.f - 8.f - k_image_button_size.x - k_image_button_size.y * .5f, 40.f + k_image_button_size.y + 8.f + k_image_button_size.y + 8.f + k_image_button_size.y + 8.f + k_image_button_size.y * .5f);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_upgrade_handling_reset_button)] = glm::vec2(m_screen_size.x - 32.f - 8.f - k_image_button_size.x - (k_image_button_size.x * .5f + 8.f) * 4.f + 8.f, 40.f + k_image_button_size.y + 8.f + k_image_button_size.y + 8.f + k_image_button_size.y + 8.f + k_image_button_size.y * .5f);
         
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_upgrade_rigidity_label)] = glm::vec2(m_screen_size.x - 32.f - 8.f - k_image_button_size.x - (k_image_button_size.x * .5f + 8.f) * 4.f + 8.f, 40.f + k_image_button_size.y + 8.f + k_image_button_size.y + 8.f + k_image_button_size.y + 8.f + k_image_button_size.y + 8.f);
-        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_upgrade_rigidity_progress_bar)] = glm::vec2(m_screen_size.x - 32.f - 8.f - k_image_button_size.x - (k_image_button_size.x * .5f + 8.f) * 4.f + 8.f, 40.f + k_image_button_size.y + 8.f + k_image_button_size.y + 8.f + k_image_button_size.y + 8.f + k_image_button_size.y + 8.f + k_image_button_size.y * .5f);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_upgrade_rigidity_progress_bar)] = glm::vec2(m_screen_size.x - 32.f - 8.f - k_image_button_size.x - (k_image_button_size.x * .5f + 8.f) * 4.f + k_image_button_size.x * .5f + 8.f, 40.f + k_image_button_size.y + 8.f + k_image_button_size.y + 8.f + k_image_button_size.y + 8.f + k_image_button_size.y + 8.f + k_image_button_size.y * .5f);
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_upgrade_rigidity_plus_button)] = glm::vec2(m_screen_size.x - 32.f - 8.f - k_image_button_size.x - k_image_button_size.y * .5f, 40.f + k_image_button_size.y + 8.f + k_image_button_size.y + 8.f + k_image_button_size.y + 8.f + k_image_button_size.y + 8.f + k_image_button_size.y * .5f);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_upgrade_durability_reset_button)] = glm::vec2(m_screen_size.x - 32.f - 8.f - k_image_button_size.x - (k_image_button_size.x * .5f + 8.f) * 4.f + 8.f, 40.f + k_image_button_size.y + 8.f + k_image_button_size.y + 8.f + k_image_button_size.y + 8.f + k_image_button_size.y + 8.f + k_image_button_size.y * .5f);
         
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_buy_car_label)] = glm::vec2(m_screen_size.x - 32.f - k_image_button_size.x * 2.f, m_screen_size.y - (k_image_button_size.y + 8.f) * 2.f);
         
@@ -387,10 +390,10 @@ namespace game
     
     gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_goto_racing2_button(const std::string& filename)
     {
-        const auto button = m_ui_base_fabricator.lock()->create_button(k_image_button_size, nullptr);
+        const auto button = m_ui_base_fabricator.lock()->create_button(glm::vec2(k_image_button_size.x * 2.f, k_image_button_size.y), nullptr);
         add_ui_interaction_component(button, game::ces_ui_interaction_component::e_ui::e_ui_goto_racing2_button);
         button->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_goto_racing2_button)];
-        button->set_text("GO");
+        button->set_text("RACE");
         colorize_ui_control(button);
         button->set_font_size(24.f);
         button->set_text_vertical_aligment(gb::ui::e_element_vertical_aligment_center);
@@ -927,14 +930,15 @@ namespace game
         
         dialog->set_title("");
         dialog->set_title_text_color(k_control_text_color);
+        dialog->show_title(false);
         
         auto table_view = m_ui_base_fabricator.lock()->create_table_view(glm::vec2(256.f,
-                                                                                   3.f * (96.f + 8.f)));
-        table_view->position = glm::vec2(get_screen_size().x * .5f - 128.f, 128.f);
+                                                                                   1.8f * (96.f + 8.f)));
+        table_view->position = glm::vec2(get_screen_size().x * .5f - 128.f, 24.f);
         table_view->set_background_color(glm::u8vec4(0, 0, 0, 32));
         
-        const auto ok_button = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size, "ui_checkmark.png", nullptr);
-        ok_button->position = glm::vec2(get_screen_size().x * .5f - k_image_button_size.x * .5f + 8.f, 3.f * (96.f + 8.f) + k_image_button_size.y * 1.5f);
+        const auto ok_button = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size, "ui_cross.png", nullptr);
+        ok_button->position = glm::vec2(get_screen_size().x * .5f - k_image_button_size.x * .5f + 8.f, 1.8f * (96.f + 8.f) + 32.f);
         colorize_ui_control(ok_button);
         ok_button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
         
@@ -950,7 +954,7 @@ namespace game
     {
         const auto overlay = m_general_fabricator.lock()->create_sprite("button_background.xml");
         add_ui_interaction_component(overlay, game::ces_ui_interaction_component::e_ui::e_ui_screen_overlay);
-        overlay->color = glm::u8vec4(0, 0, 0, 192);
+        overlay->color = glm::u8vec4(0, 0, 0, 224);
         overlay->position = glm::vec2(-m_screen_size.x * .5f, -m_screen_size.y * .5f);
         overlay->size = glm::vec2(m_screen_size.x, m_screen_size.y);
         overlay->visible = false;
@@ -1324,7 +1328,7 @@ namespace game
     
     gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_upgrade_speed_progress_bar(const std::string& filename)
     {
-        const auto progress_bar = m_ui_base_fabricator.lock()->create_progress_bar(glm::vec2((k_image_button_size.x * .5f + 8.f) * 4.f - 8.f - k_image_button_size.y * .5f, k_image_button_size.y * .5f));
+        const auto progress_bar = m_ui_base_fabricator.lock()->create_progress_bar(glm::vec2((k_image_button_size.x * .5f + 8.f) * 4.f - 8.f - k_image_button_size.y, k_image_button_size.y * .5f));
         add_ui_interaction_component(progress_bar, game::ces_ui_interaction_component::e_ui::e_ui_upgrade_speed_progress_bar);
         progress_bar->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_upgrade_speed_progress_bar)];
         progress_bar->set_progress_line_color(k_control_text_color);
@@ -1343,6 +1347,16 @@ namespace game
         return button;
     }
     
+    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_upgrade_speed_reset_button(const std::string& filename)
+    {
+        const auto button =  m_ui_base_fabricator.lock()->create_image_button(glm::vec2(k_image_button_size.y * .5f), "ui_minus.png", nullptr);
+        add_ui_interaction_component(button, game::ces_ui_interaction_component::e_ui::e_ui_upgrade_speed_reset_button);
+        button->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_upgrade_speed_reset_button)];
+        colorize_ui_control(button);
+        button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
+        return button;
+    }
+    
     gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_upgrade_handling_label(const std::string& filename)
     {
         const auto label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2((k_image_button_size.x * .5f + 8.f) * 4.f - 8.f, k_image_button_size.y * .5f), "HANDLING");
@@ -1357,7 +1371,7 @@ namespace game
     
     gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_upgrade_handling_progress_bar(const std::string& filename)
     {
-        const auto progress_bar = m_ui_base_fabricator.lock()->create_progress_bar(glm::vec2((k_image_button_size.x * .5f + 8.f) * 4.f - 8.f - k_image_button_size.y * .5f, k_image_button_size.y * .5f));
+        const auto progress_bar = m_ui_base_fabricator.lock()->create_progress_bar(glm::vec2((k_image_button_size.x * .5f + 8.f) * 4.f - 8.f - k_image_button_size.y, k_image_button_size.y * .5f));
         add_ui_interaction_component(progress_bar, game::ces_ui_interaction_component::e_ui::e_ui_upgrade_handling_progress_bar);
         progress_bar->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_upgrade_handling_progress_bar)];
         progress_bar->set_progress_line_color(k_control_text_color);
@@ -1375,9 +1389,19 @@ namespace game
         return button;
     }
     
+    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_upgrade_handling_reset_button(const std::string& filename)
+    {
+        const auto button =  m_ui_base_fabricator.lock()->create_image_button(glm::vec2(k_image_button_size.y * .5f), "ui_minus.png", nullptr);
+        add_ui_interaction_component(button, game::ces_ui_interaction_component::e_ui::e_ui_upgrade_handling_reset_button);
+        button->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_upgrade_handling_reset_button)];
+        colorize_ui_control(button);
+        button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
+        return button;
+    }
+    
     gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_upgrade_rigidity_label(const std::string& filename)
     {
-        const auto label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2((k_image_button_size.x * .5f + 8.f) * 4.f - 8.f, k_image_button_size.y * .5f), "RIGIDITY");
+        const auto label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2((k_image_button_size.x * .5f + 8.f) * 4.f - 8.f, k_image_button_size.y * .5f), "DURABILITY");
         add_ui_interaction_component(label, game::ces_ui_interaction_component::e_ui::e_ui_upgrade_rigidity_label);
         label->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_upgrade_rigidity_label)];
         colorize_ui_control(label);
@@ -1389,7 +1413,7 @@ namespace game
     
     gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_upgrade_rigidity_progress_bar(const std::string& filename)
     {
-        const auto progress_bar = m_ui_base_fabricator.lock()->create_progress_bar(glm::vec2((k_image_button_size.x * .5f + 8.f) * 4.f - 8.f - k_image_button_size.y * .5f, k_image_button_size.y * .5f));
+        const auto progress_bar = m_ui_base_fabricator.lock()->create_progress_bar(glm::vec2((k_image_button_size.x * .5f + 8.f) * 4.f - 8.f - k_image_button_size.y, k_image_button_size.y * .5f));
         add_ui_interaction_component(progress_bar, game::ces_ui_interaction_component::e_ui::e_ui_upgrade_rigidity_progress_bar);
         progress_bar->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_upgrade_rigidity_progress_bar)];
         progress_bar->set_progress_line_color(k_control_text_color);
@@ -1399,9 +1423,19 @@ namespace game
     
     gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_upgrade_rigidity_plus_button(const std::string& filename)
     {
-        const auto button =  m_ui_base_fabricator.lock()->create_image_button(glm::vec2(k_image_button_size.y * .5f), "ui_plus.png", nullptr);
+        const auto button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(k_image_button_size.y * .5f), "ui_plus.png", nullptr);
         add_ui_interaction_component(button, game::ces_ui_interaction_component::e_ui::e_ui_upgrade_rigidity_plus_button);
         button->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_upgrade_rigidity_plus_button)];
+        colorize_ui_control(button);
+        button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
+        return button;
+    }
+    
+    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_upgrade_durability_reset_button(const std::string& filename)
+    {
+        const auto button =  m_ui_base_fabricator.lock()->create_image_button(glm::vec2(k_image_button_size.y * .5f), "ui_minus.png", nullptr);
+        add_ui_interaction_component(button, game::ces_ui_interaction_component::e_ui::e_ui_upgrade_durability_reset_button);
+        button->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_upgrade_durability_reset_button)];
         colorize_ui_control(button);
         button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
         return button;

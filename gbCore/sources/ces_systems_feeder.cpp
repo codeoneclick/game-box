@@ -9,6 +9,7 @@
 #include "ces_systems_feeder.h"
 #include "ces_base_system.h"
 #include "scene_graph.h"
+#include "ces_system_modifiers_component.h"
 
 namespace gb
 {
@@ -42,14 +43,25 @@ namespace gb
                 m_changed_entities.pop();
                 if(!it.second.expired())
                 {
-                    for(const auto& system : m_ordered_systems)
+                    for (const auto& system : m_ordered_systems)
                     {
-                        for(auto& required_mask : system->m_references_to_required_entities)
+                        for (auto& required_mask : system->m_references_to_required_entities)
                         {
                             if (required_mask.second.size() > 2048)
                             {
                                 std::cout<<"too much references for entitites: "<<required_mask.second.size()<<std::endl;
-                                system->cleanup(m_root);
+                                const auto system_modifiers_component = m_root->get_component<ces_system_modifiers_component>();
+                                if (system_modifiers_component)
+                                {
+                                    system_modifiers_component->cleanup();
+                                    system->cleanup(m_root);
+                                    system_modifiers_component->cleanup_done();
+                                    break;
+                                }
+                                else
+                                {
+                                    assert(false);
+                                }
                             }
                             if(it.first == e_entity_state_changed || it.first == e_entity_state_removed)
                             {

@@ -24,7 +24,11 @@ namespace game
         
     private:
         
-        std::function<void()> m_on_purchases_restored = nullptr;
+        std::function<void(i32)> m_on_purchases_restored = nullptr;
+        
+        std::function<void()> m_on_purchase_small_cash_pack = nullptr;
+        std::function<void()> m_on_purchase_medium_cash_pack = nullptr;
+        std::function<void()> m_on_purchase_big_cash_pack = nullptr;
         
     protected:
         
@@ -39,11 +43,18 @@ namespace game
         
         void request_products();
         void buy_no_ads_product();
+        void buy_small_cash_pack(const std::function<void()>& callback);
+        void buy_medium_cash_pack(const std::function<void()>& callback);
+        void buy_big_cash_pack(const std::function<void()>& callback);
         
         void restore_products();
         
-        void set_on_puchases_restored_callback(const std::function<void()>& callback);
-        std::function<void()> get_on_puchases_restored_callback() const;
+        void set_on_puchases_restored_callback(const std::function<void(i32)>& callback);
+        std::function<void(i32)> get_on_puchases_restored_callback() const;
+        
+        std::function<void()> get_on_puchase_small_cash_pack_callback() const;
+        std::function<void()> get_on_puchase_medium_cash_pack_callback() const;
+        std::function<void()> get_on_puchase_big_cash_pack_callback() const;
         
         bool is_no_ads_product_bought() const;
     };

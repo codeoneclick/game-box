@@ -62,7 +62,6 @@ namespace gb
             
             void set_is_selected(bool value);
             
-            void set_background_color(const glm::u8vec4& color, e_control_state state = e_control_state::e_none) override;
             void set_foreground_color(const glm::u8vec4& color, e_control_state state = e_control_state::e_none);
             void set_image_color(const glm::u8vec4& color, e_control_state state = e_control_state::e_none);
             

@@ -17,7 +17,7 @@
     front_stencil_op_1="KEEP"
     front_stencil_op_2="KEEP"
     front_stencil_op_3="KEEP"
-     stencil_ref_value="0"
+    stencil_ref_value="0"
     stencil_mask_read="0"
     stencil_mask_write="0"
     is_debugging="0"

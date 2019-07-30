@@ -794,7 +794,7 @@ namespace game
                                 garage_database_component->select_car(1, selected_car_id);
                                 events_provider::shared_instance()->on_car_selected(selected_car_id);
                             }
-                            button->set_image_color(glm::u8vec4(64, 64, 255, 255));
+                            button->set_image_color(glm::u8vec4(0, 0, 127, 255));
                         });
                     }
                 }
@@ -1130,6 +1130,35 @@ namespace game
                             {
                                 entity->visible = true;
                             }
+                            
+                            const auto button = std::static_pointer_cast<gb::ui::image_button>(entity);
+                            if(!button->is_pressed_callback_exist())
+                            {
+                                button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                                    const auto user_database_component = root->get_component<ces_user_database_component>();
+                                    const auto cash_amount = user_database_component->get_cash(1);
+                                    const auto upgrade_price = calculate_upgrades_price(root);
+                                    if (cash_amount < upgrade_price)
+                                    {
+                                        pop_current_dialog();
+                                        push_cash_shop_dialog(root);
+                                    }
+                                    else
+                                    {
+                                        car_descriptor_component->get_car_upgrade()->apply(car_descriptor_component->get_car_upgrade_cache());
+                                        user_database_component->dec_cash(1, upgrade_price);
+                                        
+                                        const auto cash_label = ui_controls_helper::get_control_as<gb::ui::textfield>(ces_ui_interaction_component::e_ui::e_ui_cash_label);
+                                        if (cash_label)
+                                        {
+                                            std::string cash_value = "CASH: ";
+                                            cash_value.append(std::to_string(user_database_component->get_cash(1)));
+                                            cash_value.append(" $");
+                                            cash_label->set_text(cash_value);
+                                        }
+                                    }
+                                });
+                            }
                         }
                     }
                 }
@@ -1149,6 +1178,8 @@ namespace game
                             else
                             {
                                 entity->visible = true;
+                                i32 price = calculate_upgrades_price(root);
+                                std::static_pointer_cast<gb::ui::textfield>(entity)->set_text(std::to_string(price).append(" $"));
                             }
                         }
                     }
@@ -1174,14 +1205,201 @@ namespace game
                             }
                             else
                             {
+                                if (user_database_component->get_ftue_step(1) == 1 && selected_car_id == 1)
+                                {
+                                    user_database_component->inc_ftue_step(1);
+                                    ui_controls_helper::enable_all_and_unfocus();
+                                }
                                 garage_database_component->buy_car(1, selected_car_id);
                                 user_database_component->dec_cash(1, car_price);
                                 ui_menus_helper::fill_selected_car_in_garage_ui(root, m_camera_follow_car.lock());
+                                
+                                const auto cash_label = ui_controls_helper::get_control_as<gb::ui::textfield>(ces_ui_interaction_component::e_ui::e_ui_cash_label);
+                                if (cash_label)
+                                {
+                                    std::string cash_value = "CASH: ";
+                                    cash_value.append(std::to_string(user_database_component->get_cash(1)));
+                                    cash_value.append(" $");
+                                    cash_label->set_text(cash_value);
+                                }
                             }
                         });
                     }
                 }
                     break;
+                    
+                case ces_ui_interaction_component::e_ui::e_ui_upgrade_speed_plus_button:
+                {
+                    const auto button = std::static_pointer_cast<gb::ui::image_button>(entity);
+                    if(!button->is_pressed_callback_exist())
+                    {
+                        button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                            if (!m_camera_follow_car.expired())
+                            {
+                                const auto car_descriptor_component = m_camera_follow_car.lock()->get_component<ces_car_descriptor_component>();
+                                car_descriptor_component->get_car_upgrade_cache()->m_car_speed_upgrade_value += .11f;
+                                car_descriptor_component->get_car_upgrade_cache()->m_car_speed_upgrade_value = glm::clamp(car_descriptor_component->get_car_upgrade_cache()->m_car_speed_upgrade_value, car_descriptor_component->get_car_upgrade()->m_car_speed_upgrade_value, 1.f);
+                            }
+                        });
+                    }
+                }
+                    break;
+                    
+                case ces_ui_interaction_component::e_ui::e_ui_upgrade_speed_reset_button:
+                {
+                    const auto button = std::static_pointer_cast<gb::ui::image_button>(entity);
+                    if(!button->is_pressed_callback_exist())
+                    {
+                        button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                            if (!m_camera_follow_car.expired())
+                            {
+                                const auto car_descriptor_component = m_camera_follow_car.lock()->get_component<ces_car_descriptor_component>();
+                                car_descriptor_component->get_car_upgrade_cache()->m_car_speed_upgrade_value -= .11f;
+                                car_descriptor_component->get_car_upgrade_cache()->m_car_speed_upgrade_value = glm::clamp(car_descriptor_component->get_car_upgrade_cache()->m_car_speed_upgrade_value, car_descriptor_component->get_car_upgrade()->m_car_speed_upgrade_value, 1.f);
+                            }
+                        });
+                    }
+                }
+                    break;
+                    
+                case ces_ui_interaction_component::e_ui::e_ui_upgrade_handling_plus_button:
+                {
+                    const auto button = std::static_pointer_cast<gb::ui::image_button>(entity);
+                    if(!button->is_pressed_callback_exist())
+                    {
+                        button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                            if (!m_camera_follow_car.expired())
+                            {
+                                const auto car_descriptor_component = m_camera_follow_car.lock()->get_component<ces_car_descriptor_component>();
+                                car_descriptor_component->get_car_upgrade_cache()->m_car_handling_upgrade_value += .11f;
+                                car_descriptor_component->get_car_upgrade_cache()->m_car_handling_upgrade_value = glm::clamp(car_descriptor_component->get_car_upgrade_cache()->m_car_handling_upgrade_value, car_descriptor_component->get_car_upgrade()->m_car_handling_upgrade_value, 1.f);
+                            }
+                        });
+                    }
+                }
+                    break;
+                    
+                case ces_ui_interaction_component::e_ui::e_ui_upgrade_handling_reset_button:
+                {
+                    const auto button = std::static_pointer_cast<gb::ui::image_button>(entity);
+                    if(!button->is_pressed_callback_exist())
+                    {
+                        button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                            if (!m_camera_follow_car.expired())
+                            {
+                                const auto car_descriptor_component = m_camera_follow_car.lock()->get_component<ces_car_descriptor_component>();
+                                car_descriptor_component->get_car_upgrade_cache()->m_car_handling_upgrade_value -= .11f;
+                                car_descriptor_component->get_car_upgrade_cache()->m_car_handling_upgrade_value = glm::clamp(car_descriptor_component->get_car_upgrade_cache()->m_car_handling_upgrade_value, car_descriptor_component->get_car_upgrade()->m_car_handling_upgrade_value, 1.f);
+                            }
+                        });
+                    }
+                }
+                    break;
+                    
+                case ces_ui_interaction_component::e_ui::e_ui_upgrade_rigidity_plus_button:
+                {
+                    const auto button = std::static_pointer_cast<gb::ui::image_button>(entity);
+                    if(!button->is_pressed_callback_exist())
+                    {
+                        button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                            if (!m_camera_follow_car.expired())
+                            {
+                                const auto car_descriptor_component = m_camera_follow_car.lock()->get_component<ces_car_descriptor_component>();
+                                car_descriptor_component->get_car_upgrade_cache()->m_car_rigidity_upgrade_value += .11f;
+                                car_descriptor_component->get_car_upgrade_cache()->m_car_rigidity_upgrade_value = glm::clamp(car_descriptor_component->get_car_upgrade_cache()->m_car_rigidity_upgrade_value, car_descriptor_component->get_car_upgrade()->m_car_rigidity_upgrade_value, 1.f);
+                            }
+                        });
+                    }
+                }
+                    break;
+                    
+                case ces_ui_interaction_component::e_ui::e_ui_upgrade_durability_reset_button:
+                {
+                    const auto button = std::static_pointer_cast<gb::ui::image_button>(entity);
+                    if(!button->is_pressed_callback_exist())
+                    {
+                        button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                            if (!m_camera_follow_car.expired())
+                            {
+                                const auto car_descriptor_component = m_camera_follow_car.lock()->get_component<ces_car_descriptor_component>();
+                                car_descriptor_component->get_car_upgrade_cache()->m_car_rigidity_upgrade_value -= .11f;
+                                car_descriptor_component->get_car_upgrade_cache()->m_car_rigidity_upgrade_value = glm::clamp(car_descriptor_component->get_car_upgrade_cache()->m_car_rigidity_upgrade_value, car_descriptor_component->get_car_upgrade()->m_car_rigidity_upgrade_value, 1.f);
+                            }
+                        });
+                    }
+                }
+                    break;
+                    
+                case ces_ui_interaction_component::e_ui::e_ui_upgrade_speed_progress_bar:
+                {
+                    const auto progress_bar = std::static_pointer_cast<gb::ui::progress_bar>(entity);
+                    if (!m_camera_follow_car.expired())
+                    {
+                        const auto car_descriptor_component = m_camera_follow_car.lock()->get_component<ces_car_descriptor_component>();
+                        if (car_descriptor_component->get_car_upgrade_cache()->m_car_speed_upgrade_value - car_descriptor_component->get_car_upgrade()->m_car_speed_upgrade_value > .1f)
+                        {
+                            progress_bar->set_progress_line_color(glm::u8vec4(0, 127, 0, 255));
+                        }
+                        else
+                        {
+                            progress_bar->set_progress_line_color(gameplay_ui_fabricator::k_control_text_color);
+                        }
+                        progress_bar->set_progress(car_descriptor_component->get_car_upgrade_cache()->m_car_speed_upgrade_value);
+                    }
+                }
+                    break;
+                    
+                case ces_ui_interaction_component::e_ui::e_ui_upgrade_handling_progress_bar:
+                {
+                    const auto progress_bar = std::static_pointer_cast<gb::ui::progress_bar>(entity);
+                    if (!m_camera_follow_car.expired())
+                    {
+                        const auto car_descriptor_component = m_camera_follow_car.lock()->get_component<ces_car_descriptor_component>();
+                        if (car_descriptor_component->get_car_upgrade_cache()->m_car_handling_upgrade_value - car_descriptor_component->get_car_upgrade()->m_car_handling_upgrade_value > .1f )
+                        {
+                            progress_bar->set_progress_line_color(glm::u8vec4(0, 127, 0, 255));
+                        }
+                        else
+                        {
+                            progress_bar->set_progress_line_color(gameplay_ui_fabricator::k_control_text_color);
+                        }
+                        progress_bar->set_progress(car_descriptor_component->get_car_upgrade_cache()->m_car_handling_upgrade_value);
+                    }
+                }
+                    break;
+                    
+                case ces_ui_interaction_component::e_ui::e_ui_upgrade_rigidity_progress_bar:
+                {
+                    const auto progress_bar = std::static_pointer_cast<gb::ui::progress_bar>(entity);
+                    if (!m_camera_follow_car.expired())
+                    {
+                        const auto car_descriptor_component = m_camera_follow_car.lock()->get_component<ces_car_descriptor_component>();
+                        if (car_descriptor_component->get_car_upgrade_cache()->m_car_rigidity_upgrade_value - car_descriptor_component->get_car_upgrade()->m_car_rigidity_upgrade_value > .1f )
+                        {
+                            progress_bar->set_progress_line_color(glm::u8vec4(0, 127, 0, 255));
+                        }
+                        else
+                        {
+                            progress_bar->set_progress_line_color(gameplay_ui_fabricator::k_control_text_color);
+                        }
+                        progress_bar->set_progress(car_descriptor_component->get_car_upgrade_cache()->m_car_rigidity_upgrade_value);
+                    }
+                }
+                    break;
+                    
+                case ces_ui_interaction_component::e_ui::e_ui_cash_plus_button:
+                {
+                    const auto button = std::static_pointer_cast<gb::ui::image_button>(entity);
+                    if(!button->is_pressed_callback_exist())
+                    {
+                        button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                            pop_current_dialog();
+                            push_cash_shop_dialog(root);
+                        });
+                    }
+                }
+                    break;
+                    
                     
                 default:
                     break;
@@ -1622,6 +1840,12 @@ namespace game
             
             i32 earn_cash = static_cast<f32>(user_database_component->get_cash_per_level()) * complexity;
             earn_cash += seconds * user_database_component->get_cash_per_drift_seconds();
+            
+            if (user_database_component->get_ftue_step(1) == 0 && levels_database_component->get_playing_level_id() == 1)
+            {
+                earn_cash += 1000;
+                user_database_component->inc_ftue_step(1);
+            }
             user_database_component->inc_cash(1, earn_cash);
             
              const auto cash_label = std::static_pointer_cast<gb::ui::textfield>(std::static_pointer_cast<gb::ui::dialog>(win_dialog)->get_control(ces_ui_interaction_component::k_win_dialog_cash_label));
@@ -2060,6 +2284,7 @@ namespace game
             dialog->visible = true;
             m_current_pushed_dialog = dialog;
             ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_screen_overlay)->visible = true;
+            ui_controls_helper::disable_all_and_focus_on({ces_ui_interaction_component::e_ui::e_ui_cash_shop_dialog}, false);
             
             const auto table_view = std::static_pointer_cast<gb::ui::table_view>(std::static_pointer_cast<gb::ui::dialog>(dialog)->get_control(ces_ui_interaction_component::k_cash_shop_dialog_table_view));
             
@@ -2107,8 +2332,32 @@ namespace game
                         auto data_source = std::static_pointer_cast<gb::ui::table_view>(table_view)->get_data_source();
                         auto data = data_source.at(index);
                         const auto product_item_data = std::static_pointer_cast<ui::shop_table_view_cell_data>(data);
-                        store_provider::shared_instance()->buy_no_ads_product();
+                        if (product_item_data->id == store_provider::k_cash_pack_1_product_id)
+                        {
+                            store_provider::shared_instance()->buy_small_cash_pack([=](){
+                                const auto user_database_component = root->get_component<ces_user_database_component>();
+                                user_database_component->inc_cash(1, 3000);
+                            });
+                        }
+                        
+                        if (product_item_data->id == store_provider::k_cash_pack_2_product_id)
+                        {
+                            store_provider::shared_instance()->buy_medium_cash_pack([=](){
+                                const auto user_database_component = root->get_component<ces_user_database_component>();
+                                user_database_component->inc_cash(1, 10000);
+                            });
+                        }
+                        
+                        if (product_item_data->id == store_provider::k_cash_pack_3_product_id)
+                        {
+                            store_provider::shared_instance()->buy_big_cash_pack([=](){
+                                const auto user_database_component = root->get_component<ces_user_database_component>();
+                                user_database_component->inc_cash(1, 20000);
+                            });
+                        }
+                        
                         pop_current_dialog();
+                        ui_controls_helper::enable_all_and_unfocus();
                     });
                 }
                 
@@ -2137,6 +2386,7 @@ namespace game
             {
                 ok_button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
                     pop_current_dialog();
+                    ui_controls_helper::enable_all_and_unfocus();
                 });
             }
         }
@@ -2166,5 +2416,44 @@ namespace game
         sound_component->set_volume("music_01.mp3", 1.f);
         sound_component->set_volume("music_05.mp3", 1.f);
         sound_component->set_volume("music_03.mp3", 1.f);
+    }
+    
+    i32 ces_ui_interaction_system::calculate_upgrades_price(const gb::ces_entity_shared_ptr& root)
+    {
+        i32 result = 0;
+        if (!m_camera_follow_car.expired())
+        {
+            const auto car_descriptor_component = m_camera_follow_car.lock()->get_component<ces_car_descriptor_component>();
+            const auto garage_database_component = root->get_component<ces_garage_database_component>();
+            const auto selected_car_id = garage_database_component->get_previewed_car_id();
+            const auto car_upgrade = car_descriptor_component->get_car_upgrade();
+            const auto car_upgrade_cache = car_descriptor_component->get_car_upgrade_cache();
+            
+            if (car_upgrade->m_car_body_color_id != car_upgrade_cache->m_car_body_color_id)
+            {
+                result += garage_database_component->get_price_for_color_switch(1, selected_car_id);
+            }
+            
+            if (car_upgrade->m_car_windshield_color_id != car_upgrade_cache->m_car_windshield_color_id)
+            {
+                result += garage_database_component->get_price_for_color_switch(1, selected_car_id);
+            }
+            
+            if (car_upgrade->m_car_speed_upgrade_value != car_upgrade_cache->m_car_speed_upgrade_value)
+            {
+                result += garage_database_component->get_price_for_speed_upgrade(1, selected_car_id, car_upgrade_cache->m_car_speed_upgrade_value - car_upgrade->m_car_speed_upgrade_value);
+            }
+            
+            if (car_upgrade->m_car_handling_upgrade_value != car_upgrade_cache->m_car_handling_upgrade_value)
+            {
+                result += garage_database_component->get_price_for_handling_upgrade(1, selected_car_id, car_upgrade_cache->m_car_handling_upgrade_value - car_upgrade->m_car_handling_upgrade_value);
+            }
+            
+            if (car_upgrade->m_car_rigidity_upgrade_value != car_upgrade_cache->m_car_rigidity_upgrade_value)
+            {
+                result += garage_database_component->get_price_for_durability_upgrade(1, selected_car_id, car_upgrade_cache->m_car_rigidity_upgrade_value - car_upgrade->m_car_rigidity_upgrade_value);
+            }
+        }
+        return result;
     }
 }

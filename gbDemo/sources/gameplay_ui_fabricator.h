@@ -154,12 +154,15 @@ namespace game
         gb::game_object_2d_shared_ptr create_upgrade_speed_label(const std::string& filename);
         gb::game_object_2d_shared_ptr create_upgrade_speed_progress_bar(const std::string& filename);
         gb::game_object_2d_shared_ptr create_upgrade_speed_plus_button(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_upgrade_speed_reset_button(const std::string& filename);
         gb::game_object_2d_shared_ptr create_upgrade_handling_label(const std::string& filename);
         gb::game_object_2d_shared_ptr create_upgrade_handling_progress_bar(const std::string& filename);
         gb::game_object_2d_shared_ptr create_upgrade_handling_plus_button(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_upgrade_handling_reset_button(const std::string& filename);
         gb::game_object_2d_shared_ptr create_upgrade_rigidity_label(const std::string& filename);
         gb::game_object_2d_shared_ptr create_upgrade_rigidity_progress_bar(const std::string& filename);
         gb::game_object_2d_shared_ptr create_upgrade_rigidity_plus_button(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_upgrade_durability_reset_button(const std::string& filename);
         
         gb::game_object_2d_shared_ptr create_buy_upgrade_button(const std::string& filename);
         gb::game_object_2d_shared_ptr create_buy_upgrade_label(const std::string& filename);

@@ -96,8 +96,8 @@ namespace gb
     void mtl_render_encoder_impl::set_render_pipeline_state(const mtl_render_pipeline_state_shared_ptr& render_pipeline_state)
     {
         id<MTLRenderPipelineState> mtl_raw_render_pipeline_state = (__bridge id<MTLRenderPipelineState>)render_pipeline_state->get_mtl_raw_render_pipeline_state_ptr();
-        const auto render_pipeline_state_guid = render_pipeline_state->get_guid();
-        if (render_pipeline_state_guid != m_cached_render_pipeline_state_guid)
+        const auto& render_pipeline_state_guid = render_pipeline_state->get_guid();
+        if (render_pipeline_state_guid.compare(m_cached_render_pipeline_state_guid) != 0)
         {
             [m_render_encoder setRenderPipelineState:mtl_raw_render_pipeline_state];
             m_cached_render_pipeline_state_guid = render_pipeline_state_guid;
@@ -108,7 +108,7 @@ namespace gb
     {
         id<MTLDepthStencilState> mtl_raw_depth_stencil_state = (__bridge id<MTLDepthStencilState>)depth_stencil_state->get_mtl_raw_depth_stencil_state_ptr();
         const auto depth_stencil_state_guid = depth_stencil_state->get_guid();
-        if (depth_stencil_state_guid != m_cached_depth_stencil_pipeline_state_guid)
+        if (depth_stencil_state_guid.compare(m_cached_depth_stencil_pipeline_state_guid) != 0)
         {
             [m_render_encoder setDepthStencilState:mtl_raw_depth_stencil_state];
             m_cached_depth_stencil_pipeline_state_guid = depth_stencil_state_guid;

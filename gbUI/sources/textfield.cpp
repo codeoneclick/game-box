@@ -123,8 +123,12 @@ namespace gb
         
         void textfield::set_text(const std::string& text)
         {
-            std::static_pointer_cast<gb::label>(m_elements[k_label_element_name])->text = text;
-            control::set_element_horizontal_aligment(m_elements[k_label_element_name], m_horizontal_aligment);
+            std::string current_text =  std::static_pointer_cast<gb::label>(m_elements[k_label_element_name])->text;
+            if (current_text.compare(text))
+            {
+                std::static_pointer_cast<gb::label>(m_elements[k_label_element_name])->text = text;
+                control::set_element_horizontal_aligment(m_elements[k_label_element_name], m_horizontal_aligment);
+            }
         }
         
         std::string textfield::get_text()
@@ -146,8 +150,11 @@ namespace gb
         
         void textfield::set_text_color(const glm::u8vec4& color, e_control_state state)
         {
-            control::set_color(k_label_element_name, color);
-            m_text_color[static_cast<i32>(state)] = color;
+            if (m_text_color[static_cast<i32>(state)] != color)
+            {
+                control::set_color(k_label_element_name, color);
+                m_text_color[static_cast<i32>(state)] = color;
+            }
         }
         
         void textfield::set_font_size(const f32 font_size)
@@ -234,8 +241,11 @@ namespace gb
         
         void textfield::set_foreground_color(const glm::u8vec4& color, e_control_state state)
         {
-            control::set_color(k_foreground_element_name, color);
-            m_foreground_color[static_cast<i32>(state)] = color;
+            if (m_foreground_color[static_cast<i32>(state)] != color)
+            {
+                control::set_color(k_foreground_element_name, color);
+                m_foreground_color[static_cast<i32>(state)] = color;
+            }
         }
         
         void textfield::focus(bool value, f32 focus_interval_in_seconds, const on_focus_callback_t& callback)

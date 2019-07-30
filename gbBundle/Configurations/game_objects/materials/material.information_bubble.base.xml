@@ -9,7 +9,7 @@
     is_color_mask_b="1"
     is_color_mask_a="1"
     cull_face_mode="GL_FRONT"
-    is_stencil_test="1"
+    is_stencil_test="0"
     stencil_function="GL_ALWAYS"
     back_stencil_op_1="KEEP"
     back_stencil_op_2="KEEP"
