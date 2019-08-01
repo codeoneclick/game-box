@@ -260,7 +260,7 @@ namespace game
                         
                         if (product_item_data->id == store_provider::k_cash_pack_1_product_id)
                         {
-                            store_provider::shared_instance()->buy_small_cash_pack([=](){
+                            store_provider::shared_instance()->buy_small_cash_pack([=]() {
                                 const auto user_database_component = root->get_component<ces_user_database_component>();
                                 user_database_component->inc_cash(1, 3000);
                                 ui_controls_helper::update_cash_amount(user_database_component->get_cash(1), 3000);
@@ -269,7 +269,7 @@ namespace game
                         
                         if (product_item_data->id == store_provider::k_cash_pack_2_product_id)
                         {
-                            store_provider::shared_instance()->buy_medium_cash_pack([=](){
+                            store_provider::shared_instance()->buy_medium_cash_pack([=]() {
                                 const auto user_database_component = root->get_component<ces_user_database_component>();
                                 user_database_component->inc_cash(1, 10000);
                                 ui_controls_helper::update_cash_amount(user_database_component->get_cash(1), 10000);
@@ -278,7 +278,7 @@ namespace game
                         
                         if (product_item_data->id == store_provider::k_cash_pack_3_product_id)
                         {
-                            store_provider::shared_instance()->buy_big_cash_pack([=](){
+                            store_provider::shared_instance()->buy_big_cash_pack([=]() {
                                 const auto user_database_component = root->get_component<ces_user_database_component>();
                                 user_database_component->inc_cash(1, 20000);
                                 ui_controls_helper::update_cash_amount(user_database_component->get_cash(1), 20000);

@@ -523,7 +523,8 @@ namespace game
             {
                 auto& data = car_record->get_data();
                 i32 delta_upgrades_amount = std::floor(delta * 10.f);
-                data.m_car_speed_upgrade = delta_upgrades_amount * 10;
+                data.m_car_speed_upgrade += delta_upgrades_amount * 10;
+                data.m_car_speed_upgrade = glm::clamp(data.m_car_speed_upgrade, 0, 100);
                 car_record->save_to_db();
             }
         }
@@ -547,7 +548,8 @@ namespace game
             {
                 auto& data = car_record->get_data();
                 i32 delta_upgrades_amount = std::floor(delta * 10.f);
-                data.m_car_handling_upgrade = delta_upgrades_amount * 10;
+                data.m_car_handling_upgrade += delta_upgrades_amount * 10;
+                data.m_car_handling_upgrade = glm::clamp(data.m_car_handling_upgrade, 0, 100);
                 car_record->save_to_db();
             }
         }
@@ -571,7 +573,8 @@ namespace game
             {
                 auto& data = car_record->get_data();
                 i32 delta_upgrades_amount = std::floor(delta * 10.f);
-                data.m_car_rigidity_upgrade = delta_upgrades_amount * 10;
+                data.m_car_rigidity_upgrade += delta_upgrades_amount * 10;
+                data.m_car_rigidity_upgrade = glm::clamp(data.m_car_rigidity_upgrade, 0, 100);
                 car_record->save_to_db();
             }
         }

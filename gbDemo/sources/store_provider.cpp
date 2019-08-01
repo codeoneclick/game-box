@@ -11,17 +11,17 @@
 
 #if defined(__IOS__)
 
-static NSString* k_no_ads_product_id = @"com.drift.hyper.no_ads";
-static NSString* k_small_cash_pack_product_id = @"com.drift.hyper.small_cash_pack";
-static NSString* k_medium_cash_pack_product_id = @"com.drift.hyper.medium_cash_pack";
-static NSString* k_big_cash_pack_product_id = @"com.drift.hyper.big_cash_pack";
+static NSString* k_no_ads_product_str_id = @"com.drift.hyper.no_ads";
+static NSString* k_small_cash_pack_product_str_id = @"com.drift.hyper.small_cash_pack";
+static NSString* k_medium_cash_pack_product_str_id = @"com.drift.hyper.medium_cash_pack";
+static NSString* k_big_cash_pack_product_str_id = @"com.drift.hyper.big_cash_pack";
 
 #else
 
-static NSString* k_no_ads_product_id = @"com.drift.hyper.osx.no_ads";
-static NSString* k_small_cash_pack_product_id = @"com.drift.hyper.osx.small_cash_pack";
-static NSString* k_medium_cash_pack_product_id = @"com.drift.hyper.osx.medium_cash_pack";
-static NSString* k_big_cash_pack_product_id = @"com.drift.hyper.osx.big_cash_pack";
+static NSString* k_no_ads_product_str_id = @"com.drift.hyper.osx.no_ads";
+static NSString* k_small_cash_pack_product_str_id = @"com.drift.hyper.osx.small_cash_pack";
+static NSString* k_medium_cash_pack_product_str_id = @"com.drift.hyper.osx.medium_cash_pack";
+static NSString* k_big_cash_pack_product_str_id = @"com.drift.hyper.osx.big_cash_pack";
 
 #endif
 
@@ -80,7 +80,7 @@ static NSString* k_big_cash_pack_product_id = @"com.drift.hyper.osx.big_cash_pac
     {
         SKProductsRequest *request = [[SKProductsRequest alloc]
                                       initWithProductIdentifiers:
-                                      [NSSet setWithObject:k_no_ads_product_id]];
+                                      [NSSet setWithObject:k_no_ads_product_str_id]];
         request.delegate = self;
         [request start];
     }
@@ -92,7 +92,7 @@ static NSString* k_big_cash_pack_product_id = @"com.drift.hyper.osx.big_cash_pac
     {
         SKProductsRequest *request = [[SKProductsRequest alloc]
                                       initWithProductIdentifiers:
-                                      [NSSet setWithObjects:k_small_cash_pack_product_id, k_medium_cash_pack_product_id, k_big_cash_pack_product_id, nil]];
+                                      [NSSet setWithObjects:k_small_cash_pack_product_str_id, k_medium_cash_pack_product_str_id, k_big_cash_pack_product_str_id, nil]];
         request.delegate = self;
         [request start];
     }
@@ -162,8 +162,11 @@ static NSString* k_big_cash_pack_product_id = @"com.drift.hyper.osx.big_cash_pac
         switch (transaction.transactionState)
         {
             case SKPaymentTransactionStatePurchased:
+            {
                 [self.m_default_queue finishTransaction:transaction];
-                if ([[[[transaction originalTransaction] payment] productIdentifier] isEqualToString:k_no_ads_product_id])
+                NSString* product_identifier = [[transaction payment] productIdentifier];
+               
+                if ([product_identifier isEqualToString:k_no_ads_product_str_id])
                 {
                     self.m_is_no_ads_product_bought = YES;
                     if (game::store_provider::shared_instance()->get_on_puchases_restored_callback())
@@ -171,34 +174,39 @@ static NSString* k_big_cash_pack_product_id = @"com.drift.hyper.osx.big_cash_pac
                         game::store_provider::shared_instance()->get_on_puchases_restored_callback()(1);
                     }
                 }
-                if ([[[[transaction originalTransaction] payment] productIdentifier] isEqualToString:k_small_cash_pack_product_id])
+                if ([product_identifier isEqualToString:k_small_cash_pack_product_str_id])
                 {
                     if (game::store_provider::shared_instance()->get_on_puchase_small_cash_pack_callback())
                     {
                         game::store_provider::shared_instance()->get_on_puchase_small_cash_pack_callback()();
                     }
                 }
-                if ([[[[transaction originalTransaction] payment] productIdentifier] isEqualToString:k_medium_cash_pack_product_id])
+                if ([product_identifier isEqualToString:k_medium_cash_pack_product_str_id])
                 {
                     if (game::store_provider::shared_instance()->get_on_puchase_medium_cash_pack_callback())
                     {
                         game::store_provider::shared_instance()->get_on_puchase_medium_cash_pack_callback()();
                     }
                 }
-                if ([[[[transaction originalTransaction] payment] productIdentifier] isEqualToString:k_big_cash_pack_product_id])
+                if ([product_identifier isEqualToString:k_big_cash_pack_product_str_id])
                 {
                     if (game::store_provider::shared_instance()->get_on_puchase_big_cash_pack_callback())
                     {
                         game::store_provider::shared_instance()->get_on_puchase_big_cash_pack_callback()();
                     }
                 }
+            }
             break;
             case SKPaymentTransactionStateFailed:
+            {
                 [self.m_default_queue finishTransaction:transaction];
+            }
             break;
             case SKPaymentTransactionStateRestored:
+            {
                 [self.m_default_queue finishTransaction:transaction];
-                if ([[[[transaction originalTransaction] payment] productIdentifier] isEqualToString:k_no_ads_product_id])
+                NSString* product_identifier = [[[transaction originalTransaction] payment] productIdentifier];
+                if ([product_identifier isEqualToString:k_no_ads_product_str_id])
                 {
                     self.m_is_no_ads_product_bought = YES;
                     if (game::store_provider::shared_instance()->get_on_puchases_restored_callback())
@@ -206,7 +214,7 @@ static NSString* k_big_cash_pack_product_id = @"com.drift.hyper.osx.big_cash_pac
                         game::store_provider::shared_instance()->get_on_puchases_restored_callback()(1);
                     }
                 }
-                if ([[[[transaction originalTransaction] payment] productIdentifier] isEqualToString:k_small_cash_pack_product_id])
+                if ([product_identifier isEqualToString:k_small_cash_pack_product_str_id])
                 {
                     self.m_is_no_ads_product_bought = YES;
                     if (game::store_provider::shared_instance()->get_on_puchases_restored_callback())
@@ -214,7 +222,7 @@ static NSString* k_big_cash_pack_product_id = @"com.drift.hyper.osx.big_cash_pac
                         game::store_provider::shared_instance()->get_on_puchases_restored_callback()(2);
                     }
                 }
-                if ([[[[transaction originalTransaction] payment] productIdentifier] isEqualToString:k_medium_cash_pack_product_id])
+                if ([product_identifier isEqualToString:k_medium_cash_pack_product_str_id])
                 {
                     self.m_is_no_ads_product_bought = YES;
                     if (game::store_provider::shared_instance()->get_on_puchases_restored_callback())
@@ -222,7 +230,7 @@ static NSString* k_big_cash_pack_product_id = @"com.drift.hyper.osx.big_cash_pac
                         game::store_provider::shared_instance()->get_on_puchases_restored_callback()(3);
                     }
                 }
-                if ([[[[transaction originalTransaction] payment] productIdentifier] isEqualToString:k_big_cash_pack_product_id])
+                if ([product_identifier isEqualToString:k_big_cash_pack_product_str_id])
                 {
                     self.m_is_no_ads_product_bought = YES;
                     if (game::store_provider::shared_instance()->get_on_puchases_restored_callback())
@@ -230,6 +238,7 @@ static NSString* k_big_cash_pack_product_id = @"com.drift.hyper.osx.big_cash_pac
                         game::store_provider::shared_instance()->get_on_puchases_restored_callback()(4);
                     }
                 }
+            }
             break;
             default:
             break;
@@ -243,22 +252,22 @@ static NSString* k_big_cash_pack_product_id = @"com.drift.hyper.osx.big_cash_pac
 {
     NSArray *products = response.products;
     [products enumerateObjectsUsingBlock:^(SKProduct *product, NSUInteger idx, BOOL *stop) {
-        if ([product.productIdentifier isEqualToString:k_no_ads_product_id])
+        if ([product.productIdentifier isEqualToString:k_no_ads_product_str_id])
         {
             self.m_no_ads_product = product;
         }
         
-        if ([product.productIdentifier isEqualToString:k_small_cash_pack_product_id])
+        if ([product.productIdentifier isEqualToString:k_small_cash_pack_product_str_id])
         {
             self.m_small_cash_pack_product = product;
         }
         
-        if ([product.productIdentifier isEqualToString:k_medium_cash_pack_product_id])
+        if ([product.productIdentifier isEqualToString:k_medium_cash_pack_product_str_id])
         {
             self.m_medium_cash_pack_product = product;
         }
         
-        if ([product.productIdentifier isEqualToString:k_big_cash_pack_product_id])
+        if ([product.productIdentifier isEqualToString:k_big_cash_pack_product_str_id])
         {
             self.m_big_cash_pack_product = product;
         }

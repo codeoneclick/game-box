@@ -2162,12 +2162,12 @@ namespace game
             
             if (car_upgrade->m_car_handling_upgrade_value != car_upgrade_cache->m_car_handling_upgrade_value)
             {
-                garage_database_component->upgrade_car_speed(1, selected_car_id, car_upgrade_cache->m_car_handling_upgrade_value - car_upgrade->m_car_handling_upgrade_value);
+                garage_database_component->upgrade_car_handling(1, selected_car_id, car_upgrade_cache->m_car_handling_upgrade_value - car_upgrade->m_car_handling_upgrade_value);
             }
             
             if (car_upgrade->m_car_rigidity_upgrade_value != car_upgrade_cache->m_car_rigidity_upgrade_value)
             {
-                garage_database_component->upgrade_car_speed(1, selected_car_id, car_upgrade_cache->m_car_rigidity_upgrade_value - car_upgrade->m_car_rigidity_upgrade_value);
+                garage_database_component->upgrade_car_durability(1, selected_car_id, car_upgrade_cache->m_car_rigidity_upgrade_value - car_upgrade->m_car_rigidity_upgrade_value);
             }
         }
     }
