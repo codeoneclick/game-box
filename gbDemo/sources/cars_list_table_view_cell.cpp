@@ -117,8 +117,9 @@ namespace game
             const auto name_label = gb::ces_entity::construct<gb::ui::textfield>(control::get_fabricator());
             name_label->create();
             name_label->size = glm::vec2(128.f, 14.f);
-            name_label->set_text("Racer");
+            name_label->set_text("RACER");
             name_label->position = glm::vec2(32.f, 0.f);
+            name_label->set_font_name("spincycle.otf");
             name_label->set_text_color(gameplay_ui_fabricator::k_control_text_color);
             name_label->set_text_horizontal_aligment(gb::ui::e_element_horizontal_aligment::e_element_horizontal_aligment_left);
             name_label->set_visible_edges(false);
@@ -130,6 +131,7 @@ namespace game
             place_label->size = glm::vec2(18.f, 18.f);
             place_label->set_text("1");
             place_label->position = glm::vec2(4.f, 0.f);
+            place_label->set_font_name("spincycle.otf");
             place_label->set_text_color(gameplay_ui_fabricator::k_control_text_color);
             place_label->set_visible_edges(false);
             place_label->set_font_mode(gb::ces_font_component::e_font_mode_edge);
@@ -141,6 +143,7 @@ namespace game
             drift_time_label->size = glm::vec2(38.f, 12.f);
             drift_time_label->set_text("DRIFT TIME:");
             drift_time_label->position = glm::vec2(38.f, 16.f);
+            drift_time_label->set_font_name("spincycle.otf");
             drift_time_label->set_text_color(gameplay_ui_fabricator::k_control_text_color);
             drift_time_label->set_visible_edges(false);
             m_elements[k_drift_time_label_id] = drift_time_label;
@@ -151,6 +154,7 @@ namespace game
             drift_time_value_label->size = glm::vec2(24.f, 12.f);
             drift_time_value_label->set_text("00:00");
             drift_time_value_label->position = glm::vec2(90.f, 16.f);
+            drift_time_value_label->set_font_name("spincycle.otf");
             drift_time_value_label->set_text_color(gameplay_ui_fabricator::k_control_text_color);
             drift_time_value_label->set_visible_edges(false);
             drift_time_value_label->set_text_horizontal_aligment(gb::ui::e_element_horizontal_aligment::e_element_horizontal_aligment_left);

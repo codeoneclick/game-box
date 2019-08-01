@@ -14,7 +14,7 @@ namespace game
 {
     namespace ui
     {
-        class levels_list_table_view_cell_data : public gb::ui::table_view_cell_data
+        class career_table_view_cell_data : public gb::ui::table_view_cell_data
         {
         private:
             
@@ -29,8 +29,8 @@ namespace game
             
         public:
             
-            levels_list_table_view_cell_data();
-            ~levels_list_table_view_cell_data() = default;
+            career_table_view_cell_data();
+            ~career_table_view_cell_data() = default;
             
             std::property_rw<i32> id;
             std::property_rw<std::string> name;
@@ -40,7 +40,7 @@ namespace game
             std::property_rw<f32> drift_time;
         };
         
-        class levels_list_table_view_cell : public gb::ui::table_view_cell
+        class career_table_view_cell : public gb::ui::table_view_cell
         {
         public:
             
@@ -64,8 +64,8 @@ namespace game
             
         public:
             
-            levels_list_table_view_cell(const gb::scene_fabricator_shared_ptr& fabricator, i32 index, const std::string& identifier);
-            ~levels_list_table_view_cell() = default;
+            career_table_view_cell(const gb::scene_fabricator_shared_ptr& fabricator, i32 index, const std::string& identifier);
+            ~career_table_view_cell() = default;
             
             void setup_components() override;
             void create() override;

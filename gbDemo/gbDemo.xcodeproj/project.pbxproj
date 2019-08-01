@@ -347,6 +347,14 @@
 		923C5486226874E1009B311E /* ces_car_replay_player_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 923C5484226874E1009B311E /* ces_car_replay_player_component.cpp */; };
 		923C5487226874E1009B311E /* ces_car_replay_player_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 923C5484226874E1009B311E /* ces_car_replay_player_component.cpp */; };
 		923C5488226874E1009B311E /* ces_car_replay_player_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 923C5484226874E1009B311E /* ces_car_replay_player_component.cpp */; };
+		924993C822F0C9DE00F128FA /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 924993C722F0C9DA00F128FA /* StoreKit.framework */; };
+		924993CA22F0C9F600F128FA /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 924993C922F0C9F100F128FA /* Security.framework */; };
+		924993CD22F16F4100F128FA /* ui_dialogs_helper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 924993CB22F16F4100F128FA /* ui_dialogs_helper.cpp */; };
+		924993CE22F16F4100F128FA /* ui_dialogs_helper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 924993CB22F16F4100F128FA /* ui_dialogs_helper.cpp */; };
+		924993CF22F16F4100F128FA /* ui_dialogs_helper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 924993CB22F16F4100F128FA /* ui_dialogs_helper.cpp */; };
+		924993D222F181A200F128FA /* ces_ui_move_animation_action_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 924993D022F181A200F128FA /* ces_ui_move_animation_action_component.cpp */; };
+		924993D322F181A200F128FA /* ces_ui_move_animation_action_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 924993D022F181A200F128FA /* ces_ui_move_animation_action_component.cpp */; };
+		924993D422F181A200F128FA /* ces_ui_move_animation_action_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 924993D022F181A200F128FA /* ces_ui_move_animation_action_component.cpp */; };
 		92514DEC2293E34E00DE70AA /* cars_list_table_view_cell.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92514DEA2293E34E00DE70AA /* cars_list_table_view_cell.cpp */; };
 		92514DED2293E34E00DE70AA /* cars_list_table_view_cell.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92514DEA2293E34E00DE70AA /* cars_list_table_view_cell.cpp */; };
 		92514DEE2293E34E00DE70AA /* cars_list_table_view_cell.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92514DEA2293E34E00DE70AA /* cars_list_table_view_cell.cpp */; };
@@ -508,6 +516,9 @@
 		92723B01221F041000555BAC /* road_corner_t_sidewalk.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92723AFD221F040F00555BAC /* road_corner_t_sidewalk.xml */; };
 		92723B02221F041000555BAC /* road_corner_t_sidewalk.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92723AFD221F040F00555BAC /* road_corner_t_sidewalk.xml */; };
 		92723B03221F041000555BAC /* road_corner_t_sidewalk.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92723AFD221F040F00555BAC /* road_corner_t_sidewalk.xml */; };
+		92795FB622F1D24D00B5BC9C /* ui_leaderboard.png in Resources */ = {isa = PBXBuildFile; fileRef = 92795FB122F1D24B00B5BC9C /* ui_leaderboard.png */; };
+		92795FB722F1D24D00B5BC9C /* ui_leaderboard.png in Resources */ = {isa = PBXBuildFile; fileRef = 92795FB122F1D24B00B5BC9C /* ui_leaderboard.png */; };
+		92795FB822F1D24D00B5BC9C /* ui_leaderboard.png in Resources */ = {isa = PBXBuildFile; fileRef = 92795FB122F1D24B00B5BC9C /* ui_leaderboard.png */; };
 		927A6E42221D59AC0023243F /* car_01_wheel_r.xml in Resources */ = {isa = PBXBuildFile; fileRef = 927A6E3A221D59AB0023243F /* car_01_wheel_r.xml */; };
 		927A6E43221D59AC0023243F /* car_01_wheel_l.xml in Resources */ = {isa = PBXBuildFile; fileRef = 927A6E41221D59AC0023243F /* car_01_wheel_l.xml */; };
 		927A6E46221D59C40023243F /* material.car_01_wheel_r.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 927A6E44221D59C30023243F /* material.car_01_wheel_r.base.xml */; };
@@ -606,6 +617,11 @@
 		92A2D15B22CDDFE20014A588 /* facebook_provider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92A2D15822CDDFE20014A588 /* facebook_provider.cpp */; };
 		92A2D15C22CDDFE20014A588 /* facebook_provider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92A2D15822CDDFE20014A588 /* facebook_provider.cpp */; };
 		92A473F7226729A100265DD2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 92A473F6226729A100265DD2 /* GoogleService-Info.plist */; };
+		92AF448B22F1C5C700505E3D /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92AF448A22F1C5C600505E3D /* GameKit.framework */; };
+		92AF449122F1C5E800505E3D /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92AF449022F1C5E700505E3D /* GameKit.framework */; };
+		92AF449522F1C98A00505E3D /* game_center_provier.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92AF449322F1C98A00505E3D /* game_center_provier.cpp */; };
+		92AF449622F1C98A00505E3D /* game_center_provier.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92AF449322F1C98A00505E3D /* game_center_provier.cpp */; };
+		92AF449722F1C98A00505E3D /* game_center_provier.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92AF449322F1C98A00505E3D /* game_center_provier.cpp */; };
 		92B49ACA22548C30002F7EED /* ces_car_drift_state_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B49AC822548C2F002F7EED /* ces_car_drift_state_component.cpp */; };
 		92B49ACB22548C30002F7EED /* ces_car_drift_state_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B49AC822548C2F002F7EED /* ces_car_drift_state_component.cpp */; };
 		92B49ACC22548C30002F7EED /* ces_car_drift_state_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B49AC822548C2F002F7EED /* ces_car_drift_state_component.cpp */; };
@@ -650,9 +666,9 @@
 		92BAA6822282D6DF005C5883 /* ces_scene_fabricator_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BAA6802282D6DF005C5883 /* ces_scene_fabricator_component.cpp */; };
 		92BAA6832282D6DF005C5883 /* ces_scene_fabricator_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BAA6802282D6DF005C5883 /* ces_scene_fabricator_component.cpp */; };
 		92BAA6842282D6DF005C5883 /* ces_scene_fabricator_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BAA6802282D6DF005C5883 /* ces_scene_fabricator_component.cpp */; };
-		92BAA6872282F8E1005C5883 /* levels_list_table_view_cell.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BAA6852282F8E1005C5883 /* levels_list_table_view_cell.cpp */; };
-		92BAA6882282F8E1005C5883 /* levels_list_table_view_cell.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BAA6852282F8E1005C5883 /* levels_list_table_view_cell.cpp */; };
-		92BAA6892282F8E1005C5883 /* levels_list_table_view_cell.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BAA6852282F8E1005C5883 /* levels_list_table_view_cell.cpp */; };
+		92BAA6872282F8E1005C5883 /* career_table_view_cell.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BAA6852282F8E1005C5883 /* career_table_view_cell.cpp */; };
+		92BAA6882282F8E1005C5883 /* career_table_view_cell.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BAA6852282F8E1005C5883 /* career_table_view_cell.cpp */; };
+		92BAA6892282F8E1005C5883 /* career_table_view_cell.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BAA6852282F8E1005C5883 /* career_table_view_cell.cpp */; };
 		92BAA69122857FC9005C5883 /* material.button_image.ui.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92BAA69022857FC8005C5883 /* material.button_image.ui.xml */; };
 		92BAA69222857FC9005C5883 /* material.button_image.ui.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92BAA69022857FC8005C5883 /* material.button_image.ui.xml */; };
 		92BAA69322857FC9005C5883 /* material.button_image.ui.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92BAA69022857FC8005C5883 /* material.button_image.ui.xml */; };
@@ -749,9 +765,6 @@
 		92BF4F5D2200583900E95AD7 /* material.road_corner_t.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92BF4F562200583800E95AD7 /* material.road_corner_t.base.xml */; };
 		92BF4F5E2200583900E95AD7 /* material.road_corner_t.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92BF4F562200583800E95AD7 /* material.road_corner_t.base.xml */; };
 		92BF4F5F2200583900E95AD7 /* material.road_corner_t.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92BF4F562200583800E95AD7 /* material.road_corner_t.base.xml */; };
-		92C797C322E885D10067F787 /* ayuenda.otf in Resources */ = {isa = PBXBuildFile; fileRef = 92C797BE22E885D00067F787 /* ayuenda.otf */; };
-		92C797C422E885D90067F787 /* ayuenda.otf in Resources */ = {isa = PBXBuildFile; fileRef = 92C797BE22E885D00067F787 /* ayuenda.otf */; };
-		92C797C522E885D90067F787 /* ayuenda.otf in Resources */ = {isa = PBXBuildFile; fileRef = 92C797BE22E885D00067F787 /* ayuenda.otf */; };
 		92C83C8622427BEE00FC6167 /* material.ss.hdr.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92C83C8522427BEB00FC6167 /* material.ss.hdr.xml */; };
 		92C83C8822427C0700FC6167 /* ss.technique.hdr.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92C83C8722427C0600FC6167 /* ss.technique.hdr.xml */; };
 		92C83C8922427C0700FC6167 /* ss.technique.hdr.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92C83C8722427C0600FC6167 /* ss.technique.hdr.xml */; };
@@ -1026,27 +1039,9 @@
 		92E7370122BCFCC200EC0C5E /* gameplay_constants_helper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92E736FF22BCFCC200EC0C5E /* gameplay_constants_helper.cpp */; };
 		92E7370222BCFCC200EC0C5E /* gameplay_constants_helper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92E736FF22BCFCC200EC0C5E /* gameplay_constants_helper.cpp */; };
 		92E7370322BCFCC200EC0C5E /* gameplay_constants_helper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92E736FF22BCFCC200EC0C5E /* gameplay_constants_helper.cpp */; };
-		92EA844422E43CA6003A3C17 /* seaside_resort.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 92EA843F22E43CA5003A3C17 /* seaside_resort.ttf */; };
-		92EA844522E43CA6003A3C17 /* seaside_resort.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 92EA843F22E43CA5003A3C17 /* seaside_resort.ttf */; };
-		92EA844622E43CA6003A3C17 /* seaside_resort.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 92EA843F22E43CA5003A3C17 /* seaside_resort.ttf */; };
 		92EA844822E43EB5003A3C17 /* boogie_nights.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 92EA844722E43EB4003A3C17 /* boogie_nights.ttf */; };
 		92EA844922E43EB5003A3C17 /* boogie_nights.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 92EA844722E43EB4003A3C17 /* boogie_nights.ttf */; };
 		92EA844A22E43EB5003A3C17 /* boogie_nights.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 92EA844722E43EB4003A3C17 /* boogie_nights.ttf */; };
-		92EA844D22E4411A003A3C17 /* flottflott.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 92EA844B22E44118003A3C17 /* flottflott.ttf */; };
-		92EA844E22E4411A003A3C17 /* flottflott.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 92EA844B22E44118003A3C17 /* flottflott.ttf */; };
-		92EA844F22E4411A003A3C17 /* flottflott.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 92EA844B22E44118003A3C17 /* flottflott.ttf */; };
-		92EA845022E4411A003A3C17 /* remarcle.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 92EA844C22E44119003A3C17 /* remarcle.ttf */; };
-		92EA845122E4411A003A3C17 /* remarcle.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 92EA844C22E44119003A3C17 /* remarcle.ttf */; };
-		92EA845222E4411A003A3C17 /* remarcle.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 92EA844C22E44119003A3C17 /* remarcle.ttf */; };
-		92EA845522E4442C003A3C17 /* park_lane.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 92EA845322E4442B003A3C17 /* park_lane.ttf */; };
-		92EA845622E4442C003A3C17 /* park_lane.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 92EA845322E4442B003A3C17 /* park_lane.ttf */; };
-		92EA845722E4442C003A3C17 /* park_lane.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 92EA845322E4442B003A3C17 /* park_lane.ttf */; };
-		92EA845822E4442C003A3C17 /* soerjapoetera.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 92EA845422E4442C003A3C17 /* soerjapoetera.ttf */; };
-		92EA845922E4442C003A3C17 /* soerjapoetera.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 92EA845422E4442C003A3C17 /* soerjapoetera.ttf */; };
-		92EA845A22E4442C003A3C17 /* soerjapoetera.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 92EA845422E4442C003A3C17 /* soerjapoetera.ttf */; };
-		92EA845C22E446D2003A3C17 /* gladifilthefte.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 92EA845B22E446D1003A3C17 /* gladifilthefte.ttf */; };
-		92EA845D22E446D2003A3C17 /* gladifilthefte.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 92EA845B22E446D1003A3C17 /* gladifilthefte.ttf */; };
-		92EA845E22E446D2003A3C17 /* gladifilthefte.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 92EA845B22E446D1003A3C17 /* gladifilthefte.ttf */; };
 		92F0419622C0E66100E37703 /* mtl_ssao.metal in Sources */ = {isa = PBXBuildFile; fileRef = 92F0419522C0E66100E37703 /* mtl_ssao.metal */; };
 		92F0419722C0E66200E37703 /* mtl_ssao.metal in Sources */ = {isa = PBXBuildFile; fileRef = 92F0419522C0E66100E37703 /* mtl_ssao.metal */; };
 		92F0419822C0E66200E37703 /* mtl_ssao.metal in Sources */ = {isa = PBXBuildFile; fileRef = 92F0419522C0E66100E37703 /* mtl_ssao.metal */; };
@@ -2033,6 +2028,12 @@
 		923C5480226874B8009B311E /* ces_ai_car_replay_system.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ces_ai_car_replay_system.h; path = sources/ces_ai_car_replay_system.h; sourceTree = "<group>"; };
 		923C5484226874E1009B311E /* ces_car_replay_player_component.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ces_car_replay_player_component.cpp; path = sources/ces_car_replay_player_component.cpp; sourceTree = "<group>"; };
 		923C5485226874E1009B311E /* ces_car_replay_player_component.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ces_car_replay_player_component.h; path = sources/ces_car_replay_player_component.h; sourceTree = "<group>"; };
+		924993C722F0C9DA00F128FA /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		924993C922F0C9F100F128FA /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		924993CB22F16F4100F128FA /* ui_dialogs_helper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ui_dialogs_helper.cpp; path = sources/ui_dialogs_helper.cpp; sourceTree = "<group>"; };
+		924993CC22F16F4100F128FA /* ui_dialogs_helper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ui_dialogs_helper.h; path = sources/ui_dialogs_helper.h; sourceTree = "<group>"; };
+		924993D022F181A200F128FA /* ces_ui_move_animation_action_component.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ces_ui_move_animation_action_component.cpp; path = sources/ces_ui_move_animation_action_component.cpp; sourceTree = "<group>"; };
+		924993D122F181A200F128FA /* ces_ui_move_animation_action_component.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ces_ui_move_animation_action_component.h; path = sources/ces_ui_move_animation_action_component.h; sourceTree = "<group>"; };
 		92514DEA2293E34E00DE70AA /* cars_list_table_view_cell.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = cars_list_table_view_cell.cpp; path = sources/cars_list_table_view_cell.cpp; sourceTree = "<group>"; };
 		92514DEB2293E34E00DE70AA /* cars_list_table_view_cell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = cars_list_table_view_cell.h; path = sources/cars_list_table_view_cell.h; sourceTree = "<group>"; };
 		92514DF4229526D900DE70AA /* ces_car_progression_system.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ces_car_progression_system.cpp; path = sources/ces_car_progression_system.cpp; sourceTree = "<group>"; };
@@ -2095,6 +2096,7 @@
 		92723AFD221F040F00555BAC /* road_corner_t_sidewalk.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = road_corner_t_sidewalk.xml; path = ../gbBundle/Configurations/game_objects/road_corner_t_sidewalk.xml; sourceTree = "<group>"; };
 		9273C58E21C8FBEE00F909F0 /* shader_animated_shape_3d.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_animated_shape_3d.frag; path = ../gbBundle/Shaders/shader_animated_shape_3d.frag; sourceTree = "<group>"; };
 		9273C59521C8FBEE00F909F0 /* shader_animated_shape_3d.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_animated_shape_3d.vert; path = ../gbBundle/Shaders/shader_animated_shape_3d.vert; sourceTree = "<group>"; };
+		92795FB122F1D24B00B5BC9C /* ui_leaderboard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ui_leaderboard.png; path = ../gbBundle/Textures/ui_leaderboard.png; sourceTree = "<group>"; };
 		927A6E3A221D59AB0023243F /* car_01_wheel_r.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = car_01_wheel_r.xml; path = ../gbBundle/Configurations/game_objects/car_01_wheel_r.xml; sourceTree = "<group>"; };
 		927A6E41221D59AC0023243F /* car_01_wheel_l.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = car_01_wheel_l.xml; path = ../gbBundle/Configurations/game_objects/car_01_wheel_l.xml; sourceTree = "<group>"; };
 		927A6E44221D59C30023243F /* material.car_01_wheel_r.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.car_01_wheel_r.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.car_01_wheel_r.base.xml; sourceTree = "<group>"; };
@@ -2139,6 +2141,10 @@
 		92A2D15922CDDFE20014A588 /* facebook_provider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = facebook_provider.h; path = sources/facebook_provider.h; sourceTree = "<group>"; };
 		92A473F6226729A100265DD2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "support/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		92A473F822672B5B00265DD2 /* libFirebaseCore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libFirebaseCore.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		92AF448A22F1C5C600505E3D /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
+		92AF449022F1C5E700505E3D /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.4.sdk/System/Library/Frameworks/GameKit.framework; sourceTree = DEVELOPER_DIR; };
+		92AF449322F1C98A00505E3D /* game_center_provier.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; name = game_center_provier.cpp; path = sources/game_center_provier.cpp; sourceTree = "<group>"; };
+		92AF449422F1C98A00505E3D /* game_center_provier.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = game_center_provier.h; path = sources/game_center_provier.h; sourceTree = "<group>"; };
 		92B49AC822548C2F002F7EED /* ces_car_drift_state_component.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ces_car_drift_state_component.cpp; path = sources/ces_car_drift_state_component.cpp; sourceTree = "<group>"; };
 		92B49AC922548C30002F7EED /* ces_car_drift_state_component.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ces_car_drift_state_component.h; path = sources/ces_car_drift_state_component.h; sourceTree = "<group>"; };
 		92B49AD32254A205002F7EED /* ces_car_tire_trails_controller_component.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ces_car_tire_trails_controller_component.cpp; path = sources/ces_car_tire_trails_controller_component.cpp; sourceTree = "<group>"; };
@@ -2165,8 +2171,8 @@
 		92BAA6762282C1C2005C5883 /* ces_scene_visual_effects_system.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ces_scene_visual_effects_system.h; path = sources/ces_scene_visual_effects_system.h; sourceTree = "<group>"; };
 		92BAA6802282D6DF005C5883 /* ces_scene_fabricator_component.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ces_scene_fabricator_component.cpp; path = sources/ces_scene_fabricator_component.cpp; sourceTree = "<group>"; };
 		92BAA6812282D6DF005C5883 /* ces_scene_fabricator_component.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ces_scene_fabricator_component.h; path = sources/ces_scene_fabricator_component.h; sourceTree = "<group>"; };
-		92BAA6852282F8E1005C5883 /* levels_list_table_view_cell.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = levels_list_table_view_cell.cpp; path = sources/levels_list_table_view_cell.cpp; sourceTree = "<group>"; };
-		92BAA6862282F8E1005C5883 /* levels_list_table_view_cell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = levels_list_table_view_cell.h; path = sources/levels_list_table_view_cell.h; sourceTree = "<group>"; };
+		92BAA6852282F8E1005C5883 /* career_table_view_cell.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = career_table_view_cell.cpp; path = sources/career_table_view_cell.cpp; sourceTree = "<group>"; };
+		92BAA6862282F8E1005C5883 /* career_table_view_cell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = career_table_view_cell.h; path = sources/career_table_view_cell.h; sourceTree = "<group>"; };
 		92BAA69022857FC8005C5883 /* material.button_image.ui.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.button_image.ui.xml; path = ../gbBundle/Configurations/ui_elements/materials/material.button_image.ui.xml; sourceTree = "<group>"; };
 		92BAA69422858008005C5883 /* button_image.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = button_image.xml; path = ../gbBundle/Configurations/ui_elements/button_image.xml; sourceTree = "<group>"; };
 		92BAA69C22858895005C5883 /* ui_next.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ui_next.png; path = ../gbBundle/Textures/ui_next.png; sourceTree = "<group>"; };
@@ -2199,7 +2205,6 @@
 		92BF4F2921FF3E8300E95AD7 /* sidewalk.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = sidewalk.xml; path = ../gbBundle/Configurations/game_objects/sidewalk.xml; sourceTree = "<group>"; };
 		92BF4F552200583800E95AD7 /* material.sidewalk.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.sidewalk.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.sidewalk.base.xml; sourceTree = "<group>"; };
 		92BF4F562200583800E95AD7 /* material.road_corner_t.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.road_corner_t.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.road_corner_t.base.xml; sourceTree = "<group>"; };
-		92C797BE22E885D00067F787 /* ayuenda.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = ayuenda.otf; path = ../gbBundle/Fonts/ayuenda.otf; sourceTree = "<group>"; };
 		92C83C8522427BEB00FC6167 /* material.ss.hdr.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.ss.hdr.xml; path = ../gbBundle/Configurations/techniques/material/material.ss.hdr.xml; sourceTree = "<group>"; };
 		92C83C8722427C0600FC6167 /* ss.technique.hdr.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ss.technique.hdr.xml; path = ../gbBundle/Configurations/techniques/ss_techniques/ss.technique.hdr.xml; sourceTree = "<group>"; };
 		92C83C8D22427D9F00FC6167 /* shader_ss_bright.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_ss_bright.frag; path = ../gbBundle/Shaders/shader_ss_bright.frag; sourceTree = "<group>"; };
@@ -2313,13 +2318,7 @@
 		92E736F922BBAC2200EC0C5E /* events_provider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = events_provider.h; path = sources/events_provider.h; sourceTree = "<group>"; };
 		92E736FF22BCFCC200EC0C5E /* gameplay_constants_helper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = gameplay_constants_helper.cpp; path = sources/gameplay_constants_helper.cpp; sourceTree = "<group>"; };
 		92E7370022BCFCC200EC0C5E /* gameplay_constants_helper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = gameplay_constants_helper.h; path = sources/gameplay_constants_helper.h; sourceTree = "<group>"; };
-		92EA843F22E43CA5003A3C17 /* seaside_resort.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = seaside_resort.ttf; path = ../gbBundle/Fonts/seaside_resort.ttf; sourceTree = "<group>"; };
 		92EA844722E43EB4003A3C17 /* boogie_nights.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = boogie_nights.ttf; path = ../gbBundle/Fonts/boogie_nights.ttf; sourceTree = "<group>"; };
-		92EA844B22E44118003A3C17 /* flottflott.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = flottflott.ttf; path = ../gbBundle/Fonts/flottflott.ttf; sourceTree = "<group>"; };
-		92EA844C22E44119003A3C17 /* remarcle.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = remarcle.ttf; path = ../gbBundle/Fonts/remarcle.ttf; sourceTree = "<group>"; };
-		92EA845322E4442B003A3C17 /* park_lane.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = park_lane.ttf; path = ../gbBundle/Fonts/park_lane.ttf; sourceTree = "<group>"; };
-		92EA845422E4442C003A3C17 /* soerjapoetera.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = soerjapoetera.ttf; path = ../gbBundle/Fonts/soerjapoetera.ttf; sourceTree = "<group>"; };
-		92EA845B22E446D1003A3C17 /* gladifilthefte.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = gladifilthefte.ttf; path = ../gbBundle/Fonts/gladifilthefte.ttf; sourceTree = "<group>"; };
 		92F0419522C0E66100E37703 /* mtl_ssao.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; name = mtl_ssao.metal; path = ../gbBundle/Shaders/metal/mtl_ssao.metal; sourceTree = "<group>"; };
 		92F0419E22C20C3100E37703 /* level_21.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = level_21.xml; path = ../gbBundle/Configurations/gameplay/level_21.xml; sourceTree = "<group>"; };
 		92F0419F22C20C3300E37703 /* level_10.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = level_10.xml; path = ../gbBundle/Configurations/gameplay/level_10.xml; sourceTree = "<group>"; };
@@ -2532,6 +2531,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92AF448B22F1C5C700505E3D /* GameKit.framework in Frameworks */,
+				924993CA22F0C9F600F128FA /* Security.framework in Frameworks */,
+				924993C822F0C9DE00F128FA /* StoreKit.framework in Frameworks */,
 				F34D14A21F2F312E00208CFF /* libgb_database-osx.a in Frameworks */,
 				F36BF1DF1EE16332007DE9E9 /* libgb_sound-osx.a in Frameworks */,
 				F373BF051DFAC364008DF5B8 /* libgbNetwork-osx.a in Frameworks */,
@@ -2550,6 +2552,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92AF449122F1C5E800505E3D /* GameKit.framework in Frameworks */,
 				923663F222D3256C008BE74B /* StoreKit.framework in Frameworks */,
 				92E736B322BB99E500EC0C5E /* Security.framework in Frameworks */,
 				92A2D15422CD2EA50014A588 /* FBSDKCoreKit.framework in Frameworks */,
@@ -2960,6 +2963,7 @@
 		21B403351B7A09D6003382AB /* sources */ = {
 			isa = PBXGroup;
 			children = (
+				92AF449222F1C96700505E3D /* game center managment */,
 				92F94EFD22CE061C00903164 /* in app purchases managment */,
 				92A2D15722CDDFB30014A588 /* social network managment */,
 				92E736FD22BBAC3A00EC0C5E /* events managment */,
@@ -3158,6 +3162,7 @@
 		21FA12551B8F2C0E00ACB9A5 /* textures */ = {
 			isa = PBXGroup;
 			children = (
+				92795FB122F1D24B00B5BC9C /* ui_leaderboard.png */,
 				92C8637122EFF4560067A463 /* ui_minus.png */,
 				922FCD4522EB13D80040C71F /* ui_plus.png */,
 				922FCD4A22EB13D80040C71F /* ui_wrench.png */,
@@ -3372,6 +3377,8 @@
 			children = (
 				F36DBF5D1F29EA3C0073F892 /* ces_ui_interaction_component.h */,
 				F36DBF5C1F29EA3C0073F892 /* ces_ui_interaction_component.cpp */,
+				924993D122F181A200F128FA /* ces_ui_move_animation_action_component.h */,
+				924993D022F181A200F128FA /* ces_ui_move_animation_action_component.cpp */,
 			);
 			name = ui;
 			sourceTree = "<group>";
@@ -3470,6 +3477,15 @@
 			name = scenes;
 			sourceTree = "<group>";
 		};
+		92AF449222F1C96700505E3D /* game center managment */ = {
+			isa = PBXGroup;
+			children = (
+				92AF449422F1C98A00505E3D /* game_center_provier.h */,
+				92AF449322F1C98A00505E3D /* game_center_provier.cpp */,
+			);
+			name = "game center managment";
+			sourceTree = "<group>";
+		};
 		92B5853521539B22008AA8BB /* bindings managment */ = {
 			isa = PBXGroup;
 			children = (
@@ -3484,8 +3500,8 @@
 				92B5853821539B46008AA8BB /* editable_button.h */,
 				92B5853921539B46008AA8BB /* editable_textfield.cpp */,
 				92B5853721539B46008AA8BB /* editable_textfield.h */,
-				92BAA6862282F8E1005C5883 /* levels_list_table_view_cell.h */,
-				92BAA6852282F8E1005C5883 /* levels_list_table_view_cell.cpp */,
+				92BAA6862282F8E1005C5883 /* career_table_view_cell.h */,
+				92BAA6852282F8E1005C5883 /* career_table_view_cell.cpp */,
 				92514DEB2293E34E00DE70AA /* cars_list_table_view_cell.h */,
 				92514DEA2293E34E00DE70AA /* cars_list_table_view_cell.cpp */,
 				92E2400A22B139DD005DDD5D /* ui_animation_helper.h */,
@@ -3496,6 +3512,8 @@
 				9290953822C35E44005097DC /* shop_table_view_cell.cpp */,
 				92387F2922E08DCD00FBE57A /* ui_menus_helper.h */,
 				92387F2822E08DCD00FBE57A /* ui_menus_helper.cpp */,
+				924993CC22F16F4100F128FA /* ui_dialogs_helper.h */,
+				924993CB22F16F4100F128FA /* ui_dialogs_helper.cpp */,
 			);
 			name = "ui managment";
 			sourceTree = "<group>";
@@ -3780,7 +3798,11 @@
 		F351AF4A1EB08BA00017E43E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				92AF449022F1C5E700505E3D /* GameKit.framework */,
+				92AF448A22F1C5C600505E3D /* GameKit.framework */,
+				924993C922F0C9F100F128FA /* Security.framework */,
 				923663F122D3256C008BE74B /* StoreKit.framework */,
+				924993C722F0C9DA00F128FA /* StoreKit.framework */,
 				92E736B222BB99E500EC0C5E /* Security.framework */,
 				92A473F822672B5B00265DD2 /* libFirebaseCore.a */,
 				927BB18722293305001CBD2D /* MetalKit.framework */,
@@ -3921,14 +3943,7 @@
 		F3FA55FD1F34ABA8003FE616 /* fonts */ = {
 			isa = PBXGroup;
 			children = (
-				92C797BE22E885D00067F787 /* ayuenda.otf */,
-				92EA845B22E446D1003A3C17 /* gladifilthefte.ttf */,
-				92EA845322E4442B003A3C17 /* park_lane.ttf */,
-				92EA845422E4442C003A3C17 /* soerjapoetera.ttf */,
-				92EA844B22E44118003A3C17 /* flottflott.ttf */,
-				92EA844C22E44119003A3C17 /* remarcle.ttf */,
 				92EA844722E43EB4003A3C17 /* boogie_nights.ttf */,
-				92EA843F22E43CA5003A3C17 /* seaside_resort.ttf */,
 				9200D2992265F05C00DCB2D3 /* spincycle.otf */,
 			);
 			name = fonts;
@@ -4023,6 +4038,9 @@
 						DevelopmentTeam = R75F335JW3;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
+							com.apple.GameCenter.Mac = {
+								enabled = 1;
+							};
 							com.apple.Sandbox = {
 								enabled = 1;
 							};
@@ -4032,6 +4050,9 @@
 						DevelopmentTeam = R75F335JW3;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
+							com.apple.GameCenter.iOS = {
+								enabled = 1;
+							};
 							com.apple.InAppPurchase = {
 								enabled = 1;
 							};
@@ -4250,6 +4271,7 @@
 				92F0430722C20CB700E37703 /* level_15.tmx in Resources */,
 				92F042F522C20CB700E37703 /* level_7.tmx in Resources */,
 				9213BAAA221565F400F8ACB5 /* road_corner.GB3DMESH in Resources */,
+				92795FB622F1D24D00B5BC9C /* ui_leaderboard.png in Resources */,
 				92F0431322C20CB700E37703 /* level_44.tmx in Resources */,
 				92E23FD022B0F6F7005DDD5D /* material.car_05_wheel_r.base.xml in Resources */,
 				92E23FB522B0F6F7005DDD5D /* material.car_05.base.xml in Resources */,
@@ -4266,7 +4288,6 @@
 				927A6E42221D59AC0023243F /* car_01_wheel_r.xml in Resources */,
 				9290953522C35A3B005097DC /* ui_cart.png in Resources */,
 				92E23F9722B0F696005DDD5D /* car_05_wheel_l.xml in Resources */,
-				92EA845022E4411A003A3C17 /* remarcle.ttf in Resources */,
 				92F0420022C20C4B00E37703 /* level_12.xml in Resources */,
 				92E23FFD22B0F7B0005DDD5D /* car_07_wheel_r.GB3DMESH in Resources */,
 				9213BAB22215667900F8ACB5 /* material.road_corner.base.xml in Resources */,
@@ -4441,7 +4462,6 @@
 				92FAAECE2243876200D243C0 /* ss.technique.gaussian_blur_h.xml in Resources */,
 				92096531225CAC1C00264C65 /* material.road_corner_sidewalk.base.xml in Resources */,
 				92F042CE22C20CB700E37703 /* level_4.tmx in Resources */,
-				92EA845C22E446D2003A3C17 /* gladifilthefte.ttf in Resources */,
 				92F94EF622CDE7AC00903164 /* ui_facebook.png in Resources */,
 				92FAAF0B2243C65200D243C0 /* material.particle.emitter.fire.base.xml in Resources */,
 				926F26B2226DBFE4004659CC /* office_07_ground_floor.GB3DMESH in Resources */,
@@ -4489,7 +4509,6 @@
 				92F0423622C20C4C00E37703 /* level_41.xml in Resources */,
 				92096542225CACC600264C65 /* road_straight_sidewalk.GB3DMESH in Resources */,
 				92E23F9422B0F696005DDD5D /* car_08.xml in Resources */,
-				92EA844422E43CA6003A3C17 /* seaside_resort.ttf in Resources */,
 				92E23FEB22B0F7B0005DDD5D /* car_05_wheel_r.GB3DMESH in Resources */,
 				9228C0152248EF96001F9649 /* material.ss.gaussian_blur_v.xml in Resources */,
 				92F042E022C20CB700E37703 /* level_19.tmx in Resources */,
@@ -4557,7 +4576,6 @@
 				923C5460226763BF009B311E /* office_04_floor.GB3DMESH in Resources */,
 				92F042EF22C20CB700E37703 /* level_5.tmx in Resources */,
 				92FAAF032243C63600D243C0 /* particle.emitter.fire.xml in Resources */,
-				92EA845822E4442C003A3C17 /* soerjapoetera.ttf in Resources */,
 				92F041E222C20C4A00E37703 /* level_36.xml in Resources */,
 				921BBA6B2268BAAF00482139 /* engine_volume_idle.fcl in Resources */,
 				92BAA6E42289951D005C5883 /* car_01_skin_2.png in Resources */,
@@ -4572,7 +4590,6 @@
 				21D06B8B1C6207A900D2DCE9 /* material.grouped_buttons_background.ui.xml in Resources */,
 				F3ED65551F21E47E0047F89D /* car_progression_rank_1.xml in Resources */,
 				F3237EB51E9E58B100337A9C /* material.textfield_background.ui.xml in Resources */,
-				92C797C322E885D10067F787 /* ayuenda.otf in Resources */,
 				2126DC8D1C566181003EBBDA /* material.content_tab_list_cell_background.ui.xml in Resources */,
 				92C8637622EFF45D0067A463 /* ui_minus.png in Resources */,
 				92E23FBB22B0F6F7005DDD5D /* material.car_08_wheel_r.base.xml in Resources */,
@@ -4609,13 +4626,11 @@
 				928B671B228C153B003D9F58 /* sky_ny.png in Resources */,
 				9228BF0F22256D1F00348741 /* race.png in Resources */,
 				92E23F7022B0F637005DDD5D /* car_06_configuration.xml in Resources */,
-				92EA845522E4442C003A3C17 /* park_lane.ttf in Resources */,
 				92096535225CAC4200264C65 /* racing_tex_d_02.png in Resources */,
 				F33D07C21ECC362400535334 /* car_03_wheel_r.xml in Resources */,
 				92723AF6221F03F900555BAC /* material.road_corner_t_sidewalk.base.xml in Resources */,
 				928B673A228D3BAD003D9F58 /* ui_2.png in Resources */,
 				92BAA71C2289C029005C5883 /* car_03_skin_1.png in Resources */,
-				92EA844D22E4411A003A3C17 /* flottflott.ttf in Resources */,
 				92E23FEE22B0F7B0005DDD5D /* car_08_wheel_l.GB3DMESH in Resources */,
 				92BAA6AB228592D2005C5883 /* ui_replay.png in Resources */,
 				92BAA70C22899A7E005C5883 /* car_02_configuration.xml in Resources */,
@@ -4722,7 +4737,6 @@
 				92E23EF622AF8CEB005DDD5D /* ui_restart.png in Resources */,
 				92F0432622C20CB700E37703 /* level_45.tmx in Resources */,
 				92E23F1622B0EA17005DDD5D /* material.car_04.base.xml in Resources */,
-				92EA844E22E4411A003A3C17 /* flottflott.ttf in Resources */,
 				92F0422822C20C4C00E37703 /* level_11.xml in Resources */,
 				92F041E922C20C4B00E37703 /* level_37.xml in Resources */,
 				927A6E55221D59FE0023243F /* material.car_01_wheel_r.base.xml in Resources */,
@@ -4855,7 +4869,6 @@
 				F3303C1E1E800B0B00F11F62 /* information_bubble_01.xml in Resources */,
 				92F0424922C20C4C00E37703 /* level_38.xml in Resources */,
 				92F0424622C20C4C00E37703 /* level_39.xml in Resources */,
-				92EA845D22E446D2003A3C17 /* gladifilthefte.ttf in Resources */,
 				9228C01A2248EFAC001F9649 /* ss.technique.gaussian_blur_v.xml in Resources */,
 				2126DBC41C50EF46003EBBDA /* material.stroke.emissive.xml in Resources */,
 				92BAA7132289C019005C5883 /* car_03_wheel_r.GB3DMESH in Resources */,
@@ -4881,7 +4894,6 @@
 				21EE3DB11B970C06000AE51C /* particle_02.png in Resources */,
 				92B49ADA2254EEA5002F7EED /* particle_03.png in Resources */,
 				923C545822675C4F009B311E /* office_01_ground_floor.GB3DMESH in Resources */,
-				92EA845622E4442C003A3C17 /* park_lane.ttf in Resources */,
 				92FAAF0C2243C65200D243C0 /* material.particle.emitter.fire.base.xml in Resources */,
 				92387F5522E422C800FBE57A /* retro_car_01_wheel_l.GB3DMESH in Resources */,
 				0257955F1EF81E90008FA0AF /* material.exhaust.particle.emitter.base.xml in Resources */,
@@ -4910,7 +4922,6 @@
 				025795111EF04C57008FA0AF /* ui_image.xml in Resources */,
 				92E23F9E22B0F696005DDD5D /* car_07.xml in Resources */,
 				92E23F2522B0EA47005DDD5D /* car_04_skin_1.png in Resources */,
-				92EA845922E4442C003A3C17 /* soerjapoetera.ttf in Resources */,
 				928B674B228D447E003D9F58 /* car_03_skin_3.png in Resources */,
 				92BAA6BA2285AA9A005C5883 /* ui_cross.png in Resources */,
 				92F042CF22C20CB700E37703 /* level_4.tmx in Resources */,
@@ -4925,7 +4936,6 @@
 				21EE3D5E1B96ECC1000AE51C /* particle_01.png in Resources */,
 				928B673E228D3BAD003D9F58 /* ui_3.png in Resources */,
 				923C544C22675295009B311E /* road_corner_t_sidewalk.GB3DMESH in Resources */,
-				92EA844522E43CA6003A3C17 /* seaside_resort.ttf in Resources */,
 				92E23F9522B0F696005DDD5D /* car_08.xml in Resources */,
 				F32627111E0283DC00383515 /* material.console_message.ui.xml in Resources */,
 				92E23FEC22B0F7B0005DDD5D /* car_05_wheel_r.GB3DMESH in Resources */,
@@ -4959,7 +4969,6 @@
 				921BBA6F2268BAAF00482139 /* engine_volume_on_mid.fcl in Resources */,
 				92F0431A22C20CB700E37703 /* level_31.tmx in Resources */,
 				92514DFB2297D8A600DE70AA /* Assets.xcassets in Resources */,
-				92C797C422E885D90067F787 /* ayuenda.otf in Resources */,
 				025795171EF04C57008FA0AF /* car_02_wheel_r.xml in Resources */,
 				92601CD0228045BE000B38E1 /* material.ss.output.xml in Resources */,
 				92723B02221F041000555BAC /* road_corner_t_sidewalk.xml in Resources */,
@@ -4991,6 +5000,7 @@
 				92F0430822C20CB700E37703 /* level_15.tmx in Resources */,
 				F3580D431ED2AE0C00A63E97 /* car_03.xml in Resources */,
 				92F042C322C20CB600E37703 /* level_24.tmx in Resources */,
+				92795FB722F1D24D00B5BC9C /* ui_leaderboard.png in Resources */,
 				9226639A225246B30092AE0B /* tire_trail.xml in Resources */,
 				92F042EA22C20CB700E37703 /* level_43.tmx in Resources */,
 				92E23FF822B0F7B0005DDD5D /* car_08.GB3DMESH in Resources */,
@@ -5101,7 +5111,6 @@
 				92F0423422C20C4C00E37703 /* level_40.xml in Resources */,
 				9209650F2257835A00264C65 /* material.label_3d_01.emissive.xml in Resources */,
 				92E23F4922B0F59C005DDD5D /* car_08_skin_3.png in Resources */,
-				92EA845122E4411A003A3C17 /* remarcle.ttf in Resources */,
 				92F0431722C20CB700E37703 /* level_14.tmx in Resources */,
 				9290955C22CB50A4005097DC /* ws.technique.mask.xml in Resources */,
 				F3729BE71DC5194D0025952A /* material.joystick_background.ui.xml in Resources */,
@@ -5141,6 +5150,7 @@
 				92F0422922C20C4C00E37703 /* level_11.xml in Resources */,
 				92BAA6DD2289855E005C5883 /* car_01_wheel_r.GB3DMESH in Resources */,
 				92E23FB422B0F6F7005DDD5D /* material.car_07.base.xml in Resources */,
+				92795FB822F1D24D00B5BC9C /* ui_leaderboard.png in Resources */,
 				927A6E57221D59FF0023243F /* material.car_01_wheel_r.base.xml in Resources */,
 				92F0422622C20C4C00E37703 /* level_16.xml in Resources */,
 				92F0430922C20CB700E37703 /* level_15.tmx in Resources */,
@@ -5157,7 +5167,6 @@
 				92F041DB22C20C4A00E37703 /* level_15.xml in Resources */,
 				9290953722C35A3B005097DC /* ui_cart.png in Resources */,
 				92F0420822C20C4B00E37703 /* level_48.xml in Resources */,
-				92EA845222E4411A003A3C17 /* remarcle.ttf in Resources */,
 				92F042F122C20CB700E37703 /* level_5.tmx in Resources */,
 				F30077D41F31CD01009F2EDF /* car_progression_rank_3.xml in Resources */,
 				92F041F922C20C4B00E37703 /* level_49.xml in Resources */,
@@ -5332,7 +5341,6 @@
 				92BAA7172289C019005C5883 /* car_03_wheel_l.GB3DMESH in Resources */,
 				92BAA6C42285AA9A005C5883 /* ui_video.png in Resources */,
 				F36DF2B41E953C5600EAE49B /* content_tab_list_background.xml in Resources */,
-				92EA845E22E446D2003A3C17 /* gladifilthefte.ttf in Resources */,
 				F36DF2B51E953C5600EAE49B /* material.switcher_background.ui.xml in Resources */,
 				92F0420522C20C4B00E37703 /* level_43.xml in Resources */,
 				92E23F8122B0F696005DDD5D /* car_06_wheel_l.xml in Resources */,
@@ -5380,7 +5388,6 @@
 				92E23F9622B0F696005DDD5D /* car_08.xml in Resources */,
 				F36DF2D11E953C5600EAE49B /* material.content_tab_list_background.ui.xml in Resources */,
 				92E23FCC22B0F6F7005DDD5D /* material.car_08_wheel_l.base.xml in Resources */,
-				92EA844622E43CA6003A3C17 /* seaside_resort.ttf in Resources */,
 				92E23F5022B0F59C005DDD5D /* car_07_skin_2.png in Resources */,
 				92601CD1228045BE000B38E1 /* material.ss.output.xml in Resources */,
 				92F041E122C20C4A00E37703 /* level_1.xml in Resources */,
@@ -5448,7 +5455,6 @@
 				92F0421A22C20C4B00E37703 /* level_19.xml in Resources */,
 				92F042BB22C20CB600E37703 /* level_47.tmx in Resources */,
 				F30077BB1F31C6ED009F2EDF /* car_progression_rank_7.xml in Resources */,
-				92EA845A22E4442C003A3C17 /* soerjapoetera.ttf in Resources */,
 				9252EC172265B716002EF105 /* sidewalk.GB3DMESH in Resources */,
 				92E23F9922B0F696005DDD5D /* car_05_wheel_l.xml in Resources */,
 				92F042B822C20CB600E37703 /* level_29.tmx in Resources */,
@@ -5463,7 +5469,6 @@
 				92E23F7222B0F637005DDD5D /* car_06_configuration.xml in Resources */,
 				926F26E8226DF510004659CC /* material.roads_shared.base.xml in Resources */,
 				92F0422022C20C4B00E37703 /* level_13.xml in Resources */,
-				92C797C522E885D90067F787 /* ayuenda.otf in Resources */,
 				92BAA7142289C019005C5883 /* car_03_wheel_r.GB3DMESH in Resources */,
 				92C8637822EFF45D0067A463 /* ui_minus.png in Resources */,
 				926F26B4226DBFE4004659CC /* office_07_ground_floor.GB3DMESH in Resources */,
@@ -5500,13 +5505,11 @@
 				92F041F622C20C4B00E37703 /* level_17.xml in Resources */,
 				92601C8B227C3BC2000B38E1 /* arrow.xml in Resources */,
 				92BAA6BE2285AA9A005C5883 /* ui_gear.png in Resources */,
-				92EA845722E4442C003A3C17 /* park_lane.ttf in Resources */,
 				923C546E226764D3009B311E /* office_02_ground_floor.GB3DMESH in Resources */,
 				F36DF3111E953C5600EAE49B /* material.ss.deferred.lighting.xml in Resources */,
 				F36DF3131E953C5600EAE49B /* material.console_message.ui.xml in Resources */,
 				92E23F5922B0F59C005DDD5D /* car_07_skin_1.png in Resources */,
 				928B673F228D3BAD003D9F58 /* ui_3.png in Resources */,
-				92EA844F22E4411A003A3C17 /* flottflott.ttf in Resources */,
 				F3B2B6A41EE819E400623F34 /* music_01.mp3 in Resources */,
 				92F0423822C20C4C00E37703 /* level_41.xml in Resources */,
 				92E23FF622B0F7B0005DDD5D /* car_05.GB3DMESH in Resources */,
@@ -5719,6 +5722,7 @@
 				92B5853D21539B46008AA8BB /* editable_button.cpp in Sources */,
 				923C5486226874E1009B311E /* ces_car_replay_player_component.cpp in Sources */,
 				F38068E61F25C1AB00AE1D67 /* ces_interaction_system.cpp in Sources */,
+				924993CD22F16F4100F128FA /* ui_dialogs_helper.cpp in Sources */,
 				9200D29F2265F29200DCB2D3 /* in_game_scene.cpp in Sources */,
 				2102EB441B7D2D6700F20197 /* game_conroller_osx.cpp in Sources */,
 				923663F622D3299B008BE74B /* store_provider.cpp in Sources */,
@@ -5728,7 +5732,7 @@
 				921BBA9C2269B71300482139 /* ces_car_sound_system.cpp in Sources */,
 				92B49ACA22548C30002F7EED /* ces_car_drift_state_component.cpp in Sources */,
 				926F265B2269CE53004659CC /* ces_car_gear_component.cpp in Sources */,
-				92BAA6872282F8E1005C5883 /* levels_list_table_view_cell.cpp in Sources */,
+				92BAA6872282F8E1005C5883 /* career_table_view_cell.cpp in Sources */,
 				92E23EEF22AE5A4C005DDD5D /* db_level_table.cpp in Sources */,
 				92601C9A22801C70000B38E1 /* ces_car_camera_follow_component.cpp in Sources */,
 				921BBA922269B29300482139 /* ces_car_fuzzy_logic_component.cpp in Sources */,
@@ -5745,6 +5749,7 @@
 				92601CE422805BBA000B38E1 /* ces_level_descriptor_component.cpp in Sources */,
 				92514DF6229526D900DE70AA /* ces_car_progression_system.cpp in Sources */,
 				92B5853221539B15008AA8BB /* ui_editor_transition.cpp in Sources */,
+				92AF449522F1C98A00505E3D /* game_center_provier.cpp in Sources */,
 				F3ED657F1F22264C0047F89D /* ces_scene_state_automat_component.cpp in Sources */,
 				F30F08CA1E014F86001564B6 /* main_menu_scene.cpp in Sources */,
 				F3ED65521F21E3390047F89D /* gameplay_configuration_accessor.cpp in Sources */,
@@ -5764,6 +5769,7 @@
 				21B4033C1B7A09FD003382AB /* application_delegate_osx.mm in Sources */,
 				92B5853B21539B46008AA8BB /* editable_textfield.cpp in Sources */,
 				F36DBF631F29EBDF0073F892 /* ces_ui_interaction_system.cpp in Sources */,
+				924993D222F181A200F128FA /* ces_ui_move_animation_action_component.cpp in Sources */,
 				9200D2A42265F2B600DCB2D3 /* in_game_transition.cpp in Sources */,
 				F39C89981EF18ECC00D10182 /* ces_car_statistic_component.cpp in Sources */,
 				F3CB17851E71692500AF603B /* ces_ai_system.cpp in Sources */,
@@ -5803,6 +5809,7 @@
 				92BAA6782282C1C2005C5883 /* ces_scene_visual_effects_system.cpp in Sources */,
 				92B5853E21539B46008AA8BB /* editable_button.cpp in Sources */,
 				923C5487226874E1009B311E /* ces_car_replay_player_component.cpp in Sources */,
+				924993CE22F16F4100F128FA /* ui_dialogs_helper.cpp in Sources */,
 				9200D2A02265F29200DCB2D3 /* in_game_scene.cpp in Sources */,
 				F380690A1F25EA9200AE1D67 /* level_configuration.cpp in Sources */,
 				923663F722D3299B008BE74B /* store_provider.cpp in Sources */,
@@ -5812,7 +5819,7 @@
 				92B49AD62254A205002F7EED /* ces_car_tire_trails_controller_component.cpp in Sources */,
 				926F265C2269CE53004659CC /* ces_car_gear_component.cpp in Sources */,
 				92E23EF022AE5A4C005DDD5D /* db_level_table.cpp in Sources */,
-				92BAA6882282F8E1005C5883 /* levels_list_table_view_cell.cpp in Sources */,
+				92BAA6882282F8E1005C5883 /* career_table_view_cell.cpp in Sources */,
 				92601C9B22801C70000B38E1 /* ces_car_camera_follow_component.cpp in Sources */,
 				92E2401E22B3AB96005DDD5D /* db_helper.cpp in Sources */,
 				92B49ACB22548C30002F7EED /* ces_car_drift_state_component.cpp in Sources */,
@@ -5829,6 +5836,7 @@
 				923C54352267401D009B311E /* advertisement_provider.cpp in Sources */,
 				92601CE522805BBA000B38E1 /* ces_level_descriptor_component.cpp in Sources */,
 				92514DF7229526DA00DE70AA /* ces_car_progression_system.cpp in Sources */,
+				92AF449622F1C98A00505E3D /* game_center_provier.cpp in Sources */,
 				212B18CB1B8232EE00FFDCE7 /* application_delegate_ios.mm in Sources */,
 				F38069191F2613A800AE1D67 /* gameplay_configuration_accessor.cpp in Sources */,
 				92B5853321539B15008AA8BB /* ui_editor_transition.cpp in Sources */,
@@ -5848,6 +5856,7 @@
 				F39C89991EF18ECC00D10182 /* ces_car_statistic_component.cpp in Sources */,
 				F3CB17861E71692500AF603B /* ces_ai_system.cpp in Sources */,
 				92B5853C21539B46008AA8BB /* editable_textfield.cpp in Sources */,
+				924993D322F181A200F128FA /* ces_ui_move_animation_action_component.cpp in Sources */,
 				F36DBF641F29EBDF0073F892 /* ces_ui_interaction_system.cpp in Sources */,
 				9200D2A52265F2B600DCB2D3 /* in_game_transition.cpp in Sources */,
 				F38068E71F25C1AB00AE1D67 /* ces_interaction_system.cpp in Sources */,
@@ -5887,6 +5896,7 @@
 				926F265D2269CE53004659CC /* ces_car_gear_component.cpp in Sources */,
 				921BBA992269B6DC00482139 /* ces_car_sounds_set_component.cpp in Sources */,
 				92BAA6792282C1C2005C5883 /* ces_scene_visual_effects_system.cpp in Sources */,
+				924993CF22F16F4100F128FA /* ui_dialogs_helper.cpp in Sources */,
 				9213BAE322170A2700F8ACB5 /* ces_car_simulator_component.cpp in Sources */,
 				F36DF2341E953C5600EAE49B /* main.m in Sources */,
 				923663F822D3299B008BE74B /* store_provider.cpp in Sources */,
@@ -5897,7 +5907,7 @@
 				928B6754228D479E003D9F58 /* db_garage_table.cpp in Sources */,
 				9213BAED22170F1A00F8ACB5 /* ces_car_input_component.cpp in Sources */,
 				92E2401F22B3AB96005DDD5D /* db_helper.cpp in Sources */,
-				92BAA6892282F8E1005C5883 /* levels_list_table_view_cell.cpp in Sources */,
+				92BAA6892282F8E1005C5883 /* career_table_view_cell.cpp in Sources */,
 				92601C9C22801C70000B38E1 /* ces_car_camera_follow_component.cpp in Sources */,
 				92E2401A22B3AB34005DDD5D /* db_user_table.cpp in Sources */,
 				F380690B1F25EA9200AE1D67 /* level_configuration.cpp in Sources */,
@@ -5913,6 +5923,7 @@
 				F351AF481EB082E60017E43E /* application_delegate_tvos.mm in Sources */,
 				F380691A1F2613A900AE1D67 /* gameplay_configuration_accessor.cpp in Sources */,
 				9213BAD92216C9E400F8ACB5 /* ces_car_model_component.cpp in Sources */,
+				92AF449722F1C98A00505E3D /* game_center_provier.cpp in Sources */,
 				9252EC03225F4E91002EF105 /* ces_level_route_component.cpp in Sources */,
 				92B5853421539B19008AA8BB /* ui_editor_scene..cpp in Sources */,
 				923C547622679D3C009B311E /* ces_car_replay_record_component.cpp in Sources */,
@@ -5932,6 +5943,7 @@
 				F39C899A1EF18ECC00D10182 /* ces_car_statistic_component.cpp in Sources */,
 				92B49ACC22548C30002F7EED /* ces_car_drift_state_component.cpp in Sources */,
 				926F268D2269FFFE004659CC /* ui_editor_transition.cpp in Sources */,
+				924993D422F181A200F128FA /* ces_ui_move_animation_action_component.cpp in Sources */,
 				F36DF24F1E953C5600EAE49B /* ces_ai_system.cpp in Sources */,
 				F36DBF651F29EBDF0073F892 /* ces_ui_interaction_system.cpp in Sources */,
 				F38068E81F25C1AB00AE1D67 /* ces_interaction_system.cpp in Sources */,

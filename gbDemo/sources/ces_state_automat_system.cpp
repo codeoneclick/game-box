@@ -287,14 +287,12 @@ namespace game
                                                       hide_progress);
                     
                     ui_animation_helper::hide_to_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_goto_racing1_button),
-                                                       gameplay_ui_fabricator->get_screen_size(),
                                                        hide_progress);
                     
                     ui_animation_helper::hide_to_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_garage_label),
                                                       hide_progress);
                     
                     ui_animation_helper::hide_to_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_goto_racing2_button),
-                                                       gameplay_ui_fabricator->get_screen_size(),
                                                        hide_progress);
                     
                     ui_animation_helper::hide_to_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_open_garage_button),
@@ -309,111 +307,34 @@ namespace game
                     ui_animation_helper::hide_to_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_garage_preview_button),
                                                       hide_progress);
                     
-                    ui_animation_helper::hide_to_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_body_color_1_button),
-                                                      gameplay_ui_fabricator->get_screen_size(),
+                    ui_animation_helper::hide_to_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_zoom_label),
                                                       hide_progress);
-                    
-                    ui_animation_helper::hide_to_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_body_color_2_button),
-                                                        gameplay_ui_fabricator->get_screen_size(),
-                                                      hide_progress);
-                    
-                    ui_animation_helper::hide_to_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_body_color_3_button),
-                                                        gameplay_ui_fabricator->get_screen_size(),
-                                                      hide_progress);
-                    
-                    ui_animation_helper::hide_to_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_body_color_4_button),
-                                                        gameplay_ui_fabricator->get_screen_size(),
-                                                      hide_progress);
-                    
-                    ui_animation_helper::hide_to_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_windows_color_1_button),
-                                                       gameplay_ui_fabricator->get_screen_size(),
-                                                       hide_progress);
-                    
-                    ui_animation_helper::hide_to_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_windows_color_2_button),
-                                                       gameplay_ui_fabricator->get_screen_size(),
-                                                       hide_progress);
-                    
-                    ui_animation_helper::hide_to_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_windows_color_3_button),
-                                                       gameplay_ui_fabricator->get_screen_size(),
-                                                       hide_progress);
-                    
-                    ui_animation_helper::hide_to_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_windows_color_4_button),
-                                                       gameplay_ui_fabricator->get_screen_size(),
-                                                       hide_progress);
                     
                     ui_animation_helper::hide_to_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_body_paint_label),
-                                                       gameplay_ui_fabricator->get_screen_size(),
                                                        hide_progress);
                     
                     ui_animation_helper::hide_to_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_windshield_paint_label),
-                                                       gameplay_ui_fabricator->get_screen_size(),
                                                        hide_progress);
                     
                     ui_animation_helper::hide_to_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_performance_label),
-                                                       gameplay_ui_fabricator->get_screen_size(),
-                                                       hide_progress);
-                    
-                    ui_animation_helper::hide_to_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_speed_label),
-                                                       gameplay_ui_fabricator->get_screen_size(),
-                                                       hide_progress);
-                    
-                    ui_animation_helper::hide_to_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_speed_progress_bar),
-                                                       gameplay_ui_fabricator->get_screen_size(),
-                                                       hide_progress);
-                    
-                    ui_animation_helper::hide_to_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_speed_plus_button),
-                                                       gameplay_ui_fabricator->get_screen_size(),
-                                                       hide_progress);
-                    
-                    ui_animation_helper::hide_to_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_speed_reset_button),
-                                                       gameplay_ui_fabricator->get_screen_size(),
-                                                       hide_progress);
-                    
-                    ui_animation_helper::hide_to_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_handling_label),
-                                                       gameplay_ui_fabricator->get_screen_size(),
-                                                       hide_progress);
-                    
-                    ui_animation_helper::hide_to_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_handling_progress_bar),
-                                                       gameplay_ui_fabricator->get_screen_size(),
-                                                       hide_progress);
-                    
-                    ui_animation_helper::hide_to_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_handling_plus_button),
-                                                       gameplay_ui_fabricator->get_screen_size(),
-                                                       hide_progress);
-                    
-                    ui_animation_helper::hide_to_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_handling_reset_button),
-                                                       gameplay_ui_fabricator->get_screen_size(),
-                                                       hide_progress);
-                    
-                    ui_animation_helper::hide_to_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_rigidity_label),
-                                                       gameplay_ui_fabricator->get_screen_size(),
-                                                       hide_progress);
-                    
-                    ui_animation_helper::hide_to_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_rigidity_progress_bar),
-                                                       gameplay_ui_fabricator->get_screen_size(),
-                                                       hide_progress);
-                    
-                    ui_animation_helper::hide_to_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_rigidity_plus_button),
-                                                       gameplay_ui_fabricator->get_screen_size(),
-                                                       hide_progress);
-                    
-                    ui_animation_helper::hide_to_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_durability_reset_button),
-                                                       gameplay_ui_fabricator->get_screen_size(),
                                                        hide_progress);
                     
                     ui_animation_helper::hide_to_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_buy_upgrade_button),
-                                                       gameplay_ui_fabricator->get_screen_size(),
                                                        hide_progress);
                     
                     ui_animation_helper::hide_to_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_buy_upgrade_label),
-                                                       gameplay_ui_fabricator->get_screen_size(),
                                                        hide_progress);
-                    
                     
                     ui_animation_helper::hide_to_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_open_shop_button),
                                                       hide_progress);
                     
                     ui_animation_helper::hide_to_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_shop_label),
+                                                      hide_progress);
+                    
+                    ui_animation_helper::hide_to_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_leaderboard_button),
+                                                      hide_progress);
+                    
+                    ui_animation_helper::hide_to_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_leaderboard_label),
                                                       hide_progress);
                     
                     ui_animation_helper::hide_to_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_quit_game_button),
@@ -423,22 +344,18 @@ namespace game
                                                       hide_progress);
                     
                     ui_animation_helper::hide_to_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_next_car_in_garage_button),
-                                                       gameplay_ui_fabricator->get_screen_size(),
                                                        hide_progress);
                     
                     ui_animation_helper::hide_to_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_prev_car_in_garage_button),
                                                       hide_progress);
                     
                     ui_animation_helper::hide_to_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_car_skin_1_button),
-                                                       gameplay_ui_fabricator->get_screen_size(),
                                                        hide_progress);
                     
                     ui_animation_helper::hide_to_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_car_skin_2_button),
-                                                       gameplay_ui_fabricator->get_screen_size(),
                                                        hide_progress);
                     
                     ui_animation_helper::hide_to_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_car_skin_3_button),
-                                                       gameplay_ui_fabricator->get_screen_size(),
                                                        hide_progress);
                     
                     ui_animation_helper::hide_to_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_tickets_label),
@@ -448,42 +365,33 @@ namespace game
                                                       hide_progress);
                     
                     ui_animation_helper::hide_to_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_cash_label),
-                                                       gameplay_ui_fabricator->get_screen_size(),
                                                        hide_progress);
                     
                     ui_animation_helper::hide_to_down(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_select_car_button),
-                                                      gameplay_ui_fabricator->get_screen_size(),
                                                       hide_progress);
                     
                     ui_animation_helper::hide_to_down(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_unlock_car_button),
-                                                      gameplay_ui_fabricator->get_screen_size(),
                                                       hide_progress);
                     
                     ui_animation_helper::hide_to_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_buy_car_button),
-                                                       gameplay_ui_fabricator->get_screen_size(),
                                                        hide_progress);
                     
                     ui_animation_helper::hide_to_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_buy_car_label),
-                                                       gameplay_ui_fabricator->get_screen_size(),
                                                        hide_progress);
                     
                     ui_animation_helper::hide_to_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_stars_progress_bar),
-                                                       gameplay_ui_fabricator->get_screen_size(),
                                                        hide_progress);
                     
                     ui_animation_helper::hide_to_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_stars_progress_label),
-                                                       gameplay_ui_fabricator->get_screen_size(),
                                                        hide_progress);
                     
                     ui_animation_helper::hide_to_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_stars_progress_info_label),
-                                                       gameplay_ui_fabricator->get_screen_size(),
                                                        hide_progress);
                     
                     ui_animation_helper::hide_to_up(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_stars_progress_button),
                                                       hide_progress);
                     
                     ui_animation_helper::hide_to_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_rank_info_label),
-                                                       gameplay_ui_fabricator->get_screen_size(),
                                                        hide_progress);
                 }
                 else
@@ -737,6 +645,12 @@ namespace game
                         ui_animation_helper::show_from_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_shop_label),
                                                             show_progress);
                         
+                        ui_animation_helper::show_from_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_leaderboard_button),
+                                                            show_progress);
+                        
+                        ui_animation_helper::show_from_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_leaderboard_label),
+                                                            show_progress);
+                        
                         ui_animation_helper::show_from_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_quit_game_button),
                                                             show_progress);
                         
@@ -744,37 +658,30 @@ namespace game
                                                             show_progress);
                         
                         ui_animation_helper::show_from_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_goto_racing1_button),
-                                                             gameplay_ui_fabricator->get_screen_size(),
                                                              show_progress);
                         
                         ui_animation_helper::show_from_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_goto_racing2_button),
-                                                             gameplay_ui_fabricator->get_screen_size(),
                                                              show_progress);
                         
                         ui_animation_helper::show_from_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_tickets_label),
                                                             show_progress);
                         
                         ui_animation_helper::show_from_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_cash_label),
-                                                             gameplay_ui_fabricator->get_screen_size(),
                                                              show_progress);
                         
                         ui_animation_helper::show_from_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_stars_progress_bar),
-                                                             gameplay_ui_fabricator->get_screen_size(),
                                                              show_progress);
                         
                         ui_animation_helper::show_from_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_stars_progress_label),
-                                                             gameplay_ui_fabricator->get_screen_size(),
                                                              show_progress);
                         
                         ui_animation_helper::show_from_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_stars_progress_info_label),
-                                                             gameplay_ui_fabricator->get_screen_size(),
                                                              show_progress);
                         
                         ui_animation_helper::show_from_up(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_stars_progress_button),
                                                           show_progress);
                         
                         ui_animation_helper::show_from_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_rank_info_label),
-                                                             gameplay_ui_fabricator->get_screen_size(),
                                                              show_progress);
                     }
                     else if (scene_state_automat_component->mode == ces_scene_state_automat_component::e_mode_garage)
@@ -788,146 +695,55 @@ namespace game
                         ui_animation_helper::show_from_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_garage_preview_button),
                                                             show_progress);
                         
-                        ui_animation_helper::show_from_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_body_color_1_button),
-                                                             gameplay_ui_fabricator->get_screen_size(),
+                        ui_animation_helper::show_from_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_zoom_label),
                                                             show_progress);
-                        
-                        ui_animation_helper::show_from_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_body_color_2_button),
-                                                             gameplay_ui_fabricator->get_screen_size(),
-                                                            show_progress);
-                        
-                        ui_animation_helper::show_from_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_body_color_3_button),
-                                                             gameplay_ui_fabricator->get_screen_size(),
-                                                            show_progress);
-                        
-                        ui_animation_helper::show_from_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_body_color_4_button),
-                                                             gameplay_ui_fabricator->get_screen_size(),
-                                                            show_progress);
-                        
-                        ui_animation_helper::show_from_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_windows_color_1_button),
-                                                             gameplay_ui_fabricator->get_screen_size(),
-                                                             show_progress);
-                        
-                        ui_animation_helper::show_from_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_windows_color_2_button),
-                                                             gameplay_ui_fabricator->get_screen_size(),
-                                                             show_progress);
-                        
-                        ui_animation_helper::show_from_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_windows_color_3_button),
-                                                             gameplay_ui_fabricator->get_screen_size(),
-                                                             show_progress);
-                        
-                        ui_animation_helper::show_from_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_windows_color_4_button),
-                                                             gameplay_ui_fabricator->get_screen_size(),
-                                                             show_progress);
                         
                         ui_animation_helper::show_from_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_body_paint_label),
-                                                             gameplay_ui_fabricator->get_screen_size(),
                                                              show_progress);
                         
                         ui_animation_helper::show_from_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_windshield_paint_label),
-                                                             gameplay_ui_fabricator->get_screen_size(),
                                                              show_progress);
                         
                         ui_animation_helper::show_from_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_performance_label),
-                                                             gameplay_ui_fabricator->get_screen_size(),
-                                                             show_progress);
-                        
-                        ui_animation_helper::show_from_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_speed_label),
-                                                             gameplay_ui_fabricator->get_screen_size(),
-                                                             show_progress);
-                        
-                        ui_animation_helper::show_from_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_speed_progress_bar),
-                                                             gameplay_ui_fabricator->get_screen_size(),
-                                                             show_progress);
-                        
-                        ui_animation_helper::show_from_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_speed_plus_button),
-                                                             gameplay_ui_fabricator->get_screen_size(),
-                                                             show_progress);
-                        
-                        ui_animation_helper::show_from_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_speed_reset_button),
-                                                             gameplay_ui_fabricator->get_screen_size(),
-                                                             show_progress);
-                        
-                        ui_animation_helper::show_from_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_handling_label),
-                                                           gameplay_ui_fabricator->get_screen_size(),
-                                                           show_progress);
-                        
-                        ui_animation_helper::show_from_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_handling_progress_bar),
-                                                           gameplay_ui_fabricator->get_screen_size(),
-                                                           show_progress);
-                        
-                        ui_animation_helper::show_from_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_handling_plus_button),
-                                                           gameplay_ui_fabricator->get_screen_size(),
-                                                           show_progress);
-                        
-                        ui_animation_helper::show_from_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_handling_reset_button),
-                                                             gameplay_ui_fabricator->get_screen_size(),
-                                                             show_progress);
-                        
-                        ui_animation_helper::show_from_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_rigidity_label),
-                                                           gameplay_ui_fabricator->get_screen_size(),
-                                                           show_progress);
-                        
-                        ui_animation_helper::show_from_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_rigidity_progress_bar),
-                                                           gameplay_ui_fabricator->get_screen_size(),
-                                                           show_progress);
-                        
-                        ui_animation_helper::show_from_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_rigidity_plus_button),
-                                                           gameplay_ui_fabricator->get_screen_size(),
-                                                           show_progress);
-                        
-                        ui_animation_helper::show_from_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_durability_reset_button),
-                                                             gameplay_ui_fabricator->get_screen_size(),
                                                              show_progress);
                         
                         ui_animation_helper::show_from_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_buy_upgrade_button),
-                                                           gameplay_ui_fabricator->get_screen_size(),
                                                            show_progress);
                         
                         ui_animation_helper::show_from_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_buy_upgrade_label),
-                                                           gameplay_ui_fabricator->get_screen_size(),
                                                            show_progress);
                         
                         ui_animation_helper::show_from_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_next_car_in_garage_button),
-                                                             gameplay_ui_fabricator->get_screen_size(),
                                                              show_progress);
                         
                         ui_animation_helper::show_from_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_prev_car_in_garage_button),
                                                             show_progress);
                         
                         ui_animation_helper::show_from_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_car_skin_1_button),
-                                                             gameplay_ui_fabricator->get_screen_size(),
                                                              show_progress);
                         
                         ui_animation_helper::show_from_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_car_skin_2_button),
-                                                             gameplay_ui_fabricator->get_screen_size(),
                                                              show_progress);
                         
                         ui_animation_helper::show_from_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_car_skin_3_button),
-                                                             gameplay_ui_fabricator->get_screen_size(),
                                                              show_progress);
                         
                         ui_animation_helper::show_from_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_tickets_label),
                                                             show_progress);
                         
                         ui_animation_helper::show_from_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_cash_label),
-                                                             gameplay_ui_fabricator->get_screen_size(),
                                                              show_progress);
                         
                         ui_animation_helper::show_from_down(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_select_car_button),
-                                                             gameplay_ui_fabricator->get_screen_size(),
                                                              show_progress);
                         
                         ui_animation_helper::show_from_down(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_unlock_car_button),
-                                                            gameplay_ui_fabricator->get_screen_size(),
                                                             show_progress);
                         
                         ui_animation_helper::show_from_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_buy_car_button),
-                                                            gameplay_ui_fabricator->get_screen_size(),
                                                             show_progress);
                         
                         ui_animation_helper::show_from_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_buy_car_label),
-                                                             gameplay_ui_fabricator->get_screen_size(),
                                                              show_progress);
                         
                        

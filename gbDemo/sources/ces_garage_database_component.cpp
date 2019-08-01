@@ -458,4 +458,122 @@ namespace game
         }
         return result;
     }
+    
+    void ces_garage_database_component::set_car_body_color_id(i32 garage_id, i32 car_id, i32 color_id)
+    {
+        auto garage_record = std::make_shared<gb::db::database_entity<db_garage_table, db_garage_data>>(m_database_coordinator.lock());
+        if(!garage_record->load_from_db(garage_id))
+        {
+            assert(false);
+        }
+        else
+        {
+            auto car_record = std::make_shared<gb::db::database_entity<db_car_table, db_car_data>>(m_database_coordinator.lock());
+            if(!car_record->load_from_db(car_id))
+            {
+                assert(false);
+            }
+            else
+            {
+                auto& data = car_record->get_data();
+                data.m_car_body_color_id = color_id;
+                car_record->save_to_db();
+            }
+        }
+    }
+    
+    void ces_garage_database_component::set_car_windshield_color_id(i32 garage_id, i32 car_id, i32 color_id)
+    {
+        auto garage_record = std::make_shared<gb::db::database_entity<db_garage_table, db_garage_data>>(m_database_coordinator.lock());
+        if(!garage_record->load_from_db(garage_id))
+        {
+            assert(false);
+        }
+        else
+        {
+            auto car_record = std::make_shared<gb::db::database_entity<db_car_table, db_car_data>>(m_database_coordinator.lock());
+            if(!car_record->load_from_db(car_id))
+            {
+                assert(false);
+            }
+            else
+            {
+                auto& data = car_record->get_data();
+                data.m_car_windows_color_id = color_id;
+                car_record->save_to_db();
+            }
+        }
+    }
+    
+    void ces_garage_database_component::upgrade_car_speed(i32 garage_id, i32 car_id, f32 delta)
+    {
+        auto garage_record = std::make_shared<gb::db::database_entity<db_garage_table, db_garage_data>>(m_database_coordinator.lock());
+        if(!garage_record->load_from_db(garage_id))
+        {
+            assert(false);
+        }
+        else
+        {
+            auto car_record = std::make_shared<gb::db::database_entity<db_car_table, db_car_data>>(m_database_coordinator.lock());
+            if(!car_record->load_from_db(car_id))
+            {
+                assert(false);
+            }
+            else
+            {
+                auto& data = car_record->get_data();
+                i32 delta_upgrades_amount = std::floor(delta * 10.f);
+                data.m_car_speed_upgrade = delta_upgrades_amount * 10;
+                car_record->save_to_db();
+            }
+        }
+    }
+    
+    void ces_garage_database_component::upgrade_car_handling(i32 garage_id, i32 car_id, f32 delta)
+    {
+        auto garage_record = std::make_shared<gb::db::database_entity<db_garage_table, db_garage_data>>(m_database_coordinator.lock());
+        if(!garage_record->load_from_db(garage_id))
+        {
+            assert(false);
+        }
+        else
+        {
+            auto car_record = std::make_shared<gb::db::database_entity<db_car_table, db_car_data>>(m_database_coordinator.lock());
+            if(!car_record->load_from_db(car_id))
+            {
+                assert(false);
+            }
+            else
+            {
+                auto& data = car_record->get_data();
+                i32 delta_upgrades_amount = std::floor(delta * 10.f);
+                data.m_car_handling_upgrade = delta_upgrades_amount * 10;
+                car_record->save_to_db();
+            }
+        }
+    }
+    
+    void ces_garage_database_component::upgrade_car_durability(i32 garage_id, i32 car_id, f32 delta)
+    {
+        auto garage_record = std::make_shared<gb::db::database_entity<db_garage_table, db_garage_data>>(m_database_coordinator.lock());
+        if(!garage_record->load_from_db(garage_id))
+        {
+            assert(false);
+        }
+        else
+        {
+            auto car_record = std::make_shared<gb::db::database_entity<db_car_table, db_car_data>>(m_database_coordinator.lock());
+            if(!car_record->load_from_db(car_id))
+            {
+                assert(false);
+            }
+            else
+            {
+                auto& data = car_record->get_data();
+                i32 delta_upgrades_amount = std::floor(delta * 10.f);
+                data.m_car_rigidity_upgrade = delta_upgrades_amount * 10;
+                car_record->save_to_db();
+            }
+        }
+    }
 }

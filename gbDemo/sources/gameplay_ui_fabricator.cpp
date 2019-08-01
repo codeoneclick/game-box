@@ -26,6 +26,7 @@
 #include "progress_bar.h"
 #include "ces_car_model_component.h"
 #include "ui_controls_helper.h"
+#include "ui_animation_helper.h"
 
 namespace game
 {
@@ -55,7 +56,7 @@ namespace game
     
     const glm::vec2 gameplay_ui_fabricator::k_label_size = glm::vec2(220.f, 32.f);
     const glm::vec2 gameplay_ui_fabricator::k_progress_bar_size = glm::vec2(220.f, 32.f);
-    const glm::u8vec4 gameplay_ui_fabricator::k_control_transparent_color = glm::u8vec4(0);
+    const glm::u8vec4 gameplay_ui_fabricator::k_control_transparent_color = glm::u8vec4(1);
     
     gameplay_ui_fabricator::gameplay_ui_fabricator(const gb::scene_fabricator_shared_ptr& general_fabricator,
                                                    const gb::ui::ui_fabricator_shared_ptr& ui_base_fabricator,
@@ -70,13 +71,17 @@ namespace game
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_garage_label)] = glm::vec2(32.f + k_image_button_size.x, 40.f + 8.f + k_image_button_size.y);
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_open_shop_button)] = glm::vec2(32.f, 40.f + 8.f * 2.f + k_image_button_size.y * 2.f);
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_shop_label)] = glm::vec2(32.f + k_image_button_size.x, 40.f + 8.f * 2.f + k_image_button_size.y * 2.f);
-        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_quit_game_button)] = glm::vec2(32.f, 40.f + 8.f * 2.f + k_image_button_size.y * 2.f);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_leaderboard_button)] = glm::vec2(32.f, 40.f + 8.f * 3.f + k_image_button_size.y * 3.f);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_leaderboard_label)] = glm::vec2(32.f + k_image_button_size.x, 40.f + 8.f * 3.f + k_image_button_size.y * 3.f);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_quit_game_button)] = glm::vec2(32.f, 40.f + 8.f * 4.f + k_image_button_size.y * 4.f);
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_facebook_button)] = glm::vec2(32.f, 40.f + 8.f * 3.f + k_image_button_size.y * 3.f);
         
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_back_from_garage_button)] = glm::vec2(32.f, 40.f);
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_back_from_garage_label)] = glm::vec2(32.f + k_image_button_size.x, 40.f);
         
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_garage_preview_button)] = glm::vec2(32.f, 40.f + 8.f + k_image_button_size.y);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_zoom_label)] = glm::vec2(32.f + k_image_button_size.x, 40.f + 8.f + k_image_button_size.y);
+        
         
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_apply_body_color_1_button)] = glm::vec2(m_screen_size.x - k_image_button_size.x - 32.f - (8.f + k_image_button_size.x * .5f), 40.f + k_image_button_size.y * .5f);
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_apply_body_color_2_button)] = glm::vec2(m_screen_size.x - k_image_button_size.x - 32.f - (8.f + k_image_button_size.x * .5f) * 2.f, 40.f + k_image_button_size.y * .5f);
@@ -112,11 +117,11 @@ namespace game
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_car_damage_bar)] = glm::vec2(m_screen_size.x - 32.f - 150.f - 8.f - k_image_button_size.x, 32.f);
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_car_damage_label)] = glm::vec2(m_screen_size.x - 32.f - 150.f - 8.f - k_image_button_size.x, 8.f);
         
-        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_body_paint_label)] = glm::vec2(m_screen_size.x - 32.f - 8.f - k_image_button_size.x - 150.f, 40.f);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_body_paint_label)] = glm::vec2(m_screen_size.x - 32.f - 8.f - k_image_button_size.x - 160.f, 40.f);
         
-        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_windshield_paint_label)] = glm::vec2(m_screen_size.x - 32.f - 8.f - k_image_button_size.x - 150.f,  40.f + k_image_button_size.y + 8.f);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_windshield_paint_label)] = glm::vec2(m_screen_size.x - 32.f - 8.f - k_image_button_size.x - 160.f,  40.f + k_image_button_size.y + 8.f);
         
-        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_performance_label)] = glm::vec2(m_screen_size.x - 32.f - 8.f - k_image_button_size.x - 150.f, 40.f + k_image_button_size.y + 8.f + k_image_button_size.y + 8.f);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_performance_label)] = glm::vec2(m_screen_size.x - 32.f - 8.f - k_image_button_size.x - 160.f, 40.f + k_image_button_size.y + 8.f + k_image_button_size.y + 8.f);
         
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_buy_upgrade_label)] = glm::vec2(m_screen_size.x * .5f, m_screen_size.y - (k_image_button_size.y + 8.f) * 2.f);
         
@@ -140,6 +145,18 @@ namespace game
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_buy_car_label)] = glm::vec2(m_screen_size.x - 32.f - k_image_button_size.x * 2.f, m_screen_size.y - (k_image_button_size.y + 8.f) * 2.f);
         
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_buy_car_button)] = glm::vec2(m_screen_size.x - 32.f - k_image_button_size.x - k_image_button_size.x * 2.f, m_screen_size.y - (k_image_button_size.y + 8.f) * 2.f);
+        
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_career_dialog)] = glm::vec2(40.f + k_image_button_size.x + 16.f, 40.f + 16.f);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_shop_dialog)] = glm::vec2(40.f + k_image_button_size.x + 16.f, 40.f + 16.f);
+        
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_body_paint_dialog)] = glm::vec2(m_screen_size.x - 32.f - 16.f - k_image_button_size.x - (k_image_button_size.x * .75f) * 4.f, 40.f + 16.f);
+        
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_windshield_paint_dialog)] = glm::vec2(m_screen_size.x - 32.f - 16.f - k_image_button_size.x - (k_image_button_size.x * .75f) * 4.f, 40.f + 16.f);
+        
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_performance_upgrade_dialog)] = glm::vec2(m_screen_size.x - 32.f - 16.f - k_image_button_size.x - (k_image_button_size.x * .75f) * 4.f, 40.f + 16.f);
+        
+        
+        ui_animation_helper::set_screen_size(m_screen_size);
     }
     
     glm::ivec2 gameplay_ui_fabricator::get_screen_size() const
@@ -200,6 +217,14 @@ namespace game
         control->set_foreground_color(k_control_foreground_color);
     }
     
+    void gameplay_ui_fabricator::colorize_ui_control(const gb::ui::dialog_shared_ptr& control)
+    {
+        control->set_background_color(k_control_background_disabled_color, gb::ui::e_control_state::e_disabled);
+        control->set_background_color(k_control_background_focused_color, gb::ui::e_control_state::e_focused);
+        control->set_background_color(k_control_background_focused_color, gb::ui::e_control_state::e_selected);
+        control->set_background_color(k_control_background_color);
+    }
+    
     void gameplay_ui_fabricator::add_ui_interaction_component(const gb::ces_entity_shared_ptr& control, ces_ui_interaction_component::e_ui ui)
     {
         auto ui_interaction_component = std::make_shared<ces_ui_interaction_component>();
@@ -228,8 +253,6 @@ namespace game
         return button;
     }
     
-#if defined(__IOS__)
-    
     gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_open_shop_button(const std::string& filename)
     {
         const auto button = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size, "ui_cart.png", nullptr);
@@ -242,8 +265,6 @@ namespace game
         return button;
     }
     
-#endif
-    
     gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_back_from_garage_button(const std::string& filename)
     {
         const auto button = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size, "ui_prev.png", nullptr);
@@ -254,20 +275,20 @@ namespace game
         return button;
     }
     
-    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_levels_list_dialog(const std::string& filename)
+    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_career_dialog(const std::string& filename)
     {
-        auto dialog = m_ui_base_fabricator.lock()->create_dialog(glm::vec2(100.f));
-        add_ui_interaction_component(dialog, game::ces_ui_interaction_component::e_ui::e_ui_levels_list_dialog);
-        
-        dialog->show_title(false);
-        
-        auto levels_list_table_view = m_ui_base_fabricator.lock()->create_table_view(glm::vec2(256.f,
-                                                                                               m_screen_size.y - 48.f));
-        levels_list_table_view->position = glm::vec2(40.f + k_image_button_size.x, 40.f);
-        levels_list_table_view->set_background_color(glm::u8vec4(0, 0, 0, 32));
-        dialog->add_control(levels_list_table_view, game::ces_ui_interaction_component::k_levels_list_dialog_levels_table);
+        auto dialog = m_ui_base_fabricator.lock()->create_dialog(glm::vec2(0.f));
+        colorize_ui_control(dialog);
         dialog->visible = false;
-        dialog->set_background_color(glm::u8vec4(0));
+        dialog->show_title(false);
+        add_ui_interaction_component(dialog, game::ces_ui_interaction_component::e_ui::e_ui_career_dialog);
+        
+        auto table_view = m_ui_base_fabricator.lock()->create_table_view(glm::vec2(256.f,
+                                                                                   m_screen_size.y - 56.f * 2.f));
+        table_view->position = glm::vec2(0.f);
+        table_view->set_background_color(k_control_transparent_color);
+        dialog->add_control(table_view, game::ces_ui_interaction_component::k_career_dialog_table_view);
+        dialog->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_career_dialog)];
         
         return dialog;
     }
@@ -278,9 +299,9 @@ namespace game
         add_ui_interaction_component(label, game::ces_ui_interaction_component::e_ui::e_ui_countdown_label);
         label->position = glm::vec2(m_screen_size.x * .5f - 220.f * .5f,
                                     8.f);
-        label->set_background_color(glm::u8vec4(0, 0, 0, 0));
-        label->set_foreground_color(glm::u8vec4(0, 0, 0, 0));
         label->set_text_color(k_control_text_color);
+        label->set_background_color(k_control_transparent_color);
+        label->set_foreground_color(k_control_transparent_color);
         label->visible = false;
         
         return label;
@@ -472,6 +493,7 @@ namespace game
         
         label->position = glm::vec2(0.f, -24.f);
         label->set_text_color(k_control_text_color);
+        label->set_font_name("spincycle.otf");
         label->set_background_color(k_control_transparent_color);
         label->set_foreground_color(k_control_transparent_color);
         label->set_font_size(20.f);
@@ -526,6 +548,7 @@ namespace game
         const auto label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(420.f, 128.f), message);
         
         label->position = glm::vec2(0.f, -24.f);
+        label->set_font_name("spincycle.otf");
         label->set_text_color(k_control_text_color);
         label->set_background_color(k_control_transparent_color);
         label->set_foreground_color(k_control_transparent_color);
@@ -769,10 +792,11 @@ namespace game
     
     gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_stars_progress_label(const std::string& filename)
     {
-        const auto label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(210.f, k_label_size.y), "STARS   PROGRESS");
+        const auto label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(210.f, k_label_size.y), "STAR PROGRESS");
         add_ui_interaction_component(label, game::ces_ui_interaction_component::e_ui::e_ui_stars_progress_label);
         label->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_stars_progress_label)];
         colorize_ui_control(label);
+        label->set_font_name("spincycle.otf");
         label->set_font_size(18.f);
         label->set_text_vertical_aligment(gb::ui::e_element_vertical_aligment_center);
         label->set_text_horizontal_aligment(gb::ui::e_element_horizontal_aligment_center);
@@ -785,6 +809,7 @@ namespace game
         add_ui_interaction_component(label, game::ces_ui_interaction_component::e_ui::e_ui_stars_progress_info_label);
         label->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_stars_progress_info_label)];
         colorize_ui_control(label);
+        label->set_font_name("spincycle.otf");
         label->set_font_size(18.f);
         label->set_text_vertical_aligment(gb::ui::e_element_vertical_aligment_center);
         label->set_text_horizontal_aligment(gb::ui::e_element_horizontal_aligment_center);
@@ -817,6 +842,7 @@ namespace game
         add_ui_interaction_component(label, game::ces_ui_interaction_component::e_ui::e_ui_rank_info_label);
         label->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_rank_info_label)];
         colorize_ui_control(label);
+        label->set_font_name("spincycle.otf");
         label->set_font_size(18.f);
         label->set_text_vertical_aligment(gb::ui::e_element_vertical_aligment_center);
         label->set_text_horizontal_aligment(gb::ui::e_element_horizontal_aligment_center);
@@ -828,6 +854,7 @@ namespace game
         const auto label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(150.f, 24.f), "DAMAGE:");
         add_ui_interaction_component(label, game::ces_ui_interaction_component::e_ui::e_ui_car_damage_label);
         label->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_car_damage_label)];
+        label->set_font_name("spincycle.otf");
         colorize_ui_control(label);
         return label;
     }
@@ -852,6 +879,7 @@ namespace game
         
         const auto label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(400.f, 24.f), "YOU ALREADY HAVE 5 TICKETS!");
         
+        label->set_font_name("spincycle.otf");
         label->position = glm::vec2(0.f, -50.f);
         label->set_text_color(k_control_text_color);
         label->set_background_color(k_control_transparent_color);
@@ -907,18 +935,18 @@ namespace game
     
     gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_shop_dialog(const std::string& filename)
     {
-        auto dialog = m_ui_base_fabricator.lock()->create_dialog(glm::vec2(100.f));
+        auto dialog = m_ui_base_fabricator.lock()->create_dialog(glm::vec2(0.f));
+        dialog->visible = false;
+        dialog->show_title(false);
+        colorize_ui_control(dialog);
         add_ui_interaction_component(dialog, game::ces_ui_interaction_component::e_ui::e_ui_shop_dialog);
         
-        dialog->show_title(false);
-        
-        auto shop_table_view = m_ui_base_fabricator.lock()->create_table_view(glm::vec2(256.f,
-                                                                                        m_screen_size.y - 48.f));
-        shop_table_view->position = glm::vec2(80.f, 40.f);
-        shop_table_view->set_background_color(glm::u8vec4(0, 0, 0, 32));
-        dialog->add_control(shop_table_view, game::ces_ui_interaction_component::k_shop_dialog_table_view);
-        dialog->visible = false;
-        dialog->set_background_color(glm::u8vec4(0));
+        auto table_view = m_ui_base_fabricator.lock()->create_table_view(glm::vec2(256.f,
+                                                                                   m_screen_size.y - 56.f * 2.f));
+        table_view->position = glm::vec2(0.f);
+        table_view->set_background_color(k_control_transparent_color);
+        dialog->add_control(table_view, game::ces_ui_interaction_component::k_shop_dialog_table_view);
+        dialog->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_shop_dialog)];
         
         return dialog;
     }
@@ -932,13 +960,28 @@ namespace game
         dialog->set_title_text_color(k_control_text_color);
         dialog->show_title(false);
         
+        f32 table_view_height_coefficient = 0.f;
+        f32 table_view_offset_from_top = 0.f;
+        
+#if defined(__IOS__)
+        
+        table_view_height_coefficient = 2.3f;
+        table_view_offset_from_top = 24.f;
+        
+#else
+        
+        table_view_height_coefficient = 3.2f;
+        table_view_offset_from_top = 128.f;
+        
+#endif
+        
         auto table_view = m_ui_base_fabricator.lock()->create_table_view(glm::vec2(256.f,
-                                                                                   1.8f * (96.f + 8.f)));
-        table_view->position = glm::vec2(get_screen_size().x * .5f - 128.f, 24.f);
+                                                                                   table_view_height_coefficient * (96.f + 8.f)));
+        table_view->position = glm::vec2(get_screen_size().x * .5f - 128.f - 8.f, table_view_offset_from_top);
         table_view->set_background_color(glm::u8vec4(0, 0, 0, 32));
         
         const auto ok_button = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size, "ui_cross.png", nullptr);
-        ok_button->position = glm::vec2(get_screen_size().x * .5f - k_image_button_size.x * .5f + 8.f, 1.8f * (96.f + 8.f) + 32.f);
+        ok_button->position = glm::vec2(get_screen_size().x * .5f - k_image_button_size.x * .5f + 8.f, table_view_height_coefficient * (96.f + 8.f) + table_view_offset_from_top + 8.f);
         colorize_ui_control(ok_button);
         ok_button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
         
@@ -989,6 +1032,7 @@ namespace game
         
         label->position = glm::vec2(0.f, 0.f);
         label->set_text_color(k_control_text_color);
+        label->set_font_name("spincycle.otf");
         label->set_background_color(k_control_transparent_color);
         label->set_foreground_color(k_control_transparent_color);
         
@@ -1041,7 +1085,7 @@ namespace game
         std::string message = "ARE YOU SURE ?";
         
         const auto label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(420.f, 128.f), message);
-        
+        label->set_font_name("spincycle.otf");
         label->position = glm::vec2(0.f, -24.f);
         label->set_text_color(k_control_text_color);
         label->set_background_color(k_control_transparent_color);
@@ -1111,7 +1155,17 @@ namespace game
         return label;
     }
     
-#if defined(__IOS__)
+    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_zoom_label(const std::string& filename)
+    {
+        const auto label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(160.f, k_image_button_size.y), "ZOOM");
+        add_ui_interaction_component(label, game::ces_ui_interaction_component::e_ui::e_ui_zoom_label);
+        label->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_zoom_label)];
+        colorize_ui_control(label);
+        label->set_font_size(24.f);
+        label->set_text_vertical_aligment(gb::ui::e_element_vertical_aligment_center);
+        label->set_text_horizontal_aligment(gb::ui::e_element_horizontal_aligment_center);
+        return label;
+    }
     
     gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_shop_label(const std::string& filename)
     {
@@ -1125,74 +1179,12 @@ namespace game
         return label;
     }
     
-#endif
-    
     gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_garage_preview_mode_button(const std::string& filename)
     {
         const auto button = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size, "ui_search.png", nullptr);
         add_ui_interaction_component(button, game::ces_ui_interaction_component::e_ui::e_ui_garage_preview_button);
         button->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_garage_preview_button)];
         colorize_ui_control(button);
-        button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
-        return button;
-    }
-    
-    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_apply_body_color_1_button(const std::string& filename)
-    {
-        const auto button = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size * .5f, "ui_color.png", nullptr);
-        add_ui_interaction_component(button, game::ces_ui_interaction_component::e_ui::e_ui_apply_body_color_1_button);
-        button->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_apply_body_color_1_button)];
-        button->set_image_color(glm::u8vec4(ces_car_model_component::k_car_color_1.x,
-                                            ces_car_model_component::k_car_color_1.z,
-                                            ces_car_model_component::k_car_color_1.y,
-                                            ces_car_model_component::k_car_color_1.w));
-        button->set_background_color(k_control_background_color);
-        button->set_foreground_color(k_control_foreground_color);
-        button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
-        return button;
-    }
-    
-    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_apply_body_color_2_button(const std::string& filename)
-    {
-        const auto button = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size * .5f, "ui_color.png", nullptr);
-        add_ui_interaction_component(button, game::ces_ui_interaction_component::e_ui::e_ui_apply_body_color_2_button);
-        button->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_apply_body_color_2_button)];
-        button->set_image_color(glm::u8vec4(ces_car_model_component::k_car_color_2.x,
-                                            ces_car_model_component::k_car_color_2.z,
-                                            ces_car_model_component::k_car_color_2.y,
-                                            ces_car_model_component::k_car_color_2.w));
-        button->set_background_color(k_control_background_color);
-        button->set_foreground_color(k_control_foreground_color);
-        button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
-        return button;
-    }
-    
-    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_apply_body_color_3_button(const std::string& filename)
-    {
-        const auto button = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size * .5f, "ui_color.png", nullptr);
-        add_ui_interaction_component(button, game::ces_ui_interaction_component::e_ui::e_ui_apply_body_color_3_button);
-        button->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_apply_body_color_3_button)];
-        button->set_image_color(glm::u8vec4(ces_car_model_component::k_car_color_3.x,
-                                            ces_car_model_component::k_car_color_3.z,
-                                            ces_car_model_component::k_car_color_3.y,
-                                            ces_car_model_component::k_car_color_3.w));
-        button->set_background_color(k_control_background_color);
-        button->set_foreground_color(k_control_foreground_color);
-        button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
-        return button;
-    }
-
-    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_apply_body_color_4_button(const std::string& filename)
-    {
-        const auto button = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size * .5f, "ui_color.png", nullptr);
-        add_ui_interaction_component(button, game::ces_ui_interaction_component::e_ui::e_ui_apply_body_color_4_button);
-        button->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_apply_body_color_4_button)];
-        button->set_image_color(glm::u8vec4(ces_car_model_component::k_car_color_4.x,
-                                            ces_car_model_component::k_car_color_4.z,
-                                            ces_car_model_component::k_car_color_4.y,
-                                            ces_car_model_component::k_car_color_4.w));
-        button->set_background_color(k_control_background_color);
-        button->set_foreground_color(k_control_foreground_color);
         button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
         return button;
     }
@@ -1263,6 +1255,7 @@ namespace game
         add_ui_interaction_component(label, game::ces_ui_interaction_component::e_ui::e_ui_cash_label);
         label->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_cash_label)];
         colorize_ui_control(label);
+        label->set_font_name("spincycle.otf");
         label->set_font_size(18.f);
         label->set_text_vertical_aligment(gb::ui::e_element_vertical_aligment_center);
         label->set_text_horizontal_aligment(gb::ui::e_element_horizontal_aligment_center);
@@ -1279,11 +1272,12 @@ namespace game
     
     gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_body_paint_label(const std::string& filename)
     {
-        const auto label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(150.f, k_image_button_size.y * .5f), "BODY");
+        const auto label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(160.f, k_image_button_size.y), "BODY");
         add_ui_interaction_component(label, game::ces_ui_interaction_component::e_ui::e_ui_body_paint_label);
         label->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_body_paint_label)];
         colorize_ui_control(label);
-        label->set_font_size(16.f);
+        label->set_font_size(18.f);
+        label->set_font_name("spincycle.otf");
         label->set_text_vertical_aligment(gb::ui::e_element_vertical_aligment_center);
         label->set_text_horizontal_aligment(gb::ui::e_element_horizontal_aligment_center);
         return label;
@@ -1291,11 +1285,12 @@ namespace game
     
     gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_windshield_paint_label(const std::string& filename)
     {
-        const auto label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(150.f, k_image_button_size.y * .5f), "WINDSHIELD");
+        const auto label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(160.f, k_image_button_size.y), "WINDSHIELD");
         add_ui_interaction_component(label, game::ces_ui_interaction_component::e_ui::e_ui_windshield_paint_label);
         label->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_windshield_paint_label)];
         colorize_ui_control(label);
-        label->set_font_size(16.f);
+        label->set_font_size(18.f);
+        label->set_font_name("spincycle.otf");
         label->set_text_vertical_aligment(gb::ui::e_element_vertical_aligment_center);
         label->set_text_horizontal_aligment(gb::ui::e_element_horizontal_aligment_center);
         return label;
@@ -1303,142 +1298,15 @@ namespace game
     
     gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_performance_label(const std::string& filename)
     {
-        const auto label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(150.f, k_image_button_size.y * .5f), "PERFORMANCE");
+        const auto label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(160.f, k_image_button_size.y), "PERFORMANCE");
         add_ui_interaction_component(label, game::ces_ui_interaction_component::e_ui::e_ui_performance_label);
         label->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_performance_label)];
         colorize_ui_control(label);
-        label->set_font_size(16.f);
+        label->set_font_size(18.f);
+        label->set_font_name("spincycle.otf");
         label->set_text_vertical_aligment(gb::ui::e_element_vertical_aligment_center);
         label->set_text_horizontal_aligment(gb::ui::e_element_horizontal_aligment_center);
         return label;
-    }
-    
-    
-    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_upgrade_speed_label(const std::string& filename)
-    {
-        const auto label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2((k_image_button_size.x * .5f + 8.f) * 4.f - 8.f, k_image_button_size.y * .5f), "SPEED");
-        add_ui_interaction_component(label, game::ces_ui_interaction_component::e_ui::e_ui_upgrade_speed_label);
-        label->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_upgrade_speed_label)];
-        colorize_ui_control(label);
-        label->set_font_size(16.f);
-        label->set_text_vertical_aligment(gb::ui::e_element_vertical_aligment_center);
-        label->set_text_horizontal_aligment(gb::ui::e_element_horizontal_aligment_center);
-        return label;
-    }
-    
-    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_upgrade_speed_progress_bar(const std::string& filename)
-    {
-        const auto progress_bar = m_ui_base_fabricator.lock()->create_progress_bar(glm::vec2((k_image_button_size.x * .5f + 8.f) * 4.f - 8.f - k_image_button_size.y, k_image_button_size.y * .5f));
-        add_ui_interaction_component(progress_bar, game::ces_ui_interaction_component::e_ui::e_ui_upgrade_speed_progress_bar);
-        progress_bar->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_upgrade_speed_progress_bar)];
-        progress_bar->set_progress_line_color(k_control_text_color);
-        progress_bar->set_background_color(k_control_background_color);
-        return progress_bar;
-    }
-    
-    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_upgrade_speed_plus_button(const std::string& filename)
-    {
-        const auto button =  m_ui_base_fabricator.lock()->create_image_button(glm::vec2(k_image_button_size.y * .5f), "ui_plus.png", nullptr);
-        add_ui_interaction_component(button, game::ces_ui_interaction_component::e_ui::e_ui_upgrade_speed_plus_button);
-        button->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_upgrade_speed_plus_button)];
-        colorize_ui_control(button);
-        button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
-        
-        return button;
-    }
-    
-    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_upgrade_speed_reset_button(const std::string& filename)
-    {
-        const auto button =  m_ui_base_fabricator.lock()->create_image_button(glm::vec2(k_image_button_size.y * .5f), "ui_minus.png", nullptr);
-        add_ui_interaction_component(button, game::ces_ui_interaction_component::e_ui::e_ui_upgrade_speed_reset_button);
-        button->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_upgrade_speed_reset_button)];
-        colorize_ui_control(button);
-        button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
-        return button;
-    }
-    
-    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_upgrade_handling_label(const std::string& filename)
-    {
-        const auto label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2((k_image_button_size.x * .5f + 8.f) * 4.f - 8.f, k_image_button_size.y * .5f), "HANDLING");
-        add_ui_interaction_component(label, game::ces_ui_interaction_component::e_ui::e_ui_upgrade_handling_label);
-        label->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_upgrade_handling_label)];
-        colorize_ui_control(label);
-        label->set_font_size(16.f);
-        label->set_text_vertical_aligment(gb::ui::e_element_vertical_aligment_center);
-        label->set_text_horizontal_aligment(gb::ui::e_element_horizontal_aligment_center);
-        return label;
-    }
-    
-    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_upgrade_handling_progress_bar(const std::string& filename)
-    {
-        const auto progress_bar = m_ui_base_fabricator.lock()->create_progress_bar(glm::vec2((k_image_button_size.x * .5f + 8.f) * 4.f - 8.f - k_image_button_size.y, k_image_button_size.y * .5f));
-        add_ui_interaction_component(progress_bar, game::ces_ui_interaction_component::e_ui::e_ui_upgrade_handling_progress_bar);
-        progress_bar->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_upgrade_handling_progress_bar)];
-        progress_bar->set_progress_line_color(k_control_text_color);
-        progress_bar->set_background_color(k_control_background_color);
-        return progress_bar;
-    }
-    
-    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_upgrade_handling_plus_button(const std::string& filename)
-    {
-        const auto button =  m_ui_base_fabricator.lock()->create_image_button(glm::vec2(k_image_button_size.y * .5f), "ui_plus.png", nullptr);
-        add_ui_interaction_component(button, game::ces_ui_interaction_component::e_ui::e_ui_upgrade_handling_plus_button);
-        button->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_upgrade_handling_plus_button)];
-        colorize_ui_control(button);
-        button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
-        return button;
-    }
-    
-    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_upgrade_handling_reset_button(const std::string& filename)
-    {
-        const auto button =  m_ui_base_fabricator.lock()->create_image_button(glm::vec2(k_image_button_size.y * .5f), "ui_minus.png", nullptr);
-        add_ui_interaction_component(button, game::ces_ui_interaction_component::e_ui::e_ui_upgrade_handling_reset_button);
-        button->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_upgrade_handling_reset_button)];
-        colorize_ui_control(button);
-        button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
-        return button;
-    }
-    
-    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_upgrade_rigidity_label(const std::string& filename)
-    {
-        const auto label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2((k_image_button_size.x * .5f + 8.f) * 4.f - 8.f, k_image_button_size.y * .5f), "DURABILITY");
-        add_ui_interaction_component(label, game::ces_ui_interaction_component::e_ui::e_ui_upgrade_rigidity_label);
-        label->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_upgrade_rigidity_label)];
-        colorize_ui_control(label);
-        label->set_font_size(16.f);
-        label->set_text_vertical_aligment(gb::ui::e_element_vertical_aligment_center);
-        label->set_text_horizontal_aligment(gb::ui::e_element_horizontal_aligment_center);
-        return label;
-    }
-    
-    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_upgrade_rigidity_progress_bar(const std::string& filename)
-    {
-        const auto progress_bar = m_ui_base_fabricator.lock()->create_progress_bar(glm::vec2((k_image_button_size.x * .5f + 8.f) * 4.f - 8.f - k_image_button_size.y, k_image_button_size.y * .5f));
-        add_ui_interaction_component(progress_bar, game::ces_ui_interaction_component::e_ui::e_ui_upgrade_rigidity_progress_bar);
-        progress_bar->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_upgrade_rigidity_progress_bar)];
-        progress_bar->set_progress_line_color(k_control_text_color);
-        progress_bar->set_background_color(k_control_background_color);
-        return progress_bar;
-    }
-    
-    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_upgrade_rigidity_plus_button(const std::string& filename)
-    {
-        const auto button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(k_image_button_size.y * .5f), "ui_plus.png", nullptr);
-        add_ui_interaction_component(button, game::ces_ui_interaction_component::e_ui::e_ui_upgrade_rigidity_plus_button);
-        button->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_upgrade_rigidity_plus_button)];
-        colorize_ui_control(button);
-        button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
-        return button;
-    }
-    
-    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_upgrade_durability_reset_button(const std::string& filename)
-    {
-        const auto button =  m_ui_base_fabricator.lock()->create_image_button(glm::vec2(k_image_button_size.y * .5f), "ui_minus.png", nullptr);
-        add_ui_interaction_component(button, game::ces_ui_interaction_component::e_ui::e_ui_upgrade_durability_reset_button);
-        button->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_upgrade_durability_reset_button)];
-        colorize_ui_control(button);
-        button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
-        return button;
     }
     
     gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_buy_upgrade_button(const std::string& filename)
@@ -1461,5 +1329,272 @@ namespace game
         label->set_text_vertical_aligment(gb::ui::e_element_vertical_aligment_center);
         label->set_text_horizontal_aligment(gb::ui::e_element_horizontal_aligment_center);
         return label;
+    }
+    
+    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_leaderboard_button(const std::string& filename)
+    {
+        const auto button = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size, "ui_leaderboard.png", nullptr);
+        add_ui_interaction_component(button, game::ces_ui_interaction_component::e_ui::e_ui_leaderboard_button);
+        button->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_leaderboard_button)];
+        colorize_ui_control(button);
+        button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
+        return button;
+    }
+    
+    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_leaderboard_label(const std::string& filename)
+    {
+        const auto label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(160.f, k_image_button_size.y), "LEADERS");
+        add_ui_interaction_component(label, game::ces_ui_interaction_component::e_ui::e_ui_leaderboard_label);
+        label->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_leaderboard_label)];
+        colorize_ui_control(label);
+        label->set_font_size(24.f);
+        label->set_text_vertical_aligment(gb::ui::e_element_vertical_aligment_center);
+        label->set_text_horizontal_aligment(gb::ui::e_element_horizontal_aligment_center);
+        return label;
+    }
+    
+    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_body_paint_dialog(const std::string& filename)
+    {
+        auto dialog = m_ui_base_fabricator.lock()->create_dialog(glm::vec2(0.f));
+        colorize_ui_control(dialog);
+        dialog->visible = false;
+        dialog->show_title(false);
+        add_ui_interaction_component(dialog, game::ces_ui_interaction_component::e_ui::e_ui_body_paint_dialog);
+        
+        const auto label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2((k_image_button_size.x * .75f) * 4.f, k_image_button_size.y), "BODY PAINT");
+        label->position = glm::vec2(0.f);
+        colorize_ui_control(label);
+        label->set_font_size(22.f);
+        label->set_font_name("spincycle.otf");
+        label->set_text_vertical_aligment(gb::ui::e_element_vertical_aligment_center);
+        label->set_text_horizontal_aligment(gb::ui::e_element_horizontal_aligment_center);
+        
+        const auto button_color_1 = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size * .75f, "ui_color.png", nullptr);
+        add_ui_interaction_component(button_color_1, game::ces_ui_interaction_component::e_ui::e_ui_apply_body_color_1_button);
+        button_color_1->position = glm::vec2(0.f, k_image_button_size.y + 8.f);
+        button_color_1->set_image_color(glm::u8vec4(ces_car_model_component::k_car_color_1.x,
+                                            ces_car_model_component::k_car_color_1.z,
+                                            ces_car_model_component::k_car_color_1.y,
+                                            ces_car_model_component::k_car_color_1.w));
+        button_color_1->set_background_color(k_control_background_color);
+        button_color_1->set_foreground_color(k_control_foreground_color);
+        button_color_1->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
+        
+        const auto button_color_2 = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size * .75f, "ui_color.png", nullptr);
+        add_ui_interaction_component(button_color_2, game::ces_ui_interaction_component::e_ui::e_ui_apply_body_color_2_button);
+        button_color_2->position = glm::vec2(k_image_button_size.x * .75f, k_image_button_size.y + 8.f);
+        button_color_2->set_image_color(glm::u8vec4(ces_car_model_component::k_car_color_2.x,
+                                                    ces_car_model_component::k_car_color_2.z,
+                                                    ces_car_model_component::k_car_color_2.y,
+                                                    ces_car_model_component::k_car_color_2.w));
+        button_color_2->set_background_color(k_control_background_color);
+        button_color_2->set_foreground_color(k_control_foreground_color);
+        button_color_2->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
+        
+        const auto button_color_3 = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size * .75f, "ui_color.png", nullptr);
+        add_ui_interaction_component(button_color_3, game::ces_ui_interaction_component::e_ui::e_ui_apply_body_color_3_button);
+        button_color_3->position = glm::vec2((k_image_button_size.x * .75f) * 2.f, k_image_button_size.y + 8.f);
+        button_color_3->set_image_color(glm::u8vec4(ces_car_model_component::k_car_color_3.x,
+                                                    ces_car_model_component::k_car_color_3.z,
+                                                    ces_car_model_component::k_car_color_3.y,
+                                                    ces_car_model_component::k_car_color_3.w));
+        button_color_3->set_background_color(k_control_background_color);
+        button_color_3->set_foreground_color(k_control_foreground_color);
+        button_color_3->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
+        
+        const auto button_color_4 = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size * .75f, "ui_color.png", nullptr);
+        add_ui_interaction_component(button_color_4, game::ces_ui_interaction_component::e_ui::e_ui_apply_body_color_4_button);
+        button_color_4->position = glm::vec2((k_image_button_size.x * .75f) * 3.f, k_image_button_size.y + 8.f);
+        button_color_4->set_image_color(glm::u8vec4(ces_car_model_component::k_car_color_4.x,
+                                                    ces_car_model_component::k_car_color_4.z,
+                                                    ces_car_model_component::k_car_color_4.y,
+                                                    ces_car_model_component::k_car_color_4.w));
+        button_color_4->set_background_color(k_control_background_color);
+        button_color_4->set_foreground_color(k_control_foreground_color);
+        button_color_4->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
+        
+        
+        dialog->add_control(label, game::ces_ui_interaction_component::k_body_paint_label);
+        dialog->add_control(button_color_1, game::ces_ui_interaction_component::k_body_paint_color_1_button);
+        dialog->add_control(button_color_2, game::ces_ui_interaction_component::k_body_paint_color_2_button);
+        dialog->add_control(button_color_3, game::ces_ui_interaction_component::k_body_paint_color_3_button);
+        dialog->add_control(button_color_4, game::ces_ui_interaction_component::k_body_paint_color_4_button);
+        dialog->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_body_paint_dialog)];
+        
+        return dialog;
+    }
+    
+    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_windshield_paint_dialog(const std::string& filename)
+    {
+        auto dialog = m_ui_base_fabricator.lock()->create_dialog(glm::vec2(0.f));
+        colorize_ui_control(dialog);
+        dialog->visible = false;
+        dialog->show_title(false);
+        add_ui_interaction_component(dialog, game::ces_ui_interaction_component::e_ui::e_ui_windshield_paint_dialog);
+        
+        const auto label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2((k_image_button_size.x * .75f) * 4.f, k_image_button_size.y), "WINDSHIELD");
+        label->position = glm::vec2(0.f);
+        colorize_ui_control(label);
+        label->set_font_size(22.f);
+        label->set_font_name("spincycle.otf");
+        label->set_text_vertical_aligment(gb::ui::e_element_vertical_aligment_center);
+        label->set_text_horizontal_aligment(gb::ui::e_element_horizontal_aligment_center);
+        
+        const auto button_color_1 = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size * .75f, "ui_color.png", nullptr);
+        add_ui_interaction_component(button_color_1, game::ces_ui_interaction_component::e_ui::e_ui_apply_windows_color_1_button);
+        button_color_1->position = glm::vec2(0.f, k_image_button_size.y + 8.f);
+        button_color_1->set_image_color(glm::u8vec4(ces_car_model_component::k_car_color_1.x,
+                                                    ces_car_model_component::k_car_color_1.z,
+                                                    ces_car_model_component::k_car_color_1.y,
+                                                    ces_car_model_component::k_car_color_1.w));
+        button_color_1->set_background_color(k_control_background_color);
+        button_color_1->set_foreground_color(k_control_foreground_color);
+        button_color_1->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
+        
+        const auto button_color_2 = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size * .75f, "ui_color.png", nullptr);
+        add_ui_interaction_component(button_color_2, game::ces_ui_interaction_component::e_ui::e_ui_apply_windows_color_2_button);
+        button_color_2->position = glm::vec2(k_image_button_size.x * .75f, k_image_button_size.y + 8.f);
+        button_color_2->set_image_color(glm::u8vec4(ces_car_model_component::k_car_color_2.x,
+                                                    ces_car_model_component::k_car_color_2.z,
+                                                    ces_car_model_component::k_car_color_2.y,
+                                                    ces_car_model_component::k_car_color_2.w));
+        button_color_2->set_background_color(k_control_background_color);
+        button_color_2->set_foreground_color(k_control_foreground_color);
+        button_color_2->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
+        
+        const auto button_color_3 = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size * .75f, "ui_color.png", nullptr);
+        add_ui_interaction_component(button_color_3, game::ces_ui_interaction_component::e_ui::e_ui_apply_windows_color_3_button);
+        button_color_3->position = glm::vec2((k_image_button_size.x * .75f) * 2.f, k_image_button_size.y + 8.f);
+        button_color_3->set_image_color(glm::u8vec4(ces_car_model_component::k_car_color_3.x,
+                                                    ces_car_model_component::k_car_color_3.z,
+                                                    ces_car_model_component::k_car_color_3.y,
+                                                    ces_car_model_component::k_car_color_3.w));
+        button_color_3->set_background_color(k_control_background_color);
+        button_color_3->set_foreground_color(k_control_foreground_color);
+        button_color_3->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
+        
+        const auto button_color_4 = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size * .75f, "ui_color.png", nullptr);
+        add_ui_interaction_component(button_color_4, game::ces_ui_interaction_component::e_ui::e_ui_apply_windows_color_4_button);
+        button_color_4->position = glm::vec2((k_image_button_size.x * .75f) * 3.f, k_image_button_size.y + 8.f);
+        button_color_4->set_image_color(glm::u8vec4(ces_car_model_component::k_car_color_4.x,
+                                                    ces_car_model_component::k_car_color_4.z,
+                                                    ces_car_model_component::k_car_color_4.y,
+                                                    ces_car_model_component::k_car_color_4.w));
+        button_color_4->set_background_color(k_control_background_color);
+        button_color_4->set_foreground_color(k_control_foreground_color);
+        button_color_4->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
+        
+        
+        dialog->add_control(label, game::ces_ui_interaction_component::k_windshield_paint_label);
+        dialog->add_control(button_color_1, game::ces_ui_interaction_component::k_windshield_paint_color_1_button);
+        dialog->add_control(button_color_2, game::ces_ui_interaction_component::k_windshield_paint_color_2_button);
+        dialog->add_control(button_color_3, game::ces_ui_interaction_component::k_windshield_paint_color_3_button);
+        dialog->add_control(button_color_4, game::ces_ui_interaction_component::k_windshield_paint_color_4_button);
+        dialog->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_windshield_paint_dialog)];
+        
+        return dialog;
+    }
+    
+    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_performance_upgrade_dialog(const std::string& filename)
+    {
+        auto dialog = m_ui_base_fabricator.lock()->create_dialog(glm::vec2(0.f));
+        colorize_ui_control(dialog);
+        dialog->visible = false;
+        dialog->show_title(false);
+        add_ui_interaction_component(dialog, game::ces_ui_interaction_component::e_ui::e_ui_performance_upgrade_dialog);
+        
+        const auto speed_label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2((k_image_button_size.x * .75f) * 4.f, k_image_button_size.y * .75f), "SPEED");
+        speed_label->position = glm::vec2(0.f);
+        colorize_ui_control(speed_label);
+        speed_label->set_font_size(22.f);
+        speed_label->set_font_name("spincycle.otf");
+        speed_label->set_text_vertical_aligment(gb::ui::e_element_vertical_aligment_center);
+        speed_label->set_text_horizontal_aligment(gb::ui::e_element_horizontal_aligment_center);
+        
+        const auto handling_label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2((k_image_button_size.x * .75f) * 4.f, k_image_button_size.y * .75f), "HADNLING");
+        handling_label->position = glm::vec2(0.f, (k_image_button_size.x * .75f) * 2.f);
+        colorize_ui_control(handling_label);
+        handling_label->set_font_size(22.f);
+        handling_label->set_font_name("spincycle.otf");
+        handling_label->set_text_vertical_aligment(gb::ui::e_element_vertical_aligment_center);
+        handling_label->set_text_horizontal_aligment(gb::ui::e_element_horizontal_aligment_center);
+        
+        const auto durability_label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2((k_image_button_size.x * .75f) * 4.f, k_image_button_size.y * .75f), "DURABILITY");
+        durability_label->position = glm::vec2(0.f, (k_image_button_size.x * .75f) * 4.f);
+        colorize_ui_control(durability_label);
+        durability_label->set_font_size(22.f);
+        durability_label->set_font_name("spincycle.otf");
+        durability_label->set_text_vertical_aligment(gb::ui::e_element_vertical_aligment_center);
+        durability_label->set_text_horizontal_aligment(gb::ui::e_element_horizontal_aligment_center);
+        
+        const auto speed_progress_bar = m_ui_base_fabricator.lock()->create_progress_bar(glm::vec2((k_image_button_size.x * .75f) * 2.f, k_image_button_size.y * .75f));
+        add_ui_interaction_component(speed_progress_bar, game::ces_ui_interaction_component::e_ui::e_ui_upgrade_speed_progress_bar);
+        speed_progress_bar->position = glm::vec2(k_image_button_size.x * .75f, (k_image_button_size.y * .75f));
+        speed_progress_bar->set_progress_line_color(k_control_text_color);
+        speed_progress_bar->set_background_color(k_control_background_color);
+        
+        const auto speed_reset_button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(k_image_button_size.y * .75f), "ui_minus.png", nullptr);
+        add_ui_interaction_component(speed_reset_button, game::ces_ui_interaction_component::e_ui::e_ui_upgrade_speed_reset_button);
+        speed_reset_button->position = glm::vec2(0.f, k_image_button_size.x * .75f);
+        colorize_ui_control(speed_reset_button);
+        speed_reset_button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
+        
+        const auto speed_plus_button =  m_ui_base_fabricator.lock()->create_image_button(glm::vec2(k_image_button_size.y * .75f), "ui_plus.png", nullptr);
+        add_ui_interaction_component(speed_plus_button, game::ces_ui_interaction_component::e_ui::e_ui_upgrade_speed_plus_button);
+        speed_plus_button->position = glm::vec2((k_image_button_size.x * .75f) * 3.f, k_image_button_size.x * .75f);
+        colorize_ui_control(speed_plus_button);
+        speed_plus_button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
+        
+        const auto handling_progress_bar = m_ui_base_fabricator.lock()->create_progress_bar(glm::vec2((k_image_button_size.x * .75f) * 2.f, k_image_button_size.y * .75f));
+        add_ui_interaction_component(handling_progress_bar, game::ces_ui_interaction_component::e_ui::e_ui_upgrade_handling_progress_bar);
+        handling_progress_bar->position = glm::vec2(k_image_button_size.x * .75f, (k_image_button_size.y * .75f) * 3.f);
+        handling_progress_bar->set_progress_line_color(k_control_text_color);
+        handling_progress_bar->set_background_color(k_control_background_color);
+        
+        const auto handling_reset_button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(k_image_button_size.y * .75f), "ui_minus.png", nullptr);
+        add_ui_interaction_component(handling_reset_button, game::ces_ui_interaction_component::e_ui::e_ui_upgrade_handling_reset_button);
+        handling_reset_button->position = glm::vec2(0.f, (k_image_button_size.x * .75f) * 3.f);
+        colorize_ui_control(handling_reset_button);
+        handling_reset_button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
+        
+        const auto handling_plus_button =  m_ui_base_fabricator.lock()->create_image_button(glm::vec2(k_image_button_size.y * .75f), "ui_plus.png", nullptr);
+        add_ui_interaction_component(handling_plus_button, game::ces_ui_interaction_component::e_ui::e_ui_upgrade_handling_plus_button);
+        handling_plus_button->position = glm::vec2((k_image_button_size.x * .75f) * 3.f, (k_image_button_size.x * .75f) * 3.f);
+        colorize_ui_control(handling_plus_button);
+        handling_plus_button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
+        
+        const auto durabitity_progress_bar = m_ui_base_fabricator.lock()->create_progress_bar(glm::vec2((k_image_button_size.x * .75f) * 2.f, k_image_button_size.y * .75f));
+        add_ui_interaction_component(durabitity_progress_bar, game::ces_ui_interaction_component::e_ui::e_ui_upgrade_rigidity_progress_bar);
+        durabitity_progress_bar->position = glm::vec2(k_image_button_size.x * .75f, (k_image_button_size.y * .75f) * 5.f);
+        durabitity_progress_bar->set_progress_line_color(k_control_text_color);
+        durabitity_progress_bar->set_background_color(k_control_background_color);
+        
+        const auto durabitity_reset_button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(k_image_button_size.y * .75f), "ui_minus.png", nullptr);
+        add_ui_interaction_component(durabitity_reset_button, game::ces_ui_interaction_component::e_ui::e_ui_upgrade_durability_reset_button);
+        durabitity_reset_button->position = glm::vec2(0.f, (k_image_button_size.x * .75f) * 5.f);
+        colorize_ui_control(durabitity_reset_button);
+        durabitity_reset_button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
+        
+        const auto durabitity_plus_button =  m_ui_base_fabricator.lock()->create_image_button(glm::vec2(k_image_button_size.y * .75f), "ui_plus.png", nullptr);
+        add_ui_interaction_component(durabitity_plus_button, game::ces_ui_interaction_component::e_ui::e_ui_upgrade_rigidity_plus_button);
+        durabitity_plus_button->position = glm::vec2((k_image_button_size.x * .75f) * 3.f, (k_image_button_size.x * .75f) * 5.f);
+        colorize_ui_control(durabitity_plus_button);
+        durabitity_plus_button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
+        
+        dialog->add_control(speed_label, game::ces_ui_interaction_component::k_speed_upgrade_label);
+        dialog->add_control(handling_label, game::ces_ui_interaction_component::k_handling_upgrade_label);
+        dialog->add_control(durability_label, game::ces_ui_interaction_component::k_durability_upgrade_label);
+        dialog->add_control(speed_progress_bar, game::ces_ui_interaction_component::k_speed_upgrade_progress_bar);
+        dialog->add_control(speed_reset_button, game::ces_ui_interaction_component::k_speed_upgrade_reset_button);
+        dialog->add_control(speed_plus_button, game::ces_ui_interaction_component::k_speed_upgrade_plus_button);
+        dialog->add_control(handling_progress_bar, game::ces_ui_interaction_component::k_handling_upgrade_progress_bar);
+        dialog->add_control(handling_reset_button, game::ces_ui_interaction_component::k_handling_upgrade_reset_button);
+        dialog->add_control(handling_plus_button, game::ces_ui_interaction_component::k_handling_upgrade_plus_button);
+        dialog->add_control(durabitity_progress_bar, game::ces_ui_interaction_component::k_durability_upgrade_progress_bar);
+        dialog->add_control(durabitity_reset_button, game::ces_ui_interaction_component::k_durability_upgrade_reset_button);
+        dialog->add_control(durabitity_plus_button, game::ces_ui_interaction_component::k_durability_upgrade_plus_button);
+        dialog->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_performance_upgrade_dialog)];
+        
+        return dialog;
     }
 }

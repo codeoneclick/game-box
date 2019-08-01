@@ -12,7 +12,7 @@ namespace game
 {
     std::array<glm::vec2, static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_max)> ces_ui_interaction_component::k_controls_position;
     
-    const i32 ces_ui_interaction_component::k_levels_list_dialog_levels_table = 1;
+    const i32 ces_ui_interaction_component::k_career_dialog_table_view = 1;
     const i32 ces_ui_interaction_component::k_cars_list_dialog_table = 1;
     const i32 ces_ui_interaction_component::k_pause_menu_dialog_continue_button = 1;
     const i32 ces_ui_interaction_component::k_pause_menu_dialog_restart_button = 2;
@@ -48,6 +48,28 @@ namespace game
     const i32 ces_ui_interaction_component::k_car_unlock_dialog_ok_button = 2;
     const i32 ces_ui_interaction_component::k_cash_shop_dialog_table_view = 1;
     const i32 ces_ui_interaction_component::k_cash_shop_ok_button = 2;
+    const i32 ces_ui_interaction_component::k_body_paint_label = 1;
+    const i32 ces_ui_interaction_component::k_body_paint_color_1_button = 2;
+    const i32 ces_ui_interaction_component::k_body_paint_color_2_button = 3;
+    const i32 ces_ui_interaction_component::k_body_paint_color_3_button = 4;
+    const i32 ces_ui_interaction_component::k_body_paint_color_4_button = 5;
+    const i32 ces_ui_interaction_component::k_windshield_paint_label = 1;
+    const i32 ces_ui_interaction_component::k_windshield_paint_color_1_button = 2;
+    const i32 ces_ui_interaction_component::k_windshield_paint_color_2_button = 3;
+    const i32 ces_ui_interaction_component::k_windshield_paint_color_3_button = 4;
+    const i32 ces_ui_interaction_component::k_windshield_paint_color_4_button = 5;
+    const i32 ces_ui_interaction_component::k_speed_upgrade_label = 1;
+    const i32 ces_ui_interaction_component::k_handling_upgrade_label = 2;
+    const i32 ces_ui_interaction_component::k_durability_upgrade_label = 3;
+    const i32 ces_ui_interaction_component::k_speed_upgrade_reset_button = 4;
+    const i32 ces_ui_interaction_component::k_handling_upgrade_reset_button = 5;
+    const i32 ces_ui_interaction_component::k_durability_upgrade_reset_button = 6;
+    const i32 ces_ui_interaction_component::k_speed_upgrade_plus_button = 7;
+    const i32 ces_ui_interaction_component::k_handling_upgrade_plus_button = 8;
+    const i32 ces_ui_interaction_component::k_durability_upgrade_plus_button = 9;
+    const i32 ces_ui_interaction_component::k_speed_upgrade_progress_bar = 10;
+    const i32 ces_ui_interaction_component::k_handling_upgrade_progress_bar = 11;
+    const i32 ces_ui_interaction_component::k_durability_upgrade_progress_bar = 12;
     
     ces_ui_interaction_component::ces_ui_interaction_component() :
     m_ui(e_ui::e_ui_unknown)

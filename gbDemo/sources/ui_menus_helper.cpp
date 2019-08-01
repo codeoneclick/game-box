@@ -56,9 +56,6 @@ namespace game
             ui_animation_helper::hide_to_left(std::static_pointer_cast<gb::ui::control>(garage_label), 1.f);
         }
         
-        
-#if defined(__IOS__)
-        
         const auto shop_button = gameplay_ui_fabricator->create_open_shop_button("");
         root->add_child(shop_button);
         if (hidden)
@@ -73,7 +70,7 @@ namespace game
             ui_animation_helper::hide_to_left(std::static_pointer_cast<gb::ui::control>(shop_label), 1.f);
         }
         
-#else
+#if defined(__OSX__)
         
         const auto quit_game_button = gameplay_ui_fabricator->create_exit_button("");
         root->add_child(quit_game_button);
@@ -83,7 +80,6 @@ namespace game
         }
         
 #endif
-        
         
 #if defined(__FACEBOOK_LOGIN__)
         
@@ -100,21 +96,23 @@ namespace game
         root->add_child(goto_racing1_button);
         if (hidden)
         {
-            ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(goto_racing1_button), gameplay_ui_fabricator->get_screen_size(), 1.f);
+            ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(goto_racing1_button), 1.f);
         }
         
         const auto goto_racing2_button = gameplay_ui_fabricator->create_goto_racing2_button("");
         root->add_child(goto_racing2_button);
         if (hidden)
         {
-            ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(goto_racing2_button), gameplay_ui_fabricator->get_screen_size(), 1.f);
+            ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(goto_racing2_button), 1.f);
         }
         
-        const auto career_list_dialog = gameplay_ui_fabricator->create_levels_list_dialog("");
-        root->add_child(career_list_dialog);
+        const auto career_dialog = gameplay_ui_fabricator->create_career_dialog("");
+        root->add_child(career_dialog);
+        ui_animation_helper::hide_to_down(std::static_pointer_cast<gb::ui::control>(career_dialog), 1.f);
         
         const auto shop_dialog = gameplay_ui_fabricator->create_shop_dialog("");
         root->add_child(shop_dialog);
+        ui_animation_helper::hide_to_down(std::static_pointer_cast<gb::ui::control>(shop_dialog), 1.f);
         
 #if defined(__IOS__)
         
@@ -133,20 +131,17 @@ namespace game
         
         const auto cash_label = gameplay_ui_fabricator->create_cash_label("");
         root->add_child(cash_label);
-        std::string cash_value = "CASH: ";
-        cash_value.append(std::to_string(user_database_component->get_cash(1)));
-        cash_value.append(" $");
-        std::static_pointer_cast<gb::ui::textfield>(cash_label)->set_text(cash_value);
+        ui_controls_helper::update_cash_amount(user_database_component->get_cash(1), 0);
         if (hidden)
         {
-            ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(cash_label), gameplay_ui_fabricator->get_screen_size(), 1.f);
+            ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(cash_label), 1.f);
         }
         
         const auto stars_progress_bar = gameplay_ui_fabricator->create_stars_progress_bar("");
         root->add_child(stars_progress_bar);
         if (hidden)
         {
-            ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(stars_progress_bar), gameplay_ui_fabricator->get_screen_size(), 1.f);
+            ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(stars_progress_bar), 1.f);
         }
         
         const auto current_rank = user_database_component->get_rank(1);
@@ -159,14 +154,14 @@ namespace game
         
         if (hidden)
         {
-            ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(stars_progress_label), gameplay_ui_fabricator->get_screen_size(), 1.f);
+            ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(stars_progress_label), 1.f);
         }
         
         const auto stars_progress_info_label = gameplay_ui_fabricator->create_stars_progress_info_label("");
         root->add_child(stars_progress_info_label);
         if (hidden)
         {
-            ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(stars_progress_info_label), gameplay_ui_fabricator->get_screen_size(), 1.f);
+            ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(stars_progress_info_label), 1.f);
         }
         
         std::stringstream stars_progress_str_stream;
@@ -177,7 +172,7 @@ namespace game
         root->add_child(rank_info_label);
         if (hidden)
         {
-            ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(rank_info_label), gameplay_ui_fabricator->get_screen_size(), 1.f);
+            ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(rank_info_label), 1.f);
         }
         
         std::stringstream rank_str_stream;
@@ -189,6 +184,20 @@ namespace game
         if (hidden)
         {
             ui_animation_helper::hide_to_up(std::static_pointer_cast<gb::ui::control>(stars_progress_button), 1.f);
+        }
+        
+        const auto leaderboard_button = gameplay_ui_fabricator->create_leaderboard_button("");
+        root->add_child(leaderboard_button);
+        if (hidden)
+        {
+            ui_animation_helper::hide_to_left(std::static_pointer_cast<gb::ui::control>(leaderboard_button), 1.f);
+        }
+        
+        const auto leaderboard_label = gameplay_ui_fabricator->create_leaderboard_label("");
+        root->add_child(leaderboard_label);
+        if (hidden)
+        {
+            ui_animation_helper::hide_to_left(std::static_pointer_cast<gb::ui::control>(leaderboard_label), 1.f);
         }
         
         const auto screen_overlay = gameplay_ui_fabricator->create_screen_overlay("");
@@ -218,8 +227,7 @@ namespace game
         
         if (user_database_component->get_ftue_step(1) == 1)
         {
-            ui_controls_helper::disable_all_and_focus_on({ces_ui_interaction_component::e_ui::e_ui_open_garage_button,
-                ces_ui_interaction_component::e_ui::e_ui_garage_label});
+            ui_controls_helper::disable_all_and_focus_on({ces_ui_interaction_component::e_ui::e_ui_open_garage_button});
         }
     }
     
@@ -251,43 +259,18 @@ namespace game
             ui_animation_helper::hide_to_left(std::static_pointer_cast<gb::ui::control>(garage_preview_mode_button), 1.f);
         }
         
-        const auto apply_body_color_1_button = gameplay_ui_fabricator->create_apply_body_color_1_button("");
-        root->add_child(apply_body_color_1_button);
+        const auto zoom_label = gameplay_ui_fabricator->create_zoom_label("");
+        root->add_child(zoom_label);
         if (hidden)
         {
-            ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(apply_body_color_1_button), gameplay_ui_fabricator->get_screen_size(), 1.f);
-            apply_body_color_1_button->visible = false;
-        }
-        
-        const auto apply_body_color_2_button = gameplay_ui_fabricator->create_apply_body_color_2_button("");
-        root->add_child(apply_body_color_2_button);
-        if (hidden)
-        {
-            ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(apply_body_color_2_button), gameplay_ui_fabricator->get_screen_size(), 1.f);
-            apply_body_color_2_button->visible = false;
-        }
-        
-        const auto apply_body_color_3_button = gameplay_ui_fabricator->create_apply_body_color_3_button("");
-        root->add_child(apply_body_color_3_button);
-        if (hidden)
-        {
-            ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(apply_body_color_3_button), gameplay_ui_fabricator->get_screen_size(), 1.f);
-            apply_body_color_3_button->visible = false;
-        }
-        
-        const auto apply_body_color_4_button = gameplay_ui_fabricator->create_apply_body_color_4_button("");
-        root->add_child(apply_body_color_4_button);
-        if (hidden)
-        {
-            ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(apply_body_color_4_button), gameplay_ui_fabricator->get_screen_size(), 1.f);
-            apply_body_color_4_button->visible = false;
+            ui_animation_helper::hide_to_left(std::static_pointer_cast<gb::ui::control>(zoom_label), 1.f);
         }
         
         const auto apply_windows_color_1_button = gameplay_ui_fabricator->create_apply_windows_color_1_button("");
         root->add_child(apply_windows_color_1_button);
         if (hidden)
         {
-            ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(apply_windows_color_1_button), gameplay_ui_fabricator->get_screen_size(), 1.f);
+            ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(apply_windows_color_1_button), 1.f);
             apply_windows_color_1_button->visible = false;
         }
         
@@ -295,7 +278,7 @@ namespace game
         root->add_child(apply_windows_color_2_button);
         if (hidden)
         {
-            ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(apply_windows_color_2_button), gameplay_ui_fabricator->get_screen_size(), 1.f);
+            ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(apply_windows_color_2_button), 1.f);
             apply_windows_color_2_button->visible = false;
         }
         
@@ -303,7 +286,7 @@ namespace game
         root->add_child(apply_windows_color_3_button);
         if (hidden)
         {
-            ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(apply_windows_color_3_button), gameplay_ui_fabricator->get_screen_size(), 1.f);
+            ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(apply_windows_color_3_button), 1.f);
             apply_windows_color_3_button->visible = false;
         }
         
@@ -311,7 +294,7 @@ namespace game
         root->add_child(apply_windows_color_4_button);
         if (hidden)
         {
-            ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(apply_windows_color_4_button), gameplay_ui_fabricator->get_screen_size(), 1.f);
+            ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(apply_windows_color_4_button), 1.f);
             apply_windows_color_4_button->visible = false;
         }
         
@@ -319,28 +302,28 @@ namespace game
         root->add_child(body_paint_label);
         if (hidden)
         {
-            ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(body_paint_label), gameplay_ui_fabricator->get_screen_size(), 1.f);
+            ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(body_paint_label), 1.f);
         }
         
         const auto windshieldd_paint_label = gameplay_ui_fabricator->create_windshield_paint_label("");
         root->add_child(windshieldd_paint_label);
         if (hidden)
         {
-            ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(windshieldd_paint_label), gameplay_ui_fabricator->get_screen_size(), 1.f);
+            ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(windshieldd_paint_label), 1.f);
         }
         
         const auto performance_label = gameplay_ui_fabricator->create_performance_label("");
         root->add_child(performance_label);
         if (hidden)
         {
-            ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(performance_label), gameplay_ui_fabricator->get_screen_size(), 1.f);
+            ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(performance_label), 1.f);
         }
         
         const auto buy_upgrade_button = gameplay_ui_fabricator->create_buy_upgrade_button("");
         root->add_child(buy_upgrade_button);
         if (hidden)
         {
-            ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(buy_upgrade_button), gameplay_ui_fabricator->get_screen_size(), 1.f);
+            ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(buy_upgrade_button), 1.f);
             buy_upgrade_button->visible = false;
         }
         
@@ -348,111 +331,15 @@ namespace game
         root->add_child(buy_upgrade_label);
         if (hidden)
         {
-            ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(buy_upgrade_label), gameplay_ui_fabricator->get_screen_size(), 1.f);
+            ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(buy_upgrade_label), 1.f);
             buy_upgrade_label->visible = false;
-        }
-        
-        const auto upgrade_speed_label = gameplay_ui_fabricator->create_upgrade_speed_label("");
-        root->add_child(upgrade_speed_label);
-        if (hidden)
-        {
-            ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(upgrade_speed_label), gameplay_ui_fabricator->get_screen_size(), 1.f);
-            upgrade_speed_label->visible = false;
-        }
-        
-        const auto upgrade_speed_progress_bar = gameplay_ui_fabricator->create_upgrade_speed_progress_bar("");
-        root->add_child(upgrade_speed_progress_bar);
-        if (hidden)
-        {
-            ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(upgrade_speed_progress_bar), gameplay_ui_fabricator->get_screen_size(), 1.f);
-            upgrade_speed_progress_bar->visible = false;
-        }
-        
-        const auto upgrade_speed_plus_button = gameplay_ui_fabricator->create_upgrade_speed_plus_button("");
-        root->add_child(upgrade_speed_plus_button);
-        if (hidden)
-        {
-            ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(upgrade_speed_plus_button), gameplay_ui_fabricator->get_screen_size(), 1.f);
-            upgrade_speed_plus_button->visible = false;
-        }
-        
-        const auto upgrade_speed_reset_button = gameplay_ui_fabricator->create_upgrade_speed_reset_button("");
-        root->add_child(upgrade_speed_reset_button);
-        if (hidden)
-        {
-            ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(upgrade_speed_reset_button), gameplay_ui_fabricator->get_screen_size(), 1.f);
-            upgrade_speed_reset_button->visible = false;
-        }
-        
-        const auto upgrade_handling_label = gameplay_ui_fabricator->create_upgrade_handling_label("");
-        root->add_child(upgrade_handling_label);
-        if (hidden)
-        {
-            ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(upgrade_handling_label), gameplay_ui_fabricator->get_screen_size(), 1.f);
-            upgrade_handling_label->visible = false;
-        }
-        
-        const auto upgrade_handling_progress_bar = gameplay_ui_fabricator->create_upgrade_handling_progress_bar("");
-        root->add_child(upgrade_handling_progress_bar);
-        if (hidden)
-        {
-            ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(upgrade_handling_progress_bar), gameplay_ui_fabricator->get_screen_size(), 1.f);
-            upgrade_handling_progress_bar->visible = false;
-        }
-        
-        const auto upgrade_handling_plus_button = gameplay_ui_fabricator->create_upgrade_handling_plus_button("");
-        root->add_child(upgrade_handling_plus_button);
-        if (hidden)
-        {
-            ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(upgrade_handling_plus_button), gameplay_ui_fabricator->get_screen_size(), 1.f);
-            upgrade_handling_plus_button->visible = false;
-        }
-        
-        const auto upgrade_handling_reset_button = gameplay_ui_fabricator->create_upgrade_handling_reset_button("");
-        root->add_child(upgrade_handling_reset_button);
-        if (hidden)
-        {
-            ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(upgrade_handling_reset_button), gameplay_ui_fabricator->get_screen_size(), 1.f);
-            upgrade_handling_reset_button->visible = false;
-        }
-        
-        const auto upgrade_rigidity_label = gameplay_ui_fabricator->create_upgrade_rigidity_label("");
-        root->add_child(upgrade_rigidity_label);
-        if (hidden)
-        {
-            ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(upgrade_rigidity_label), gameplay_ui_fabricator->get_screen_size(), 1.f);
-            upgrade_rigidity_label->visible = false;
-        }
-        
-        const auto upgrade_rigidity_progress_bar = gameplay_ui_fabricator->create_upgrade_rigidity_progress_bar("");
-        root->add_child(upgrade_rigidity_progress_bar);
-        if (hidden)
-        {
-            ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(upgrade_rigidity_progress_bar), gameplay_ui_fabricator->get_screen_size(), 1.f);
-            upgrade_rigidity_progress_bar->visible = false;
-        }
-        
-        const auto upgrade_rigidity_plus_button = gameplay_ui_fabricator->create_upgrade_rigidity_plus_button("");
-        root->add_child(upgrade_rigidity_plus_button);
-        if (hidden)
-        {
-            ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(upgrade_rigidity_plus_button), gameplay_ui_fabricator->get_screen_size(), 1.f);
-            upgrade_rigidity_plus_button->visible = false;
-        }
-        
-        const auto upgrade_durability_reset_button = gameplay_ui_fabricator->create_upgrade_durability_reset_button("");
-        root->add_child(upgrade_durability_reset_button);
-        if (hidden)
-        {
-            ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(upgrade_durability_reset_button), gameplay_ui_fabricator->get_screen_size(), 1.f);
-            upgrade_durability_reset_button->visible = false;
         }
         
         const auto next_car_in_garage_button = gameplay_ui_fabricator->create_next_car_in_garage_button("");
         root->add_child(next_car_in_garage_button);
         if (hidden)
         {
-            ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(next_car_in_garage_button), gameplay_ui_fabricator->get_screen_size(), 1.f);
+            ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(next_car_in_garage_button), 1.f);
         }
         
         const auto prev_car_in_garage_button = gameplay_ui_fabricator->create_prev_car_in_garage_button("");
@@ -466,21 +353,21 @@ namespace game
         root->add_child(car_skin_1_button);
         if (hidden)
         {
-            ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(car_skin_1_button), gameplay_ui_fabricator->get_screen_size(), 1.f);
+            ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(car_skin_1_button), 1.f);
         }
         
         const auto car_skin_2_button = gameplay_ui_fabricator->create_car_skin_2_button("");
         root->add_child(car_skin_2_button);
         if (hidden)
         {
-            ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(car_skin_2_button), gameplay_ui_fabricator->get_screen_size(), 1.f);
+            ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(car_skin_2_button), 1.f);
         }
         
         const auto car_skin_3_button = gameplay_ui_fabricator->create_car_skin_3_button("");
         root->add_child(car_skin_3_button);
         if (hidden)
         {
-            ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(car_skin_3_button), gameplay_ui_fabricator->get_screen_size(), 1.f);
+            ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(car_skin_3_button), 1.f);
         }
         
 #if defined(__IOS__)
@@ -499,10 +386,7 @@ namespace game
         
         const auto cash_label = gameplay_ui_fabricator->create_cash_label("");
         root->add_child(cash_label);
-        std::string cash_value = "CASH: ";
-        cash_value.append(std::to_string(user_database_component->get_cash(1)));
-        cash_value.append(" $");
-        std::static_pointer_cast<gb::ui::textfield>(cash_label)->set_text(cash_value);
+        ui_controls_helper::update_cash_amount(user_database_component->get_cash(1), 0);
         if (hidden)
         {
             ui_animation_helper::hide_to_left(std::static_pointer_cast<gb::ui::control>(cash_label), 1.f);
@@ -512,7 +396,7 @@ namespace game
         root->add_child(select_car_button);
         if (hidden)
         {
-            ui_animation_helper::hide_to_down(std::static_pointer_cast<gb::ui::control>(select_car_button), gameplay_ui_fabricator->get_screen_size(), 1.f);
+            ui_animation_helper::hide_to_down(std::static_pointer_cast<gb::ui::control>(select_car_button), 1.f);
         }
         
         std::shared_ptr<ces_garage_database_component::garage_dto::car_dto> selected_car_data = nullptr;
@@ -536,21 +420,21 @@ namespace game
         root->add_child(unlock_car_button);
         if (hidden)
         {
-            ui_animation_helper::hide_to_down(std::static_pointer_cast<gb::ui::control>(unlock_car_button), gameplay_ui_fabricator->get_screen_size(), 1.f);
+            ui_animation_helper::hide_to_down(std::static_pointer_cast<gb::ui::control>(unlock_car_button), 1.f);
         }
         
         const auto buy_car_button = gameplay_ui_fabricator->create_buy_car_button("");
         root->add_child(buy_car_button);
         if (hidden)
         {
-            ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(buy_car_button), gameplay_ui_fabricator->get_screen_size(), 1.f);
+            ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(buy_car_button), 1.f);
         }
         
         const auto buy_car_label = gameplay_ui_fabricator->create_buy_car_label("");
         root->add_child(buy_car_label);
         if (hidden)
         {
-            ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(buy_car_label), gameplay_ui_fabricator->get_screen_size(), 1.f);
+            ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(buy_car_label), 1.f);
         }
         
         const auto screen_overlay = gameplay_ui_fabricator->create_screen_overlay("");
@@ -565,12 +449,23 @@ namespace game
         const auto cash_shop_dialog = gameplay_ui_fabricator->create_cash_shop_dialog("");
         root->add_child(cash_shop_dialog);
         
+        const auto body_paint_dialog = gameplay_ui_fabricator->create_body_paint_dialog("");
+        root->add_child(body_paint_dialog);
+        ui_animation_helper::hide_to_down(std::static_pointer_cast<gb::ui::control>(body_paint_dialog), 1.f);
+        
+        const auto windshield_paint_dialog = gameplay_ui_fabricator->create_windshield_paint_dialog("");
+        root->add_child(windshield_paint_dialog);
+        ui_animation_helper::hide_to_down(std::static_pointer_cast<gb::ui::control>(windshield_paint_dialog), 1.f);
+        
+        const auto performance_upgrade_dialog = gameplay_ui_fabricator->create_performance_upgrade_dialog("");
+        root->add_child(performance_upgrade_dialog);
+        ui_animation_helper::hide_to_down(std::static_pointer_cast<gb::ui::control>(performance_upgrade_dialog), 1.f);
+        
         fill_selected_car_in_garage_ui(root, nullptr);
         
         if (user_database_component->get_ftue_step(1) == 1)
         {
-            ui_controls_helper::disable_all_and_focus_on({ces_ui_interaction_component::e_ui::e_ui_buy_car_button,
-                ces_ui_interaction_component::e_ui::e_ui_buy_car_label});
+            ui_controls_helper::disable_all_and_focus_on({ces_ui_interaction_component::e_ui::e_ui_buy_car_button});
         }
     }
     
@@ -628,142 +523,6 @@ namespace game
         root->add_child(not_enough_tickets_dialog);
     }
     
-    void ui_menus_helper::show_body_paint_ui()
-    {
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_body_paint_label)->visible = true;
-        
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_body_color_1_button)->visible = true;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_body_color_2_button)->visible = true;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_body_color_3_button)->visible = true;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_body_color_4_button)->visible = true;
-        
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_windshield_paint_label)->visible = true;
-        
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_windows_color_1_button)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_windows_color_2_button)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_windows_color_3_button)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_windows_color_4_button)->visible = false;
-        
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_performance_label)->visible = true;
-        
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_speed_label)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_speed_progress_bar)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_speed_plus_button)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_speed_reset_button)->visible = false;
-        
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_handling_label)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_handling_progress_bar)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_handling_plus_button)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_handling_reset_button)->visible = false;
-        
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_rigidity_label)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_rigidity_progress_bar)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_rigidity_plus_button)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_durability_reset_button)->visible = false;
-    }
-    
-    void ui_menus_helper::show_windshield_paint_ui()
-    {
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_body_paint_label)->visible = true;
-        
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_body_color_1_button)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_body_color_2_button)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_body_color_3_button)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_body_color_4_button)->visible = false;
-        
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_windshield_paint_label)->visible = true;
-        
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_windows_color_1_button)->visible = true;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_windows_color_2_button)->visible = true;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_windows_color_3_button)->visible = true;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_windows_color_4_button)->visible = true;
-        
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_performance_label)->visible = true;
-        
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_speed_label)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_speed_progress_bar)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_speed_plus_button)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_speed_reset_button)->visible = false;
-        
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_handling_label)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_handling_progress_bar)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_handling_plus_button)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_handling_reset_button)->visible = false;
-        
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_rigidity_label)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_rigidity_progress_bar)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_rigidity_plus_button)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_durability_reset_button)->visible = false;
-    }
-    
-    void ui_menus_helper::show_upgrade_performance_ui()
-    {
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_body_paint_label)->visible = true;
-        
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_body_color_1_button)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_body_color_2_button)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_body_color_3_button)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_body_color_4_button)->visible = false;
-        
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_windshield_paint_label)->visible = true;
-        
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_windows_color_1_button)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_windows_color_2_button)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_windows_color_3_button)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_windows_color_4_button)->visible = false;
-        
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_performance_label)->visible = false;
-        
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_speed_label)->visible = true;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_speed_progress_bar)->visible = true;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_speed_plus_button)->visible = true;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_speed_reset_button)->visible = true;
-        
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_handling_label)->visible = true;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_handling_progress_bar)->visible = true;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_handling_plus_button)->visible = true;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_handling_reset_button)->visible = true;
-        
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_rigidity_label)->visible = true;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_rigidity_progress_bar)->visible = true;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_rigidity_plus_button)->visible = true;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_durability_reset_button)->visible = true;
-    }
-    
-    void ui_menus_helper::hide_customization_ui()
-    {
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_body_paint_label)->visible = true;
-        
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_body_color_1_button)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_body_color_2_button)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_body_color_3_button)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_body_color_4_button)->visible = false;
-        
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_windshield_paint_label)->visible = true;
-        
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_windows_color_1_button)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_windows_color_2_button)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_windows_color_3_button)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_windows_color_4_button)->visible = false;
-        
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_performance_label)->visible = true;
-        
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_speed_label)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_speed_progress_bar)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_speed_plus_button)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_speed_reset_button)->visible = false;
-        
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_handling_label)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_handling_progress_bar)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_handling_plus_button)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_handling_reset_button)->visible = false;
-        
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_rigidity_label)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_rigidity_progress_bar)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_rigidity_plus_button)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_durability_reset_button)->visible = false;
-    }
-    
     void ui_menus_helper::enable_customization_ui()
     {
         ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_car_skin_1_button)->visible = true;
@@ -771,35 +530,8 @@ namespace game
         ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_car_skin_3_button)->visible = true;
         
         ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_body_paint_label)->visible = true;
-        
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_body_color_1_button)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_body_color_2_button)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_body_color_3_button)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_body_color_4_button)->visible = false;
-        
         ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_windshield_paint_label)->visible = true;
-        
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_windows_color_1_button)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_windows_color_2_button)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_windows_color_3_button)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_windows_color_4_button)->visible = false;
-        
         ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_performance_label)->visible = true;
-        
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_speed_label)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_speed_progress_bar)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_speed_plus_button)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_speed_reset_button)->visible = false;
-        
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_handling_label)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_handling_progress_bar)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_handling_plus_button)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_handling_reset_button)->visible = false;
-        
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_rigidity_label)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_rigidity_progress_bar)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_rigidity_plus_button)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_durability_reset_button)->visible = false;
     }
     
     void ui_menus_helper::disable_customization_ui()
@@ -809,35 +541,8 @@ namespace game
         ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_car_skin_3_button)->visible = false;
         
         ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_body_paint_label)->visible = false;
-        
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_body_color_1_button)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_body_color_2_button)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_body_color_3_button)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_body_color_4_button)->visible = false;
-        
         ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_windshield_paint_label)->visible = false;
-        
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_windows_color_1_button)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_windows_color_2_button)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_windows_color_3_button)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_apply_windows_color_4_button)->visible = false;
-        
         ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_performance_label)->visible = false;
-        
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_speed_label)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_speed_progress_bar)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_speed_plus_button)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_speed_reset_button)->visible = false;
-        
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_handling_label)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_handling_progress_bar)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_handling_plus_button)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_handling_reset_button)->visible = false;
-        
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_rigidity_label)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_rigidity_progress_bar)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_rigidity_plus_button)->visible = false;
-        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_upgrade_durability_reset_button)->visible = false;
     }
     
     void ui_menus_helper::fill_selected_car_in_garage_ui(const gb::ces_entity_shared_ptr& root, const gb::ces_entity_shared_ptr& car)

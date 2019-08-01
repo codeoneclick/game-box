@@ -2,5 +2,5 @@
     car_filename="car_01_configuration.xml"
     car_id="1"
     required_rank="1"
-    required_stars_for_next_rank="3">
+    required_stars_for_next_rank="6">
 </car_progression>

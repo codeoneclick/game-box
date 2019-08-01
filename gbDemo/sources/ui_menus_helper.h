@@ -35,10 +35,6 @@ namespace game
                                            const gameplay_ui_fabricator_shared_ptr& gameplay_ui_fabricator,
                                            bool hidden = false);
         
-        static void show_body_paint_ui();
-        static void show_windshield_paint_ui();
-        static void show_upgrade_performance_ui();
-        static void hide_customization_ui();
         static void enable_customization_ui();
         static void disable_customization_ui();
         

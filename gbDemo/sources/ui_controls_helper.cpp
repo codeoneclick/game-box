@@ -7,6 +7,7 @@
 //
 
 #include "ui_controls_helper.h"
+#include "textfield.h"
 
 namespace game
 {
@@ -76,6 +77,18 @@ namespace game
                     control.lock()->disable(false);
                 }
             }
+        }
+    }
+    
+    void ui_controls_helper::update_cash_amount(i32 new_amount, i32 delta)
+    {
+        const auto cash_label = ui_controls_helper::get_control_as<gb::ui::textfield>(ces_ui_interaction_component::e_ui::e_ui_cash_label);
+        if (cash_label)
+        {
+            std::string cash_value = "CASH: ";
+            cash_value.append(std::to_string(new_amount));
+            cash_value.append(" $");
+            cash_label->set_text(cash_value);
         }
     }
 }

@@ -22,7 +22,6 @@ namespace game
         std::bitset<std::numeric_limits<uint8_t>::max()> m_ui_components_mask;
         std::bitset<std::numeric_limits<uint8_t>::max()> m_car_components_mask;
         
-        gb::ces_entity_weak_ptr m_levels_list_dialog;
         gb::ces_entity_weak_ptr m_countdown_label;
        
         gb::ces_entity_weak_ptr m_cars_list_dialog;
@@ -54,7 +53,6 @@ namespace game
         
         void pop_current_dialog();
         
-        void push_levels_list_dialog(const gb::ces_entity_shared_ptr& root);
         void update_cars_list_dialog();
         void push_pause_menu_dialog(const gb::ces_entity_shared_ptr& root);
         void push_restart_dialog(const gb::ces_entity_shared_ptr& root);
@@ -63,15 +61,12 @@ namespace game
         void push_loose_dialog(const gb::ces_entity_shared_ptr& root);
         void push_full_tickets_dialog(const gb::ces_entity_shared_ptr& root);
         void push_not_enough_tickets_dialog(const gb::ces_entity_shared_ptr& root);
-        void push_shop_dialog(const gb::ces_entity_shared_ptr& root);
-        void push_unlock_car_dialog(const gb::ces_entity_shared_ptr& root);
-        void push_quit_game_dialog(const gb::ces_entity_shared_ptr& root);
-        void push_cash_shop_dialog(const gb::ces_entity_shared_ptr& root);
         
         void mute_sounds(const gb::ces_entity_shared_ptr& root);
         void unmute_sounds(const gb::ces_entity_shared_ptr& root);
         
         i32 calculate_upgrades_price(const gb::ces_entity_shared_ptr& root);
+        void apply_car_upgrades(const gb::ces_entity_shared_ptr& root);
         
     protected:
         

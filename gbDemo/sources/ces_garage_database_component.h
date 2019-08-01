@@ -136,5 +136,12 @@ namespace game
         i32 get_price_for_speed_upgrade(i32 garage_id, i32 car_id, f32 delta);
         i32 get_price_for_handling_upgrade(i32 garage_id, i32 car_id, f32 delta);
         i32 get_price_for_durability_upgrade(i32 garage_id, i32 car_id, f32 delta);
+        
+        void set_car_body_color_id(i32 garage_id, i32 car_id, i32 color_id);
+        void set_car_windshield_color_id(i32 garage_id, i32 car_id, i32 color_id);
+        
+        void upgrade_car_speed(i32 garage_id, i32 car_id, f32 delta);
+        void upgrade_car_handling(i32 garage_id, i32 car_id, f32 delta);
+        void upgrade_car_durability(i32 garage_id, i32 car_id, f32 delta);
     };
 };

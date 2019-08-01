@@ -6,7 +6,7 @@
 //  Copyright © 2019 sergey.sergeev. All rights reserved.
 //
 
-#include "levels_list_table_view_cell.h"
+#include "career_table_view_cell.h"
 #include "button.h"
 #include "textfield.h"
 #include "sprite.h"
@@ -22,7 +22,7 @@ namespace game
 {
     namespace ui
     {
-        levels_list_table_view_cell_data::levels_list_table_view_cell_data()
+        career_table_view_cell_data::career_table_view_cell_data()
         {
             id.getter([=]() {
                 return m_id;
@@ -73,17 +73,17 @@ namespace game
             });
         }
         
-        const std::string levels_list_table_view_cell::k_start_level_button_id = "start_level_button";
-        const std::string levels_list_table_view_cell::k_show_replay_level_button_id = "show_replay_level_button";
-        const std::string levels_list_table_view_cell::k_level_index_label_id = "level_index_label";
-        const std::string levels_list_table_view_cell::k_locked_unlocked_image_id = "locked_unlocked_image"; 
-        const std::string levels_list_table_view_cell::k_star1_image_id = "star1_image";
-        const std::string levels_list_table_view_cell::k_star2_image_id = "star2_image";
-        const std::string levels_list_table_view_cell::k_star3_image_id = "star3_image";
-        const std::string levels_list_table_view_cell::k_drift_time_label_id = "drift_time_label";
-        const std::string levels_list_table_view_cell::k_drift_time_value_label_id = "drift_time_value_label";
+        const std::string career_table_view_cell::k_start_level_button_id = "start_level_button";
+        const std::string career_table_view_cell::k_show_replay_level_button_id = "show_replay_level_button";
+        const std::string career_table_view_cell::k_level_index_label_id = "level_index_label";
+        const std::string career_table_view_cell::k_locked_unlocked_image_id = "locked_unlocked_image"; 
+        const std::string career_table_view_cell::k_star1_image_id = "star1_image";
+        const std::string career_table_view_cell::k_star2_image_id = "star2_image";
+        const std::string career_table_view_cell::k_star3_image_id = "star3_image";
+        const std::string career_table_view_cell::k_drift_time_label_id = "drift_time_label";
+        const std::string career_table_view_cell::k_drift_time_value_label_id = "drift_time_value_label";
         
-        levels_list_table_view_cell::levels_list_table_view_cell(const gb::scene_fabricator_shared_ptr& fabricator, i32 index, const std::string& identifier) :
+        career_table_view_cell::career_table_view_cell(const gb::scene_fabricator_shared_ptr& fabricator, i32 index, const std::string& identifier) :
         gb::ui::table_view_cell(fabricator, index, identifier),
         m_start_level_button_callback(nullptr)
         {
@@ -96,12 +96,12 @@ namespace game
             });
         }
         
-        void levels_list_table_view_cell::setup_components()
+        void career_table_view_cell::setup_components()
         {
             gb::ui::table_view_cell::setup_components();
         }
         
-        void levels_list_table_view_cell::create()
+        void career_table_view_cell::create()
         {
             gb::ui::table_view_cell::create();
             set_background_color(gameplay_ui_fabricator::k_control_background_color);
@@ -162,7 +162,6 @@ namespace game
             level_index_label->create();
             level_index_label->size = glm::vec2(24.f, 24.f);
             level_index_label->set_text("0");
-            level_index_label->set_font_mode(gb::ces_font_component::e_font_mode_edge);
             level_index_label->position = glm::vec2(-2.f, -2.f);
             level_index_label->set_text_color(gameplay_ui_fabricator::k_control_text_color);
             level_index_label->set_visible_edges(false);
@@ -173,7 +172,7 @@ namespace game
             score_label->create();
             score_label->size = glm::vec2(24.f, 24.f);
             score_label->set_text("DRIFT TIME:");
-            score_label->set_font_mode(gb::ces_font_component::e_font_mode_edge);
+            score_label->set_font_name("spincycle.otf");
             score_label->position = glm::vec2(48.f + score_label->get_content_size().x * .5f, 32.f);
             score_label->set_text_color(gameplay_ui_fabricator::k_control_text_color);
             score_label->set_visible_edges(false);
@@ -184,6 +183,7 @@ namespace game
             score_value_label->create();
             score_value_label->size = glm::vec2(24.f, 24.f);
             score_value_label->set_text("17:45");
+            score_value_label->set_font_name("spincycle.otf");
             score_value_label->position = glm::vec2(48.f + score_label->get_content_size().x + 8.f + score_value_label->get_content_size().x * .5f, 32.f);
             score_value_label->set_text_color(gameplay_ui_fabricator::k_control_text_color);
             score_value_label->set_visible_edges(false);
@@ -199,7 +199,11 @@ namespace game
                     {
                         material->set_stencil_test(true);
                         material->set_stencil_function(gb::gl::constant::equal);
-                        material->set_stencil_ref_value(1);
+                        material->set_stencil_ref_value(128);
+                        material->set_stencil_mask_read(255);
+                        material->set_front_stencil_op_1(gb::gl::constant::keep);
+                        material->set_front_stencil_op_2(gb::gl::constant::keep);
+                        material->set_front_stencil_op_3(gb::gl::constant::keep);
                     }
                 }
                 
@@ -210,13 +214,17 @@ namespace game
                     {
                         material->set_stencil_test(true);
                         material->set_stencil_function(gb::gl::constant::equal);
-                        material->set_stencil_ref_value(1);
+                        material->set_stencil_ref_value(128);
+                        material->set_stencil_mask_read(255);
+                        material->set_front_stencil_op_1(gb::gl::constant::keep);
+                        material->set_front_stencil_op_2(gb::gl::constant::keep);
+                        material->set_front_stencil_op_3(gb::gl::constant::keep);
                     }
                 });
             });
         }
         
-        void levels_list_table_view_cell::set_start_level_button_callback_t(const start_level_button_callback_t &callback)
+        void career_table_view_cell::set_start_level_button_callback_t(const start_level_button_callback_t &callback)
         {
             m_start_level_button_callback = callback;
             if(!std::static_pointer_cast<gb::ui::image_button>(m_elements[k_start_level_button_id])->is_pressed_callback_exist())
@@ -240,7 +248,7 @@ namespace game
             }
         }
         
-        void levels_list_table_view_cell::set_index(i32 index)
+        void career_table_view_cell::set_index(i32 index)
         {
             const auto level_index_label = get_element_as<gb::ui::textfield>(k_level_index_label_id);
             std::stringstream level_index_strstream;
@@ -248,7 +256,7 @@ namespace game
             level_index_label->set_text(level_index_strstream.str());
         }
         
-        void levels_list_table_view_cell::set_is_locked(bool value)
+        void career_table_view_cell::set_is_locked(bool value)
         {
             if (value)
             {
@@ -283,12 +291,16 @@ namespace game
                 {
                     material->set_stencil_test(true);
                     material->set_stencil_function(gb::gl::constant::equal);
-                    material->set_stencil_ref_value(1);
+                    material->set_stencil_ref_value(128);
+                    material->set_stencil_mask_read(255);
+                    material->set_front_stencil_op_1(gb::gl::constant::keep);
+                    material->set_front_stencil_op_2(gb::gl::constant::keep);
+                    material->set_front_stencil_op_3(gb::gl::constant::keep);
                 }
             }
         }
         
-        void levels_list_table_view_cell::set_is_passed(bool value)
+        void career_table_view_cell::set_is_passed(bool value)
         {
             if (value)
             {
@@ -303,7 +315,7 @@ namespace game
             }
         }
         
-        void levels_list_table_view_cell::set_stars_count(i32 value)
+        void career_table_view_cell::set_stars_count(i32 value)
         {
             const auto star1_image = std::static_pointer_cast<gb::sprite>(m_elements[k_star1_image_id]);
             star1_image->color = glm::u8vec4(32, 32, 32, 255);
@@ -329,7 +341,7 @@ namespace game
             }
         }
         
-        void levels_list_table_view_cell::set_drift_time(f32 value)
+        void career_table_view_cell::set_drift_time(f32 value)
         {
             i32 seconds = value / 1000;
             f32 f_milliseconds = value / 1000 - seconds;

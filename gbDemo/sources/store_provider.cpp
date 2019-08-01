@@ -7,16 +7,23 @@
 //
 
 #include "store_provider.h"
+#import <StoreKit/StoreKit.h>
 
 #if defined(__IOS__)
-
-#import <UIKit/UIKit.h>
-#import <StoreKit/StoreKit.h>
 
 static NSString* k_no_ads_product_id = @"com.drift.hyper.no_ads";
 static NSString* k_small_cash_pack_product_id = @"com.drift.hyper.small_cash_pack";
 static NSString* k_medium_cash_pack_product_id = @"com.drift.hyper.medium_cash_pack";
 static NSString* k_big_cash_pack_product_id = @"com.drift.hyper.big_cash_pack";
+
+#else
+
+static NSString* k_no_ads_product_id = @"com.drift.hyper.osx.no_ads";
+static NSString* k_small_cash_pack_product_id = @"com.drift.hyper.osx.small_cash_pack";
+static NSString* k_medium_cash_pack_product_id = @"com.drift.hyper.osx.medium_cash_pack";
+static NSString* k_big_cash_pack_product_id = @"com.drift.hyper.osx.big_cash_pack";
+
+#endif
 
 @interface store_provider_impl : NSObject<SKPaymentTransactionObserver, SKProductsRequestDelegate>
 
@@ -263,8 +270,6 @@ static NSString* k_big_cash_pack_product_id = @"com.drift.hyper.big_cash_pack";
 
 @end
 
-#endif
-
 namespace game
 {
     const i32 store_provider::k_no_ads_product_id = 1;
@@ -276,12 +281,6 @@ namespace game
     
     store_provider::store_provider()
     {
-        
-#if defined(__IOS__)
-        
-        
-        
-#endif
         
     }
     
@@ -305,9 +304,10 @@ namespace game
 #if defined(__IOS__)
         
         [[store_provider_impl shared_instance] get_no_ads_product];
-        [[store_provider_impl shared_instance] get_cash_pack_products];
         
 #endif
+        
+        [[store_provider_impl shared_instance] get_cash_pack_products];
         
     }
     
@@ -345,47 +345,25 @@ namespace game
     
     void store_provider::restore_products()
     {
-#if defined(__IOS__)
-        
         [[store_provider_impl shared_instance] restore_products];
-        
-#endif
     }
     
     void store_provider::buy_small_cash_pack(const std::function<void()>& callback)
     {
         m_on_purchase_small_cash_pack = callback;
-        
-#if defined(__IOS__)
-        
         [[store_provider_impl shared_instance] buy_small_cash_pack];
-        
-#endif
-        
     }
     
     void store_provider::buy_medium_cash_pack(const std::function<void()>& callback)
     {
         m_on_purchase_medium_cash_pack = callback;
-        
-#if defined(__IOS__)
-        
         [[store_provider_impl shared_instance] buy_medium_cash_pack];
-        
-#endif
-        
     }
     
     void store_provider::buy_big_cash_pack(const std::function<void()>& callback)
     {
         m_on_purchase_big_cash_pack = callback;
-        
-#if defined(__IOS__)
-        
-        [[store_provider_impl shared_instance] buy_big_cash_pack];
-        
-#endif
-        
+        [[store_provider_impl shared_instance] buy_big_cash_pack];  
     }
     
     std::function<void()> store_provider::get_on_puchase_small_cash_pack_callback() const

@@ -25,7 +25,7 @@ namespace game
             e_ui_open_shop_button,
             e_ui_quit_game_button,
             e_ui_back_from_garage_button,
-            e_ui_levels_list_dialog,
+            e_ui_career_dialog,
             e_ui_shop_dialog,
             e_ui_cash_shop_dialog,
             e_ui_cars_list_dialog,
@@ -98,10 +98,16 @@ namespace game
             e_ui_buy_upgrade_label,
             e_ui_buy_car_button,
             e_ui_buy_car_label,
+            e_ui_zoom_label,
+            e_ui_leaderboard_button,
+            e_ui_leaderboard_label,
+            e_ui_body_paint_dialog,
+            e_ui_windshield_paint_dialog,
+            e_ui_performance_upgrade_dialog,
             e_ui_max
         };
         
-        static const i32 k_levels_list_dialog_levels_table;
+        static const i32 k_career_dialog_table_view;
         static const i32 k_cars_list_dialog_table;
         static const i32 k_pause_menu_dialog_continue_button;
         static const i32 k_pause_menu_dialog_restart_button;
@@ -137,6 +143,28 @@ namespace game
         static const i32 k_car_unlock_dialog_ok_button;
         static const i32 k_cash_shop_dialog_table_view;
         static const i32 k_cash_shop_ok_button;
+        static const i32 k_body_paint_label;
+        static const i32 k_body_paint_color_1_button;
+        static const i32 k_body_paint_color_2_button;
+        static const i32 k_body_paint_color_3_button;
+        static const i32 k_body_paint_color_4_button;
+        static const i32 k_windshield_paint_label;
+        static const i32 k_windshield_paint_color_1_button;
+        static const i32 k_windshield_paint_color_2_button;
+        static const i32 k_windshield_paint_color_3_button;
+        static const i32 k_windshield_paint_color_4_button;
+        static const i32 k_speed_upgrade_label;
+        static const i32 k_handling_upgrade_label;
+        static const i32 k_durability_upgrade_label;
+        static const i32 k_speed_upgrade_reset_button;
+        static const i32 k_handling_upgrade_reset_button;
+        static const i32 k_durability_upgrade_reset_button;
+        static const i32 k_speed_upgrade_plus_button;
+        static const i32 k_handling_upgrade_plus_button;
+        static const i32 k_durability_upgrade_plus_button;
+        static const i32 k_speed_upgrade_progress_bar;
+        static const i32 k_handling_upgrade_progress_bar;
+        static const i32 k_durability_upgrade_progress_bar;
         
         static std::array<glm::vec2, static_cast<i32>(e_ui::e_ui_max)> k_controls_position;
         

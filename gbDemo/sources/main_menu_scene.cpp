@@ -61,13 +61,14 @@
 #include "ces_levels_database_component.h"
 #include "store_provider.h"
 #include "ui_menus_helper.h"
+#include "game_center_provier.h"
 
 namespace game
 {
     main_menu_scene::main_menu_scene(const gb::game_transition_shared_ptr& transition) :
     gb::scene_graph(transition)
     {
-        //m_opponents.fill(nullptr);
+
     }
     
     main_menu_scene::~main_menu_scene()
@@ -232,6 +233,8 @@ namespace game
             }
         });
         store_provider::shared_instance()->request_products();
+        
+        game_center_provier::shared_instance()->authenticate();
     }
     
     void main_menu_scene::on_goto_in_game_scene(gb::ces_entity_const_shared_ptr entity)

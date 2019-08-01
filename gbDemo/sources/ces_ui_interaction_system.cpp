@@ -37,7 +37,7 @@
 #include "ces_level_route_component.h"
 #include "ces_car_camera_follow_component.h"
 #include "ces_level_descriptor_component.h"
-#include "levels_list_table_view_cell.h"
+#include "career_table_view_cell.h"
 #include "cars_list_table_view_cell.h"
 #include "ces_scene_state_automat_component.h"
 #include "ces_scene_fabricator_component.h"
@@ -59,6 +59,8 @@
 #include "facebook_provider.h"
 #include "store_provider.h"
 #include "ui_menus_helper.h"
+#include "ui_dialogs_helper.h"
+#include "game_center_provier.h"
 
 namespace game
 {
@@ -437,6 +439,19 @@ namespace game
                                 m_main_car.lock()->add_component(car_ai_input_component);
                                 pop_current_dialog();
                                 push_loose_dialog(root);
+                                
+                                if (!m_main_car.expired())
+                                {
+                                    const auto main_car = m_main_car.lock();
+                                    const auto car_parts_component = main_car->get_component<ces_car_parts_component>();
+                                    car_parts_component->get_part(ces_car_parts_component::parts::k_ui_speed_label)->visible = false;
+                                    car_parts_component->get_part(ces_car_parts_component::parts::k_ui_speed_value_label)->visible = false;
+                                    car_parts_component->get_part(ces_car_parts_component::parts::k_ui_drift_label)->visible = false;
+                                    car_parts_component->get_part(ces_car_parts_component::parts::k_ui_drift_value_label)->visible = false;
+                                    car_parts_component->get_part(ces_car_parts_component::parts::k_ui_rpm_label)->visible = false;
+                                    car_parts_component->get_part(ces_car_parts_component::parts::k_ui_rpm_value_label)->visible = false;
+                                    car_parts_component->get_part(ces_car_parts_component::parts::k_ui_direction_arrow)->visible = false;
+                                }
                             }
                             
                             if (!m_countdown_label.expired())
@@ -471,48 +486,18 @@ namespace game
                     if(!button->is_pressed_callback_exist())
                     {
                         button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
-                            if (m_current_pushed_dialog.expired() || (!m_current_pushed_dialog.expired() && m_current_pushed_dialog.lock() != m_levels_list_dialog.lock()))
+                            const auto pushed_dialog = ui_dialogs_helper::get_pushed_dialog();
+                            if (!pushed_dialog || (pushed_dialog && pushed_dialog != ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_career_dialog)))
                             {
-                                pop_current_dialog();
-                                push_levels_list_dialog(root);
-                                const auto career_label = ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_career_label);
-                                if (career_label)
+                                if (pushed_dialog)
                                 {
-                                    career_label->visible = false;
+                                    ui_dialogs_helper::pop_dialog();
                                 }
-                                
-                                const auto garage_label = ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_garage_label);
-                                if (garage_label)
-                                {
-                                    garage_label->visible = false;
-                                }
-                                
-                                const auto shop_label = ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_shop_label);
-                                if (shop_label)
-                                {
-                                    shop_label->visible = false;
-                                }
+                                ui_dialogs_helper::push_dialog(ces_ui_interaction_component::e_ui::e_ui_career_dialog, root);
                             }
-                            else if (!m_current_pushed_dialog.expired() && m_current_pushed_dialog.lock() == m_levels_list_dialog.lock())
+                            else if (pushed_dialog && pushed_dialog == ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_career_dialog))
                             {
-                                pop_current_dialog();
-                                const auto career_label = ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_career_label);
-                                if (career_label)
-                                {
-                                    career_label->visible = true;
-                                }
-                                
-                                const auto garage_label = ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_garage_label);
-                                if (garage_label)
-                                {
-                                    garage_label->visible = true;
-                                }
-                                
-                                const auto shop_label = ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_shop_label);
-                                if (shop_label)
-                                {
-                                    shop_label->visible = true;
-                                }
+                                ui_dialogs_helper::pop_dialog();
                             }
                         });
                     }
@@ -525,7 +510,12 @@ namespace game
                     if(!button->is_pressed_callback_exist())
                     {
                         button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
-                            pop_current_dialog();
+                            
+                            if (ui_dialogs_helper::get_pushed_dialog())
+                            {
+                                ui_dialogs_helper::pop_dialog();
+                            }
+                            
                             if (m_scene.lock()->get_component<ces_scene_state_automat_component>()->mode == ces_scene_state_automat_component::e_mode_main_menu)
                             {
                                 m_scene.lock()->get_component<ces_scene_state_automat_component>()->mode = ces_scene_state_automat_component::e_mode_garage;
@@ -541,7 +531,10 @@ namespace game
                     if(!button->is_pressed_callback_exist())
                     {
                         button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
-                            pop_current_dialog();
+                            if (ui_dialogs_helper::get_pushed_dialog())
+                            {
+                                ui_dialogs_helper::pop_dialog();
+                            }
                             if (m_scene.lock()->get_component<ces_scene_state_automat_component>()->mode == ces_scene_state_automat_component::e_mode_garage)
                             {
                                 m_scene.lock()->get_component<ces_scene_state_automat_component>()->mode = ces_scene_state_automat_component::e_mode_main_menu;
@@ -558,8 +551,10 @@ namespace game
                     if(!button->is_pressed_callback_exist())
                     {
                         button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
-                            pop_current_dialog();
-                            ui_menus_helper::hide_customization_ui();
+                            if (ui_dialogs_helper::get_pushed_dialog())
+                            {
+                                ui_dialogs_helper::pop_dialog();
+                            }
                             if (!m_camera_follow_car.expired())
                             {
                                 const auto main_car = std::static_pointer_cast<gb::game_object_3d>(m_camera_follow_car.lock());
@@ -584,8 +579,10 @@ namespace game
                     if(!button->is_pressed_callback_exist())
                     {
                         button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
-                            pop_current_dialog();
-                            ui_menus_helper::hide_customization_ui();
+                            if (ui_dialogs_helper::get_pushed_dialog())
+                            {
+                                ui_dialogs_helper::pop_dialog();
+                            }
                             if (!m_camera_follow_car.expired())
                             {
                                 const auto main_car = std::static_pointer_cast<gb::game_object_3d>(m_camera_follow_car.lock());
@@ -610,9 +607,21 @@ namespace game
                     if(!button->is_pressed_callback_exist())
                     {
                         button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
-                            pop_current_dialog();
-                            ui_menus_helper::hide_customization_ui();
-                            ui_menus_helper::show_body_paint_ui();
+                            const auto pushed_dialog = ui_dialogs_helper::get_pushed_dialog();
+                            if (!pushed_dialog ||
+                                (pushed_dialog &&
+                                 pushed_dialog != ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_body_paint_dialog)))
+                            {
+                                if (pushed_dialog)
+                                {
+                                    ui_dialogs_helper::pop_dialog();
+                                }
+                                ui_dialogs_helper::push_dialog(ces_ui_interaction_component::e_ui::e_ui_body_paint_dialog, root);
+                            }
+                            else if (pushed_dialog && pushed_dialog == ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_body_paint_dialog))
+                            {
+                                ui_dialogs_helper::pop_dialog();
+                            }
                         });
                     }
                 }
@@ -624,9 +633,21 @@ namespace game
                     if(!button->is_pressed_callback_exist())
                     {
                         button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
-                            pop_current_dialog();
-                            ui_menus_helper::hide_customization_ui();
-                            ui_menus_helper::show_windshield_paint_ui();
+                            const auto pushed_dialog = ui_dialogs_helper::get_pushed_dialog();
+                            if (!pushed_dialog ||
+                                (pushed_dialog &&
+                                 pushed_dialog != ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_windshield_paint_dialog)))
+                            {
+                                if (pushed_dialog)
+                                {
+                                    ui_dialogs_helper::pop_dialog();
+                                }
+                                ui_dialogs_helper::push_dialog(ces_ui_interaction_component::e_ui::e_ui_windshield_paint_dialog, root);
+                            }
+                            else if (pushed_dialog && pushed_dialog == ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_windshield_paint_dialog))
+                            {
+                                ui_dialogs_helper::pop_dialog();
+                            }
                         });
                     }
                 }
@@ -638,9 +659,21 @@ namespace game
                     if(!button->is_pressed_callback_exist())
                     {
                         button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
-                            pop_current_dialog();
-                            ui_menus_helper::hide_customization_ui();
-                            ui_menus_helper::show_upgrade_performance_ui();
+                            const auto pushed_dialog = ui_dialogs_helper::get_pushed_dialog();
+                            if (!pushed_dialog ||
+                                (pushed_dialog &&
+                                 pushed_dialog != ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_performance_upgrade_dialog)))
+                            {
+                                if (pushed_dialog)
+                                {
+                                    ui_dialogs_helper::pop_dialog();
+                                }
+                                ui_dialogs_helper::push_dialog(ces_ui_interaction_component::e_ui::e_ui_performance_upgrade_dialog, root);
+                            }
+                            else if (pushed_dialog && pushed_dialog == ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_performance_upgrade_dialog))
+                            {
+                                ui_dialogs_helper::pop_dialog();
+                            }
                         });
                     }
                 }
@@ -652,11 +685,6 @@ namespace game
                 }
                     break;
                     
-                case ces_ui_interaction_component::e_ui::e_ui_levels_list_dialog:
-                {
-                    m_levels_list_dialog = entity;
-                }
-                    break;
                     
                 case ces_ui_interaction_component::e_ui::e_ui_cars_list_dialog:
                 {
@@ -674,7 +702,11 @@ namespace game
                     if(!button->is_pressed_callback_exist())
                     {
                         button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
-                            pop_current_dialog();
+                            
+                            if (ui_dialogs_helper::get_pushed_dialog())
+                            {
+                                ui_dialogs_helper::pop_dialog();
+                            }
                             
                             const auto levels_database_component = root->get_component<ces_levels_database_component>();
                             const auto levels = levels_database_component->get_all_levels();
@@ -714,7 +746,11 @@ namespace game
                     if(!button->is_pressed_callback_exist())
                     {
                         button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
-                            pop_current_dialog();
+                            
+                            if (ui_dialogs_helper::get_pushed_dialog())
+                            {
+                                ui_dialogs_helper::pop_dialog();
+                            }
                             
                             const auto levels_database_component = root->get_component<ces_levels_database_component>();
                             const auto levels = levels_database_component->get_all_levels();
@@ -806,8 +842,11 @@ namespace game
                     if(!button->is_pressed_callback_exist())
                     {
                         button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
-                            pop_current_dialog();
-                            push_unlock_car_dialog(root);
+                            if (ui_dialogs_helper::get_pushed_dialog())
+                            {
+                                ui_dialogs_helper::pop_dialog();
+                            }
+                            ui_dialogs_helper::push_dialog(ces_ui_interaction_component::e_ui::e_ui_unlock_car_dialog, root);
                         });
                     }
                 }
@@ -874,55 +913,37 @@ namespace game
                     if(!button->is_pressed_callback_exist())
                     {
                         button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
-                            if (m_current_pushed_dialog.expired() ||
-                                (!m_current_pushed_dialog.expired() &&
-                                 m_current_pushed_dialog.lock() != ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_shop_dialog)))
+                            const auto pushed_dialog = ui_dialogs_helper::get_pushed_dialog();
+                            if (!pushed_dialog ||
+                                (pushed_dialog &&
+                                 pushed_dialog != ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_shop_dialog)))
                             {
-                                pop_current_dialog();
-                                push_shop_dialog(root);
-                                const auto career_label = ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_career_label);
-                                if (career_label)
+                                if (pushed_dialog)
                                 {
-                                    career_label->visible = false;
+                                    ui_dialogs_helper::pop_dialog();
                                 }
-                                
-                                const auto garage_label = ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_garage_label);
-                                if (garage_label)
-                                {
-                                    garage_label->visible = false;
-                                }
-                                
-                                const auto shop_label = ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_shop_label);
-                                if (shop_label)
-                                {
-                                    shop_label->visible = false;
-                                }
+                                ui_dialogs_helper::push_dialog(ces_ui_interaction_component::e_ui::e_ui_shop_dialog, root);
                             }
-                            else if (!m_current_pushed_dialog.expired() && m_current_pushed_dialog.lock() == ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_shop_dialog))
+                            else if (pushed_dialog && pushed_dialog == ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_shop_dialog))
                             {
-                                pop_current_dialog();
-                                const auto career_label = ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_career_label);
-                                if (career_label)
-                                {
-                                    career_label->visible = true;
-                                }
-                                
-                                const auto garage_label = ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_garage_label);
-                                if (garage_label)
-                                {
-                                    garage_label->visible = true;
-                                }
-                                
-                                const auto shop_label = ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_shop_label);
-                                if (shop_label)
-                                {
-                                    shop_label->visible = true;
-                                }
+                                ui_dialogs_helper::pop_dialog();
                             }
                         });
                     }
                 }
                     break;
+                
+                case ces_ui_interaction_component::e_ui::e_ui_leaderboard_button:
+                {
+                    const auto button = std::static_pointer_cast<gb::ui::image_button>(entity);
+                    if(!button->is_pressed_callback_exist())
+                    {
+                        button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                            game_center_provier::shared_instance()->open_drifters_leaderboard();
+                        });
+                    }
+                }
+                break;
                     
                 case ces_ui_interaction_component::e_ui::e_ui_facebook_button:
                 {
@@ -946,8 +967,11 @@ namespace game
                     if(!button->is_pressed_callback_exist())
                     {
                         button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
-                            pop_current_dialog();
-                            push_quit_game_dialog(root);
+                            if (ui_dialogs_helper::get_pushed_dialog())
+                            {
+                                ui_dialogs_helper::pop_dialog();
+                            }
+                            ui_dialogs_helper::push_dialog(ces_ui_interaction_component::e_ui::e_ui_quit_game_dialog, root);
                         });
                     }
                 }
@@ -1140,22 +1164,18 @@ namespace game
                                     const auto upgrade_price = calculate_upgrades_price(root);
                                     if (cash_amount < upgrade_price)
                                     {
-                                        pop_current_dialog();
-                                        push_cash_shop_dialog(root);
+                                        if (ui_dialogs_helper::get_pushed_dialog())
+                                        {
+                                            ui_dialogs_helper::pop_dialog();
+                                        }
+                                        ui_dialogs_helper::push_dialog(ces_ui_interaction_component::e_ui::e_ui_cash_shop_dialog, root);
                                     }
                                     else
                                     {
+                                        apply_car_upgrades(root);
                                         car_descriptor_component->get_car_upgrade()->apply(car_descriptor_component->get_car_upgrade_cache());
                                         user_database_component->dec_cash(1, upgrade_price);
-                                        
-                                        const auto cash_label = ui_controls_helper::get_control_as<gb::ui::textfield>(ces_ui_interaction_component::e_ui::e_ui_cash_label);
-                                        if (cash_label)
-                                        {
-                                            std::string cash_value = "CASH: ";
-                                            cash_value.append(std::to_string(user_database_component->get_cash(1)));
-                                            cash_value.append(" $");
-                                            cash_label->set_text(cash_value);
-                                        }
+                                        ui_controls_helper::update_cash_amount(user_database_component->get_cash(1), -upgrade_price);
                                     }
                                 });
                             }
@@ -1200,8 +1220,11 @@ namespace game
                             const auto car_price = selected_car_data->get_price();
                             if (cash_amount < car_price)
                             {
-                                pop_current_dialog();
-                                push_cash_shop_dialog(root);
+                                if (ui_dialogs_helper::get_pushed_dialog())
+                                {
+                                    ui_dialogs_helper::pop_dialog();
+                                }
+                                ui_dialogs_helper::push_dialog(ces_ui_interaction_component::e_ui::e_ui_cash_shop_dialog, root);
                             }
                             else
                             {
@@ -1213,15 +1236,7 @@ namespace game
                                 garage_database_component->buy_car(1, selected_car_id);
                                 user_database_component->dec_cash(1, car_price);
                                 ui_menus_helper::fill_selected_car_in_garage_ui(root, m_camera_follow_car.lock());
-                                
-                                const auto cash_label = ui_controls_helper::get_control_as<gb::ui::textfield>(ces_ui_interaction_component::e_ui::e_ui_cash_label);
-                                if (cash_label)
-                                {
-                                    std::string cash_value = "CASH: ";
-                                    cash_value.append(std::to_string(user_database_component->get_cash(1)));
-                                    cash_value.append(" $");
-                                    cash_label->set_text(cash_value);
-                                }
+                                ui_controls_helper::update_cash_amount(user_database_component->get_cash(1), -car_price);
                             }
                         });
                     }
@@ -1393,8 +1408,11 @@ namespace game
                     if(!button->is_pressed_callback_exist())
                     {
                         button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
-                            pop_current_dialog();
-                            push_cash_shop_dialog(root);
+                            if (ui_dialogs_helper::get_pushed_dialog())
+                            {
+                                ui_dialogs_helper::pop_dialog();
+                            }
+                            ui_dialogs_helper::push_dialog(ces_ui_interaction_component::e_ui::e_ui_cash_shop_dialog, root);
                         });
                     }
                 }
@@ -1442,88 +1460,6 @@ namespace game
             m_current_pushed_dialog.reset();
         }
         ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_screen_overlay)->visible = false;
-    }
-    
-    void ces_ui_interaction_system::push_levels_list_dialog(const gb::ces_entity_shared_ptr& root)
-    {
-        const auto levels_database_component = root->get_component<ces_levels_database_component>();
-        const auto levels = levels_database_component->get_all_levels();
-        m_levels_list_dialog.lock()->visible = true;
-        m_current_pushed_dialog = m_levels_list_dialog.lock();
-        
-        const auto levels_list_table_view = std::static_pointer_cast<gb::ui::table_view>(std::static_pointer_cast<gb::ui::dialog>(m_levels_list_dialog.lock())->get_control(ces_ui_interaction_component::k_levels_list_dialog_levels_table));
-        
-        std::vector<gb::ui::table_view_cell_data_shared_ptr> data;
-        for (i32 i = 1; i <= levels.size(); ++i)
-        {
-            auto level_data_it = levels.find(i);
-            if (level_data_it != levels.end())
-            {
-                auto level_cell_data = std::make_shared<ui::levels_list_table_view_cell_data>();
-                level_cell_data->id = level_data_it->second->get_id();
-                bool is_locked = !level_data_it->second->get_is_openned();
-                level_cell_data->is_locked = is_locked;
-                bool is_passed = level_data_it->second->get_is_passed();
-                level_cell_data->is_passed = is_passed;
-                i32 stars_count = 0;
-                if (level_data_it->second->get_is_star_1_received())
-                {
-                    stars_count++;
-                }
-                if (level_data_it->second->get_is_star_2_received())
-                {
-                    stars_count++;
-                }
-                if (level_data_it->second->get_is_star_3_received())
-                {
-                    stars_count++;
-                }
-                level_cell_data->stars_count = stars_count;
-                level_cell_data->drift_time = level_data_it->second->get_drift_time();
-                data.push_back(level_cell_data);
-            }
-        }
-        levels_list_table_view->set_data_source(data);
-        levels_list_table_view->set_on_get_cell_callback([=](i32 index, const gb::ui::table_view_cell_data_shared_ptr& data, const gb::ces_entity_shared_ptr& table_view) {
-            gb::ui::table_view_cell_shared_ptr cell = nullptr;
-            cell = std::static_pointer_cast<gb::ui::table_view>(table_view)->reuse_cell("level_cell", index);
-            if(!cell)
-            {
-                cell = gb::ces_entity::construct<ui::levels_list_table_view_cell>(std::static_pointer_cast<gb::ui::table_view>(table_view)->get_fabricator(),
-                                                                                                       index, "level_cell");
-                
-                cell->create();
-                cell->size = glm::vec2(256.f, 92.f);
-                
-                std::static_pointer_cast<ui::levels_list_table_view_cell>(cell)->set_start_level_button_callback_t([=](i32 index) {
-                    auto data_source = std::static_pointer_cast<gb::ui::table_view>(table_view)->get_data_source();
-                    auto data = data_source.at(index);
-                    const auto level_cell_data = std::static_pointer_cast<ui::levels_list_table_view_cell_data>(data);
-                    
-                    levels_database_component->set_playing_level_id(level_cell_data->id);
-                    m_scene.lock()->get_component<ces_scene_state_automat_component>()->mode = ces_scene_state_automat_component::e_mode_in_game;
-                    m_scene.lock()->get_component<ces_scene_state_automat_component>()->state = ces_scene_state_automat_component::e_state_should_preload;
-                    pop_current_dialog();
-                });
-            }
-            
-            const auto level_cell_data = std::static_pointer_cast<ui::levels_list_table_view_cell_data>(data);
-            std::static_pointer_cast<ui::levels_list_table_view_cell>(cell)->set_index(level_cell_data->id);
-            bool is_locked = level_cell_data->is_locked;
-            std::static_pointer_cast<ui::levels_list_table_view_cell>(cell)->set_is_locked(is_locked);
-            bool is_passed = level_cell_data->is_passed;
-            std::static_pointer_cast<ui::levels_list_table_view_cell>(cell)->set_is_passed(is_passed);
-            i32 stars_count = level_cell_data->stars_count;
-            std::static_pointer_cast<ui::levels_list_table_view_cell>(cell)->set_stars_count(stars_count);
-            f32 drift_time = level_cell_data->drift_time;
-            std::static_pointer_cast<ui::levels_list_table_view_cell>(cell)->set_drift_time(drift_time);
-    
-            return cell;
-        });
-        levels_list_table_view->set_on_get_table_cell_height_callback([](i32 index) {
-            return 96.f;
-        });
-        levels_list_table_view->reload_data();
     }
     
     void ces_ui_interaction_system::push_pause_menu_dialog(const gb::ces_entity_shared_ptr& root)
@@ -1639,36 +1575,6 @@ namespace game
                 pop_current_dialog();
                 push_pause_menu_dialog(root);
             });
-        }
-    }
-    
-    void ces_ui_interaction_system::push_quit_game_dialog(const gb::ces_entity_shared_ptr& root)
-    {
-        const auto quit_game_dialog = ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_quit_game_dialog);
-        if (quit_game_dialog)
-        {
-            quit_game_dialog->visible = true;
-            m_current_pushed_dialog = quit_game_dialog;
-            
-            ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_screen_overlay)->visible = true;
-            
-            const auto yes_button = std::static_pointer_cast<gb::ui::image_button>(std::static_pointer_cast<gb::ui::dialog>(quit_game_dialog)->get_control(ces_ui_interaction_component::k_quit_dialog_yes_button));
-            
-            if(!yes_button->is_pressed_callback_exist())
-            {
-                yes_button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
-                    exit(0);
-                });
-            }
-            
-            const auto no_button = std::static_pointer_cast<gb::ui::image_button>(std::static_pointer_cast<gb::ui::dialog>(quit_game_dialog)->get_control(ces_ui_interaction_component::k_quit_dialog_no_button));
-            
-            if(!no_button->is_pressed_callback_exist())
-            {
-                no_button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
-                    pop_current_dialog();
-                });
-            }
         }
     }
     
@@ -1819,7 +1725,6 @@ namespace game
                 levels_database_component->set_drift_time(levels_database_component->get_playing_level_id(), drift_time);
             }
             
-            
             f32 round_time = level_descriptor_component->round_time;
             if (seconds >= round_time * glm::mix(.3f, .6f, complexity))
             {
@@ -1847,11 +1752,7 @@ namespace game
                 user_database_component->inc_ftue_step(1);
             }
             user_database_component->inc_cash(1, earn_cash);
-            
-             const auto cash_label = std::static_pointer_cast<gb::ui::textfield>(std::static_pointer_cast<gb::ui::dialog>(win_dialog)->get_control(ces_ui_interaction_component::k_win_dialog_cash_label));
-            std::string cash_value = "CASH: ";
-            cash_value.append(std::to_string(earn_cash));
-            cash_label->set_text(cash_value);
+            ui_controls_helper::update_cash_amount(user_database_component->get_cash(1), earn_cash);
             
             if (!levels_database_component->is_level_passed(levels_database_component->get_playing_level_id()))
             {
@@ -1886,6 +1787,19 @@ namespace game
             car_parts_component->get_part(ces_car_parts_component::parts::k_ui_rpm_value_label)->visible = false;
             car_parts_component->get_part(ces_car_parts_component::parts::k_ui_direction_arrow)->visible = false;
         }
+        
+        const auto levels_database_component = root->get_component<ces_levels_database_component>();
+        const auto levels = levels_database_component->get_all_levels();
+        i32 sum_drift_seconds = 0;
+        for (i32 i = 1; i <= levels.size(); ++i)
+        {
+            auto level_data_it = levels.find(i);
+            if (level_data_it != levels.end())
+            {
+                sum_drift_seconds += level_data_it->second->get_drift_time() / 1000;
+            }
+        }
+        game_center_provier::shared_instance()->report_drifring_score(sum_drift_seconds);
     }
     
     void ces_ui_interaction_system::push_loose_dialog(const gb::ces_entity_shared_ptr &root)
@@ -1964,18 +1878,7 @@ namespace game
             events_provider::shared_instance()->on_car_damaged(levels_database_component->get_playing_level_id(),
                                                                         levels_database_component->get_retries_count(levels_database_component->get_playing_level_id()));
         }
-        if (!m_main_car.expired())
-        {
-            const auto main_car = m_main_car.lock();
-            const auto car_parts_component = main_car->get_component<ces_car_parts_component>();
-            car_parts_component->get_part(ces_car_parts_component::parts::k_ui_speed_label)->visible = false;
-            car_parts_component->get_part(ces_car_parts_component::parts::k_ui_speed_value_label)->visible = false;
-            car_parts_component->get_part(ces_car_parts_component::parts::k_ui_drift_label)->visible = false;
-            car_parts_component->get_part(ces_car_parts_component::parts::k_ui_drift_value_label)->visible = false;
-            car_parts_component->get_part(ces_car_parts_component::parts::k_ui_rpm_label)->visible = false;
-            car_parts_component->get_part(ces_car_parts_component::parts::k_ui_rpm_value_label)->visible = false;
-            car_parts_component->get_part(ces_car_parts_component::parts::k_ui_direction_arrow)->visible = false;
-        }
+        
     }
     
     void ces_ui_interaction_system::push_full_tickets_dialog(const gb::ces_entity_shared_ptr& root)
@@ -1996,36 +1899,6 @@ namespace game
                     pop_current_dialog();
                 });
             }
-        }
-    }
-    
-    void ces_ui_interaction_system::push_unlock_car_dialog(const gb::ces_entity_shared_ptr& root)
-    {
-        const auto unlock_car_dialog = ui_controls_helper::get_control_as<gb::ces_entity>(ces_ui_interaction_component::e_ui::e_ui_unlock_car_dialog);
-        if (unlock_car_dialog)
-        {
-            unlock_car_dialog->visible = true;
-            m_current_pushed_dialog = unlock_car_dialog;
-            
-            ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_screen_overlay)->visible = true;
-            
-            const auto ok_button = std::static_pointer_cast<gb::ui::image_button>(std::static_pointer_cast<gb::ui::dialog>(unlock_car_dialog)->get_control(ces_ui_interaction_component::k_car_unlock_dialog_ok_button));
-            
-            if(!ok_button->is_pressed_callback_exist())
-            {
-                ok_button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
-                    pop_current_dialog();
-                });
-            }
-            
-            const auto garage_database_component = root->get_component<ces_garage_database_component>();
-            auto selected_car_id = garage_database_component->get_previewed_car_id();
-            i32 unlocked_at_rank = garage_database_component->get_car_unlocked_rank(selected_car_id);
-            std::stringstream message_str_stream;
-            message_str_stream<<"CAR WILL BE UNLOCKED AT RANK "<<unlocked_at_rank;
-            
-            const auto label = std::static_pointer_cast<gb::ui::textfield>(std::static_pointer_cast<gb::ui::dialog>(unlock_car_dialog)->get_control(ces_ui_interaction_component::k_car_unlock_dialog_label));
-            label->set_text(message_str_stream.str());
         }
     }
     
@@ -2197,201 +2070,6 @@ namespace game
         car_list_table_view->update_data();
     }
     
-    void ces_ui_interaction_system::push_shop_dialog(const gb::ces_entity_shared_ptr& root)
-    {
-        const auto shop_dialog = ui_controls_helper::get_control_as<gb::ces_entity>(ces_ui_interaction_component::e_ui::e_ui_shop_dialog);
-        if (shop_dialog)
-        {
-            shop_dialog->visible = true;
-            m_current_pushed_dialog = shop_dialog;
-            
-            const auto shop_table_view = std::static_pointer_cast<gb::ui::table_view>(std::static_pointer_cast<gb::ui::dialog>(shop_dialog)->get_control(ces_ui_interaction_component::k_shop_dialog_table_view));
-            
-            std::vector<gb::ui::table_view_cell_data_shared_ptr> data;
-            auto shop_item_cell_data = std::make_shared<ui::shop_table_view_cell_data>();
-            shop_item_cell_data->id = 1;
-            shop_item_cell_data->product_name = "RESTORE PRODUCTS";
-            shop_item_cell_data->product_description = "WILL RESTORE THE PREVIOUSLY BOUGHT PRODUCTS";
-            shop_item_cell_data->product_price = 0;
-            shop_item_cell_data->is_bought = false;
-            shop_item_cell_data->is_restore = true;
-            data.push_back(shop_item_cell_data);
-            
-            shop_item_cell_data = std::make_shared<ui::shop_table_view_cell_data>();
-            shop_item_cell_data->id = 2;
-            shop_item_cell_data->product_name = "NO ADS";
-            shop_item_cell_data->product_description = "WILL REMOVE BANNER AND INTERSTITIAL VIDEOS";
-            shop_item_cell_data->product_price = 0.99;
-            shop_item_cell_data->is_bought = false;
-            shop_item_cell_data->is_restore = false;
-            data.push_back(shop_item_cell_data);
-
-            shop_table_view->set_data_source(data);
-            shop_table_view->set_on_get_cell_callback([=](i32 index, const gb::ui::table_view_cell_data_shared_ptr& data, const gb::ces_entity_shared_ptr& table_view) {
-                gb::ui::table_view_cell_shared_ptr cell = nullptr;
-                cell = std::static_pointer_cast<gb::ui::table_view>(table_view)->reuse_cell("shop_cell", index);
-                if(!cell)
-                {
-                    cell = gb::ces_entity::construct<ui::shop_table_view_cell>(std::static_pointer_cast<gb::ui::table_view>(table_view)->get_fabricator(),
-                                                                                      index, "shop_cell");
-                    
-                    cell->create();
-                    cell->size = glm::vec2(256.f, 92.f);
-                    
-                    std::static_pointer_cast<ui::shop_table_view_cell>(cell)->set_buy_product_button_callback([=](i32 index) {
-                        auto data_source = std::static_pointer_cast<gb::ui::table_view>(table_view)->get_data_source();
-                        auto data = data_source.at(index);
-                        const auto product_item_data = std::static_pointer_cast<ui::shop_table_view_cell_data>(data);
-                        store_provider::shared_instance()->buy_no_ads_product();
-                        pop_current_dialog();
-                    });
-                    
-                    std::static_pointer_cast<ui::shop_table_view_cell>(cell)->set_restore_products_button_callback([=](i32 index) {
-                        auto data_source = std::static_pointer_cast<gb::ui::table_view>(table_view)->get_data_source();
-                        auto data = data_source.at(index);
-                        const auto product_item_data = std::static_pointer_cast<ui::shop_table_view_cell_data>(data);
-                        store_provider::shared_instance()->restore_products();
-                        pop_current_dialog();
-                    });
-                }
-                
-                const auto product_item_data = std::static_pointer_cast<ui::shop_table_view_cell_data>(data);
-                std::string name = product_item_data->product_name;
-                std::static_pointer_cast<ui::shop_table_view_cell>(cell)->set_product_name(name);
-                std::string description = product_item_data->product_description;
-                std::static_pointer_cast<ui::shop_table_view_cell>(cell)->set_product_description(description);
-                f32 price = product_item_data->product_price;
-                std::static_pointer_cast<ui::shop_table_view_cell>(cell)->set_product_price(price);
-                bool is_bought = product_item_data->is_bought;
-                std::static_pointer_cast<ui::shop_table_view_cell>(cell)->set_is_bought(is_bought);
-                bool is_restore = product_item_data->is_restore;
-                std::static_pointer_cast<ui::shop_table_view_cell>(cell)->set_is_restore(is_restore);
-                
-                return cell;
-            });
-            shop_table_view->set_on_get_table_cell_height_callback([](i32 index) {
-                return 96.f;
-            });
-            shop_table_view->reload_data();
-        }
-    }
-    
-    void ces_ui_interaction_system::push_cash_shop_dialog(const gb::ces_entity_shared_ptr& root)
-    {
-        const auto dialog = ui_controls_helper::get_control_as<gb::ces_entity>(ces_ui_interaction_component::e_ui::e_ui_cash_shop_dialog);
-        if (dialog)
-        {
-            dialog->visible = true;
-            m_current_pushed_dialog = dialog;
-            ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_screen_overlay)->visible = true;
-            ui_controls_helper::disable_all_and_focus_on({ces_ui_interaction_component::e_ui::e_ui_cash_shop_dialog}, false);
-            
-            const auto table_view = std::static_pointer_cast<gb::ui::table_view>(std::static_pointer_cast<gb::ui::dialog>(dialog)->get_control(ces_ui_interaction_component::k_cash_shop_dialog_table_view));
-            
-            std::vector<gb::ui::table_view_cell_data_shared_ptr> data;
-            auto shop_item_cell_data = std::make_shared<ui::shop_table_view_cell_data>();
-            shop_item_cell_data->id = store_provider::k_cash_pack_1_product_id;
-            shop_item_cell_data->product_name = "SMALL   CASH   PACK";
-            shop_item_cell_data->product_description = "WILL ADD 3000 $";
-            shop_item_cell_data->product_price = .99f;
-            shop_item_cell_data->is_bought = false;
-            shop_item_cell_data->is_restore = false;
-            data.push_back(shop_item_cell_data);
-            
-            shop_item_cell_data = std::make_shared<ui::shop_table_view_cell_data>();
-            shop_item_cell_data->id = store_provider::k_cash_pack_2_product_id;
-            shop_item_cell_data->product_name = "MEDIUM   CASH   PACK";
-            shop_item_cell_data->product_description = "WILL ADD 10000 $";
-            shop_item_cell_data->product_price = 2.99;
-            shop_item_cell_data->is_bought = false;
-            shop_item_cell_data->is_restore = false;
-            data.push_back(shop_item_cell_data);
-            
-            shop_item_cell_data = std::make_shared<ui::shop_table_view_cell_data>();
-            shop_item_cell_data->id = store_provider::k_cash_pack_3_product_id;
-            shop_item_cell_data->product_name = "BIG   CASH   PACK";
-            shop_item_cell_data->product_description = "WILL ADD 20000 $";
-            shop_item_cell_data->product_price = 4.99;
-            shop_item_cell_data->is_bought = false;
-            shop_item_cell_data->is_restore = false;
-            data.push_back(shop_item_cell_data);
-            
-            table_view->set_data_source(data);
-            table_view->set_on_get_cell_callback([=](i32 index, const gb::ui::table_view_cell_data_shared_ptr& data, const gb::ces_entity_shared_ptr& table_view) {
-                gb::ui::table_view_cell_shared_ptr cell = nullptr;
-                cell = std::static_pointer_cast<gb::ui::table_view>(table_view)->reuse_cell("shop_cell", index);
-                if(!cell)
-                {
-                    cell = gb::ces_entity::construct<ui::shop_table_view_cell>(std::static_pointer_cast<gb::ui::table_view>(table_view)->get_fabricator(),
-                                                                               index, "shop_cell");
-                    
-                    cell->create();
-                    cell->size = glm::vec2(256.f, 92.f);
-                    
-                    std::static_pointer_cast<ui::shop_table_view_cell>(cell)->set_buy_product_button_callback([=](i32 index) {
-                        auto data_source = std::static_pointer_cast<gb::ui::table_view>(table_view)->get_data_source();
-                        auto data = data_source.at(index);
-                        const auto product_item_data = std::static_pointer_cast<ui::shop_table_view_cell_data>(data);
-                        if (product_item_data->id == store_provider::k_cash_pack_1_product_id)
-                        {
-                            store_provider::shared_instance()->buy_small_cash_pack([=](){
-                                const auto user_database_component = root->get_component<ces_user_database_component>();
-                                user_database_component->inc_cash(1, 3000);
-                            });
-                        }
-                        
-                        if (product_item_data->id == store_provider::k_cash_pack_2_product_id)
-                        {
-                            store_provider::shared_instance()->buy_medium_cash_pack([=](){
-                                const auto user_database_component = root->get_component<ces_user_database_component>();
-                                user_database_component->inc_cash(1, 10000);
-                            });
-                        }
-                        
-                        if (product_item_data->id == store_provider::k_cash_pack_3_product_id)
-                        {
-                            store_provider::shared_instance()->buy_big_cash_pack([=](){
-                                const auto user_database_component = root->get_component<ces_user_database_component>();
-                                user_database_component->inc_cash(1, 20000);
-                            });
-                        }
-                        
-                        pop_current_dialog();
-                        ui_controls_helper::enable_all_and_unfocus();
-                    });
-                }
-                
-                const auto product_item_data = std::static_pointer_cast<ui::shop_table_view_cell_data>(data);
-                std::string name = product_item_data->product_name;
-                std::static_pointer_cast<ui::shop_table_view_cell>(cell)->set_product_name(name);
-                std::string description = product_item_data->product_description;
-                std::static_pointer_cast<ui::shop_table_view_cell>(cell)->set_product_description(description);
-                f32 price = product_item_data->product_price;
-                std::static_pointer_cast<ui::shop_table_view_cell>(cell)->set_product_price(price);
-                bool is_bought = product_item_data->is_bought;
-                std::static_pointer_cast<ui::shop_table_view_cell>(cell)->set_is_bought(is_bought);
-                bool is_restore = product_item_data->is_restore;
-                std::static_pointer_cast<ui::shop_table_view_cell>(cell)->set_is_restore(is_restore);
-                
-                return cell;
-            });
-            table_view->set_on_get_table_cell_height_callback([](i32 index) {
-                return 96.f;
-            });
-            table_view->reload_data();
-            
-            const auto ok_button = std::static_pointer_cast<gb::ui::image_button>(std::static_pointer_cast<gb::ui::dialog>(dialog)->get_control(ces_ui_interaction_component::k_cash_shop_ok_button));
-            
-            if(ok_button && !ok_button->is_pressed_callback_exist())
-            {
-                ok_button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
-                    pop_current_dialog();
-                    ui_controls_helper::enable_all_and_unfocus();
-                });
-            }
-        }
-    }
-    
     void ces_ui_interaction_system::on_dragging(const gb::ces_entity_shared_ptr& entity, const glm::vec2& delta)
     {
 
@@ -2455,5 +2133,42 @@ namespace game
             }
         }
         return result;
+    }
+    
+    void ces_ui_interaction_system::apply_car_upgrades(const gb::ces_entity_shared_ptr& root)
+    {
+        if (!m_camera_follow_car.expired())
+        {
+            const auto car_descriptor_component = m_camera_follow_car.lock()->get_component<ces_car_descriptor_component>();
+            const auto garage_database_component = root->get_component<ces_garage_database_component>();
+            const auto selected_car_id = garage_database_component->get_previewed_car_id();
+            const auto car_upgrade = car_descriptor_component->get_car_upgrade();
+            const auto car_upgrade_cache = car_descriptor_component->get_car_upgrade_cache();
+            
+            if (car_upgrade->m_car_body_color_id != car_upgrade_cache->m_car_body_color_id)
+            {
+                garage_database_component->set_car_body_color_id(1, selected_car_id, car_upgrade_cache->m_car_body_color_id);
+            }
+            
+            if (car_upgrade->m_car_windshield_color_id != car_upgrade_cache->m_car_windshield_color_id)
+            {
+                garage_database_component->set_car_windshield_color_id(1, selected_car_id, car_upgrade_cache->m_car_windshield_color_id);
+            }
+            
+            if (car_upgrade->m_car_speed_upgrade_value != car_upgrade_cache->m_car_speed_upgrade_value)
+            {
+                garage_database_component->upgrade_car_speed(1, selected_car_id, car_upgrade_cache->m_car_speed_upgrade_value - car_upgrade->m_car_speed_upgrade_value);
+            }
+            
+            if (car_upgrade->m_car_handling_upgrade_value != car_upgrade_cache->m_car_handling_upgrade_value)
+            {
+                garage_database_component->upgrade_car_speed(1, selected_car_id, car_upgrade_cache->m_car_handling_upgrade_value - car_upgrade->m_car_handling_upgrade_value);
+            }
+            
+            if (car_upgrade->m_car_rigidity_upgrade_value != car_upgrade_cache->m_car_rigidity_upgrade_value)
+            {
+                garage_database_component->upgrade_car_speed(1, selected_car_id, car_upgrade_cache->m_car_rigidity_upgrade_value - car_upgrade->m_car_rigidity_upgrade_value);
+            }
+        }
     }
 }

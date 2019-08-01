@@ -44,6 +44,7 @@ namespace game
         static void colorize_ui_control(const gb::ui::textfield_shared_ptr& control);
         static void colorize_ui_control(const gb::ui::image_button_shared_ptr& control);
         static void colorize_ui_control(const gb::ui::button_shared_ptr& control);
+        static void colorize_ui_control(const gb::ui::dialog_shared_ptr& control);
         static void add_ui_interaction_component(const gb::ces_entity_shared_ptr& control, ces_ui_interaction_component::e_ui ui);
         
     protected:
@@ -66,7 +67,7 @@ namespace game
         gb::game_object_2d_shared_ptr create_back_from_garage_button(const std::string& filename);
         gb::game_object_2d_shared_ptr create_next_car_in_garage_button(const std::string& filename);
         gb::game_object_2d_shared_ptr create_prev_car_in_garage_button(const std::string& filename);
-        gb::game_object_2d_shared_ptr create_levels_list_dialog(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_career_dialog(const std::string& filename);
         gb::game_object_2d_shared_ptr create_countdown_label(const std::string& filename);
         gb::game_object_2d_shared_ptr create_car_skin_1_button(const std::string& filename);
         gb::game_object_2d_shared_ptr create_car_skin_2_button(const std::string& filename);
@@ -85,7 +86,6 @@ namespace game
 #if defined(__IOS__)
         
         gb::game_object_2d_shared_ptr create_tickets_label(const std::string& filename);
-        gb::game_object_2d_shared_ptr create_open_shop_button(const std::string& filename);
         
 #endif
         
@@ -106,6 +106,7 @@ namespace game
         gb::game_object_2d_shared_ptr create_not_enough_tickets_dialog(const std::string& filename);
         gb::game_object_2d_shared_ptr create_shop_dialog(const std::string& filename);
         gb::game_object_2d_shared_ptr create_cash_shop_dialog(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_open_shop_button(const std::string& filename);
         gb::game_object_2d_shared_ptr create_screen_overlay(const std::string& filename);
         
 #if defined(__FACEBOOK_LOGIN__)
@@ -127,19 +128,10 @@ namespace game
         gb::game_object_2d_shared_ptr create_career_label(const std::string& filename);
         gb::game_object_2d_shared_ptr create_garage_label(const std::string& filename);
         gb::game_object_2d_shared_ptr create_back_from_garage_label(const std::string& filename);
-        
-#if defined(__IOS__)
-        
+        gb::game_object_2d_shared_ptr create_zoom_label(const std::string& filename);
         gb::game_object_2d_shared_ptr create_shop_label(const std::string& filename);
         
-#endif
-        
         gb::game_object_2d_shared_ptr create_garage_preview_mode_button(const std::string& filename);
-        
-        gb::game_object_2d_shared_ptr create_apply_body_color_1_button(const std::string& filename);
-        gb::game_object_2d_shared_ptr create_apply_body_color_2_button(const std::string& filename);
-        gb::game_object_2d_shared_ptr create_apply_body_color_3_button(const std::string& filename);
-        gb::game_object_2d_shared_ptr create_apply_body_color_4_button(const std::string& filename);
         
         gb::game_object_2d_shared_ptr create_apply_windows_color_1_button(const std::string& filename);
         gb::game_object_2d_shared_ptr create_apply_windows_color_2_button(const std::string& filename);
@@ -151,21 +143,16 @@ namespace game
         gb::game_object_2d_shared_ptr create_body_paint_label(const std::string& filename);
         gb::game_object_2d_shared_ptr create_windshield_paint_label(const std::string& filename);
         gb::game_object_2d_shared_ptr create_performance_label(const std::string& filename);
-        gb::game_object_2d_shared_ptr create_upgrade_speed_label(const std::string& filename);
-        gb::game_object_2d_shared_ptr create_upgrade_speed_progress_bar(const std::string& filename);
-        gb::game_object_2d_shared_ptr create_upgrade_speed_plus_button(const std::string& filename);
-        gb::game_object_2d_shared_ptr create_upgrade_speed_reset_button(const std::string& filename);
-        gb::game_object_2d_shared_ptr create_upgrade_handling_label(const std::string& filename);
-        gb::game_object_2d_shared_ptr create_upgrade_handling_progress_bar(const std::string& filename);
-        gb::game_object_2d_shared_ptr create_upgrade_handling_plus_button(const std::string& filename);
-        gb::game_object_2d_shared_ptr create_upgrade_handling_reset_button(const std::string& filename);
-        gb::game_object_2d_shared_ptr create_upgrade_rigidity_label(const std::string& filename);
-        gb::game_object_2d_shared_ptr create_upgrade_rigidity_progress_bar(const std::string& filename);
-        gb::game_object_2d_shared_ptr create_upgrade_rigidity_plus_button(const std::string& filename);
-        gb::game_object_2d_shared_ptr create_upgrade_durability_reset_button(const std::string& filename);
         
         gb::game_object_2d_shared_ptr create_buy_upgrade_button(const std::string& filename);
         gb::game_object_2d_shared_ptr create_buy_upgrade_label(const std::string& filename);
+        
+        gb::game_object_2d_shared_ptr create_leaderboard_button(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_leaderboard_label(const std::string& filename);
+        
+        gb::game_object_2d_shared_ptr create_body_paint_dialog(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_windshield_paint_dialog(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_performance_upgrade_dialog(const std::string& filename);
     };
 };
 
