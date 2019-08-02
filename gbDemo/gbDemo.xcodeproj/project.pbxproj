@@ -765,6 +765,178 @@
 		92BF4F5D2200583900E95AD7 /* material.road_corner_t.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92BF4F562200583800E95AD7 /* material.road_corner_t.base.xml */; };
 		92BF4F5E2200583900E95AD7 /* material.road_corner_t.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92BF4F562200583800E95AD7 /* material.road_corner_t.base.xml */; };
 		92BF4F5F2200583900E95AD7 /* material.road_corner_t.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92BF4F562200583800E95AD7 /* material.road_corner_t.base.xml */; };
+		92BFF77622F3145100B2C435 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92BFF77522F3145000B2C435 /* StoreKit.framework */; };
+		92BFF78C22F43E8200B2C435 /* retro_car_05_wheel_r.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF77722F43E7A00B2C435 /* retro_car_05_wheel_r.GB3DMESH */; };
+		92BFF78D22F43E8200B2C435 /* retro_car_05_wheel_r.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF77722F43E7A00B2C435 /* retro_car_05_wheel_r.GB3DMESH */; };
+		92BFF78E22F43E8200B2C435 /* retro_car_05_wheel_r.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF77722F43E7A00B2C435 /* retro_car_05_wheel_r.GB3DMESH */; };
+		92BFF78F22F43E8200B2C435 /* retro_car_05_wheel_l.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF77822F43E7A00B2C435 /* retro_car_05_wheel_l.GB3DMESH */; };
+		92BFF79022F43E8200B2C435 /* retro_car_05_wheel_l.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF77822F43E7A00B2C435 /* retro_car_05_wheel_l.GB3DMESH */; };
+		92BFF79122F43E8200B2C435 /* retro_car_05_wheel_l.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF77822F43E7A00B2C435 /* retro_car_05_wheel_l.GB3DMESH */; };
+		92BFF79222F43E8200B2C435 /* retro_car_07_wheel_l.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF77922F43E7B00B2C435 /* retro_car_07_wheel_l.GB3DMESH */; };
+		92BFF79322F43E8200B2C435 /* retro_car_07_wheel_l.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF77922F43E7B00B2C435 /* retro_car_07_wheel_l.GB3DMESH */; };
+		92BFF79422F43E8200B2C435 /* retro_car_07_wheel_l.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF77922F43E7B00B2C435 /* retro_car_07_wheel_l.GB3DMESH */; };
+		92BFF79522F43E8200B2C435 /* retro_car_07.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF77A22F43E7B00B2C435 /* retro_car_07.GB3DMESH */; };
+		92BFF79622F43E8200B2C435 /* retro_car_07.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF77A22F43E7B00B2C435 /* retro_car_07.GB3DMESH */; };
+		92BFF79722F43E8200B2C435 /* retro_car_07.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF77A22F43E7B00B2C435 /* retro_car_07.GB3DMESH */; };
+		92BFF79822F43E8200B2C435 /* retro_car_08.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF77B22F43E7B00B2C435 /* retro_car_08.GB3DMESH */; };
+		92BFF79922F43E8200B2C435 /* retro_car_08.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF77B22F43E7B00B2C435 /* retro_car_08.GB3DMESH */; };
+		92BFF79A22F43E8200B2C435 /* retro_car_08.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF77B22F43E7B00B2C435 /* retro_car_08.GB3DMESH */; };
+		92BFF79B22F43E8200B2C435 /* retro_car_05.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF77C22F43E7C00B2C435 /* retro_car_05.GB3DMESH */; };
+		92BFF79C22F43E8200B2C435 /* retro_car_05.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF77C22F43E7C00B2C435 /* retro_car_05.GB3DMESH */; };
+		92BFF79D22F43E8200B2C435 /* retro_car_05.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF77C22F43E7C00B2C435 /* retro_car_05.GB3DMESH */; };
+		92BFF79E22F43E8200B2C435 /* retro_car_03.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF77D22F43E7C00B2C435 /* retro_car_03.GB3DMESH */; };
+		92BFF79F22F43E8200B2C435 /* retro_car_03.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF77D22F43E7C00B2C435 /* retro_car_03.GB3DMESH */; };
+		92BFF7A022F43E8200B2C435 /* retro_car_03.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF77D22F43E7C00B2C435 /* retro_car_03.GB3DMESH */; };
+		92BFF7A122F43E8200B2C435 /* retro_car_08_wheel_l.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF77E22F43E7D00B2C435 /* retro_car_08_wheel_l.GB3DMESH */; };
+		92BFF7A222F43E8200B2C435 /* retro_car_08_wheel_l.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF77E22F43E7D00B2C435 /* retro_car_08_wheel_l.GB3DMESH */; };
+		92BFF7A322F43E8200B2C435 /* retro_car_08_wheel_l.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF77E22F43E7D00B2C435 /* retro_car_08_wheel_l.GB3DMESH */; };
+		92BFF7A422F43E8200B2C435 /* retro_car_03_wheel_r.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF77F22F43E7D00B2C435 /* retro_car_03_wheel_r.GB3DMESH */; };
+		92BFF7A522F43E8200B2C435 /* retro_car_03_wheel_r.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF77F22F43E7D00B2C435 /* retro_car_03_wheel_r.GB3DMESH */; };
+		92BFF7A622F43E8200B2C435 /* retro_car_03_wheel_r.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF77F22F43E7D00B2C435 /* retro_car_03_wheel_r.GB3DMESH */; };
+		92BFF7A722F43E8200B2C435 /* retro_car_02_wheel_r.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF78022F43E7D00B2C435 /* retro_car_02_wheel_r.GB3DMESH */; };
+		92BFF7A822F43E8200B2C435 /* retro_car_02_wheel_r.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF78022F43E7D00B2C435 /* retro_car_02_wheel_r.GB3DMESH */; };
+		92BFF7A922F43E8200B2C435 /* retro_car_02_wheel_r.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF78022F43E7D00B2C435 /* retro_car_02_wheel_r.GB3DMESH */; };
+		92BFF7AA22F43E8200B2C435 /* retro_car_04_wheel_r.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF78122F43E7E00B2C435 /* retro_car_04_wheel_r.GB3DMESH */; };
+		92BFF7AB22F43E8200B2C435 /* retro_car_04_wheel_r.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF78122F43E7E00B2C435 /* retro_car_04_wheel_r.GB3DMESH */; };
+		92BFF7AC22F43E8200B2C435 /* retro_car_04_wheel_r.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF78122F43E7E00B2C435 /* retro_car_04_wheel_r.GB3DMESH */; };
+		92BFF7AD22F43E8200B2C435 /* retro_car_02_wheel_l.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF78222F43E7E00B2C435 /* retro_car_02_wheel_l.GB3DMESH */; };
+		92BFF7AE22F43E8200B2C435 /* retro_car_02_wheel_l.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF78222F43E7E00B2C435 /* retro_car_02_wheel_l.GB3DMESH */; };
+		92BFF7AF22F43E8200B2C435 /* retro_car_02_wheel_l.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF78222F43E7E00B2C435 /* retro_car_02_wheel_l.GB3DMESH */; };
+		92BFF7B022F43E8200B2C435 /* retro_car_06_wheel_r.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF78322F43E7E00B2C435 /* retro_car_06_wheel_r.GB3DMESH */; };
+		92BFF7B122F43E8200B2C435 /* retro_car_06_wheel_r.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF78322F43E7E00B2C435 /* retro_car_06_wheel_r.GB3DMESH */; };
+		92BFF7B222F43E8200B2C435 /* retro_car_06_wheel_r.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF78322F43E7E00B2C435 /* retro_car_06_wheel_r.GB3DMESH */; };
+		92BFF7B322F43E8200B2C435 /* retro_car_06.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF78422F43E7F00B2C435 /* retro_car_06.GB3DMESH */; };
+		92BFF7B422F43E8200B2C435 /* retro_car_06.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF78422F43E7F00B2C435 /* retro_car_06.GB3DMESH */; };
+		92BFF7B522F43E8200B2C435 /* retro_car_06.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF78422F43E7F00B2C435 /* retro_car_06.GB3DMESH */; };
+		92BFF7B622F43E8200B2C435 /* retro_car_02.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF78522F43E7F00B2C435 /* retro_car_02.GB3DMESH */; };
+		92BFF7B722F43E8200B2C435 /* retro_car_02.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF78522F43E7F00B2C435 /* retro_car_02.GB3DMESH */; };
+		92BFF7B822F43E8200B2C435 /* retro_car_02.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF78522F43E7F00B2C435 /* retro_car_02.GB3DMESH */; };
+		92BFF7B922F43E8200B2C435 /* retro_car_04_wheel_l.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF78622F43E7F00B2C435 /* retro_car_04_wheel_l.GB3DMESH */; };
+		92BFF7BA22F43E8200B2C435 /* retro_car_04_wheel_l.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF78622F43E7F00B2C435 /* retro_car_04_wheel_l.GB3DMESH */; };
+		92BFF7BB22F43E8200B2C435 /* retro_car_04_wheel_l.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF78622F43E7F00B2C435 /* retro_car_04_wheel_l.GB3DMESH */; };
+		92BFF7BC22F43E8200B2C435 /* retro_car_07_wheel_r.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF78722F43E8000B2C435 /* retro_car_07_wheel_r.GB3DMESH */; };
+		92BFF7BD22F43E8200B2C435 /* retro_car_07_wheel_r.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF78722F43E8000B2C435 /* retro_car_07_wheel_r.GB3DMESH */; };
+		92BFF7BE22F43E8200B2C435 /* retro_car_07_wheel_r.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF78722F43E8000B2C435 /* retro_car_07_wheel_r.GB3DMESH */; };
+		92BFF7BF22F43E8200B2C435 /* retro_car_08_wheel_r.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF78822F43E8000B2C435 /* retro_car_08_wheel_r.GB3DMESH */; };
+		92BFF7C022F43E8200B2C435 /* retro_car_08_wheel_r.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF78822F43E8000B2C435 /* retro_car_08_wheel_r.GB3DMESH */; };
+		92BFF7C122F43E8200B2C435 /* retro_car_08_wheel_r.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF78822F43E8000B2C435 /* retro_car_08_wheel_r.GB3DMESH */; };
+		92BFF7C222F43E8200B2C435 /* retro_car_03_wheel_l.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF78922F43E8100B2C435 /* retro_car_03_wheel_l.GB3DMESH */; };
+		92BFF7C322F43E8200B2C435 /* retro_car_03_wheel_l.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF78922F43E8100B2C435 /* retro_car_03_wheel_l.GB3DMESH */; };
+		92BFF7C422F43E8200B2C435 /* retro_car_03_wheel_l.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF78922F43E8100B2C435 /* retro_car_03_wheel_l.GB3DMESH */; };
+		92BFF7C522F43E8200B2C435 /* retro_car_04.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF78A22F43E8100B2C435 /* retro_car_04.GB3DMESH */; };
+		92BFF7C622F43E8200B2C435 /* retro_car_04.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF78A22F43E8100B2C435 /* retro_car_04.GB3DMESH */; };
+		92BFF7C722F43E8200B2C435 /* retro_car_04.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF78A22F43E8100B2C435 /* retro_car_04.GB3DMESH */; };
+		92BFF7C822F43E8200B2C435 /* retro_car_06_wheel_l.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF78B22F43E8100B2C435 /* retro_car_06_wheel_l.GB3DMESH */; };
+		92BFF7C922F43E8200B2C435 /* retro_car_06_wheel_l.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF78B22F43E8100B2C435 /* retro_car_06_wheel_l.GB3DMESH */; };
+		92BFF7CA22F43E8200B2C435 /* retro_car_06_wheel_l.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF78B22F43E8100B2C435 /* retro_car_06_wheel_l.GB3DMESH */; };
+		92BFF7CE22F4437500B2C435 /* retro_car_02.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF7CB22F4437200B2C435 /* retro_car_02.png */; };
+		92BFF7CF22F4437500B2C435 /* retro_car_02.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF7CB22F4437200B2C435 /* retro_car_02.png */; };
+		92BFF7D022F4437500B2C435 /* retro_car_02.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF7CB22F4437200B2C435 /* retro_car_02.png */; };
+		92BFF7D122F4437500B2C435 /* retro_car_02_body_color_mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF7CC22F4437300B2C435 /* retro_car_02_body_color_mask.png */; };
+		92BFF7D222F4437500B2C435 /* retro_car_02_body_color_mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF7CC22F4437300B2C435 /* retro_car_02_body_color_mask.png */; };
+		92BFF7D322F4437500B2C435 /* retro_car_02_body_color_mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF7CC22F4437300B2C435 /* retro_car_02_body_color_mask.png */; };
+		92BFF7D422F4437500B2C435 /* retro_car_02_windows_color_mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF7CD22F4437400B2C435 /* retro_car_02_windows_color_mask.png */; };
+		92BFF7D522F4437500B2C435 /* retro_car_02_windows_color_mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF7CD22F4437400B2C435 /* retro_car_02_windows_color_mask.png */; };
+		92BFF7D622F4437500B2C435 /* retro_car_02_windows_color_mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF7CD22F4437400B2C435 /* retro_car_02_windows_color_mask.png */; };
+		92BFF7DA22F450CD00B2C435 /* retro_car_03.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF7D722F450CB00B2C435 /* retro_car_03.png */; };
+		92BFF7DB22F450CD00B2C435 /* retro_car_03.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF7D722F450CB00B2C435 /* retro_car_03.png */; };
+		92BFF7DC22F450CD00B2C435 /* retro_car_03.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF7D722F450CB00B2C435 /* retro_car_03.png */; };
+		92BFF7DD22F450CD00B2C435 /* retro_car_03_windows_color_mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF7D822F450CC00B2C435 /* retro_car_03_windows_color_mask.png */; };
+		92BFF7DE22F450CD00B2C435 /* retro_car_03_windows_color_mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF7D822F450CC00B2C435 /* retro_car_03_windows_color_mask.png */; };
+		92BFF7DF22F450CD00B2C435 /* retro_car_03_windows_color_mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF7D822F450CC00B2C435 /* retro_car_03_windows_color_mask.png */; };
+		92BFF7E022F450CD00B2C435 /* retro_car_03_body_color_mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF7D922F450CD00B2C435 /* retro_car_03_body_color_mask.png */; };
+		92BFF7E122F450CD00B2C435 /* retro_car_03_body_color_mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF7D922F450CD00B2C435 /* retro_car_03_body_color_mask.png */; };
+		92BFF7E222F450CD00B2C435 /* retro_car_03_body_color_mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF7D922F450CD00B2C435 /* retro_car_03_body_color_mask.png */; };
+		92BFF7E622F453B300B2C435 /* retro_car_04_windows_color_mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF7E322F453B200B2C435 /* retro_car_04_windows_color_mask.png */; };
+		92BFF7E722F453B300B2C435 /* retro_car_04_windows_color_mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF7E322F453B200B2C435 /* retro_car_04_windows_color_mask.png */; };
+		92BFF7E822F453B300B2C435 /* retro_car_04_windows_color_mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF7E322F453B200B2C435 /* retro_car_04_windows_color_mask.png */; };
+		92BFF7E922F453B300B2C435 /* retro_car_04.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF7E422F453B200B2C435 /* retro_car_04.png */; };
+		92BFF7EA22F453B300B2C435 /* retro_car_04.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF7E422F453B200B2C435 /* retro_car_04.png */; };
+		92BFF7EB22F453B300B2C435 /* retro_car_04.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF7E422F453B200B2C435 /* retro_car_04.png */; };
+		92BFF7EC22F453B300B2C435 /* retro_car_04_body_color_mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF7E522F453B300B2C435 /* retro_car_04_body_color_mask.png */; };
+		92BFF7ED22F453B300B2C435 /* retro_car_04_body_color_mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF7E522F453B300B2C435 /* retro_car_04_body_color_mask.png */; };
+		92BFF7EE22F453B300B2C435 /* retro_car_04_body_color_mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF7E522F453B300B2C435 /* retro_car_04_body_color_mask.png */; };
+		92BFF7F222F459DF00B2C435 /* retro_car_05.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF7EF22F459DE00B2C435 /* retro_car_05.png */; };
+		92BFF7F322F459DF00B2C435 /* retro_car_05.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF7EF22F459DE00B2C435 /* retro_car_05.png */; };
+		92BFF7F422F459DF00B2C435 /* retro_car_05.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF7EF22F459DE00B2C435 /* retro_car_05.png */; };
+		92BFF7F522F459DF00B2C435 /* retro_car_05_windows_color_mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF7F022F459DE00B2C435 /* retro_car_05_windows_color_mask.png */; };
+		92BFF7F622F459DF00B2C435 /* retro_car_05_windows_color_mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF7F022F459DE00B2C435 /* retro_car_05_windows_color_mask.png */; };
+		92BFF7F722F459DF00B2C435 /* retro_car_05_windows_color_mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF7F022F459DE00B2C435 /* retro_car_05_windows_color_mask.png */; };
+		92BFF7F822F459DF00B2C435 /* retro_car_05_body_color_mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF7F122F459DF00B2C435 /* retro_car_05_body_color_mask.png */; };
+		92BFF7F922F459DF00B2C435 /* retro_car_05_body_color_mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF7F122F459DF00B2C435 /* retro_car_05_body_color_mask.png */; };
+		92BFF7FA22F459DF00B2C435 /* retro_car_05_body_color_mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF7F122F459DF00B2C435 /* retro_car_05_body_color_mask.png */; };
+		92BFF7FE22F45D8D00B2C435 /* retro_car_06.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF7FB22F45D8B00B2C435 /* retro_car_06.png */; };
+		92BFF7FF22F45D8D00B2C435 /* retro_car_06.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF7FB22F45D8B00B2C435 /* retro_car_06.png */; };
+		92BFF80022F45D8D00B2C435 /* retro_car_06.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF7FB22F45D8B00B2C435 /* retro_car_06.png */; };
+		92BFF80122F45D8D00B2C435 /* retro_car_06_body_color_mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF7FC22F45D8C00B2C435 /* retro_car_06_body_color_mask.png */; };
+		92BFF80222F45D8D00B2C435 /* retro_car_06_body_color_mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF7FC22F45D8C00B2C435 /* retro_car_06_body_color_mask.png */; };
+		92BFF80322F45D8D00B2C435 /* retro_car_06_body_color_mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF7FC22F45D8C00B2C435 /* retro_car_06_body_color_mask.png */; };
+		92BFF80422F45D8D00B2C435 /* retro_car_06_windows_color_mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF7FD22F45D8C00B2C435 /* retro_car_06_windows_color_mask.png */; };
+		92BFF80522F45D8D00B2C435 /* retro_car_06_windows_color_mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF7FD22F45D8C00B2C435 /* retro_car_06_windows_color_mask.png */; };
+		92BFF80622F45D8D00B2C435 /* retro_car_06_windows_color_mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF7FD22F45D8C00B2C435 /* retro_car_06_windows_color_mask.png */; };
+		92BFF80A22F461DD00B2C435 /* retro_car_07.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF80722F461DB00B2C435 /* retro_car_07.png */; };
+		92BFF80B22F461DD00B2C435 /* retro_car_07.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF80722F461DB00B2C435 /* retro_car_07.png */; };
+		92BFF80C22F461DD00B2C435 /* retro_car_07.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF80722F461DB00B2C435 /* retro_car_07.png */; };
+		92BFF80D22F461DD00B2C435 /* retro_car_07_windows_color_mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF80822F461DC00B2C435 /* retro_car_07_windows_color_mask.png */; };
+		92BFF80E22F461DD00B2C435 /* retro_car_07_windows_color_mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF80822F461DC00B2C435 /* retro_car_07_windows_color_mask.png */; };
+		92BFF80F22F461DD00B2C435 /* retro_car_07_windows_color_mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF80822F461DC00B2C435 /* retro_car_07_windows_color_mask.png */; };
+		92BFF81022F461DD00B2C435 /* retro_car_07_body_color_mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF80922F461DD00B2C435 /* retro_car_07_body_color_mask.png */; };
+		92BFF81122F461DD00B2C435 /* retro_car_07_body_color_mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF80922F461DD00B2C435 /* retro_car_07_body_color_mask.png */; };
+		92BFF81222F461DD00B2C435 /* retro_car_07_body_color_mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF80922F461DD00B2C435 /* retro_car_07_body_color_mask.png */; };
+		92BFF81622F46AC300B2C435 /* retro_car_08.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF81322F46AC000B2C435 /* retro_car_08.png */; };
+		92BFF81722F46AC300B2C435 /* retro_car_08.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF81322F46AC000B2C435 /* retro_car_08.png */; };
+		92BFF81822F46AC300B2C435 /* retro_car_08.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF81322F46AC000B2C435 /* retro_car_08.png */; };
+		92BFF81922F46AC300B2C435 /* retro_car_08_windows_color_mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF81422F46AC200B2C435 /* retro_car_08_windows_color_mask.png */; };
+		92BFF81A22F46AC300B2C435 /* retro_car_08_windows_color_mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF81422F46AC200B2C435 /* retro_car_08_windows_color_mask.png */; };
+		92BFF81B22F46AC300B2C435 /* retro_car_08_windows_color_mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF81422F46AC200B2C435 /* retro_car_08_windows_color_mask.png */; };
+		92BFF81C22F46AC300B2C435 /* retro_car_08_body_color_mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF81522F46AC200B2C435 /* retro_car_08_body_color_mask.png */; };
+		92BFF81D22F46AC300B2C435 /* retro_car_08_body_color_mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF81522F46AC200B2C435 /* retro_car_08_body_color_mask.png */; };
+		92BFF81E22F46AC300B2C435 /* retro_car_08_body_color_mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF81522F46AC200B2C435 /* retro_car_08_body_color_mask.png */; };
+		92BFF82E22F46F4500B2C435 /* material.car_12_wheel_r.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF81F22F46F3B00B2C435 /* material.car_12_wheel_r.base.xml */; };
+		92BFF82F22F46F4500B2C435 /* material.car_12_wheel_r.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF81F22F46F3B00B2C435 /* material.car_12_wheel_r.base.xml */; };
+		92BFF83022F46F4500B2C435 /* material.car_12_wheel_r.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF81F22F46F3B00B2C435 /* material.car_12_wheel_r.base.xml */; };
+		92BFF83122F46F4500B2C435 /* material.car_10.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF82022F46F3C00B2C435 /* material.car_10.base.xml */; };
+		92BFF83222F46F4500B2C435 /* material.car_10.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF82022F46F3C00B2C435 /* material.car_10.base.xml */; };
+		92BFF83322F46F4500B2C435 /* material.car_10.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF82022F46F3C00B2C435 /* material.car_10.base.xml */; };
+		92BFF83422F46F4500B2C435 /* material.car_13_wheel_r.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF82122F46F3D00B2C435 /* material.car_13_wheel_r.base.xml */; };
+		92BFF83522F46F4500B2C435 /* material.car_13_wheel_r.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF82122F46F3D00B2C435 /* material.car_13_wheel_r.base.xml */; };
+		92BFF83622F46F4500B2C435 /* material.car_13_wheel_r.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF82122F46F3D00B2C435 /* material.car_13_wheel_r.base.xml */; };
+		92BFF83722F46F4500B2C435 /* material.car_11.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF82222F46F3E00B2C435 /* material.car_11.base.xml */; };
+		92BFF83822F46F4500B2C435 /* material.car_11.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF82222F46F3E00B2C435 /* material.car_11.base.xml */; };
+		92BFF83922F46F4500B2C435 /* material.car_11.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF82222F46F3E00B2C435 /* material.car_11.base.xml */; };
+		92BFF83A22F46F4500B2C435 /* material.car_13.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF82322F46F3E00B2C435 /* material.car_13.base.xml */; };
+		92BFF83B22F46F4500B2C435 /* material.car_13.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF82322F46F3E00B2C435 /* material.car_13.base.xml */; };
+		92BFF83C22F46F4500B2C435 /* material.car_13.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF82322F46F3E00B2C435 /* material.car_13.base.xml */; };
+		92BFF83D22F46F4500B2C435 /* material.car_13_wheel_l.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF82422F46F3F00B2C435 /* material.car_13_wheel_l.base.xml */; };
+		92BFF83E22F46F4500B2C435 /* material.car_13_wheel_l.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF82422F46F3F00B2C435 /* material.car_13_wheel_l.base.xml */; };
+		92BFF83F22F46F4500B2C435 /* material.car_13_wheel_l.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF82422F46F3F00B2C435 /* material.car_13_wheel_l.base.xml */; };
+		92BFF84022F46F4500B2C435 /* material.car_09.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF82522F46F4000B2C435 /* material.car_09.base.xml */; };
+		92BFF84122F46F4500B2C435 /* material.car_09.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF82522F46F4000B2C435 /* material.car_09.base.xml */; };
+		92BFF84222F46F4500B2C435 /* material.car_09.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF82522F46F4000B2C435 /* material.car_09.base.xml */; };
+		92BFF84322F46F4500B2C435 /* material.car_09_wheel_l.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF82622F46F4100B2C435 /* material.car_09_wheel_l.base.xml */; };
+		92BFF84422F46F4500B2C435 /* material.car_09_wheel_l.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF82622F46F4100B2C435 /* material.car_09_wheel_l.base.xml */; };
+		92BFF84522F46F4500B2C435 /* material.car_09_wheel_l.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF82622F46F4100B2C435 /* material.car_09_wheel_l.base.xml */; };
+		92BFF84622F46F4500B2C435 /* material.car_11_wheel_r.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF82722F46F4100B2C435 /* material.car_11_wheel_r.base.xml */; };
+		92BFF84722F46F4500B2C435 /* material.car_11_wheel_r.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF82722F46F4100B2C435 /* material.car_11_wheel_r.base.xml */; };
+		92BFF84822F46F4500B2C435 /* material.car_11_wheel_r.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF82722F46F4100B2C435 /* material.car_11_wheel_r.base.xml */; };
+		92BFF84922F46F4500B2C435 /* material.car_10_wheel_r.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF82822F46F4200B2C435 /* material.car_10_wheel_r.base.xml */; };
+		92BFF84A22F46F4500B2C435 /* material.car_10_wheel_r.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF82822F46F4200B2C435 /* material.car_10_wheel_r.base.xml */; };
+		92BFF84B22F46F4500B2C435 /* material.car_10_wheel_r.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF82822F46F4200B2C435 /* material.car_10_wheel_r.base.xml */; };
+		92BFF84C22F46F4500B2C435 /* material.car_09_wheel_r.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF82922F46F4200B2C435 /* material.car_09_wheel_r.base.xml */; };
+		92BFF84D22F46F4500B2C435 /* material.car_09_wheel_r.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF82922F46F4200B2C435 /* material.car_09_wheel_r.base.xml */; };
+		92BFF84E22F46F4500B2C435 /* material.car_09_wheel_r.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF82922F46F4200B2C435 /* material.car_09_wheel_r.base.xml */; };
+		92BFF84F22F46F4500B2C435 /* material.car_10_wheel_l.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF82A22F46F4300B2C435 /* material.car_10_wheel_l.base.xml */; };
+		92BFF85022F46F4500B2C435 /* material.car_10_wheel_l.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF82A22F46F4300B2C435 /* material.car_10_wheel_l.base.xml */; };
+		92BFF85122F46F4500B2C435 /* material.car_10_wheel_l.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF82A22F46F4300B2C435 /* material.car_10_wheel_l.base.xml */; };
+		92BFF85222F46F4500B2C435 /* material.car_11_wheel_l.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF82B22F46F4300B2C435 /* material.car_11_wheel_l.base.xml */; };
+		92BFF85322F46F4500B2C435 /* material.car_11_wheel_l.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF82B22F46F4300B2C435 /* material.car_11_wheel_l.base.xml */; };
+		92BFF85422F46F4500B2C435 /* material.car_11_wheel_l.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF82B22F46F4300B2C435 /* material.car_11_wheel_l.base.xml */; };
+		92BFF85522F46F4500B2C435 /* material.car_12.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF82C22F46F4400B2C435 /* material.car_12.base.xml */; };
+		92BFF85622F46F4500B2C435 /* material.car_12.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF82C22F46F4400B2C435 /* material.car_12.base.xml */; };
+		92BFF85722F46F4500B2C435 /* material.car_12.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF82C22F46F4400B2C435 /* material.car_12.base.xml */; };
+		92BFF85822F46F4500B2C435 /* material.car_12_wheel_l.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF82D22F46F4400B2C435 /* material.car_12_wheel_l.base.xml */; };
+		92BFF85922F46F4500B2C435 /* material.car_12_wheel_l.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF82D22F46F4400B2C435 /* material.car_12_wheel_l.base.xml */; };
+		92BFF85A22F46F4500B2C435 /* material.car_12_wheel_l.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92BFF82D22F46F4400B2C435 /* material.car_12_wheel_l.base.xml */; };
 		92C83C8622427BEE00FC6167 /* material.ss.hdr.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92C83C8522427BEB00FC6167 /* material.ss.hdr.xml */; };
 		92C83C8822427C0700FC6167 /* ss.technique.hdr.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92C83C8722427C0600FC6167 /* ss.technique.hdr.xml */; };
 		92C83C8922427C0700FC6167 /* ss.technique.hdr.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92C83C8722427C0600FC6167 /* ss.technique.hdr.xml */; };
@@ -789,6 +961,126 @@
 		92CF2C9221BE798C007E37E6 /* car_01_configuration.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92CF2C8E21BE798C007E37E6 /* car_01_configuration.xml */; };
 		92CF2C9321BE798C007E37E6 /* car_01_configuration.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92CF2C8E21BE798C007E37E6 /* car_01_configuration.xml */; };
 		92CF2C9421BE798C007E37E6 /* car_01_configuration.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92CF2C8E21BE798C007E37E6 /* car_01_configuration.xml */; };
+		92DBA9DD22F472CC00AE5374 /* car_10_wheel_l.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBA9CE22F472C000AE5374 /* car_10_wheel_l.xml */; };
+		92DBA9DE22F472CC00AE5374 /* car_10_wheel_l.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBA9CE22F472C000AE5374 /* car_10_wheel_l.xml */; };
+		92DBA9DF22F472CC00AE5374 /* car_10_wheel_l.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBA9CE22F472C000AE5374 /* car_10_wheel_l.xml */; };
+		92DBA9E022F472CC00AE5374 /* car_09.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBA9CF22F472C100AE5374 /* car_09.xml */; };
+		92DBA9E122F472CC00AE5374 /* car_09.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBA9CF22F472C100AE5374 /* car_09.xml */; };
+		92DBA9E222F472CC00AE5374 /* car_09.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBA9CF22F472C100AE5374 /* car_09.xml */; };
+		92DBA9E322F472CC00AE5374 /* car_10.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBA9D022F472C200AE5374 /* car_10.xml */; };
+		92DBA9E422F472CC00AE5374 /* car_10.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBA9D022F472C200AE5374 /* car_10.xml */; };
+		92DBA9E522F472CC00AE5374 /* car_10.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBA9D022F472C200AE5374 /* car_10.xml */; };
+		92DBA9E622F472CC00AE5374 /* car_12_wheel_l.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBA9D122F472C200AE5374 /* car_12_wheel_l.xml */; };
+		92DBA9E722F472CC00AE5374 /* car_12_wheel_l.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBA9D122F472C200AE5374 /* car_12_wheel_l.xml */; };
+		92DBA9E822F472CC00AE5374 /* car_12_wheel_l.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBA9D122F472C200AE5374 /* car_12_wheel_l.xml */; };
+		92DBA9E922F472CC00AE5374 /* car_12_wheel_r.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBA9D222F472C300AE5374 /* car_12_wheel_r.xml */; };
+		92DBA9EA22F472CC00AE5374 /* car_12_wheel_r.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBA9D222F472C300AE5374 /* car_12_wheel_r.xml */; };
+		92DBA9EB22F472CC00AE5374 /* car_12_wheel_r.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBA9D222F472C300AE5374 /* car_12_wheel_r.xml */; };
+		92DBA9EC22F472CC00AE5374 /* car_13_wheel_l.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBA9D322F472C400AE5374 /* car_13_wheel_l.xml */; };
+		92DBA9ED22F472CC00AE5374 /* car_13_wheel_l.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBA9D322F472C400AE5374 /* car_13_wheel_l.xml */; };
+		92DBA9EE22F472CC00AE5374 /* car_13_wheel_l.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBA9D322F472C400AE5374 /* car_13_wheel_l.xml */; };
+		92DBA9EF22F472CC00AE5374 /* car_09_wheel_l.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBA9D422F472C500AE5374 /* car_09_wheel_l.xml */; };
+		92DBA9F022F472CC00AE5374 /* car_09_wheel_l.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBA9D422F472C500AE5374 /* car_09_wheel_l.xml */; };
+		92DBA9F122F472CC00AE5374 /* car_09_wheel_l.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBA9D422F472C500AE5374 /* car_09_wheel_l.xml */; };
+		92DBA9F222F472CC00AE5374 /* car_09_wheel_r.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBA9D522F472C600AE5374 /* car_09_wheel_r.xml */; };
+		92DBA9F322F472CC00AE5374 /* car_09_wheel_r.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBA9D522F472C600AE5374 /* car_09_wheel_r.xml */; };
+		92DBA9F422F472CC00AE5374 /* car_09_wheel_r.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBA9D522F472C600AE5374 /* car_09_wheel_r.xml */; };
+		92DBA9F522F472CC00AE5374 /* car_13.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBA9D622F472C700AE5374 /* car_13.xml */; };
+		92DBA9F622F472CC00AE5374 /* car_13.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBA9D622F472C700AE5374 /* car_13.xml */; };
+		92DBA9F722F472CC00AE5374 /* car_13.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBA9D622F472C700AE5374 /* car_13.xml */; };
+		92DBA9F822F472CC00AE5374 /* car_12.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBA9D722F472C800AE5374 /* car_12.xml */; };
+		92DBA9F922F472CC00AE5374 /* car_12.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBA9D722F472C800AE5374 /* car_12.xml */; };
+		92DBA9FA22F472CC00AE5374 /* car_12.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBA9D722F472C800AE5374 /* car_12.xml */; };
+		92DBA9FB22F472CC00AE5374 /* car_11_wheel_r.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBA9D822F472C900AE5374 /* car_11_wheel_r.xml */; };
+		92DBA9FC22F472CC00AE5374 /* car_11_wheel_r.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBA9D822F472C900AE5374 /* car_11_wheel_r.xml */; };
+		92DBA9FD22F472CC00AE5374 /* car_11_wheel_r.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBA9D822F472C900AE5374 /* car_11_wheel_r.xml */; };
+		92DBA9FE22F472CC00AE5374 /* car_11_wheel_l.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBA9D922F472C900AE5374 /* car_11_wheel_l.xml */; };
+		92DBA9FF22F472CC00AE5374 /* car_11_wheel_l.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBA9D922F472C900AE5374 /* car_11_wheel_l.xml */; };
+		92DBAA0022F472CC00AE5374 /* car_11_wheel_l.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBA9D922F472C900AE5374 /* car_11_wheel_l.xml */; };
+		92DBAA0122F472CC00AE5374 /* car_13_wheel_r.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBA9DA22F472CA00AE5374 /* car_13_wheel_r.xml */; };
+		92DBAA0222F472CC00AE5374 /* car_13_wheel_r.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBA9DA22F472CA00AE5374 /* car_13_wheel_r.xml */; };
+		92DBAA0322F472CC00AE5374 /* car_13_wheel_r.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBA9DA22F472CA00AE5374 /* car_13_wheel_r.xml */; };
+		92DBAA0422F472CC00AE5374 /* car_11.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBA9DB22F472CB00AE5374 /* car_11.xml */; };
+		92DBAA0522F472CC00AE5374 /* car_11.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBA9DB22F472CB00AE5374 /* car_11.xml */; };
+		92DBAA0622F472CC00AE5374 /* car_11.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBA9DB22F472CB00AE5374 /* car_11.xml */; };
+		92DBAA0722F472CC00AE5374 /* car_10_wheel_r.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBA9DC22F472CC00AE5374 /* car_10_wheel_r.xml */; };
+		92DBAA0822F472CC00AE5374 /* car_10_wheel_r.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBA9DC22F472CC00AE5374 /* car_10_wheel_r.xml */; };
+		92DBAA0922F472CC00AE5374 /* car_10_wheel_r.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBA9DC22F472CC00AE5374 /* car_10_wheel_r.xml */; };
+		92DBAA1922F475A000AE5374 /* retro_car_09_wheel_l.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA0A22F4759900AE5374 /* retro_car_09_wheel_l.GB3DMESH */; };
+		92DBAA1A22F475A000AE5374 /* retro_car_09_wheel_l.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA0A22F4759900AE5374 /* retro_car_09_wheel_l.GB3DMESH */; };
+		92DBAA1B22F475A000AE5374 /* retro_car_09_wheel_l.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA0A22F4759900AE5374 /* retro_car_09_wheel_l.GB3DMESH */; };
+		92DBAA1C22F475A000AE5374 /* retro_car_11_wheel_l.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA0B22F4759A00AE5374 /* retro_car_11_wheel_l.GB3DMESH */; };
+		92DBAA1D22F475A000AE5374 /* retro_car_11_wheel_l.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA0B22F4759A00AE5374 /* retro_car_11_wheel_l.GB3DMESH */; };
+		92DBAA1E22F475A000AE5374 /* retro_car_11_wheel_l.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA0B22F4759A00AE5374 /* retro_car_11_wheel_l.GB3DMESH */; };
+		92DBAA1F22F475A000AE5374 /* retro_car_12_wheel_r.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA0C22F4759B00AE5374 /* retro_car_12_wheel_r.GB3DMESH */; };
+		92DBAA2022F475A000AE5374 /* retro_car_12_wheel_r.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA0C22F4759B00AE5374 /* retro_car_12_wheel_r.GB3DMESH */; };
+		92DBAA2122F475A000AE5374 /* retro_car_12_wheel_r.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA0C22F4759B00AE5374 /* retro_car_12_wheel_r.GB3DMESH */; };
+		92DBAA2222F475A000AE5374 /* retro_car_13_wheel_r.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA0D22F4759B00AE5374 /* retro_car_13_wheel_r.GB3DMESH */; };
+		92DBAA2322F475A000AE5374 /* retro_car_13_wheel_r.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA0D22F4759B00AE5374 /* retro_car_13_wheel_r.GB3DMESH */; };
+		92DBAA2422F475A000AE5374 /* retro_car_13_wheel_r.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA0D22F4759B00AE5374 /* retro_car_13_wheel_r.GB3DMESH */; };
+		92DBAA2522F475A000AE5374 /* retro_car_12_wheel_l.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA0E22F4759B00AE5374 /* retro_car_12_wheel_l.GB3DMESH */; };
+		92DBAA2622F475A000AE5374 /* retro_car_12_wheel_l.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA0E22F4759B00AE5374 /* retro_car_12_wheel_l.GB3DMESH */; };
+		92DBAA2722F475A000AE5374 /* retro_car_12_wheel_l.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA0E22F4759B00AE5374 /* retro_car_12_wheel_l.GB3DMESH */; };
+		92DBAA2822F475A000AE5374 /* retro_car_12.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA0F22F4759C00AE5374 /* retro_car_12.GB3DMESH */; };
+		92DBAA2922F475A000AE5374 /* retro_car_12.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA0F22F4759C00AE5374 /* retro_car_12.GB3DMESH */; };
+		92DBAA2A22F475A000AE5374 /* retro_car_12.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA0F22F4759C00AE5374 /* retro_car_12.GB3DMESH */; };
+		92DBAA2B22F475A000AE5374 /* retro_car_10.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA1022F4759C00AE5374 /* retro_car_10.GB3DMESH */; };
+		92DBAA2C22F475A000AE5374 /* retro_car_10.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA1022F4759C00AE5374 /* retro_car_10.GB3DMESH */; };
+		92DBAA2D22F475A000AE5374 /* retro_car_10.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA1022F4759C00AE5374 /* retro_car_10.GB3DMESH */; };
+		92DBAA2E22F475A000AE5374 /* retro_car_13_wheel_l.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA1122F4759D00AE5374 /* retro_car_13_wheel_l.GB3DMESH */; };
+		92DBAA2F22F475A000AE5374 /* retro_car_13_wheel_l.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA1122F4759D00AE5374 /* retro_car_13_wheel_l.GB3DMESH */; };
+		92DBAA3022F475A000AE5374 /* retro_car_13_wheel_l.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA1122F4759D00AE5374 /* retro_car_13_wheel_l.GB3DMESH */; };
+		92DBAA3122F475A000AE5374 /* retro_car_09.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA1222F4759D00AE5374 /* retro_car_09.GB3DMESH */; };
+		92DBAA3222F475A000AE5374 /* retro_car_09.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA1222F4759D00AE5374 /* retro_car_09.GB3DMESH */; };
+		92DBAA3322F475A000AE5374 /* retro_car_09.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA1222F4759D00AE5374 /* retro_car_09.GB3DMESH */; };
+		92DBAA3422F475A000AE5374 /* retro_car_09_wheel_r.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA1322F4759D00AE5374 /* retro_car_09_wheel_r.GB3DMESH */; };
+		92DBAA3522F475A000AE5374 /* retro_car_09_wheel_r.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA1322F4759D00AE5374 /* retro_car_09_wheel_r.GB3DMESH */; };
+		92DBAA3622F475A000AE5374 /* retro_car_09_wheel_r.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA1322F4759D00AE5374 /* retro_car_09_wheel_r.GB3DMESH */; };
+		92DBAA3722F475A000AE5374 /* retro_car_10_wheel_r.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA1422F4759E00AE5374 /* retro_car_10_wheel_r.GB3DMESH */; };
+		92DBAA3822F475A000AE5374 /* retro_car_10_wheel_r.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA1422F4759E00AE5374 /* retro_car_10_wheel_r.GB3DMESH */; };
+		92DBAA3922F475A000AE5374 /* retro_car_10_wheel_r.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA1422F4759E00AE5374 /* retro_car_10_wheel_r.GB3DMESH */; };
+		92DBAA3A22F475A000AE5374 /* retro_car_11.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA1522F4759F00AE5374 /* retro_car_11.GB3DMESH */; };
+		92DBAA3B22F475A000AE5374 /* retro_car_11.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA1522F4759F00AE5374 /* retro_car_11.GB3DMESH */; };
+		92DBAA3C22F475A000AE5374 /* retro_car_11.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA1522F4759F00AE5374 /* retro_car_11.GB3DMESH */; };
+		92DBAA3D22F475A000AE5374 /* retro_car_10_wheel_l.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA1622F4759F00AE5374 /* retro_car_10_wheel_l.GB3DMESH */; };
+		92DBAA3E22F475A000AE5374 /* retro_car_10_wheel_l.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA1622F4759F00AE5374 /* retro_car_10_wheel_l.GB3DMESH */; };
+		92DBAA3F22F475A000AE5374 /* retro_car_10_wheel_l.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA1622F4759F00AE5374 /* retro_car_10_wheel_l.GB3DMESH */; };
+		92DBAA4022F475A000AE5374 /* retro_car_11_wheel_r.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA1722F4759F00AE5374 /* retro_car_11_wheel_r.GB3DMESH */; };
+		92DBAA4122F475A000AE5374 /* retro_car_11_wheel_r.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA1722F4759F00AE5374 /* retro_car_11_wheel_r.GB3DMESH */; };
+		92DBAA4222F475A000AE5374 /* retro_car_11_wheel_r.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA1722F4759F00AE5374 /* retro_car_11_wheel_r.GB3DMESH */; };
+		92DBAA4322F475A000AE5374 /* retro_car_13.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA1822F475A000AE5374 /* retro_car_13.GB3DMESH */; };
+		92DBAA4422F475A000AE5374 /* retro_car_13.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA1822F475A000AE5374 /* retro_car_13.GB3DMESH */; };
+		92DBAA4522F475A000AE5374 /* retro_car_13.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA1822F475A000AE5374 /* retro_car_13.GB3DMESH */; };
+		92DBAA4B22F475BD00AE5374 /* car_11_configuration.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA4622F475BA00AE5374 /* car_11_configuration.xml */; };
+		92DBAA4C22F475BD00AE5374 /* car_11_configuration.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA4622F475BA00AE5374 /* car_11_configuration.xml */; };
+		92DBAA4D22F475BD00AE5374 /* car_11_configuration.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA4622F475BA00AE5374 /* car_11_configuration.xml */; };
+		92DBAA4E22F475BD00AE5374 /* car_09_configuration.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA4722F475BB00AE5374 /* car_09_configuration.xml */; };
+		92DBAA4F22F475BD00AE5374 /* car_09_configuration.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA4722F475BB00AE5374 /* car_09_configuration.xml */; };
+		92DBAA5022F475BD00AE5374 /* car_09_configuration.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA4722F475BB00AE5374 /* car_09_configuration.xml */; };
+		92DBAA5122F475BD00AE5374 /* car_10_configuration.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA4822F475BB00AE5374 /* car_10_configuration.xml */; };
+		92DBAA5222F475BD00AE5374 /* car_10_configuration.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA4822F475BB00AE5374 /* car_10_configuration.xml */; };
+		92DBAA5322F475BD00AE5374 /* car_10_configuration.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA4822F475BB00AE5374 /* car_10_configuration.xml */; };
+		92DBAA5422F475BD00AE5374 /* car_12_configuration.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA4922F475BC00AE5374 /* car_12_configuration.xml */; };
+		92DBAA5522F475BD00AE5374 /* car_12_configuration.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA4922F475BC00AE5374 /* car_12_configuration.xml */; };
+		92DBAA5622F475BD00AE5374 /* car_12_configuration.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA4922F475BC00AE5374 /* car_12_configuration.xml */; };
+		92DBAA5722F475BD00AE5374 /* car_13_configuration.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA4A22F475BD00AE5374 /* car_13_configuration.xml */; };
+		92DBAA5822F475BD00AE5374 /* car_13_configuration.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA4A22F475BD00AE5374 /* car_13_configuration.xml */; };
+		92DBAA5922F475BD00AE5374 /* car_13_configuration.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA4A22F475BD00AE5374 /* car_13_configuration.xml */; };
+		92DBAA5F22F4765900AE5374 /* car_progression_rank_9.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA5A22F4765600AE5374 /* car_progression_rank_9.xml */; };
+		92DBAA6022F4765900AE5374 /* car_progression_rank_9.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA5A22F4765600AE5374 /* car_progression_rank_9.xml */; };
+		92DBAA6122F4765900AE5374 /* car_progression_rank_9.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA5A22F4765600AE5374 /* car_progression_rank_9.xml */; };
+		92DBAA6222F4765900AE5374 /* car_progression_rank_12.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA5B22F4765700AE5374 /* car_progression_rank_12.xml */; };
+		92DBAA6322F4765900AE5374 /* car_progression_rank_12.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA5B22F4765700AE5374 /* car_progression_rank_12.xml */; };
+		92DBAA6422F4765900AE5374 /* car_progression_rank_12.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA5B22F4765700AE5374 /* car_progression_rank_12.xml */; };
+		92DBAA6522F4765900AE5374 /* car_progression_rank_11.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA5C22F4765700AE5374 /* car_progression_rank_11.xml */; };
+		92DBAA6622F4765900AE5374 /* car_progression_rank_11.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA5C22F4765700AE5374 /* car_progression_rank_11.xml */; };
+		92DBAA6722F4765900AE5374 /* car_progression_rank_11.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA5C22F4765700AE5374 /* car_progression_rank_11.xml */; };
+		92DBAA6822F4765900AE5374 /* car_progression_rank_10.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA5D22F4765800AE5374 /* car_progression_rank_10.xml */; };
+		92DBAA6922F4765900AE5374 /* car_progression_rank_10.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA5D22F4765800AE5374 /* car_progression_rank_10.xml */; };
+		92DBAA6A22F4765900AE5374 /* car_progression_rank_10.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA5D22F4765800AE5374 /* car_progression_rank_10.xml */; };
+		92DBAA6B22F4765900AE5374 /* car_progression_rank_13.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA5E22F4765900AE5374 /* car_progression_rank_13.xml */; };
+		92DBAA6C22F4765900AE5374 /* car_progression_rank_13.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA5E22F4765900AE5374 /* car_progression_rank_13.xml */; };
+		92DBAA6D22F4765900AE5374 /* car_progression_rank_13.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92DBAA5E22F4765900AE5374 /* car_progression_rank_13.xml */; };
 		92E23EA222AE4DE9005DDD5D /* ces_levels_database_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92E23EA022AE4DE9005DDD5D /* ces_levels_database_component.cpp */; };
 		92E23EA322AE4DE9005DDD5D /* ces_levels_database_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92E23EA022AE4DE9005DDD5D /* ces_levels_database_component.cpp */; };
 		92E23EA422AE4DE9005DDD5D /* ces_levels_database_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92E23EA022AE4DE9005DDD5D /* ces_levels_database_component.cpp */; };
@@ -2205,6 +2497,64 @@
 		92BF4F2921FF3E8300E95AD7 /* sidewalk.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = sidewalk.xml; path = ../gbBundle/Configurations/game_objects/sidewalk.xml; sourceTree = "<group>"; };
 		92BF4F552200583800E95AD7 /* material.sidewalk.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.sidewalk.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.sidewalk.base.xml; sourceTree = "<group>"; };
 		92BF4F562200583800E95AD7 /* material.road_corner_t.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.road_corner_t.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.road_corner_t.base.xml; sourceTree = "<group>"; };
+		92BFF77522F3145000B2C435 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.4.sdk/System/Library/Frameworks/StoreKit.framework; sourceTree = DEVELOPER_DIR; };
+		92BFF77722F43E7A00B2C435 /* retro_car_05_wheel_r.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = retro_car_05_wheel_r.GB3DMESH; path = ../gbBundle/Meshes/retro_car_05_wheel_r.GB3DMESH; sourceTree = "<group>"; };
+		92BFF77822F43E7A00B2C435 /* retro_car_05_wheel_l.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = retro_car_05_wheel_l.GB3DMESH; path = ../gbBundle/Meshes/retro_car_05_wheel_l.GB3DMESH; sourceTree = "<group>"; };
+		92BFF77922F43E7B00B2C435 /* retro_car_07_wheel_l.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = retro_car_07_wheel_l.GB3DMESH; path = ../gbBundle/Meshes/retro_car_07_wheel_l.GB3DMESH; sourceTree = "<group>"; };
+		92BFF77A22F43E7B00B2C435 /* retro_car_07.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = retro_car_07.GB3DMESH; path = ../gbBundle/Meshes/retro_car_07.GB3DMESH; sourceTree = "<group>"; };
+		92BFF77B22F43E7B00B2C435 /* retro_car_08.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = retro_car_08.GB3DMESH; path = ../gbBundle/Meshes/retro_car_08.GB3DMESH; sourceTree = "<group>"; };
+		92BFF77C22F43E7C00B2C435 /* retro_car_05.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = retro_car_05.GB3DMESH; path = ../gbBundle/Meshes/retro_car_05.GB3DMESH; sourceTree = "<group>"; };
+		92BFF77D22F43E7C00B2C435 /* retro_car_03.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = retro_car_03.GB3DMESH; path = ../gbBundle/Meshes/retro_car_03.GB3DMESH; sourceTree = "<group>"; };
+		92BFF77E22F43E7D00B2C435 /* retro_car_08_wheel_l.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = retro_car_08_wheel_l.GB3DMESH; path = ../gbBundle/Meshes/retro_car_08_wheel_l.GB3DMESH; sourceTree = "<group>"; };
+		92BFF77F22F43E7D00B2C435 /* retro_car_03_wheel_r.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = retro_car_03_wheel_r.GB3DMESH; path = ../gbBundle/Meshes/retro_car_03_wheel_r.GB3DMESH; sourceTree = "<group>"; };
+		92BFF78022F43E7D00B2C435 /* retro_car_02_wheel_r.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = retro_car_02_wheel_r.GB3DMESH; path = ../gbBundle/Meshes/retro_car_02_wheel_r.GB3DMESH; sourceTree = "<group>"; };
+		92BFF78122F43E7E00B2C435 /* retro_car_04_wheel_r.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = retro_car_04_wheel_r.GB3DMESH; path = ../gbBundle/Meshes/retro_car_04_wheel_r.GB3DMESH; sourceTree = "<group>"; };
+		92BFF78222F43E7E00B2C435 /* retro_car_02_wheel_l.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = retro_car_02_wheel_l.GB3DMESH; path = ../gbBundle/Meshes/retro_car_02_wheel_l.GB3DMESH; sourceTree = "<group>"; };
+		92BFF78322F43E7E00B2C435 /* retro_car_06_wheel_r.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = retro_car_06_wheel_r.GB3DMESH; path = ../gbBundle/Meshes/retro_car_06_wheel_r.GB3DMESH; sourceTree = "<group>"; };
+		92BFF78422F43E7F00B2C435 /* retro_car_06.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = retro_car_06.GB3DMESH; path = ../gbBundle/Meshes/retro_car_06.GB3DMESH; sourceTree = "<group>"; };
+		92BFF78522F43E7F00B2C435 /* retro_car_02.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = retro_car_02.GB3DMESH; path = ../gbBundle/Meshes/retro_car_02.GB3DMESH; sourceTree = "<group>"; };
+		92BFF78622F43E7F00B2C435 /* retro_car_04_wheel_l.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = retro_car_04_wheel_l.GB3DMESH; path = ../gbBundle/Meshes/retro_car_04_wheel_l.GB3DMESH; sourceTree = "<group>"; };
+		92BFF78722F43E8000B2C435 /* retro_car_07_wheel_r.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = retro_car_07_wheel_r.GB3DMESH; path = ../gbBundle/Meshes/retro_car_07_wheel_r.GB3DMESH; sourceTree = "<group>"; };
+		92BFF78822F43E8000B2C435 /* retro_car_08_wheel_r.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = retro_car_08_wheel_r.GB3DMESH; path = ../gbBundle/Meshes/retro_car_08_wheel_r.GB3DMESH; sourceTree = "<group>"; };
+		92BFF78922F43E8100B2C435 /* retro_car_03_wheel_l.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = retro_car_03_wheel_l.GB3DMESH; path = ../gbBundle/Meshes/retro_car_03_wheel_l.GB3DMESH; sourceTree = "<group>"; };
+		92BFF78A22F43E8100B2C435 /* retro_car_04.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = retro_car_04.GB3DMESH; path = ../gbBundle/Meshes/retro_car_04.GB3DMESH; sourceTree = "<group>"; };
+		92BFF78B22F43E8100B2C435 /* retro_car_06_wheel_l.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = retro_car_06_wheel_l.GB3DMESH; path = ../gbBundle/Meshes/retro_car_06_wheel_l.GB3DMESH; sourceTree = "<group>"; };
+		92BFF7CB22F4437200B2C435 /* retro_car_02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = retro_car_02.png; path = ../gbBundle/Textures/retro_car_02.png; sourceTree = "<group>"; };
+		92BFF7CC22F4437300B2C435 /* retro_car_02_body_color_mask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = retro_car_02_body_color_mask.png; path = ../gbBundle/Textures/retro_car_02_body_color_mask.png; sourceTree = "<group>"; };
+		92BFF7CD22F4437400B2C435 /* retro_car_02_windows_color_mask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = retro_car_02_windows_color_mask.png; path = ../gbBundle/Textures/retro_car_02_windows_color_mask.png; sourceTree = "<group>"; };
+		92BFF7D722F450CB00B2C435 /* retro_car_03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = retro_car_03.png; path = ../gbBundle/Textures/retro_car_03.png; sourceTree = "<group>"; };
+		92BFF7D822F450CC00B2C435 /* retro_car_03_windows_color_mask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = retro_car_03_windows_color_mask.png; path = ../gbBundle/Textures/retro_car_03_windows_color_mask.png; sourceTree = "<group>"; };
+		92BFF7D922F450CD00B2C435 /* retro_car_03_body_color_mask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = retro_car_03_body_color_mask.png; path = ../gbBundle/Textures/retro_car_03_body_color_mask.png; sourceTree = "<group>"; };
+		92BFF7E322F453B200B2C435 /* retro_car_04_windows_color_mask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = retro_car_04_windows_color_mask.png; path = ../gbBundle/Textures/retro_car_04_windows_color_mask.png; sourceTree = "<group>"; };
+		92BFF7E422F453B200B2C435 /* retro_car_04.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = retro_car_04.png; path = ../gbBundle/Textures/retro_car_04.png; sourceTree = "<group>"; };
+		92BFF7E522F453B300B2C435 /* retro_car_04_body_color_mask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = retro_car_04_body_color_mask.png; path = ../gbBundle/Textures/retro_car_04_body_color_mask.png; sourceTree = "<group>"; };
+		92BFF7EF22F459DE00B2C435 /* retro_car_05.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = retro_car_05.png; path = ../gbBundle/Textures/retro_car_05.png; sourceTree = "<group>"; };
+		92BFF7F022F459DE00B2C435 /* retro_car_05_windows_color_mask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = retro_car_05_windows_color_mask.png; path = ../gbBundle/Textures/retro_car_05_windows_color_mask.png; sourceTree = "<group>"; };
+		92BFF7F122F459DF00B2C435 /* retro_car_05_body_color_mask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = retro_car_05_body_color_mask.png; path = ../gbBundle/Textures/retro_car_05_body_color_mask.png; sourceTree = "<group>"; };
+		92BFF7FB22F45D8B00B2C435 /* retro_car_06.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = retro_car_06.png; path = ../gbBundle/Textures/retro_car_06.png; sourceTree = "<group>"; };
+		92BFF7FC22F45D8C00B2C435 /* retro_car_06_body_color_mask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = retro_car_06_body_color_mask.png; path = ../gbBundle/Textures/retro_car_06_body_color_mask.png; sourceTree = "<group>"; };
+		92BFF7FD22F45D8C00B2C435 /* retro_car_06_windows_color_mask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = retro_car_06_windows_color_mask.png; path = ../gbBundle/Textures/retro_car_06_windows_color_mask.png; sourceTree = "<group>"; };
+		92BFF80722F461DB00B2C435 /* retro_car_07.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = retro_car_07.png; path = ../gbBundle/Textures/retro_car_07.png; sourceTree = "<group>"; };
+		92BFF80822F461DC00B2C435 /* retro_car_07_windows_color_mask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = retro_car_07_windows_color_mask.png; path = ../gbBundle/Textures/retro_car_07_windows_color_mask.png; sourceTree = "<group>"; };
+		92BFF80922F461DD00B2C435 /* retro_car_07_body_color_mask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = retro_car_07_body_color_mask.png; path = ../gbBundle/Textures/retro_car_07_body_color_mask.png; sourceTree = "<group>"; };
+		92BFF81322F46AC000B2C435 /* retro_car_08.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = retro_car_08.png; path = ../gbBundle/Textures/retro_car_08.png; sourceTree = "<group>"; };
+		92BFF81422F46AC200B2C435 /* retro_car_08_windows_color_mask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = retro_car_08_windows_color_mask.png; path = ../gbBundle/Textures/retro_car_08_windows_color_mask.png; sourceTree = "<group>"; };
+		92BFF81522F46AC200B2C435 /* retro_car_08_body_color_mask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = retro_car_08_body_color_mask.png; path = ../gbBundle/Textures/retro_car_08_body_color_mask.png; sourceTree = "<group>"; };
+		92BFF81F22F46F3B00B2C435 /* material.car_12_wheel_r.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.car_12_wheel_r.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.car_12_wheel_r.base.xml; sourceTree = "<group>"; };
+		92BFF82022F46F3C00B2C435 /* material.car_10.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.car_10.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.car_10.base.xml; sourceTree = "<group>"; };
+		92BFF82122F46F3D00B2C435 /* material.car_13_wheel_r.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.car_13_wheel_r.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.car_13_wheel_r.base.xml; sourceTree = "<group>"; };
+		92BFF82222F46F3E00B2C435 /* material.car_11.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.car_11.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.car_11.base.xml; sourceTree = "<group>"; };
+		92BFF82322F46F3E00B2C435 /* material.car_13.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.car_13.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.car_13.base.xml; sourceTree = "<group>"; };
+		92BFF82422F46F3F00B2C435 /* material.car_13_wheel_l.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.car_13_wheel_l.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.car_13_wheel_l.base.xml; sourceTree = "<group>"; };
+		92BFF82522F46F4000B2C435 /* material.car_09.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.car_09.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.car_09.base.xml; sourceTree = "<group>"; };
+		92BFF82622F46F4100B2C435 /* material.car_09_wheel_l.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.car_09_wheel_l.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.car_09_wheel_l.base.xml; sourceTree = "<group>"; };
+		92BFF82722F46F4100B2C435 /* material.car_11_wheel_r.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.car_11_wheel_r.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.car_11_wheel_r.base.xml; sourceTree = "<group>"; };
+		92BFF82822F46F4200B2C435 /* material.car_10_wheel_r.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.car_10_wheel_r.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.car_10_wheel_r.base.xml; sourceTree = "<group>"; };
+		92BFF82922F46F4200B2C435 /* material.car_09_wheel_r.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.car_09_wheel_r.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.car_09_wheel_r.base.xml; sourceTree = "<group>"; };
+		92BFF82A22F46F4300B2C435 /* material.car_10_wheel_l.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.car_10_wheel_l.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.car_10_wheel_l.base.xml; sourceTree = "<group>"; };
+		92BFF82B22F46F4300B2C435 /* material.car_11_wheel_l.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.car_11_wheel_l.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.car_11_wheel_l.base.xml; sourceTree = "<group>"; };
+		92BFF82C22F46F4400B2C435 /* material.car_12.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.car_12.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.car_12.base.xml; sourceTree = "<group>"; };
+		92BFF82D22F46F4400B2C435 /* material.car_12_wheel_l.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.car_12_wheel_l.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.car_12_wheel_l.base.xml; sourceTree = "<group>"; };
 		92C83C8522427BEB00FC6167 /* material.ss.hdr.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.ss.hdr.xml; path = ../gbBundle/Configurations/techniques/material/material.ss.hdr.xml; sourceTree = "<group>"; };
 		92C83C8722427C0600FC6167 /* ss.technique.hdr.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ss.technique.hdr.xml; path = ../gbBundle/Configurations/techniques/ss_techniques/ss.technique.hdr.xml; sourceTree = "<group>"; };
 		92C83C8D22427D9F00FC6167 /* shader_ss_bright.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_ss_bright.frag; path = ../gbBundle/Shaders/shader_ss_bright.frag; sourceTree = "<group>"; };
@@ -2215,6 +2565,46 @@
 		92CE95352244F31F0013F8D7 /* material.cone_light_source.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.cone_light_source.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.cone_light_source.base.xml; sourceTree = "<group>"; };
 		92CF2C8D21BE798C007E37E6 /* car_03_configuration.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = car_03_configuration.xml; path = ../gbBundle/Configurations/gameplay/car_03_configuration.xml; sourceTree = "<group>"; };
 		92CF2C8E21BE798C007E37E6 /* car_01_configuration.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = car_01_configuration.xml; path = ../gbBundle/Configurations/gameplay/car_01_configuration.xml; sourceTree = "<group>"; };
+		92DBA9CE22F472C000AE5374 /* car_10_wheel_l.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = car_10_wheel_l.xml; path = ../gbBundle/Configurations/game_objects/car_10_wheel_l.xml; sourceTree = "<group>"; };
+		92DBA9CF22F472C100AE5374 /* car_09.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = car_09.xml; path = ../gbBundle/Configurations/game_objects/car_09.xml; sourceTree = "<group>"; };
+		92DBA9D022F472C200AE5374 /* car_10.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = car_10.xml; path = ../gbBundle/Configurations/game_objects/car_10.xml; sourceTree = "<group>"; };
+		92DBA9D122F472C200AE5374 /* car_12_wheel_l.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = car_12_wheel_l.xml; path = ../gbBundle/Configurations/game_objects/car_12_wheel_l.xml; sourceTree = "<group>"; };
+		92DBA9D222F472C300AE5374 /* car_12_wheel_r.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = car_12_wheel_r.xml; path = ../gbBundle/Configurations/game_objects/car_12_wheel_r.xml; sourceTree = "<group>"; };
+		92DBA9D322F472C400AE5374 /* car_13_wheel_l.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = car_13_wheel_l.xml; path = ../gbBundle/Configurations/game_objects/car_13_wheel_l.xml; sourceTree = "<group>"; };
+		92DBA9D422F472C500AE5374 /* car_09_wheel_l.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = car_09_wheel_l.xml; path = ../gbBundle/Configurations/game_objects/car_09_wheel_l.xml; sourceTree = "<group>"; };
+		92DBA9D522F472C600AE5374 /* car_09_wheel_r.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = car_09_wheel_r.xml; path = ../gbBundle/Configurations/game_objects/car_09_wheel_r.xml; sourceTree = "<group>"; };
+		92DBA9D622F472C700AE5374 /* car_13.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = car_13.xml; path = ../gbBundle/Configurations/game_objects/car_13.xml; sourceTree = "<group>"; };
+		92DBA9D722F472C800AE5374 /* car_12.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = car_12.xml; path = ../gbBundle/Configurations/game_objects/car_12.xml; sourceTree = "<group>"; };
+		92DBA9D822F472C900AE5374 /* car_11_wheel_r.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = car_11_wheel_r.xml; path = ../gbBundle/Configurations/game_objects/car_11_wheel_r.xml; sourceTree = "<group>"; };
+		92DBA9D922F472C900AE5374 /* car_11_wheel_l.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = car_11_wheel_l.xml; path = ../gbBundle/Configurations/game_objects/car_11_wheel_l.xml; sourceTree = "<group>"; };
+		92DBA9DA22F472CA00AE5374 /* car_13_wheel_r.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = car_13_wheel_r.xml; path = ../gbBundle/Configurations/game_objects/car_13_wheel_r.xml; sourceTree = "<group>"; };
+		92DBA9DB22F472CB00AE5374 /* car_11.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = car_11.xml; path = ../gbBundle/Configurations/game_objects/car_11.xml; sourceTree = "<group>"; };
+		92DBA9DC22F472CC00AE5374 /* car_10_wheel_r.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = car_10_wheel_r.xml; path = ../gbBundle/Configurations/game_objects/car_10_wheel_r.xml; sourceTree = "<group>"; };
+		92DBAA0A22F4759900AE5374 /* retro_car_09_wheel_l.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = retro_car_09_wheel_l.GB3DMESH; path = ../gbBundle/Meshes/retro_car_09_wheel_l.GB3DMESH; sourceTree = "<group>"; };
+		92DBAA0B22F4759A00AE5374 /* retro_car_11_wheel_l.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = retro_car_11_wheel_l.GB3DMESH; path = ../gbBundle/Meshes/retro_car_11_wheel_l.GB3DMESH; sourceTree = "<group>"; };
+		92DBAA0C22F4759B00AE5374 /* retro_car_12_wheel_r.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = retro_car_12_wheel_r.GB3DMESH; path = ../gbBundle/Meshes/retro_car_12_wheel_r.GB3DMESH; sourceTree = "<group>"; };
+		92DBAA0D22F4759B00AE5374 /* retro_car_13_wheel_r.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = retro_car_13_wheel_r.GB3DMESH; path = ../gbBundle/Meshes/retro_car_13_wheel_r.GB3DMESH; sourceTree = "<group>"; };
+		92DBAA0E22F4759B00AE5374 /* retro_car_12_wheel_l.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = retro_car_12_wheel_l.GB3DMESH; path = ../gbBundle/Meshes/retro_car_12_wheel_l.GB3DMESH; sourceTree = "<group>"; };
+		92DBAA0F22F4759C00AE5374 /* retro_car_12.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = retro_car_12.GB3DMESH; path = ../gbBundle/Meshes/retro_car_12.GB3DMESH; sourceTree = "<group>"; };
+		92DBAA1022F4759C00AE5374 /* retro_car_10.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = retro_car_10.GB3DMESH; path = ../gbBundle/Meshes/retro_car_10.GB3DMESH; sourceTree = "<group>"; };
+		92DBAA1122F4759D00AE5374 /* retro_car_13_wheel_l.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = retro_car_13_wheel_l.GB3DMESH; path = ../gbBundle/Meshes/retro_car_13_wheel_l.GB3DMESH; sourceTree = "<group>"; };
+		92DBAA1222F4759D00AE5374 /* retro_car_09.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = retro_car_09.GB3DMESH; path = ../gbBundle/Meshes/retro_car_09.GB3DMESH; sourceTree = "<group>"; };
+		92DBAA1322F4759D00AE5374 /* retro_car_09_wheel_r.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = retro_car_09_wheel_r.GB3DMESH; path = ../gbBundle/Meshes/retro_car_09_wheel_r.GB3DMESH; sourceTree = "<group>"; };
+		92DBAA1422F4759E00AE5374 /* retro_car_10_wheel_r.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = retro_car_10_wheel_r.GB3DMESH; path = ../gbBundle/Meshes/retro_car_10_wheel_r.GB3DMESH; sourceTree = "<group>"; };
+		92DBAA1522F4759F00AE5374 /* retro_car_11.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = retro_car_11.GB3DMESH; path = ../gbBundle/Meshes/retro_car_11.GB3DMESH; sourceTree = "<group>"; };
+		92DBAA1622F4759F00AE5374 /* retro_car_10_wheel_l.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = retro_car_10_wheel_l.GB3DMESH; path = ../gbBundle/Meshes/retro_car_10_wheel_l.GB3DMESH; sourceTree = "<group>"; };
+		92DBAA1722F4759F00AE5374 /* retro_car_11_wheel_r.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = retro_car_11_wheel_r.GB3DMESH; path = ../gbBundle/Meshes/retro_car_11_wheel_r.GB3DMESH; sourceTree = "<group>"; };
+		92DBAA1822F475A000AE5374 /* retro_car_13.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = retro_car_13.GB3DMESH; path = ../gbBundle/Meshes/retro_car_13.GB3DMESH; sourceTree = "<group>"; };
+		92DBAA4622F475BA00AE5374 /* car_11_configuration.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = car_11_configuration.xml; path = ../gbBundle/Configurations/gameplay/car_11_configuration.xml; sourceTree = "<group>"; };
+		92DBAA4722F475BB00AE5374 /* car_09_configuration.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = car_09_configuration.xml; path = ../gbBundle/Configurations/gameplay/car_09_configuration.xml; sourceTree = "<group>"; };
+		92DBAA4822F475BB00AE5374 /* car_10_configuration.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = car_10_configuration.xml; path = ../gbBundle/Configurations/gameplay/car_10_configuration.xml; sourceTree = "<group>"; };
+		92DBAA4922F475BC00AE5374 /* car_12_configuration.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = car_12_configuration.xml; path = ../gbBundle/Configurations/gameplay/car_12_configuration.xml; sourceTree = "<group>"; };
+		92DBAA4A22F475BD00AE5374 /* car_13_configuration.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = car_13_configuration.xml; path = ../gbBundle/Configurations/gameplay/car_13_configuration.xml; sourceTree = "<group>"; };
+		92DBAA5A22F4765600AE5374 /* car_progression_rank_9.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = car_progression_rank_9.xml; path = ../gbBundle/Configurations/gameplay/car_progression_rank_9.xml; sourceTree = "<group>"; };
+		92DBAA5B22F4765700AE5374 /* car_progression_rank_12.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = car_progression_rank_12.xml; path = ../gbBundle/Configurations/gameplay/car_progression_rank_12.xml; sourceTree = "<group>"; };
+		92DBAA5C22F4765700AE5374 /* car_progression_rank_11.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = car_progression_rank_11.xml; path = ../gbBundle/Configurations/gameplay/car_progression_rank_11.xml; sourceTree = "<group>"; };
+		92DBAA5D22F4765800AE5374 /* car_progression_rank_10.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = car_progression_rank_10.xml; path = ../gbBundle/Configurations/gameplay/car_progression_rank_10.xml; sourceTree = "<group>"; };
+		92DBAA5E22F4765900AE5374 /* car_progression_rank_13.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = car_progression_rank_13.xml; path = ../gbBundle/Configurations/gameplay/car_progression_rank_13.xml; sourceTree = "<group>"; };
 		92E23EA022AE4DE9005DDD5D /* ces_levels_database_component.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ces_levels_database_component.cpp; path = sources/ces_levels_database_component.cpp; sourceTree = "<group>"; };
 		92E23EA122AE4DE9005DDD5D /* ces_levels_database_component.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ces_levels_database_component.h; path = sources/ces_levels_database_component.h; sourceTree = "<group>"; };
 		92E23EE822AE57F6005DDD5D /* levels_set_configuration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = levels_set_configuration.h; path = autogenerated/levels_set_configuration.h; sourceTree = "<group>"; };
@@ -2552,6 +2942,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92BFF77622F3145100B2C435 /* StoreKit.framework in Frameworks */,
 				92AF449122F1C5E800505E3D /* GameKit.framework in Frameworks */,
 				923663F222D3256C008BE74B /* StoreKit.framework in Frameworks */,
 				92E736B322BB99E500EC0C5E /* Security.framework in Frameworks */,
@@ -2714,6 +3105,21 @@
 		21275FE61B98655800BEE033 /* base */ = {
 			isa = PBXGroup;
 			children = (
+				92BFF82422F46F3F00B2C435 /* material.car_13_wheel_l.base.xml */,
+				92BFF82D22F46F4400B2C435 /* material.car_12_wheel_l.base.xml */,
+				92BFF82B22F46F4300B2C435 /* material.car_11_wheel_l.base.xml */,
+				92BFF82A22F46F4300B2C435 /* material.car_10_wheel_l.base.xml */,
+				92BFF82622F46F4100B2C435 /* material.car_09_wheel_l.base.xml */,
+				92BFF82122F46F3D00B2C435 /* material.car_13_wheel_r.base.xml */,
+				92BFF81F22F46F3B00B2C435 /* material.car_12_wheel_r.base.xml */,
+				92BFF82722F46F4100B2C435 /* material.car_11_wheel_r.base.xml */,
+				92BFF82822F46F4200B2C435 /* material.car_10_wheel_r.base.xml */,
+				92BFF82922F46F4200B2C435 /* material.car_09_wheel_r.base.xml */,
+				92BFF82322F46F3E00B2C435 /* material.car_13.base.xml */,
+				92BFF82C22F46F4400B2C435 /* material.car_12.base.xml */,
+				92BFF82222F46F3E00B2C435 /* material.car_11.base.xml */,
+				92BFF82022F46F3C00B2C435 /* material.car_10.base.xml */,
+				92BFF82522F46F4000B2C435 /* material.car_09.base.xml */,
 				92E23FAB22B0F6F6005DDD5D /* material.car_05_wheel_l.base.xml */,
 				92E23FAE22B0F6F7005DDD5D /* material.car_05_wheel_r.base.xml */,
 				92E23FA522B0F6F5005DDD5D /* material.car_05.base.xml */,
@@ -3162,6 +3568,27 @@
 		21FA12551B8F2C0E00ACB9A5 /* textures */ = {
 			isa = PBXGroup;
 			children = (
+				92BFF81522F46AC200B2C435 /* retro_car_08_body_color_mask.png */,
+				92BFF81422F46AC200B2C435 /* retro_car_08_windows_color_mask.png */,
+				92BFF81322F46AC000B2C435 /* retro_car_08.png */,
+				92BFF80922F461DD00B2C435 /* retro_car_07_body_color_mask.png */,
+				92BFF80822F461DC00B2C435 /* retro_car_07_windows_color_mask.png */,
+				92BFF80722F461DB00B2C435 /* retro_car_07.png */,
+				92BFF7FC22F45D8C00B2C435 /* retro_car_06_body_color_mask.png */,
+				92BFF7FD22F45D8C00B2C435 /* retro_car_06_windows_color_mask.png */,
+				92BFF7FB22F45D8B00B2C435 /* retro_car_06.png */,
+				92BFF7F122F459DF00B2C435 /* retro_car_05_body_color_mask.png */,
+				92BFF7F022F459DE00B2C435 /* retro_car_05_windows_color_mask.png */,
+				92BFF7EF22F459DE00B2C435 /* retro_car_05.png */,
+				92BFF7E522F453B300B2C435 /* retro_car_04_body_color_mask.png */,
+				92BFF7E322F453B200B2C435 /* retro_car_04_windows_color_mask.png */,
+				92BFF7E422F453B200B2C435 /* retro_car_04.png */,
+				92BFF7D922F450CD00B2C435 /* retro_car_03_body_color_mask.png */,
+				92BFF7D822F450CC00B2C435 /* retro_car_03_windows_color_mask.png */,
+				92BFF7D722F450CB00B2C435 /* retro_car_03.png */,
+				92BFF7CC22F4437300B2C435 /* retro_car_02_body_color_mask.png */,
+				92BFF7CD22F4437400B2C435 /* retro_car_02_windows_color_mask.png */,
+				92BFF7CB22F4437200B2C435 /* retro_car_02.png */,
 				92795FB122F1D24B00B5BC9C /* ui_leaderboard.png */,
 				92C8637122EFF4560067A463 /* ui_minus.png */,
 				922FCD4522EB13D80040C71F /* ui_plus.png */,
@@ -3529,6 +3956,21 @@
 		92BAA6D522896DEB005C5883 /* cars */ = {
 			isa = PBXGroup;
 			children = (
+				92DBA9CF22F472C100AE5374 /* car_09.xml */,
+				92DBA9D022F472C200AE5374 /* car_10.xml */,
+				92DBA9DB22F472CB00AE5374 /* car_11.xml */,
+				92DBA9D722F472C800AE5374 /* car_12.xml */,
+				92DBA9D622F472C700AE5374 /* car_13.xml */,
+				92DBA9D422F472C500AE5374 /* car_09_wheel_l.xml */,
+				92DBA9CE22F472C000AE5374 /* car_10_wheel_l.xml */,
+				92DBA9D922F472C900AE5374 /* car_11_wheel_l.xml */,
+				92DBA9D122F472C200AE5374 /* car_12_wheel_l.xml */,
+				92DBA9D322F472C400AE5374 /* car_13_wheel_l.xml */,
+				92DBA9D522F472C600AE5374 /* car_09_wheel_r.xml */,
+				92DBA9DC22F472CC00AE5374 /* car_10_wheel_r.xml */,
+				92DBA9D822F472C900AE5374 /* car_11_wheel_r.xml */,
+				92DBA9D222F472C300AE5374 /* car_12_wheel_r.xml */,
+				92DBA9DA22F472CA00AE5374 /* car_13_wheel_r.xml */,
 				92E23F7B22B0F695005DDD5D /* car_05_wheel_l.xml */,
 				92E23F7922B0F694005DDD5D /* car_05_wheel_r.xml */,
 				92E23F7822B0F694005DDD5D /* car_05.xml */,
@@ -3618,6 +4060,11 @@
 		92E23EFE22B0E974005DDD5D /* cars */ = {
 			isa = PBXGroup;
 			children = (
+				92DBAA4722F475BB00AE5374 /* car_09_configuration.xml */,
+				92DBAA4822F475BB00AE5374 /* car_10_configuration.xml */,
+				92DBAA4622F475BA00AE5374 /* car_11_configuration.xml */,
+				92DBAA4922F475BC00AE5374 /* car_12_configuration.xml */,
+				92DBAA4A22F475BD00AE5374 /* car_13_configuration.xml */,
 				92E23F6422B0F637005DDD5D /* car_05_configuration.xml */,
 				92E23F6622B0F637005DDD5D /* car_06_configuration.xml */,
 				92E23F6322B0F636005DDD5D /* car_07_configuration.xml */,
@@ -3633,6 +4080,11 @@
 		92E7364F22B8DDD300EC0C5E /* progression */ = {
 			isa = PBXGroup;
 			children = (
+				92DBAA5E22F4765900AE5374 /* car_progression_rank_13.xml */,
+				92DBAA5B22F4765700AE5374 /* car_progression_rank_12.xml */,
+				92DBAA5C22F4765700AE5374 /* car_progression_rank_11.xml */,
+				92DBAA5D22F4765800AE5374 /* car_progression_rank_10.xml */,
+				92DBAA5A22F4765600AE5374 /* car_progression_rank_9.xml */,
 				F3ED65541F21E47E0047F89D /* car_progression_rank_1.xml */,
 				F3631BEA1F28BDFE006F0379 /* car_progression_rank_2.xml */,
 				F30077D11F31CD00009F2EDF /* car_progression_rank_3.xml */,
@@ -3722,6 +4174,42 @@
 		F33D07C91ECC377B00535334 /* meshes */ = {
 			isa = PBXGroup;
 			children = (
+				92DBAA0A22F4759900AE5374 /* retro_car_09_wheel_l.GB3DMESH */,
+				92DBAA1322F4759D00AE5374 /* retro_car_09_wheel_r.GB3DMESH */,
+				92DBAA1222F4759D00AE5374 /* retro_car_09.GB3DMESH */,
+				92DBAA1622F4759F00AE5374 /* retro_car_10_wheel_l.GB3DMESH */,
+				92DBAA1422F4759E00AE5374 /* retro_car_10_wheel_r.GB3DMESH */,
+				92DBAA1022F4759C00AE5374 /* retro_car_10.GB3DMESH */,
+				92DBAA0B22F4759A00AE5374 /* retro_car_11_wheel_l.GB3DMESH */,
+				92DBAA1722F4759F00AE5374 /* retro_car_11_wheel_r.GB3DMESH */,
+				92DBAA1522F4759F00AE5374 /* retro_car_11.GB3DMESH */,
+				92DBAA0E22F4759B00AE5374 /* retro_car_12_wheel_l.GB3DMESH */,
+				92DBAA0C22F4759B00AE5374 /* retro_car_12_wheel_r.GB3DMESH */,
+				92DBAA0F22F4759C00AE5374 /* retro_car_12.GB3DMESH */,
+				92DBAA1122F4759D00AE5374 /* retro_car_13_wheel_l.GB3DMESH */,
+				92DBAA0D22F4759B00AE5374 /* retro_car_13_wheel_r.GB3DMESH */,
+				92DBAA1822F475A000AE5374 /* retro_car_13.GB3DMESH */,
+				92BFF78222F43E7E00B2C435 /* retro_car_02_wheel_l.GB3DMESH */,
+				92BFF78022F43E7D00B2C435 /* retro_car_02_wheel_r.GB3DMESH */,
+				92BFF78522F43E7F00B2C435 /* retro_car_02.GB3DMESH */,
+				92BFF78922F43E8100B2C435 /* retro_car_03_wheel_l.GB3DMESH */,
+				92BFF77F22F43E7D00B2C435 /* retro_car_03_wheel_r.GB3DMESH */,
+				92BFF77D22F43E7C00B2C435 /* retro_car_03.GB3DMESH */,
+				92BFF78622F43E7F00B2C435 /* retro_car_04_wheel_l.GB3DMESH */,
+				92BFF78122F43E7E00B2C435 /* retro_car_04_wheel_r.GB3DMESH */,
+				92BFF78A22F43E8100B2C435 /* retro_car_04.GB3DMESH */,
+				92BFF77822F43E7A00B2C435 /* retro_car_05_wheel_l.GB3DMESH */,
+				92BFF77722F43E7A00B2C435 /* retro_car_05_wheel_r.GB3DMESH */,
+				92BFF77C22F43E7C00B2C435 /* retro_car_05.GB3DMESH */,
+				92BFF78B22F43E8100B2C435 /* retro_car_06_wheel_l.GB3DMESH */,
+				92BFF78322F43E7E00B2C435 /* retro_car_06_wheel_r.GB3DMESH */,
+				92BFF78422F43E7F00B2C435 /* retro_car_06.GB3DMESH */,
+				92BFF77922F43E7B00B2C435 /* retro_car_07_wheel_l.GB3DMESH */,
+				92BFF78722F43E8000B2C435 /* retro_car_07_wheel_r.GB3DMESH */,
+				92BFF77A22F43E7B00B2C435 /* retro_car_07.GB3DMESH */,
+				92BFF77E22F43E7D00B2C435 /* retro_car_08_wheel_l.GB3DMESH */,
+				92BFF78822F43E8000B2C435 /* retro_car_08_wheel_r.GB3DMESH */,
+				92BFF77B22F43E7B00B2C435 /* retro_car_08.GB3DMESH */,
 				92387F5022E422C700FBE57A /* retro_car_01_wheel_l.GB3DMESH */,
 				92387F4F22E422C700FBE57A /* retro_car_01_wheel_r.GB3DMESH */,
 				92387F4B22E39D9300FBE57A /* retro_car_01.GB3DMESH */,
@@ -3798,6 +4286,7 @@
 		F351AF4A1EB08BA00017E43E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				92BFF77522F3145000B2C435 /* StoreKit.framework */,
 				92AF449022F1C5E700505E3D /* GameKit.framework */,
 				92AF448A22F1C5C600505E3D /* GameKit.framework */,
 				924993C922F0C9F100F128FA /* Security.framework */,
@@ -4252,11 +4741,13 @@
 			files = (
 				9213BABE22156CB100F8ACB5 /* road_straight.GB3DMESH in Resources */,
 				92F041DF22C20C4A00E37703 /* level_1.xml in Resources */,
+				92DBAA4322F475A000AE5374 /* retro_car_13.GB3DMESH in Resources */,
 				92E23EFB22AF8CEB005DDD5D /* ui_pause.png in Resources */,
 				92BAA6DB2289855E005C5883 /* car_01_wheel_r.GB3DMESH in Resources */,
 				92E2402622B8D7CF005DDD5D /* appartment_roof_01.GB3DMESH in Resources */,
 				92F041FD22C20C4B00E37703 /* level_44.xml in Resources */,
 				21FD2AB91C53D3B700597EBB /* table_view_cell_background.xml in Resources */,
+				92DBAA5F22F4765900AE5374 /* car_progression_rank_9.xml in Resources */,
 				92F0424222C20C4C00E37703 /* level_35.xml in Resources */,
 				92F0426022C20C4D00E37703 /* level_33.xml in Resources */,
 				92601CDF22804E3C000B38E1 /* ss.technique.compose.ui.xml in Resources */,
@@ -4270,10 +4761,12 @@
 				92F041DC22C20C4A00E37703 /* level_18.xml in Resources */,
 				92F0430722C20CB700E37703 /* level_15.tmx in Resources */,
 				92F042F522C20CB700E37703 /* level_7.tmx in Resources */,
+				92DBAA3D22F475A000AE5374 /* retro_car_10_wheel_l.GB3DMESH in Resources */,
 				9213BAAA221565F400F8ACB5 /* road_corner.GB3DMESH in Resources */,
 				92795FB622F1D24D00B5BC9C /* ui_leaderboard.png in Resources */,
 				92F0431322C20CB700E37703 /* level_44.tmx in Resources */,
 				92E23FD022B0F6F7005DDD5D /* material.car_05_wheel_r.base.xml in Resources */,
+				92BFF7D422F4437500B2C435 /* retro_car_02_windows_color_mask.png in Resources */,
 				92E23FB522B0F6F7005DDD5D /* material.car_05.base.xml in Resources */,
 				922FCD4E22EB13D90040C71F /* ui_wrench.png in Resources */,
 				9209653D225CAC7500264C65 /* road_corner_sidewalk.xml in Resources */,
@@ -4281,9 +4774,11 @@
 				92F0432522C20CB700E37703 /* level_45.tmx in Resources */,
 				92F042F222C20CB700E37703 /* level_32.tmx in Resources */,
 				92F042FE22C20CB700E37703 /* level_42.tmx in Resources */,
+				92DBA9FE22F472CC00AE5374 /* car_11_wheel_l.xml in Resources */,
 				92601CD3228045E6000B38E1 /* output.technique.xml in Resources */,
 				9213BAC62215934300F8ACB5 /* car_01.xml in Resources */,
 				922FCD4B22EB13D90040C71F /* ui_plus.png in Resources */,
+				92BFF7AD22F43E8200B2C435 /* retro_car_02_wheel_l.GB3DMESH in Resources */,
 				921BBA652268BAAF00482139 /* engine_volume_off_mid.fcl in Resources */,
 				927A6E42221D59AC0023243F /* car_01_wheel_r.xml in Resources */,
 				9290953522C35A3B005097DC /* ui_cart.png in Resources */,
@@ -4295,16 +4790,24 @@
 				92BAA6592281C64F005C5883 /* material.ss.cross_fade.xml in Resources */,
 				92F042DD22C20CB700E37703 /* level_23.tmx in Resources */,
 				92E23F6D22B0F637005DDD5D /* car_08_configuration.xml in Resources */,
+				92DBAA3722F475A000AE5374 /* retro_car_10_wheel_r.GB3DMESH in Resources */,
 				92F0420C22C20C4B00E37703 /* level_6.xml in Resources */,
+				92BFF83422F46F4500B2C435 /* material.car_13_wheel_r.base.xml in Resources */,
+				92BFF7A122F43E8200B2C435 /* retro_car_08_wheel_l.GB3DMESH in Resources */,
+				92BFF7B922F43E8200B2C435 /* retro_car_04_wheel_l.GB3DMESH in Resources */,
 				92601C89227C3BC2000B38E1 /* arrow.xml in Resources */,
+				92BFF7F522F459DF00B2C435 /* retro_car_05_windows_color_mask.png in Resources */,
 				92387F4822E39D6700FBE57A /* retro_car_01.png in Resources */,
 				0257957E1EF81F00008FA0AF /* exhaust.particle.emitter.xml in Resources */,
 				21FD2ABC1C53D48200597EBB /* material.table_view_background.ui.xml in Resources */,
 				92F0430D22C20CB700E37703 /* level_1.tmx in Resources */,
+				92DBAA5122F475BD00AE5374 /* car_10_configuration.xml in Resources */,
 				92F0425722C20C4C00E37703 /* level_25.xml in Resources */,
+				92BFF85522F46F4500B2C435 /* material.car_12.base.xml in Resources */,
 				92BAA70822899A3D005C5883 /* car_02.GB3DMESH in Resources */,
 				92E23F0022B0E989005DDD5D /* car_04_configuration.xml in Resources */,
 				92E23F6A22B0F637005DDD5D /* car_05_configuration.xml in Resources */,
+				92DBAA6822F4765900AE5374 /* car_progression_rank_10.xml in Resources */,
 				92F042B022C20CB600E37703 /* level_27.tmx in Resources */,
 				92F0425A22C20C4D00E37703 /* level_47.xml in Resources */,
 				9228C0192248EFAC001F9649 /* ss.technique.gaussian_blur_v.xml in Resources */,
@@ -4317,6 +4820,7 @@
 				92F0430122C20CB700E37703 /* level_48.tmx in Resources */,
 				21DA20881C46926B008AD536 /* material.button_background.ui.xml in Resources */,
 				92E23EF522AF8CEB005DDD5D /* ui_restart.png in Resources */,
+				92BFF81C22F46AC300B2C435 /* retro_car_08_body_color_mask.png in Resources */,
 				92601C9E228032DF000B38E1 /* ss.technique.tv.xml in Resources */,
 				92E23F1522B0EA17005DDD5D /* material.car_04.base.xml in Resources */,
 				92266399225246B30092AE0B /* tire_trail.xml in Resources */,
@@ -4326,13 +4830,17 @@
 				926F26B9226DBFFA004659CC /* buildings_shared.xml in Resources */,
 				928B6737228D3BAD003D9F58 /* ui_1.png in Resources */,
 				92F042B622C20CB600E37703 /* level_29.tmx in Resources */,
+				92BFF84022F46F4500B2C435 /* material.car_09.base.xml in Resources */,
 				92601CCF228045BE000B38E1 /* material.ss.output.xml in Resources */,
 				F3237EB81E9E58B100337A9C /* material.textfield_label.ui.xml in Resources */,
+				92BFF83722F46F4500B2C435 /* material.car_11.base.xml in Resources */,
 				92F0423322C20C4C00E37703 /* level_40.xml in Resources */,
 				025795101EF04C57008FA0AF /* ui_image.xml in Resources */,
 				92CE95322244F3070013F8D7 /* cone_light_source.xml in Resources */,
 				92F0421522C20C4B00E37703 /* level_23.xml in Resources */,
 				92F042E922C20CB700E37703 /* level_43.tmx in Resources */,
+				92BFF84622F46F4500B2C435 /* material.car_11_wheel_r.base.xml in Resources */,
+				92BFF79522F43E8200B2C435 /* retro_car_07.GB3DMESH in Resources */,
 				92723ADA221DD62300555BAC /* onmid.mp3 in Resources */,
 				92F0421E22C20C4B00E37703 /* level_13.xml in Resources */,
 				92F0431022C20CB700E37703 /* level_20.tmx in Resources */,
@@ -4341,39 +4849,51 @@
 				21FD2ABD1C53D48200597EBB /* material.table_view_cell_background.ui.xml in Resources */,
 				92BF4F5A2200583900E95AD7 /* material.sidewalk.base.xml in Resources */,
 				92F0421222C20C4B00E37703 /* level_42.xml in Resources */,
+				92DBA9F522F472CC00AE5374 /* car_13.xml in Resources */,
 				92E23F5122B0F59C005DDD5D /* car_08_skin_2.png in Resources */,
 				92E23F2122B0EA47005DDD5D /* car_04_skin_3.png in Resources */,
 				92F042CB22C20CB700E37703 /* level_12.tmx in Resources */,
+				92BFF80D22F461DD00B2C435 /* retro_car_07_windows_color_mask.png in Resources */,
 				F36D14821E937079009B7A41 /* font_01.xml in Resources */,
 				92E23F2D22B0EA82005DDD5D /* car_04_wheel_r.GB3DMESH in Resources */,
+				92BFF80422F45D8D00B2C435 /* retro_car_06_windows_color_mask.png in Resources */,
 				21E2D70F1C75C9AA00BFF2B8 /* material.tree_view_cell_background.ui.xml in Resources */,
 				F3F301641E0BF5C20039D2CE /* cars_progression.xml in Resources */,
 				21E2D7121C762D4400BFF2B8 /* tree_view_cell_label.xml in Resources */,
+				92BFF7F222F459DF00B2C435 /* retro_car_05.png in Resources */,
 				92E23F8522B0F696005DDD5D /* car_08_wheel_l.xml in Resources */,
 				92E23F2A22B0EA82005DDD5D /* car_04.GB3DMESH in Resources */,
 				92F0423F22C20C4C00E37703 /* level_22.xml in Resources */,
 				92BAA6B62285AA9A005C5883 /* ui_checkmark.png in Resources */,
+				92DBAA4022F475A000AE5374 /* retro_car_11_wheel_r.GB3DMESH in Resources */,
 				92F042EC22C20CB700E37703 /* level_25.tmx in Resources */,
 				92E23F8222B0F696005DDD5D /* car_07_wheel_l.xml in Resources */,
+				92DBAA2822F475A000AE5374 /* retro_car_12.GB3DMESH in Resources */,
 				92E23FB222B0F6F7005DDD5D /* material.car_07.base.xml in Resources */,
 				92723AD7221DD62300555BAC /* idle.mp3 in Resources */,
 				923C5463226763BF009B311E /* office_02_floor.GB3DMESH in Resources */,
 				928B6718228C153B003D9F58 /* sky_nx.png in Resources */,
 				92387F5122E422C800FBE57A /* retro_car_01_wheel_r.GB3DMESH in Resources */,
 				926F26A0226DBFE4004659CC /* office_07_floor.GB3DMESH in Resources */,
+				92DBAA6B22F4765900AE5374 /* car_progression_rank_13.xml in Resources */,
 				92260EDE22E5D7E60071C6A0 /* retro_car_01_body_color_mask.png in Resources */,
 				F3303C201E800B5500F11F62 /* material.information_bubble.base.xml in Resources */,
 				923C5469226764D3009B311E /* office_03_ground_floor.GB3DMESH in Resources */,
 				92F0425D22C20C4D00E37703 /* level_2.xml in Resources */,
+				92BFF7E022F450CD00B2C435 /* retro_car_03_body_color_mask.png in Resources */,
 				92F0423922C20C4C00E37703 /* level_14.xml in Resources */,
 				92E23FDF22B0F7B0005DDD5D /* car_06_wheel_l.GB3DMESH in Resources */,
 				92E23F9122B0F696005DDD5D /* car_05_wheel_r.xml in Resources */,
+				92DBAA2B22F475A000AE5374 /* retro_car_10.GB3DMESH in Resources */,
 				92BF4F2D21FF3E8300E95AD7 /* road_corner_t.xml in Resources */,
+				92BFF85822F46F4500B2C435 /* material.car_12_wheel_l.base.xml in Resources */,
 				0257955E1EF81E90008FA0AF /* material.exhaust.particle.emitter.base.xml in Resources */,
 				92B49AE02255FA82002F7EED /* ssao_random.png in Resources */,
 				92F0422D22C20C4C00E37703 /* level_30.xml in Resources */,
+				92BFF83D22F46F4500B2C435 /* material.car_13_wheel_l.base.xml in Resources */,
 				926F26B5226DBFE4004659CC /* office_05_ground_floor.GB3DMESH in Resources */,
 				92F041E822C20C4A00E37703 /* level_37.xml in Resources */,
+				92BFF81622F46AC300B2C435 /* retro_car_08.png in Resources */,
 				926F26E6226DF510004659CC /* material.roads_shared.base.xml in Resources */,
 				9213BAB622156C7800F8ACB5 /* road_straight.xml in Resources */,
 				F32627091E02838B00383515 /* console_background.xml in Resources */,
@@ -4386,8 +4906,10 @@
 				928B6715228C153B003D9F58 /* sky_py.png in Resources */,
 				926F26A9226DBFE4004659CC /* office_06_floor.GB3DMESH in Resources */,
 				92F041EE22C20C4B00E37703 /* level_31.xml in Resources */,
+				92BFF79B22F43E8200B2C435 /* retro_car_05.GB3DMESH in Resources */,
 				92E23FB822B0F6F7005DDD5D /* material.car_07_wheel_r.base.xml in Resources */,
 				92F0422A22C20C4C00E37703 /* level_5.xml in Resources */,
+				92BFF83122F46F4500B2C435 /* material.car_10.base.xml in Resources */,
 				92F0431922C20CB700E37703 /* level_31.tmx in Resources */,
 				92BAA6B92285AA9A005C5883 /* ui_cross.png in Resources */,
 				92F0420922C20C4B00E37703 /* level_20.xml in Resources */,
@@ -4397,6 +4919,8 @@
 				92E23F5422B0F59C005DDD5D /* car_05_skin_3.png in Resources */,
 				921BB74E226899BA00482139 /* drift.mp3 in Resources */,
 				9209652E225CAC1C00264C65 /* material.road_straight_sidewalk.base.xml in Resources */,
+				92BFF79822F43E8200B2C435 /* retro_car_08.GB3DMESH in Resources */,
+				92BFF7B622F43E8200B2C435 /* retro_car_02.GB3DMESH in Resources */,
 				21EC9AF51C64D7C4000736D8 /* material.particle.emitter.smoke.emissive.xml in Resources */,
 				92F042AA22C20CB600E37703 /* level_40.tmx in Resources */,
 				F326270D1E02839D00383515 /* material.console_background.ui.xml in Resources */,
@@ -4404,6 +4928,7 @@
 				923C545722675C4F009B311E /* office_01_ground_floor.GB3DMESH in Resources */,
 				92F042BC22C20CB600E37703 /* level_50.tmx in Resources */,
 				F30077B61F31C6D9009F2EDF /* car_progression_rank_6.xml in Resources */,
+				92BFF84322F46F4500B2C435 /* material.car_09_wheel_l.base.xml in Resources */,
 				F30077D21F31CD01009F2EDF /* car_progression_rank_3.xml in Resources */,
 				21E2D7151C762D6400BFF2B8 /* material.tree_view_cell_label.ui.xml in Resources */,
 				92E23F5722B0F59C005DDD5D /* car_07_skin_1.png in Resources */,
@@ -4415,15 +4940,20 @@
 				92FAAF002243C63600D243C0 /* particle.emitter.smoke.xml in Resources */,
 				926F26AF226DBFE4004659CC /* office_08_floor.GB3DMESH in Resources */,
 				923C544E22675295009B311E /* road_corner_t.GB3DMESH in Resources */,
+				92BFF7FE22F45D8D00B2C435 /* retro_car_06.png in Resources */,
 				2126DC841C566154003EBBDA /* content_tab_list_cell_background.xml in Resources */,
 				92F042D122C20CB700E37703 /* level_38.tmx in Resources */,
 				92F042D722C20CB700E37703 /* level_11.tmx in Resources */,
 				92723B01221F041000555BAC /* road_corner_t_sidewalk.xml in Resources */,
+				92BFF80A22F461DD00B2C435 /* retro_car_07.png in Resources */,
 				92BAA65D2281C67D005C5883 /* ss.technique.cross_fade.xml in Resources */,
 				92E23FCD22B0F6F7005DDD5D /* material.car_06.base.xml in Resources */,
 				9213BAAE2215664500F8ACB5 /* road_corner.xml in Resources */,
+				92BFF7DD22F450CD00B2C435 /* retro_car_03_windows_color_mask.png in Resources */,
 				9209650E2257835A00264C65 /* material.label_3d_01.emissive.xml in Resources */,
+				92DBAA6522F4765900AE5374 /* car_progression_rank_11.xml in Resources */,
 				9213BACA2215939100F8ACB5 /* material.car_01.base.xml in Resources */,
+				92BFF84F22F46F4500B2C435 /* material.car_10_wheel_l.base.xml in Resources */,
 				F3C79E701EEFEA0000C991C3 /* material.ui_image.base.xml in Resources */,
 				92E23FE222B0F7B0005DDD5D /* car_07.GB3DMESH in Resources */,
 				9289D85022E869E5005E327A /* retro_car_01_windows_color_mask.png in Resources */,
@@ -4431,24 +4961,33 @@
 				92F042AD22C20CB600E37703 /* level_49.tmx in Resources */,
 				F326270A1E02838B00383515 /* console_message.xml in Resources */,
 				21FD2AB81C53D3B700597EBB /* table_view_background.xml in Resources */,
+				92BFF7E922F453B300B2C435 /* retro_car_04.png in Resources */,
 				21EC9B471C65F673000736D8 /* switcher_background.xml in Resources */,
+				92BFF7B322F43E8200B2C435 /* retro_car_06.GB3DMESH in Resources */,
 				92FAAEBE22437AF800D243C0 /* tree_01.xml in Resources */,
 				92E23F1E22B0EA47005DDD5D /* car_04_skin_2.png in Resources */,
 				928B674D228D447E003D9F58 /* car_02_skin_2.png in Resources */,
+				92BFF7E622F453B300B2C435 /* retro_car_04_windows_color_mask.png in Resources */,
 				928B6712228C153B003D9F58 /* sky_pz.png in Resources */,
 				92BAA7152289C019005C5883 /* car_03_wheel_l.GB3DMESH in Resources */,
 				92601CA622804324000B38E1 /* material.ss.compose.xml in Resources */,
+				92BFF7BC22F43E8200B2C435 /* retro_car_07_wheel_r.GB3DMESH in Resources */,
+				92BFF7F822F459DF00B2C435 /* retro_car_05_body_color_mask.png in Resources */,
 				92F0422722C20C4C00E37703 /* level_11.xml in Resources */,
 				92723AD1221DD62300555BAC /* offhigh.mp3 in Resources */,
 				92E23FC722B0F6F7005DDD5D /* material.car_05_wheel_l.base.xml in Resources */,
 				926F26A3226DBFE4004659CC /* office_06_ground_floor.GB3DMESH in Resources */,
 				92601CD7228047BD000B38E1 /* ws.technique.ui.xml in Resources */,
 				21EE3D5D1B96ECC1000AE51C /* particle_01.png in Resources */,
+				92DBA9F822F472CC00AE5374 /* car_12.xml in Resources */,
 				927A6E46221D59C40023243F /* material.car_01_wheel_r.base.xml in Resources */,
 				92F041F722C20C4B00E37703 /* level_49.xml in Resources */,
 				2126DC821C566154003EBBDA /* content_tab_list_background.xml in Resources */,
 				92096545225CACC600264C65 /* road_corner_sidewalk.GB3DMESH in Resources */,
+				92DBAA0122F472CC00AE5374 /* car_13_wheel_r.xml in Resources */,
 				92FAAEBB22437AF800D243C0 /* light_pole.xml in Resources */,
+				92BFF83A22F46F4500B2C435 /* material.car_13.base.xml in Resources */,
+				92DBAA0422F472CC00AE5374 /* car_11.xml in Resources */,
 				21EC9B491C65F6A4000736D8 /* material.switcher_background.ui.xml in Resources */,
 				92601C8D227C3BFF000B38E1 /* material.arrow.base.xml in Resources */,
 				921BBA622268BAAF00482139 /* engine_load.fcl in Resources */,
@@ -4458,7 +4997,9 @@
 				92F042B322C20CB600E37703 /* level_36.tmx in Resources */,
 				92E23FF122B0F7B0005DDD5D /* car_06_wheel_r.GB3DMESH in Resources */,
 				92601CA2228032FC000B38E1 /* material.ss.tv.xml in Resources */,
+				92DBAA3122F475A000AE5374 /* retro_car_09.GB3DMESH in Resources */,
 				F30077B51F31C6D9009F2EDF /* car_progression_rank_7.xml in Resources */,
+				92DBA9FB22F472CC00AE5374 /* car_11_wheel_r.xml in Resources */,
 				92FAAECE2243876200D243C0 /* ss.technique.gaussian_blur_h.xml in Resources */,
 				92096531225CAC1C00264C65 /* material.road_corner_sidewalk.base.xml in Resources */,
 				92F042CE22C20CB700E37703 /* level_4.tmx in Resources */,
@@ -4472,9 +5013,12 @@
 				92F041D322C20C4A00E37703 /* level_10.xml in Resources */,
 				F31423D41EF93F78008A23B5 /* material.car_02_wheel_l.base.xml in Resources */,
 				92F041F422C20C4B00E37703 /* level_17.xml in Resources */,
+				92BFF82E22F46F4500B2C435 /* material.car_12_wheel_r.base.xml in Resources */,
 				92F0430A22C20CB700E37703 /* level_34.tmx in Resources */,
 				92E7368022BA36EC00EC0C5E /* music_05.mp3 in Resources */,
+				92BFF84C22F46F4500B2C435 /* material.car_09_wheel_r.base.xml in Resources */,
 				923C5453226754D0009B311E /* office_01_floor.GB3DMESH in Resources */,
+				92DBA9E622F472CC00AE5374 /* car_12_wheel_l.xml in Resources */,
 				21E2D70D1C75C9AA00BFF2B8 /* material.tree_view_background.ui.xml in Resources */,
 				92F041D922C20C4A00E37703 /* level_15.xml in Resources */,
 				F3303C1D1E800B0B00F11F62 /* information_bubble_01.xml in Resources */,
@@ -4483,7 +5027,9 @@
 				92E23F5A22B0F59C005DDD5D /* car_07_skin_3.png in Resources */,
 				92BAA6D82289855E005C5883 /* car_01_wheel_l.GB3DMESH in Resources */,
 				92F042C522C20CB600E37703 /* level_28.tmx in Resources */,
+				92DBAA2E22F475A000AE5374 /* retro_car_13_wheel_l.GB3DMESH in Resources */,
 				92E23F8822B0F696005DDD5D /* car_08_wheel_r.xml in Resources */,
+				92BFF7B022F43E8200B2C435 /* retro_car_06_wheel_r.GB3DMESH in Resources */,
 				92BAA6BF2285AA9A005C5883 /* ui_trophy.png in Resources */,
 				F3580D401ED2ADAE00A63E97 /* car_03.xml in Resources */,
 				92BAA69522858009005C5883 /* button_image.xml in Resources */,
@@ -4492,21 +5038,27 @@
 				92F042D422C20CB700E37703 /* level_17.tmx in Resources */,
 				92BAA6A12285892C005C5883 /* ui_star.png in Resources */,
 				92E23F9D22B0F696005DDD5D /* car_07.xml in Resources */,
+				92BFF78C22F43E8200B2C435 /* retro_car_05_wheel_r.GB3DMESH in Resources */,
 				2126DBC31C50EE4A003EBBDA /* material.stroke.emissive.xml in Resources */,
 				92E23F2422B0EA47005DDD5D /* car_04_skin_1.png in Resources */,
 				9290956022CB5172005097DC /* material.car.mask.xml in Resources */,
+				92DBAA1C22F475A000AE5374 /* retro_car_11_wheel_l.GB3DMESH in Resources */,
 				92601CCB22804392000B38E1 /* ss.technique.compose.xml in Resources */,
 				92387F4C22E39D9400FBE57A /* retro_car_01.GB3DMESH in Resources */,
 				92601CDB22804DF7000B38E1 /* material.ss.compose.ui.xml in Resources */,
 				92BAA69D22858895005C5883 /* ui_next.png in Resources */,
 				92F041D022C20C4A00E37703 /* level_21.xml in Resources */,
+				92BFF7C522F43E8200B2C435 /* retro_car_04.GB3DMESH in Resources */,
 				02524B4A1E8AC12400FF87EA /* material.car_02_wheel_r.base.xml in Resources */,
 				92F0421822C20C4B00E37703 /* level_19.xml in Resources */,
 				92CE95362244F3200013F8D7 /* material.cone_light_source.base.xml in Resources */,
+				92BFF7C222F43E8200B2C435 /* retro_car_03_wheel_l.GB3DMESH in Resources */,
 				92E23F8B22B0F696005DDD5D /* car_07_wheel_r.xml in Resources */,
 				2126DC891C566181003EBBDA /* material.content_tab_list_background.ui.xml in Resources */,
 				92F0430422C20CB700E37703 /* level_33.tmx in Resources */,
+				92BFF7CE22F4437500B2C435 /* retro_car_02.png in Resources */,
 				92F0423622C20C4C00E37703 /* level_41.xml in Resources */,
+				92DBA9E322F472CC00AE5374 /* car_10.xml in Resources */,
 				92096542225CACC600264C65 /* road_straight_sidewalk.GB3DMESH in Resources */,
 				92E23F9422B0F696005DDD5D /* car_08.xml in Resources */,
 				92E23FEB22B0F7B0005DDD5D /* car_05_wheel_r.GB3DMESH in Resources */,
@@ -4531,10 +5083,12 @@
 				9290955B22CB50A4005097DC /* ws.technique.mask.xml in Resources */,
 				92F041E522C20C4A00E37703 /* level_8.xml in Resources */,
 				92E23F4522B0F59C005DDD5D /* car_06_skin_2.png in Resources */,
+				92DBA9EC22F472CC00AE5374 /* car_13_wheel_l.xml in Resources */,
 				926F26ED226E02CC004659CC /* appartment_ground_floor_01.GB3DMESH in Resources */,
 				21B403441B7A0A23003382AB /* MainMenu.xib in Resources */,
 				92B49AD92254EEA5002F7EED /* particle_03.png in Resources */,
 				92E23F0C22B0E9CF005DDD5D /* car_04_wheel_l.xml in Resources */,
+				92DBAA5722F475BD00AE5374 /* car_13_configuration.xml in Resources */,
 				92FAAEC322437B4A00D243C0 /* material.light_pole.base.xml in Resources */,
 				92E23F1822B0EA17005DDD5D /* material.car_04_wheel_l.base.xml in Resources */,
 				F3B2B6A21EE819E100623F34 /* music_01.mp3 in Resources */,
@@ -4554,6 +5108,7 @@
 				92FAAECA2243873000D243C0 /* material.ss.gaussian_blur_h.xml in Resources */,
 				F3580D411ED2ADAE00A63E97 /* car_03_wheel_l.xml in Resources */,
 				92F042BF22C20CB600E37703 /* level_3.tmx in Resources */,
+				92DBA9DD22F472CC00AE5374 /* car_10_wheel_l.xml in Resources */,
 				21E2D7071C75C97600BFF2B8 /* tree_view_background.xml in Resources */,
 				92E23F6722B0F637005DDD5D /* car_07_configuration.xml in Resources */,
 				92E23FC122B0F6F7005DDD5D /* material.car_06_wheel_l.base.xml in Resources */,
@@ -4562,32 +5117,43 @@
 				92F0421B22C20C4B00E37703 /* level_9.xml in Resources */,
 				923663FA22D3471B008BE74B /* garage.tmx in Resources */,
 				9228BF0722254D7800348741 /* omni_light_source.xml in Resources */,
+				92DBAA3422F475A000AE5374 /* retro_car_09_wheel_r.GB3DMESH in Resources */,
 				92BAA6CA22895855005C5883 /* ui_prev.png in Resources */,
 				2126DB901C50EA19003EBBDA /* ws.technique.emissive.xml in Resources */,
 				F3729BE61DC519450025952A /* material.joystick_button.ui.xml in Resources */,
 				92E23FAF22B0F6F7005DDD5D /* material.car_06_wheel_r.base.xml in Resources */,
 				92E23F3F22B0F59C005DDD5D /* car_05_skin_1.png in Resources */,
+				92BFF7BF22F43E8200B2C435 /* retro_car_08_wheel_r.GB3DMESH in Resources */,
 				928B674A228D447E003D9F58 /* car_03_skin_3.png in Resources */,
+				92BFF80122F45D8D00B2C435 /* retro_car_06_body_color_mask.png in Resources */,
 				92E23FF722B0F7B0005DDD5D /* car_08.GB3DMESH in Resources */,
+				92BFF7C822F43E8200B2C435 /* retro_car_06_wheel_l.GB3DMESH in Resources */,
 				21DA208B1C46926B008AD536 /* button_label.xml in Resources */,
 				F3729BE01DC5191F0025952A /* joystick_button.xml in Resources */,
 				92CF2C8F21BE798C007E37E6 /* car_03_configuration.xml in Resources */,
 				923C546F226764D3009B311E /* office_04_ground_floor.GB3DMESH in Resources */,
 				923C5460226763BF009B311E /* office_04_floor.GB3DMESH in Resources */,
 				92F042EF22C20CB700E37703 /* level_5.tmx in Resources */,
+				92BFF78F22F43E8200B2C435 /* retro_car_05_wheel_l.GB3DMESH in Resources */,
 				92FAAF032243C63600D243C0 /* particle.emitter.fire.xml in Resources */,
+				92BFF79E22F43E8200B2C435 /* retro_car_03.GB3DMESH in Resources */,
+				92DBAA4B22F475BD00AE5374 /* car_11_configuration.xml in Resources */,
 				92F041E222C20C4A00E37703 /* level_36.xml in Resources */,
+				92DBAA6222F4765900AE5374 /* car_progression_rank_12.xml in Resources */,
 				921BBA6B2268BAAF00482139 /* engine_volume_idle.fcl in Resources */,
 				92BAA6E42289951D005C5883 /* car_01_skin_2.png in Resources */,
 				926F26E2226DF4DD004659CC /* roads_shared.xml in Resources */,
 				92260EDB22E5D7E60071C6A0 /* ui_search.png in Resources */,
+				92BFF7DA22F450CD00B2C435 /* retro_car_03.png in Resources */,
 				92C83C8622427BEE00FC6167 /* material.ss.hdr.xml in Resources */,
+				92DBAA2522F475A000AE5374 /* retro_car_12_wheel_l.GB3DMESH in Resources */,
 				926F26A6226DBFE4004659CC /* office_08_ground_floor.GB3DMESH in Resources */,
 				92F0432B22C20CB700E37703 /* level_46.tmx in Resources */,
 				927A6E43221D59AC0023243F /* car_01_wheel_l.xml in Resources */,
 				926F26F3226E02CC004659CC /* appartment_ground_floor_03.GB3DMESH in Resources */,
 				92F0424B22C20C4C00E37703 /* level_7.xml in Resources */,
 				21D06B8B1C6207A900D2DCE9 /* material.grouped_buttons_background.ui.xml in Resources */,
+				92DBAA1F22F475A000AE5374 /* retro_car_12_wheel_r.GB3DMESH in Resources */,
 				F3ED65551F21E47E0047F89D /* car_progression_rank_1.xml in Resources */,
 				F3237EB51E9E58B100337A9C /* material.textfield_background.ui.xml in Resources */,
 				2126DC8D1C566181003EBBDA /* material.content_tab_list_cell_background.ui.xml in Resources */,
@@ -4595,10 +5161,13 @@
 				92E23FBB22B0F6F7005DDD5D /* material.car_08_wheel_r.base.xml in Resources */,
 				92BAA6A8228592D2005C5883 /* ui_locked.png in Resources */,
 				F3DA3CBB1F5420BE001A4127 /* levels_set_configuration.xml in Resources */,
+				92DBA9EF22F472CC00AE5374 /* car_09_wheel_l.xml in Resources */,
 				92F042FB22C20CB700E37703 /* level_16.tmx in Resources */,
 				92FAAEC622437B4A00D243C0 /* material.tree_01.base.xml in Resources */,
 				92F0426322C20C4D00E37703 /* level_24.xml in Resources */,
 				92E23FA022B0F696005DDD5D /* car_06.xml in Resources */,
+				92DBA9E022F472CC00AE5374 /* car_09.xml in Resources */,
+				92DBAA1922F475A000AE5374 /* retro_car_09_wheel_l.GB3DMESH in Resources */,
 				92F042E322C20CB700E37703 /* level_39.tmx in Resources */,
 				21DA20591C4674B2008AD536 /* material.ss.deferred.lighting.xml in Resources */,
 				92E23F7F22B0F696005DDD5D /* car_06_wheel_l.xml in Resources */,
@@ -4609,6 +5178,7 @@
 				92BAA6BC2285AA9A005C5883 /* ui_gear.png in Resources */,
 				F326270E1E02839D00383515 /* material.console_message.ui.xml in Resources */,
 				92F0432222C20CB700E37703 /* level_6.tmx in Resources */,
+				92BFF85222F46F4500B2C435 /* material.car_11_wheel_l.base.xml in Resources */,
 				92F0425422C20C4C00E37703 /* level_3.xml in Resources */,
 				92E2400022B0F7B0005DDD5D /* car_05_wheel_l.GB3DMESH in Resources */,
 				928B6721228C153B003D9F58 /* sky_px.png in Resources */,
@@ -4618,16 +5188,21 @@
 				92E23FC422B0F6F7005DDD5D /* material.car_07_wheel_l.base.xml in Resources */,
 				92E23F4B22B0F59C005DDD5D /* car_06_skin_1.png in Resources */,
 				025795201EF04C7A008FA0AF /* material.car_02.base.xml in Resources */,
+				92BFF7D122F4437500B2C435 /* retro_car_02_body_color_mask.png in Resources */,
 				921BBA712268BAAF00482139 /* engine_volume_off_low.fcl in Resources */,
 				92BAA6E72289951D005C5883 /* car_01_skin_3.png in Resources */,
+				92BFF7A722F43E8200B2C435 /* retro_car_02_wheel_r.GB3DMESH in Resources */,
 				92723AE3221DD62300555BAC /* onlow.mp3 in Resources */,
 				926F26F6226E02CC004659CC /* appartment_ground_floor_04.GB3DMESH in Resources */,
 				92E23FBE22B0F6F7005DDD5D /* material.car_08.base.xml in Resources */,
 				928B671B228C153B003D9F58 /* sky_ny.png in Resources */,
+				92BFF81922F46AC300B2C435 /* retro_car_08_windows_color_mask.png in Resources */,
 				9228BF0F22256D1F00348741 /* race.png in Resources */,
+				92BFF7AA22F43E8200B2C435 /* retro_car_04_wheel_r.GB3DMESH in Resources */,
 				92E23F7022B0F637005DDD5D /* car_06_configuration.xml in Resources */,
 				92096535225CAC4200264C65 /* racing_tex_d_02.png in Resources */,
 				F33D07C21ECC362400535334 /* car_03_wheel_r.xml in Resources */,
+				92DBAA2222F475A000AE5374 /* retro_car_13_wheel_r.GB3DMESH in Resources */,
 				92723AF6221F03F900555BAC /* material.road_corner_t_sidewalk.base.xml in Resources */,
 				928B673A228D3BAD003D9F58 /* ui_2.png in Resources */,
 				92BAA71C2289C029005C5883 /* car_03_skin_1.png in Resources */,
@@ -4635,22 +5210,30 @@
 				92BAA6AB228592D2005C5883 /* ui_replay.png in Resources */,
 				92BAA70C22899A7E005C5883 /* car_02_configuration.xml in Resources */,
 				921BBA5C2268BAAF00482139 /* engine_volume_on_low.fcl in Resources */,
+				92DBAA4E22F475BD00AE5374 /* car_09_configuration.xml in Resources */,
 				92E23F5D22B0F59C005DDD5D /* car_06_skin_3.png in Resources */,
 				923C545D226763BF009B311E /* office_03_floor.GB3DMESH in Resources */,
 				02F2AA501F2751A0001987D6 /* car_progression_rank_4.xml in Resources */,
 				92601C85227C3B32000B38E1 /* arrow.png in Resources */,
 				92BAA69122857FC9005C5883 /* material.button_image.ui.xml in Resources */,
+				92DBA9F222F472CC00AE5374 /* car_09_wheel_r.xml in Resources */,
+				92BFF84922F46F4500B2C435 /* material.car_10_wheel_r.base.xml in Resources */,
+				92BFF7EC22F453B300B2C435 /* retro_car_04_body_color_mask.png in Resources */,
 				926F26DE226DF4BF004659CC /* path_park_straight.GB3DMESH in Resources */,
 				025795131EF04C57008FA0AF /* car_02_wheel_l.xml in Resources */,
 				F3F301761E0C22DF0039D2CE /* car_progression_rank_8.xml in Resources */,
+				92DBA9E922F472CC00AE5374 /* car_12_wheel_r.xml in Resources */,
 				92BAA70222899A3D005C5883 /* car_02_wheel_l.GB3DMESH in Resources */,
 				9213BABA22156C9E00F8ACB5 /* material.road_straight.base.xml in Resources */,
 				92387F5422E422C800FBE57A /* retro_car_01_wheel_l.GB3DMESH in Resources */,
+				92DBAA5422F475BD00AE5374 /* car_12_configuration.xml in Resources */,
 				92F042B922C20CB600E37703 /* level_47.tmx in Resources */,
 				9233A14C21E4BCB3007D3942 /* animation.mask_01.xml in Resources */,
+				92DBAA3A22F475A000AE5374 /* retro_car_11.GB3DMESH in Resources */,
 				926F26AC226DBFE4004659CC /* office_05_floor.GB3DMESH in Resources */,
 				92F042C222C20CB600E37703 /* level_24.tmx in Resources */,
 				92CF2C9221BE798C007E37E6 /* car_01_configuration.xml in Resources */,
+				92BFF7A422F43E8200B2C435 /* retro_car_03_wheel_r.GB3DMESH in Resources */,
 				92F041D622C20C4A00E37703 /* level_4.xml in Resources */,
 				92E23F4222B0F59C005DDD5D /* car_05_skin_2.png in Resources */,
 				211AE4CF1C457CEA00A93C9B /* ws.technique.deferred.lighting.xml in Resources */,
@@ -4673,11 +5256,14 @@
 				92BAA6D222896DDF005C5883 /* car_01.GB3DMESH in Resources */,
 				92E23F4822B0F59C005DDD5D /* car_08_skin_3.png in Resources */,
 				F3729BE51DC519450025952A /* material.joystick_background.ui.xml in Resources */,
+				92DBAA0722F472CC00AE5374 /* car_10_wheel_r.xml in Resources */,
 				F31423C81EF92C2B008A23B5 /* material.car_03_wheel_l.base.xml in Resources */,
 				92BAA6FC22899A20005C5883 /* car_02_skin_1.png in Resources */,
 				9200D29A2265F05D00DCB2D3 /* spincycle.otf in Resources */,
 				92F0423022C20C4C00E37703 /* level_32.xml in Resources */,
 				F30F08D11E0153CE001564B6 /* transition.main_menu.xml in Resources */,
+				92BFF79222F43E8200B2C435 /* retro_car_07_wheel_l.GB3DMESH in Resources */,
+				92BFF81022F461DD00B2C435 /* retro_car_07_body_color_mask.png in Resources */,
 				92E23F0622B0E9CF005DDD5D /* car_04_wheel_r.xml in Resources */,
 				92E23FE822B0F7B0005DDD5D /* car_07_wheel_l.GB3DMESH in Resources */,
 				92514DFA2297D8A600DE70AA /* Assets.xcassets in Resources */,
@@ -4688,9 +5274,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92DBA9E722F472CC00AE5374 /* car_12_wheel_l.xml in Resources */,
 				926F26B0226DBFE4004659CC /* office_08_floor.GB3DMESH in Resources */,
+				92DBAA3E22F475A000AE5374 /* retro_car_10_wheel_l.GB3DMESH in Resources */,
+				92DBAA2622F475A000AE5374 /* retro_car_12_wheel_l.GB3DMESH in Resources */,
 				92E23EFC22AF8CEB005DDD5D /* ui_pause.png in Resources */,
 				92F0431D22C20CB700E37703 /* level_22.tmx in Resources */,
+				92BFF7C322F43E8200B2C435 /* retro_car_03_wheel_l.GB3DMESH in Resources */,
 				2126DC721C56349D003EBBDA /* table_view_cell_background.xml in Resources */,
 				2126DBC51C50EF46003EBBDA /* material.information_bubble.emissive.xml in Resources */,
 				92F042C622C20CB600E37703 /* level_28.tmx in Resources */,
@@ -4699,6 +5289,7 @@
 				92E23F1322B0EA17005DDD5D /* material.car_04_wheel_r.base.xml in Resources */,
 				92F041DA22C20C4A00E37703 /* level_15.xml in Resources */,
 				92E23F4F22B0F59C005DDD5D /* car_07_skin_2.png in Resources */,
+				92BFF7B122F43E8200B2C435 /* retro_car_06_wheel_r.GB3DMESH in Resources */,
 				92F042F322C20CB700E37703 /* level_32.tmx in Resources */,
 				92E23EF922AF8CEB005DDD5D /* ui_exit.png in Resources */,
 				92BAA6CB22895855005C5883 /* ui_prev.png in Resources */,
@@ -4715,23 +5306,30 @@
 				921BBA662268BAAF00482139 /* engine_volume_off_mid.fcl in Resources */,
 				9228BF0C22254DD800348741 /* material.omni_light_source.base.xml in Resources */,
 				92E23F9822B0F696005DDD5D /* car_05_wheel_l.xml in Resources */,
+				92BFF7A222F43E8200B2C435 /* retro_car_08_wheel_l.GB3DMESH in Resources */,
 				2126DBC81C50EF4B003EBBDA /* ws.technique.emissive.xml in Resources */,
+				92BFF79022F43E8200B2C435 /* retro_car_05_wheel_l.GB3DMESH in Resources */,
+				92BFF80E22F461DD00B2C435 /* retro_car_07_windows_color_mask.png in Resources */,
 				92601CD8228047BD000B38E1 /* ws.technique.ui.xml in Resources */,
 				923C544F22675295009B311E /* road_corner_t.GB3DMESH in Resources */,
 				92F0422B22C20C4C00E37703 /* level_5.xml in Resources */,
+				92BFF80B22F461DD00B2C435 /* retro_car_07.png in Resources */,
 				92E23FFE22B0F7B0005DDD5D /* car_07_wheel_r.GB3DMESH in Resources */,
 				92096532225CAC1C00264C65 /* material.road_corner_sidewalk.base.xml in Resources */,
 				928B6716228C153B003D9F58 /* sky_py.png in Resources */,
 				92F0420422C20C4B00E37703 /* level_43.xml in Resources */,
 				F30077B91F31C6EC009F2EDF /* car_progression_rank_6.xml in Resources */,
+				92BFF79C22F43E8200B2C435 /* retro_car_05.GB3DMESH in Resources */,
 				9289D84D22E847FA005E327A /* ui_color.png in Resources */,
 				92E23F6E22B0F637005DDD5D /* car_08_configuration.xml in Resources */,
 				92F0430B22C20CB700E37703 /* level_34.tmx in Resources */,
 				92F041DD22C20C4A00E37703 /* level_18.xml in Resources */,
 				9252EC162265B716002EF105 /* sidewalk.GB3DMESH in Resources */,
+				92DBA9FF22F472CC00AE5374 /* car_11_wheel_l.xml in Resources */,
 				2126DC731C56349D003EBBDA /* material.table_view_background.ui.xml in Resources */,
 				928B6748228D447E003D9F58 /* car_03_skin_2.png in Resources */,
 				92E23F0122B0E989005DDD5D /* car_04_configuration.xml in Resources */,
+				92DBAA0522F472CC00AE5374 /* car_11.xml in Resources */,
 				92E23F6B22B0F637005DDD5D /* car_05_configuration.xml in Resources */,
 				92601C8E227C3BFF000B38E1 /* material.arrow.base.xml in Resources */,
 				92E23EF622AF8CEB005DDD5D /* ui_restart.png in Resources */,
@@ -4750,9 +5348,13 @@
 				92F041F222C20C4B00E37703 /* level_50.xml in Resources */,
 				92F0434122C2325A00E37703 /* launch_screen.png in Resources */,
 				926F26AA226DBFE4004659CC /* office_06_floor.GB3DMESH in Resources */,
+				92BFF7B722F43E8200B2C435 /* retro_car_02.GB3DMESH in Resources */,
 				92F0424022C20C4C00E37703 /* level_22.xml in Resources */,
 				92601CE022804E3C000B38E1 /* ss.technique.compose.ui.xml in Resources */,
 				92BAA70622899A3D005C5883 /* car_02_wheel_r.GB3DMESH in Resources */,
+				92BFF85022F46F4500B2C435 /* material.car_10_wheel_l.base.xml in Resources */,
+				92DBAA4122F475A000AE5374 /* retro_car_11_wheel_r.GB3DMESH in Resources */,
+				92BFF83822F46F4500B2C435 /* material.car_11.base.xml in Resources */,
 				92F042ED22C20CB700E37703 /* level_25.tmx in Resources */,
 				92BAA6A9228592D2005C5883 /* ui_locked.png in Resources */,
 				9200D29B2265F05D00DCB2D3 /* spincycle.otf in Resources */,
@@ -4767,6 +5369,7 @@
 				92F0425522C20C4C00E37703 /* level_3.xml in Resources */,
 				926F26A7226DBFE4004659CC /* office_08_ground_floor.GB3DMESH in Resources */,
 				92F041D422C20C4A00E37703 /* level_10.xml in Resources */,
+				92DBA9F022F472CC00AE5374 /* car_09_wheel_l.xml in Resources */,
 				21E2D7131C762D4400BFF2B8 /* tree_view_cell_label.xml in Resources */,
 				F3DA3CBC1F5420C1001A4127 /* levels_set_configuration.xml in Resources */,
 				2126DC741C56349D003EBBDA /* material.table_view_cell_background.ui.xml in Resources */,
@@ -4774,11 +5377,14 @@
 				92F042DB22C20CB700E37703 /* level_10.tmx in Resources */,
 				92723AD2221DD62300555BAC /* offhigh.mp3 in Resources */,
 				9213BAB722156C7800F8ACB5 /* road_straight.xml in Resources */,
+				92BFF7EA22F453B300B2C435 /* retro_car_04.png in Resources */,
 				92E23F8622B0F696005DDD5D /* car_08_wheel_l.xml in Resources */,
 				92E23F2B22B0EA82005DDD5D /* car_04.GB3DMESH in Resources */,
 				92F0430522C20CB700E37703 /* level_33.tmx in Resources */,
 				9290956122CB5172005097DC /* material.car.mask.xml in Resources */,
+				92DBA9E122F472CC00AE5374 /* car_09.xml in Resources */,
 				92F041E322C20C4A00E37703 /* level_36.xml in Resources */,
+				92BFF7A522F43E8200B2C435 /* retro_car_03_wheel_r.GB3DMESH in Resources */,
 				92FAAEC422437B4A00D243C0 /* material.light_pole.base.xml in Resources */,
 				928B6745228D447E003D9F58 /* car_02_skin_3.png in Resources */,
 				92601CDC22804DF7000B38E1 /* material.ss.compose.ui.xml in Resources */,
@@ -4788,18 +5394,24 @@
 				92F0425E22C20C4D00E37703 /* level_2.xml in Resources */,
 				92E23FB322B0F6F7005DDD5D /* material.car_07.base.xml in Resources */,
 				921BBA8E2268C47900482139 /* aiwisdom.fcl in Resources */,
+				92BFF7F922F459DF00B2C435 /* retro_car_05_body_color_mask.png in Resources */,
+				92BFF85922F46F4500B2C435 /* material.car_12_wheel_l.base.xml in Resources */,
 				9213BABB22156C9E00F8ACB5 /* material.road_straight.base.xml in Resources */,
 				9289D85122E869E5005E327A /* retro_car_01_windows_color_mask.png in Resources */,
 				92F0422E22C20C4C00E37703 /* level_30.xml in Resources */,
 				F3580D441ED2AE0C00A63E97 /* car_03_wheel_l.xml in Resources */,
 				9233A14D21E4BCB3007D3942 /* animation.mask_01.xml in Resources */,
 				92E23FE022B0F7B0005DDD5D /* car_06_wheel_l.GB3DMESH in Resources */,
+				92DBAA1D22F475A000AE5374 /* retro_car_11_wheel_l.GB3DMESH in Resources */,
 				92F042A522C20CB600E37703 /* level_13.tmx in Resources */,
+				92BFF7C622F43E8200B2C435 /* retro_car_04.GB3DMESH in Resources */,
 				92E23F9222B0F696005DDD5D /* car_05_wheel_r.xml in Resources */,
 				21DA205D1C4674F1008AD536 /* ss.technique.deferred.lighting.xml in Resources */,
 				92F0423722C20C4C00E37703 /* level_41.xml in Resources */,
 				92C83C8B22427C0900FC6167 /* material.ss.hdr.xml in Resources */,
 				92BAA6B72285AA9A005C5883 /* ui_checkmark.png in Resources */,
+				92DBAA3522F475A000AE5374 /* retro_car_09_wheel_r.GB3DMESH in Resources */,
+				92DBAA1A22F475A000AE5374 /* retro_car_09_wheel_l.GB3DMESH in Resources */,
 				92F042F022C20CB700E37703 /* level_5.tmx in Resources */,
 				92BAA6BD2285AA9A005C5883 /* ui_gear.png in Resources */,
 				92723AD5221DD62300555BAC /* onhigh.mp3 in Resources */,
@@ -4808,18 +5420,22 @@
 				92BF4F2E21FF3E8300E95AD7 /* road_corner_t.xml in Resources */,
 				211AE4D71C4581E200A93C9B /* ws.technique.deferred.lighting.xml in Resources */,
 				F3237EAE1E9E589200337A9C /* textfield_background.xml in Resources */,
+				92BFF7DB22F450CD00B2C435 /* retro_car_03.png in Resources */,
 				92F0421622C20C4B00E37703 /* level_23.xml in Resources */,
 				92E23FB922B0F6F7005DDD5D /* material.car_07_wheel_r.base.xml in Resources */,
 				923C545E226763BF009B311E /* office_03_floor.GB3DMESH in Resources */,
+				92DBAA2022F475A000AE5374 /* retro_car_12_wheel_r.GB3DMESH in Resources */,
 				9213BAAF2215664500F8ACB5 /* road_corner.xml in Resources */,
 				92601C86227C3B32000B38E1 /* arrow.png in Resources */,
 				92E23F5522B0F59C005DDD5D /* car_05_skin_3.png in Resources */,
 				926F26A1226DBFE4004659CC /* office_07_floor.GB3DMESH in Resources */,
 				92C8637722EFF45D0067A463 /* ui_minus.png in Resources */,
 				92F042A222C20CB600E37703 /* level_9.tmx in Resources */,
+				92DBA9E422F472CC00AE5374 /* car_10.xml in Resources */,
 				F3C79E751EEFEA0B00C991C3 /* car_02.xml in Resources */,
 				21DA20811C469185008AD536 /* button_background.xml in Resources */,
 				926F26AD226DBFE4004659CC /* office_05_floor.GB3DMESH in Resources */,
+				92BFF84122F46F4500B2C435 /* material.car_09.base.xml in Resources */,
 				921BB74B2268948D00482139 /* button_press.mp3 in Resources */,
 				92F0421922C20C4B00E37703 /* level_19.xml in Resources */,
 				0257957F1EF81F00008FA0AF /* exhaust.particle.emitter.xml in Resources */,
@@ -4842,6 +5458,8 @@
 				92F042C922C20CB700E37703 /* level_37.tmx in Resources */,
 				92FAAF012243C63600D243C0 /* particle.emitter.smoke.xml in Resources */,
 				92E23FE322B0F7B0005DDD5D /* car_07.GB3DMESH in Resources */,
+				92BFF81722F46AC300B2C435 /* retro_car_08.png in Resources */,
+				92BFF7AB22F43E8200B2C435 /* retro_car_04_wheel_r.GB3DMESH in Resources */,
 				92260EE322E6E9400071C6A0 /* ws.technique.stencil.deferred.lighting.xml in Resources */,
 				92723AD8221DD62300555BAC /* idle.mp3 in Resources */,
 				92F0422222C20C4C00E37703 /* level_34.xml in Resources */,
@@ -4850,6 +5468,7 @@
 				928B671F228C153B003D9F58 /* sky_nz.png in Resources */,
 				2126DC711C56349D003EBBDA /* table_view_background.xml in Resources */,
 				F3237EB91E9E58B100337A9C /* material.textfield_label.ui.xml in Resources */,
+				92DBAA5822F475BD00AE5374 /* car_13_configuration.xml in Resources */,
 				92F0423D22C20C4C00E37703 /* level_45.xml in Resources */,
 				92F042AE22C20CB600E37703 /* level_49.tmx in Resources */,
 				92F0425822C20C4D00E37703 /* level_25.xml in Resources */,
@@ -4858,9 +5477,11 @@
 				92EA844922E43EB5003A3C17 /* boogie_nights.ttf in Resources */,
 				9290953622C35A3B005097DC /* ui_cart.png in Resources */,
 				2126DC831C566154003EBBDA /* content_tab_list_background.xml in Resources */,
+				92DBAA6922F4765900AE5374 /* car_progression_rank_10.xml in Resources */,
 				21EC9B4B1C65F6B4000736D8 /* switcher_background.xml in Resources */,
 				92F0431422C20CB700E37703 /* level_44.tmx in Resources */,
 				92F0426122C20C4D00E37703 /* level_33.xml in Resources */,
+				92BFF78D22F43E8200B2C435 /* retro_car_05_wheel_r.GB3DMESH in Resources */,
 				92BAA65A2281C64F005C5883 /* material.ss.cross_fade.xml in Resources */,
 				92E23FC822B0F6F7005DDD5D /* material.car_05_wheel_l.base.xml in Resources */,
 				F31423D51EF93F78008A23B5 /* material.car_02_wheel_l.base.xml in Resources */,
@@ -4884,6 +5505,7 @@
 				9213BAAB221565F400F8ACB5 /* road_corner.GB3DMESH in Resources */,
 				F30077B71F31C6EC009F2EDF /* car_progression_rank_5.xml in Resources */,
 				21E2D70E1C75C9AA00BFF2B8 /* material.tree_view_background.ui.xml in Resources */,
+				92BFF84722F46F4500B2C435 /* material.car_11_wheel_r.base.xml in Resources */,
 				9213BABF22156CB100F8ACB5 /* road_straight.GB3DMESH in Resources */,
 				2126DC8A1C566181003EBBDA /* material.content_tab_list_background.ui.xml in Resources */,
 				92F0431122C20CB700E37703 /* level_20.tmx in Resources */,
@@ -4891,22 +5513,31 @@
 				92E23FF522B0F7B0005DDD5D /* car_05.GB3DMESH in Resources */,
 				92260EDC22E5D7E60071C6A0 /* ui_search.png in Resources */,
 				92BAA6DC2289855E005C5883 /* car_01_wheel_r.GB3DMESH in Resources */,
+				92DBA9EA22F472CC00AE5374 /* car_12_wheel_r.xml in Resources */,
 				21EE3DB11B970C06000AE51C /* particle_02.png in Resources */,
 				92B49ADA2254EEA5002F7EED /* particle_03.png in Resources */,
 				923C545822675C4F009B311E /* office_01_ground_floor.GB3DMESH in Resources */,
 				92FAAF0C2243C65200D243C0 /* material.particle.emitter.fire.base.xml in Resources */,
 				92387F5522E422C800FBE57A /* retro_car_01_wheel_l.GB3DMESH in Resources */,
 				0257955F1EF81E90008FA0AF /* material.exhaust.particle.emitter.base.xml in Resources */,
+				92BFF7F322F459DF00B2C435 /* retro_car_05.png in Resources */,
 				92CE952F2244F2DD0013F8D7 /* light_cone.GB3DMESH in Resources */,
 				025795211EF04C7A008FA0AF /* material.car_02.base.xml in Resources */,
+				92DBAA6022F4765900AE5374 /* car_progression_rank_9.xml in Resources */,
 				92F0432922C20CB700E37703 /* level_26.tmx in Resources */,
+				92DBA9F622F472CC00AE5374 /* car_13.xml in Resources */,
 				92F0424322C20C4C00E37703 /* level_35.xml in Resources */,
+				92BFF79622F43E8200B2C435 /* retro_car_07.GB3DMESH in Resources */,
 				92F041E022C20C4A00E37703 /* level_1.xml in Resources */,
 				928B671C228C153B003D9F58 /* sky_ny.png in Resources */,
+				92BFF83E22F46F4500B2C435 /* material.car_13_wheel_l.base.xml in Resources */,
 				92E23F5B22B0F59C005DDD5D /* car_07_skin_3.png in Resources */,
+				92BFF80522F45D8D00B2C435 /* retro_car_06_windows_color_mask.png in Resources */,
 				923C5461226763BF009B311E /* office_04_floor.GB3DMESH in Resources */,
 				92E23F8922B0F696005DDD5D /* car_08_wheel_r.xml in Resources */,
+				92DBA9DE22F472CC00AE5374 /* car_10_wheel_l.xml in Resources */,
 				92BAA7162289C019005C5883 /* car_03_wheel_l.GB3DMESH in Resources */,
+				92DBAA4C22F475BD00AE5374 /* car_11_configuration.xml in Resources */,
 				92F041F522C20C4B00E37703 /* level_17.xml in Resources */,
 				92FAAECF2243876200D243C0 /* ss.technique.gaussian_blur_h.xml in Resources */,
 				92BAA6FD22899A20005C5883 /* car_02_skin_1.png in Resources */,
@@ -4918,9 +5549,12 @@
 				92E7368422BA36EC00EC0C5E /* music_03.mp3 in Resources */,
 				92BAA6CF22896DCF005C5883 /* car_01_skin_1.png in Resources */,
 				92F042D822C20CB700E37703 /* level_11.tmx in Resources */,
+				92BFF7FF22F45D8D00B2C435 /* retro_car_06.png in Resources */,
 				92F0423A22C20C4C00E37703 /* level_14.xml in Resources */,
+				92DBA9F322F472CC00AE5374 /* car_09_wheel_r.xml in Resources */,
 				025795111EF04C57008FA0AF /* ui_image.xml in Resources */,
 				92E23F9E22B0F696005DDD5D /* car_07.xml in Resources */,
+				92BFF7A822F43E8200B2C435 /* retro_car_02_wheel_r.GB3DMESH in Resources */,
 				92E23F2522B0EA47005DDD5D /* car_04_skin_1.png in Resources */,
 				928B674B228D447E003D9F58 /* car_03_skin_3.png in Resources */,
 				92BAA6BA2285AA9A005C5883 /* ui_cross.png in Resources */,
@@ -4929,29 +5563,44 @@
 				92BAA70D22899A7E005C5883 /* car_02_configuration.xml in Resources */,
 				92FAAEBF22437AF800D243C0 /* tree_01.xml in Resources */,
 				926F26BE226DC017004659CC /* material.buildings_shared.base.xml in Resources */,
+				92BFF7F622F459DF00B2C435 /* retro_car_05_windows_color_mask.png in Resources */,
 				92F0432022C20CB700E37703 /* level_8.tmx in Resources */,
 				92E23F8C22B0F696005DDD5D /* car_07_wheel_r.xml in Resources */,
+				92DBA9F922F472CC00AE5374 /* car_12.xml in Resources */,
 				92F042D522C20CB700E37703 /* level_17.tmx in Resources */,
 				92BAA71D2289C029005C5883 /* car_03_skin_1.png in Resources */,
 				21EE3D5E1B96ECC1000AE51C /* particle_01.png in Resources */,
+				92DBAA5222F475BD00AE5374 /* car_10_configuration.xml in Resources */,
 				928B673E228D3BAD003D9F58 /* ui_3.png in Resources */,
+				92DBAA2C22F475A000AE5374 /* retro_car_10.GB3DMESH in Resources */,
+				92BFF82F22F46F4500B2C435 /* material.car_12_wheel_r.base.xml in Resources */,
+				92BFF7C922F43E8200B2C435 /* retro_car_06_wheel_l.GB3DMESH in Resources */,
+				92BFF81D22F46AC300B2C435 /* retro_car_08_body_color_mask.png in Resources */,
+				92BFF81A22F46AC300B2C435 /* retro_car_08_windows_color_mask.png in Resources */,
 				923C544C22675295009B311E /* road_corner_t_sidewalk.GB3DMESH in Resources */,
+				92DBAA0822F472CC00AE5374 /* car_10_wheel_r.xml in Resources */,
 				92E23F9522B0F696005DDD5D /* car_08.xml in Resources */,
 				F32627111E0283DC00383515 /* material.console_message.ui.xml in Resources */,
 				92E23FEC22B0F7B0005DDD5D /* car_05_wheel_r.GB3DMESH in Resources */,
 				921BBA722268BAAF00482139 /* engine_volume_off_low.fcl in Resources */,
 				92F0432C22C20CB700E37703 /* level_46.tmx in Resources */,
+				92DBA9FC22F472CC00AE5374 /* car_11_wheel_r.xml in Resources */,
 				21DA20821C469185008AD536 /* button_label.xml in Resources */,
 				0257956B1EF81E90008FA0AF /* material.car_03.base.xml in Resources */,
+				92DBAA3B22F475A000AE5374 /* retro_car_11.GB3DMESH in Resources */,
 				92723ADE221DD62300555BAC /* offlow.mp3 in Resources */,
 				92F0421F22C20C4B00E37703 /* level_13.xml in Resources */,
 				92BAA6AF228592D2005C5883 /* ui_unlocked.png in Resources */,
 				92E23FFB22B0F7B0005DDD5D /* car_08_wheel_r.GB3DMESH in Resources */,
 				92E23FCB22B0F6F7005DDD5D /* material.car_08_wheel_l.base.xml in Resources */,
+				92BFF7D222F4437500B2C435 /* retro_car_02_body_color_mask.png in Resources */,
 				92E23F4622B0F59C005DDD5D /* car_06_skin_2.png in Resources */,
 				926F26B3226DBFE4004659CC /* office_07_ground_floor.GB3DMESH in Resources */,
+				92DBAA5522F475BD00AE5374 /* car_12_configuration.xml in Resources */,
 				92F042AB22C20CB600E37703 /* level_40.tmx in Resources */,
+				92DBA9ED22F472CC00AE5374 /* car_13_wheel_l.xml in Resources */,
 				9209652F225CAC1C00264C65 /* material.road_straight_sidewalk.base.xml in Resources */,
+				92BFF83B22F46F4500B2C435 /* material.car_13.base.xml in Resources */,
 				92260EE722E6E9AC0071C6A0 /* material.omni_light_source.stencil.xml in Resources */,
 				92E23F0D22B0E9CF005DDD5D /* car_04_wheel_l.xml in Resources */,
 				926F26E3226DF4DD004659CC /* roads_shared.xml in Resources */,
@@ -4967,7 +5616,9 @@
 				92FAAEC722437B4A00D243C0 /* material.tree_01.base.xml in Resources */,
 				92387F4D22E39D9400FBE57A /* retro_car_01.GB3DMESH in Resources */,
 				921BBA6F2268BAAF00482139 /* engine_volume_on_mid.fcl in Resources */,
+				92BFF84A22F46F4500B2C435 /* material.car_10_wheel_r.base.xml in Resources */,
 				92F0431A22C20CB700E37703 /* level_31.tmx in Resources */,
+				92BFF7CF22F4437500B2C435 /* retro_car_02.png in Resources */,
 				92514DFB2297D8A600DE70AA /* Assets.xcassets in Resources */,
 				025795171EF04C57008FA0AF /* car_02_wheel_r.xml in Resources */,
 				92601CD0228045BE000B38E1 /* material.ss.output.xml in Resources */,
@@ -4982,6 +5633,7 @@
 				92F0421322C20C4B00E37703 /* level_42.xml in Resources */,
 				92CE95372244F3200013F8D7 /* material.cone_light_source.base.xml in Resources */,
 				92E23F6822B0F637005DDD5D /* car_07_configuration.xml in Resources */,
+				92BFF83222F46F4500B2C435 /* material.car_10.base.xml in Resources */,
 				92F042CC22C20CB700E37703 /* level_12.tmx in Resources */,
 				92E23FC222B0F6F7005DDD5D /* material.car_06_wheel_l.base.xml in Resources */,
 				21E2D7091C75C97F00BFF2B8 /* tree_view_background.xml in Resources */,
@@ -4989,13 +5641,17 @@
 				921BBA632268BAAF00482139 /* engine_load.fcl in Resources */,
 				92CE95332244F3070013F8D7 /* cone_light_source.xml in Resources */,
 				92F0429F22C20CB600E37703 /* level_35.tmx in Resources */,
+				92BFF84422F46F4500B2C435 /* material.car_09_wheel_l.base.xml in Resources */,
 				923C546A226764D3009B311E /* office_03_ground_floor.GB3DMESH in Resources */,
 				92F041D122C20C4A00E37703 /* level_21.xml in Resources */,
 				926F26E7226DF510004659CC /* material.roads_shared.base.xml in Resources */,
 				92387E5622DDC64200FBE57A /* impact.mp3 in Resources */,
 				926F26A4226DBFE4004659CC /* office_06_ground_floor.GB3DMESH in Resources */,
+				92BFF83522F46F4500B2C435 /* material.car_13_wheel_r.base.xml in Resources */,
+				92BFF79922F43E8200B2C435 /* retro_car_08.GB3DMESH in Resources */,
 				92387F4922E39D6700FBE57A /* retro_car_01.png in Resources */,
 				92E23FB022B0F6F7005DDD5D /* material.car_06_wheel_r.base.xml in Resources */,
+				92DBAA2F22F475A000AE5374 /* retro_car_13_wheel_l.GB3DMESH in Resources */,
 				92E23F4022B0F59C005DDD5D /* car_05_skin_1.png in Resources */,
 				92F0430822C20CB700E37703 /* level_15.tmx in Resources */,
 				F3580D431ED2AE0C00A63E97 /* car_03.xml in Resources */,
@@ -5003,12 +5659,14 @@
 				92795FB722F1D24D00B5BC9C /* ui_leaderboard.png in Resources */,
 				9226639A225246B30092AE0B /* tire_trail.xml in Resources */,
 				92F042EA22C20CB700E37703 /* level_43.tmx in Resources */,
+				92DBAA3822F475A000AE5374 /* retro_car_10_wheel_r.GB3DMESH in Resources */,
 				92E23FF822B0F7B0005DDD5D /* car_08.GB3DMESH in Resources */,
 				92F0424F22C20C4C00E37703 /* level_27.xml in Resources */,
 				928B6719228C153B003D9F58 /* sky_nx.png in Resources */,
 				F3631BEC1F28C28F006F0379 /* car_progression_rank_2.xml in Resources */,
 				92723AF7221F03F900555BAC /* material.road_corner_t_sidewalk.base.xml in Resources */,
 				92F94EF722CDEA1400903164 /* ui_facebook.png in Resources */,
+				92BFF7D522F4437500B2C435 /* retro_car_02_windows_color_mask.png in Resources */,
 				92BAA6E52289951D005C5883 /* car_01_skin_2.png in Resources */,
 				922663A2225254000092AE0B /* tire_trail.png in Resources */,
 				92B49AE52255FD14002F7EED /* material.ss.ao.xml in Resources */,
@@ -5020,17 +5678,21 @@
 				21EC9B4A1C65F6AD000736D8 /* material.switcher_background.ui.xml in Resources */,
 				92F0421022C20C4B00E37703 /* level_26.xml in Resources */,
 				F3729BE81DC5194D0025952A /* material.joystick_button.ui.xml in Resources */,
+				92DBAA4F22F475BD00AE5374 /* car_09_configuration.xml in Resources */,
 				F30077D31F31CD01009F2EDF /* car_progression_rank_3.xml in Resources */,
 				92BAA6AC228592D2005C5883 /* ui_replay.png in Resources */,
 				F3729BE21DC519300025952A /* joystick_button.xml in Resources */,
 				F31423C91EF92C2B008A23B5 /* material.car_03_wheel_l.base.xml in Resources */,
 				92E23FBC22B0F6F7005DDD5D /* material.car_08_wheel_r.base.xml in Resources */,
+				92DBAA6622F4765900AE5374 /* car_progression_rank_11.xml in Resources */,
 				92F041EC22C20C4B00E37703 /* level_46.xml in Resources */,
 				921BBA6C2268BAAF00482139 /* engine_volume_idle.fcl in Resources */,
 				927A6E50221D59F80023243F /* car_01_wheel_l.xml in Resources */,
 				92A473F7226729A100265DD2 /* GoogleService-Info.plist in Resources */,
 				92F0430222C20CB700E37703 /* level_48.tmx in Resources */,
+				92DBAA4422F475A000AE5374 /* retro_car_13.GB3DMESH in Resources */,
 				2102EB5D1B7E4E7900F20197 /* ws.technique.base.xml in Resources */,
+				92BFF7ED22F453B300B2C435 /* retro_car_04_body_color_mask.png in Resources */,
 				92E23FA122B0F696005DDD5D /* car_06.xml in Resources */,
 				92096543225CACC600264C65 /* road_straight_sidewalk.GB3DMESH in Resources */,
 				02524B4C1E8AC12B00FF87EA /* material.car_02_wheel_r.base.xml in Resources */,
@@ -5038,6 +5700,7 @@
 				92F042F922C20CB700E37703 /* level_30.tmx in Resources */,
 				92F042D222C20CB700E37703 /* level_38.tmx in Resources */,
 				92E23F8022B0F696005DDD5D /* car_06_wheel_l.xml in Resources */,
+				92DBAA2322F475A000AE5374 /* retro_car_13_wheel_r.GB3DMESH in Resources */,
 				926F26B6226DBFE4004659CC /* office_05_ground_floor.GB3DMESH in Resources */,
 				92F042BA22C20CB600E37703 /* level_47.tmx in Resources */,
 				922FCD4C22EB13D90040C71F /* ui_plus.png in Resources */,
@@ -5051,13 +5714,17 @@
 				2126DC8E1C566181003EBBDA /* material.content_tab_list_cell_background.ui.xml in Resources */,
 				92E2400122B0F7B0005DDD5D /* car_05_wheel_l.GB3DMESH in Resources */,
 				923663FB22D3471B008BE74B /* garage.tmx in Resources */,
+				92BFF85322F46F4500B2C435 /* material.car_11_wheel_l.base.xml in Resources */,
 				92387F5222E422C800FBE57A /* retro_car_01_wheel_r.GB3DMESH in Resources */,
 				21D06B9E1C62117A00D2DCE9 /* material.grouped_buttons_background.ui.xml in Resources */,
+				92BFF7E122F450CD00B2C435 /* retro_car_03_body_color_mask.png in Resources */,
 				92E23FC522B0F6F7005DDD5D /* material.car_07_wheel_l.base.xml in Resources */,
 				92E23F4C22B0F59C005DDD5D /* car_06_skin_1.png in Resources */,
 				92F042F622C20CB700E37703 /* level_7.tmx in Resources */,
 				21DA20871C4691B3008AD536 /* material.button_label.ui.xml in Resources */,
 				9213BAB32215667900F8ACB5 /* material.road_corner.base.xml in Resources */,
+				92BFF79322F43E8200B2C435 /* retro_car_07_wheel_l.GB3DMESH in Resources */,
+				92BFF85622F46F4500B2C435 /* material.car_12.base.xml in Resources */,
 				F3303C211E800B5500F11F62 /* material.information_bubble.base.xml in Resources */,
 				21DA205A1C4674B2008AD536 /* material.ss.deferred.lighting.xml in Resources */,
 				92CF2C9021BE798C007E37E6 /* car_03_configuration.xml in Resources */,
@@ -5073,12 +5740,18 @@
 				926F26EE226E02CC004659CC /* appartment_ground_floor_01.GB3DMESH in Resources */,
 				92E23FEF22B0F7B0005DDD5D /* car_08_wheel_l.GB3DMESH in Resources */,
 				92F041D722C20C4A00E37703 /* level_4.xml in Resources */,
+				92BFF84D22F46F4500B2C435 /* material.car_09_wheel_r.base.xml in Resources */,
+				92DBAA0222F472CC00AE5374 /* car_13_wheel_r.xml in Resources */,
+				92BFF79F22F43E8200B2C435 /* retro_car_03.GB3DMESH in Resources */,
 				923C5464226763BF009B311E /* office_02_floor.GB3DMESH in Resources */,
+				92BFF7BA22F43E8200B2C435 /* retro_car_04_wheel_l.GB3DMESH in Resources */,
+				92BFF7AE22F43E8200B2C435 /* retro_car_02_wheel_l.GB3DMESH in Resources */,
 				926F26F7226E02CC004659CC /* appartment_ground_floor_04.GB3DMESH in Resources */,
 				92E23F5E22B0F59C005DDD5D /* car_06_skin_3.png in Resources */,
 				9290954822C9F022005097DC /* tileset.tsx in Resources */,
 				92F041FE22C20C4B00E37703 /* level_44.xml in Resources */,
 				F3ED65561F21E4810047F89D /* car_progression_rank_1.xml in Resources */,
+				92DBAA6322F4765900AE5374 /* car_progression_rank_12.xml in Resources */,
 				92260EDF22E5D7E60071C6A0 /* retro_car_01_body_color_mask.png in Resources */,
 				923C546D226764D3009B311E /* office_02_ground_floor.GB3DMESH in Resources */,
 				F3F301771E0C22DF0039D2CE /* car_progression_rank_8.xml in Resources */,
@@ -5086,8 +5759,10 @@
 				92F0420A22C20C4B00E37703 /* level_20.xml in Resources */,
 				92E7368122BA36EC00EC0C5E /* music_05.mp3 in Resources */,
 				92601CA3228032FC000B38E1 /* material.ss.tv.xml in Resources */,
+				92BFF81122F461DD00B2C435 /* retro_car_07_body_color_mask.png in Resources */,
 				92F0425222C20C4C00E37703 /* level_29.xml in Resources */,
 				92F0421C22C20C4B00E37703 /* level_9.xml in Resources */,
+				92DBAA3222F475A000AE5374 /* retro_car_09.GB3DMESH in Resources */,
 				92601CCC22804392000B38E1 /* ss.technique.compose.xml in Resources */,
 				92BAA6E82289951D005C5883 /* car_01_skin_3.png in Resources */,
 				2126DC971C567D50003EBBDA /* ws.technique.transparent.base.xml in Resources */,
@@ -5102,24 +5777,32 @@
 				92B49AE92255FD23002F7EED /* ss.technique.ao.xml in Resources */,
 				F3237EB11E9E589200337A9C /* textfield_label.xml in Resources */,
 				F3729BE11DC519300025952A /* joystick_background.xml in Resources */,
+				92BFF7DE22F450CD00B2C435 /* retro_car_03_windows_color_mask.png in Resources */,
 				02F2AA511F2751A6001987D6 /* car_progression_rank_4.xml in Resources */,
+				92DBAA6C22F4765900AE5374 /* car_progression_rank_13.xml in Resources */,
 				92F041E622C20C4A00E37703 /* level_8.xml in Resources */,
 				927A6E54221D59FE0023243F /* material.car_01_wheel_l.base.xml in Resources */,
 				92B49AE12255FA82002F7EED /* ssao_random.png in Resources */,
 				92F042C022C20CB600E37703 /* level_3.tmx in Resources */,
 				92BAA65E2281C67D005C5883 /* ss.technique.cross_fade.xml in Resources */,
 				92F0423422C20C4C00E37703 /* level_40.xml in Resources */,
+				92BFF80222F45D8D00B2C435 /* retro_car_06_body_color_mask.png in Resources */,
 				9209650F2257835A00264C65 /* material.label_3d_01.emissive.xml in Resources */,
 				92E23F4922B0F59C005DDD5D /* car_08_skin_3.png in Resources */,
 				92F0431722C20CB700E37703 /* level_14.tmx in Resources */,
 				9290955C22CB50A4005097DC /* ws.technique.mask.xml in Resources */,
+				92BFF7B422F43E8200B2C435 /* retro_car_06.GB3DMESH in Resources */,
+				92DBAA2922F475A000AE5374 /* retro_car_12.GB3DMESH in Resources */,
 				F3729BE71DC5194D0025952A /* material.joystick_background.ui.xml in Resources */,
 				92BF4F5E2200583900E95AD7 /* material.road_corner_t.base.xml in Resources */,
 				926F26F4226E02CC004659CC /* appartment_ground_floor_03.GB3DMESH in Resources */,
 				92F0420722C20C4B00E37703 /* level_48.xml in Resources */,
+				92BFF7C022F43E8200B2C435 /* retro_car_08_wheel_r.GB3DMESH in Resources */,
 				92F042E422C20CB700E37703 /* level_39.tmx in Resources */,
 				92E23F0722B0E9CF005DDD5D /* car_04_wheel_r.xml in Resources */,
+				92BFF7E722F453B300B2C435 /* retro_car_04_windows_color_mask.png in Resources */,
 				92E23FE922B0F7B0005DDD5D /* car_07_wheel_l.GB3DMESH in Resources */,
+				92BFF7BD22F43E8200B2C435 /* retro_car_07_wheel_r.GB3DMESH in Resources */,
 				F30F08D21E0153CE001564B6 /* transition.main_menu.xml in Resources */,
 				92BAA6C32285AA9A005C5883 /* ui_video.png in Resources */,
 			);
@@ -5131,11 +5814,13 @@
 			files = (
 				92F0422F22C20C4C00E37703 /* level_30.xml in Resources */,
 				92F0424D22C20C4C00E37703 /* level_7.xml in Resources */,
+				92DBAA4522F475A000AE5374 /* retro_car_13.GB3DMESH in Resources */,
 				92F042CA22C20CB700E37703 /* level_37.tmx in Resources */,
 				F36DF25C1E953C5600EAE49B /* table_view_cell_background.xml in Resources */,
 				F3DA3CBD1F5420C2001A4127 /* levels_set_configuration.xml in Resources */,
 				92F042D922C20CB700E37703 /* level_11.tmx in Resources */,
 				92F0429D22C20CB600E37703 /* level_18.tmx in Resources */,
+				92DBAA6122F4765900AE5374 /* car_progression_rank_9.xml in Resources */,
 				92601CD9228047BD000B38E1 /* ws.technique.ui.xml in Resources */,
 				92BAA6BB2285AA9A005C5883 /* ui_cross.png in Resources */,
 				F36DF25D1E953C5600EAE49B /* material.information_bubble.emissive.xml in Resources */,
@@ -5149,10 +5834,12 @@
 				92F0421122C20C4B00E37703 /* level_26.xml in Resources */,
 				92F0422922C20C4C00E37703 /* level_11.xml in Resources */,
 				92BAA6DD2289855E005C5883 /* car_01_wheel_r.GB3DMESH in Resources */,
+				92DBAA3F22F475A000AE5374 /* retro_car_10_wheel_l.GB3DMESH in Resources */,
 				92E23FB422B0F6F7005DDD5D /* material.car_07.base.xml in Resources */,
 				92795FB822F1D24D00B5BC9C /* ui_leaderboard.png in Resources */,
 				927A6E57221D59FF0023243F /* material.car_01_wheel_r.base.xml in Resources */,
 				92F0422622C20C4C00E37703 /* level_16.xml in Resources */,
+				92BFF7D622F4437500B2C435 /* retro_car_02_windows_color_mask.png in Resources */,
 				92F0430922C20CB700E37703 /* level_15.tmx in Resources */,
 				922FCD5022EB13D90040C71F /* ui_wrench.png in Resources */,
 				92F0425622C20C4C00E37703 /* level_3.xml in Resources */,
@@ -5160,9 +5847,11 @@
 				92BAA70E22899A7E005C5883 /* car_02_configuration.xml in Resources */,
 				92BAA6B82285AA9A005C5883 /* ui_checkmark.png in Resources */,
 				921BBA642268BAAF00482139 /* engine_load.fcl in Resources */,
+				92DBAA0022F472CC00AE5374 /* car_11_wheel_l.xml in Resources */,
 				92601CA822804324000B38E1 /* material.ss.compose.xml in Resources */,
 				92601CA4228032FC000B38E1 /* material.ss.tv.xml in Resources */,
 				922FCD4D22EB13D90040C71F /* ui_plus.png in Resources */,
+				92BFF7AF22F43E8200B2C435 /* retro_car_02_wheel_l.GB3DMESH in Resources */,
 				926F26BB226DBFFA004659CC /* buildings_shared.xml in Resources */,
 				92F041DB22C20C4A00E37703 /* level_15.xml in Resources */,
 				9290953722C35A3B005097DC /* ui_cart.png in Resources */,
@@ -5174,16 +5863,24 @@
 				923C5462226763BF009B311E /* office_04_floor.GB3DMESH in Resources */,
 				92F0423222C20C4C00E37703 /* level_32.xml in Resources */,
 				926F26A8226DBFE4004659CC /* office_08_ground_floor.GB3DMESH in Resources */,
+				92DBAA3922F475A000AE5374 /* retro_car_10_wheel_r.GB3DMESH in Resources */,
 				92E23F0B22B0E9CF005DDD5D /* car_04.xml in Resources */,
+				92BFF83622F46F4500B2C435 /* material.car_13_wheel_r.base.xml in Resources */,
+				92BFF7A322F43E8200B2C435 /* retro_car_08_wheel_l.GB3DMESH in Resources */,
+				92BFF7BB22F43E8200B2C435 /* retro_car_04_wheel_l.GB3DMESH in Resources */,
 				92F041E422C20C4A00E37703 /* level_36.xml in Resources */,
+				92BFF7F722F459DF00B2C435 /* retro_car_05_windows_color_mask.png in Resources */,
 				92387F4A22E39D6700FBE57A /* retro_car_01.png in Resources */,
 				92F042A922C20CB600E37703 /* level_41.tmx in Resources */,
 				921BBA732268BAAF00482139 /* engine_volume_off_low.fcl in Resources */,
 				92E23F0222B0E989005DDD5D /* car_04_configuration.xml in Resources */,
+				92DBAA5322F475BD00AE5374 /* car_10_configuration.xml in Resources */,
 				923C545022675295009B311E /* road_corner_t.GB3DMESH in Resources */,
+				92BFF85722F46F4500B2C435 /* material.car_12.base.xml in Resources */,
 				9213BAC82215934300F8ACB5 /* car_01.xml in Resources */,
 				92E23F4722B0F59C005DDD5D /* car_06_skin_2.png in Resources */,
 				F3ED65571F21E4820047F89D /* car_progression_rank_1.xml in Resources */,
+				92DBAA6A22F4765900AE5374 /* car_progression_rank_10.xml in Resources */,
 				92F042F722C20CB700E37703 /* level_7.tmx in Resources */,
 				92F041FC22C20C4B00E37703 /* level_28.xml in Resources */,
 				926F26F5226E02CC004659CC /* appartment_ground_floor_03.GB3DMESH in Resources */,
@@ -5196,6 +5893,7 @@
 				F36DF26B1E953C5600EAE49B /* material.table_view_background.ui.xml in Resources */,
 				92E23F5C22B0F59C005DDD5D /* car_07_skin_3.png in Resources */,
 				92C83C8A22427C0700FC6167 /* ss.technique.hdr.xml in Resources */,
+				92BFF81E22F46AC300B2C435 /* retro_car_08_body_color_mask.png in Resources */,
 				92096533225CAC1C00264C65 /* material.road_corner_sidewalk.base.xml in Resources */,
 				92E23FFF22B0F7B0005DDD5D /* car_07_wheel_r.GB3DMESH in Resources */,
 				9290956222CB5172005097DC /* material.car.mask.xml in Resources */,
@@ -5205,13 +5903,17 @@
 				F36DF26D1E953C5600EAE49B /* material.button_background.ui.xml in Resources */,
 				92B49AEA2255FD23002F7EED /* ss.technique.ao.xml in Resources */,
 				F30077BA1F31C6ED009F2EDF /* car_progression_rank_5.xml in Resources */,
+				92BFF84222F46F4500B2C435 /* material.car_09.base.xml in Resources */,
 				92F042F422C20CB700E37703 /* level_32.tmx in Resources */,
 				92F041D522C20C4A00E37703 /* level_10.xml in Resources */,
+				92BFF83922F46F4500B2C435 /* material.car_11.base.xml in Resources */,
 				926F26F2226E02CC004659CC /* appartment_ground_floor_02.GB3DMESH in Resources */,
 				92F042BE22C20CB600E37703 /* level_50.tmx in Resources */,
 				9213BAC022156CB100F8ACB5 /* road_straight.GB3DMESH in Resources */,
 				92F041DE22C20C4A00E37703 /* level_18.xml in Resources */,
 				92BAA6FE22899A20005C5883 /* car_02_skin_1.png in Resources */,
+				92BFF84822F46F4500B2C435 /* material.car_11_wheel_r.base.xml in Resources */,
+				92BFF79722F43E8200B2C435 /* retro_car_07.GB3DMESH in Resources */,
 				92096530225CAC1C00264C65 /* material.road_straight_sidewalk.base.xml in Resources */,
 				92601C87227C3B32000B38E1 /* arrow.png in Resources */,
 				926F26AE226DBFE4004659CC /* office_05_floor.GB3DMESH in Resources */,
@@ -5220,39 +5922,51 @@
 				92F94EF822CDEA1400903164 /* ui_facebook.png in Resources */,
 				F33D07C41ECC372900535334 /* car_03_wheel_r.xml in Resources */,
 				92E23F6922B0F637005DDD5D /* car_07_configuration.xml in Resources */,
+				92DBA9F722F472CC00AE5374 /* car_13.xml in Resources */,
 				92B49ADB2254EEA5002F7EED /* particle_03.png in Resources */,
 				F36DF2791E953C5600EAE49B /* material.table_view_cell_background.ui.xml in Resources */,
 				92E7368222BA36EC00EC0C5E /* music_05.mp3 in Resources */,
+				92BFF80F22F461DD00B2C435 /* retro_car_07_windows_color_mask.png in Resources */,
 				92F0425C22C20C4D00E37703 /* level_47.xml in Resources */,
 				926F26B1226DBFE4004659CC /* office_08_floor.GB3DMESH in Resources */,
+				92BFF80622F45D8D00B2C435 /* retro_car_06_windows_color_mask.png in Resources */,
 				F36DF27C1E953C5600EAE49B /* font_01.xml in Resources */,
 				9200D29C2265F05D00DCB2D3 /* spincycle.otf in Resources */,
 				92F041EA22C20C4B00E37703 /* level_37.xml in Resources */,
+				92BFF7F422F459DF00B2C435 /* retro_car_05.png in Resources */,
 				928B6720228C153B003D9F58 /* sky_nz.png in Resources */,
 				92601CDD22804DF7000B38E1 /* material.ss.compose.ui.xml in Resources */,
 				92F0425022C20C4C00E37703 /* level_27.xml in Resources */,
 				92F0430C22C20CB700E37703 /* level_34.tmx in Resources */,
+				92DBAA4222F475A000AE5374 /* retro_car_11_wheel_r.GB3DMESH in Resources */,
 				921BBA6A2268BAAF00482139 /* engine_volume_on_high.fcl in Resources */,
 				F36DF27E1E953C5600EAE49B /* material.tree_view_cell_background.ui.xml in Resources */,
+				92DBAA2A22F475A000AE5374 /* retro_car_12.GB3DMESH in Resources */,
 				92E23FBD22B0F6F7005DDD5D /* material.car_08_wheel_r.base.xml in Resources */,
 				F36DF2801E953C5600EAE49B /* cars_progression.xml in Resources */,
 				F36DF2811E953C5600EAE49B /* tree_view_cell_label.xml in Resources */,
 				92FAAEC822437B4A00D243C0 /* material.tree_01.base.xml in Resources */,
 				92387F5322E422C800FBE57A /* retro_car_01_wheel_r.GB3DMESH in Resources */,
 				92F0423E22C20C4C00E37703 /* level_45.xml in Resources */,
+				92DBAA6D22F4765900AE5374 /* car_progression_rank_13.xml in Resources */,
 				92260EE022E5D7E60071C6A0 /* retro_car_01_body_color_mask.png in Resources */,
 				928B6739228D3BAD003D9F58 /* ui_1.png in Resources */,
 				92723B03221F041000555BAC /* road_corner_t_sidewalk.xml in Resources */,
 				92E23FED22B0F7B0005DDD5D /* car_05_wheel_r.GB3DMESH in Resources */,
+				92BFF7E222F450CD00B2C435 /* retro_car_03_body_color_mask.png in Resources */,
 				92F042B222C20CB600E37703 /* level_27.tmx in Resources */,
 				F36DF2891E953C5600EAE49B /* material.information_bubble.base.xml in Resources */,
 				9213BABC22156C9E00F8ACB5 /* material.road_straight.base.xml in Resources */,
+				92DBAA2D22F475A000AE5374 /* retro_car_10.GB3DMESH in Resources */,
 				92F041ED22C20C4B00E37703 /* level_46.xml in Resources */,
+				92BFF85A22F46F4500B2C435 /* material.car_12_wheel_l.base.xml in Resources */,
 				92E23FC322B0F6F7005DDD5D /* material.car_06_wheel_l.base.xml in Resources */,
 				928B674F228D447E003D9F58 /* car_02_skin_2.png in Resources */,
 				92FAAEC522437B4A00D243C0 /* material.light_pole.base.xml in Resources */,
+				92BFF83F22F46F4500B2C435 /* material.car_13_wheel_l.base.xml in Resources */,
 				F3580D471ED2AE0C00A63E97 /* car_03_wheel_l.xml in Resources */,
 				9290955D22CB50A4005097DC /* ws.technique.mask.xml in Resources */,
+				92BFF81822F46AC300B2C435 /* retro_car_08.png in Resources */,
 				927A6E56221D59FF0023243F /* material.car_01_wheel_l.base.xml in Resources */,
 				9233A14E21E4BCB3007D3942 /* animation.mask_01.xml in Resources */,
 				F36DF28F1E953C5600EAE49B /* console_background.xml in Resources */,
@@ -5265,8 +5979,10 @@
 				92F042FA22C20CB700E37703 /* level_30.tmx in Resources */,
 				F3C79E721EEFEA0000C991C3 /* material.ui_image.base.xml in Resources */,
 				92096544225CACC600264C65 /* road_straight_sidewalk.GB3DMESH in Resources */,
+				92BFF79D22F43E8200B2C435 /* retro_car_05.GB3DMESH in Resources */,
 				F3C79E761EEFEA0B00C991C3 /* car_02.xml in Resources */,
 				92F0424422C20C4C00E37703 /* level_35.xml in Resources */,
+				92BFF83322F46F4500B2C435 /* material.car_10.base.xml in Resources */,
 				9228BF1122256D1F00348741 /* race.png in Resources */,
 				92FAAECC2243873000D243C0 /* material.ss.gaussian_blur_h.xml in Resources */,
 				92E23FBA22B0F6F7005DDD5D /* material.car_07_wheel_r.base.xml in Resources */,
@@ -5276,6 +5992,8 @@
 				9228C0172248EF96001F9649 /* material.ss.gaussian_blur_v.xml in Resources */,
 				923663FC22D3471B008BE74B /* garage.tmx in Resources */,
 				92E23FCF22B0F6F7005DDD5D /* material.car_06.base.xml in Resources */,
+				92BFF79A22F43E8200B2C435 /* retro_car_08.GB3DMESH in Resources */,
+				92BFF7B822F43E8200B2C435 /* retro_car_02.GB3DMESH in Resources */,
 				92F0432422C20CB700E37703 /* level_6.tmx in Resources */,
 				92723AD6221DD62300555BAC /* onhigh.mp3 in Resources */,
 				92BAA6B0228592D2005C5883 /* ui_unlocked.png in Resources */,
@@ -5283,6 +6001,7 @@
 				F36DF29C1E953C5600EAE49B /* material.particle.emitter.smoke.emissive.xml in Resources */,
 				92601CD5228045E6000B38E1 /* output.technique.xml in Resources */,
 				92E23FC622B0F6F7005DDD5D /* material.car_07_wheel_l.base.xml in Resources */,
+				92BFF84522F46F4500B2C435 /* material.car_09_wheel_l.base.xml in Resources */,
 				F36DF29D1E953C5600EAE49B /* material.console_background.ui.xml in Resources */,
 				92E23F8722B0F696005DDD5D /* car_08_wheel_l.xml in Resources */,
 				92E23FF022B0F7B0005DDD5D /* car_08_wheel_l.GB3DMESH in Resources */,
@@ -5294,15 +6013,20 @@
 				92E2400222B0F7B0005DDD5D /* car_05_wheel_l.GB3DMESH in Resources */,
 				92F0430F22C20CB700E37703 /* level_1.tmx in Resources */,
 				F36DF2A01E953C5600EAE49B /* material.tree_view_cell_label.ui.xml in Resources */,
+				92BFF80022F45D8D00B2C435 /* retro_car_06.png in Resources */,
 				92E23FFC22B0F7B0005DDD5D /* car_08_wheel_r.GB3DMESH in Resources */,
 				9226639B225246B30092AE0B /* tire_trail.xml in Resources */,
 				92E23FB122B0F6F7005DDD5D /* material.car_06_wheel_r.base.xml in Resources */,
 				92BAA6E92289951D005C5883 /* car_01_skin_3.png in Resources */,
+				92BFF80C22F461DD00B2C435 /* retro_car_07.png in Resources */,
 				92BAA69322857FC9005C5883 /* material.button_image.ui.xml in Resources */,
 				928B673C228D3BAD003D9F58 /* ui_2.png in Resources */,
 				92F041D222C20C4A00E37703 /* level_21.xml in Resources */,
+				92BFF7DF22F450CD00B2C435 /* retro_car_03_windows_color_mask.png in Resources */,
 				F36DF2A11E953C5600EAE49B /* tree_view_cell_background.xml in Resources */,
+				92DBAA6722F4765900AE5374 /* car_progression_rank_11.xml in Resources */,
 				92E23EF722AF8CEB005DDD5D /* ui_restart.png in Resources */,
+				92BFF85122F46F4500B2C435 /* material.car_10_wheel_l.base.xml in Resources */,
 				F36DF2A21E953C5600EAE49B /* particle_02.png in Resources */,
 				F36DF2A41E953C5600EAE49B /* content_tab_list_cell_background.xml in Resources */,
 				9289D85222E869E5005E327A /* retro_car_01_windows_color_mask.png in Resources */,
@@ -5310,24 +6034,33 @@
 				92E23F2622B0EA47005DDD5D /* car_04_skin_1.png in Resources */,
 				02F2AA521F2751A7001987D6 /* car_progression_rank_4.xml in Resources */,
 				025795151EF04C57008FA0AF /* car_02_wheel_l.xml in Resources */,
+				92BFF7EB22F453B300B2C435 /* retro_car_04.png in Resources */,
 				92E23FC922B0F6F7005DDD5D /* material.car_05_wheel_l.base.xml in Resources */,
+				92BFF7B522F43E8200B2C435 /* retro_car_06.GB3DMESH in Resources */,
 				92F0420E22C20C4B00E37703 /* level_6.xml in Resources */,
 				92BAA70422899A3D005C5883 /* car_02_wheel_l.GB3DMESH in Resources */,
 				92E23EFD22AF8CEB005DDD5D /* ui_pause.png in Resources */,
+				92BFF7E822F453B300B2C435 /* retro_car_04_windows_color_mask.png in Resources */,
 				92F042D622C20CB700E37703 /* level_17.tmx in Resources */,
 				92F0424122C20C4C00E37703 /* level_22.xml in Resources */,
 				92E23F4122B0F59C005DDD5D /* car_05_skin_1.png in Resources */,
+				92BFF7BE22F43E8200B2C435 /* retro_car_07_wheel_r.GB3DMESH in Resources */,
+				92BFF7FA22F459DF00B2C435 /* retro_car_05_body_color_mask.png in Resources */,
 				92E23F2F22B0EA82005DDD5D /* car_04_wheel_r.GB3DMESH in Resources */,
 				92E23F2C22B0EA82005DDD5D /* car_04.GB3DMESH in Resources */,
 				927A6E53221D59F90023243F /* car_01_wheel_r.xml in Resources */,
 				92BAA6D422896DDF005C5883 /* car_01.GB3DMESH in Resources */,
 				92E23F5622B0F59C005DDD5D /* car_05_skin_3.png in Resources */,
 				92723AD9221DD62300555BAC /* idle.mp3 in Resources */,
+				92DBA9FA22F472CC00AE5374 /* car_12.xml in Resources */,
 				92F042EB22C20CB700E37703 /* level_43.tmx in Resources */,
 				92F042EE22C20CB700E37703 /* level_25.tmx in Resources */,
 				92BAA65B2281C64F005C5883 /* material.ss.cross_fade.xml in Resources */,
 				92F0426522C20C4D00E37703 /* level_24.xml in Resources */,
+				92DBAA0322F472CC00AE5374 /* car_13_wheel_r.xml in Resources */,
 				92F042AC22C20CB600E37703 /* level_40.tmx in Resources */,
+				92BFF83C22F46F4500B2C435 /* material.car_13.base.xml in Resources */,
+				92DBAA0622F472CC00AE5374 /* car_11.xml in Resources */,
 				F36DF2AD1E953C5600EAE49B /* console_message.xml in Resources */,
 				F36DF2AE1E953C5600EAE49B /* table_view_background.xml in Resources */,
 				F3631BED1F28C28F006F0379 /* car_progression_rank_2.xml in Resources */,
@@ -5337,7 +6070,9 @@
 				92E23FE122B0F7B0005DDD5D /* car_06_wheel_l.GB3DMESH in Resources */,
 				92F042C722C20CB600E37703 /* level_28.tmx in Resources */,
 				F36DF2B21E953C5600EAE49B /* particle_01.png in Resources */,
+				92DBAA3322F475A000AE5374 /* retro_car_09.GB3DMESH in Resources */,
 				92E23F8422B0F696005DDD5D /* car_07_wheel_l.xml in Resources */,
+				92DBA9FD22F472CC00AE5374 /* car_11_wheel_r.xml in Resources */,
 				92BAA7172289C019005C5883 /* car_03_wheel_l.GB3DMESH in Resources */,
 				92BAA6C42285AA9A005C5883 /* ui_video.png in Resources */,
 				F36DF2B41E953C5600EAE49B /* content_tab_list_background.xml in Resources */,
@@ -5351,9 +6086,12 @@
 				92E23F2322B0EA47005DDD5D /* car_04_skin_3.png in Resources */,
 				9213BACC2215939100F8ACB5 /* material.car_01.base.xml in Resources */,
 				92F0423B22C20C4C00E37703 /* level_14.xml in Resources */,
+				92BFF83022F46F4500B2C435 /* material.car_12_wheel_r.base.xml in Resources */,
 				92E23F4422B0F59C005DDD5D /* car_05_skin_2.png in Resources */,
 				9213BAB822156C7800F8ACB5 /* road_straight.xml in Resources */,
+				92BFF84E22F46F4500B2C435 /* material.car_09_wheel_r.base.xml in Resources */,
 				92F042E522C20CB700E37703 /* level_39.tmx in Resources */,
+				92DBA9E822F472CC00AE5374 /* car_12_wheel_l.xml in Resources */,
 				92CF2C9421BE798C007E37E6 /* car_01_configuration.xml in Resources */,
 				92BAA6AA228592D2005C5883 /* ui_locked.png in Resources */,
 				92BAA65F2281C67D005C5883 /* ss.technique.cross_fade.xml in Resources */,
@@ -5362,7 +6100,9 @@
 				F36DF2C01E953C5600EAE49B /* ws.technique.base.xml in Resources */,
 				92BF4F5C2200583900E95AD7 /* material.sidewalk.base.xml in Resources */,
 				92E23FD222B0F6F7005DDD5D /* material.car_05_wheel_r.base.xml in Resources */,
+				92DBAA3022F475A000AE5374 /* retro_car_13_wheel_l.GB3DMESH in Resources */,
 				923C5465226763BF009B311E /* office_02_floor.GB3DMESH in Resources */,
+				92BFF7B222F43E8200B2C435 /* retro_car_06_wheel_r.GB3DMESH in Resources */,
 				926F26A2226DBFE4004659CC /* office_07_floor.GB3DMESH in Resources */,
 				F36DF2C21E953C5600EAE49B /* material.tree_view_background.ui.xml in Resources */,
 				923C545922675C4F009B311E /* office_01_ground_floor.GB3DMESH in Resources */,
@@ -5371,21 +6111,27 @@
 				92E23F5322B0F59C005DDD5D /* car_08_skin_2.png in Resources */,
 				92E23F9F22B0F696005DDD5D /* car_07.xml in Resources */,
 				92BAA6C12285AA9A005C5883 /* ui_trophy.png in Resources */,
+				92BFF78E22F43E8200B2C435 /* retro_car_05_wheel_r.GB3DMESH in Resources */,
 				025795221EF04C7A008FA0AF /* material.car_02.base.xml in Resources */,
 				F36DF2C41E953C5600EAE49B /* information_bubble_01.xml in Resources */,
 				92723ADC221DD62300555BAC /* onmid.mp3 in Resources */,
+				92DBAA1E22F475A000AE5374 /* retro_car_11_wheel_l.GB3DMESH in Resources */,
 				92F0421D22C20C4B00E37703 /* level_9.xml in Resources */,
 				92387F4E22E39D9400FBE57A /* retro_car_01.GB3DMESH in Resources */,
 				92E23FC022B0F6F7005DDD5D /* material.car_08.base.xml in Resources */,
 				921BBA612268BAAF00482139 /* engine_volume_off_high.fcl in Resources */,
 				92BAA70722899A3D005C5883 /* car_02_wheel_r.GB3DMESH in Resources */,
+				92BFF7C722F43E8200B2C435 /* retro_car_04.GB3DMESH in Resources */,
 				92CE95302244F2DD0013F8D7 /* light_cone.GB3DMESH in Resources */,
 				F30077BC1F31C6ED009F2EDF /* car_progression_rank_6.xml in Resources */,
 				F36DF2CD1E953C5600EAE49B /* material.stroke.emissive.xml in Resources */,
+				92BFF7C422F43E8200B2C435 /* retro_car_03_wheel_l.GB3DMESH in Resources */,
 				F36DF2CE1E953C5600EAE49B /* material.car_02_wheel_r.base.xml in Resources */,
 				F31423CA1EF92C2B008A23B5 /* material.car_03_wheel_l.base.xml in Resources */,
 				92E23FEA22B0F7B0005DDD5D /* car_07_wheel_l.GB3DMESH in Resources */,
+				92BFF7D022F4437500B2C435 /* retro_car_02.png in Resources */,
 				92E23F9622B0F696005DDD5D /* car_08.xml in Resources */,
+				92DBA9E522F472CC00AE5374 /* car_10.xml in Resources */,
 				F36DF2D11E953C5600EAE49B /* material.content_tab_list_background.ui.xml in Resources */,
 				92E23FCC22B0F6F7005DDD5D /* material.car_08_wheel_l.base.xml in Resources */,
 				92E23F5022B0F59C005DDD5D /* car_07_skin_2.png in Resources */,
@@ -5410,10 +6156,12 @@
 				923C546B226764D3009B311E /* office_03_ground_floor.GB3DMESH in Resources */,
 				92F0426222C20C4D00E37703 /* level_33.xml in Resources */,
 				92E23FE422B0F7B0005DDD5D /* car_07.GB3DMESH in Resources */,
+				92DBA9EE22F472CC00AE5374 /* car_13_wheel_l.xml in Resources */,
 				F3237EB21E9E589200337A9C /* textfield_label.xml in Resources */,
 				92514DFC2297D8A600DE70AA /* Assets.xcassets in Resources */,
 				F31423D61EF93F78008A23B5 /* material.car_02_wheel_l.base.xml in Resources */,
 				926F26BF226DC017004659CC /* material.buildings_shared.base.xml in Resources */,
+				92DBAA5922F475BD00AE5374 /* car_13_configuration.xml in Resources */,
 				92723AD3221DD62300555BAC /* offhigh.mp3 in Resources */,
 				92E23FF322B0F7B0005DDD5D /* car_06_wheel_r.GB3DMESH in Resources */,
 				92BAA69722858009005C5883 /* button_image.xml in Resources */,
@@ -5433,6 +6181,7 @@
 				92F042AF22C20CB600E37703 /* level_49.tmx in Resources */,
 				92F0422322C20C4C00E37703 /* level_34.xml in Resources */,
 				92F0431B22C20CB700E37703 /* level_31.tmx in Resources */,
+				92DBA9DF22F472CC00AE5374 /* car_10_wheel_l.xml in Resources */,
 				9228BF0D22254DD800348741 /* material.omni_light_source.base.xml in Resources */,
 				9209653F225CAC7500264C65 /* road_corner_sidewalk.xml in Resources */,
 				928B671D228C153B003D9F58 /* sky_ny.png in Resources */,
@@ -5441,32 +6190,43 @@
 				92E23F4A22B0F59C005DDD5D /* car_08_skin_3.png in Resources */,
 				9228BF0922254D7E00348741 /* omni_light_source.xml in Resources */,
 				92BAA6A32285892C005C5883 /* ui_star.png in Resources */,
+				92DBAA3622F475A000AE5374 /* retro_car_09_wheel_r.GB3DMESH in Resources */,
 				92F041FF22C20C4B00E37703 /* level_44.xml in Resources */,
 				92E23F3222B0EA82005DDD5D /* car_04_wheel_l.GB3DMESH in Resources */,
 				92723ADF221DD62300555BAC /* offlow.mp3 in Resources */,
 				92723AF8221F03F900555BAC /* material.road_corner_t_sidewalk.base.xml in Resources */,
 				92FAAF022243C63600D243C0 /* particle.emitter.smoke.xml in Resources */,
+				92BFF7C122F43E8200B2C435 /* retro_car_08_wheel_r.GB3DMESH in Resources */,
 				92E23FB722B0F6F7005DDD5D /* material.car_05.base.xml in Resources */,
+				92BFF80322F45D8D00B2C435 /* retro_car_06_body_color_mask.png in Resources */,
 				92E23F0822B0E9CF005DDD5D /* car_04_wheel_r.xml in Resources */,
+				92BFF7CA22F43E8200B2C435 /* retro_car_06_wheel_l.GB3DMESH in Resources */,
 				921BB750226899BA00482139 /* drift.mp3 in Resources */,
 				92E23F6222B0F59C005DDD5D /* car_08_skin_1.png in Resources */,
 				921BBA702268BAAF00482139 /* engine_volume_on_mid.fcl in Resources */,
 				F36DF2F11E953C5600EAE49B /* tree_view_background.xml in Resources */,
 				92F0421A22C20C4B00E37703 /* level_19.xml in Resources */,
 				92F042BB22C20CB600E37703 /* level_47.tmx in Resources */,
+				92BFF79122F43E8200B2C435 /* retro_car_05_wheel_l.GB3DMESH in Resources */,
 				F30077BB1F31C6ED009F2EDF /* car_progression_rank_7.xml in Resources */,
+				92BFF7A022F43E8200B2C435 /* retro_car_03.GB3DMESH in Resources */,
+				92DBAA4D22F475BD00AE5374 /* car_11_configuration.xml in Resources */,
 				9252EC172265B716002EF105 /* sidewalk.GB3DMESH in Resources */,
+				92DBAA6422F4765900AE5374 /* car_progression_rank_12.xml in Resources */,
 				92E23F9922B0F696005DDD5D /* car_05_wheel_l.xml in Resources */,
 				92F042B822C20CB600E37703 /* level_29.tmx in Resources */,
 				9213BAAC221565F400F8ACB5 /* road_corner.GB3DMESH in Resources */,
 				92260EDD22E5D7E60071C6A0 /* ui_search.png in Resources */,
+				92BFF7DC22F450CD00B2C435 /* retro_car_03.png in Resources */,
 				9290954922C9F022005097DC /* tileset.tsx in Resources */,
+				92DBAA2722F475A000AE5374 /* retro_car_12_wheel_l.GB3DMESH in Resources */,
 				F36DF2F91E953C5600EAE49B /* ws.technique.emissive.xml in Resources */,
 				025795801EF81F00008FA0AF /* exhaust.particle.emitter.xml in Resources */,
 				928B6714228C153B003D9F58 /* sky_pz.png in Resources */,
 				92FAAF0D2243C65200D243C0 /* material.particle.emitter.fire.base.xml in Resources */,
 				F3580D461ED2AE0C00A63E97 /* car_03.xml in Resources */,
 				92E23F7222B0F637005DDD5D /* car_06_configuration.xml in Resources */,
+				92DBAA2122F475A000AE5374 /* retro_car_12_wheel_r.GB3DMESH in Resources */,
 				926F26E8226DF510004659CC /* material.roads_shared.base.xml in Resources */,
 				92F0422022C20C4B00E37703 /* level_13.xml in Resources */,
 				92BAA7142289C019005C5883 /* car_03_wheel_r.GB3DMESH in Resources */,
@@ -5474,10 +6234,13 @@
 				926F26B4226DBFE4004659CC /* office_07_ground_floor.GB3DMESH in Resources */,
 				926F26E4226DF4DD004659CC /* roads_shared.xml in Resources */,
 				92F0422C22C20C4C00E37703 /* level_5.xml in Resources */,
+				92DBA9F122F472CC00AE5374 /* car_09_wheel_l.xml in Resources */,
 				928B6723228C153B003D9F58 /* sky_px.png in Resources */,
 				F36DF2FD1E953C5600EAE49B /* material.joystick_button.ui.xml in Resources */,
 				92FAAEC022437AF800D243C0 /* tree_01.xml in Resources */,
 				92CE95342244F3070013F8D7 /* cone_light_source.xml in Resources */,
+				92DBA9E222F472CC00AE5374 /* car_09.xml in Resources */,
+				92DBAA1B22F475A000AE5374 /* retro_car_09_wheel_l.GB3DMESH in Resources */,
 				92E23F1422B0EA17005DDD5D /* material.car_04_wheel_r.base.xml in Resources */,
 				F36DF3001E953C5600EAE49B /* button_label.xml in Resources */,
 				92F0425322C20C4C00E37703 /* level_29.xml in Resources */,
@@ -5488,6 +6251,7 @@
 				92F042DC22C20CB700E37703 /* level_10.tmx in Resources */,
 				92F041F322C20C4B00E37703 /* level_50.xml in Resources */,
 				923C5471226764D3009B311E /* office_04_ground_floor.GB3DMESH in Resources */,
+				92BFF85422F46F4500B2C435 /* material.car_11_wheel_l.base.xml in Resources */,
 				920965102257835A00264C65 /* material.label_3d_01.emissive.xml in Resources */,
 				F36DF3081E953C5600EAE49B /* material.grouped_buttons_background.ui.xml in Resources */,
 				F36DF30A1E953C5600EAE49B /* material.content_tab_list_cell_background.ui.xml in Resources */,
@@ -5497,16 +6261,21 @@
 				92E23F4D22B0F59C005DDD5D /* car_06_skin_1.png in Resources */,
 				92723AE5221DD62300555BAC /* onlow.mp3 in Resources */,
 				9209653C225CAC7500264C65 /* road_straight_sidewalk.xml in Resources */,
+				92BFF7D322F4437500B2C435 /* retro_car_02_body_color_mask.png in Resources */,
 				92723AE2221DD62300555BAC /* offmid.mp3 in Resources */,
 				92BAA6E62289951D005C5883 /* car_01_skin_2.png in Resources */,
+				92BFF7A922F43E8200B2C435 /* retro_car_02_wheel_r.GB3DMESH in Resources */,
 				92E23EFA22AF8CEB005DDD5D /* ui_exit.png in Resources */,
 				92F0431E22C20CB700E37703 /* level_22.tmx in Resources */,
 				92F042D022C20CB700E37703 /* level_4.tmx in Resources */,
 				92F041F622C20C4B00E37703 /* level_17.xml in Resources */,
+				92BFF81B22F46AC300B2C435 /* retro_car_08_windows_color_mask.png in Resources */,
 				92601C8B227C3BC2000B38E1 /* arrow.xml in Resources */,
+				92BFF7AC22F43E8200B2C435 /* retro_car_04_wheel_r.GB3DMESH in Resources */,
 				92BAA6BE2285AA9A005C5883 /* ui_gear.png in Resources */,
 				923C546E226764D3009B311E /* office_02_ground_floor.GB3DMESH in Resources */,
 				F36DF3111E953C5600EAE49B /* material.ss.deferred.lighting.xml in Resources */,
+				92DBAA2422F475A000AE5374 /* retro_car_13_wheel_r.GB3DMESH in Resources */,
 				F36DF3131E953C5600EAE49B /* material.console_message.ui.xml in Resources */,
 				92E23F5922B0F59C005DDD5D /* car_07_skin_1.png in Resources */,
 				928B673F228D3BAD003D9F58 /* ui_3.png in Resources */,
@@ -5514,22 +6283,30 @@
 				92F0423822C20C4C00E37703 /* level_41.xml in Resources */,
 				92E23FF622B0F7B0005DDD5D /* car_05.GB3DMESH in Resources */,
 				92F042E822C20CB700E37703 /* level_2.tmx in Resources */,
+				92DBAA5022F475BD00AE5374 /* car_09_configuration.xml in Resources */,
 				92F042DF22C20CB700E37703 /* level_23.tmx in Resources */,
 				92F0425922C20C4D00E37703 /* level_25.xml in Resources */,
 				921BBA5E2268BAAF00482139 /* engine_volume_on_low.fcl in Resources */,
 				92E23F1A22B0EA17005DDD5D /* material.car_04_wheel_l.base.xml in Resources */,
 				92387E5722DDC64200FBE57A /* impact.mp3 in Resources */,
+				92DBA9F422F472CC00AE5374 /* car_09_wheel_r.xml in Resources */,
+				92BFF84B22F46F4500B2C435 /* material.car_10_wheel_r.base.xml in Resources */,
+				92BFF7EE22F453B300B2C435 /* retro_car_04_body_color_mask.png in Resources */,
 				92F0430322C20CB700E37703 /* level_48.tmx in Resources */,
 				923C544D22675295009B311E /* road_corner_t_sidewalk.GB3DMESH in Resources */,
 				92F0429A22C20CB600E37703 /* level_21.tmx in Resources */,
+				92DBA9EB22F472CC00AE5374 /* car_12_wheel_r.xml in Resources */,
 				92BAA6D022896DCF005C5883 /* car_01_skin_1.png in Resources */,
 				928B671A228C153B003D9F58 /* sky_nx.png in Resources */,
 				92387F5622E422C800FBE57A /* retro_car_01_wheel_l.GB3DMESH in Resources */,
+				92DBAA5622F475BD00AE5374 /* car_12_configuration.xml in Resources */,
 				92E23FE722B0F7B0005DDD5D /* car_06.GB3DMESH in Resources */,
 				92601CA0228032DF000B38E1 /* ss.technique.tv.xml in Resources */,
+				92DBAA3C22F475A000AE5374 /* retro_car_11.GB3DMESH in Resources */,
 				92E2402822B8D7CF005DDD5D /* appartment_roof_01.GB3DMESH in Resources */,
 				92096537225CAC4200264C65 /* racing_tex_d_02.png in Resources */,
 				928B6717228C153B003D9F58 /* sky_py.png in Resources */,
+				92BFF7A622F43E8200B2C435 /* retro_car_03_wheel_r.GB3DMESH in Resources */,
 				92E23F1722B0EA17005DDD5D /* material.car_04.base.xml in Resources */,
 				92F0420222C20C4B00E37703 /* level_12.xml in Resources */,
 				9213BAB02215664500F8ACB5 /* road_corner.xml in Resources */,
@@ -5552,11 +6329,14 @@
 				92E23F8A22B0F696005DDD5D /* car_08_wheel_r.xml in Resources */,
 				0257956C1EF81E90008FA0AF /* material.car_03.base.xml in Resources */,
 				92E23F8D22B0F696005DDD5D /* car_07_wheel_r.xml in Resources */,
+				92DBAA0922F472CC00AE5374 /* car_10_wheel_r.xml in Resources */,
 				92F042B522C20CB600E37703 /* level_36.tmx in Resources */,
 				92CF2C9121BE798C007E37E6 /* car_03_configuration.xml in Resources */,
 				926F26A5226DBFE4004659CC /* office_06_ground_floor.GB3DMESH in Resources */,
 				92096547225CACC600264C65 /* road_corner_sidewalk.GB3DMESH in Resources */,
 				92F042FD22C20CB700E37703 /* level_16.tmx in Resources */,
+				92BFF79422F43E8200B2C435 /* retro_car_07_wheel_l.GB3DMESH in Resources */,
+				92BFF81222F461DD00B2C435 /* retro_car_07_body_color_mask.png in Resources */,
 				F36DF3351E953C5600EAE49B /* material.joystick_background.ui.xml in Resources */,
 				F36DF3361E953C5600EAE49B /* transition.main_menu.xml in Resources */,
 				F3237EAF1E9E589200337A9C /* textfield_background.xml in Resources */,

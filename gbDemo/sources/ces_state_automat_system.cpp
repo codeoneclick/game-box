@@ -46,6 +46,7 @@
 #include "ces_ui_interaction_system.h"
 #include "ces_box2d_body_component.h"
 #include "ui_menus_helper.h"
+#include "game_center_provier.h"
 
 namespace game
 {
@@ -561,7 +562,8 @@ namespace game
                         root->add_child(main_car);
                         
                         const auto car_descriptor_component = main_car->get_component<ces_car_descriptor_component>();
-                        car_descriptor_component->max_damage = static_cast<f32>(slow_motion_triggers.size()) * glm::mix(1.f, .3f, complexity);
+                        car_descriptor_component->max_damage = static_cast<f32>(slow_motion_triggers.size()) * glm::mix(1.f, .3f, complexity) +
+                        static_cast<f32>(slow_motion_triggers.size()) * .33f * selected_car->get_car_rigidity_upgrade();
                         
                         const auto car_parts_component = main_car->get_component<ces_car_parts_component>();
                         car_parts_component->get_part(ces_car_parts_component::parts::k_ui_speed_label)->visible = false;
@@ -745,10 +747,7 @@ namespace game
                         
                         ui_animation_helper::show_from_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_buy_car_label),
                                                              show_progress);
-                        
-                       
                     }
-                    
                 }
                 else
                 {
@@ -760,6 +759,12 @@ namespace game
                     {
                         const auto sound_component = root->get_component<gb::al::ces_sound_component>();
                         sound_component->trigger_sound("music_01.mp3", false);
+                        
+                        const auto levels_database_component = root->get_component<ces_levels_database_component>();
+                        if (levels_database_component->get_next_level_id() == 4)
+                        {
+                            game_center_provier::shared_instance()->rate_app();
+                        }
                     }
                     if (scene_state_automat_component->mode == ces_scene_state_automat_component::e_mode_garage)
                     {

@@ -24,6 +24,7 @@
 #include "ces_level_route_component.h"
 #include "ces_car_drift_state_component.h"
 #include "ces_car_camera_follow_component.h"
+#include "ces_garage_database_component.h"
 
 namespace game
 {
@@ -76,6 +77,10 @@ namespace game
             const auto car_input_component = car->get_component<ces_car_input_component>();
             const auto car_descriptor_component = car->get_component<ces_car_descriptor_component>();
             const auto car_drift_state_component = car->get_component<ces_car_drift_state_component>();
+            
+            const auto garage_database_component = root->get_component<ces_garage_database_component>();
+            const auto selected_car = garage_database_component->get_selected_car(1);
+            
             if (car_input_component)
             {
                 const auto car_model_component = car->get_component<ces_car_model_component>();
@@ -137,10 +142,12 @@ namespace game
                             steer_angle -= M_PI * 2.f;
                         }
                         
-                        car_input_component->throttle = car_model_component->get_max_force() * (1.f - collision_power);
-                        car_input_component->steer_angle = steer_angle * .33f;
-                        car_input_component->brake = 200.f * collision_power;
-                        
+                        f32 force = car_model_component->get_max_force() + (selected_car->get_car_speed_upgrade() * 80.f);
+                        f32 brakes = 200.f - 100.f * selected_car->get_car_speed_upgrade();
+                        f32 handling = glm::mix(.33f, 1.f, selected_car->get_car_handling_upgrade());
+                        car_input_component->throttle = force * (1.f - collision_power);
+                        car_input_component->steer_angle = steer_angle * handling;
+                        car_input_component->brake = brakes * collision_power;
                         
 #if defined(__MANUAL_INPUT__)
                         
@@ -160,10 +167,12 @@ namespace game
                         car_input_component->brake = 200.f;
                         
 #else
-                        car_input_component->throttle = car_model_component->get_max_force() * (1.f - collision_power);
+                        f32 force = car_model_component->get_max_force() + (selected_car->get_car_speed_upgrade() * 80.f);
+                        f32 brakes = 200.f - 100.f * selected_car->get_car_speed_upgrade();
+                        car_input_component->throttle = force * (1.f - collision_power);
                         car_input_component->steer_angle = 0.f;
                         car_input_component->updated = true;
-                        car_input_component->brake = 200.f * collision_power;
+                        car_input_component->brake = brakes * collision_power;
 #endif
                         
                     }

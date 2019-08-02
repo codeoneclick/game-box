@@ -1343,7 +1343,7 @@ namespace game
     
     gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_leaderboard_label(const std::string& filename)
     {
-        const auto label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(160.f, k_image_button_size.y), "LEADERS");
+        const auto label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(160.f, k_image_button_size.y), "DRIFTERS");
         add_ui_interaction_component(label, game::ces_ui_interaction_component::e_ui::e_ui_leaderboard_label);
         label->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_leaderboard_label)];
         colorize_ui_control(label);

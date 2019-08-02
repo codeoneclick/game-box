@@ -81,7 +81,7 @@ namespace game
     private:
         
         gb::db::database_coordinator_weak_ptr m_database_coordinator;
-        i32 m_max_cars_count = 8;
+        i32 m_max_cars_count = 13;
         i32 m_previewed_car_id = -1;
         
         const i32 m_initial_price_for_color_switch = 100;

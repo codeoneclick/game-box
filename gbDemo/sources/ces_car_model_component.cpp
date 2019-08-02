@@ -40,8 +40,8 @@ namespace game
         m_max_grip = 4.5f;
         m_inv_max_grip = 1.f / m_max_grip;
         
-        m_max_speed = 40.f;
-        m_max_force = 300.f;
+        m_max_speed = 45.f;
+        m_max_force = 270.f;
         
         m_density = 0.f;
         m_friction = 0.02f;

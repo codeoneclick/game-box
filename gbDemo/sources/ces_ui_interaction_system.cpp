@@ -1754,6 +1754,11 @@ namespace game
             user_database_component->inc_cash(1, earn_cash);
             ui_controls_helper::update_cash_amount(user_database_component->get_cash(1), earn_cash);
             
+            const auto cash_label = std::static_pointer_cast<gb::ui::textfield>(std::static_pointer_cast<gb::ui::dialog>(win_dialog)->get_control(ces_ui_interaction_component::k_win_dialog_cash_label));
+            std::stringstream cash_value_string_stream;
+            cash_value_string_stream<<"CASH: "<<earn_cash<<" $";
+            cash_label->set_text(cash_value_string_stream.str());
+            
             if (!levels_database_component->is_level_passed(levels_database_component->get_playing_level_id()))
             {
                 levels_database_component->pass_level(levels_database_component->get_playing_level_id());

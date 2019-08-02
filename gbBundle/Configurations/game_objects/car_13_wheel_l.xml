@@ -1,0 +1,9 @@
+<shape_3d
+    mesh_filename="retro_car_13_wheel_l.GB3DMESH">
+    <materials>
+		<material filename="material.car_13_wheel_l.base.xml"/>
+        <material filename="material.car.mask.xml"/>
+	</materials>
+    <animations>
+    </animations>
+</shape_3d>

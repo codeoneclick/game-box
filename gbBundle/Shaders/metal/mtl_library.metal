@@ -419,7 +419,7 @@ fragment g_buffer_output_t fragment_shader_shape_3d(common_v_output_t in [[stage
     
 #else
     
-    out.normal = half4(half3(in.normal), 0.0);
+    out.normal = half4(half3(in.normal), 1.0);
     
 #endif
     
@@ -471,14 +471,14 @@ fragment g_buffer_output_t fragment_shader_shape_3d_reflect(reflect_v_output_t i
     half4 color = diffuse_texture.sample(linear_sampler, in.texcoord);
     const half3 body_color = static_cast<half3>(colorization_uniforms.body_color.rgb);
     const half4 color_body_mask = color_body_mask_texture.sample(linear_sampler, in.texcoord);
-    color.rgb = mix(color.rgb, body_color, color_body_mask.r);
+    color.rgb = mix(color.rgb, body_color, color_body_mask.a);
     const half4 color_windows_mask = color_windows_mask_texture.sample(linear_sampler, in.texcoord);
     const half3 windows_color = static_cast<half3>(colorization_uniforms.windows_color.rgb);
-    color.rgb = mix(color.rgb, windows_color, color_windows_mask.r);
+    color.rgb = mix(color.rgb, windows_color, color_windows_mask.a);
     
-    out.color = mix(pow(reflect_color, 4), color, 0.66);
+    out.color = mix(pow(reflect_color, 4), color, .66f - color_windows_mask * .33f);
     out.color.a = 1.0;
-    out.normal = half4(static_cast<half3>(in.normal.xyz), 1.f);
+    out.normal = half4(static_cast<half3>(in.normal.xyz), 0.f);
     out.position = in.position_m;
     out.position.w = in.position.z;
     

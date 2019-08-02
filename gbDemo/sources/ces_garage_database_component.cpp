@@ -13,7 +13,7 @@
 
 namespace game
 {
-    static std::array<i32, 8> g_cars_prices = {1000, 3000, 10000, 20000, 25000, 30000, 40000, 50000};
+    static std::array<i32, 13> g_cars_prices = {1000, 3000, 10000, 20000, 25000, 30000, 40000, 50000, 75000, 80000, 90000, 150000, 200000};
     
     ces_garage_database_component::garage_dto::car_dto::car_dto(const gb::db::database_coordinator_shared_ptr& database_coordinator) :
     m_database_coordinator(database_coordinator)

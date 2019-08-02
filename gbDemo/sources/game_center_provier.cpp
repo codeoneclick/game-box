@@ -8,6 +8,7 @@
 
 #include "game_center_provier.h"
 #include <GameKit/GameKit.h>
+#include <StoreKit/StoreKit.h>
 
 static NSString* k_drifters_leaderboard_id = @"drifters";
 
@@ -27,6 +28,8 @@ static NSString* k_drifters_leaderboard_id = @"drifters";
 
 + (game_center_provier_impl* )shared_instance;
 - (void)authenticate;
+
+- (void)rate_app;
 
 - (void)open_drifters_leaderboard;
 - (void)report_drifring_score:(i32)seconds;
@@ -185,6 +188,11 @@ static NSString* k_drifters_leaderboard_id = @"drifters";
     }];
 }
 
+ - (void)rate_app
+{
+    [SKStoreReviewController requestReview];
+}
+
 @end
 
 namespace game
@@ -223,5 +231,16 @@ namespace game
     void game_center_provier::report_drifring_score(i32 seconds)
     {
         [[game_center_provier_impl shared_instance] report_drifring_score:seconds];
+    }
+    
+    void game_center_provier::rate_app()
+    {
+        
+#if defined(__IOS__)
+        
+         [[game_center_provier_impl shared_instance] rate_app];
+        
+#endif
+        
     }
 }

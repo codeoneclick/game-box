@@ -30,6 +30,8 @@ namespace game
         
         void authenticate();
         
+        void rate_app();
+        
         void open_drifters_leaderboard();
         void report_drifring_score(i32 seconds);
     };
