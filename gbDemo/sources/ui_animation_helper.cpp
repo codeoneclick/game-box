@@ -130,10 +130,10 @@ namespace game
         }
     }
     
-    void ui_animation_helper::move_with_animation_action(const gb::ui::control_shared_ptr& control)
+    void ui_animation_helper::move_with_animation_action(const gb::ui::control_shared_ptr& control, const std::function<void()>& callback)
     {
         auto ui_move_animation_action_component = control->get_component<ces_ui_move_animation_action_component>();
-        ui_move_animation_action_component->play([](const gb::ces_entity_shared_ptr & entity, f32 dt, ces_ui_move_animation_action_component::e_move_direction direction, ces_ui_move_animation_action_component::e_move_mode mode, f32 progress) {
+        ui_move_animation_action_component->play([callback](const gb::ces_entity_shared_ptr & entity, f32 dt, ces_ui_move_animation_action_component::e_move_direction direction, ces_ui_move_animation_action_component::e_move_mode mode, f32 progress) {
             if (mode == ces_ui_move_animation_action_component::e_move_mode::e_show)
             {
                 if (direction == ces_ui_move_animation_action_component::e_move_direction::e_right)
@@ -179,6 +179,10 @@ namespace game
                 if (mode == ces_ui_move_animation_action_component::e_move_mode::e_hide)
                 {
                     entity->visible = false;
+                }
+                if (callback)
+                {
+                    callback();
                 }
             }
         });

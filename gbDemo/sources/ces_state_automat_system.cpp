@@ -47,6 +47,7 @@
 #include "ces_box2d_body_component.h"
 #include "ui_menus_helper.h"
 #include "game_center_provier.h"
+#include "audio_engine.h"
 
 namespace game
 {
@@ -445,7 +446,7 @@ namespace game
                         const auto selected_car = garage_database_component->get_selected_car(1);
                         
                         std::stringstream selected_car_configuration_filename;
-                        selected_car_configuration_filename<<"car_0";
+                        selected_car_configuration_filename<<"car_";
                         selected_car_configuration_filename<<selected_car->get_id();
                         const auto main_car = gameplay_fabricator->create_ai_car(selected_car_configuration_filename.str());
                         gameplay_fabricator->place_car_on_level(level, main_car, 0);
@@ -486,7 +487,7 @@ namespace game
                         garage_database_component->set_previewed_car_id(selected_car->get_id());
                         
                         std::stringstream selected_car_configuration_filename;
-                        selected_car_configuration_filename<<"car_0";
+                        selected_car_configuration_filename<<"car_";
                         selected_car_configuration_filename<<selected_car->get_id();
                         const auto main_car = gameplay_fabricator->create_ai_car(selected_car_configuration_filename.str());
                         gameplay_fabricator->place_car_on_level(level, main_car, 0);
@@ -552,7 +553,7 @@ namespace game
                         const auto selected_car = garage_database_component->get_selected_car(1);
                         
                         std::stringstream selected_car_configuration_filename;
-                        selected_car_configuration_filename<<"car_0";
+                        selected_car_configuration_filename<<"car_";
                         selected_car_configuration_filename<<selected_car->get_id();
                         
                         const auto main_car = gameplay_fabricator->create_player_car(selected_car_configuration_filename.str());
@@ -585,12 +586,17 @@ namespace game
                         for(i32 i = 0; i < level_data->get_ai_cars_count(); ++i)
                         {
                             std::stringstream ai_car_configuration_filename;
-                            ai_car_configuration_filename<<"car_0";
+                            ai_car_configuration_filename<<"car_";
                             ai_car_configuration_filename<<std::get_random_i(ai_car_id_min, ai_car_id_max);
                             
                             const auto ai_car = gameplay_fabricator->create_ai_car(ai_car_configuration_filename.str());
                             gameplay_fabricator->place_car_on_level(level, ai_car, 1);
-                            // gameplay_fabricator->reskin_car(ai_car, ai_car_configuration_filename.str(), std::get_random_i(1, 3));
+                            
+                            std::vector<i32> possible_colors = {1, 2, 3, 4};
+                            i32 body_color_index = possible_colors.at(std::get_random_i(0, 3));
+                            possible_colors[body_color_index - 1] = possible_colors.at((body_color_index + 1) % possible_colors.size());
+                            i32 windshield_color_index = possible_colors.at(std::get_random_i(0, 3));
+                            gameplay_fabricator->customize_car(ai_car, body_color_index, windshield_color_index);
                             root->add_child(ai_car);
                             box2d_body_component->add_to_contact_ignore_list(ai_car);
                             
@@ -757,6 +763,7 @@ namespace game
                     scene_state_automat_component->state = ces_scene_state_automat_component::e_state_none;
                     if (scene_state_automat_component->mode == ces_scene_state_automat_component::e_mode_main_menu)
                     {
+                        gb::al::audio_engine::stop_all();
                         const auto sound_component = root->get_component<gb::al::ces_sound_component>();
                         sound_component->trigger_sound("music_01.mp3", false);
                         
@@ -768,13 +775,33 @@ namespace game
                     }
                     if (scene_state_automat_component->mode == ces_scene_state_automat_component::e_mode_garage)
                     {
+                        gb::al::audio_engine::stop_all();
                         const auto sound_component = root->get_component<gb::al::ces_sound_component>();
                         sound_component->trigger_sound("music_05.mp3", false);
                     }
                     else if (scene_state_automat_component->mode == ces_scene_state_automat_component::e_mode_in_game)
                     {
-                        const auto sound_component = root->get_component<gb::al::ces_sound_component>();
+                        gb::al::audio_engine::stop_all();
+                        auto sound_component = root->get_component<gb::al::ces_sound_component>();
                         sound_component->trigger_sound("music_03.mp3", false);
+                        
+                        sound_component = m_main_car.lock()->get_component<gb::al::ces_sound_component>();
+                        sound_component->trigger_sound(ces_car_sounds_set_component::sounds::k_engine_idle, false);
+                        sound_component->set_volume(ces_car_sounds_set_component::sounds::k_engine_idle, 0.f);
+                        sound_component->trigger_sound(ces_car_sounds_set_component::sounds::k_engine_off_low, false);
+                        sound_component->set_volume(ces_car_sounds_set_component::sounds::k_engine_off_low, 0.f);
+                        sound_component->trigger_sound(ces_car_sounds_set_component::sounds::k_engine_off_mid, false);
+                        sound_component->set_volume(ces_car_sounds_set_component::sounds::k_engine_off_mid, 0.f);
+                        sound_component->trigger_sound(ces_car_sounds_set_component::sounds::k_engine_off_high, false);
+                        sound_component->set_volume(ces_car_sounds_set_component::sounds::k_engine_off_high, 0.f);
+                        sound_component->trigger_sound(ces_car_sounds_set_component::sounds::k_engine_on_low, false);
+                        sound_component->set_volume(ces_car_sounds_set_component::sounds::k_engine_on_low, 0.f);
+                        sound_component->trigger_sound(ces_car_sounds_set_component::sounds::k_engine_on_mid, false);
+                        sound_component->set_volume(ces_car_sounds_set_component::sounds::k_engine_on_mid, 0.f);
+                        sound_component->trigger_sound(ces_car_sounds_set_component::sounds::k_engine_on_high, false);
+                        sound_component->set_volume(ces_car_sounds_set_component::sounds::k_engine_on_high, 0.f);
+                        sound_component->trigger_sound(ces_car_sounds_set_component::sounds::k_drift, false);
+                        sound_component->set_volume(ces_car_sounds_set_component::sounds::k_drift, 0.f);
                     }
                 }
                 scene_state_automat_component->loading_progress = loading_progress;

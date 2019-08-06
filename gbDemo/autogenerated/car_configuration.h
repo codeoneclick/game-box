@@ -13,6 +13,10 @@ std::string get_main_3d_configuration_filename(void) const;
 #if defined(__IS_CONFIGURATION_MUTABLE__)
 void set_main_3d_configuration_filename(std::string main_3d_configuration_filename);
 #endif
+std::string get_detail_3d_configuration_filename(void) const;
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void set_detail_3d_configuration_filename(std::string detail_3d_configuration_filename);
+#endif
 std::string get_wheel_l_3d_configuration_filename(void) const;
 #if defined(__IS_CONFIGURATION_MUTABLE__)
 void set_wheel_l_3d_configuration_filename(std::string wheel_l_3d_configuration_filename);

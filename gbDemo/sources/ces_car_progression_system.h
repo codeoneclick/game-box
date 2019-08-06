@@ -17,9 +17,9 @@ namespace game
     {
     private:
         
-        std::bitset<std::numeric_limits<uint8_t>::max()> m_track_components_mask;
+        std::bitset<std::numeric_limits<uint8_t>::max()> m_level_components_mask;
         std::bitset<std::numeric_limits<uint8_t>::max()> m_cars_components_mask;
-        gb::ces_entity_weak_ptr m_track;
+        gb::ces_entity_weak_ptr m_level;
         std::unordered_map<std::string, gb::ces_entity_weak_ptr> m_cars;
         gb::ces_entity_weak_ptr m_main_car;
         

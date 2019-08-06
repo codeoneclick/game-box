@@ -27,8 +27,8 @@ namespace game
 {
     ces_car_progression_system::ces_car_progression_system()
     {
-        ces_base_system::add_required_component_guid(m_track_components_mask, ces_level_route_component::class_guid());
-        ces_base_system::add_required_components_mask(m_track_components_mask);
+        ces_base_system::add_required_component_guid(m_level_components_mask, ces_level_route_component::class_guid());
+        ces_base_system::add_required_components_mask(m_level_components_mask);
         
         ces_base_system::add_required_component_guid(m_cars_components_mask, ces_car_descriptor_component::class_guid());
         ces_base_system::add_required_components_mask(m_cars_components_mask);
@@ -50,14 +50,14 @@ namespace game
             }
         });
         
-        ces_base_system::enumerate_entities_with_components(m_track_components_mask, [this](const gb::ces_entity_shared_ptr& entity) {
-            m_track = entity;
+        ces_base_system::enumerate_entities_with_components(m_level_components_mask, [this](const gb::ces_entity_shared_ptr& entity) {
+            m_level = entity;
         });
         
-        if (!m_track.expired())
+        if (!m_level.expired())
         {
-            const auto level_route_component = m_track.lock()->get_component<ces_level_route_component>();
-            const auto level_descriptor_component = m_track.lock()->get_component<ces_level_descriptor_component>();
+            const auto level_route_component = m_level.lock()->get_component<ces_level_route_component>();
+            const auto level_descriptor_component = m_level.lock()->get_component<ces_level_descriptor_component>();
             std::vector<glm::vec2> route = level_route_component->route;
             std::list<gb::ces_entity_weak_ptr> sorted_cars;
             for (auto weak_car_ptr_it : m_cars)
@@ -201,7 +201,7 @@ namespace game
         
         if (!m_main_car.expired())
         {
-            const auto level_descriptor_component = m_track.lock()->get_component<ces_level_descriptor_component>();
+            const auto level_descriptor_component = m_level.lock()->get_component<ces_level_descriptor_component>();
             f32 complexity = level_descriptor_component->complexity;
             
             const auto car = std::static_pointer_cast<gb::game_object_3d>(m_main_car.lock());
@@ -209,17 +209,17 @@ namespace game
             
             f32 nearest_slow_motion_trigger_index = car_descriptor_component->nearest_slow_motion_trigger_index;
             glm::vec3 car_position = car->position;
-            const auto level_route_component = m_track.lock()->get_component<ces_level_route_component>();
+            const auto level_route_component = m_level.lock()->get_component<ces_level_route_component>();
             std::vector<glm::vec2> slow_motion_triggers = level_route_component->slow_motion_triggers;
             f32 distance = glm::distance(glm::vec2(car_position.x, car_position.z), slow_motion_triggers.at(nearest_slow_motion_trigger_index));
             f32 current_slow_motion_power = car_descriptor_component->slow_motion_power;
 
-            f32 distance_to_activate_motion_trigger = car_descriptor_component->distance_to_activate_motion_trigger;
+            /*f32 distance_to_activate_motion_trigger = car_descriptor_component->distance_to_activate_motion_trigger;
             if (distance < distance_to_activate_motion_trigger)
             {
                 current_slow_motion_power = distance / distance_to_activate_motion_trigger;
                 auto current_box2d_update_interval = root->get_component<gb::ces_box2d_world_component>()->get_update_interval();
-                current_box2d_update_interval = glm::mix(current_box2d_update_interval, glm::mix(glm::mix(.75f, .9f, complexity), 1.f, current_slow_motion_power), .1f);
+                current_box2d_update_interval = glm::mix(current_box2d_update_interval, glm::mix(glm::mix(.1f, .3f, complexity), 1.f, current_slow_motion_power), .1f);
                 root->get_component<gb::ces_box2d_world_component>()->set_update_interval(current_box2d_update_interval);
             }
             else
@@ -228,7 +228,7 @@ namespace game
                 auto current_box2d_update_interval = root->get_component<gb::ces_box2d_world_component>()->get_update_interval();
                 current_box2d_update_interval = glm::mix(current_box2d_update_interval, 1.f, .33f);
                 root->get_component<gb::ces_box2d_world_component>()->set_update_interval(current_box2d_update_interval);
-            }
+            }*/
             
             car_descriptor_component->slow_motion_power = current_slow_motion_power;
         }

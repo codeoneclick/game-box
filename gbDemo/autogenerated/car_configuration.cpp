@@ -15,6 +15,19 @@ void car_configuration::set_main_3d_configuration_filename(std::string main_3d_c
 configuration::set_attribute("/car/main_3d_configuration_filename", std::make_shared<configuration_attribute>(main_3d_configuration_filename));
 }
 #endif
+std::string car_configuration::get_detail_3d_configuration_filename(void) const
+{
+const auto& iterator = m_attributes.find("/car/detail_3d_configuration_filename");
+assert(iterator != m_attributes.end());
+std::string value; iterator->second->get(&value);
+return value;
+}
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void car_configuration::set_detail_3d_configuration_filename(std::string detail_3d_configuration_filename)
+{
+configuration::set_attribute("/car/detail_3d_configuration_filename", std::make_shared<configuration_attribute>(detail_3d_configuration_filename));
+}
+#endif
 std::string car_configuration::get_wheel_l_3d_configuration_filename(void) const
 {
 const auto& iterator = m_attributes.find("/car/wheel_l_3d_configuration_filename");
@@ -427,6 +440,8 @@ pugi::xpath_node node;
 node = document.select_single_node("/car");
 std::string main_3d_configuration_filename = node.node().attribute("main_3d_configuration_filename").as_string();
 configuration::set_attribute("/car/main_3d_configuration_filename", std::make_shared<configuration_attribute>(main_3d_configuration_filename));
+std::string detail_3d_configuration_filename = node.node().attribute("detail_3d_configuration_filename").as_string();
+configuration::set_attribute("/car/detail_3d_configuration_filename", std::make_shared<configuration_attribute>(detail_3d_configuration_filename));
 std::string wheel_l_3d_configuration_filename = node.node().attribute("wheel_l_3d_configuration_filename").as_string();
 configuration::set_attribute("/car/wheel_l_3d_configuration_filename", std::make_shared<configuration_attribute>(wheel_l_3d_configuration_filename));
 std::string wheel_r_3d_configuration_filename = node.node().attribute("wheel_r_3d_configuration_filename").as_string();
@@ -497,6 +512,8 @@ bool result = configuration::open_json(json, filename);
 assert(result);
 std::string main_3d_configuration_filename = json.get("main_3d_configuration_filename", "unknown").asString();
 configuration::set_attribute("/car/main_3d_configuration_filename", std::make_shared<configuration_attribute>(main_3d_configuration_filename));
+std::string detail_3d_configuration_filename = json.get("detail_3d_configuration_filename", "unknown").asString();
+configuration::set_attribute("/car/detail_3d_configuration_filename", std::make_shared<configuration_attribute>(detail_3d_configuration_filename));
 std::string wheel_l_3d_configuration_filename = json.get("wheel_l_3d_configuration_filename", "unknown").asString();
 configuration::set_attribute("/car/wheel_l_3d_configuration_filename", std::make_shared<configuration_attribute>(wheel_l_3d_configuration_filename));
 std::string wheel_r_3d_configuration_filename = json.get("wheel_r_3d_configuration_filename", "unknown").asString();

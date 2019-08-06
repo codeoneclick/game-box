@@ -53,7 +53,7 @@ namespace game
         
         i32 m_place = 0;
         
-        f32 m_distance_to_activate_motion_trigger = 15.f;
+        f32 m_distance_to_activate_motion_trigger = 20.f;
         i32 m_nearest_slow_motion_trigger_index = -1;
         f32 m_slow_motion_power = 0.f;
         

@@ -489,6 +489,32 @@ namespace game
         root->add_child(car_damage_bar);
         std::static_pointer_cast<gb::ui::progress_bar>(car_damage_bar)->set_progress(.01f);
         
+        const auto slow_motion_boost_label = gameplay_ui_fabricator->create_slow_motion_boost_label("");
+        root->add_child(slow_motion_boost_label);
+        ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(slow_motion_boost_label), 1.f);
+        
+        const auto slow_motion_boost_trigger_label = gameplay_ui_fabricator->create_slow_motion_boost_trigger_label("");
+        root->add_child(slow_motion_boost_trigger_label);
+        ui_animation_helper::hide_to_down(std::static_pointer_cast<gb::ui::control>(slow_motion_boost_trigger_label), 1.f);
+        
+        const auto slow_motion_boost_progress_bar = gameplay_ui_fabricator->create_slow_motion_boost_progress_bar("");
+        root->add_child(slow_motion_boost_progress_bar);
+        std::static_pointer_cast<gb::ui::progress_bar>(slow_motion_boost_progress_bar)->set_progress(.01f);
+        ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(slow_motion_boost_progress_bar), 1.f);
+        
+        const auto speed_up_boost_label = gameplay_ui_fabricator->create_speed_up_boost_label("");
+        root->add_child(speed_up_boost_label);
+        ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(speed_up_boost_label), 1.f);
+        
+        const auto speed_up_boost_trigger_label = gameplay_ui_fabricator->create_speed_up_boost_trigger_label("");
+        root->add_child(speed_up_boost_trigger_label);
+        ui_animation_helper::hide_to_down(std::static_pointer_cast<gb::ui::control>(speed_up_boost_trigger_label), 1.f);
+        
+        const auto speed_up_boost_progress_bar = gameplay_ui_fabricator->create_speed_up_boost_progress_bar("");
+        root->add_child(speed_up_boost_progress_bar);
+        std::static_pointer_cast<gb::ui::progress_bar>(speed_up_boost_progress_bar)->set_progress(.01f);
+        ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(speed_up_boost_progress_bar), 1.f);
+        
         const auto steer_left_label = gameplay_ui_fabricator->create_tutorial_steer_left_label("");
         root->add_child(steer_left_label);
         steer_left_label->visible = false;
@@ -569,7 +595,7 @@ namespace game
             const gameplay_fabricator_shared_ptr gameplay_fabricator = scene_fabricator_component->gameplay_fabricator;
             
             std::stringstream car_configuration_filename;
-            car_configuration_filename<<"car_0"<<selected_car_id;
+            car_configuration_filename<<"car_"<<selected_car_id;
             gameplay_fabricator->reconstruct_car_geometry(car, car_configuration_filename.str());
             gameplay_fabricator->customize_car(car, selected_car_data);
             

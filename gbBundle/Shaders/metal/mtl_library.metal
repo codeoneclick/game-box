@@ -471,7 +471,10 @@ fragment g_buffer_output_t fragment_shader_shape_3d_reflect(reflect_v_output_t i
     half4 color = diffuse_texture.sample(linear_sampler, in.texcoord);
     const half3 body_color = static_cast<half3>(colorization_uniforms.body_color.rgb);
     const half4 color_body_mask = color_body_mask_texture.sample(linear_sampler, in.texcoord);
-    color.rgb = mix(color.rgb, body_color, color_body_mask.a);
+    if (color_body_mask.a > .5f)
+    {
+        color.rgb *= body_color * color_body_mask.a;//mix(color.rgb, body_color, color_body_mask.a * .5f);
+    }
     const half4 color_windows_mask = color_windows_mask_texture.sample(linear_sampler, in.texcoord);
     const half3 windows_color = static_cast<half3>(colorization_uniforms.windows_color.rgb);
     color.rgb = mix(color.rgb, windows_color, color_windows_mask.a);
@@ -773,7 +776,7 @@ fragment half4 fragment_shader_deferred_point_light(common_v_output_t in [[stage
                               (((light_distance / ( 1.f - ((light_distance / light_range) *
                                                            (light_distance / light_range)))) / light_range) + 1.f));
     attenuation *= no_depth_fix;
-    const half intensity = max(dot(light_direction, normal.xyz), min_value);
+    const half intensity = max(dot(light_direction, normalize(normal.xyz)), min_value);
     const half4 light_color = static_cast<half4>(custom_uniforms.light_color);
     half4 color = light_color;
     color *= intensity;

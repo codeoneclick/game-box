@@ -155,7 +155,7 @@ namespace gb
 
         }
         
-        i32 audio_engine::play2d(const std::string& filepath, bool loop, f32 volume, f32 pitch, const std::shared_ptr<audio_profile>& profile)
+        i32 audio_engine::play2d(const std::string& filepath, bool loop, f32 volume, f32 pitch)
         {
 
 #if !defined(__WINOS__)
@@ -170,18 +170,11 @@ namespace gb
                 }
                 
                 auto profile_helper = m_default_profile_helper;
-                
-                if (profile && profile != profile_helper->m_profile)
-                {
-                    assert(!profile->m_name.empty());
-                    profile_helper = m_audio_path_profile_helpers[profile->m_name];
-                    profile_helper->m_profile = profile;
-                }
-                
                 if (m_audio_id_infos.size() >= m_max_instances)
                 {
                     break;
                 }
+                
                 if (profile_helper)
                 {
                     if(profile_helper->m_profile->m_max_instances != 0 && profile_helper->m_audio_ids.size() >= profile_helper->m_profile->m_max_instances)
@@ -198,11 +191,11 @@ namespace gb
                     }
                 }
                 
-                if(volume < 0.f)
+                if (volume < 0.f)
                 {
                     volume = 0.f;
                 }
-                else if(volume > 1.f)
+                else if (volume > 1.f)
                 {
                     volume = 1.f;
                 }

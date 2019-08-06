@@ -104,6 +104,12 @@ namespace game
             e_ui_body_paint_dialog,
             e_ui_windshield_paint_dialog,
             e_ui_performance_upgrade_dialog,
+            e_ui_slow_motion_boost_label,
+            e_ui_slow_motion_progress_bar,
+            e_ui_speed_up_boost_label,
+            e_ui_speed_up_boost_progress_bar,
+            e_ui_slow_motion_boost_trigger_label,
+            e_ui_speed_up_boost_trigger_label,
             e_ui_max
         };
         

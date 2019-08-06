@@ -26,6 +26,7 @@
 #include "game_object_3d.h"
 #include "glm_extensions.h"
 #include "std_extensions.h"
+#include "ces_car_impact_component.h"
 
 namespace game
 {
@@ -76,9 +77,9 @@ namespace game
     
     void ces_car_simulator_system::update_car(const gb::ces_entity_shared_ptr& entity, f32 dt, bool is_input_updated, f32 throttle, f32 steer_angle, f32 brake)
     {
-        // dt = .016f;
         const auto car_model_component = entity->get_component<ces_car_model_component>();
         const auto car_descriptor_component = entity->get_component<ces_car_descriptor_component>();
+        const auto car_impact_component = entity->get_component<ces_car_impact_component>();
         const auto car_simulator_component = entity->get_component<ces_car_simulator_component>();
         const auto box2d_body_component = entity->get_component<gb::ces_box2d_body_component>();
         
@@ -94,6 +95,10 @@ namespace game
         }
         
         f32 max_force = car_model_component->get_max_force();
+        if (car_impact_component && car_impact_component->is_speed_up_impact_exist())
+        {
+            max_force *= car_impact_component->get_speed_up_max_impact();
+        }
         bool has_dir = false;
         bool has_steer = false;
         

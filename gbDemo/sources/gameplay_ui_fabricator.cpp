@@ -155,6 +155,15 @@ namespace game
         
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_performance_upgrade_dialog)] = glm::vec2(m_screen_size.x - 32.f - 16.f - k_image_button_size.x - (k_image_button_size.x * .75f) * 4.f, 40.f + 16.f);
         
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_slow_motion_boost_label)] = glm::vec2(m_screen_size.x - 32.f - 150.f - 100.f - 8.f, 32.f + 8.f + k_image_button_size.y);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_slow_motion_progress_bar)] = glm::vec2(m_screen_size.x - 32.f - 100.f, 32.f + 8.f + k_image_button_size.y);
+        
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_speed_up_boost_label)] = glm::vec2(m_screen_size.x - 32.f - 150.f - 100.f - 8.f, 32.f + 8.f + k_image_button_size.y + 24.f);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_speed_up_boost_progress_bar)] = glm::vec2(m_screen_size.x - 32.f - 100.f, 32.f + 8.f + k_image_button_size.y + 24.f);
+        
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_slow_motion_boost_trigger_label)] = glm::vec2(m_screen_size.x * .5f - 175.f, m_screen_size.y - (k_image_button_size.y + 8.f) * 2.f);
+        
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_speed_up_boost_trigger_label)] = glm::vec2(m_screen_size.x * .5f - 90.f, m_screen_size.y - (k_image_button_size.y + 8.f) * 2.f);
         
         ui_animation_helper::set_screen_size(m_screen_size);
     }
@@ -1596,5 +1605,120 @@ namespace game
         dialog->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_performance_upgrade_dialog)];
         
         return dialog;
+    }
+    
+    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_slow_motion_boost_label(const std::string& filename)
+    {
+        const auto label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(150.f, 24.f), "SLOW MOTION");
+        add_ui_interaction_component(label, game::ces_ui_interaction_component::e_ui::e_ui_slow_motion_boost_label);
+        label->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_slow_motion_boost_label)];
+        label->set_font_name("spincycle.otf");
+        label->set_text_horizontal_aligment(gb::ui::e_element_horizontal_aligment::e_element_horizontal_aligment_right);
+        
+        label->set_text_color(k_control_text_disabled_color, gb::ui::e_control_state::e_disabled);
+        label->set_background_color(k_control_transparent_color, gb::ui::e_control_state::e_disabled);
+        label->set_foreground_color(k_control_transparent_color, gb::ui::e_control_state::e_disabled);
+        
+        label->set_text_color(k_control_text_focused_color, gb::ui::e_control_state::e_focused);
+        label->set_background_color(k_control_transparent_color, gb::ui::e_control_state::e_focused);
+        label->set_foreground_color(k_control_transparent_color, gb::ui::e_control_state::e_focused);
+        
+        label->set_text_color(k_control_text_color);
+        label->set_background_color(k_control_transparent_color);
+        label->set_foreground_color(k_control_transparent_color);
+        
+        return label;
+    }
+    
+    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_slow_motion_boost_trigger_label(const std::string& filename)
+    {
+        const auto label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(350.f, 48.f), "SLOW MOTION ZONE      SWIPE DOWN");
+        add_ui_interaction_component(label, game::ces_ui_interaction_component::e_ui::e_ui_slow_motion_boost_trigger_label);
+        label->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_slow_motion_boost_trigger_label)];
+        label->set_font_name("spincycle.otf");
+        label->set_multiline(true);
+        label->set_font_mode(gb::ces_font_component::e_font_mode::e_font_mode_edge);
+        label->set_text_horizontal_aligment(gb::ui::e_element_horizontal_aligment::e_element_horizontal_aligment_center);
+        
+        label->set_text_color(k_control_text_disabled_color, gb::ui::e_control_state::e_disabled);
+        label->set_background_color(k_control_transparent_color, gb::ui::e_control_state::e_disabled);
+        label->set_foreground_color(k_control_transparent_color, gb::ui::e_control_state::e_disabled);
+        
+        label->set_text_color(k_control_text_focused_color, gb::ui::e_control_state::e_focused);
+        label->set_background_color(k_control_transparent_color, gb::ui::e_control_state::e_focused);
+        label->set_foreground_color(k_control_transparent_color, gb::ui::e_control_state::e_focused);
+        
+        label->set_text_color(k_control_text_color);
+        label->set_background_color(k_control_transparent_color);
+        label->set_foreground_color(k_control_transparent_color);
+        
+        return label;
+    }
+    
+    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_slow_motion_boost_progress_bar(const std::string& filename)
+    {
+        const auto progress_bar = m_ui_base_fabricator.lock()->create_progress_bar(glm::vec2(100.f, 24.f));
+        add_ui_interaction_component(progress_bar, game::ces_ui_interaction_component::e_ui::e_ui_slow_motion_progress_bar);
+        progress_bar->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_slow_motion_progress_bar)];
+        progress_bar->set_progress_line_color(k_control_text_color);
+        progress_bar->set_background_color(k_control_background_color);
+        return progress_bar;
+    }
+    
+    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_speed_up_boost_label(const std::string& filename)
+    {
+        const auto label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(150.f, 24.f), "SPEED UP");
+        add_ui_interaction_component(label, game::ces_ui_interaction_component::e_ui::e_ui_speed_up_boost_label);
+        label->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_speed_up_boost_label)];
+        label->set_font_name("spincycle.otf");
+        label->set_text_horizontal_aligment(gb::ui::e_element_horizontal_aligment::e_element_horizontal_aligment_right);
+        
+        label->set_text_color(k_control_text_disabled_color, gb::ui::e_control_state::e_disabled);
+        label->set_background_color(k_control_transparent_color, gb::ui::e_control_state::e_disabled);
+        label->set_foreground_color(k_control_transparent_color, gb::ui::e_control_state::e_disabled);
+        
+        label->set_text_color(k_control_text_focused_color, gb::ui::e_control_state::e_focused);
+        label->set_background_color(k_control_transparent_color, gb::ui::e_control_state::e_focused);
+        label->set_foreground_color(k_control_transparent_color, gb::ui::e_control_state::e_focused);
+        
+        label->set_text_color(k_control_text_color);
+        label->set_background_color(k_control_transparent_color);
+        label->set_foreground_color(k_control_transparent_color);
+        
+        return label;
+    }
+    
+    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_speed_up_boost_trigger_label(const std::string& filename)
+    {
+        const auto label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(180.f, 48.f), "SPEED UP");
+        add_ui_interaction_component(label, game::ces_ui_interaction_component::e_ui::e_ui_speed_up_boost_trigger_label);
+        label->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_speed_up_boost_trigger_label)];
+        label->set_font_name("spincycle.otf");
+        label->set_font_mode(gb::ces_font_component::e_font_mode::e_font_mode_edge);
+        label->set_text_horizontal_aligment(gb::ui::e_element_horizontal_aligment::e_element_horizontal_aligment_center);
+        
+        label->set_text_color(k_control_text_disabled_color, gb::ui::e_control_state::e_disabled);
+        label->set_background_color(k_control_transparent_color, gb::ui::e_control_state::e_disabled);
+        label->set_foreground_color(k_control_transparent_color, gb::ui::e_control_state::e_disabled);
+        
+        label->set_text_color(k_control_text_focused_color, gb::ui::e_control_state::e_focused);
+        label->set_background_color(k_control_transparent_color, gb::ui::e_control_state::e_focused);
+        label->set_foreground_color(k_control_transparent_color, gb::ui::e_control_state::e_focused);
+        
+        label->set_text_color(k_control_text_color);
+        label->set_background_color(k_control_transparent_color);
+        label->set_foreground_color(k_control_transparent_color);
+        
+        return label;
+    }
+    
+    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_speed_up_boost_progress_bar(const std::string& filename)
+    {
+        const auto progress_bar = m_ui_base_fabricator.lock()->create_progress_bar(glm::vec2(100.f, 24.f));
+        add_ui_interaction_component(progress_bar, game::ces_ui_interaction_component::e_ui::e_ui_speed_up_boost_progress_bar);
+        progress_bar->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_speed_up_boost_progress_bar)];
+        progress_bar->set_progress_line_color(k_control_text_color);
+        progress_bar->set_background_color(k_control_background_color);
+        return progress_bar;
     }
 }

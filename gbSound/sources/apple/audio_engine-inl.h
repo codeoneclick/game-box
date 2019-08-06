@@ -9,7 +9,7 @@ namespace gb
     namespace al
     {
 
-#define k_max_audioinstances 24
+#define k_max_audioinstances 128
         
         class audio_engine_impl
         {

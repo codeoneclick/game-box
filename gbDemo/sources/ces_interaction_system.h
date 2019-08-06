@@ -28,6 +28,7 @@ namespace game
         
         bool m_is_interacted = false;
         glm::vec2 m_interaction_point = glm::vec2(0.f);
+        glm::vec2 m_first_interaction_point = glm::vec2(0.f);
         
         void on_touched(const gb::ces_entity_shared_ptr& entity,
                         const glm::vec2& touch_point,

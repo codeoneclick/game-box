@@ -40,32 +40,25 @@ namespace gb
         while (!m_events.empty())
         {
             const auto& touch_event = m_events.front();
-            if(std::get<4>(touch_event) <= 1)
+            if (std::get<4>(touch_event) <= 1)
             {
                 ces_entity_shared_ptr intersected_entity = ces_touch_system::intersected_entity(entity, touch_event);
                 
-                for(size_t i = 0; i < m_captured_entities.size(); ++i)
+                const auto& captured_entities = m_captured_entities[std::get<4>(touch_event)];
+                auto iterator = std::find_if(captured_entities.begin(), captured_entities.end(), [intersected_entity] (const ces_entity_weak_ptr& entity_weak) {
+                    return !entity_weak.expired() && entity_weak.lock() == intersected_entity;
+                });
+                if (iterator != captured_entities.end())
                 {
-                    if(i != std::get<4>(touch_event))
-                    {
-                        const auto& captured_entities = m_captured_entities[i];
-                        auto iterator = std::find_if(captured_entities.begin(), captured_entities.end(), [intersected_entity] (const ces_entity_weak_ptr& entity_weak) {
-                            return !entity_weak.expired() && entity_weak.lock() == intersected_entity;
-                        });
-                        if(iterator != captured_entities.end())
-                        {
-                            intersected_entity = nullptr;
-                            break;
-                        }
-                    }
+                    intersected_entity = nullptr;
                 }
                 
-                if(std::get<1>(touch_event) == e_input_state_released)
+                if (std::get<1>(touch_event) == e_input_state_released)
                 {
                     const auto& captured_entities = m_captured_entities[std::get<4>(touch_event)];
                     for (const auto& entity_weak : captured_entities)
                     {
-                        if(!entity_weak.expired())
+                        if (!entity_weak.expired())
                         {
                             auto entity = entity_weak.lock();
                             auto bound_touch_component = entity->get_component<ces_bound_touch_component>();

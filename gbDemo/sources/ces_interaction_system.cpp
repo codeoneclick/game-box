@@ -25,6 +25,7 @@
 #include "ces_car_drift_state_component.h"
 #include "ces_car_camera_follow_component.h"
 #include "ces_garage_database_component.h"
+#include "ces_car_impact_component.h"
 
 namespace game
 {
@@ -77,6 +78,7 @@ namespace game
             const auto car_input_component = car->get_component<ces_car_input_component>();
             const auto car_descriptor_component = car->get_component<ces_car_descriptor_component>();
             const auto car_drift_state_component = car->get_component<ces_car_drift_state_component>();
+            const auto car_impact_component= m_main_car.lock()->get_component<ces_car_impact_component>();
             
             const auto garage_database_component = root->get_component<ces_garage_database_component>();
             const auto selected_car = garage_database_component->get_selected_car(1);
@@ -106,6 +108,8 @@ namespace game
                 
                 const auto camera = ces_base_system::get_current_camera_3d();
                 assert(camera != nullptr);
+                const auto viewport = camera->get_viewport();
+                f32 screen_width = viewport.z;
                 glm::ray ray;
                 glm::unproject(glm::ivec2(m_interaction_point.x, m_interaction_point.y), camera->get_mat_v(), camera->get_mat_p(), camera->get_viewport(), &ray);
                 glm::vec3 intersected_point = glm::vec3(0.f);
@@ -127,7 +131,9 @@ namespace game
                         collision_power = 1.f - (current_timestamp - last_collided_timestamp) / max_collision_protection_time;
                     }
                     
-                    if (m_is_interacted)
+                    if (m_is_interacted &&
+                        (m_interaction_point.x < screen_width * .25f ||
+                         m_interaction_point.x > screen_width - (screen_width * .25f)))
                     {
                         f32 steer_angle = atan2(intersected_point.x - car_position.x, intersected_point.z - car_position.z);
                         steer_angle -= glm::wrap_radians(car_rotation.y);
@@ -143,6 +149,10 @@ namespace game
                         }
                         
                         f32 force = car_model_component->get_max_force() + (selected_car->get_car_speed_upgrade() * 80.f);
+                        if (car_impact_component->is_speed_up_impact_exist())
+                        {
+                            force *= car_impact_component->get_speed_up_max_impact();
+                        }
                         f32 brakes = 200.f - 100.f * selected_car->get_car_speed_upgrade();
                         f32 handling = glm::mix(.33f, 1.f, selected_car->get_car_handling_upgrade());
                         car_input_component->throttle = force * (1.f - collision_power);
@@ -168,6 +178,10 @@ namespace game
                         
 #else
                         f32 force = car_model_component->get_max_force() + (selected_car->get_car_speed_upgrade() * 80.f);
+                        if (car_impact_component->is_speed_up_impact_exist())
+                        {
+                            force *= car_impact_component->get_speed_up_max_impact();
+                        }
                         f32 brakes = 200.f - 100.f * selected_car->get_car_speed_upgrade();
                         car_input_component->throttle = force * (1.f - collision_power);
                         car_input_component->steer_angle = 0.f;
@@ -215,6 +229,41 @@ namespace game
                 auto rotation = camera_3d->get_rotation();
                 rotation -= .5f * delta.x;
                 camera_3d->set_rotation(rotation);
+            }
+        }
+        
+        if (input_state == gb::e_input_state_pressed)
+        {
+            m_first_interaction_point = touch_point;
+        }
+        else if (input_state == gb::e_input_state_released)
+        {
+            if (!m_main_car.expired())
+            {
+                const auto camera = ces_base_system::get_current_camera_3d();
+                const auto viewport = camera->get_viewport();
+                f32 screen_width = viewport.z;
+                f32 screen_height = viewport.w;
+                const auto delta = m_first_interaction_point - touch_point;
+                if (abs(delta.y) > screen_height * .25f &&
+                    touch_point.x > screen_width * .25f &&
+                    touch_point.x < screen_width - (screen_width * .25f) &&
+                    m_first_interaction_point.x > screen_width * .25f &&
+                    m_first_interaction_point.x < screen_width - (screen_width * .25f))
+                {
+                    const auto car_impact_component= m_main_car.lock()->get_component<ces_car_impact_component>();
+                    if (car_impact_component)
+                    {
+                        if (delta.y > 0.f)
+                        {
+                            car_impact_component->expect_to_speed_up_impact();
+                        }
+                        else
+                        {
+                            car_impact_component->expect_to_slow_motion_impact();
+                        }
+                    }
+                }
             }
         }
         

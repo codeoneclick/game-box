@@ -62,6 +62,7 @@
 #include "store_provider.h"
 #include "ui_menus_helper.h"
 #include "game_center_provier.h"
+#include "ces_car_boost_system.h"
 
 namespace game
 {
@@ -100,6 +101,9 @@ namespace game
         
         auto car_progression_system = std::make_shared<ces_car_progression_system>();
         get_transition()->add_system(car_progression_system);
+        
+        auto car_boost_system = std::make_shared<ces_car_boost_system>();
+        get_transition()->add_system(car_boost_system);
         
         auto interaction_system = std::make_shared<ces_interaction_system>();
         interaction_system->set_is_paused(true);
@@ -161,7 +165,7 @@ namespace game
         
         const auto selected_car = garage_database_component->get_selected_car(1);
         std::stringstream selected_car_configuration_filename;
-        selected_car_configuration_filename<<"car_0";
+        selected_car_configuration_filename<<"car_";
         selected_car_configuration_filename<<selected_car->get_id();
         const auto car = m_gameplay_fabricator->create_ai_car(selected_car_configuration_filename.str());
         m_gameplay_fabricator->customize_car(car, selected_car);

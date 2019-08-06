@@ -104,7 +104,7 @@ namespace gb
             
             static std::shared_ptr<audio_profile> get_default_profile();
             
-            static i32 play2d(const std::string& filepath, bool loop = false, f32 volume = 1.f, f32 pitch = 1.f, const std::shared_ptr<audio_profile>& profile = nullptr);
+            static i32 play2d(const std::string& filepath, bool loop = false, f32 volume = 1.f, f32 pitch = 1.f);
             
             static void set_loop(i32 audio_id, bool loop);
             static bool is_loop(i32 audio_id);

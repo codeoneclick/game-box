@@ -4,6 +4,7 @@
     is_external="1">
     <attributes>
         <attribute type="std::string" property="main_3d_configuration_filename" path="/car" name="main_3d_configuration_filename"/>
+        <attribute type="std::string" property="detail_3d_configuration_filename" path="/car" name="detail_3d_configuration_filename"/>
         <attribute type="std::string" property="wheel_l_3d_configuration_filename" path="/car" name="wheel_l_3d_configuration_filename"/>
         <attribute type="std::string" property="wheel_r_3d_configuration_filename" path="/car" name="wheel_r_3d_configuration_filename"/>
         <attribute type="std::string" property="skin_1_filename" path="/car" name="skin_1_filename"/>

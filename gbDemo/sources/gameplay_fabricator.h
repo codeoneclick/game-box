@@ -57,6 +57,7 @@ namespace game
         void place_car_on_level(const gb::game_object_3d_shared_ptr& level, const gb::game_object_3d_shared_ptr& car, i32 spawner_position);
         void reconstruct_car_geometry(const gb::ces_entity_shared_ptr& car, const std::string& filename);
         void customize_car(const gb::ces_entity_shared_ptr& car, const std::shared_ptr<ces_garage_database_component::garage_dto::car_dto>& car_data);
+        void customize_car(const gb::ces_entity_shared_ptr& car, i32 body_color_id, i32 windshield_color_id);
         static void paint_car_body(const gb::ces_entity_shared_ptr& car, const glm::u8vec4& color);
         static void paint_car_windows(const gb::ces_entity_shared_ptr& car, const glm::u8vec4& color);
     };

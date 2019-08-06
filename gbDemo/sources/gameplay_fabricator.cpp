@@ -64,6 +64,7 @@
 #include "db_level_table.h"
 #include "ces_levels_database_component.h"
 #include "ces_camera_collision_component.h"
+#include "ces_car_impact_component.h"
 
 namespace game
 {
@@ -537,6 +538,12 @@ namespace game
         const auto car_body = m_general_fabricator.lock()->create_shape_3d(car_configuration->get_main_3d_configuration_filename());
         car_body->tag = ces_car_parts_component::parts::k_body;
         
+        if (car_configuration->get_detail_3d_configuration_filename().length() != 0)
+        {
+            const auto car_details = m_general_fabricator.lock()->create_shape_3d(car_configuration->get_detail_3d_configuration_filename());
+            car_body->add_child(car_details);
+        }
+        
         std::stringstream car_guid;
         car_guid<<filename<<g_character_guid++;
         const auto car = gb::ces_entity::construct<gb::game_object_3d>();
@@ -947,6 +954,9 @@ namespace game
         const auto car_sounds_set_component = std::make_shared<ces_car_sounds_set_component>();
         car->add_component(car_sounds_set_component);
         
+        const auto car_impact_component = std::make_shared<ces_car_impact_component>();
+        car->add_component(car_impact_component);
+        
         return car;
     }
     
@@ -1085,6 +1095,12 @@ namespace game
         car_body->add_child(light_rr);
         car->add_child(car_body);
         
+        if (car_configuration->get_detail_3d_configuration_filename().length() != 0)
+        {
+            const auto car_details = m_general_fabricator.lock()->create_shape_3d(car_configuration->get_detail_3d_configuration_filename());
+            car_body->add_child(car_details);
+        }
+        
         light_fl->position = glm::vec3(car_configuration->get_fl_light_offset_x(),
                                        car_configuration->get_fl_light_offset_y(),
                                        car_configuration->get_fl_light_offset_z());
@@ -1165,22 +1181,26 @@ namespace game
     {
         i32 car_body_color_id = car_data->get_car_body_color_id();
         i32 car_windshield_color_id = car_data->get_car_windows_color_id();
-        
-        switch (car_body_color_id)
+        customize_car(car, car_body_color_id, car_windshield_color_id);
+    }
+    
+    void gameplay_fabricator::customize_car(const gb::ces_entity_shared_ptr& car, i32 body_color_id, i32 windshield_color_id)
+    {
+        switch (body_color_id)
         {
-            case 1:
+                case 1:
                 paint_car_body(car, ces_car_model_component::k_car_color_1);
                 break;
                 
-            case 2:
+                case 2:
                 paint_car_body(car, ces_car_model_component::k_car_color_2);
                 break;
                 
-            case 3:
+                case 3:
                 paint_car_body(car, ces_car_model_component::k_car_color_3);
                 break;
                 
-            case 4:
+                case 4:
                 paint_car_body(car, ces_car_model_component::k_car_color_4);
                 break;
                 
@@ -1190,21 +1210,21 @@ namespace game
                 break;
         }
         
-        switch (car_windshield_color_id)
+        switch (windshield_color_id)
         {
-            case 1:
+                case 1:
                 paint_car_windows(car, ces_car_model_component::k_car_color_1);
                 break;
                 
-            case 2:
+                case 2:
                 paint_car_windows(car, ces_car_model_component::k_car_color_2);
                 break;
                 
-            case 3:
+                case 3:
                 paint_car_windows(car, ces_car_model_component::k_car_color_3);
                 break;
                 
-            case 4:
+                case 4:
                 paint_car_windows(car, ces_car_model_component::k_car_color_4);
                 break;
                 
