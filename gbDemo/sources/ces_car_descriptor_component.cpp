@@ -155,16 +155,16 @@ namespace game
             m_nearest_slow_motion_trigger_index = value;
         });
         
-        distance_to_activate_motion_trigger.getter([=]() {
-            return m_distance_to_activate_motion_trigger;
+        nearest_speed_up_trigger_index.getter([=]() {
+            return m_nearest_speed_up_trigger_index;
         });
         
-        slow_motion_power.getter([=]() {
-            return m_slow_motion_power;
+        nearest_speed_up_trigger_index.setter([=](f32 value) {
+            m_nearest_speed_up_trigger_index = value;
         });
         
-        slow_motion_power.setter([=](f32 value) {
-            m_slow_motion_power = value;
+        distance_to_activate_trigger.getter([=]() {
+            return m_distance_to_activate_trigger;
         });
         
         current_damage.getter([=]() {

@@ -442,6 +442,18 @@ namespace game
             level_route_component->add_slow_motion_trigger(position);
         }
         
+        const auto speed_up_triggers = scene_2d->get_objects("speed_up_triggers");
+        for (const auto& speed_up_trigger : speed_up_triggers)
+        {
+            auto position = speed_up_trigger->get_position();
+            position.x /= scene_2d->get_tile_size().x;
+            position.y /= scene_2d->get_tile_size().y;
+            position.x *= 16.f;
+            position.y *= -16.f;
+            
+            level_route_component->add_speed_up_trigger(position);
+        }
+        
         const auto trees = scene_2d->get_objects("trees");
         for (const auto& tree : trees)
         {
@@ -626,18 +638,14 @@ namespace game
         light_source_02->inner_cutoff_angle = glm::cos(glm::radians(10.f));
         light_source_02->scale = glm::vec3(7.f, 7.f, 7.f);
         
-        const auto light_rr = m_general_fabricator.lock()->create_deferred_point_light_3d("omni_light_source.xml");
+        const auto light_rr = m_general_fabricator.lock()->create_deferred_point_light_3d("car_rear_lights_source.xml");
         car_body->add_child(light_rr);
-        light_rr->ray_length = 1.2f;
-        light_rr->color = glm::vec4(1.0, 0.0, 0.0, 1.0);
         light_rr->position = glm::vec3(car_configuration->get_rr_light_offset_x(),
                                        car_configuration->get_rr_light_offset_y(),
                                        car_configuration->get_rr_light_offset_z());
         
-        const auto light_rl = m_general_fabricator.lock()->create_deferred_point_light_3d("omni_light_source.xml");
+        const auto light_rl = m_general_fabricator.lock()->create_deferred_point_light_3d("car_rear_lights_source.xml");
         car_body->add_child(light_rl);
-        light_rl->ray_length = 1.2f;
-        light_rl->color = glm::vec4(1.0, 0.0, 0.0, 1.0);
         light_rl->position = glm::vec3(car_configuration->get_rl_light_offset_x(),
                                        car_configuration->get_rl_light_offset_y(),
                                        car_configuration->get_rl_light_offset_z());
@@ -789,6 +797,7 @@ namespace game
         name_label->scale = glm::vec3(.05f);
         name_label->position = glm::vec3(name_label->get_content_size().x * .5f, 1.f, -3.f);
         name_label->rotation = glm::vec3(-90.f, 180.f, 0.f);
+        name_label->visible = false;
         car->add_child(name_label);
         
         const auto speed_label = m_general_fabricator.lock()->create_label_3d("information_bubble_01.xml");

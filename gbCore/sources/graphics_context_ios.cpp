@@ -48,6 +48,11 @@ namespace gb
         void draw() const;
     };
     
+    bool graphics_context::is_ipad()
+    {
+        return [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad;
+    }
+    
     std::shared_ptr<graphics_context> create_graphics_context_ios(const std::shared_ptr<window_impl>& window)
     {
         return std::make_shared<graphics_context_ios>(window);

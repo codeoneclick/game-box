@@ -27,10 +27,10 @@ namespace game
     private:
         
         f32 m_min_distance_xz_to_look_at = 12.f;
-        f32 m_max_distance_xz_to_look_at = 18.f;
+        f32 m_max_distance_xz_to_look_at = 24.f;
         
-        f32 m_min_distance_y_to_look_at = 22.f;
-        f32 m_max_distance_y_to_look_at = 28.f;
+        f32 m_min_distance_y_to_look_at = 9.f;
+        f32 m_max_distance_y_to_look_at = 18.f;
         
         e_preview_mode m_preview_mode = e_preview_mode::e_none;
         

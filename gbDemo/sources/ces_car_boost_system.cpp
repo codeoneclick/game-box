@@ -164,14 +164,14 @@ namespace game
                 car_impact_component->update_current_speed_up_effect_duration_in_seconds(-dt);
             }
             
-            f32 nearest_slow_motion_trigger_index = car_descriptor_component->nearest_slow_motion_trigger_index;
+            i32 nearest_slow_motion_trigger_index = car_descriptor_component->nearest_slow_motion_trigger_index;
             glm::vec3 car_position = car->position;
             const auto level_route_component = m_level.lock()->get_component<ces_level_route_component>();
             std::vector<glm::vec2> slow_motion_triggers = level_route_component->slow_motion_triggers;
             f32 distance = glm::distance(glm::vec2(car_position.x, car_position.z), slow_motion_triggers.at(nearest_slow_motion_trigger_index));
             
-            f32 distance_to_activate_motion_trigger = car_descriptor_component->distance_to_activate_motion_trigger;
-            if (distance < distance_to_activate_motion_trigger)
+            f32 distance_to_activate_trigger = car_descriptor_component->distance_to_activate_trigger;
+            if (distance < distance_to_activate_trigger)
             {
                 if (!car_impact_component->get_is_slow_motion_boost_trigger_ui_shown() && !car_impact_component->is_slow_motion_impact_exist())
                 {

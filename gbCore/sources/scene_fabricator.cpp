@@ -109,8 +109,8 @@ namespace gb
             std::static_pointer_cast<gb::material_configuration>(iterator);
             
             material_shared_ptr material = material::construct(material_configuration);
-            gb::material::set_shader(material, material_configuration, m_resource_accessor);
-            gb::material::set_textures(material, material_configuration, m_resource_accessor);
+            gb::material::set_shader(material, material_configuration, m_resource_accessor, true);
+            gb::material::set_textures(material, material_configuration, m_resource_accessor, true);
             ces_material_extension::add_material(entity, material_configuration->get_technique_name(), material);
         }
     }

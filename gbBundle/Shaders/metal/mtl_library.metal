@@ -40,20 +40,20 @@ vertex common_v_output_t vertex_shader_ss_deferred_lighting(common_v_input_t in 
     return out;
 }
 
-fragment float4 fragment_shader_ss_deferred_lighting(common_v_output_t in [[stage_in]],
-                                                     texture2d<float> opaque_color_texture [[texture(0)]],
-                                                     texture2d<float> transparent_color_texture [[texture(1)]],
+fragment half4 fragment_shader_ss_deferred_lighting(common_v_output_t in [[stage_in]],
+                                                     texture2d<half> opaque_color_texture [[texture(0)]],
+                                                     texture2d<half> transparent_color_texture [[texture(1)]],
                                                      texture2d<half> transparent_alpha_texture [[texture(2)]],
                                                      texture2d<half> lighting_texture [[texture(3)]])
 {
-    float4 opaque_color = opaque_color_texture.sample(linear_sampler, in.texcoord);
-    float4 transparent_color = transparent_color_texture.sample(linear_sampler, in.texcoord);
-    float transparent_alpha = (float)transparent_alpha_texture.sample(linear_sampler, in.texcoord).r;
-    transparent_color = float4(transparent_color.rgb / max(transparent_color.a, 1e-5), 0.f);
-    float4 color = opaque_color + transparent_color * (1.0 - transparent_alpha);
+    half4 opaque_color = opaque_color_texture.sample(linear_sampler, in.texcoord);
+    half4 transparent_color = transparent_color_texture.sample(linear_sampler, in.texcoord);
+    half transparent_alpha = transparent_alpha_texture.sample(linear_sampler, in.texcoord).r;
+    transparent_color.rgb = transparent_color.rgb / transparent_color.a;
+    half4 color = opaque_color + transparent_color * (1.0 - transparent_alpha);
     
-    float4 lighting = (float4)lighting_texture.sample(linear_sampler, in.texcoord);
-    color.rbg = color.rbg * max(lighting.rbg, float3(0.05));
+    half4 lighting = lighting_texture.sample(linear_sampler, in.texcoord);
+    color.rbg = color.rbg * clamp(lighting.rbg, half3(.001f), half3(.999f));
     return color;
 }
 
@@ -205,7 +205,7 @@ fragment half4 fragment_shader_ss_compose(common_v_output_t in [[stage_in]],
     
     bloom = adjust_saturation(bloom, bloom_saturation) * bloom_intensity;
     color = adjust_saturation(color, original_saturation) * original_intensity;
-    color *= pow(ao, 24);
+    color *= ao;
     color += bloom;
     color += emissive;
     
@@ -444,16 +444,22 @@ vertex reflect_v_output_t vertex_shader_shape_3d_reflect(common_v_input_t in [[s
     out.texcoord = in.texcoord;
     
     float4x4 mat_n = get_mat_n(uniforms);
-    float3 normal = normalize((mat_n * in.normal).xyz);
-    out.normal = normal;
+    float4 normal = float4(in.normal.xyz, 0.f);
+    float4 tangent = float4(in.tangent.xyz, 0.f);
+    float4 bitangent = float4(cross(-normal.xyz, tangent.xyz), 0.f);
     
-    float3 normal_vm = normalize((get_mat_v(uniforms) * get_mat_m(uniforms) * in.normal).xyz);
+    float3 normal_vm = normalize((get_mat_v(uniforms) * get_mat_m(uniforms) * normal).xyz);
     out.normal_vm = normal_vm;
     float3 position_vm = (get_mat_v(uniforms) * get_mat_m(uniforms) * in_position).xyz;
     out.camera_direction_vm = normalize(-position_vm);
     
-    float3 camera_direction = normalize(out.position_m.xyz - reflect_uniforms.camera_position.xyz);
-    out.cube_texcoord = reflect(camera_direction, normal);
+    normal = mat_n * normal;
+    tangent = mat_n * tangent;
+    bitangent = mat_n * bitangent;
+    
+    out.normal = normalize(normal.xyz);
+    out.tangent = normalize(tangent.xyz);
+    out.bitangent = normalize(bitangent.xyz);
 
     return out;
 }
@@ -463,31 +469,43 @@ fragment g_buffer_output_t fragment_shader_shape_3d_reflect(reflect_v_output_t i
                                                             texture2d<half> diffuse_texture [[texture(0)]],
                                                             texturecube<half> reflection_texture [[texture(1)]],
                                                             texture2d<half> color_body_mask_texture [[texture(2)]],
-                                                            texture2d<half> color_windows_mask_texture [[texture(3)]])
+                                                            texture2d<half> color_windows_mask_texture [[texture(3)]],
+                                                            texture2d<half> normal_texture [[texture(4)]])
 {
     g_buffer_output_t out;
     
-    const half4 reflect_color = reflection_texture.sample(linear_sampler, in.cube_texcoord);
+    float3 reflection_dir = reflect (-in.camera_direction_vm, in.normal_vm);
+    const half4 reflection_color = reflection_texture.sample(linear_sampler, reflection_dir);
+    
     half4 color = diffuse_texture.sample(linear_sampler, in.texcoord);
     const half3 body_color = static_cast<half3>(colorization_uniforms.body_color.rgb);
     const half4 color_body_mask = color_body_mask_texture.sample(linear_sampler, in.texcoord);
     if (color_body_mask.a > .5f)
     {
-        color.rgb *= body_color * color_body_mask.a;//mix(color.rgb, body_color, color_body_mask.a * .5f);
+        color.rgb *= body_color * color_body_mask.a;
     }
     const half4 color_windows_mask = color_windows_mask_texture.sample(linear_sampler, in.texcoord);
     const half3 windows_color = static_cast<half3>(colorization_uniforms.windows_color.rgb);
     color.rgb = mix(color.rgb, windows_color, color_windows_mask.a);
     
-    out.color = mix(pow(reflect_color, 4), color, .66f - color_windows_mask * .33f);
-    out.color.a = 1.0;
-    out.normal = half4(static_cast<half3>(in.normal.xyz), 0.f);
+    out.color = mix(pow(reflection_color, 2), color, .66f - color_windows_mask * .33f);
+    out.color.a = 1.f;
     out.position = in.position_m;
     out.position.w = in.position.z;
     
+    float4 normal_color = (float4)normal_texture.sample(linear_sampler, in.texcoord);
+    half3 tbn_normal = (half3)normalize((normal_color.xyz * 2.f) - 1.f);
+    
+    tbn_normal = (tbn_normal.x * (half3)in.tangent +
+                  tbn_normal.y * (half3)in.bitangent +
+                  tbn_normal.z * (half3)in.normal);
+    
+    tbn_normal = normalize(tbn_normal);
+    out.normal = half4(tbn_normal, .0f);
+    
     const half rim_power = 8.f;
     const half rim = smoothstep(.7f , 1.f , 1.f - max(dot(in.camera_direction_vm, in.normal_vm), 0.f));
-    out.color.rgb += rim * body_color * color_body_mask.r * rim_power;
+    out.color.rgb += rim * out.color.rgb * rim_power;
     
     return out;
 }
@@ -758,38 +776,30 @@ fragment half4 fragment_shader_deferred_point_light(common_v_output_t in [[stage
                                                     texture2d<float> position_texture [[texture(1)]])
 {
     const uint2 screen_space_position = uint2(in.position.xy);
-    const float2 texcoord = float2((float)screen_space_position.x / position_texture.get_width(),
-                             (float)screen_space_position.y / position_texture.get_height());
-    
-    const float4 position = position_texture.sample(linear_sampler, texcoord);
-    const half4 normal = normal_texture.sample(linear_sampler, texcoord);
+    const float4 position = position_texture.read(screen_space_position);
+    const half4 normal = normal_texture.read(screen_space_position);
     
     const half min_value = 0.f;
     const half light_range = static_cast<half>(custom_uniforms.light_position_and_ray_length.w);
     const half3 light_vector = static_cast<half3>(custom_uniforms.light_position_and_ray_length.xyz - position.xyz);
-    const half3 light_direction = normalize(light_vector);
     const half light_distance = length(light_vector);
     
-    const half no_depth_fix = step(0.f, static_cast<float>(light_range - light_distance));
-    half attenuation = 1.f / ((((light_distance / (1.f - ((light_distance / light_range) *
-                                                          (light_distance / light_range)))) / light_range) + 1.f) *
-                              (((light_distance / ( 1.f - ((light_distance / light_range) *
-                                                           (light_distance / light_range)))) / light_range) + 1.f));
-    attenuation *= no_depth_fix;
-    const half intensity = max(dot(light_direction, normalize(normal.xyz)), min_value);
-    const half4 light_color = static_cast<half4>(custom_uniforms.light_color);
-    half4 color = light_color;
-    color *= intensity;
-    color *= attenuation;
-    
-    const half specular_power = 16.0;
-    const half specular_intensity = intensity;
-    const half3 reflection_vector = normalize(reflect(-light_direction, normal.xyz));
-    const half3 camera_direction = normalize(static_cast<half3>(custom_uniforms.camera_position.xyz - position.xyz));
-    half4 specular = light_color * specular_intensity * pow(max(dot(reflection_vector, camera_direction), min_value), specular_power);
-    specular *= attenuation * normal.w;
-    color += specular;
-    
+    half4 color = half4(0.f);
+    if (light_distance < light_range)
+    {
+        const half3 light_direction = normalize(light_vector);
+        const half intensity = max(dot(light_direction, normal.xyz), min_value);
+        half attenuation = 1.f - (light_distance / light_range);
+        attenuation *= attenuation;
+        const half4 light_color = static_cast<half4>(custom_uniforms.light_color);
+        const half specular_power = 16.0;
+        const half specular_intensity = intensity;
+        const half3 reflection_vector = normalize(reflect(-light_direction, normal.xyz));
+        const half3 camera_direction = normalize(static_cast<half3>(custom_uniforms.camera_position.xyz - position.xyz));
+        half4 specular = light_color * specular_intensity * pow(max(dot(reflection_vector, camera_direction), min_value), specular_power);
+        specular *= attenuation * normal.w;
+        color = ((light_color * intensity) + specular) * attenuation;
+    }
     return color;
 }
 
@@ -833,11 +843,8 @@ fragment half4 fragment_shader_deferred_spot_light(common_v_output_t in [[stage_
                                                         texture2d<float> position_texture [[texture(1)]])
 {
     const uint2 screen_space_position = uint2(in.position.xy);
-    const float2 texcoord = float2((float)screen_space_position.x / position_texture.get_width(),
-                                   (float)screen_space_position.y / position_texture.get_height());
-    
-    const float4 position = position_texture.sample(linear_sampler, texcoord);
-    const half4 normal = normal_texture.sample(linear_sampler, texcoord);
+    const float4 position = position_texture.read(screen_space_position);
+    const half4 normal = normal_texture.read(screen_space_position);
     
     const half min_value = 0.f;
     const half3 light_vector = static_cast<half3>(custom_uniforms.light_position.xyz - position.xyz);

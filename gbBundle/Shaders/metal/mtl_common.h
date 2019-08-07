@@ -40,8 +40,11 @@ typedef struct
     float4 position [[position]];
     float2 texcoord;
     float3 normal;
+    float3 tangent;
+    float3 bitangent;
     float3 cube_texcoord;
     float4 position_m;
+    float3 camera_position;
     float3 normal_vm;
     float3 camera_direction_vm;
 } reflect_v_output_t;

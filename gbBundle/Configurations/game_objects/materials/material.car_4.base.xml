@@ -26,7 +26,7 @@
     <shader filename="shader_shape_3d_reflect"/>
     <textures>
         <texture
-        filename="retro_car_04.png"
+        filename="retro_car_4.png"
         render_operation_name=""
         sampler_index="0"
         wrap_mode="GL_CLAMP_TO_EDGE"
@@ -53,6 +53,14 @@
         filename="retro_car_04_windows_color_mask.png"
         render_operation_name=""
         sampler_index="3"
+        wrap_mode="GL_CLAMP_TO_EDGE"
+        mag_filter="GL_LINEAR"
+        min_filter="GL_LINEAR"/>
+        <texture
+        is_cubemap = "0"
+        filename="retro_car_4_normal.png"
+        render_operation_name=""
+        sampler_index="4"
         wrap_mode="GL_CLAMP_TO_EDGE"
         mag_filter="GL_LINEAR"
         min_filter="GL_LINEAR"/>

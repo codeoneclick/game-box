@@ -50,6 +50,12 @@ namespace gb
         
         static graphics_context_shared_ptr get_current_context();
         
+#if defined(__IOS__)
+      
+        static bool is_ipad();
+        
+#endif
+        
         virtual ~graphics_context() = default;
         
         virtual ui32 get_frame_buffer() const;

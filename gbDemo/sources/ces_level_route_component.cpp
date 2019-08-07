@@ -23,6 +23,10 @@ namespace game
         slow_motion_triggers.getter([=]() {
             return m_slow_motion_triggers;
         });
+        
+        speed_up_triggers.getter([=]() {
+            return m_speed_up_triggers;
+        });
     }
     
     void ces_level_route_component::add_route_point(const glm::vec2& point)
@@ -35,8 +39,13 @@ namespace game
         m_spawners.push_back(point);
     }
     
-     void ces_level_route_component::add_slow_motion_trigger(const glm::vec2& point)
+    void ces_level_route_component::add_slow_motion_trigger(const glm::vec2& point)
     {
         m_slow_motion_triggers.push_back(point);
+    }
+    
+    void ces_level_route_component::add_speed_up_trigger(const glm::vec2& point)
+    {
+        m_speed_up_triggers.push_back(point);
     }
 }

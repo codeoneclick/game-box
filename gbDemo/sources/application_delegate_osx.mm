@@ -32,7 +32,7 @@
 #if defined(DEBUG)
     
     frame.origin.x = frame.size.width * 0.25 * 0.5;
-    frame.origin.y = frame.size.height * 0.25 * 0.5;
+    frame.origin.y = frame.size.height * 0.25;
     frame.size.width *= 0.75;
     frame.size.height *= 0.75;
     

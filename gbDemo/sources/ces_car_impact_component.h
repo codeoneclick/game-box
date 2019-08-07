@@ -17,14 +17,14 @@ namespace game
     {
     private:
         
-        const f32 m_slow_motion_effect_duration_in_seconds = 3.f;
-        const f32 m_speed_up_effect_duration_in_seconds = 3.f;
+        const f32 m_slow_motion_effect_duration_in_seconds = 1.5f;
+        const f32 m_speed_up_effect_duration_in_seconds = 2.f  ;
         
         f32 m_current_slow_motion_effect_duration_in_seconds = 0.f;
         f32 m_current_speed_up_effect_duration_in_seconds = 0.f;
         
         const f32 m_slow_motion_max_impact = .25f;
-        const f32 m_speed_up_max_impact = 3.f;
+        const f32 m_speed_up_max_impact = 2.f;
         
         bool m_is_expect_to_slow_motion_impact = false;
         bool m_is_expect_to_speed_up_impact = false;

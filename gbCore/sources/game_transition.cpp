@@ -92,6 +92,17 @@ namespace gb
             
 #endif
             
+      
+#if defined(_IOS__)
+            
+            i32 screen_width = graphics_context::is_ipad() ? 1024 : 1280;
+            i32 screen_height = graphics_context::is_ipad() ? 768 : 720;
+            
+            ws_technique_configuration->set_frame_width(screen_width);
+            ws_technique_configuration->set_frame_height(screen_height);
+            
+#endif
+            
             std::shared_ptr<render_technique_ws> render_technique_ws = render_technique_ws::construct(ws_technique_configuration);
             render_pipeline->add_ws_render_technique(ws_technique_configuration->get_guid(), ws_technique_configuration->get_order(), render_technique_ws);
             
@@ -124,6 +135,16 @@ namespace gb
             
             ss_technique_configuration->set_frame_width(m_screen_width);
             ss_technique_configuration->set_frame_height(m_screen_height);
+            
+#endif
+            
+#if defined(__IOS__)
+            
+            i32 screen_width = graphics_context::is_ipad() ? 1024 : 1280;
+            i32 screen_height = graphics_context::is_ipad() ? 768 : 720;
+            
+            ss_technique_configuration->set_frame_width(screen_width);
+            ss_technique_configuration->set_frame_height(screen_height);
             
 #endif
             

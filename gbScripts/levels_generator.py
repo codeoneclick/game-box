@@ -46,7 +46,7 @@ k_office_buildings_2x2_floor = ["office_01_floor", "office_02_floor", "office_03
 k_office_buildings_1x2_floor = ["office_05_floor", "office_06_floor", "office_07_floor", "office_08_floor"]
 
 k_appartment_01_buildings_1x2_ground_floor = ["appartment_ground_floor_01", "appartment_ground_floor_02", "appartment_ground_floor_03", "appartment_ground_floor_04"]
-k_appartment_01_buildings_1x2_roof = ["appartment_roof_01", "appartment_roof_01", "appartment_roof_01", "appartment_roof_01"]
+k_appartment_01_buildings_1x2_roof = ["appartment_roof_01", "appartment_roof_02", "appartment_roof_03", "appartment_roof_04"]
 
 
 def add_straight_road_up_down_walls(walls, x, y):
@@ -566,8 +566,8 @@ def generate_buildings_2x2(map_data, map_width, map_height, buildings, captured_
 					center = {"x": (min_bound["x"] + k_tile_size * 1.5), "y": (min_bound["y"] + k_tile_size * 1.5)}
 					random_index = random.randrange(0, len(k_office_buildings_2x2_ground_floor) - 1, 1)
 
-					buildings.append({"center": center, "rotation": placement["rotation"], "size": 4, "name": k_office_buildings_2x2_ground_floor[random_index]});
-					buildings.append({"center": center, "rotation": placement["rotation"], "size": 4, "name": k_office_buildings_2x2_floor[random_index]});
+					buildings.append({"center": center, "width": 0, "height": 0, "gid": 0, "rotation": placement["rotation"], "size": 4, "name": k_office_buildings_2x2_ground_floor[random_index]});
+					buildings.append({"center": center, "width": 0, "height": 0, "gid": 0, "rotation": placement["rotation"], "size": 4, "name": k_office_buildings_2x2_floor[random_index]});
 
 def generate_buildings_1x2(map_data, map_width, map_height, buildings, captured_placements, min_x, min_y, max_x, max_y, buildings_ground_floors, buildings_floors, one_side):
 
@@ -613,10 +613,10 @@ def generate_buildings_1x2(map_data, map_width, map_height, buildings, captured_
 
 					random_index = random.randrange(0, len(buildings_ground_floors) - 1, 1)
 
-					buildings.append({"center": center, "rotation": placement["rotation"], "size": 2, "name": buildings_ground_floors[random_index]});
+					buildings.append({"center": center, "width": 0, "height": 0, "gid": 0, "rotation": placement["rotation"], "size": 2, "name": buildings_ground_floors[random_index]});
 					if len(buildings_ground_floors) == len(buildings_floors):
 
-						buildings.append({"center": center, "rotation": placement["rotation"], "size": 2, "name": buildings_floors[random_index]});
+						buildings.append({"center": center, "width": 0, "height": 0, "gid": 0, "rotation": placement["rotation"], "size": 2, "name": buildings_floors[random_index]});
 
 def generate_random_zone_buildings(map_data, map_width, map_height, buildings, captured_placements, zones_placements, zone_name, zone_index):
 
@@ -974,12 +974,17 @@ def main(argv):
 	spawners = []
 	generate_spawners(route_data, spawners)
 
-
 	lights = []
-	slow_motion_triggers = [];
+	slow_motion_triggers = []
+	speed_up_triggers = []
 	is_light_top_side = 0
 	is_light_left_side = 0
-	route_points = "";
+	route_points = ""
+
+	straight_routes_count = 0
+
+	previous_route_data_it = route_data[len(route_data) - 1]
+
 	for route_data_it in route_data:
 
 		route_position_x = route_data_it["x"] * k_tile_size + k_tile_size * 0.5
@@ -989,34 +994,48 @@ def main(argv):
 		direction_id = tiles[index]
 		route_data_it["id"] = direction_id
 
+		previous_route_position_x = previous_route_data_it["x"] * k_tile_size + k_tile_size * 0.5
+		previous_route_position_y = previous_route_data_it["y"] * k_tile_size + k_tile_size * 0.5
+
 		if direction_id == k_corner_road_down_right:
 
-			slow_motion_triggers.append({"x": route_position_x + k_tile_size * 0.25, "y": route_position_y + k_tile_size * 0.25})
+			slow_motion_triggers.append({"x": previous_route_position_x, "y": previous_route_position_y})
 			route_position_x = route_position_x - k_tile_size * 0.15
 			route_position_y = route_position_y - k_tile_size * 0.15
 			lights.append({"x": route_position_x, "y": route_position_y})
-
+			straight_routes_count = 0
 
 		elif direction_id == k_corner_road_left_down:
 
-			slow_motion_triggers.append({"x": route_position_x - k_tile_size * 0.25, "y": route_position_y + k_tile_size * 0.25})
+			slow_motion_triggers.append({"x": previous_route_position_x, "y": previous_route_position_y})
 			route_position_x = route_position_x + k_tile_size * 0.15
 			route_position_y = route_position_y - k_tile_size * 0.15
 			lights.append({"x": route_position_x, "y": route_position_y})
+			straight_routes_count = 0
 
 		elif direction_id == k_corner_road_up_left:
 
-			slow_motion_triggers.append({"x": route_position_x - k_tile_size * 0.25, "y": route_position_y - k_tile_size * 0.25})
+			slow_motion_triggers.append({"x": previous_route_position_x, "y": previous_route_position_y})
 			route_position_x = route_position_x + k_tile_size * 0.15
 			route_position_y = route_position_y + k_tile_size * 0.15
 			lights.append({"x": route_position_x, "y": route_position_y})
+			straight_routes_count = 0
 
 		elif direction_id == k_corner_road_right_up:
 
-			slow_motion_triggers.append({"x": route_position_x + k_tile_size * 0.25, "y": route_position_y - k_tile_size * 0.25})
+			slow_motion_triggers.append({"x": previous_route_position_x, "y": previous_route_position_y})
 			route_position_x = route_position_x - k_tile_size * 0.15
 			route_position_y = route_position_y + k_tile_size * 0.15
 			lights.append({"x": route_position_x, "y": route_position_y})
+			straight_routes_count = 0
+
+		elif direction_id == k_straight_road_up_down_id or direction_id == k_straight_road_left_right_id:
+
+			straight_routes_count += 1
+			if straight_routes_count == 3:
+
+				speed_up_triggers.append({"x": previous_route_position_x, "y": previous_route_position_y})
+				straight_routes_count = -2;
 
 
 		route_points = route_points + str(route_position_x) + "," + str(route_position_y) + " "
@@ -1049,6 +1068,8 @@ def main(argv):
 				location_y = location_y + k_tile_size * 0.4
 
 			lights.append({"x": route_data_it["x"] * k_tile_size + k_tile_size * 0.5, "y": location_y})
+
+		previous_route_data_it = route_data_it
 
 	
 	map_node = ElementTree.Element("map", version="1.2", tiledversion="1.2.2", orientation="orthogonal", renderorder="right-down", width=str(map_width), height=str(map_height), tilewidth=str(k_tile_size), tileheight=str(k_tile_size), infinite="0", nextlayerid="1", nextobjectid="1")
@@ -1085,12 +1106,210 @@ def main(argv):
 		index = index + 1
 		slow_motion_triggers_node = ElementTree.SubElement(slow_motion_triggers_objectgroup_node, "object", id=str(index), x=str(slow_motion_trigger_it["x"]), y=str(slow_motion_trigger_it["y"]))
 
-	buildings_objectgroup_node = ElementTree.SubElement(map_node, "objectgroup", id="5", name="buildings")
+
+	speed_up_triggers_objectgroup_node = ElementTree.SubElement(map_node, "objectgroup", id="5", name="speed_up_triggers")
+	for speed_up_trigger_it in speed_up_triggers:
+		index = index + 1
+		speed_up_triggers_node = ElementTree.SubElement(speed_up_triggers_objectgroup_node, "object", id=str(index), x=str(speed_up_trigger_it["x"]), y=str(speed_up_trigger_it["y"]))
+
+	buildings_objectgroup_node = ElementTree.SubElement(map_node, "objectgroup", id="6", name="buildings")
 	for building_it in buildings:
 		index = index + 1
-		building_node = ElementTree.SubElement(buildings_objectgroup_node, "object", id=str(index), x=str(building_it["center"]["x"]), y=str(building_it["center"]["y"]), rotation=str(building_it["rotation"]), name=building_it["name"])
 
-	spawners_objectgroup_node = ElementTree.SubElement(map_node, "objectgroup", id="6", name="spawners")
+		for buiding_index, buiding_name in enumerate(k_office_buildings_2x2_ground_floor):
+
+			if building_it["name"] == buiding_name:
+
+				position_x = float(building_it["center"]["x"])
+				position_y = float(building_it["center"]["y"])
+				position_x -= 128.0
+				position_y += 128.0;
+
+				building_it["center"]["x"] = position_x
+				building_it["center"]["y"] = position_y
+
+				building_it["gid"] = 135
+				building_it["width"] = 256
+				building_it["height"] = 256
+
+		for buiding_index, buiding_name in enumerate(k_office_buildings_2x2_floor):
+
+			if building_it["name"] == buiding_name:
+
+				position_x = float(building_it["center"]["x"])
+				position_y = float(building_it["center"]["y"])
+				position_x += 128.0
+				position_y -= 128.0;
+
+				building_it["center"]["x"] = position_x
+				building_it["center"]["y"] = position_y
+
+				building_it["gid"] = 0
+				building_it["width"] = 0
+				building_it["height"] = 0
+
+
+		for buiding_index, buiding_name in enumerate(k_appartment_01_buildings_1x2_ground_floor):
+
+			if building_it["name"] == buiding_name:
+
+				position_x = float(building_it["center"]["x"])
+				position_y = float(building_it["center"]["y"])
+				rotation = 0
+
+				if building_it["rotation"]:
+					rotation = float(building_it["rotation"])
+
+				if rotation == 0.0:
+
+ 					position_x -= 64.0
+					position_y += 128.0;
+
+				elif rotation == 90:
+
+					position_x -= 128.0
+					position_y -= 64.0;
+
+				elif rotation == 180:
+
+					position_x += 64.0
+					position_y -= 128.0;
+
+				elif rotation == 270:
+
+					position_x += 128.0
+					position_y += 64.0;
+
+
+				building_it["center"]["x"] = position_x
+				building_it["center"]["y"] = position_y
+
+				building_it["gid"] = 136
+				building_it["width"] = 128
+				building_it["height"] = 256
+
+
+		for buiding_index, buiding_name in enumerate(k_appartment_01_buildings_1x2_roof):
+
+			if building_it["name"] == buiding_name:
+
+				position_x = float(building_it["center"]["x"])
+				position_y = float(building_it["center"]["y"])
+				rotation = 0
+
+				if building_it["rotation"]:
+					rotation = float(building_it["rotation"])
+
+				if rotation == 0.0:
+
+ 					position_x += 64.0
+					position_y -= 128.0;
+
+				elif rotation == 90:
+
+					position_x += 128.0
+					position_y += 64.0;
+
+				elif rotation == 180:
+
+					position_x -= 64.0
+					position_y += 128.0;
+
+				elif rotation == 270:
+
+					position_x -= 128.0
+					position_y -= 64.0;
+
+				building_it["center"]["x"] = position_x
+				building_it["center"]["y"] = position_y
+
+				building_it["gid"] = 0
+				building_it["width"] = 0
+				building_it["height"] = 0
+				building_it["name"] = "appartment_roof_01"
+
+
+		for buiding_index, buiding_name in enumerate(k_office_buildings_1x2_ground_floor):
+
+			if building_it["name"] == buiding_name:
+
+				position_x = float(building_it["center"]["x"])
+				position_y = float(building_it["center"]["y"])
+				rotation = 0
+
+				if building_it["rotation"]:
+					rotation = float(building_it["rotation"])
+
+				if rotation == 0.0:
+
+ 					position_x -= 64.0
+					position_y += 128.0;
+
+				elif rotation == 90:
+
+					position_x -= 128.0
+					position_y -= 64.0;
+
+				elif rotation == 180:
+
+					position_x += 64.0
+					position_y -= 128.0;
+
+				elif rotation == 270:
+
+					position_x += 128.0
+					position_y += 64.0;
+					
+				building_it["center"]["x"] = position_x
+				building_it["center"]["y"] = position_y
+
+				building_it["gid"] = 137
+				building_it["width"] = 128
+				building_it["height"] = 256
+
+		for buiding_index, buiding_name in enumerate(k_office_buildings_1x2_floor):
+
+			if building_it["name"] == buiding_name:
+
+				position_x = float(building_it["center"]["x"])
+				position_y = float(building_it["center"]["y"])
+				rotation = 0
+
+				if building_it["rotation"]:
+					rotation = float(building_it["rotation"])
+
+				if rotation == 0.0:
+
+ 					position_x += 64.0
+					position_y -= 128.0;
+
+				elif rotation == 90:
+
+					position_x += 128.0
+					position_y += 64.0;
+
+				elif rotation == 180:
+
+					position_x -= 64.0
+					position_y += 128.0;
+
+				elif rotation == 270:
+
+					position_x -= 128.0
+					position_y -= 64.0;
+					
+				building_it["center"]["x"] = position_x
+				building_it["center"]["y"] = position_y
+
+				building_it["gid"] = 0
+				building_it["width"] = 0
+				building_it["height"] = 0
+
+
+
+		building_node = ElementTree.SubElement(buildings_objectgroup_node, "object", id=str(index), x=str(building_it["center"]["x"]), y=str(building_it["center"]["y"]), width=str(building_it["width"]), height=str(building_it["height"]), gid=str(building_it["gid"]), rotation=str(building_it["rotation"]), name=building_it["name"])
+
+	spawners_objectgroup_node = ElementTree.SubElement(map_node, "objectgroup", id="7", name="spawners")
 	for spawner_it in spawners:
 		index = index + 1
 		spawner_node = ElementTree.SubElement(spawners_objectgroup_node, "object", id=str(index), x=str(spawner_it["x"]), y=str(spawner_it["y"]))

@@ -29,14 +29,14 @@ fragment half4 fragment_shader_ss_ssao(common_v_output_t in [[stage_in]],
                                        texture2d<float> position_texture [[texture(1)]],
                                        texture2d<half> random_texture [[texture(2)]])
 {
-    const half range = .8f;
+    const half range = 1.2f;
     const half half_range = range * .5f;
-    const half bias_value = .4f;
+    const half bias_value = .6f;
     const half2 directions[4] = { half2(1.f, 0.f), half2(-1.f, 0.f), half2(0.f, 1.f), half2(0.f, -1.f) };
     const half4 normal = normal_texture.sample(linear_sampler, in.texcoord);
     const float4 position = position_texture.sample(linear_sampler, in.texcoord);
     const float4 position_in_view_space = ssao_uniforms.mat_v * float4(position.x, position.y, position.z, 1.0);
-    const half2 random = random_texture.sample(repeat_sampler, in.texcoord * 4.f).xz;
+    const half2 random = random_texture.sample(repeat_sampler, in.texcoord * 32.f).xz;
     
     half ao = .0f;
     const half radius = range / position_in_view_space.z;
@@ -90,5 +90,5 @@ fragment half4 fragment_shader_ss_ssao(common_v_output_t in [[stage_in]],
     }
     
     ao /= static_cast<half>(iterations) * 4.f;
-    return half4(1.f - ao);
+    return half4(pow(1.f - ao, 24));
 }

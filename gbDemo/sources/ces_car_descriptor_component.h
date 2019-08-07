@@ -53,9 +53,9 @@ namespace game
         
         i32 m_place = 0;
         
-        f32 m_distance_to_activate_motion_trigger = 20.f;
+        f32 m_distance_to_activate_trigger = 15.f;
         i32 m_nearest_slow_motion_trigger_index = -1;
-        f32 m_slow_motion_power = 0.f;
+        i32 m_nearest_speed_up_trigger_index = -1;
         
         f32 m_max_damage = 3.f;
         f32 m_current_damage = 0.f;
@@ -98,9 +98,9 @@ namespace game
         
         std::property_rw<i32> place;
         
-        std::property_ro<f32> distance_to_activate_motion_trigger;
+        std::property_ro<f32> distance_to_activate_trigger;
         std::property_rw<i32> nearest_slow_motion_trigger_index;
-        std::property_rw<f32> slow_motion_power;
+        std::property_rw<i32> nearest_speed_up_trigger_index;
         
         std::property_rw<f32> max_damage;
         std::property_rw<f32> current_damage;

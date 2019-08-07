@@ -16,7 +16,7 @@
 
 namespace gb
 {
-    static const f32 k_font_csf = 1.f;
+    static const f32 k_font_csf = 3.f;
     static const f32 k_font_invert_csf = 1.f / k_font_csf;
     static const i32 k_font_max_size = 32;
     static const i32 k_font_default_size = 8;

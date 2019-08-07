@@ -1637,7 +1637,6 @@ namespace game
         label->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_slow_motion_boost_trigger_label)];
         label->set_font_name("spincycle.otf");
         label->set_multiline(true);
-        label->set_font_mode(gb::ces_font_component::e_font_mode::e_font_mode_edge);
         label->set_text_horizontal_aligment(gb::ui::e_element_horizontal_aligment::e_element_horizontal_aligment_center);
         
         label->set_text_color(k_control_text_disabled_color, gb::ui::e_control_state::e_disabled);
@@ -1651,6 +1650,7 @@ namespace game
         label->set_text_color(k_control_text_color);
         label->set_background_color(k_control_transparent_color);
         label->set_foreground_color(k_control_transparent_color);
+        label->remove_component(gb::ces_bound_touch_component::class_guid());
         
         return label;
     }

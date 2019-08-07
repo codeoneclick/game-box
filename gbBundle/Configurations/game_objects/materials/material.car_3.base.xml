@@ -56,6 +56,14 @@
         wrap_mode="GL_CLAMP_TO_EDGE"
         mag_filter="GL_LINEAR"
         min_filter="GL_LINEAR"/>
+        <texture
+        is_cubemap = "0"
+        filename="retro_car_3_normal.png"
+        render_operation_name=""
+        sampler_index="4"
+        wrap_mode="GL_CLAMP_TO_EDGE"
+        mag_filter="GL_LINEAR"
+        min_filter="GL_LINEAR"/>
     </textures>
     <blendings>
         <blending

@@ -144,7 +144,7 @@ namespace game
                                                                m_scene_size.y);
         set_camera_2d(camera_2d);
         
-        auto camera_3d = std::make_shared<gb::camera_3d>(60.f, .1f, 256.f,
+        auto camera_3d = std::make_shared<gb::camera_3d>(45.f, .1f, 256.f,
                                                          glm::ivec4(0, 0, m_scene_size.x, m_scene_size.y), true);
         set_camera_3d(camera_3d);
         m_camera_3d = camera_3d;

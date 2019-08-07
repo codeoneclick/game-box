@@ -227,8 +227,8 @@ namespace game
                 
                 if (car_camera_follow_component->preview_mode == ces_car_camera_follow_component::e_preview_mode::e_none)
                 {
-                    current_position.x += velocity_wc.x * (current_speed_factor - motion_blur_effect_power * .5f) * .2f;
-                    current_position.z += velocity_wc.y * (current_speed_factor - motion_blur_effect_power * .5f) * .2f;
+                    current_position.x += velocity_wc.x * (current_speed_factor + motion_blur_effect_power * .5f) * .2f;
+                    current_position.z += velocity_wc.y * (current_speed_factor + motion_blur_effect_power * .5f) * .2f;
                 }
                 
                 const auto camera_3d = ces_base_system::get_current_camera_3d();

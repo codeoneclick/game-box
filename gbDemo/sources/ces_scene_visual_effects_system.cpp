@@ -18,6 +18,7 @@
 #include "game_object_3d.h"
 #include "camera_3d.h"
 #include "game_objects_custom_uniforms.h"
+#include "ces_car_impact_component.h"
 
 namespace game
 {
@@ -99,6 +100,7 @@ namespace game
                 const auto car = std::static_pointer_cast<gb::game_object_3d>(m_main_car.lock());
                 const auto car_drift_state_component = car->get_component<ces_car_drift_state_component>();
                 const auto car_descriptor_component = car->get_component<ces_car_descriptor_component>();
+                const auto car_impact_component = car->get_component<ces_car_impact_component>();
                 
                 f32 max_collision_protection_time = car_drift_state_component->max_collision_protection_time;
                 f32 last_collided_timestamp = car_drift_state_component->last_collided_timestamp;
@@ -111,7 +113,7 @@ namespace game
                     collision_power = (current_timestamp - last_collided_timestamp) / (max_collision_protection_time * .5);
                 }
                 
-                f32 slow_motion_power = car_descriptor_component->slow_motion_power;
+                f32 slow_motion_power = car_impact_component->get_slow_motion_impact_progress();
                 bool is_in_slow_motion = slow_motion_power > 0.f;
                 bool should_show_collision_vignetting = is_collided;
                 bool should_show_slow_motion_vignetting = is_in_slow_motion;
@@ -147,7 +149,7 @@ namespace game
                     uniforms_wrapper->set(glm::vec4(.5f, 1.f, 1.f, 1.f), "vignetting_color");
                     glm::vec4 compose_parameters_01 = uniforms_wrapper->get_uniforms()["parameters_01"]->get_vec4();
                     auto current_vignetting_size = compose_parameters_01.x;
-                    current_vignetting_size = glm::mix(current_vignetting_size, glm::mix(-1.f, -.75f, motion_blur_effect_power), .1f);
+                    current_vignetting_size = glm::mix(current_vignetting_size, glm::mix(-1.f, -.33f, motion_blur_effect_power), .1f);
                     compose_parameters_01.x = current_vignetting_size;
                     uniforms_wrapper->set(compose_parameters_01, "parameters_01");
                 }
@@ -157,7 +159,7 @@ namespace game
                     uniforms_wrapper->set(glm::vec4(1.f, .0f, .0f, 1.f), "vignetting_color");
                     glm::vec4 compose_parameters_01 = uniforms_wrapper->get_uniforms()["parameters_01"]->get_vec4();
                     auto current_vignetting_size = compose_parameters_01.x;
-                    current_vignetting_size = glm::mix(current_vignetting_size, glm::mix(-1.f, -.75f, 1.f - collision_power), .1f);
+                    current_vignetting_size = glm::mix(current_vignetting_size, glm::mix(-1.f, -.33f, 1.f - collision_power), .1f);
                     compose_parameters_01.x = current_vignetting_size;
                     uniforms_wrapper->set(compose_parameters_01, "parameters_01");
                 }

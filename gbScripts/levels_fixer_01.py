@@ -137,7 +137,7 @@ def main(argv):
 
 	else:
 
-		print "wrong level indedx"
+		print "wrong level index"
 
 
 if __name__ == "__main__":
