@@ -38,13 +38,6 @@
     
 #endif
     
-    //frame.origin.x = 0;
-    //frame.origin.y = 0;
-    //frame.size.width = 2732 * 0.5;
-    //frame.size.height = 2048 * 0.5;
-    
-    
-    
     [self.window setFrame:frame display:YES animate:YES];
     
     

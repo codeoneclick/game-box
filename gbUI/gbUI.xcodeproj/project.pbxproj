@@ -42,6 +42,9 @@
 		92BAA68C2285753A005C5883 /* image_button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BAA68A2285753A005C5883 /* image_button.cpp */; };
 		92BAA68D2285753A005C5883 /* image_button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BAA68A2285753A005C5883 /* image_button.cpp */; };
 		92BAA68E2285753A005C5883 /* image_button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BAA68A2285753A005C5883 /* image_button.cpp */; };
+		92DB2C7822FF22530025E505 /* color_picker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92DB2C7622FF22530025E505 /* color_picker.cpp */; };
+		92DB2C7922FF22530025E505 /* color_picker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92DB2C7622FF22530025E505 /* color_picker.cpp */; };
+		92DB2C7A22FF22530025E505 /* color_picker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92DB2C7622FF22530025E505 /* color_picker.cpp */; };
 		92E2400522B123D1005DDD5D /* progress_bar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92E2400322B123D1005DDD5D /* progress_bar.cpp */; };
 		92E2400622B123D1005DDD5D /* progress_bar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92E2400322B123D1005DDD5D /* progress_bar.cpp */; };
 		92E2400722B123D1005DDD5D /* progress_bar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92E2400322B123D1005DDD5D /* progress_bar.cpp */; };
@@ -204,6 +207,8 @@
 		92B5852721539804008AA8BB /* interaction_control.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = interaction_control.cpp; path = sources/interaction_control.cpp; sourceTree = SOURCE_ROOT; };
 		92BAA68A2285753A005C5883 /* image_button.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = image_button.cpp; path = sources/image_button.cpp; sourceTree = SOURCE_ROOT; };
 		92BAA68B2285753A005C5883 /* image_button.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = image_button.h; path = sources/image_button.h; sourceTree = SOURCE_ROOT; };
+		92DB2C7622FF22530025E505 /* color_picker.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = color_picker.cpp; path = sources/color_picker.cpp; sourceTree = SOURCE_ROOT; };
+		92DB2C7722FF22530025E505 /* color_picker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = color_picker.h; path = sources/color_picker.h; sourceTree = SOURCE_ROOT; };
 		92E2400322B123D1005DDD5D /* progress_bar.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = progress_bar.cpp; path = sources/progress_bar.cpp; sourceTree = SOURCE_ROOT; };
 		92E2400422B123D1005DDD5D /* progress_bar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = progress_bar.h; path = sources/progress_bar.h; sourceTree = SOURCE_ROOT; };
 		F3237E981E9E494F00337A9C /* textfield.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = textfield.cpp; path = sources/textfield.cpp; sourceTree = SOURCE_ROOT; };
@@ -368,6 +373,8 @@
 				F39750B41E8E8E520060D07A /* action_console.cpp */,
 				92E2400422B123D1005DDD5D /* progress_bar.h */,
 				92E2400322B123D1005DDD5D /* progress_bar.cpp */,
+				92DB2C7722FF22530025E505 /* color_picker.h */,
+				92DB2C7622FF22530025E505 /* color_picker.cpp */,
 			);
 			name = controls;
 			sourceTree = "<group>";
@@ -562,6 +569,7 @@
 				92B5852921539804008AA8BB /* panel.cpp in Sources */,
 				21E2D6FB1C75087800BFF2B8 /* tree_view.cpp in Sources */,
 				92B5852B21539804008AA8BB /* interaction_control.cpp in Sources */,
+				92DB2C7922FF22530025E505 /* color_picker.cpp in Sources */,
 				2126DC7F1C565145003EBBDA /* content_tab_list_cell.cpp in Sources */,
 				F33BF90F1E69A42F00307DF9 /* fullscreen_joystick.cpp in Sources */,
 				21E2D6FF1C7508A700BFF2B8 /* tree_view_cell.cpp in Sources */,
@@ -594,6 +602,7 @@
 				92B5852821539804008AA8BB /* panel.cpp in Sources */,
 				21E2D6FA1C75087800BFF2B8 /* tree_view.cpp in Sources */,
 				92B5852A21539804008AA8BB /* interaction_control.cpp in Sources */,
+				92DB2C7822FF22530025E505 /* color_picker.cpp in Sources */,
 				2126DC7E1C565145003EBBDA /* content_tab_list_cell.cpp in Sources */,
 				F33BF90E1E69A42F00307DF9 /* fullscreen_joystick.cpp in Sources */,
 				21E2D6FE1C7508A700BFF2B8 /* tree_view_cell.cpp in Sources */,
@@ -626,6 +635,7 @@
 				F36DF1BB1E953BBC00EAE49B /* switcher.cpp in Sources */,
 				F36DF1BC1E953BBC00EAE49B /* tree_view.cpp in Sources */,
 				F36DF1BD1E953BBC00EAE49B /* content_tab_list_cell.cpp in Sources */,
+				92DB2C7A22FF22530025E505 /* color_picker.cpp in Sources */,
 				F36DF1BE1E953BBC00EAE49B /* fullscreen_joystick.cpp in Sources */,
 				F36DF1BF1E953BBC00EAE49B /* tree_view_cell.cpp in Sources */,
 				F36DF1C01E953BBC00EAE49B /* control.cpp in Sources */,

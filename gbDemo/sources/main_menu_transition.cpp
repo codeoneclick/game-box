@@ -12,8 +12,8 @@
 
 namespace game
 {
-    main_menu_transition::main_menu_transition(const std::string& guid, bool is_offscreen) :
-    game_transition(guid, is_offscreen)
+    main_menu_transition::main_menu_transition(const std::string& guid, const gb::window_impl_shared_ptr& window, bool is_offscreen) :
+    game_transition(guid, window, is_offscreen)
     {
         
     }

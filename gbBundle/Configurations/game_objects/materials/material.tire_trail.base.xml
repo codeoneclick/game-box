@@ -26,12 +26,19 @@
     <shader filename="shader_trail"/>
     <textures>
         <texture
-        filename="tire_trail.png"
-        render_operation_name=""
-        sampler_index="0"
-        wrap_mode="GL_CLAMP_TO_EDGE"
-        mag_filter="GL_LINEAR"
-        min_filter="GL_LINEAR"/>
+                filename="tire_trail.png"
+                render_operation_name=""
+                sampler_index="0"
+                wrap_mode="GL_CLAMP_TO_EDGE"
+                mag_filter="GL_LINEAR"
+                min_filter="GL_LINEAR"/>
+        <texture
+               filename=""
+               render_operation_name="ws.base.attachment_03"
+               sampler_index="1"
+               wrap_mode="GL_CLAMP_TO_EDGE"
+               mag_filter="GL_LINEAR"
+               min_filter="GL_LINEAR"/>
     </textures>
     <blendings>
         <blending

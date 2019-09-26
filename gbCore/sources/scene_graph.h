@@ -34,8 +34,6 @@ namespace gb
         camera_2d_shared_ptr m_camera_2d;
         camera_3d_shared_ptr m_camera_3d;
         
-        glm::ivec2 m_scene_size;
-        
     public:
         
         scene_graph(const game_transition_shared_ptr& transition);

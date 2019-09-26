@@ -96,6 +96,7 @@ namespace gb
         
         f32 m_frame_width = 0.f;
         f32 m_frame_height = 0.f;
+        i32 m_samples_count = 1;
         
         protected:
         
@@ -125,6 +126,9 @@ namespace gb
         
         void bind() override;
         void unbind() override;
+        
+        std::string get_name() const override;
+        i32 get_samples_count() const override;
     };
     
     std::shared_ptr<mtl_render_pass_descriptor_impl> mtl_render_pass_descriptor_impl::construct_ws_render_pass_descriptor(const std::shared_ptr<ws_technique_configuration>& configuration)
@@ -132,6 +136,7 @@ namespace gb
         const auto render_pass_descriptor = std::make_shared<mtl_render_pass_descriptor_impl>();
         render_pass_descriptor->m_mode = e_render_pass_descriptor_mode::e_ws;
         render_pass_descriptor->m_name = [NSString stringWithCString:configuration->get_guid().c_str() encoding:NSUTF8StringEncoding];
+        render_pass_descriptor->m_samples_count = static_cast<i32>(gb::mtl_device::get_instance()->get_samples_count());
         render_pass_descriptor->m_render_command_encoder_wrapper = [mtl_render_command_encoder_wrapper new];
         
         render_pass_descriptor->m_frame_width = configuration->get_frame_width();
@@ -168,6 +173,7 @@ namespace gb
         const auto render_pass_descriptor = std::make_shared<mtl_render_pass_descriptor_impl>();
         render_pass_descriptor->m_mode = e_render_pass_descriptor_mode::e_ss;
         render_pass_descriptor->m_name = [NSString stringWithCString:configuration->get_guid().c_str() encoding:NSUTF8StringEncoding];
+        render_pass_descriptor->m_samples_count = static_cast<i32>(gb::mtl_device::get_instance()->get_samples_count());
         render_pass_descriptor->m_render_command_encoder_wrapper = [mtl_render_command_encoder_wrapper new];
         
         id<MTLTexture> mtl_depth_stencil_attachment = (__bridge id<MTLTexture>)gb::mtl_device::get_instance()->get_mtl_raw_depth_stencil_attachment_ptr();
@@ -202,6 +208,7 @@ namespace gb
         render_pass_descriptor->m_mode = e_render_pass_descriptor_mode::e_output;
         render_pass_descriptor->m_render_command_encoder_wrapper = [mtl_render_command_encoder_wrapper new];
         render_pass_descriptor->m_name = [NSString stringWithCString:name.c_str() encoding:NSUTF8StringEncoding];
+        render_pass_descriptor->m_samples_count = static_cast<i32>(gb::mtl_device::get_instance()->get_samples_count());
         render_pass_descriptor->m_color_attachments_pixel_format.push_back(mtl_device::get_instance()->get_color_pixel_format());
         
         auto attachment_texture = gb::texture::construct(name, nullptr, 0, 0);
@@ -227,12 +234,11 @@ namespace gb
                                                        mipmapped:NO];
         attachment_texture_descriptor.sampleCount = 1;
         attachment_texture_descriptor.textureType = MTLTextureType2D;
-        attachment_texture_descriptor.usage |= MTLTextureUsageRenderTarget;
+        attachment_texture_descriptor.usage = MTLTextureUsageRenderTarget | MTLTextureUsageShaderRead;
         attachment_texture_descriptor.storageMode = MTLStorageModePrivate;
         
         const auto mtl_device_wrapper = gb::mtl_device::get_instance();
-        ui64 samples_count = mtl_device_wrapper->get_samples_count();
-        bool is_multisample = samples_count > 1;
+        bool is_multisample = m_samples_count > 1;
         MTLTextureDescriptor *multisample_attachment_texture_descriptor = nil;
         
         if (is_multisample)
@@ -242,9 +248,9 @@ namespace gb
                                                                width:frame_width
                                                               height:frame_height
                                                            mipmapped:NO];
-            multisample_attachment_texture_descriptor.sampleCount = static_cast<NSUInteger>(samples_count);
+            multisample_attachment_texture_descriptor.sampleCount = static_cast<NSUInteger>(m_samples_count);
             multisample_attachment_texture_descriptor.textureType = MTLTextureType2DMultisample;
-            multisample_attachment_texture_descriptor.usage |= MTLTextureUsageRenderTarget;
+            multisample_attachment_texture_descriptor.usage = MTLTextureUsageRenderTarget | MTLTextureUsageShaderRead;
             multisample_attachment_texture_descriptor.storageMode = MTLStorageModePrivate;
         }
         
@@ -252,8 +258,8 @@ namespace gb
         for (auto attachment_configuration_it : attachments_configurations)
         {
             const auto attachment_configuration = std::static_pointer_cast<gb::attachment_configuration>(attachment_configuration_it);
-            
             MTLPixelFormat pixel_format = static_cast<MTLPixelFormat>(attachment_configuration->get_pixel_format());
+            
             attachment_texture_descriptor.pixelFormat = pixel_format;
             
             if (is_multisample)
@@ -368,6 +374,16 @@ namespace gb
     {
         return m_color_attachments_texture;
     }
+
+    std::string mtl_render_pass_descriptor_impl::get_name() const
+    {
+        return [m_name UTF8String];
+    }
+
+    i32 mtl_render_pass_descriptor_impl::get_samples_count() const
+    {
+        return m_samples_count;
+    }
     
     void mtl_render_pass_descriptor_impl::bind()
     {
@@ -473,6 +489,16 @@ namespace gb
     std::vector<texture_shared_ptr> mtl_render_pass_descriptor::get_color_attachments_texture()
     {
         return impl_as<mtl_render_pass_descriptor_impl>()->get_color_attachments_texture();
+    }
+
+    std::string mtl_render_pass_descriptor::get_name() const
+    {
+        return impl_as<mtl_render_pass_descriptor_impl>()->get_name();
+    }
+
+    i32 mtl_render_pass_descriptor::get_samples_count() const
+    {
+        return impl_as<mtl_render_pass_descriptor_impl>()->get_samples_count();
     }
 }
 

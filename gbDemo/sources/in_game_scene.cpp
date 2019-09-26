@@ -55,7 +55,7 @@ namespace game
     
     void in_game_scene::create()
     {
-        gb::scene_graph::create();
+        /*gb::scene_graph::create();
         
         m_scene_size = glm::vec2(667, 375);
         
@@ -178,7 +178,7 @@ namespace game
         auto action_component = std::make_shared<gb::ces_action_component>();
         action_component->set_update_callback(std::bind(&in_game_scene::on_update, this,
                                                         std::placeholders::_1, std::placeholders::_2));
-        add_component(action_component);
+        add_component(action_component);*/
     }
     
     void in_game_scene::on_goto_main_menu_scene(gb::ces_entity_const_shared_ptr entity)

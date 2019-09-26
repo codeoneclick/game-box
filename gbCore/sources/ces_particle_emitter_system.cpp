@@ -15,6 +15,7 @@
 #include "ibo.h"
 #include "camera_3d.h"
 #include "std_extensions.h"
+#include "ces_box2d_world_component.h"
 
 namespace gb
 {
@@ -38,6 +39,13 @@ namespace gb
         const auto camera_right_worldspace = glm::vec3(mat_v[0][0], mat_v[1][0], mat_v[2][0]);
         const auto camera_up_worldspace =  glm::vec3(mat_v[0][1], mat_v[1][1], mat_v[2][1]);
         
+        f32 dt_modifier = 1.f;
+        if (root->get_component<gb::ces_box2d_world_component>())
+        {
+            dt_modifier = root->get_component<gb::ces_box2d_world_component>()->get_update_interval();
+            dt *= dt_modifier;
+        }
+        
         ces_base_system::enumerate_entities_with_components(m_components_mask, [=](const ces_entity_shared_ptr& entity) {
             
             const auto particle_emitter_component = entity->get_component<ces_particle_emitter_component>();
@@ -48,26 +56,39 @@ namespace gb
             const auto settings = particle_emitter_component->get_settings();
             const auto particles = particle_emitter_component->get_particles();
             const auto particle_emitter_position = transformation_component->get_absolute_position();
+            auto last_particle_emitter_position = particle_emitter_position;
+            if (particle_emitter_component->should_use_last_emitted_particle_position())
+            {
+                last_particle_emitter_position = particle_emitter_component->get_last_emitted_particle_position();
+            }
             const auto is_emitter_enabled = particle_emitter_component->get_enabled();
             
-            ui64 current_time = std::get_tick_count();
+            particle_emitter_component->set_num_particles_per_emitt(0);
+            particle_emitter_component->dec_emitt_delay(dt);
             
             vbo::vertex_attribute_PTNTC *vertices = mesh->get_vbo()->lock<vbo::vertex_attribute_PTNTC>();
             
+            i32 emitt_particles_per_frame = settings->m_num_particles_per_emitt * dt_modifier;
+            f32 emitt_position_alpha = 0.f;
+            f32 emitt_position_delta = 1.f / static_cast<f32>(emitt_particles_per_frame);
+            emitt_position_alpha += emitt_position_delta;
+            
             for(ui32 i = 0; i < settings->m_num_particles; ++i)
             {
-                ui64 particle_age = current_time - particles[i]->m_timestamp;
-                
+                particles[i]->m_age -= dt;
+                particles[i]->m_duration -= dt;
                 bool is_particle_alive = true;
-                if(particle_age > settings->m_live_time)
+                if (particles[i]->m_age < 0.f)
                 {
-                    if((current_time - particle_emitter_component->get_emitt_timestamp()) > std::get_random_f(settings->m_min_emitt_interval,
-                                                                                                              settings->m_max_emitt_interval) &&
+                    if((!particle_emitter_component->is_emitt_delay_exist() ||
+                        particle_emitter_component->get_num_particles_per_emitt() < emitt_particles_per_frame) &&
                        is_emitter_enabled)
                     {
-                        particle_emitter_component->set_emitt_timestamp(current_time);
-                        particle_emitter_component->emitt_particle(i, particle_emitter_position);
-                        particle_age = 0;
+                        particle_emitter_component->update_emitt_delay(std::get_random_f(settings->m_min_emitt_interval, settings->m_max_emitt_interval));
+                        glm::vec3 emitt_position = glm::mix(last_particle_emitter_position, particle_emitter_position, emitt_position_alpha);
+                        emitt_position_alpha = glm::clamp(emitt_position_alpha + emitt_position_delta, 0.f, 1.f);
+                        particle_emitter_component->emitt_particle(i, emitt_position);
+                        particle_emitter_component->set_num_particles_per_emitt(particle_emitter_component->get_num_particles_per_emitt() + 1);
                     }
                     else
                     {
@@ -79,13 +100,13 @@ namespace gb
                 
                 if (is_particle_alive)
                 {
-                    f32 particle_clamp_age_duration_based = glm::clamp(static_cast<f32>(particle_age) / static_cast<f32>(settings->m_duration), 0.f, 1.f);
-                    f32 particle_clamp_age_live_time_based = glm::clamp(static_cast<f32>(particle_age) / static_cast<f32>(settings->m_live_time), 0.f, 1.f);
+                    f32 particle_clamp_age_duration_based = 1.f - glm::clamp(particles[i]->m_duration / settings->m_duration, 0.f, 1.f);
+                    f32 particle_clamp_age_live_time_based = 1.f - glm::clamp(particles[i]->m_age / settings->m_live_time, 0.f, 1.f);
                     f32 start_velocity = glm::length(particles[i]->m_velocity);
                     f32 end_velocity = settings->m_end_velocity * start_velocity;
                     f32 velocity_integral = start_velocity * particle_clamp_age_duration_based + (end_velocity - start_velocity) * particle_clamp_age_duration_based * particle_clamp_age_duration_based / 2.f;
-                    particles[i]->m_delta_position += glm::normalize(particles[i]->m_velocity) * velocity_integral * static_cast<f32>(settings->m_duration);
-                    particles[i]->m_delta_position += settings->m_gravity * static_cast<f32>(particle_age) * particle_clamp_age_duration_based;
+                    particles[i]->m_delta_position += glm::normalize(particles[i]->m_velocity) * velocity_integral * settings->m_duration;
+                    particles[i]->m_delta_position += settings->m_gravity * particles[i]->m_age * particle_clamp_age_duration_based;
                     
                     particles[i]->m_current_size = glm::vec2(glm::mix(particles[i]->m_source_size,
                                                                       particles[i]->m_destination_size,

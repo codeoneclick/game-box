@@ -27,8 +27,7 @@ namespace gb
     m_external_commands(nullptr),
     m_fabricator(nullptr),
     m_camera_2d(nullptr),
-    m_camera_3d(nullptr),
-    m_scene_size(0.f)
+    m_camera_3d(nullptr)
     {
         m_is_root = true;
         ces_entity::add_deferred_component_constructor<ces_transformation_2d_component>();

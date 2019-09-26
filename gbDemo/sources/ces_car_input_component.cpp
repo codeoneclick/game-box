@@ -35,13 +35,5 @@ namespace game
         brake.setter([=](f32 brake) {
             m_brake = brake;
         });
-        
-        updated.getter([=]() {
-            return m_updated;
-        });
-        
-        updated.setter([=](bool updated) {
-            m_updated = updated;
-        });
     }
 }

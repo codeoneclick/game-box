@@ -18,13 +18,13 @@ ui32 get_num_particles(void) const;
 #if defined(__IS_CONFIGURATION_MUTABLE__)
 void set_num_particles(ui32 num_particles);
 #endif
-ui32 get_live_time(void) const;
+f32 get_live_time(void) const;
 #if defined(__IS_CONFIGURATION_MUTABLE__)
-void set_live_time(ui32 live_time);
+void set_live_time(f32 live_time);
 #endif
-ui32 get_duration(void) const;
+f32 get_duration(void) const;
 #if defined(__IS_CONFIGURATION_MUTABLE__)
-void set_duration(ui32 duration);
+void set_duration(f32 duration);
 #endif
 f32 get_duration_randomess(void) const;
 #if defined(__IS_CONFIGURATION_MUTABLE__)
@@ -114,13 +114,13 @@ f32 get_destination_size_y(void) const;
 #if defined(__IS_CONFIGURATION_MUTABLE__)
 void set_destination_size_y(f32 destination_size_y);
 #endif
-ui32 get_min_emitt_interval(void) const;
+f32 get_min_emitt_interval(void) const;
 #if defined(__IS_CONFIGURATION_MUTABLE__)
-void set_min_emitt_interval(ui32 min_emitt_interval);
+void set_min_emitt_interval(f32 min_emitt_interval);
 #endif
-ui32 get_max_emitt_interval(void) const;
+f32 get_max_emitt_interval(void) const;
 #if defined(__IS_CONFIGURATION_MUTABLE__)
-void set_max_emitt_interval(ui32 max_emitt_interval);
+void set_max_emitt_interval(f32 max_emitt_interval);
 #endif
 std::vector<std::shared_ptr<configuration>> get_materials_configurations(void) const;
 #if defined(__IS_CONFIGURATION_MUTABLE__)

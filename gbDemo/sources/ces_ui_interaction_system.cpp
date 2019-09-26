@@ -61,6 +61,7 @@
 #include "ui_menus_helper.h"
 #include "ui_dialogs_helper.h"
 #include "game_center_provier.h"
+#include "ces_transformation_3d_component.h"
 
 namespace game
 {
@@ -225,15 +226,19 @@ namespace game
                 f32 current_speed_factor = glm::clamp(current_velocity_length_squared / max_speed_squared, 0.f, 1.f);
                 f32 motion_blur_effect_power = car_descriptor_component->motion_blur_effect_power;
                 
+                auto look_at_position = current_position;
                 if (car_camera_follow_component->preview_mode == ces_car_camera_follow_component::e_preview_mode::e_none)
                 {
-                    current_position.x += velocity_wc.x * (current_speed_factor + motion_blur_effect_power * .5f) * .2f;
-                    current_position.z += velocity_wc.y * (current_speed_factor + motion_blur_effect_power * .5f) * .2f;
+                    /*const auto direction_arrow = std::static_pointer_cast<gb::shape_3d>(car_parts_component->get_part(ces_car_parts_component::parts::k_ui_direction_arrow));
+                    if (direction_arrow)
+                    {
+                        look_at_position = direction_arrow->get_component<gb::ces_transformation_3d_component>()->get_absolute_position();
+                    }*/
                 }
-                
+              
                 const auto camera_3d = ces_base_system::get_current_camera_3d();
                 auto current_look_at = camera_3d->get_look_at();
-                current_look_at = glm::mix(current_look_at, current_position, glm::clamp(.1f, 1.f, 1.f - current_speed_factor));
+                current_look_at = glm::mix(current_look_at, look_at_position, .15f);
                 
                 if (!m_scene.expired() && m_scene.lock()->get_component<ces_scene_state_automat_component>()->mode == ces_scene_state_automat_component::e_mode_in_game)
                 {
@@ -269,13 +274,13 @@ namespace game
                 auto current_camera_rotation = camera_3d->get_rotation();
                 if (car_camera_follow_component->preview_mode == ces_car_camera_follow_component::e_preview_mode::e_none)
                 {
-                    auto car_input_component = car->get_component<ces_car_input_component>();
+                    /*auto car_input_component = car->get_component<ces_car_input_component>();
                     if (car_input_component)
                     {
                         f32 current_steer_angle = car_input_component->steer_angle;
                         current_rotation.y = glm::mix(current_rotation.y, current_rotation.y + current_steer_angle * 1.66f, .1f);
-                    }
-                    current_camera_rotation = glm::mix_angles_degrees(current_camera_rotation, glm::degrees(current_rotation.y) - 90.f, .05f);
+                    }*/
+                    current_camera_rotation = glm::mix_angles_degrees(current_camera_rotation, glm::degrees(current_rotation.y) - 90.f, .075f);
                 }
                 else if (car_camera_follow_component->preview_mode == ces_car_camera_follow_component::e_preview_mode::e_1)
                 {
@@ -852,6 +857,22 @@ namespace game
                 }
                     break;
                     
+                case ces_ui_interaction_component::e_ui::e_ui_controls_button:
+                {
+                    const auto button = std::static_pointer_cast<gb::ui::image_button>(entity);
+                    if(!button->is_pressed_callback_exist())
+                    {
+                        button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                            if (ui_dialogs_helper::get_pushed_dialog())
+                            {
+                                ui_dialogs_helper::pop_dialog();
+                            }
+                            ui_dialogs_helper::push_dialog(ces_ui_interaction_component::e_ui::e_ui_controls_dialog, root);
+                        });
+                    }
+                }
+                    break;
+                    
                 case ces_ui_interaction_component::e_ui::e_ui_stars_progress_button:
                 {
                     const auto button = std::static_pointer_cast<gb::ui::image_button>(entity);
@@ -887,11 +908,11 @@ namespace game
                                         unmute_sounds(root);
                                         gb::resume_run_loop();
                                     });
-                                    advertisement_provider::shared_instance()->set_on_reward_video_viewed([=]() {
+                                    advertisement_provider::shared_instance()->set_on_ticket_reward_video_viewed([=]() {
                                         const auto user_database_component = root->get_component<ces_user_database_component>();
                                         user_database_component->inc_ticket(1);
                                     });
-                                    if (advertisement_provider::shared_instance()->play_rewarded_video())
+                                    if (advertisement_provider::shared_instance()->play_get_ticket_reward_video())
                                     {
                                         gb::al::audio_engine::pause_all();
                                         mute_sounds(root);
@@ -1583,6 +1604,7 @@ namespace game
         const auto win_dialog = ui_controls_helper::get_control_as<gb::ces_entity>(ces_ui_interaction_component::e_ui::e_ui_win_dialog);
         if (win_dialog)
         {
+            std::shared_ptr<bool> is_twice_cash_video_viewed = std::make_shared<bool>(false);
             win_dialog->visible = true;
             m_current_pushed_dialog = win_dialog;
             
@@ -1606,7 +1628,7 @@ namespace game
                         unmute_sounds(root);
                     });
                     const auto user_database_component = root->get_component<ces_user_database_component>();
-                    if (!user_database_component->get_is_purchased_no_ads(1) && advertisement_provider::shared_instance()->play_interstitial_video())
+                    if (!user_database_component->get_is_purchased_no_ads(1) && !*is_twice_cash_video_viewed.get() && advertisement_provider::shared_instance()->play_interstitial_video())
                     {
                         gb::pause_run_loop();
                         gb::al::audio_engine::pause_all();
@@ -1778,6 +1800,50 @@ namespace game
                                                                            is_low_damage,
                                                                            is_good_drift,
                                                                            levels_database_component->get_retries_count(levels_database_component->get_playing_level_id()));
+            
+            const auto twice_cash_button = std::static_pointer_cast<gb::ui::button>(std::static_pointer_cast<gb::ui::dialog>(win_dialog)->get_control(ces_ui_interaction_component::k_win_dialog_twice_cash_button_button));
+            
+#if defined(__IOS__)
+            
+            if(!twice_cash_button->is_pressed_callback_exist())
+            {
+                twice_cash_button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                    advertisement_provider::shared_instance()->set_on_twice_cash_reward_video_viewed([=]() {
+                        twice_cash_button->focus(false);
+                        twice_cash_button->disable(true);
+                        
+                        std::stringstream cash_value_string_stream;
+                        cash_value_string_stream<<"CASH: "<<earn_cash * 2.f<<" $";
+                        cash_label->set_text(cash_value_string_stream.str());
+                        user_database_component->inc_cash(1, earn_cash);
+                        *is_twice_cash_video_viewed.get() = true;
+                    });
+                    
+                    if (advertisement_provider::shared_instance()->play_get_twice_cash_reward_video())
+                    {
+                        gb::pause_run_loop();
+                        gb::al::audio_engine::pause_all();
+                        mute_sounds(root);
+                    }
+                        
+                    advertisement_provider::shared_instance()->set_on_video_ended([=]() {
+                        gb::resume_run_loop();
+                        gb::al::audio_engine::resume_all();
+                        unmute_sounds(root);
+                    });
+                    
+                    
+                });
+                
+            }
+            twice_cash_button->focus(true, .33f);
+            
+#elif defined(__OSX__)
+            
+            twice_cash_button->visible = false;
+            
+#endif
+            
         }
         
         if (!m_main_car.expired())
@@ -1956,11 +2022,11 @@ namespace game
                         }
                         
                     });
-                    advertisement_provider::shared_instance()->set_on_reward_video_viewed([=]() {
+                    advertisement_provider::shared_instance()->set_on_ticket_reward_video_viewed([=]() {
                         const auto user_database_component = root->get_component<ces_user_database_component>();
                         user_database_component->inc_ticket(1);
                     });
-                    if (advertisement_provider::shared_instance()->play_rewarded_video())
+                    if (advertisement_provider::shared_instance()->play_get_ticket_reward_video())
                     {
                         gb::pause_run_loop();
                         gb::al::audio_engine::pause_all();

@@ -33,6 +33,7 @@ namespace gb
     private:
         
         std::shared_ptr<i_mtl_texture_impl> m_texture_impl = nullptr;
+        bool m_is_mipmaps_generated = false;
         
     protected:
         
@@ -50,6 +51,9 @@ namespace gb
         ~mtl_texture();
         
         void* get_mtl_raw_texture_ptr() const;
+        
+        void set_mipmaps_generated(bool value);
+        bool get_is_mipmaps_generated() const;
     };
 };
 

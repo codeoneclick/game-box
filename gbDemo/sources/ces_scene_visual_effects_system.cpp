@@ -149,7 +149,7 @@ namespace game
                     uniforms_wrapper->set(glm::vec4(.5f, 1.f, 1.f, 1.f), "vignetting_color");
                     glm::vec4 compose_parameters_01 = uniforms_wrapper->get_uniforms()["parameters_01"]->get_vec4();
                     auto current_vignetting_size = compose_parameters_01.x;
-                    current_vignetting_size = glm::mix(current_vignetting_size, glm::mix(-1.f, -.33f, motion_blur_effect_power), .1f);
+                    current_vignetting_size = glm::mix(current_vignetting_size, glm::mix(-1.f, -.66f, motion_blur_effect_power), .1f);
                     compose_parameters_01.x = current_vignetting_size;
                     uniforms_wrapper->set(compose_parameters_01, "parameters_01");
                 }

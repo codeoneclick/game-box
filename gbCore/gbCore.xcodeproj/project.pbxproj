@@ -928,6 +928,10 @@
 		92BAA73A228AB193005C5883 /* cubemap_texture_loading_operation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BAA737228AB193005C5883 /* cubemap_texture_loading_operation.cpp */; };
 		92BAA73B228AB193005C5883 /* cubemap_texture_loading_operation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BAA737228AB193005C5883 /* cubemap_texture_loading_operation.cpp */; };
 		92BAA73C228AB193005C5883 /* cubemap_texture_loading_operation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BAA737228AB193005C5883 /* cubemap_texture_loading_operation.cpp */; };
+		92BCA84F233210E8002A9FAB /* ces_keyboard_listener_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BCA84D233210E8002A9FAB /* ces_keyboard_listener_component.cpp */; };
+		92BCA850233210E8002A9FAB /* ces_keyboard_listener_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BCA84D233210E8002A9FAB /* ces_keyboard_listener_component.cpp */; };
+		92BCA851233210E8002A9FAB /* ces_keyboard_listener_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BCA84D233210E8002A9FAB /* ces_keyboard_listener_component.cpp */; };
+		92BCA852233210E8002A9FAB /* ces_keyboard_listener_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BCA84D233210E8002A9FAB /* ces_keyboard_listener_component.cpp */; };
 		92BDC318224CC06C00683631 /* ces_trail_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BDC316224CC06C00683631 /* ces_trail_component.cpp */; };
 		92BDC319224CC06C00683631 /* ces_trail_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BDC316224CC06C00683631 /* ces_trail_component.cpp */; };
 		92BDC31A224CC06C00683631 /* ces_trail_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BDC316224CC06C00683631 /* ces_trail_component.cpp */; };
@@ -968,6 +972,18 @@
 		92CE95482244FE2C0013F8D7 /* deferred_point_light_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CE95452244FE2B0013F8D7 /* deferred_point_light_3d.cpp */; };
 		92CE95492244FE2C0013F8D7 /* deferred_point_light_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CE95452244FE2B0013F8D7 /* deferred_point_light_3d.cpp */; };
 		92CE954A2244FE2C0013F8D7 /* deferred_point_light_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CE95452244FE2B0013F8D7 /* deferred_point_light_3d.cpp */; };
+		92DB2C6022FD52880025E505 /* ces_shadow_caster_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92DB2C5E22FD52880025E505 /* ces_shadow_caster_component.cpp */; };
+		92DB2C6122FD52880025E505 /* ces_shadow_caster_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92DB2C5E22FD52880025E505 /* ces_shadow_caster_component.cpp */; };
+		92DB2C6222FD52880025E505 /* ces_shadow_caster_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92DB2C5E22FD52880025E505 /* ces_shadow_caster_component.cpp */; };
+		92DB2C6322FD52880025E505 /* ces_shadow_caster_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92DB2C5E22FD52880025E505 /* ces_shadow_caster_component.cpp */; };
+		92DB2C6C22FD551F0025E505 /* ces_shadow_receiver_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92DB2C6A22FD551F0025E505 /* ces_shadow_receiver_component.cpp */; };
+		92DB2C6D22FD551F0025E505 /* ces_shadow_receiver_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92DB2C6A22FD551F0025E505 /* ces_shadow_receiver_component.cpp */; };
+		92DB2C6E22FD551F0025E505 /* ces_shadow_receiver_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92DB2C6A22FD551F0025E505 /* ces_shadow_receiver_component.cpp */; };
+		92DB2C6F22FD551F0025E505 /* ces_shadow_receiver_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92DB2C6A22FD551F0025E505 /* ces_shadow_receiver_component.cpp */; };
+		92DB2C7222FD78110025E505 /* ces_shadow_map_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92DB2C7022FD78110025E505 /* ces_shadow_map_system.cpp */; };
+		92DB2C7322FD78110025E505 /* ces_shadow_map_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92DB2C7022FD78110025E505 /* ces_shadow_map_system.cpp */; };
+		92DB2C7422FD78110025E505 /* ces_shadow_map_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92DB2C7022FD78110025E505 /* ces_shadow_map_system.cpp */; };
+		92DB2C7522FD78110025E505 /* ces_shadow_map_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92DB2C7022FD78110025E505 /* ces_shadow_map_system.cpp */; };
 		92E22AA7223BD43900F2D46D /* mtl_vertex_descriptor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92E22AA5223BD43900F2D46D /* mtl_vertex_descriptor.cpp */; };
 		92E22AA8223BD43900F2D46D /* mtl_vertex_descriptor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92E22AA5223BD43900F2D46D /* mtl_vertex_descriptor.cpp */; };
 		92E22AA9223BD43900F2D46D /* mtl_vertex_descriptor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92E22AA5223BD43900F2D46D /* mtl_vertex_descriptor.cpp */; };
@@ -2894,6 +2910,8 @@
 		92BAA732228AAC5C005C5883 /* cubemap_texture_serializer_png.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = cubemap_texture_serializer_png.h; path = sources/cubemap_texture_serializer_png.h; sourceTree = "<group>"; };
 		92BAA737228AB193005C5883 /* cubemap_texture_loading_operation.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = cubemap_texture_loading_operation.cpp; path = sources/cubemap_texture_loading_operation.cpp; sourceTree = "<group>"; };
 		92BAA738228AB193005C5883 /* cubemap_texture_loading_operation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = cubemap_texture_loading_operation.h; path = sources/cubemap_texture_loading_operation.h; sourceTree = "<group>"; };
+		92BCA84D233210E8002A9FAB /* ces_keyboard_listener_component.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ces_keyboard_listener_component.cpp; path = sources/ces_keyboard_listener_component.cpp; sourceTree = "<group>"; };
+		92BCA84E233210E8002A9FAB /* ces_keyboard_listener_component.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ces_keyboard_listener_component.h; path = sources/ces_keyboard_listener_component.h; sourceTree = "<group>"; };
 		92BDC316224CC06C00683631 /* ces_trail_component.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ces_trail_component.cpp; path = sources/ces_trail_component.cpp; sourceTree = "<group>"; };
 		92BDC317224CC06C00683631 /* ces_trail_component.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ces_trail_component.h; path = sources/ces_trail_component.h; sourceTree = "<group>"; };
 		92BDC31C224CC48E00683631 /* ces_trail_system.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ces_trail_system.cpp; path = sources/ces_trail_system.cpp; sourceTree = "<group>"; };
@@ -2914,6 +2932,12 @@
 		92CE95402244F4AE0013F8D7 /* deferred_spot_light_3d.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = deferred_spot_light_3d.h; path = sources/deferred_spot_light_3d.h; sourceTree = "<group>"; };
 		92CE95452244FE2B0013F8D7 /* deferred_point_light_3d.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = deferred_point_light_3d.cpp; path = sources/deferred_point_light_3d.cpp; sourceTree = "<group>"; };
 		92CE95462244FE2C0013F8D7 /* deferred_point_light_3d.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = deferred_point_light_3d.h; path = sources/deferred_point_light_3d.h; sourceTree = "<group>"; };
+		92DB2C5E22FD52880025E505 /* ces_shadow_caster_component.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ces_shadow_caster_component.cpp; path = sources/ces_shadow_caster_component.cpp; sourceTree = "<group>"; };
+		92DB2C5F22FD52880025E505 /* ces_shadow_caster_component.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ces_shadow_caster_component.h; path = sources/ces_shadow_caster_component.h; sourceTree = "<group>"; };
+		92DB2C6A22FD551F0025E505 /* ces_shadow_receiver_component.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ces_shadow_receiver_component.cpp; path = sources/ces_shadow_receiver_component.cpp; sourceTree = "<group>"; };
+		92DB2C6B22FD551F0025E505 /* ces_shadow_receiver_component.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ces_shadow_receiver_component.h; path = sources/ces_shadow_receiver_component.h; sourceTree = "<group>"; };
+		92DB2C7022FD78110025E505 /* ces_shadow_map_system.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ces_shadow_map_system.cpp; path = sources/ces_shadow_map_system.cpp; sourceTree = "<group>"; };
+		92DB2C7122FD78110025E505 /* ces_shadow_map_system.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ces_shadow_map_system.h; path = sources/ces_shadow_map_system.h; sourceTree = "<group>"; };
 		92E22AA5223BD43900F2D46D /* mtl_vertex_descriptor.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; name = mtl_vertex_descriptor.cpp; path = sources/mtl_vertex_descriptor.cpp; sourceTree = "<group>"; };
 		92E22AA6223BD43900F2D46D /* mtl_vertex_descriptor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = mtl_vertex_descriptor.h; path = sources/mtl_vertex_descriptor.h; sourceTree = "<group>"; };
 		92E22AAB223F857E00F2D46D /* mtl_render_pass_descriptor.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; name = mtl_render_pass_descriptor.cpp; path = sources/mtl_render_pass_descriptor.cpp; sourceTree = "<group>"; };
@@ -3586,6 +3610,8 @@
 				92FAAEEC2243B78E00D243C0 /* ces_particle_emitter_system.cpp */,
 				92BDC31D224CC48E00683631 /* ces_trail_system.h */,
 				92BDC31C224CC48E00683631 /* ces_trail_system.cpp */,
+				92DB2C7122FD78110025E505 /* ces_shadow_map_system.h */,
+				92DB2C7022FD78110025E505 /* ces_shadow_map_system.cpp */,
 			);
 			name = systems;
 			sourceTree = "<group>";
@@ -3695,6 +3721,12 @@
 				92BAA67A2282CFD6005C5883 /* ces_system_modifiers_component.cpp */,
 				92C797C722E890130067F787 /* ces_camera_collision_component.h */,
 				92C797C622E890130067F787 /* ces_camera_collision_component.cpp */,
+				92DB2C5F22FD52880025E505 /* ces_shadow_caster_component.h */,
+				92DB2C5E22FD52880025E505 /* ces_shadow_caster_component.cpp */,
+				92DB2C6B22FD551F0025E505 /* ces_shadow_receiver_component.h */,
+				92DB2C6A22FD551F0025E505 /* ces_shadow_receiver_component.cpp */,
+				92BCA84E233210E8002A9FAB /* ces_keyboard_listener_component.h */,
+				92BCA84D233210E8002A9FAB /* ces_keyboard_listener_component.cpp */,
 			);
 			name = components;
 			sourceTree = "<group>";
@@ -5701,6 +5733,7 @@
 				02F2493C1E33AFF50071568F /* ces_transformation_extension.cpp in Sources */,
 				02F2493D1E33AFF50071568F /* pngpread.c in Sources */,
 				02F2493E1E33AFF50071568F /* mesh_2d.cpp in Sources */,
+				92DB2C7422FD78110025E505 /* ces_shadow_map_system.cpp in Sources */,
 				F314F1EA1F4F0AA000CCBC11 /* heightmap_mmap.cpp in Sources */,
 				02F2493F1E33AFF50071568F /* b2PolygonShape.cpp in Sources */,
 				02F249401E33AFF50071568F /* sprite.cpp in Sources */,
@@ -6005,6 +6038,7 @@
 				02F249A61E33AFF50071568F /* vao.cpp in Sources */,
 				F3FA53941F348DF2003FE616 /* cffobjs.c in Sources */,
 				F3FA54D81F348DF2003FE616 /* pshalgo.c in Sources */,
+				92DB2C6E22FD551F0025E505 /* ces_shadow_receiver_component.cpp in Sources */,
 				F3FA53981F348DF2003FE616 /* cffparse.c in Sources */,
 				F3FA54EC1F348DF2003FE616 /* pshrec.c in Sources */,
 				9213BAF9221C11DA00F8ACB5 /* ces_bound_touch_2d_component.cpp in Sources */,
@@ -6017,6 +6051,7 @@
 				92BDC326224CC62200683631 /* trail_3d.cpp in Sources */,
 				F3FA54A01F348DF2003FE616 /* pfrdrivr.c in Sources */,
 				02F249AB1E33AFF50071568F /* scene_graph.cpp in Sources */,
+				92DB2C6222FD52880025E505 /* ces_shadow_caster_component.cpp in Sources */,
 				9203B16D2240F0F600F7674E /* ces_shader_uniforms_component.cpp in Sources */,
 				02F249AC1E33AFF50071568F /* inffast.c in Sources */,
 				02F249AD1E33AFF50071568F /* b2StackAllocator.cpp in Sources */,
@@ -6127,6 +6162,7 @@
 				F3FA55D41F348DF3003FE616 /* winfnt.c in Sources */,
 				92CE95492244FE2C0013F8D7 /* deferred_point_light_3d.cpp in Sources */,
 				F3FA546C1F348DF2003FE616 /* otvgpos.c in Sources */,
+				92BCA851233210E8002A9FAB /* ces_keyboard_listener_component.cpp in Sources */,
 				F3DA3C961F540054001A4127 /* frustum_3d.cpp in Sources */,
 				F3FA53301F348DF1003FE616 /* fttrigon.c in Sources */,
 				F3FA53DC1F348DF2003FE616 /* gxvlcar.c in Sources */,
@@ -6181,6 +6217,7 @@
 				F3FA52EE1F348DF1003FE616 /* ftinit.c in Sources */,
 				21176FDA1BC55F5D00890D7C /* game_command.cpp in Sources */,
 				21A26BA11C47C9C6008BD825 /* ces_bound_touch_component.cpp in Sources */,
+				92DB2C7222FD78110025E505 /* ces_shadow_map_system.cpp in Sources */,
 				F3FA55161F348DF2003FE616 /* sfdriver.c in Sources */,
 				F3FA52FA1F348DF1003FE616 /* ftmm.c in Sources */,
 				F3FA544E1F348DF2003FE616 /* ftzopen.c in Sources */,
@@ -6257,6 +6294,7 @@
 				212B187E1B81B6CF00FFDCE7 /* render_technique_main.cpp in Sources */,
 				21B405071B7A0A88003382AB /* adler32.c in Sources */,
 				21B404D81B7A0A88003382AB /* b2Settings.cpp in Sources */,
+				92DB2C6022FD52880025E505 /* ces_shadow_caster_component.cpp in Sources */,
 				9228BF2E2226B6AA00348741 /* ces_deferred_light_source_3d_system.cpp in Sources */,
 				F3FA54CE1F348DF2003FE616 /* t1decode.c in Sources */,
 				921BBA0A2268B27700482139 /* FuzzyOutVariableBase.cpp in Sources */,
@@ -6353,6 +6391,7 @@
 				21B404E21B7A0A88003382AB /* b2ChainAndPolygonContact.cpp in Sources */,
 				F3FA54761F348DF2003FE616 /* otvmath.c in Sources */,
 				21B404DB1B7A0A88003382AB /* b2Body.cpp in Sources */,
+				92DB2C6C22FD551F0025E505 /* ces_shadow_receiver_component.cpp in Sources */,
 				F3FA54A61F348DF2003FE616 /* pfrload.c in Sources */,
 				F3FA54B21F348DF2003FE616 /* afmparse.c in Sources */,
 				F3C8F9F51F4ED93200F26756 /* heightmap_geometry_generator.cpp in Sources */,
@@ -6559,6 +6598,7 @@
 				21B404E11B7A0A88003382AB /* b2ChainAndCircleContact.cpp in Sources */,
 				211E032E1D1A82CB0019A9F4 /* jsoncpp.cpp in Sources */,
 				F34EF25E1ECAD9FA00250743 /* shape_3d.cpp in Sources */,
+				92BCA84F233210E8002A9FAB /* ces_keyboard_listener_component.cpp in Sources */,
 				2158BE471C7315E300CA535C /* ces_geometry_extension.cpp in Sources */,
 				21DE30491B8B0FAF0046EDF8 /* texture_serializer_png.cpp in Sources */,
 				921BBA0E2268B27700482139 /* FuzzyOutSet.cpp in Sources */,
@@ -6729,6 +6769,7 @@
 				21B4052A1B7A0AFA003382AB /* b2PolygonShape.cpp in Sources */,
 				F3FA55471F348DF2003FE616 /* ftgrays.c in Sources */,
 				F34FD2861EC9F12C00CAE067 /* game_object_3d.cpp in Sources */,
+				92DB2C6D22FD551F0025E505 /* ces_shadow_receiver_component.cpp in Sources */,
 				2158BE0A1C6B8F5800CA535C /* ces_transformation_extension.cpp in Sources */,
 				2130DFC51D2121BA002B6F61 /* pngpread.c in Sources */,
 				21376BFC1B7C991600D293C5 /* ibo.cpp in Sources */,
@@ -6809,6 +6850,7 @@
 				F39EE2E91F4EA55F0060A524 /* ces_heightmap_container_component.cpp in Sources */,
 				2173D1E21B7CA774002912BE /* mesh_2d.cpp in Sources */,
 				F3FA55231F348DF2003FE616 /* sfobjs.c in Sources */,
+				92DB2C6122FD52880025E505 /* ces_shadow_caster_component.cpp in Sources */,
 				F3FA53E71F348DF2003FE616 /* gxvmort0.c in Sources */,
 				21176FDF1BC5608300890D7C /* game_commands_container.cpp in Sources */,
 				F3ECB9471F555ED0008D0064 /* ces_render_target_component.cpp in Sources */,
@@ -6899,6 +6941,7 @@
 				F3FA55E41F34928E003FE616 /* distance-field.c in Sources */,
 				F3FA54171F348DF2003FE616 /* gxvprop.c in Sources */,
 				92B585062153952A008AA8BB /* vk_uniform_value_buffer.cpp in Sources */,
+				92BCA850233210E8002A9FAB /* ces_keyboard_listener_component.cpp in Sources */,
 				926F26FF226F029B004659CC /* ces_render_technique_uniforms_component.cpp in Sources */,
 				216543E11C3D0C4800BBC7AD /* sprite.cpp in Sources */,
 				F3FA52EB1F348DF1003FE616 /* ftgxval.c in Sources */,
@@ -6911,6 +6954,7 @@
 				F3FA53331F348DF1003FE616 /* fttype1.c in Sources */,
 				F34EF2561ECAD3E100250743 /* ces_geometry_3d_component.cpp in Sources */,
 				21B405491B7A0AFA003382AB /* pugixml.cpp in Sources */,
+				92DB2C7322FD78110025E505 /* ces_shadow_map_system.cpp in Sources */,
 				F3FA53F71F348DF2003FE616 /* gxvmort5.c in Sources */,
 				F3FA53C71F348DF2003FE616 /* gxvcommn.c in Sources */,
 				21376BF81B7C8FC100D293C5 /* vbo.cpp in Sources */,
@@ -7269,6 +7313,7 @@
 				F3FA52811F348DF1003FE616 /* afdummy.c in Sources */,
 				F3FA53891F348DF2003FE616 /* cffdrivr.c in Sources */,
 				9213B9EE2214415B00F8ACB5 /* tinyxml2.cpp in Sources */,
+				92DB2C6322FD52880025E505 /* ces_shadow_caster_component.cpp in Sources */,
 				F3FA54AD1F348DF2003FE616 /* pfrobjs.c in Sources */,
 				F3FA53751F348DF1003FE616 /* ftcmru.c in Sources */,
 				F36DF10C1E953B3C00EAE49B /* ces_light_compoment.cpp in Sources */,
@@ -7283,6 +7328,7 @@
 				F3FA52991F348DF1003FE616 /* afloader.c in Sources */,
 				921BBA192268B27700482139 /* COGDefuzzVarObj.cpp in Sources */,
 				F3AAD8691ED80A8400075EF0 /* ogl_graveyard_controller.cpp in Sources */,
+				92DB2C6F22FD551F0025E505 /* ces_shadow_receiver_component.cpp in Sources */,
 				F36DF1121E953B3C00EAE49B /* graphics_context_osx.cpp in Sources */,
 				F3FA550D1F348DF2003FE616 /* raster.c in Sources */,
 				92E22AB0223F857E00F2D46D /* mtl_render_pass_descriptor.cpp in Sources */,
@@ -7465,6 +7511,7 @@
 				F36DF1501E953B3C00EAE49B /* ces_light_mask_component.cpp in Sources */,
 				F3FA54C91F348DF2003FE616 /* psobjs.c in Sources */,
 				F3FA55291F348DF2003FE616 /* ttbdf.c in Sources */,
+				92DB2C7522FD78110025E505 /* ces_shadow_map_system.cpp in Sources */,
 				F3FA52D11F348DF1003FE616 /* ftcid.c in Sources */,
 				F3FA55A11F348DF2003FE616 /* t1afm.c in Sources */,
 				F36DF1511E953B3C00EAE49B /* pngget.c in Sources */,
@@ -7568,6 +7615,7 @@
 				F3FA53D91F348DF2003FE616 /* gxvkern.c in Sources */,
 				F30EFFF71EC5F26A007BC868 /* mesh_3d_serializer_gbmesh3d.cpp in Sources */,
 				F3FA53791F348DF1003FE616 /* ftcsbits.c in Sources */,
+				92BCA852233210E8002A9FAB /* ces_keyboard_listener_component.cpp in Sources */,
 				F36DF16E1E953B3C00EAE49B /* b2GearJoint.cpp in Sources */,
 				F3FA547D1F348DF2003FE616 /* otvmod.c in Sources */,
 				F3FA53FD1F348DF2003FE616 /* gxvmorx.c in Sources */,

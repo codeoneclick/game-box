@@ -26,6 +26,13 @@
 #include "ces_car_camera_follow_component.h"
 #include "ces_garage_database_component.h"
 #include "ces_car_impact_component.h"
+#include "ces_keyboard_listener_component.h"
+
+#if defined(__OSX__)
+
+#define __MANUAL_INPUT__ 1
+
+#endif
 
 namespace game
 {
@@ -72,6 +79,8 @@ namespace game
             ces_interaction_system::add_touch_recognition(entity, gb::e_input_state::e_input_state_dragged);
         });
         
+        bool is_keyboard_control = false;
+        
         if (!m_main_car.expired())
         {
             const auto car = std::static_pointer_cast<gb::game_object_3d>(m_main_car.lock());
@@ -86,25 +95,19 @@ namespace game
             if (car_input_component)
             {
                 const auto car_model_component = car->get_component<ces_car_model_component>();
-                
-                car_input_component->updated = true;
                 car_input_component->steer_angle = 0.f;
                 car_input_component->brake = 0.f;
-                
-                
-#if defined(__MANUAL_INPUT__)
-                
-                car_input_component->updated = false;
                 car_input_component->throttle = 0.f;
                 
-#endif
+                f32 steer_angle = 0.f;
+                f32 handling = glm::mix(.33f, 1.f, selected_car->get_car_handling_upgrade());
+                
+                glm::vec3 car_position = car->position;
+                glm::vec3 car_rotation = car->rotation;
                 
                 const auto& bound_touch_component = m_level.lock()->get_component<gb::ces_bound_touch_component>();
                 const auto max_bound = bound_touch_component->as_3d()->get_max_bound();
                 const auto min_bound = bound_touch_component->as_3d()->get_min_bound();
-                
-                glm::vec3 car_position = car->position;
-                glm::vec3 car_rotation = car->rotation;
                 
                 const auto camera = ces_base_system::get_current_camera_3d();
                 assert(camera != nullptr);
@@ -120,22 +123,17 @@ namespace game
                                             ray,
                                             &intersected_point))
                 {
-                    f32 max_collision_protection_time = car_drift_state_component->max_collision_protection_time;
-                    f32 last_collided_timestamp = car_drift_state_component->last_collided_timestamp;
-                    f32 current_timestamp = std::get_tick_count();
-                    f32 collision_power = 0.f;
-                    bool is_collided = false;
-                    if (current_timestamp - last_collided_timestamp < max_collision_protection_time)
+                    if (m_is_interacted
+                        
+#if defined(__IOS__)
+                        && (m_interaction_point.x < screen_width * .2f ||
+                            m_interaction_point.x > screen_width - (screen_width * .2f))
+                        
+#endif
+                        
+                        )
                     {
-                        is_collided = true;
-                        collision_power = 1.f - (current_timestamp - last_collided_timestamp) / max_collision_protection_time;
-                    }
-                    
-                    if (m_is_interacted &&
-                        (m_interaction_point.x < screen_width * .25f ||
-                         m_interaction_point.x > screen_width - (screen_width * .25f)))
-                    {
-                        f32 steer_angle = atan2(intersected_point.x - car_position.x, intersected_point.z - car_position.z);
+                        steer_angle = atan2(intersected_point.x - car_position.x, intersected_point.z - car_position.z);
                         steer_angle -= glm::wrap_radians(car_rotation.y);
                         
                         if (steer_angle < 0.f)
@@ -148,49 +146,60 @@ namespace game
                             steer_angle -= M_PI * 2.f;
                         }
                         
-                        f32 force = car_model_component->get_max_force() + (selected_car->get_car_speed_upgrade() * 80.f);
+                        f32 force = car_model_component->get_max_force() + (selected_car->get_car_speed_upgrade() * 100.f);
                         if (car_impact_component->is_speed_up_impact_exist())
                         {
                             force *= car_impact_component->get_speed_up_max_impact();
                         }
-                        f32 brakes = 200.f - 100.f * selected_car->get_car_speed_upgrade();
-                        f32 handling = glm::mix(.33f, 1.f, selected_car->get_car_handling_upgrade());
-                        car_input_component->throttle = force * (1.f - collision_power);
+                        car_input_component->throttle = force;
                         car_input_component->steer_angle = steer_angle * handling;
-                        car_input_component->brake = brakes * collision_power;
-                        
-#if defined(__MANUAL_INPUT__)
-                        
-                        car_input_component->updated = true;
                         car_input_component->brake = 0.f;
-                        f32 distance = glm::distance(glm::vec2(car_position.x, car_position.z), glm::vec2(intersected_point.x, intersected_point.z));
-                        car_input_component->throttle = car_model_component->get_max_force() * (distance / 10.f);
-                        
-#endif
-                        
                     }
                     else
                     {
-                        
-#if defined(__MANUAL_INPUT__)
-                        
-                        car_input_component->brake = 200.f;
-                        
-#else
-                        f32 force = car_model_component->get_max_force() + (selected_car->get_car_speed_upgrade() * 80.f);
+                        f32 force = car_model_component->get_max_force() + (selected_car->get_car_speed_upgrade() * 100.f);
                         if (car_impact_component->is_speed_up_impact_exist())
                         {
                             force *= car_impact_component->get_speed_up_max_impact();
                         }
-                        f32 brakes = 200.f - 100.f * selected_car->get_car_speed_upgrade();
-                        car_input_component->throttle = force * (1.f - collision_power);
-                        car_input_component->steer_angle = 0.f;
-                        car_input_component->updated = true;
-                        car_input_component->brake = brakes * collision_power;
+                        
+#if defined(__OSX__)
+                        
+                        force = 0.f;
 #endif
                         
+                        car_input_component->throttle = force;
+                        car_input_component->steer_angle = 0.f;
+                        car_input_component->brake = 0.f;
                     }
                 }
+                
+                
+                if (m_move_state == e_move_state::e_forward)
+                {
+                    f32 force = car_model_component->get_max_force() + (selected_car->get_car_speed_upgrade() * 100.f);
+                    if (car_impact_component->is_speed_up_impact_exist())
+                    {
+                        force *= car_impact_component->get_speed_up_max_impact();
+                    }
+                    car_input_component->throttle = force;
+                    car_input_component->brake = 0.f;
+                }
+                else if (m_move_state == e_move_state::e_backward)
+                {
+                    
+                }
+                
+                if (m_steer_state == e_steer_state::e_right)
+                {
+                    steer_angle -= M_PI * 2.f;
+                }
+                else if (m_steer_state == e_steer_state::e_left)
+                {
+                    steer_angle += M_PI * 2.f;
+                }
+                
+                car_input_component->steer_angle = steer_angle * handling;
             }
         }
     }
@@ -203,6 +212,7 @@ namespace game
     void ces_interaction_system::add_touch_recognition(const gb::ces_entity_shared_ptr& entity,
                                                        gb::e_input_state input_state)
     {
+        
         const auto& bound_touch_component = entity->get_component<gb::ces_bound_touch_component>();
         if(!bound_touch_component->is_respond_to(input_state, gb::e_input_source::e_input_source_mouse_left))
         {
@@ -212,6 +222,75 @@ namespace game
                                                                        std::placeholders::_2,
                                                                        std::placeholders::_3,
                                                                        std::placeholders::_4));
+        }
+        
+#if defined(__OSX__)
+        
+        const auto& keyboard_listener_component = entity->get_component<gb::ces_keyboard_listener_component>();
+        if (keyboard_listener_component && keyboard_listener_component->get_callbacks().size() == 0)
+        {
+            keyboard_listener_component->add_callback(std::bind(&ces_interaction_system::on_key, this,
+                                                                std::placeholders::_1,
+                                                                std::placeholders::_2,
+                                                                std::placeholders::_3));
+        }
+        
+#endif
+        
+    }
+    
+#define k_key_w 0x0D
+#define k_key_s 0x01
+#define k_key_a 0x00
+#define k_key_d 0x02
+    
+    void ces_interaction_system::on_key(const gb::ces_entity_shared_ptr& entity,
+                                        gb::e_input_state input_state,
+                                        i32 key)
+    {
+        if (input_state == gb::e_input_state::e_input_state_pressed)
+        {
+            if (key == k_key_s)
+            {
+                m_move_state = e_move_state::e_backward;
+            }
+            
+            if (key == k_key_w)
+            {
+                m_move_state = e_move_state::e_forward;
+            }
+            
+            if (key == k_key_a)
+            {
+                m_steer_state = e_steer_state::e_left;
+            }
+            
+            if (key == k_key_d)
+            {
+                m_steer_state = e_steer_state::e_right;
+            }
+        }
+        else if (input_state == gb::e_input_state::e_input_state_released)
+        {
+            if (key == k_key_s)
+            {
+                m_move_state = e_move_state::e_none;
+            }
+            
+            if (key == k_key_w)
+            {
+                m_move_state = e_move_state::e_none;
+            }
+            
+            if (key == k_key_a)
+            {
+                m_steer_state = e_steer_state::e_none;
+            }
+            
+            if (key == k_key_d)
+            {
+                m_steer_state = e_steer_state::e_none;
+            }
         }
     }
     
@@ -245,11 +324,11 @@ namespace game
                 f32 screen_width = viewport.z;
                 f32 screen_height = viewport.w;
                 const auto delta = m_first_interaction_point - touch_point;
-                if (abs(delta.y) > screen_height * .25f &&
-                    touch_point.x > screen_width * .25f &&
-                    touch_point.x < screen_width - (screen_width * .25f) &&
-                    m_first_interaction_point.x > screen_width * .25f &&
-                    m_first_interaction_point.x < screen_width - (screen_width * .25f))
+                if (abs(delta.y) > screen_height * .2f &&
+                    touch_point.x > screen_width * .2f &&
+                    touch_point.x < screen_width - (screen_width * .2f) &&
+                    m_first_interaction_point.x > screen_width * .2f &&
+                    m_first_interaction_point.x < screen_width - (screen_width * .2f))
                 {
                     const auto car_impact_component= m_main_car.lock()->get_component<ces_car_impact_component>();
                     if (car_impact_component)
@@ -268,7 +347,7 @@ namespace game
         }
         
         if (input_state == gb::e_input_state_dragged ||
-           input_state == gb::e_input_state_pressed)
+            input_state == gb::e_input_state_pressed)
         {
             m_interaction_point = touch_point;
             m_is_interacted = true;

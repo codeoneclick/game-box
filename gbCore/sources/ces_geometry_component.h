@@ -21,7 +21,8 @@ namespace gb
             e_none = -1,
             e_point = 0,
             e_radius,
-            e_box
+            e_box,
+            e_custom,
         };
         
     private:

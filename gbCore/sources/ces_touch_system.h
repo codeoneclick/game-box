@@ -20,10 +20,12 @@ namespace gb
     {
     private:
         
-        typedef std::tuple<e_input_source, e_input_state, glm::ivec2, glm::ivec2, ui32> touch_event_t;
+        typedef std::tuple<e_input_source, e_input_state, glm::ivec2, glm::ivec2, ui32> input_event_t;
         
-        std::queue<touch_event_t> m_events;
+        std::queue<input_event_t> m_events;
         std::array<std::set<ces_entity_weak_ptr, ces_entity_weak_comparator>, 2> m_captured_entities;
+        
+         std::bitset<std::numeric_limits<uint8_t>::max()> m_keyboard_listeners_components_mask;
         
     protected:
         
@@ -32,7 +34,7 @@ namespace gb
         void on_feed_end(f32 deltatime);
         
         ces_entity_shared_ptr intersected_entity(const ces_entity_shared_ptr& entity,
-                                                 const touch_event_t& event);
+                                                 const input_event_t& event);
         
         void on_gr_pressed(const glm::ivec2& touch_point,
                            const glm::ivec2& touch_area_size,
@@ -59,7 +61,7 @@ namespace gb
         void on_virtual_keyboard_backspace();
         void on_virtual_keyboard_hidden();
         
-        glm::vec2 convert_touch_point_to_viewport_space(const touch_event_t& touch_event, const glm::ivec4& viewport);
+        glm::vec2 convert_touch_point_to_viewport_space(const input_event_t& event, const glm::ivec4& viewport);
         
     public:
         

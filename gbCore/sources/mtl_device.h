@@ -41,6 +41,8 @@ namespace gb
         virtual ui64 get_color_pixel_format() const = 0;
         virtual ui64 get_depth_stencil_pixel_format() const = 0;
         
+        virtual void generate_mipmaps(const mtl_texture_shared_ptr& texture) = 0;
+        
         virtual void bind() = 0;
         virtual void unbind() = 0;
     };
@@ -89,6 +91,8 @@ namespace gb
         
         ui64 get_color_pixel_format() const;
         ui64 get_depth_stencil_pixel_format() const;
+        
+        void generate_mipmaps(const mtl_texture_shared_ptr& texture);
         
         void set_current_render_pass_descriptor(const mtl_render_pass_descriptor_shared_ptr& render_pass_descriptor);
         mtl_render_pass_descriptor_shared_ptr get_current_render_pass_descriptor() const;

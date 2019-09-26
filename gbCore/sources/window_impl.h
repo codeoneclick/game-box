@@ -12,18 +12,6 @@
 
 #if USED_GRAPHICS_API != NO_GRAPHICS_API
 
-#if defined(__IOS__) || defined(__TVOS__)
-
-#include <Foundation/Foundation.h>
-#include <UIKit/UIKit.h>
-#include <QuartzCore/QuartzCore.h>
-
-@interface opengl_view : UIView
-
-@end
-
-#endif
-
 namespace gb
 {
     class window_impl
@@ -49,8 +37,9 @@ namespace gb
         window_impl(void* hwnd);
         ~window_impl();
         
-        ui32 get_width() const;
-        ui32 get_height() const;
+        glm::ivec2 get_resolution_size_in_pixels();
+        glm::ivec2 get_resolution_size_in_points();
+        
         
 #if defined(__IOS__) || defined(__OSX__) || defined(__TVOS__)
 
@@ -62,6 +51,7 @@ namespace gb
 		HDC get_hdc() const;
 
 #endif
+        
     };
 };
 

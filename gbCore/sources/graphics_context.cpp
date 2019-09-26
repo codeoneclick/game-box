@@ -113,12 +113,12 @@ namespace gb
     
     ui32 graphics_context::get_width() const
     {
-        return m_window->get_width();
+        return m_window->get_resolution_size_in_pixels().x;
     }
     
     ui32 graphics_context::get_height() const
     {
-        return m_window->get_height();
+        return m_window->get_resolution_size_in_pixels().y;
     }
     
     void graphics_context::make_current()

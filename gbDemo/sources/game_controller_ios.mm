@@ -23,8 +23,7 @@
 @interface game_controller_ios ()
 
 @property (nonatomic, unsafe_unretained) std::shared_ptr<game::main_game_controller> m_game_controller;
-@property (weak, nonatomic) IBOutlet opengl_view *m_opengl_view;
-
+@property (weak, nonatomic) IBOutlet MTKView *m_metal_view;
 @end
 
 @implementation game_controller_ios
@@ -33,9 +32,9 @@
 {
     [super viewDidLoad];
     
-    f32 width = [[UIScreen mainScreen] bounds].size.width;
-    f32 height = [[UIScreen mainScreen] bounds].size.height;
-    [self.view setFrame:CGRectMake(0.f, 0.f, width, height)];
+    // f32 width = [[UIScreen mainScreen] bounds].size.width;
+    // f32 height = [[UIScreen mainScreen] bounds].size.height;
+    // [self.view setFrame:CGRectMake(0.f, 0.f, width, height)];
     
 #if USED_GRAPHICS_API == OPENGL_20_API || USED_GRAPHICS_API == OPENGL_30_API
     
@@ -44,12 +43,12 @@
     
 #elif USED_GRAPHICS_API == METAL_API
     
-    MTKView* mtl_view = [[MTKView alloc] initWithFrame:CGRectMake(0.0,
+    /*MTKView* mtl_view = [[MTKView alloc] initWithFrame:CGRectMake(0.0,
                                                                   0.0,
                                                                   self.view.frame.size.width,
                                                                   self.view.frame.size.height)];
-    [self.view addSubview:mtl_view];
-    std::shared_ptr<gb::window_impl> window = std::make_shared<gb::window_impl>((__bridge void*)mtl_view);
+    [self.view addSubview:mtl_view];*/
+    std::shared_ptr<gb::window_impl> window = std::make_shared<gb::window_impl>((__bridge void*)_m_metal_view);
     
 #endif
     

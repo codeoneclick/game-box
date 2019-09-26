@@ -21,8 +21,6 @@ namespace game
         f32 m_steer_angle = 0.f;
         f32 m_brake = 0.f;
         
-        bool m_updated = false;
-        
     protected:
         
     public:
@@ -34,8 +32,6 @@ namespace game
         std::property_rw<f32> throttle;
         std::property_rw<f32> steer_angle;
         std::property_rw<f32> brake;
-        
-        std::property_rw<bool> updated;
     };
 };
 

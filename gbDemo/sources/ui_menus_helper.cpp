@@ -79,6 +79,20 @@ namespace game
             ui_animation_helper::hide_to_left(std::static_pointer_cast<gb::ui::control>(quit_game_button), 1.f);
         }
         
+        const auto controls_button = gameplay_ui_fabricator->create_controls_button("");
+        root->add_child(controls_button);
+        if (hidden)
+        {
+            ui_animation_helper::hide_to_left(std::static_pointer_cast<gb::ui::control>(controls_button), 1.f);
+        }
+        
+        const auto controls_label = gameplay_ui_fabricator->create_controls_label("");
+        root->add_child(controls_label);
+        if (hidden)
+        {
+            ui_animation_helper::hide_to_left(std::static_pointer_cast<gb::ui::control>(controls_label), 1.f);
+        }
+        
 #endif
         
 #if defined(__FACEBOOK_LOGIN__)
@@ -216,6 +230,9 @@ namespace game
         
         const auto quit_game_dialog = gameplay_ui_fabricator->create_exit_game_dialog("");
         root->add_child(quit_game_dialog);
+        
+        const auto controls_dialog = gameplay_ui_fabricator->create_controls_dialog("");
+        root->add_child(controls_dialog);
         
 #endif
         
@@ -493,9 +510,9 @@ namespace game
         root->add_child(slow_motion_boost_label);
         ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(slow_motion_boost_label), 1.f);
         
-        const auto slow_motion_boost_trigger_label = gameplay_ui_fabricator->create_slow_motion_boost_trigger_label("");
-        root->add_child(slow_motion_boost_trigger_label);
-        ui_animation_helper::hide_to_down(std::static_pointer_cast<gb::ui::control>(slow_motion_boost_trigger_label), 1.f);
+        const auto slow_motion_boost_trigger_dialog = gameplay_ui_fabricator->create_slow_motion_boost_trigger_dialog("");
+        root->add_child(slow_motion_boost_trigger_dialog);
+        ui_animation_helper::hide_to_down(std::static_pointer_cast<gb::ui::control>(slow_motion_boost_trigger_dialog), 1.f);
         
         const auto slow_motion_boost_progress_bar = gameplay_ui_fabricator->create_slow_motion_boost_progress_bar("");
         root->add_child(slow_motion_boost_progress_bar);

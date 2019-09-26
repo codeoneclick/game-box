@@ -19,7 +19,7 @@ namespace game
         std::bitset<std::numeric_limits<uint8_t>::max()> m_main_car_simulator_components_mask;
         std::bitset<std::numeric_limits<uint8_t>::max()> m_ai_car_simulator_components_mask;
         
-        void update_car(const gb::ces_entity_shared_ptr& entity, f32 dt, bool is_input_updated, f32 throttle, f32 steer_angle, f32 brake);
+        void update_car(const gb::ces_entity_shared_ptr& entity, f32 dt, f32 throttle, f32 steer_angle, f32 brake);
         void update_main_car(const gb::ces_entity_shared_ptr& entity, f32 dt);
         void update_ai_car(const gb::ces_entity_shared_ptr& entity, f32 dt);
         void update_car_drift_state(const gb::ces_entity_shared_ptr& entity);

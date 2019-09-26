@@ -24,6 +24,7 @@ namespace game
             e_ui_open_garage_button,
             e_ui_open_shop_button,
             e_ui_quit_game_button,
+            e_ui_controls_button,
             e_ui_back_from_garage_button,
             e_ui_career_dialog,
             e_ui_shop_dialog,
@@ -65,6 +66,7 @@ namespace game
             e_ui_unlock_car_dialog,
             e_ui_quit_game_dialog,
             e_ui_career_label,
+            e_ui_controls_label,
             e_ui_garage_label,
             e_ui_back_from_garage_label,
             e_ui_shop_label,
@@ -108,8 +110,9 @@ namespace game
             e_ui_slow_motion_progress_bar,
             e_ui_speed_up_boost_label,
             e_ui_speed_up_boost_progress_bar,
-            e_ui_slow_motion_boost_trigger_label,
             e_ui_speed_up_boost_trigger_label,
+            e_ui_slow_motion_boost_trigger_dialog,
+            e_ui_controls_dialog,
             e_ui_max
         };
         
@@ -136,6 +139,7 @@ namespace game
         static const i32 k_win_dialog_star1_achievement_label;
         static const i32 k_win_dialog_star2_achievement_label;
         static const i32 k_win_dialog_star3_achievement_label;
+        static const i32 k_win_dialog_twice_cash_button_button;
         static const i32 k_loose_dialog_title_label;
         static const i32 k_loose_dialog_continue_button;
         static const i32 k_loose_dialog_restart_button;
@@ -171,6 +175,12 @@ namespace game
         static const i32 k_speed_upgrade_progress_bar;
         static const i32 k_handling_upgrade_progress_bar;
         static const i32 k_durability_upgrade_progress_bar;
+        static const i32 k_slow_motion_boost_trigger_dialog_label;
+        static const i32 k_slow_motion_boost_trigger_dialog_indicator_1;
+        static const i32 k_slow_motion_boost_trigger_dialog_indicator_2;
+        static const i32 k_slow_motion_boost_trigger_dialog_indicator_3;
+        static const i32 k_controls_dialog_description_label;
+        static const i32 k_controls_dialog_ok_button;
         
         static std::array<glm::vec2, static_cast<i32>(e_ui::e_ui_max)> k_controls_position;
         

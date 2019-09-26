@@ -21,8 +21,9 @@ namespace gb
         
 #if USED_GRAPHICS_API != NO_GRAPHICS_API
 
-        graphics_context_shared_ptr m_graphics_context;
-        input_context_shared_ptr m_input_context;
+        graphics_context_shared_ptr m_graphics_context = nullptr;
+        input_context_shared_ptr m_input_context = nullptr;
+        window_impl_shared_ptr m_window = nullptr;
 
 #endif
         configuration_accessor_shared_ptr m_configuration_accessor;
@@ -41,5 +42,7 @@ namespace gb
         void add_transition(const std::shared_ptr<game_transition>& transition);
         void remove_transition(const std::shared_ptr<game_transition>& transition);
         void goto_transition(const std::string& guid);
+        
+        window_impl_shared_ptr get_window() const;
     };
 };

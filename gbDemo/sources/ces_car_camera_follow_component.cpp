@@ -51,11 +51,11 @@ namespace game
             }
             else if(value == e_preview_mode::e_none)
             {
-                m_min_distance_xz_to_look_at = 14.f;
-                m_max_distance_xz_to_look_at = 18.f;
+                m_min_distance_xz_to_look_at = 12.f;
+                m_max_distance_xz_to_look_at = 24.f;
                 
-                m_min_distance_y_to_look_at = 14.f;
-                m_max_distance_y_to_look_at = 18.f;
+                m_min_distance_y_to_look_at = 24.f;
+                m_max_distance_y_to_look_at = 48.f;
             }
             m_preview_mode = value;
         });

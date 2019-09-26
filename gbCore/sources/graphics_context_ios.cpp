@@ -145,6 +145,7 @@ namespace gb
         view.depthStencilPixelFormat = MTLPixelFormatDepth32Float_Stencil8;
         view.framebufferOnly = NO;
         view.preferredFramesPerSecond = 60;
+        view.sampleCount = 1;
         
 #endif
         

@@ -48,9 +48,8 @@ fragment half4 fragment_shader_ss_deferred_lighting(common_v_output_t in [[stage
 {
     half4 opaque_color = opaque_color_texture.sample(linear_sampler, in.texcoord);
     half4 transparent_color = transparent_color_texture.sample(linear_sampler, in.texcoord);
-    half transparent_alpha = transparent_alpha_texture.sample(linear_sampler, in.texcoord).r;
-    transparent_color.rgb = transparent_color.rgb / transparent_color.a;
-    half4 color = opaque_color + transparent_color * (1.0 - transparent_alpha);
+    half4 color = opaque_color + transparent_color;
+    color.a = transparent_color.a;
     
     half4 lighting = lighting_texture.sample(linear_sampler, in.texcoord);
     color.rbg = color.rbg * clamp(lighting.rbg, half3(.001f), half3(.999f));
@@ -474,7 +473,7 @@ fragment g_buffer_output_t fragment_shader_shape_3d_reflect(reflect_v_output_t i
 {
     g_buffer_output_t out;
     
-    float3 reflection_dir = reflect (-in.camera_direction_vm, in.normal_vm);
+    float3 reflection_dir = reflect(in.camera_direction_vm, in.normal_vm);
     const half4 reflection_color = reflection_texture.sample(linear_sampler, reflection_dir);
     
     half4 color = diffuse_texture.sample(linear_sampler, in.texcoord);
@@ -719,14 +718,19 @@ vertex common_v_output_t vertex_shader_trail(common_v_input_t in [[stage_in]],
 }
 
 fragment oit_buffer_output_t fragment_shader_trail(common_v_output_t in [[stage_in]],
-                                                   texture2d<half> diffuse_texture [[texture(0)]])
+                                                   texture2d<half> diffuse_texture [[texture(0)]],
+                                                   texture2d<float> position_texture [[texture(1)]])
 {
+    uint2 screen_space_position = uint2(in.position.xy);
+    float4 position = position_texture.read(screen_space_position);
+    float depth = position.w;
+    
     oit_buffer_output_t out;
     float4 color = float4(in.color.rbg * -1.0, 1.0);
-    color.a = diffuse_texture.sample(linear_sampler, in.texcoord).a;
-    float weight = clamp(pow(min(1.0, color.a * 10.0) + 0.01, 3.0) * 1e8 * pow(1.0 - in.position.z * 0.9, 3.0), 1e-2, 3e3);
-    out.color = float4(color.rgb * color.a, color.a) * weight;
-    out.alpha = half(color.a);
+    color.a = diffuse_texture.sample(linear_sampler, in.texcoord).a * in.color.a;
+    float weight = (depth - in.position.w) / 1.66;
+    out.color = float4(color.rgb * color.a, color.a * weight);
+    out.alpha = half(color.a * weight);
     
     return out;
 }

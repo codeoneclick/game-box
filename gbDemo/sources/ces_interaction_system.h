@@ -17,6 +17,20 @@ namespace game
     {
     private:
         
+        enum class e_move_state
+        {
+            e_none = 0,
+            e_forward,
+            e_backward
+        };
+        
+        enum class e_steer_state
+        {
+            e_none = 0,
+            e_right,
+            e_left
+        };
+        
         std::bitset<std::numeric_limits<uint8_t>::max()> m_level_components_mask;
         std::bitset<std::numeric_limits<uint8_t>::max()> m_car_components_mask;
         std::bitset<std::numeric_limits<uint8_t>::max()> m_camera_follow_car_components_mask;
@@ -30,10 +44,17 @@ namespace game
         glm::vec2 m_interaction_point = glm::vec2(0.f);
         glm::vec2 m_first_interaction_point = glm::vec2(0.f);
         
+        e_move_state m_move_state = e_move_state::e_none;
+        e_steer_state m_steer_state = e_steer_state::e_none;
+        
         void on_touched(const gb::ces_entity_shared_ptr& entity,
                         const glm::vec2& touch_point,
                         gb::e_input_source input_source,
                         gb::e_input_state input_state);
+        
+        void on_key(const gb::ces_entity_shared_ptr& entity,
+                    gb::e_input_state input_state,
+                    i32 key);
         
         void add_touch_recognition(const gb::ces_entity_shared_ptr& entity,
                                    gb::e_input_state input_state);

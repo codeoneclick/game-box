@@ -20,9 +20,9 @@
             </connections>
         </customObject>
         <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
-        <menu title="Main Menu" systemMenu="main" id="AYu-sK-qS6">
+        <menu title="Main Menu" systemMenu="main" showsStateColumn="NO" autoenablesItems="NO" id="AYu-sK-qS6">
             <items>
-                <menuItem title="Hyper Drift" id="1Xt-HY-uBw" userLabel="Hyper Drift">
+                <menuItem title="Hyper Drift" alternate="YES" allowsKeyEquivalentWhenHidden="YES" id="1Xt-HY-uBw" userLabel="Hyper Drift">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Hyper Drift" systemMenu="apple" id="uQy-DD-JDr">
                         <items>
@@ -69,7 +69,8 @@
             </items>
         </menu>
         <window title="Hyper Drift" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hasShadow="NO" releasedWhenClosed="NO" animationBehavior="default" titlebarAppearsTransparent="YES" titleVisibility="hidden" id="QvC-M9-y7g">
-            <windowStyleMask key="styleMask" closable="YES" miniaturizable="YES"/>
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" fullSizeContentView="YES"/>
+            <windowCollectionBehavior key="collectionBehavior" fullScreenPrimary="YES"/>
             <rect key="contentRect" x="175" y="387" width="1136" height="640"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
             <view key="contentView" id="EiT-Mj-1SZ">

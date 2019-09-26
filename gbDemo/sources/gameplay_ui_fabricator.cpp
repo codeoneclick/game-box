@@ -73,7 +73,9 @@ namespace game
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_shop_label)] = glm::vec2(32.f + k_image_button_size.x, 40.f + 8.f * 2.f + k_image_button_size.y * 2.f);
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_leaderboard_button)] = glm::vec2(32.f, 40.f + 8.f * 3.f + k_image_button_size.y * 3.f);
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_leaderboard_label)] = glm::vec2(32.f + k_image_button_size.x, 40.f + 8.f * 3.f + k_image_button_size.y * 3.f);
-        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_quit_game_button)] = glm::vec2(32.f, 40.f + 8.f * 4.f + k_image_button_size.y * 4.f);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_controls_button)] = glm::vec2(32.f, 40.f + 8.f * 4.f + k_image_button_size.y * 4.f);
+         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_controls_label)] = glm::vec2(32.f + k_image_button_size.x, 40.f + 8.f * 4.f + k_image_button_size.y * 4.f);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_quit_game_button)] = glm::vec2(32.f, 40.f + 8.f * 4.f + k_image_button_size.y * 5.f);
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_facebook_button)] = glm::vec2(32.f, 40.f + 8.f * 3.f + k_image_button_size.y * 3.f);
         
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_back_from_garage_button)] = glm::vec2(32.f, 40.f);
@@ -160,10 +162,11 @@ namespace game
         
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_speed_up_boost_label)] = glm::vec2(m_screen_size.x - 32.f - 150.f - 100.f - 8.f, 32.f + 8.f + k_image_button_size.y + 24.f);
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_speed_up_boost_progress_bar)] = glm::vec2(m_screen_size.x - 32.f - 100.f, 32.f + 8.f + k_image_button_size.y + 24.f);
-        
-        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_slow_motion_boost_trigger_label)] = glm::vec2(m_screen_size.x * .5f - 175.f, m_screen_size.y - (k_image_button_size.y + 8.f) * 2.f);
-        
+    
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_speed_up_boost_trigger_label)] = glm::vec2(m_screen_size.x * .5f - 90.f, m_screen_size.y - (k_image_button_size.y + 8.f) * 2.f);
+        
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_slow_motion_boost_trigger_dialog)] = glm::vec2(m_screen_size.x * .5f - m_screen_size.x * .6f * .5f, m_screen_size.y - (k_image_button_size.y + 8.f) - 32.f);
+        
         
         ui_animation_helper::set_screen_size(m_screen_size);
     }
@@ -695,6 +698,15 @@ namespace game
         colorize_ui_control(restart_button);
         restart_button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
         
+        const auto twice_cash_button = m_ui_base_fabricator.lock()->create_button(glm::vec2(k_image_button_size.x * 2.f, k_image_button_size.y), nullptr);
+        twice_cash_button->set_text("2X CASH");
+        twice_cash_button->position = glm::vec2(450.f * .5f - k_image_button_size.x, 124.f);
+        twice_cash_button->set_font_size(17.f);
+        twice_cash_button->set_text_horizontal_aligment(gb::ui::e_element_horizontal_aligment_center);
+        twice_cash_button->set_text_vertical_aligment(gb::ui::e_element_vertical_aligment_center);
+        colorize_ui_control(twice_cash_button);
+        twice_cash_button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
+        
         const auto continue_button = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size, "ui_next.png", nullptr);
         continue_button->position = glm::vec2(450.f * .5f + k_image_button_size.x, 124.f);
         colorize_ui_control(continue_button);
@@ -710,6 +722,7 @@ namespace game
         dialog->add_control(star2_achievement_label, game::ces_ui_interaction_component::k_win_dialog_star2_achievement_label);
         dialog->add_control(star3_achievement_label, game::ces_ui_interaction_component::k_win_dialog_star3_achievement_label);
         dialog->add_control(continue_button, game::ces_ui_interaction_component::k_end_game_dialog_continue_button);
+        dialog->add_control(twice_cash_button, game::ces_ui_interaction_component::k_win_dialog_twice_cash_button_button);
         dialog->add_control(restart_button, game::ces_ui_interaction_component::k_end_game_dialog_restart_button);
         
         dialog->visible = false;
@@ -1081,6 +1094,28 @@ namespace game
         colorize_ui_control(button);
         button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
         return button;
+    }
+
+    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_controls_button(const std::string& filename)
+    {
+        const auto button = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size, "ui_joystick.png", nullptr);
+        add_ui_interaction_component(button, game::ces_ui_interaction_component::e_ui::e_ui_controls_button);
+        button->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_controls_button)];
+        colorize_ui_control(button);
+        button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
+        return button;
+    }
+
+    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_controls_label(const std::string& filename)
+    {
+        const auto label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(160.f, k_image_button_size.y), "CONTROLS");
+        add_ui_interaction_component(label, game::ces_ui_interaction_component::e_ui::e_ui_controls_label);
+        label->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_controls_label)];
+               colorize_ui_control(label);
+        label->set_font_size(24.f);
+        label->set_text_vertical_aligment(gb::ui::e_element_vertical_aligment_center);
+        label->set_text_horizontal_aligment(gb::ui::e_element_horizontal_aligment_center);
+        return label;
     }
     
     gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_exit_game_dialog(const std::string& filename)
@@ -1630,31 +1665,6 @@ namespace game
         return label;
     }
     
-    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_slow_motion_boost_trigger_label(const std::string& filename)
-    {
-        const auto label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(350.f, 48.f), "SLOW MOTION ZONE      SWIPE DOWN");
-        add_ui_interaction_component(label, game::ces_ui_interaction_component::e_ui::e_ui_slow_motion_boost_trigger_label);
-        label->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_slow_motion_boost_trigger_label)];
-        label->set_font_name("spincycle.otf");
-        label->set_multiline(true);
-        label->set_text_horizontal_aligment(gb::ui::e_element_horizontal_aligment::e_element_horizontal_aligment_center);
-        
-        label->set_text_color(k_control_text_disabled_color, gb::ui::e_control_state::e_disabled);
-        label->set_background_color(k_control_transparent_color, gb::ui::e_control_state::e_disabled);
-        label->set_foreground_color(k_control_transparent_color, gb::ui::e_control_state::e_disabled);
-        
-        label->set_text_color(k_control_text_focused_color, gb::ui::e_control_state::e_focused);
-        label->set_background_color(k_control_transparent_color, gb::ui::e_control_state::e_focused);
-        label->set_foreground_color(k_control_transparent_color, gb::ui::e_control_state::e_focused);
-        
-        label->set_text_color(k_control_text_color);
-        label->set_background_color(k_control_transparent_color);
-        label->set_foreground_color(k_control_transparent_color);
-        label->remove_component(gb::ces_bound_touch_component::class_guid());
-        
-        return label;
-    }
-    
     gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_slow_motion_boost_progress_bar(const std::string& filename)
     {
         const auto progress_bar = m_ui_base_fabricator.lock()->create_progress_bar(glm::vec2(100.f, 24.f));
@@ -1721,4 +1731,126 @@ namespace game
         progress_bar->set_background_color(k_control_background_color);
         return progress_bar;
     }
+    
+    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_slow_motion_boost_trigger_dialog(const std::string& filename)
+    {
+        auto dialog = m_ui_base_fabricator.lock()->create_dialog(glm::vec2(0.f));
+        colorize_ui_control(dialog);
+        dialog->visible = false;
+        dialog->show_title(false);
+        dialog->set_background_color(k_control_transparent_color);
+        add_ui_interaction_component(dialog, game::ces_ui_interaction_component::e_ui::e_ui_slow_motion_boost_trigger_dialog);
+        
+        const auto label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(m_screen_size.x * .6f, 32.f), "SLOW, SWIPE DOWN");
+        label->position = glm::vec2(0.f, 0.f);
+        label->set_font_name("spincycle.otf");
+        label->set_text_horizontal_aligment(gb::ui::e_element_horizontal_aligment::e_element_horizontal_aligment_center);
+        
+        label->set_text_color(k_control_text_disabled_color, gb::ui::e_control_state::e_disabled);
+        label->set_background_color(k_control_transparent_color, gb::ui::e_control_state::e_disabled);
+        label->set_foreground_color(k_control_transparent_color, gb::ui::e_control_state::e_disabled);
+        
+        label->set_text_color(k_control_text_focused_color, gb::ui::e_control_state::e_focused);
+        label->set_background_color(k_control_transparent_color, gb::ui::e_control_state::e_focused);
+        label->set_foreground_color(k_control_transparent_color, gb::ui::e_control_state::e_focused);
+        
+        label->set_text_color(k_control_text_color);
+        label->set_background_color(k_control_transparent_color);
+        label->set_foreground_color(k_control_transparent_color);
+        label->remove_component(gb::ces_bound_touch_component::class_guid());
+        
+        const auto indicator_1 = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size * .66f, "ui_down_hint.png", nullptr);
+        indicator_1->position = glm::vec2(0.f, 0.f);
+        
+        indicator_1->set_image_color(k_control_image_disabled_color, gb::ui::e_control_state::e_disabled);
+        indicator_1->set_background_color(k_control_transparent_color, gb::ui::e_control_state::e_disabled);
+        indicator_1->set_foreground_color(k_control_transparent_color, gb::ui::e_control_state::e_disabled);
+        
+        indicator_1->set_image_color(k_control_image_focused_color, gb::ui::e_control_state::e_focused);
+        indicator_1->set_background_color(k_control_transparent_color, gb::ui::e_control_state::e_focused);
+        indicator_1->set_foreground_color(k_control_transparent_color, gb::ui::e_control_state::e_focused);
+        
+        indicator_1->set_image_color(k_control_image_color);
+        indicator_1->set_background_color(k_control_transparent_color);
+        indicator_1->set_foreground_color(k_control_transparent_color);
+        indicator_1->remove_component(gb::ces_bound_touch_component::class_guid());
+        
+        const auto indicator_2 = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size  * .66f, "ui_down_hint.png", nullptr);
+        indicator_2->position = glm::vec2(m_screen_size.x * .6f * .5f - k_image_button_size.x  * .66f * .5f, 0.f);
+        
+        indicator_2->set_image_color(k_control_image_disabled_color, gb::ui::e_control_state::e_disabled);
+        indicator_2->set_background_color(k_control_transparent_color, gb::ui::e_control_state::e_disabled);
+        indicator_2->set_foreground_color(k_control_transparent_color, gb::ui::e_control_state::e_disabled);
+        
+        indicator_2->set_image_color(k_control_image_focused_color, gb::ui::e_control_state::e_focused);
+        indicator_2->set_background_color(k_control_transparent_color, gb::ui::e_control_state::e_focused);
+        indicator_2->set_foreground_color(k_control_transparent_color, gb::ui::e_control_state::e_focused);
+        
+        indicator_2->set_image_color(k_control_image_color);
+        indicator_2->set_background_color(k_control_transparent_color);
+        indicator_2->set_foreground_color(k_control_transparent_color);
+        indicator_2->remove_component(gb::ces_bound_touch_component::class_guid());
+        
+        const auto indicator_3 = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size * .66f, "ui_down_hint.png", nullptr);
+        indicator_3->position = glm::vec2(m_screen_size.x * .6f - k_image_button_size.x  * .66f, 0.f);
+        
+        indicator_3->set_image_color(k_control_image_disabled_color, gb::ui::e_control_state::e_disabled);
+        indicator_3->set_background_color(k_control_transparent_color, gb::ui::e_control_state::e_disabled);
+        indicator_3->set_foreground_color(k_control_transparent_color, gb::ui::e_control_state::e_disabled);
+        
+        indicator_3->set_image_color(k_control_image_focused_color, gb::ui::e_control_state::e_focused);
+        indicator_3->set_background_color(k_control_transparent_color, gb::ui::e_control_state::e_focused);
+        indicator_3->set_foreground_color(k_control_transparent_color, gb::ui::e_control_state::e_focused);
+        
+        indicator_3->set_image_color(k_control_image_color);
+        indicator_3->set_background_color(k_control_transparent_color);
+        indicator_3->set_foreground_color(k_control_transparent_color);
+        indicator_3->remove_component(gb::ces_bound_touch_component::class_guid());
+        
+        dialog->add_control(label, game::ces_ui_interaction_component::k_slow_motion_boost_trigger_dialog_label);
+        dialog->add_control(indicator_1, game::ces_ui_interaction_component::k_slow_motion_boost_trigger_dialog_indicator_1);
+        // dialog->add_control(indicator_2, game::ces_ui_interaction_component::k_slow_motion_boost_trigger_dialog_indicator_2);
+        dialog->add_control(indicator_3, game::ces_ui_interaction_component::k_slow_motion_boost_trigger_dialog_indicator_3);
+        dialog->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_slow_motion_boost_trigger_dialog)];
+        
+        return dialog;
+    }
+
+#if defined(__OSX__)
+
+    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_controls_dialog(const std::string& filename)
+    {
+        auto dialog = m_ui_base_fabricator.lock()->create_dialog(glm::vec2(0.f));
+        add_ui_interaction_component(dialog, game::ces_ui_interaction_component::e_ui::e_ui_controls_dialog);
+        
+        dialog->set_title("CONTROLS");
+        dialog->set_title_text_color(k_control_text_color);
+        
+        const auto label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(400.f, 24.f), "YOU CAN CONTROL YOUR CAR USING        MOUSE / TOUCHPAD OR USING KEYBOARD W, A, S, D.");
+        
+        label->position = glm::vec2(0.f, 0.f);
+        label->set_text_color(k_control_text_color);
+        label->set_font_name("spincycle.otf");
+        label->set_background_color(k_control_transparent_color);
+        label->set_foreground_color(k_control_transparent_color);
+        label->set_multiline(true);
+        
+        const auto ok_button = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size, "ui_checkmark.png", nullptr);
+        ok_button->position = glm::vec2(400.f * .5f - k_image_button_size.x * .5f, 50.f);
+        colorize_ui_control(ok_button);
+        ok_button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
+        
+        dialog->add_control(label, game::ces_ui_interaction_component::k_controls_dialog_description_label);
+        dialog->add_control(ok_button, game::ces_ui_interaction_component::k_controls_dialog_ok_button);
+        dialog->visible = false;
+        glm::vec2 dialog_size = dialog->size;
+               dialog->position = glm::vec2(m_screen_size.x * .5f - dialog_size.x * .5f,
+                                            m_screen_size.y * .5f - dialog_size.y * .5f);
+        dialog->set_background_color(k_control_background_color);
+        
+        return dialog;
+    }
+
+#endif
+
 }

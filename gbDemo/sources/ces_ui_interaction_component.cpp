@@ -35,6 +35,7 @@ namespace game
     const i32 ces_ui_interaction_component::k_win_dialog_star1_achievement_label = 9;
     const i32 ces_ui_interaction_component::k_win_dialog_star2_achievement_label = 10;
     const i32 ces_ui_interaction_component::k_win_dialog_star3_achievement_label = 11;
+    const i32 ces_ui_interaction_component::k_win_dialog_twice_cash_button_button = 13;
     const i32 ces_ui_interaction_component::k_loose_dialog_title_label = 1;
     const i32 ces_ui_interaction_component::k_loose_dialog_continue_button = 2;
     const i32 ces_ui_interaction_component::k_loose_dialog_restart_button = 3;
@@ -70,6 +71,12 @@ namespace game
     const i32 ces_ui_interaction_component::k_speed_upgrade_progress_bar = 10;
     const i32 ces_ui_interaction_component::k_handling_upgrade_progress_bar = 11;
     const i32 ces_ui_interaction_component::k_durability_upgrade_progress_bar = 12;
+    const i32 ces_ui_interaction_component::k_slow_motion_boost_trigger_dialog_label = 1;
+    const i32 ces_ui_interaction_component::k_slow_motion_boost_trigger_dialog_indicator_1 = 2;
+    const i32 ces_ui_interaction_component::k_slow_motion_boost_trigger_dialog_indicator_2 = 3;
+    const i32 ces_ui_interaction_component::k_slow_motion_boost_trigger_dialog_indicator_3 = 4;
+    const i32 ces_ui_interaction_component::k_controls_dialog_description_label = 1;
+    const i32 ces_ui_interaction_component::k_controls_dialog_ok_button = 2;
     
     ces_ui_interaction_component::ces_ui_interaction_component() :
     m_ui(e_ui::e_ui_unknown)

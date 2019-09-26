@@ -136,7 +136,6 @@ namespace game
                         
 #elif defined(__OSX__)
                         
-                        
                         const auto tutorial_steer_label = ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_level_tutorial_steer_label);
                         if (tutorial_steer_label)
                         {

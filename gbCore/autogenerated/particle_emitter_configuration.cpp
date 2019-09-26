@@ -28,28 +28,28 @@ void particle_emitter_configuration::set_num_particles(ui32 num_particles)
 configuration::set_attribute("/particle_emitter/num_particles", std::make_shared<configuration_attribute>(num_particles));
 }
 #endif
-ui32 particle_emitter_configuration::get_live_time(void) const
+f32 particle_emitter_configuration::get_live_time(void) const
 {
 const auto& iterator = m_attributes.find("/particle_emitter/live_time");
 assert(iterator != m_attributes.end());
-ui32 value; iterator->second->get(&value);
+f32 value; iterator->second->get(&value);
 return value;
 }
 #if defined(__IS_CONFIGURATION_MUTABLE__)
-void particle_emitter_configuration::set_live_time(ui32 live_time)
+void particle_emitter_configuration::set_live_time(f32 live_time)
 {
 configuration::set_attribute("/particle_emitter/live_time", std::make_shared<configuration_attribute>(live_time));
 }
 #endif
-ui32 particle_emitter_configuration::get_duration(void) const
+f32 particle_emitter_configuration::get_duration(void) const
 {
 const auto& iterator = m_attributes.find("/particle_emitter/duration");
 assert(iterator != m_attributes.end());
-ui32 value; iterator->second->get(&value);
+f32 value; iterator->second->get(&value);
 return value;
 }
 #if defined(__IS_CONFIGURATION_MUTABLE__)
-void particle_emitter_configuration::set_duration(ui32 duration)
+void particle_emitter_configuration::set_duration(f32 duration)
 {
 configuration::set_attribute("/particle_emitter/duration", std::make_shared<configuration_attribute>(duration));
 }
@@ -340,28 +340,28 @@ void particle_emitter_configuration::set_destination_size_y(f32 destination_size
 configuration::set_attribute("/particle_emitter/destination_size_y", std::make_shared<configuration_attribute>(destination_size_y));
 }
 #endif
-ui32 particle_emitter_configuration::get_min_emitt_interval(void) const
+f32 particle_emitter_configuration::get_min_emitt_interval(void) const
 {
 const auto& iterator = m_attributes.find("/particle_emitter/min_emitt_interval");
 assert(iterator != m_attributes.end());
-ui32 value; iterator->second->get(&value);
+f32 value; iterator->second->get(&value);
 return value;
 }
 #if defined(__IS_CONFIGURATION_MUTABLE__)
-void particle_emitter_configuration::set_min_emitt_interval(ui32 min_emitt_interval)
+void particle_emitter_configuration::set_min_emitt_interval(f32 min_emitt_interval)
 {
 configuration::set_attribute("/particle_emitter/min_emitt_interval", std::make_shared<configuration_attribute>(min_emitt_interval));
 }
 #endif
-ui32 particle_emitter_configuration::get_max_emitt_interval(void) const
+f32 particle_emitter_configuration::get_max_emitt_interval(void) const
 {
 const auto& iterator = m_attributes.find("/particle_emitter/max_emitt_interval");
 assert(iterator != m_attributes.end());
-ui32 value; iterator->second->get(&value);
+f32 value; iterator->second->get(&value);
 return value;
 }
 #if defined(__IS_CONFIGURATION_MUTABLE__)
-void particle_emitter_configuration::set_max_emitt_interval(ui32 max_emitt_interval)
+void particle_emitter_configuration::set_max_emitt_interval(f32 max_emitt_interval)
 {
 configuration::set_attribute("/particle_emitter/max_emitt_interval", std::make_shared<configuration_attribute>(max_emitt_interval));
 }
@@ -399,9 +399,9 @@ i32 z_order = node.node().attribute("z_order").as_int();
 configuration::set_attribute("/particle_emitter/z_order", std::make_shared<configuration_attribute>(z_order));
 ui32 num_particles = node.node().attribute("num_particles").as_uint();
 configuration::set_attribute("/particle_emitter/num_particles", std::make_shared<configuration_attribute>(num_particles));
-ui32 live_time = node.node().attribute("live_time").as_uint();
+f32 live_time = node.node().attribute("live_time").as_float();
 configuration::set_attribute("/particle_emitter/live_time", std::make_shared<configuration_attribute>(live_time));
-ui32 duration = node.node().attribute("duration").as_uint();
+f32 duration = node.node().attribute("duration").as_float();
 configuration::set_attribute("/particle_emitter/duration", std::make_shared<configuration_attribute>(duration));
 f32 duration_randomness = node.node().attribute("duration_randomness").as_float();
 configuration::set_attribute("/particle_emitter/duration_randomness", std::make_shared<configuration_attribute>(duration_randomness));
@@ -447,9 +447,9 @@ f32 destination_size_x = node.node().attribute("destination_size_x").as_float();
 configuration::set_attribute("/particle_emitter/destination_size_x", std::make_shared<configuration_attribute>(destination_size_x));
 f32 destination_size_y = node.node().attribute("destination_size_y").as_float();
 configuration::set_attribute("/particle_emitter/destination_size_y", std::make_shared<configuration_attribute>(destination_size_y));
-ui32 min_emitt_interval = node.node().attribute("min_emitt_interval").as_uint();
+f32 min_emitt_interval = node.node().attribute("min_emitt_interval").as_float();
 configuration::set_attribute("/particle_emitter/min_emitt_interval", std::make_shared<configuration_attribute>(min_emitt_interval));
-ui32 max_emitt_interval = node.node().attribute("max_emitt_interval").as_uint();
+f32 max_emitt_interval = node.node().attribute("max_emitt_interval").as_float();
 configuration::set_attribute("/particle_emitter/max_emitt_interval", std::make_shared<configuration_attribute>(max_emitt_interval));
 pugi::xpath_node_set material_nodes = document.select_nodes("/particle_emitter/materials/material");
 for (pugi::xpath_node_set::const_iterator iterator = material_nodes.begin(); iterator != material_nodes.end(); ++iterator)
@@ -480,9 +480,9 @@ i32 z_order = json.get("z_order", 0).asInt();
 configuration::set_attribute("/particle_emitter/z_order", std::make_shared<configuration_attribute>(z_order));
 ui32 num_particles = json.get("num_particles", 0).asUInt();
 configuration::set_attribute("/particle_emitter/num_particles", std::make_shared<configuration_attribute>(num_particles));
-ui32 live_time = json.get("live_time", 0).asUInt();
+f32 live_time = json.get("live_time", 0.f).asFloat();
 configuration::set_attribute("/particle_emitter/live_time", std::make_shared<configuration_attribute>(live_time));
-ui32 duration = json.get("duration", 0).asUInt();
+f32 duration = json.get("duration", 0.f).asFloat();
 configuration::set_attribute("/particle_emitter/duration", std::make_shared<configuration_attribute>(duration));
 f32 duration_randomness = json.get("duration_randomness", 0.f).asFloat();
 configuration::set_attribute("/particle_emitter/duration_randomness", std::make_shared<configuration_attribute>(duration_randomness));
@@ -528,9 +528,9 @@ f32 destination_size_x = json.get("destination_size_x", 0.f).asFloat();
 configuration::set_attribute("/particle_emitter/destination_size_x", std::make_shared<configuration_attribute>(destination_size_x));
 f32 destination_size_y = json.get("destination_size_y", 0.f).asFloat();
 configuration::set_attribute("/particle_emitter/destination_size_y", std::make_shared<configuration_attribute>(destination_size_y));
-ui32 min_emitt_interval = json.get("min_emitt_interval", 0).asUInt();
+f32 min_emitt_interval = json.get("min_emitt_interval", 0.f).asFloat();
 configuration::set_attribute("/particle_emitter/min_emitt_interval", std::make_shared<configuration_attribute>(min_emitt_interval));
-ui32 max_emitt_interval = json.get("max_emitt_interval", 0).asUInt();
+f32 max_emitt_interval = json.get("max_emitt_interval", 0.f).asFloat();
 configuration::set_attribute("/particle_emitter/max_emitt_interval", std::make_shared<configuration_attribute>(max_emitt_interval));
 Json::Value materials_json_array = json["materials"];
 for (Json::ValueIterator iterator = materials_json_array.begin(); iterator != materials_json_array.end(); ++iterator)

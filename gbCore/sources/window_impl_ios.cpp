@@ -14,23 +14,11 @@
 #include <UIKit/UIKit.h>
 #include <QuartzCore/QuartzCore.h>
 
-@implementation opengl_view
+#if USED_GRAPHICS_API == METAL_API
 
-+ (Class)layerClass
-{
-    return [CAEAGLLayer class];
-}
+#import <MetalKit/MetalKit.h>
 
-- (instancetype)initWithFrame:(CGRect)frame;
-{
-    if (self = [super initWithFrame:frame])
-    {
-        super.layer.opaque = YES;
-    }
-    return self;
-}
-
-@end
+#endif
 
 namespace gb
 {
@@ -38,6 +26,8 @@ namespace gb
     m_hwnd(hwnd)
     {
         assert(m_hwnd != nullptr);
+        const MTKView* _hwnd = (__bridge MTKView*)m_hwnd;
+        std::cout<<"[resolution in pixels] : "<<_hwnd.drawableSize.width * .5f<<", "<<_hwnd.drawableSize.height * .5f<<std::endl;
     }
     
     window_impl::~window_impl()
@@ -50,18 +40,17 @@ namespace gb
         return m_hwnd;
     }
     
-    ui32 window_impl::get_width() const
+    glm::ivec2 window_impl::get_resolution_size_in_pixels()
     {
         assert(m_hwnd != nullptr);
-        const UIView* hwnd = (__bridge UIView*)m_hwnd;
-        return static_cast<ui32>(hwnd.frame.size.width);
+        const MTKView* hwnd = (__bridge MTKView*)m_hwnd;
+        return glm::ivec2(hwnd.drawableSize.width * .5f, hwnd.drawableSize.height * .5f);
     }
-    
-    ui32 window_impl::get_height() const
+
+    glm::ivec2 window_impl::get_resolution_size_in_points()
     {
-        assert(m_hwnd != nullptr);
-        const UIView* hwnd = (__bridge UIView*)m_hwnd;
-        return static_cast<ui32>(hwnd.frame.size.height);
+        return glm::ivec2([[UIScreen mainScreen] bounds].size.width,
+                          [[UIScreen mainScreen] bounds].size.height);
     }
 }
 

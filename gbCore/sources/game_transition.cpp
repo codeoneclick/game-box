@@ -28,18 +28,18 @@
 #include "material.h"
 #include "scene_graph.h"
 #include "scene_fabricator.h"
+#include "window_impl.h"
 
 namespace gb
 {
-    game_transition::game_transition(const std::string& guid, bool is_offscreen) :
+    game_transition::game_transition(const std::string& guid, const window_impl_shared_ptr& window, bool is_offscreen) :
     m_guid(guid),
+    m_window(window),
     m_offscreen(is_offscreen),
 
 #if USED_GRAPHICS_API != NO_GRAPHICS_API
 
     m_input_context(nullptr),
-    m_screen_width(0),
-    m_screen_height(0),
 
 #endif
 
@@ -74,8 +74,7 @@ namespace gb
 
         m_input_context = input_context;
         
-        m_screen_width = graphics_context->get_width();
-        m_screen_height = graphics_context->get_height();
+        glm::ivec2 resolution_size_in_pixels = m_window->get_resolution_size_in_pixels();
         
         std::shared_ptr<ces_render_system> render_system = std::make_shared<ces_render_system>(graphics_context, m_offscreen);
         std::shared_ptr<render_pipeline> render_pipeline = render_system->get_render_pipeline();
@@ -84,24 +83,8 @@ namespace gb
         {
             std::shared_ptr<ws_technique_configuration> ws_technique_configuration = std::static_pointer_cast<gb::ws_technique_configuration>(iterator);
             
-            
-#if defined(__OSX__)
-            
-            ws_technique_configuration->set_frame_width(m_screen_width);
-            ws_technique_configuration->set_frame_height(m_screen_height);
-            
-#endif
-            
-      
-#if defined(_IOS__)
-            
-            i32 screen_width = graphics_context::is_ipad() ? 1024 : 1280;
-            i32 screen_height = graphics_context::is_ipad() ? 768 : 720;
-            
-            ws_technique_configuration->set_frame_width(screen_width);
-            ws_technique_configuration->set_frame_height(screen_height);
-            
-#endif
+            ws_technique_configuration->set_frame_width(resolution_size_in_pixels.x);
+            ws_technique_configuration->set_frame_height(resolution_size_in_pixels.y);
             
             std::shared_ptr<render_technique_ws> render_technique_ws = render_technique_ws::construct(ws_technique_configuration);
             render_pipeline->add_ws_render_technique(ws_technique_configuration->get_guid(), ws_technique_configuration->get_order(), render_technique_ws);
@@ -131,22 +114,8 @@ namespace gb
             std::shared_ptr<ss_technique_configuration> ss_technique_configuration = std::static_pointer_cast<gb::ss_technique_configuration>(iterator);
             assert(ss_technique_configuration != nullptr);
             
-#if defined(__OSX__)
-            
-            ss_technique_configuration->set_frame_width(m_screen_width);
-            ss_technique_configuration->set_frame_height(m_screen_height);
-            
-#endif
-            
-#if defined(__IOS__)
-            
-            i32 screen_width = graphics_context::is_ipad() ? 1024 : 1280;
-            i32 screen_height = graphics_context::is_ipad() ? 768 : 720;
-            
-            ss_technique_configuration->set_frame_width(screen_width);
-            ss_technique_configuration->set_frame_height(screen_height);
-            
-#endif
+            ss_technique_configuration->set_frame_width(resolution_size_in_pixels.x);
+            ss_technique_configuration->set_frame_height(resolution_size_in_pixels.y);
             
             std::shared_ptr<material_configuration> material_configuration = ss_technique_configuration->get_material_configuration();
             assert(material_configuration);
@@ -281,15 +250,10 @@ namespace gb
     {
         return m_input_context;
     }
-    
-    i32 game_transition::get_screen_width() const
+
+    window_impl_shared_ptr game_transition::get_window() const
     {
-        return m_screen_width;
-    }
-    
-    i32 game_transition::get_screen_height() const
-    {
-        return m_screen_height;
+        return m_window;
     }
 
 #endif

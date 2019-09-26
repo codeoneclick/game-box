@@ -81,6 +81,23 @@ namespace game
             ui_animation_helper::move_with_animation_action(shop_label);
         }
         
+        const auto controls_label = ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_controls_label);
+        if (controls_label)
+        {
+            ui_animation_helper::hide_to_up(controls_label, 1.f);
+            controls_label->visible = true;
+            auto ui_move_animation_action_component = controls_label->get_component<ces_ui_move_animation_action_component>();
+            if (!ui_move_animation_action_component)
+            {
+                ui_move_animation_action_component = std::make_shared<ces_ui_move_animation_action_component>();
+                controls_label->add_component(ui_move_animation_action_component);
+            }
+            ui_move_animation_action_component->set_duration_in_second(.33f);
+            ui_move_animation_action_component->set_move_mode(ces_ui_move_animation_action_component::e_move_mode::e_show);
+            ui_move_animation_action_component->set_move_direction(ces_ui_move_animation_action_component::e_move_direction::e_down);
+            ui_animation_helper::move_with_animation_action(controls_label);
+        }
+        
         const auto leaderboard_label = ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_leaderboard_label);
         if (leaderboard_label)
         {
@@ -144,6 +161,21 @@ namespace game
             ui_move_animation_action_component->set_move_mode(ces_ui_move_animation_action_component::e_move_mode::e_hide);
             ui_move_animation_action_component->set_move_direction(ces_ui_move_animation_action_component::e_move_direction::e_top);
             ui_animation_helper::move_with_animation_action(shop_label);
+        }
+        
+        const auto controls_label = ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_controls_label);
+        if (controls_label)
+        {
+            auto ui_move_animation_action_component = controls_label->get_component<ces_ui_move_animation_action_component>();
+            if (!ui_move_animation_action_component)
+            {
+                ui_move_animation_action_component = std::make_shared<ces_ui_move_animation_action_component>();
+                controls_label->add_component(ui_move_animation_action_component);
+            }
+            ui_move_animation_action_component->set_duration_in_second(.33f);
+            ui_move_animation_action_component->set_move_mode(ces_ui_move_animation_action_component::e_move_mode::e_hide);
+            ui_move_animation_action_component->set_move_direction(ces_ui_move_animation_action_component::e_move_direction::e_top);
+            ui_animation_helper::move_with_animation_action(controls_label);
         }
         
         const auto leaderboard_label = ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_leaderboard_label);
@@ -900,6 +932,39 @@ namespace game
             ui_controls_helper::enable_all_and_unfocus();
         }
     }
+
+    void ui_dialogs_helper::push_controls_dialog(const gb::ces_entity_shared_ptr& root)
+    {
+        const auto dialog = ui_controls_helper::get_control_as<gb::ces_entity>(ces_ui_interaction_component::e_ui::e_ui_controls_dialog);
+        if (dialog)
+        {
+            dialog->visible = true;
+            m_pushed_dialog = dialog;
+            
+            ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_screen_overlay)->visible = true;
+            ui_controls_helper::disable_all_and_focus_on({ces_ui_interaction_component::e_ui::e_ui_controls_dialog}, false);
+            
+            const auto ok_button = std::static_pointer_cast<gb::ui::image_button>(std::static_pointer_cast<gb::ui::dialog>(dialog)->get_control(ces_ui_interaction_component::k_controls_dialog_ok_button));
+            
+            if(!ok_button->is_pressed_callback_exist())
+            {
+                ok_button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                    pop_dialog();
+                });
+            }
+        }
+    }
+
+    void ui_dialogs_helper::pop_controls_dialog()
+    {
+        const auto dialog = ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_controls_dialog);
+        if (dialog)
+        {
+            dialog->visible = false;
+            ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_screen_overlay)->visible = false;
+            ui_controls_helper::enable_all_and_unfocus();
+        }
+    }
     
     void ui_dialogs_helper::push_dialog(ces_ui_interaction_component::e_ui ui_id, const gb::ces_entity_shared_ptr& root)
     {
@@ -944,6 +1009,11 @@ namespace game
             case ces_ui_interaction_component::e_ui::e_ui_unlock_car_dialog:
             {
                 push_unlock_car_dialog(root);
+            }
+                break;
+            case ces_ui_interaction_component::e_ui::e_ui_controls_dialog:
+            {
+                push_controls_dialog(root);
             }
                 break;
             default:
@@ -997,6 +1067,11 @@ namespace game
                 case ces_ui_interaction_component::e_ui::e_ui_unlock_car_dialog:
                 {
                     pop_unlock_car_dialog();
+                }
+                    break;
+                case ces_ui_interaction_component::e_ui::e_ui_controls_dialog:
+                {
+                    pop_controls_dialog();
                 }
                     break;
                 default:

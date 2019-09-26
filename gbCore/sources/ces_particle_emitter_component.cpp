@@ -16,7 +16,7 @@ namespace gb
 {
     ces_particle_emitter_component::ces_particle_emitter_component() :
     m_settings(nullptr),
-    m_emitt_timestamp(0)
+    m_emitt_delay(0.f)
     {
     }
     
@@ -40,7 +40,8 @@ namespace gb
         m_particles[index]->m_source_size = glm::vec2(source_size);
         m_particles[index]->m_destination_size = glm::vec2(destination_size);
         m_particles[index]->m_color = m_settings->m_source_color;
-        m_particles[index]->m_timestamp = std::get_tick_count();
+        m_particles[index]->m_age = m_settings->m_live_time;
+        m_particles[index]->m_duration = m_settings->m_duration;
         
         f32 horizontal_velocity = glm::mix(m_settings->m_min_horizontal_velocity,
                                            m_settings->m_max_horizontal_velocity, std::get_random_f(0.f, 1.f));
@@ -52,6 +53,8 @@ namespace gb
         m_particles[index]->m_velocity.y += glm::mix(m_settings->m_min_vertical_velocity,
                                                      m_settings->m_max_vertical_velocity, std::get_random_f(0.f, 1.f));
         m_particles[index]->m_velocity *= m_settings->m_velocity_sensitivity;
+        m_should_use_last_emitted_particle_position = true;
+        m_last_emitted_particle_position = position;
     }
     
     mesh_3d_shared_ptr ces_particle_emitter_component::construct_particles_mesh()
@@ -72,7 +75,8 @@ namespace gb
             m_particles[i] = std::make_shared<ces_particle_emitter_component::particle>();
             m_particles[i]->m_current_size = glm::vec2(0.f);
             m_particles[i]->m_color = glm::u8vec4(0);
-            m_particles[i]->m_timestamp = 0.f;
+            m_particles[i]->m_age = 0.f;
+            m_particles[i]->m_duration = 0.f;
             
             vertices[i * 4 + 0].m_normal = glm::packSnorm4x8(glm::vec4(0.f, 1.f, 0.f, 0.f));
             vertices[i * 4 + 1].m_normal = glm::packSnorm4x8(glm::vec4(0.f, 1.f, 0.f, 0.f));
@@ -106,15 +110,20 @@ namespace gb
     {
         return m_particles;
     }
-    
-    void ces_particle_emitter_component::set_emitt_timestamp(f32 timestamp)
+
+    void ces_particle_emitter_component::update_emitt_delay(f32 value)
     {
-        m_emitt_timestamp = timestamp;
+        m_emitt_delay = value;
     }
-    
-    f32 ces_particle_emitter_component::get_emitt_timestamp() const
+
+    void ces_particle_emitter_component::dec_emitt_delay(f32 dt)
     {
-        return m_emitt_timestamp;
+        m_emitt_delay -= dt;
+    }
+
+    bool ces_particle_emitter_component::is_emitt_delay_exist() const
+    {
+        return m_emitt_delay > 0.f;
     }
     
     void ces_particle_emitter_component::set_settings(const std::shared_ptr<ces_particle_emitter_component::emitter_settings>& settings)
@@ -130,11 +139,35 @@ namespace gb
     void ces_particle_emitter_component::set_enabled(bool value)
     {
         m_is_enabled = value;
+        if (!value)
+        {
+            m_should_use_last_emitted_particle_position = false;
+        }
     }
     
     bool ces_particle_emitter_component::get_enabled() const
     {
         return m_is_enabled;
+    }
+
+    void ces_particle_emitter_component::set_num_particles_per_emitt(i32 value)
+    {
+        m_num_particles_per_emitt = value;
+    }
+
+    i32 ces_particle_emitter_component::get_num_particles_per_emitt() const
+    {
+        return m_num_particles_per_emitt;
+    }
+
+    glm::vec3 ces_particle_emitter_component::get_last_emitted_particle_position() const
+    {
+        return m_last_emitted_particle_position;
+    }
+
+    bool ces_particle_emitter_component::should_use_last_emitted_particle_position() const
+    {
+        return m_should_use_last_emitted_particle_position;
     }
 }
 

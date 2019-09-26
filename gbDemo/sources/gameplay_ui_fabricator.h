@@ -120,6 +120,9 @@ namespace game
         
 #if defined(__OSX__)
         
+        gb::game_object_2d_shared_ptr create_controls_button(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_controls_label(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_controls_dialog(const std::string& filename);
         gb::game_object_2d_shared_ptr create_exit_button(const std::string& filename);
         gb::game_object_2d_shared_ptr create_exit_game_dialog(const std::string& filename);
         
@@ -155,8 +158,8 @@ namespace game
         gb::game_object_2d_shared_ptr create_performance_upgrade_dialog(const std::string& filename);
         
         gb::game_object_2d_shared_ptr create_slow_motion_boost_label(const std::string& filename);
-        gb::game_object_2d_shared_ptr create_slow_motion_boost_trigger_label(const std::string& filename);
         gb::game_object_2d_shared_ptr create_slow_motion_boost_progress_bar(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_slow_motion_boost_trigger_dialog(const std::string& filename);
         
         gb::game_object_2d_shared_ptr create_speed_up_boost_label(const std::string& filename);
         gb::game_object_2d_shared_ptr create_speed_up_boost_trigger_label(const std::string& filename);

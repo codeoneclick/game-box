@@ -24,6 +24,7 @@
 #include "ui_animation_helper.h"
 #include "ces_ui_move_animation_action_component.h"
 #include "progress_bar.h"
+#include "dialog.h"
 
 namespace game
 {
@@ -42,6 +43,9 @@ namespace game
     
     void ces_car_boost_system::on_feed(const gb::ces_entity_shared_ptr& root, f32 dt)
     {
+
+#if defined(__IOS__)
+        
         ces_base_system::enumerate_entities_with_components(m_car_components_mask, [this](const gb::ces_entity_shared_ptr& entity) {
             auto character_statistic_component = entity->get_component<ces_car_statistic_component>();
             if(character_statistic_component->mode == ces_car_statistic_component::e_mode::e_mode_player)
@@ -62,16 +66,6 @@ namespace game
             const auto car_impact_component = car->get_component<ces_car_impact_component>();
             
             f32 complexity = level_descriptor_component->complexity;
-            
-            if (car_impact_component->get_is_expect_to_speed_up_impact())
-            {
-                car_impact_component->reset_is_expect_to_speed_up_impact();
-                if (!car_impact_component->is_speed_up_impact_exist())
-                {
-                    car_impact_component->add_speed_up_impact();
-                    car_impact_component->remove_slow_motion_impact();
-                }
-            }
             
             if (car_impact_component->is_slow_motion_impact_exist())
             {
@@ -175,20 +169,29 @@ namespace game
             {
                 if (!car_impact_component->get_is_slow_motion_boost_trigger_ui_shown() && !car_impact_component->is_slow_motion_impact_exist())
                 {
-                    const auto slow_motion_boost_trigger_label = ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_slow_motion_boost_trigger_label);
-                    slow_motion_boost_trigger_label->visible = true;
-                    auto ui_move_animation_action_component = slow_motion_boost_trigger_label->get_component<ces_ui_move_animation_action_component>();
+                    const auto slow_motion_boost_trigger_dialog = ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_slow_motion_boost_trigger_dialog);
+                    slow_motion_boost_trigger_dialog->visible = true;
+                    auto ui_move_animation_action_component = slow_motion_boost_trigger_dialog->get_component<ces_ui_move_animation_action_component>();
                     if (!ui_move_animation_action_component)
                     {
                         ui_move_animation_action_component = std::make_shared<ces_ui_move_animation_action_component>();
-                        slow_motion_boost_trigger_label->add_component(ui_move_animation_action_component);
+                        slow_motion_boost_trigger_dialog->add_component(ui_move_animation_action_component);
                     }
                     ui_move_animation_action_component->set_duration_in_second(.33f);
                     ui_move_animation_action_component->set_move_mode(ces_ui_move_animation_action_component::e_move_mode::e_show);
                     ui_move_animation_action_component->set_move_direction(ces_ui_move_animation_action_component::e_move_direction::e_top);
-                    ui_animation_helper::move_with_animation_action(slow_motion_boost_trigger_label, [=]() {
+                    ui_animation_helper::move_with_animation_action(slow_motion_boost_trigger_dialog, [=]() {
                         car_impact_component->set_is_slow_motion_boost_trigger_ui_shown(true);
-                        slow_motion_boost_trigger_label->focus(true, .33f);
+                        
+                        const auto slow_motion_trigger_label = std::static_pointer_cast<gb::ui::control>(std::static_pointer_cast<gb::ui::dialog>(slow_motion_boost_trigger_dialog)->get_control(ces_ui_interaction_component::k_slow_motion_boost_trigger_dialog_label));
+                        slow_motion_trigger_label->focus(true, .33f);
+                        
+                        const auto slow_motion_trigger_indicator_1 = std::static_pointer_cast<gb::ui::control>(std::static_pointer_cast<gb::ui::dialog>(slow_motion_boost_trigger_dialog)->get_control(ces_ui_interaction_component::k_slow_motion_boost_trigger_dialog_indicator_1));
+                        slow_motion_trigger_indicator_1->focus(true, .33f);
+                        
+                        const auto slow_motion_trigger_indicator_2 = std::static_pointer_cast<gb::ui::control>(std::static_pointer_cast<gb::ui::dialog>(slow_motion_boost_trigger_dialog)->get_control(ces_ui_interaction_component::k_slow_motion_boost_trigger_dialog_indicator_3));
+                        slow_motion_trigger_indicator_2->focus(true, .33f);
+                        
                     });
                 }
                 
@@ -200,18 +203,27 @@ namespace game
                         car_impact_component->add_slow_motion_impact();
                         car_impact_component->remove_speed_up_impact();
                         
-                        const auto slow_motion_boost_trigger_label = ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_slow_motion_boost_trigger_label);
-                        slow_motion_boost_trigger_label->focus(false);
-                        auto ui_move_animation_action_component = slow_motion_boost_trigger_label->get_component<ces_ui_move_animation_action_component>();
+                        const auto slow_motion_boost_trigger_dialog = ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_slow_motion_boost_trigger_dialog);
+                        
+                        const auto slow_motion_trigger_label = std::static_pointer_cast<gb::ui::control>(std::static_pointer_cast<gb::ui::dialog>(slow_motion_boost_trigger_dialog)->get_control(ces_ui_interaction_component::k_slow_motion_boost_trigger_dialog_label));
+                        slow_motion_trigger_label->focus(false);
+                        
+                        const auto slow_motion_trigger_indicator_1 = std::static_pointer_cast<gb::ui::control>(std::static_pointer_cast<gb::ui::dialog>(slow_motion_boost_trigger_dialog)->get_control(ces_ui_interaction_component::k_slow_motion_boost_trigger_dialog_indicator_1));
+                        slow_motion_trigger_indicator_1->focus(false);
+                        
+                        const auto slow_motion_trigger_indicator_2 = std::static_pointer_cast<gb::ui::control>(std::static_pointer_cast<gb::ui::dialog>(slow_motion_boost_trigger_dialog)->get_control(ces_ui_interaction_component::k_slow_motion_boost_trigger_dialog_indicator_3));
+                        slow_motion_trigger_indicator_2->focus(false);
+                        
+                        auto ui_move_animation_action_component = slow_motion_boost_trigger_dialog->get_component<ces_ui_move_animation_action_component>();
                         if (!ui_move_animation_action_component)
                         {
                             ui_move_animation_action_component = std::make_shared<ces_ui_move_animation_action_component>();
-                            slow_motion_boost_trigger_label->add_component(ui_move_animation_action_component);
+                            slow_motion_boost_trigger_dialog->add_component(ui_move_animation_action_component);
                         }
                         ui_move_animation_action_component->set_duration_in_second(.33f);
                         ui_move_animation_action_component->set_move_mode(ces_ui_move_animation_action_component::e_move_mode::e_hide);
                         ui_move_animation_action_component->set_move_direction(ces_ui_move_animation_action_component::e_move_direction::e_down);
-                        ui_animation_helper::move_with_animation_action(slow_motion_boost_trigger_label, [=]() {
+                        ui_animation_helper::move_with_animation_action(slow_motion_boost_trigger_dialog, [=]() {
                             car_impact_component->set_is_slow_motion_boost_trigger_ui_shown(false);
                         });
                     }
@@ -221,19 +233,27 @@ namespace game
             {
                 if (car_impact_component->get_is_slow_motion_boost_trigger_ui_shown())
                 {
-                    const auto slow_motion_boost_trigger_label = ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_slow_motion_boost_trigger_label);
-                    slow_motion_boost_trigger_label->focus(false);
+                    const auto slow_motion_boost_trigger_dialog = ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_slow_motion_boost_trigger_dialog);
+                    
+                    const auto slow_motion_trigger_label = std::static_pointer_cast<gb::ui::control>(std::static_pointer_cast<gb::ui::dialog>(slow_motion_boost_trigger_dialog)->get_control(ces_ui_interaction_component::k_slow_motion_boost_trigger_dialog_label));
+                    slow_motion_trigger_label->focus(false);
+                    
+                    const auto slow_motion_trigger_indicator_1 = std::static_pointer_cast<gb::ui::control>(std::static_pointer_cast<gb::ui::dialog>(slow_motion_boost_trigger_dialog)->get_control(ces_ui_interaction_component::k_slow_motion_boost_trigger_dialog_indicator_1));
+                    slow_motion_trigger_indicator_1->focus(false);
+                    
+                    const auto slow_motion_trigger_indicator_2 = std::static_pointer_cast<gb::ui::control>(std::static_pointer_cast<gb::ui::dialog>(slow_motion_boost_trigger_dialog)->get_control(ces_ui_interaction_component::k_slow_motion_boost_trigger_dialog_indicator_3));
+                    slow_motion_trigger_indicator_2->focus(false);
 
-                    auto ui_move_animation_action_component = slow_motion_boost_trigger_label->get_component<ces_ui_move_animation_action_component>();
+                    auto ui_move_animation_action_component = slow_motion_boost_trigger_dialog->get_component<ces_ui_move_animation_action_component>();
                     if (!ui_move_animation_action_component)
                     {
                         ui_move_animation_action_component = std::make_shared<ces_ui_move_animation_action_component>();
-                        slow_motion_boost_trigger_label->add_component(ui_move_animation_action_component);
+                        slow_motion_boost_trigger_dialog->add_component(ui_move_animation_action_component);
                     }
                     ui_move_animation_action_component->set_duration_in_second(.33f);
                     ui_move_animation_action_component->set_move_mode(ces_ui_move_animation_action_component::e_move_mode::e_hide);
                     ui_move_animation_action_component->set_move_direction(ces_ui_move_animation_action_component::e_move_direction::e_down);
-                    ui_animation_helper::move_with_animation_action(slow_motion_boost_trigger_label, [=]() {
+                    ui_animation_helper::move_with_animation_action(slow_motion_boost_trigger_dialog, [=]() {
                         car_impact_component->set_is_slow_motion_boost_trigger_ui_shown(false);
                     });
                 }
@@ -244,6 +264,9 @@ namespace game
                 }
             }
         }
+        
+#endif
+        
     }
     
     void ces_car_boost_system::on_feed_end(f32 dt)

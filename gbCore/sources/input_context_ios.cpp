@@ -206,13 +206,15 @@ namespace gb
     
     input_context_ios::input_context_ios(const std::shared_ptr<window_impl>& window)
     {
+        
         UIView* view = (__bridge UIView*)window->get_hwnd();
         
         input_hwnd* input_view = [[input_hwnd alloc] init];
         input_view.m_context = this;
         input_view.multipleTouchEnabled = YES;
         input_view.frame = CGRectMake(0.f, 0.f,
-                                     view.frame.size.width, view.frame.size.height);
+                                      window->get_resolution_size_in_points().x,
+                                      window->get_resolution_size_in_points().y);
         [view addSubview:input_view];
         m_hwnd = (void *)CFBridgingRetain(input_view);
         

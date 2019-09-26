@@ -19,6 +19,7 @@
 namespace gb
 {
     game_controller::game_controller(const std::shared_ptr<window_impl>& window) :
+    m_window(window),
     m_current_transition(nullptr)
     {
 #if USED_GRAPHICS_API != NO_GRAPHICS_API
@@ -102,5 +103,10 @@ namespace gb
 										   m_resource_accessor);
 
 #endif
+    }
+
+    window_impl_shared_ptr game_controller::get_window() const
+    {
+        return m_window;
     }
 }

@@ -36,7 +36,7 @@ namespace game
 			gb::game_command_i_shared_ptr command = std::make_shared<gb::game_command<on_goto_ui_editor_scene::t_command>>(std::bind(&main_game_controller::goto_ui_editor_scene, this));
 			commands->add_command(on_goto_ui_editor_scene::guid, command);
             
-            auto transition = std::make_shared<main_menu_transition>("transition.main_menu.xml", false);
+            auto transition = std::make_shared<main_menu_transition>("transition.main_menu.xml", get_window(), false);
             main_game_controller::add_transition(transition);
             main_game_controller::goto_transition("transition.main_menu.xml");
             transition->set_external_commands(commands);

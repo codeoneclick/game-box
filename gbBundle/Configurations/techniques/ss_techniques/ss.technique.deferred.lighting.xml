@@ -8,9 +8,9 @@
         <attachment
         name="attachment_01"
         pixel_format="71"
-        clear_color_r="1.0"
-        clear_color_g="1.0"
-        clear_color_b="1.0"
+        clear_color_r="0.0"
+        clear_color_g="0.0"
+        clear_color_b="0.0"
         clear_color_a="1.0"/>
     </attachments>
 </ss_technique>

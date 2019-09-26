@@ -25,7 +25,8 @@ namespace gb
             glm::vec2 m_destination_size;
             glm::vec2 m_current_size;
             glm::u8vec4 m_color;
-            ui64 m_timestamp;
+            f32 m_age;
+            f32 m_duration;
         };
         
         struct emitter_settings
@@ -55,6 +56,8 @@ namespace gb
             f32 m_end_velocity;
             
             glm::vec3 m_gravity;
+            
+            i32 m_num_particles_per_emitt = 4;
         };
     
     private:
@@ -63,7 +66,10 @@ namespace gb
         
         std::shared_ptr<emitter_settings> m_settings;
         std::vector<std::shared_ptr<particle>> m_particles;
-        f32 m_emitt_timestamp;
+        f32 m_emitt_delay = 0.f;
+        i32 m_num_particles_per_emitt = 0;
+        glm::vec3 m_last_emitted_particle_position;
+        bool m_should_use_last_emitted_particle_position = false;
         bool m_is_enabled = false;
         
     public:
@@ -80,11 +86,18 @@ namespace gb
         std::vector<std::shared_ptr<particle>> get_particles() const;
         void emitt_particle(ui32 index, const glm::vec3& position);
         
-        void set_emitt_timestamp(f32 timestamp);
-        f32 get_emitt_timestamp() const;
+        void update_emitt_delay(f32 value);
+        void dec_emitt_delay(f32 dt);
+        bool is_emitt_delay_exist() const;
+        
+        void set_num_particles_per_emitt(i32 value);
+        i32 get_num_particles_per_emitt() const;
         
         void set_enabled(bool value);
         bool get_enabled() const;
+        
+        glm::vec3 get_last_emitted_particle_position() const;
+        bool should_use_last_emitted_particle_position() const;
     };
 };
 

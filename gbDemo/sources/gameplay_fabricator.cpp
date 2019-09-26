@@ -65,6 +65,7 @@
 #include "ces_levels_database_component.h"
 #include "ces_camera_collision_component.h"
 #include "ces_car_impact_component.h"
+#include "ces_keyboard_listener_component.h"
 
 namespace game
 {
@@ -537,6 +538,7 @@ namespace game
         bound_touch_component->set_min_bound(glm::vec3(-4096.f, 0.f, -4096.f));
         bound_touch_component->set_max_bound(glm::vec3(4096.f, 0.f, 4096.f));
         scene->add_component(bound_touch_component);
+        scene->add_component(std::make_shared<gb::ces_keyboard_listener_component>());
         
         return scene;
     }
@@ -774,7 +776,7 @@ namespace game
         {
             uniforms->set(glm::vec4(0.f, 0.f, 1.f, 1.f), car_colorization_shader_uniforms::k_body_color);
         }
-        
+        car->scale = glm::vec3(.75f);
         return car;
     }
     
@@ -792,7 +794,7 @@ namespace game
         const auto name_label = m_general_fabricator.lock()->create_label_3d("information_bubble_01.xml");
         name_label->text = "racer";
         name_label->font_size = 24;
-        name_label->font_mode = gb::ces_font_component::e_font_mode_edge;
+        name_label->font_mode = gb::ces_font_component::e_font_mode_regular;
         name_label->font_color = glm::u8vec4(255, 255, 255, 255);
         name_label->scale = glm::vec3(.05f);
         name_label->position = glm::vec3(name_label->get_content_size().x * .5f, 1.f, -3.f);
@@ -803,10 +805,10 @@ namespace game
         const auto speed_label = m_general_fabricator.lock()->create_label_3d("information_bubble_01.xml");
         speed_label->text = "speed";
         speed_label->font_size = 24;
-        speed_label->font_mode = gb::ces_font_component::e_font_mode_edge;
+        speed_label->font_mode = gb::ces_font_component::e_font_mode_regular;
         speed_label->font_color = glm::u8vec4(255, 255, 255, 255);
-        speed_label->scale = glm::vec3(.05f);
-        speed_label->position = glm::vec3(speed_label->get_content_size().x + 1.7f, 1.f, 2.f);
+        speed_label->scale = glm::vec3(.1f);
+        speed_label->position = glm::vec3(speed_label->get_content_size().x + 3.f, 1.f, 4.f);
         speed_label->rotation = glm::vec3(-90.f, 180.f, 0.f);
         car->add_child(speed_label);
         
@@ -814,18 +816,18 @@ namespace game
         speed_value_label->text = "0 km/h";
         speed_value_label->font_size = 24;
         speed_value_label->font_color = glm::u8vec4(255, 255, 255, 255);
-        speed_value_label->scale = glm::vec3(.025f);
-        speed_value_label->position = glm::vec3(speed_label->get_content_size().x + 1.7f, 1.f, .75f);
+        speed_value_label->scale = glm::vec3(.05f);
+        speed_value_label->position = glm::vec3(speed_label->get_content_size().x + 3.f, 1.f, 1.25f);
         speed_value_label->rotation = glm::vec3(-90.f, 180.f, 0.f);
         car->add_child(speed_value_label);
         
         const auto drift_label = m_general_fabricator.lock()->create_label_3d("information_bubble_01.xml");
         drift_label->text = "DRIFT";
         drift_label->font_size = 24;
-        drift_label->font_mode = gb::ces_font_component::e_font_mode_edge;
+        drift_label->font_mode = gb::ces_font_component::e_font_mode_regular;
         drift_label->font_color = glm::u8vec4(255, 255, 255, 255);
-        drift_label->position = glm::vec3(speed_label->get_content_size().x - 5.7f, 1.f, 0.f);
-        drift_label->scale = glm::vec3(.05f);
+        drift_label->position = glm::vec3(-3.5f, 1.f, 0.f);
+        drift_label->scale = glm::vec3(.1f);
         drift_label->rotation = glm::vec3(-90.f, 180.f, 0.f);
         car->add_child(drift_label);
         
@@ -833,18 +835,18 @@ namespace game
         drift_value_label->text = "00:00 sec";
         drift_value_label->font_size = 24;
         drift_value_label->font_color = glm::u8vec4(255, 255, 255, 255);
-        drift_value_label->position = glm::vec3(speed_label->get_content_size().x - 5.7f, 1.f, -1.25f);
-        drift_value_label->scale = glm::vec3(.025f);
+        drift_value_label->position = glm::vec3(-3.5f, 1.f, -3.f);
+        drift_value_label->scale = glm::vec3(.05f);
         drift_value_label->rotation = glm::vec3(-90.f, 180.f, 0.f);
         car->add_child(drift_value_label);
         
         const auto rpm_label = m_general_fabricator.lock()->create_label_3d("information_bubble_01.xml");
         rpm_label->text = "rpm";
         rpm_label->font_size = 24;
-        rpm_label->font_mode = gb::ces_font_component::e_font_mode_edge;
+        rpm_label->font_mode = gb::ces_font_component::e_font_mode_regular;
         rpm_label->font_color = glm::u8vec4(255, 255, 255, 255);
-        rpm_label->position = glm::vec3(speed_label->get_content_size().x + 1.7f, 1.f, 0.f);
-        rpm_label->scale = glm::vec3(.05f);
+        rpm_label->position = glm::vec3(speed_label->get_content_size().x + 3.f, 1.f, 0.f);
+        rpm_label->scale = glm::vec3(.1f);
         rpm_label->rotation = glm::vec3(-90.f, 180.f, 0.f);
         car->add_child(rpm_label);
         
@@ -852,8 +854,8 @@ namespace game
         rpm_value_label->text = "0";
         rpm_value_label->font_size = 24;
         rpm_value_label->font_color = glm::u8vec4(255, 255, 255, 255);
-        rpm_value_label->position = glm::vec3(speed_label->get_content_size().x + 1.7f, 1.f, -1.25f);
-        rpm_value_label->scale = glm::vec3(.025f);
+        rpm_value_label->position = glm::vec3(speed_label->get_content_size().x + 3.f, 1.f, -3.f);
+        rpm_value_label->scale = glm::vec3(.05f);
         rpm_value_label->rotation = glm::vec3(-90.f, 180.f, 0.f);
         car->add_child(rpm_value_label);
         

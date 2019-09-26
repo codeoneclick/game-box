@@ -63,6 +63,7 @@
 #include "ui_menus_helper.h"
 #include "game_center_provier.h"
 #include "ces_car_boost_system.h"
+#include "window_impl.h"
 
 namespace game
 {
@@ -81,8 +82,7 @@ namespace game
     {
         gb::scene_graph::create();
 
-		m_scene_size = glm::vec2(get_transition()->get_screen_width(),
-                                 get_transition()->get_screen_height());
+        glm::ivec2 resolution_in_points = get_transition()->get_window()->get_resolution_size_in_points();
         
         auto sound_system = std::make_shared<gb::al::ces_sound_system>();
         get_transition()->add_system(sound_system);
@@ -126,7 +126,7 @@ namespace game
         m_ui_base_fabricator = std::make_shared<gb::ui::ui_fabricator>(get_fabricator());
         m_gameplay_ui_fabricator = std::make_shared<gameplay_ui_fabricator>(get_fabricator(),
                                                                             m_ui_base_fabricator,
-                                                                            m_scene_size);
+                                                                            resolution_in_points);
         
         add_component<ces_scene_state_automat_component>();
         get_component<ces_scene_state_automat_component>()->mode = ces_scene_state_automat_component::e_mode_main_menu;
@@ -140,12 +140,12 @@ namespace game
         get_component<ces_scene_fabricator_component>()->set_parameters(m_gameplay_fabricator,
                                                                         m_gameplay_ui_fabricator);
        
-        const auto camera_2d = std::make_shared<gb::camera_2d>(m_scene_size.x,
-                                                               m_scene_size.y);
+        const auto camera_2d = std::make_shared<gb::camera_2d>(resolution_in_points.x,
+                                                               resolution_in_points.y);
         set_camera_2d(camera_2d);
         
-        auto camera_3d = std::make_shared<gb::camera_3d>(45.f, .1f, 256.f,
-                                                         glm::ivec4(0, 0, m_scene_size.x, m_scene_size.y), true);
+        auto camera_3d = std::make_shared<gb::camera_3d>(45.f, 1.f, 128.f,
+                                                         glm::ivec4(0, 0, resolution_in_points.x, resolution_in_points.y), true);
         set_camera_3d(camera_3d);
         m_camera_3d = camera_3d;
         
@@ -175,6 +175,8 @@ namespace game
         
         glm::vec3 car_rotation = car->rotation;
         camera_3d->set_rotation(car_rotation.y - 90.f);
+        glm::vec3 car_position = car->position;
+        camera_3d->set_look_at(car_position);
         
         const auto car_parts_component = car->get_component<ces_car_parts_component>();
         car_parts_component->get_part(ces_car_parts_component::parts::k_ui_name_label)->visible = false;
@@ -250,7 +252,7 @@ namespace game
     
     void main_menu_scene::on_play_rewarded_video(gb::ces_entity_const_shared_ptr entity)
     {
-        advertisement_provider::shared_instance()->play_rewarded_video();
+       
     }
     
     void main_menu_scene::on_goto_net_menu_scene(gb::ces_entity_const_shared_ptr entity)

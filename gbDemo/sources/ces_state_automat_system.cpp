@@ -339,6 +339,11 @@ namespace game
                     ui_animation_helper::hide_to_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_leaderboard_label),
                                                       hide_progress);
                     
+                    ui_animation_helper::hide_to_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_controls_button),
+                                                      hide_progress);
+                    
+                    ui_animation_helper::hide_to_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_controls_label),
+                                                      hide_progress);
                     ui_animation_helper::hide_to_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_quit_game_button),
                                                       hide_progress);
                     
@@ -460,6 +465,8 @@ namespace game
                         
                         glm::vec3 main_car_rotation = main_car->rotation;
                         get_current_camera_3d()->set_rotation(main_car_rotation.y - 90.f);
+                        glm::vec3 main_car_position = main_car->position;
+                        get_current_camera_3d()->set_look_at(main_car_position);
                         
                         ui_menus_helper::create_main_menu_ui(root, gameplay_ui_fabricator, true);
                         
@@ -509,7 +516,9 @@ namespace game
                         car_parts_component->get_part(ces_car_parts_component::parts::k_ui_name_label)->visible = false;
                         
                         glm::vec3 main_car_rotation = main_car->rotation;
-                        get_current_camera_3d()->set_rotation(main_car_rotation.y + 45.f);
+                        get_current_camera_3d()->set_rotation(main_car_rotation.y - 90.f);
+                        glm::vec3 main_car_position = main_car->position;
+                        get_current_camera_3d()->set_look_at(main_car_position);
                         
                         ui_menus_helper::create_garage_menu_ui(root, gameplay_ui_fabricator, true);
                         
@@ -577,6 +586,8 @@ namespace game
                         
                         glm::vec3 main_car_rotation = main_car->rotation;
                         get_current_camera_3d()->set_rotation(main_car_rotation.y - 90.f);
+                        glm::vec3 main_car_position = main_car->position;
+                        get_current_camera_3d()->set_look_at(main_car_position);
                         
                         const auto box2d_body_component = main_car->get_component<gb::ces_box2d_body_component>();
                     
@@ -659,6 +670,11 @@ namespace game
                         ui_animation_helper::show_from_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_leaderboard_label),
                                                             show_progress);
                         
+                        ui_animation_helper::show_from_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_controls_button),
+                                                            show_progress);
+                        
+                        ui_animation_helper::show_from_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_controls_label),
+                                                            show_progress);
                         ui_animation_helper::show_from_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_quit_game_button),
                                                             show_progress);
                         

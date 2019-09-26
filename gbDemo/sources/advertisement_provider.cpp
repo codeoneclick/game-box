@@ -17,17 +17,22 @@ static NSString* k_gad_app_id = @"ca-app-pub-1553580872284996~3793679352";
 static NSString* k_ticket_reward_video_id = @"ca-app-pub-1553580872284996/9946409764";
 static NSString* k_banner_ad_id = @"ca-app-pub-1553580872284996/6778935345";
 static NSString* k_end_level_interstitial_video_id = @"ca-app-pub-1553580872284996/9222509122";
+static NSString* k_twice_cash_reward_video_id = @"ca-app-pub-1553580872284996/3605524786";
 
 @interface advertisement_provider_impl : NSObject<GADRewardBasedVideoAdDelegate, GADBannerViewDelegate, GADInterstitialDelegate>
 
 @property(nonatomic, unsafe_unretained) UINavigationController* m_root_navigation_controller;
 @property(nonatomic, unsafe_unretained) UIView* m_root_view;
-@property(nonatomic, strong) GADBannerView *m_banner_view;
-@property(nonatomic, strong) GADInterstitial *m_interstitial;
+@property(nonatomic, strong) GADBannerView* m_banner_view;
+@property(nonatomic, strong) GADInterstitial* m_interstitial;
+@property(nonatomic, strong) GADRewardBasedVideoAd* m_get_ticket_reward_video_ad;
+@property(nonatomic, strong) GADRewardBasedVideoAd* m_get_twice_cash_reward_video_ad;
+
 
 + (advertisement_provider_impl* )shared_instance;
 - (void)assign_root_navigation_controller:(UINavigationController*) root_navigation_controller;
-- (bool)play_rewarded_video;
+- (bool)play_get_ticket_reward_video;
+- (bool)play_get_twice_cash_reward_video;
 - (bool)play_interstitial_video;
 - (void)show_banner;
 - (void)hide_banner;
@@ -53,14 +58,18 @@ static NSString* k_end_level_interstitial_video_id = @"ca-app-pub-15535808722849
     {
         [GADMobileAds configureWithApplicationID:k_gad_app_id];
         
-        [GADRewardBasedVideoAd sharedInstance].delegate = self;
         GADRequest* request = [GADRequest request];
-        [[GADRewardBasedVideoAd sharedInstance] loadRequest:request
-                                               withAdUnitID:k_ticket_reward_video_id];
+        self.m_get_ticket_reward_video_ad = [[GADRewardBasedVideoAd alloc] init];
+        self.m_get_ticket_reward_video_ad.delegate = self;
+        [self.m_get_ticket_reward_video_ad loadRequest:request withAdUnitID:k_ticket_reward_video_id];
         
-        self->_m_interstitial = [[GADInterstitial alloc]
+        self.m_get_twice_cash_reward_video_ad = [[GADRewardBasedVideoAd alloc] init];
+        self.m_get_twice_cash_reward_video_ad.delegate = self;
+        [self.m_get_twice_cash_reward_video_ad loadRequest:request withAdUnitID:k_twice_cash_reward_video_id];
+     
+        self.m_interstitial = [[GADInterstitial alloc]
                                  initWithAdUnitID:k_end_level_interstitial_video_id];
-        self->_m_interstitial.delegate = self;
+        self.m_interstitial.delegate = self;
         request = [GADRequest request];
         [self->_m_interstitial loadRequest:request];
         
@@ -79,12 +88,23 @@ static NSString* k_end_level_interstitial_video_id = @"ca-app-pub-15535808722849
     self->_m_root_view = view;
 }
 
-- (bool)play_rewarded_video
+- (bool)play_get_ticket_reward_video
 {
     bool result = false;
-    if ([[GADRewardBasedVideoAd sharedInstance] isReady])
+    if ([self.m_get_ticket_reward_video_ad isReady])
     {
-        [[GADRewardBasedVideoAd sharedInstance] presentFromRootViewController:self->_m_root_navigation_controller];
+        [self.m_get_ticket_reward_video_ad presentFromRootViewController:self->_m_root_navigation_controller];
+        result = true;
+    }
+    return result;
+}
+
+- (bool)play_get_twice_cash_reward_video
+{
+    bool result = false;
+    if ([self.m_get_twice_cash_reward_video_ad isReady])
+    {
+        [self.m_get_twice_cash_reward_video_ad presentFromRootViewController:self->_m_root_navigation_controller];
         result = true;
     }
     return result;
@@ -132,18 +152,24 @@ static NSString* k_end_level_interstitial_video_id = @"ca-app-pub-15535808722849
 
 - (void)rewardBasedVideoAd:(GADRewardBasedVideoAd *)rewardBasedVideoAd didRewardUserWithReward:(GADAdReward *)reward
 {
-    NSString *reward_message = [NSString stringWithFormat:@"Reward received with currency %@ , amount %lf", reward.type, [reward.amount doubleValue]];
+    NSString *reward_message = [NSString stringWithFormat:@"reward received with currency %@ , amount %lf", reward.type, [reward.amount doubleValue]];
     NSLog(@"%@", reward_message);
-    auto callback = game::advertisement_provider::shared_instance()->get_on_reward_video_viewed();
-    if (callback)
-    {
-        callback();
-    }
     
-    callback = game::advertisement_provider::shared_instance()->get_on_video_ended();
-    if (callback)
+    if (self.m_get_ticket_reward_video_ad == rewardBasedVideoAd)
     {
-        callback();
+        auto callback = game::advertisement_provider::shared_instance()->get_on_ticket_reward_video_viewed();
+        if (callback)
+        {
+            callback();
+        }
+    }
+    else if (self.m_get_twice_cash_reward_video_ad == rewardBasedVideoAd)
+    {
+        auto callback = game::advertisement_provider::shared_instance()->get_on_twice_cash_reward_video_viewed();
+        if (callback)
+        {
+            callback();
+        }
     }
 }
 
@@ -171,8 +197,14 @@ static NSString* k_end_level_interstitial_video_id = @"ca-app-pub-15535808722849
 {
     NSLog(@"Reward based video ad is closed.");
     GADRequest* request = [GADRequest request];
-    [[GADRewardBasedVideoAd sharedInstance] loadRequest:request
-                                           withAdUnitID:k_ticket_reward_video_id];
+    if (self.m_get_ticket_reward_video_ad == rewardBasedVideoAd)
+    {
+        [self.m_get_ticket_reward_video_ad loadRequest:request withAdUnitID:k_ticket_reward_video_id];
+    }
+    else if (self.m_get_twice_cash_reward_video_ad == rewardBasedVideoAd)
+    {
+         [self.m_get_twice_cash_reward_video_ad loadRequest:request withAdUnitID:k_twice_cash_reward_video_id];
+    }
     
     auto callback = game::advertisement_provider::shared_instance()->get_on_video_ended();
     if (callback)
@@ -287,12 +319,24 @@ namespace game
         
     }
     
-    bool advertisement_provider::play_rewarded_video()
+    bool advertisement_provider::play_get_ticket_reward_video()
     {
         
 #if defined(__IOS__)
         
-        return [[advertisement_provider_impl shared_instance] play_rewarded_video];
+        return [[advertisement_provider_impl shared_instance] play_get_ticket_reward_video];
+        
+#endif
+        
+        return false;
+    }
+    
+    bool advertisement_provider::play_get_twice_cash_reward_video()
+    {
+        
+#if defined(__IOS__)
+        
+        return [[advertisement_provider_impl shared_instance] play_get_twice_cash_reward_video];
         
 #endif
         
@@ -343,14 +387,24 @@ namespace game
         return false;
     }
     
-    void advertisement_provider::set_on_reward_video_viewed(const std::function<void()>& callback)
+    void advertisement_provider::set_on_ticket_reward_video_viewed(const std::function<void()>& callback)
     {
-        m_on_reward_video_viewed = callback;
+        m_on_ticket_reward_video_viewed = callback;
     }
     
-    const std::function<void()> advertisement_provider::get_on_reward_video_viewed() const
+    const std::function<void()> advertisement_provider::get_on_ticket_reward_video_viewed() const
     {
-        return m_on_reward_video_viewed;
+        return m_on_ticket_reward_video_viewed;
+    }
+    
+    void advertisement_provider::set_on_twice_cash_reward_video_viewed(const std::function<void()>& callback)
+    {
+        m_on_twice_cash_reward_video_viewed = callback;
+    }
+    
+    const std::function<void()> advertisement_provider::get_on_twice_cash_reward_video_viewed() const
+    {
+        return m_on_twice_cash_reward_video_viewed;
     }
     
     void advertisement_provider::set_on_video_ended(const std::function<void()>& callback)

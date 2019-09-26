@@ -75,7 +75,7 @@ namespace game
         
     }
     
-    void ces_car_simulator_system::update_car(const gb::ces_entity_shared_ptr& entity, f32 dt, bool is_input_updated, f32 throttle, f32 steer_angle, f32 brake)
+    void ces_car_simulator_system::update_car(const gb::ces_entity_shared_ptr& entity, f32 dt, f32 throttle, f32 steer_angle, f32 brake)
     {
         const auto car_model_component = entity->get_component<ces_car_model_component>();
         const auto car_descriptor_component = entity->get_component<ces_car_descriptor_component>();
@@ -102,10 +102,7 @@ namespace game
         bool has_dir = false;
         bool has_steer = false;
         
-        bool input_updated = is_input_updated;
         car_descriptor_component->brake = brake;
-        if (input_updated)
-        {
             if (glm::fixup(throttle) > 0.f)
             {
                 if (throttle < max_force)
@@ -151,7 +148,6 @@ namespace game
                 
                 has_steer = true;
             }
-        }
         
         if (!has_dir)
         {
@@ -389,15 +385,13 @@ namespace game
     void ces_car_simulator_system::update_main_car(const gb::ces_entity_shared_ptr& entity, f32 dt)
     {
         const auto car_input_component = entity->get_component<ces_car_input_component>();
-        update_car(entity, dt, car_input_component->updated,
-                   car_input_component->throttle, car_input_component->steer_angle, car_input_component->brake);
+        update_car(entity, dt, car_input_component->throttle, car_input_component->steer_angle, car_input_component->brake);
     }
     
     void ces_car_simulator_system::update_ai_car(const gb::ces_entity_shared_ptr& entity, f32 dt)
     {
         const auto car_ai_input_component = entity->get_component<ces_car_ai_input_component>();
-        update_car(entity, dt, car_ai_input_component->updated,
-                   car_ai_input_component->throttle, car_ai_input_component->steer_angle, car_ai_input_component->brake);
+        update_car(entity, dt, car_ai_input_component->throttle, car_ai_input_component->steer_angle, car_ai_input_component->brake);
     }
     
     void ces_car_simulator_system::update_car_drift_state(const gb::ces_entity_shared_ptr& entity)

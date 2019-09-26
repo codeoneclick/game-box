@@ -56,6 +56,7 @@ namespace gb
         id<MTLDevice> mtl_device_raw = (__bridge id<MTLDevice>)mtl_device_wrapper->get_mtl_raw_device_ptr();
         id<MTLLibrary> mtl_library_raw =  (__bridge id<MTLLibrary>)mtl_device_wrapper->get_mtl_raw_library_ptr();
         const auto mtl_render_pass_descriptor_wrapper = mtl_device_wrapper->get_current_render_pass_descriptor();
+    
         MTLVertexDescriptor* mtl_vertex_descriptor = (__bridge MTLVertexDescriptor*)vertex_descriptor->get_mtl_vertex_descriptor_ptr();
         
         std::string shader_guid = material_parameters->get_shader()->get_guid();
@@ -68,8 +69,7 @@ namespace gb
         
         m_render_pipeline_state_descriptor = [[MTLRenderPipelineDescriptor alloc] init];
         
-        [m_render_pipeline_state_descriptor setRasterSampleCount:mtl_device_wrapper->get_samples_count()];
-        [m_render_pipeline_state_descriptor setSampleCount:mtl_device_wrapper->get_samples_count()];
+        [m_render_pipeline_state_descriptor setRasterSampleCount:mtl_render_pass_descriptor_wrapper->get_samples_count()];
         
         [m_render_pipeline_state_descriptor setVertexFunction:m_vertex_program];
         [m_render_pipeline_state_descriptor setFragmentFunction:m_fragment_program];

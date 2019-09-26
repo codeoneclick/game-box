@@ -40,6 +40,9 @@ namespace gb
         
         virtual void bind() = 0;
         virtual void unbind() = 0;
+        
+        virtual std::string get_name() const = 0;
+        virtual i32 get_samples_count() const = 0;
     };
     
     class mtl_render_pass_descriptor : public std::enable_shared_from_this<mtl_render_pass_descriptor>
@@ -77,6 +80,9 @@ namespace gb
         
         void bind();
         void unbind();
+        
+        std::string get_name() const;
+        i32 get_samples_count() const;
     };
 };
 

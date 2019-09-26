@@ -157,7 +157,7 @@ namespace game
             product_price_label->create();
             product_price_label->size = glm::vec2(24.f, 24.f);
             product_price_label->set_text("0.99$");
-            product_price_label->set_font_mode(gb::ces_font_component::e_font_mode_edge);
+            product_price_label->set_font_mode(gb::ces_font_component::e_font_mode_regular);
             product_price_label->set_font_name("spincycle.otf");
             product_price_label->position = glm::vec2(180.f, 60.f);
             product_price_label->set_text_color(gameplay_ui_fabricator::k_control_text_color);

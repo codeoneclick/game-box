@@ -89,8 +89,7 @@ namespace gb
                 break;
         }
         assert(context != nullptr);
-        context->m_touch_area_size = glm::ivec2(window->get_width(),
-                                                window->get_height());
+        context->m_touch_area_size = window->get_resolution_size_in_points();
         return context;
     }
     

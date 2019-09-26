@@ -26,8 +26,8 @@ namespace gb
         
 #if USED_GRAPHICS_API != NO_GRAPHICS_API
 
-        input_context_shared_ptr m_input_context;
-
+        input_context_shared_ptr m_input_context = nullptr;
+        window_impl_shared_ptr m_window = nullptr;
 #endif
         
     protected:
@@ -40,16 +40,9 @@ namespace gb
         configuration_accessor_shared_ptr m_configuration_accessor;
         resource_accessor_shared_ptr m_resource_accessor;
         
-#if USED_GRAPHICS_API != NO_GRAPHICS_API
-
-        i32 m_screen_width;
-        i32 m_screen_height;
-
-#endif
-        
     public:
         
-        game_transition(const std::string& guid, bool is_offscreen);
+        game_transition(const std::string& guid, const window_impl_shared_ptr& window, bool is_offscreen);
         virtual ~game_transition();
         
         void on_activated(const graphics_context_shared_ptr& graphics_context,
@@ -78,9 +71,7 @@ namespace gb
 #if USED_GRAPHICS_API != NO_GRAPHICS_API
         
         input_context_shared_ptr get_input_context() const;
-        
-        i32 get_screen_width() const;
-        i32 get_screen_height() const;
+        window_impl_shared_ptr get_window() const;
 
 #endif
         

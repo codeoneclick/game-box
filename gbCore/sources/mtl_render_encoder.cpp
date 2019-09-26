@@ -118,6 +118,10 @@ namespace gb
     void mtl_render_encoder_impl::set_texture(const mtl_texture_shared_ptr& texture, ui32 index)
     {
         id<MTLTexture> mtl_raw_texture = (__bridge id<MTLTexture>)texture->get_mtl_raw_texture_ptr();
+        if ([mtl_raw_texture mipmapLevelCount] > 1 && !texture->get_is_mipmaps_generated())
+        {
+            gb::mtl_device::get_instance()->generate_mipmaps(texture);
+        }
         [m_render_encoder setFragmentTexture:mtl_raw_texture atIndex:index];
     }
     

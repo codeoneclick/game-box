@@ -51,6 +51,9 @@ namespace game
         static void push_unlock_car_dialog(const gb::ces_entity_shared_ptr& root);
         static void pop_unlock_car_dialog();
         
+        static void push_controls_dialog(const gb::ces_entity_shared_ptr& root);
+        static void pop_controls_dialog();
+        
     protected:
         
     public:

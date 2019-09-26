@@ -24,7 +24,7 @@ namespace game
         
     public:
         
-        main_menu_transition(const std::string& guid, bool is_offscreen);
+        main_menu_transition(const std::string& guid,  const gb::window_impl_shared_ptr& window, bool is_offscreen);
         ~main_menu_transition();
     };
 };

@@ -51,7 +51,7 @@ namespace gb
         m_texture_descriptor = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:pixel_format
                                                                                   width:width
                                                                                  height:height
-                                                                              mipmapped:NO];
+                                                                              mipmapped:YES];
         m_texture = [mtl_raw_device newTextureWithDescriptor:m_texture_descriptor];
         
         if (pixels)
@@ -132,6 +132,16 @@ namespace gb
     void* mtl_texture::get_mtl_raw_texture_ptr() const
     {
         return impl_as<mtl_texture_impl>()->get_mtl_raw_texture_ptr();
+    }
+
+    void mtl_texture::set_mipmaps_generated(bool value)
+    {
+        m_is_mipmaps_generated = value;
+    }
+
+    bool mtl_texture::get_is_mipmaps_generated() const
+    {
+        return m_is_mipmaps_generated;
     }
 }
 

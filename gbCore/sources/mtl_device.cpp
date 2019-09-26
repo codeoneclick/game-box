@@ -8,6 +8,7 @@
 
 #include "mtl_device.h"
 #include "mtl_render_pass_descriptor.h"
+#include "mtl_texture.h"
 
 #if USED_GRAPHICS_API == METAL_API
 
@@ -51,6 +52,8 @@
 - (id<MTLCommandBuffer>)get_ws_command_buffer;
 - (id<MTLCommandBuffer>)get_ss_command_buffer;
 - (id<MTLCommandBuffer>)get_output_command_buffer;
+
+- (void)generate_mipmaps: (id<MTLTexture>) texture;
 
 @end
 
@@ -241,6 +244,20 @@
     return command_buffer;
 }
 
+- (void)generate_mipmaps: (id<MTLTexture>) texture
+{
+    //[texture mipmapLevelCount]
+    id<MTLCommandQueue> command_queue = [_m_device newCommandQueue];
+    id<MTLCommandBuffer> command_buffer = [command_queue commandBuffer];
+    id<MTLBlitCommandEncoder> command_encoder = [command_buffer blitCommandEncoder];
+    [command_encoder generateMipmapsForTexture:texture];
+    [command_encoder endEncoding];
+    [command_buffer addCompletedHandler:^(id<MTLCommandBuffer> buffer) {
+
+    }];
+    [command_buffer commit];
+}
+
 @end
 
 namespace gb
@@ -276,6 +293,8 @@ namespace gb
         
         ui64 get_color_pixel_format() const override;
         ui64 get_depth_stencil_pixel_format() const override;
+        
+        void generate_mipmaps(const mtl_texture_shared_ptr& texture) override;
         
         void bind() override;
         void unbind() override;
@@ -392,6 +411,12 @@ namespace gb
         
         id<MTLTexture> depth_stencil_attachment = m_hwnd.depthStencilTexture;
         return (__bridge void*)depth_stencil_attachment;
+    }
+
+    void mtl_device_impl::generate_mipmaps(const mtl_texture_shared_ptr& texture)
+    {
+        [[mtl_device_wrapper shared_instance] generate_mipmaps:(__bridge id<MTLTexture>)texture->get_mtl_raw_texture_ptr()];
+        texture->set_mipmaps_generated(true);
     }
     
     void mtl_device_impl::bind()
@@ -517,6 +542,11 @@ namespace gb
     mtl_render_pass_descriptor_shared_ptr mtl_device::get_current_render_pass_descriptor() const
     {
         return m_current_render_pass_descriptor;
+    }
+
+    void mtl_device::generate_mipmaps(const mtl_texture_shared_ptr& texture)
+    {
+        impl_as<mtl_device_impl>()->generate_mipmaps(texture);
     }
 }
 

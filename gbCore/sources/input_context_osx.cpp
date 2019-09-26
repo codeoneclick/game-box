@@ -14,6 +14,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import <QuartzCore/CVDisplayLink.h>
+#import <Carbon/Carbon.h>
 
 @interface input_hwnd : NSView
 
@@ -33,11 +34,13 @@
     return self;
 }
 
+- (BOOL)acceptsFirstResponder
+{
+    return YES;
+}
+
 - (void)mouseDown:(NSEvent*)event
 {
-    [[self window] setAcceptsMouseMovedEvents:YES];
-    [[self window] makeFirstResponder:self];
-    
     CGPoint point = [self convertPoint:[event locationInWindow] fromView:nil];
     glm::ivec2 current_touch_point = glm::ivec2(point.x, self.frame.size.height - point.y);
     self.m_context->gr_pressed(current_touch_point, self.m_context->get_touch_area_size(), gb::e_input_source_mouse_left, 0);
@@ -46,9 +49,6 @@
 
 - (void)rightMouseDown:(NSEvent *)event;
 {
-    [[self window] setAcceptsMouseMovedEvents:YES];
-    [[self window] makeFirstResponder:self];
-    
     CGPoint point = [self convertPoint:[event locationInWindow] fromView:nil];
     glm::ivec2 current_touch_point = glm::ivec2(point.x, self.frame.size.height - point.y);
     self.m_context->gr_pressed(current_touch_point, self.m_context->get_touch_area_size(), gb::e_input_source_mouse_right, 0);
@@ -100,14 +100,12 @@
 
 - (void)keyDown:(NSEvent *)event
 {
-    unichar key = [[event charactersIgnoringModifiers] characterAtIndex:0];
-    self.m_context->key_down(key);
+    self.m_context->key_down(event.keyCode);
 }
 
 - (void)keyUp:(NSEvent *)event
 {
-    unichar key = [[event charactersIgnoringModifiers] characterAtIndex:0];
-    self.m_context->key_up(key);
+    self.m_context->key_up(event.keyCode);
 }
 
 @end
@@ -140,6 +138,7 @@ namespace gb
         input_view.frame = CGRectMake(0.f, 0.f,
                                       view.frame.size.width, view.frame.size.height);
         [view addSubview:input_view];
+        [input_view becomeFirstResponder];
     }
     
     input_context_osx::~input_context_osx()

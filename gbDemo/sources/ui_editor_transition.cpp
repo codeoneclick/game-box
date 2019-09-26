@@ -4,8 +4,8 @@
 
 namespace game
 {
-	ui_editor_transition::ui_editor_transition(const std::string& guid, bool is_offscreen) :
-		game_transition(guid, is_offscreen)
+	ui_editor_transition::ui_editor_transition(const std::string& guid, const gb::window_impl_shared_ptr& window, bool is_offscreen) :
+		game_transition(guid, window, is_offscreen)
 	{
 
 	}

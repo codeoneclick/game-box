@@ -12,6 +12,12 @@
 
 #include <Cocoa/Cocoa.h>
 
+#if USED_GRAPHICS_API == METAL_API
+
+#import <MetalKit/MetalKit.h>
+
+#endif
+
 namespace gb
 {
     window_impl::window_impl(void* hwnd) :
@@ -30,18 +36,38 @@ namespace gb
         return m_hwnd;
     }
     
-    ui32 window_impl::get_width() const
+    glm::ivec2 window_impl::get_resolution_size_in_pixels()
     {
-        assert(m_hwnd != nullptr);
-        const NSOpenGLView *hwnd = (__bridge NSOpenGLView *)m_hwnd;
-        return static_cast<ui32>(hwnd.frame.size.width);
+        NSRect frame = [[NSScreen mainScreen] visibleFrame];
+        
+    #if defined(DEBUG)
+        
+        frame.origin.x = frame.size.width * 0.25 * 0.5;
+        frame.origin.y = frame.size.height * 0.25;
+        frame.size.width *= 0.75;
+        frame.size.height *= 0.75;
+        
+    #endif
+        
+        return glm::ivec2(frame.size.width,
+                          frame.size.height);
     }
-    
-    ui32 window_impl::get_height() const
+
+    glm::ivec2 window_impl::get_resolution_size_in_points()
     {
-        assert(m_hwnd != nullptr);
-        const NSOpenGLView* hwnd = (__bridge NSOpenGLView *)m_hwnd;
-        return static_cast<ui32>(hwnd.frame.size.height);
+            NSRect frame = [[NSScreen mainScreen] visibleFrame];
+            
+        #if defined(DEBUG)
+            
+            frame.origin.x = frame.size.width * 0.25 * 0.5;
+            frame.origin.y = frame.size.height * 0.25;
+            frame.size.width *= 0.75;
+            frame.size.height *= 0.75;
+            
+        #endif
+        
+        return glm::ivec2(frame.size.width,
+                          frame.size.height);
     }
 }
 

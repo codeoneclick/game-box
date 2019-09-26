@@ -510,8 +510,8 @@ namespace gb
     {
         material_shared_ptr material = std::make_shared<gb::material>();
         assert(configuration);
-        
         material->m_technique_name = configuration->get_technique_name();
+        material->m_parameters->set_technique_name(configuration->get_technique_name());
         
         material->set_culling(configuration->get_culling());
         material->set_culling_mode(configuration->get_culling_mode());

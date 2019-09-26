@@ -42,7 +42,7 @@
         min_filter="GL_LINEAR"/>
         <texture
         is_cubemap = "0"
-        filename="retro_car_08_body_color_mask.png"
+        filename="retro_car_8_body_color_mask.png"
         render_operation_name=""
         sampler_index="2"
         wrap_mode="GL_CLAMP_TO_EDGE"
@@ -50,7 +50,7 @@
         min_filter="GL_LINEAR"/>
         <texture
         is_cubemap = "0"
-        filename="retro_car_08_windows_color_mask.png"
+        filename="retro_car_8_windows_color_mask.png"
         render_operation_name=""
         sampler_index="3"
         wrap_mode="GL_CLAMP_TO_EDGE"
