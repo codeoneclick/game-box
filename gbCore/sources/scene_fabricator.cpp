@@ -27,24 +27,18 @@
 #include "shape_3d.h"
 #include "label.h"
 #include "label_3d.h"
-#include "heightmap.h"
 #include "light_source_2d.h"
-#include "heightmap_mmap.h"
 #include "ces_geometry_component.h"
 #include "ces_material_extension.h"
 #include "ces_animation_3d_mixer_component.h"
 #include "ces_animation_3d_mask_component.h"
 #include "ces_skeleton_3d_component.h"
 #include "ces_geometry_3d_component.h"
-#include "ces_heightmap_container_component.h"
-#include "ces_heightmap_configuration_component.h"
-#include "ces_heightmap_accessor_component.h"
 #include "mesh_3d.h"
 #include "mesh_3d_loading_operation.h"
 #include "animation_3d_sequence.h"
 #include "ces_animation_3d_system.h"
 #include "animation_3d_sequence_loading_operation.h"
-#include "ces_heightmap_chunks_component.h"
 #include "deferred_point_light_3d.h"
 #include "deferred_spot_light_3d.h"
 #include "particle_emitter.h"
@@ -328,32 +322,6 @@ namespace gb
             }
         }
         return shape_3d;
-    }
-    
-    heightmap_shared_ptr scene_fabricator::create_heightmap(const std::string& filename)
-    {
-        auto heightmap_configuration = std::static_pointer_cast<gb::heightmap_configuration>(m_configuration_accessor->get_heightmap_configuration(filename));
-        heightmap_shared_ptr heightmap = nullptr;
-        if(heightmap_configuration)
-        {
-            heightmap = ces_entity::construct<gb::heightmap>();
-            auto heightmap_mmap = std::make_shared<gb::heightmap_mmap>(heightmap_configuration->get_heightmap_data_filename());
-            
-            const auto& heightmap_container_component = heightmap->get_component<ces_heightmap_container_component>();
-            heightmap_container_component->setup(heightmap_mmap, glm::ivec2(heightmap_configuration->get_heightmap_chunk_size_x(),
-                                                                            heightmap_configuration->get_heightmap_chunk_size_y()));
-            
-            const auto& heightmap_configuration_component = heightmap->get_component<ces_heightmap_configuration_component>();
-            heightmap_configuration_component->setup(heightmap_configuration->get_splatting_diffuse_texture_preprocessing_material_filename(),
-                                                     heightmap_configuration->get_heightmap_chunk_material_filename());
-            
-            const auto& heightmap_accessor_component = heightmap->get_component<ces_heightmap_accessor_component>();
-            heightmap_accessor_component->setup(heightmap_mmap);
-            
-            const auto& heightmap_chunks_component = heightmap->get_component<ces_heightmap_chunks_component>();
-            heightmap_chunks_component->setup(heightmap_container_component->get_chunks_count());
-        }
-        return heightmap;
     }
     
     deferred_point_light_3d_shared_ptr scene_fabricator::create_deferred_point_light_3d(const std::string& filename)

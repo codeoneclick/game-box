@@ -9,7 +9,6 @@
 #pragma once
 
 #include "ces_base_component.h"
-#include "heightmap_mmap.h"
 
 namespace gb
 {

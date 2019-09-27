@@ -27,7 +27,7 @@ namespace gb
     {
         assert(m_hwnd != nullptr);
         const MTKView* _hwnd = (__bridge MTKView*)m_hwnd;
-        std::cout<<"[resolution in pixels] : "<<_hwnd.drawableSize.width * .5f<<", "<<_hwnd.drawableSize.height * .5f<<std::endl;
+        std::cout<<"[resolution in pixels] : "<<_hwnd.drawableSize.width<<", "<<_hwnd.drawableSize.height<<" scale: "<<_hwnd.contentScaleFactor<<std::endl;
     }
     
     window_impl::~window_impl()
@@ -44,13 +44,20 @@ namespace gb
     {
         assert(m_hwnd != nullptr);
         const MTKView* hwnd = (__bridge MTKView*)m_hwnd;
-        return glm::ivec2(hwnd.drawableSize.width * .5f, hwnd.drawableSize.height * .5f);
+        auto screen_resolution = glm::ivec2(hwnd.drawableSize.width, hwnd.drawableSize.height);
+        if (screen_resolution.x > 2000.f)
+        {
+            screen_resolution.x *= 0.5f;
+            screen_resolution.y *= 0.5f;
+        }
+        return screen_resolution;
     }
 
     glm::ivec2 window_impl::get_resolution_size_in_points()
     {
-        return glm::ivec2([[UIScreen mainScreen] bounds].size.width,
-                          [[UIScreen mainScreen] bounds].size.height);
+        const auto screen_bounds = glm::ivec2([[UIScreen mainScreen] bounds].size.width,
+                                              [[UIScreen mainScreen] bounds].size.height);
+        return glm::ivec2(960, 960 * (static_cast<f32>(screen_bounds.y) / static_cast<f32>(screen_bounds.x)));
     }
 }
 

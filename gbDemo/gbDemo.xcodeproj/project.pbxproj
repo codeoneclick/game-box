@@ -1959,7 +1959,6 @@
 		F3729BE71DC5194D0025952A /* material.joystick_background.ui.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3729BE31DC519450025952A /* material.joystick_background.ui.xml */; };
 		F3729BE81DC5194D0025952A /* material.joystick_button.ui.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3729BE41DC519450025952A /* material.joystick_button.ui.xml */; };
 		F373BF051DFAC364008DF5B8 /* libgbNetwork-osx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F373BD4A1DFAC28D008DF5B8 /* libgbNetwork-osx.a */; };
-		F373BF081DFAC373008DF5B8 /* libgbNetwork-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F373BD481DFAC28D008DF5B8 /* libgbNetwork-ios.a */; };
 		F38068E61F25C1AB00AE1D67 /* ces_interaction_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F38068E41F25C1AB00AE1D67 /* ces_interaction_system.cpp */; };
 		F38068E71F25C1AB00AE1D67 /* ces_interaction_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F38068E41F25C1AB00AE1D67 /* ces_interaction_system.cpp */; };
 		F38068E81F25C1AB00AE1D67 /* ces_interaction_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F38068E41F25C1AB00AE1D67 /* ces_interaction_system.cpp */; };
@@ -2238,13 +2237,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 218B72471BFF59CD00C20CD6;
 			remoteInfo = "gbNetwork-osx";
-		};
-		F373BF061DFAC36C008DF5B8 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F373BD411DFAC28D008DF5B8 /* gbNetwork.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 218B72331BFF58D300C20CD6;
-			remoteInfo = "gbNetwork-ios";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -3129,7 +3121,6 @@
 				F34D14A51F2F314300208CFF /* libgb_database-ios.a in Frameworks */,
 				F36BF1E41EE16353007DE9E9 /* libgb_sound-ios.a in Frameworks */,
 				926F26792269FF3C004659CC /* OpenAL.framework in Frameworks */,
-				F373BF081DFAC373008DF5B8 /* libgbNetwork-ios.a in Frameworks */,
 				92A2D15622CD3D230014A588 /* FBSDKLoginKit.framework in Frameworks */,
 				212B18D11B8234E100FFDCE7 /* libgbCore-ios.a in Frameworks */,
 				926F26772269FF37004659CC /* AudioToolbox.framework in Frameworks */,
@@ -4721,7 +4712,6 @@
 			dependencies = (
 				F34D14A41F2F313900208CFF /* PBXTargetDependency */,
 				F36BF1E31EE16347007DE9E9 /* PBXTargetDependency */,
-				F373BF071DFAC36C008DF5B8 /* PBXTargetDependency */,
 				21DA20951C46A7FE008AD536 /* PBXTargetDependency */,
 				212B18D01B8234DA00FFDCE7 /* PBXTargetDependency */,
 			);
@@ -7175,11 +7165,6 @@
 			name = "gbNetwork-osx";
 			targetProxy = F373BF031DFAC359008DF5B8 /* PBXContainerItemProxy */;
 		};
-		F373BF071DFAC36C008DF5B8 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "gbNetwork-ios";
-			targetProxy = F373BF061DFAC36C008DF5B8 /* PBXContainerItemProxy */;
-		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -7399,6 +7384,7 @@
 				CURRENT_PROJECT_VERSION = 20;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = R75F335JW3;
+				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/libraries/facebook",
@@ -7481,6 +7467,7 @@
 				COMPRESS_PNG_FILES = NO;
 				CURRENT_PROJECT_VERSION = 20;
 				DEVELOPMENT_TEAM = R75F335JW3;
+				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/libraries/facebook",

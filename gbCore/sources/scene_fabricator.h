@@ -50,7 +50,6 @@ namespace gb
         label_shared_ptr create_label_2d(const std::string& filename);
         label_3d_shared_ptr create_label_3d(const std::string& filename);
         light_source_2d_shared_ptr create_light_source_2d(const std::string& filename);
-        heightmap_shared_ptr create_heightmap(const std::string& filename);
         deferred_point_light_3d_shared_ptr create_deferred_point_light_3d(const std::string& filename);
         deferred_spot_light_3d_shared_ptr create_deferred_spot_light_3d(const std::string& filename);
         particle_emitter_shared_ptr create_particle_emitter(const std::string& filename);
