@@ -1190,60 +1190,13 @@ namespace game
     
     void gameplay_fabricator::customize_car(const gb::ces_entity_shared_ptr& car, const std::shared_ptr<ces_garage_database_component::garage_dto::car_dto>& car_data)
     {
-        i32 car_body_color_id = car_data->get_car_body_color_id();
-        i32 car_windshield_color_id = car_data->get_car_windows_color_id();
-        customize_car(car, car_body_color_id, car_windshield_color_id);
+        customize_car(car, car_data->get_car_main_color(), car_data->get_car_second_color());
     }
     
-    void gameplay_fabricator::customize_car(const gb::ces_entity_shared_ptr& car, i32 body_color_id, i32 windshield_color_id)
+    void gameplay_fabricator::customize_car(const gb::ces_entity_shared_ptr& car, const glm::u8vec4& main_color, const glm::u8vec4& second_color)
     {
-        switch (body_color_id)
-        {
-                case 1:
-                paint_car_body(car, ces_car_model_component::k_car_color_1);
-                break;
-                
-                case 2:
-                paint_car_body(car, ces_car_model_component::k_car_color_2);
-                break;
-                
-                case 3:
-                paint_car_body(car, ces_car_model_component::k_car_color_3);
-                break;
-                
-                case 4:
-                paint_car_body(car, ces_car_model_component::k_car_color_4);
-                break;
-                
-            default:
-                
-                paint_car_body(car, ces_car_model_component::k_car_color_1);
-                break;
-        }
-        
-        switch (windshield_color_id)
-        {
-                case 1:
-                paint_car_windows(car, ces_car_model_component::k_car_color_1);
-                break;
-                
-                case 2:
-                paint_car_windows(car, ces_car_model_component::k_car_color_2);
-                break;
-                
-                case 3:
-                paint_car_windows(car, ces_car_model_component::k_car_color_3);
-                break;
-                
-                case 4:
-                paint_car_windows(car, ces_car_model_component::k_car_color_4);
-                break;
-                
-            default:
-                
-                paint_car_windows(car, ces_car_model_component::k_car_color_1);
-                break;
-        }
+        paint_car_body(car, main_color);
+        paint_car_windows(car, second_color);
     }
     
     void gameplay_fabricator::paint_car_body(const gb::ces_entity_shared_ptr& car, const glm::u8vec4& color)

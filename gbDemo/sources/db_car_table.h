@@ -23,12 +23,15 @@ namespace game
         i32 m_is_openned;
         i32 m_is_bought;
         i32 m_price;
-        i32 m_car_skin_id;
-        i32 m_car_body_color_id;
-        i32 m_car_windows_color_id;
         i32 m_car_speed_upgrade;
         i32 m_car_handling_upgrade;
         i32 m_car_rigidity_upgrade;
+        i32 m_car_main_color_r;
+        i32 m_car_main_color_g;
+        i32 m_car_main_color_b;
+        i32 m_car_second_color_r;
+        i32 m_car_second_color_g;
+        i32 m_car_second_color_b;
         i32 m_revision;
     };
     

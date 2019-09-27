@@ -13,8 +13,8 @@ namespace game
     
     bool ces_car_descriptor_component::car_upgrade::is_equal(const std::shared_ptr<car_upgrade>& other)
     {
-        return m_car_body_color_id == other->m_car_body_color_id &&
-        m_car_windshield_color_id == other->m_car_windshield_color_id &&
+        return m_car_main_color == other->m_car_main_color &&
+        m_car_second_color == other->m_car_second_color &&
         fabsf(m_car_speed_upgrade_value - other->m_car_speed_upgrade_value) < .1f  &&
         fabsf(m_car_handling_upgrade_value - other->m_car_handling_upgrade_value) < .1f &&
         fabsf(m_car_rigidity_upgrade_value - other->m_car_rigidity_upgrade_value) < .1f;
@@ -22,8 +22,8 @@ namespace game
     
     void ces_car_descriptor_component::car_upgrade::apply(const std::shared_ptr<car_upgrade>& other)
     {
-        m_car_body_color_id = other->m_car_body_color_id;
-        m_car_windshield_color_id = other->m_car_windshield_color_id;
+        m_car_main_color = other->m_car_main_color;
+        m_car_second_color = other->m_car_second_color;
         m_car_speed_upgrade_value = other->m_car_speed_upgrade_value;
         m_car_handling_upgrade_value = other->m_car_handling_upgrade_value;
         m_car_rigidity_upgrade_value = other->m_car_rigidity_upgrade_value;

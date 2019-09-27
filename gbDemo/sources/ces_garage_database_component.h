@@ -36,8 +36,8 @@ namespace game
                 i32 m_is_openned;
                 i32 m_is_bought;
                 i32 m_price;
-                i32 m_car_body_color_id;
-                i32 m_car_windows_color_id;
+                glm::u8vec4 m_car_main_color;
+                glm::u8vec4 m_car_second_color;
                 i32 m_car_speed_upgrade;
                 i32 m_car_handling_upgrade;
                 i32 m_car_rigidity_upgrade;
@@ -53,8 +53,8 @@ namespace game
                 bool get_is_openned() const;
                 bool get_is_bought() const;
                 i32 get_price() const;
-                i32 get_car_body_color_id() const;
-                i32 get_car_windows_color_id() const;
+                glm::u8vec4 get_car_main_color() const;
+                glm::u8vec4 get_car_second_color() const;
                 f32 get_car_speed_upgrade() const;
                 f32 get_car_handling_upgrade() const;
                 f32 get_car_rigidity_upgrade() const;
@@ -113,7 +113,6 @@ namespace game
         
         void select_car(i32 garage_id, i32 car_id);
         std::shared_ptr<garage_dto::car_dto> get_selected_car(i32 garage_id);
-        void select_car_skin(i32 garage_id, i32 car_id, i32 car_skin_id);
     
         void open_car(i32 garage_id, i32 car_id);
         void close_car(i32 garage_id, i32 car_id);
@@ -137,8 +136,8 @@ namespace game
         i32 get_price_for_handling_upgrade(i32 garage_id, i32 car_id, f32 delta);
         i32 get_price_for_durability_upgrade(i32 garage_id, i32 car_id, f32 delta);
         
-        void set_car_body_color_id(i32 garage_id, i32 car_id, i32 color_id);
-        void set_car_windshield_color_id(i32 garage_id, i32 car_id, i32 color_id);
+        void set_car_main_color(i32 garage_id, i32 car_id, const glm::u8vec4& color);
+        void set_car_second_color(i32 garage_id, i32 car_id,  const glm::u8vec4& color);
         
         void upgrade_car_speed(i32 garage_id, i32 car_id, f32 delta);
         void upgrade_car_handling(i32 garage_id, i32 car_id, f32 delta);

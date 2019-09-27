@@ -283,38 +283,6 @@ namespace game
             ui_animation_helper::hide_to_left(std::static_pointer_cast<gb::ui::control>(zoom_label), 1.f);
         }
         
-        const auto apply_windows_color_1_button = gameplay_ui_fabricator->create_apply_windows_color_1_button("");
-        root->add_child(apply_windows_color_1_button);
-        if (hidden)
-        {
-            ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(apply_windows_color_1_button), 1.f);
-            apply_windows_color_1_button->visible = false;
-        }
-        
-        const auto apply_windows_color_2_button = gameplay_ui_fabricator->create_apply_windows_color_2_button("");
-        root->add_child(apply_windows_color_2_button);
-        if (hidden)
-        {
-            ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(apply_windows_color_2_button), 1.f);
-            apply_windows_color_2_button->visible = false;
-        }
-        
-        const auto apply_windows_color_3_button = gameplay_ui_fabricator->create_apply_windows_color_3_button("");
-        root->add_child(apply_windows_color_3_button);
-        if (hidden)
-        {
-            ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(apply_windows_color_3_button), 1.f);
-            apply_windows_color_3_button->visible = false;
-        }
-        
-        const auto apply_windows_color_4_button = gameplay_ui_fabricator->create_apply_windows_color_4_button("");
-        root->add_child(apply_windows_color_4_button);
-        if (hidden)
-        {
-            ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(apply_windows_color_4_button), 1.f);
-            apply_windows_color_4_button->visible = false;
-        }
-        
         const auto body_paint_label = gameplay_ui_fabricator->create_body_paint_label("");
         root->add_child(body_paint_label);
         if (hidden)
@@ -618,8 +586,8 @@ namespace game
             
             const auto car_descriptor_component = car->get_component<ces_car_descriptor_component>();
             const auto car_upgrade = car_descriptor_component->get_car_upgrade();
-            car_upgrade->m_car_body_color_id = selected_car_data->get_car_body_color_id();
-            car_upgrade->m_car_windshield_color_id = selected_car_data->get_car_windows_color_id();
+            car_upgrade->m_car_main_color = selected_car_data->get_car_main_color();
+            car_upgrade->m_car_second_color = selected_car_data->get_car_second_color();
             car_upgrade->m_car_speed_upgrade_value = selected_car_data->get_car_speed_upgrade();
             car_upgrade->m_car_handling_upgrade_value = selected_car_data->get_car_handling_upgrade();
             car_upgrade->m_car_rigidity_upgrade_value = selected_car_data->get_car_rigidity_upgrade();

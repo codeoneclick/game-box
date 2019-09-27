@@ -40,17 +40,49 @@ namespace game
         }
         
         
-        if (!is_column_exist("car_body_color_id"))
+        if (!is_column_exist("m_car_main_color_r"))
         {
-            if (!add_new_column("car_body_color_id"))
+            if (!add_new_column("m_car_main_color_r"))
             {
                 assert(false);
             }
         }
         
-        if (!is_column_exist("car_windows_color_id"))
+        if (!is_column_exist("m_car_main_color_g"))
         {
-            if (!add_new_column("car_windows_color_id"))
+            if (!add_new_column("m_car_main_color_g"))
+            {
+                assert(false);
+            }
+        }
+        
+        if (!is_column_exist("m_car_main_color_b"))
+        {
+            if (!add_new_column("m_car_main_color_b"))
+            {
+                assert(false);
+            }
+        }
+        
+        if (!is_column_exist("m_car_second_color_r"))
+        {
+            if (!add_new_column("m_car_second_color_r"))
+            {
+                assert(false);
+            }
+        }
+        
+        if (!is_column_exist("m_car_second_color_g"))
+        {
+            if (!add_new_column("m_car_second_color_g"))
+            {
+                assert(false);
+            }
+        }
+        
+        if (!is_column_exist("m_car_second_color_b"))
+        {
+            if (!add_new_column("m_car_second_color_b"))
             {
                 assert(false);
             }
@@ -101,7 +133,7 @@ namespace game
         memcpy(raw_data, &data, size);
         
         std::stringstream predicate;
-        predicate<<"insert or replace into cars(id, garage_id, is_openned, is_bought, price, car_skin_id, car_body_color_id, car_windows_color_id, car_speed_upgrade, car_handling_upgrade, car_rigidity_upgrade, revision, data) values("<<id<<","<<data.m_garage_id<<","<<data.m_is_openned<<","<<data.m_is_bought<<","<<data.m_price<<","<<data.m_car_skin_id<<","<<data.m_car_body_color_id<<","<<data.m_car_windows_color_id<<","<<data.m_car_speed_upgrade<<","<<data.m_car_handling_upgrade<<","<<data.m_car_rigidity_upgrade<<","<<data.m_revision<<",?);";
+        predicate<<"insert or replace into cars(id, garage_id, is_openned, is_bought, price, car_skin_id, car_body_color_id, car_windows_color_id, m_car_main_color_r, m_car_main_color_g, m_car_main_color_b, m_car_second_color_r, m_car_second_color_g, m_car_second_color_b, car_speed_upgrade, car_handling_upgrade, car_rigidity_upgrade, revision, data) values("<<id<<","<<data.m_garage_id<<","<<data.m_is_openned<<","<<data.m_is_bought<<","<<data.m_price<<","<<-1<<","<<-1<<","<<-1<<","<<data.m_car_main_color_r<<","<<data.m_car_main_color_g<<","<<data.m_car_main_color_b<<","<<data.m_car_second_color_r<<","<<data.m_car_second_color_g<<","<<data.m_car_second_color_b<<","<<data.m_car_speed_upgrade<<","<<data.m_car_handling_upgrade<<","<<data.m_car_rigidity_upgrade<<","<<data.m_revision<<",?);";
         bool result = m_database->insert(predicate.str(), raw_data, size, 1);
         return result;
     }

@@ -628,6 +628,29 @@ fragment half4 fragment_shader_shape_2d_texture_color(common_v_output_t in [[sta
 
 //
 
+vertex common_v_output_t vertex_shader_shape_2d_texture(common_v_input_t in [[stage_in]],
+                                                        constant common_u_input_t& uniforms [[buffer(1)]])
+{
+    common_v_output_t out;
+    
+    float4 in_position = float4(in.position, 1.0);
+    float4x4 mvp = get_mat_mvp(uniforms);
+    out.position = mvp * in_position;
+    out.color = in.color;
+    out.texcoord = in.texcoord;
+    
+    return out;
+}
+
+fragment half4 fragment_shader_shape_2d_texture(common_v_output_t in [[stage_in]],
+                                                texture2d<half> diffuse_texture [[texture(0)]])
+{
+    half4 color = diffuse_texture.sample(linear_sampler, in.texcoord);
+    return color;
+}
+
+//
+
 vertex common_v_output_t vertex_shader_particle_emitter(common_v_input_t in [[stage_in]],
                                                         constant common_u_input_t& uniforms [[buffer(1)]])
 {

@@ -503,8 +503,8 @@ namespace game
                         gameplay_fabricator->customize_car(main_car, selected_car);
                         const auto car_descriptor_component = main_car->get_component<ces_car_descriptor_component>();
                         const auto car_upgrade = car_descriptor_component->get_car_upgrade();
-                        car_upgrade->m_car_body_color_id = selected_car->get_car_body_color_id();
-                        car_upgrade->m_car_windshield_color_id = selected_car->get_car_windows_color_id();
+                        car_upgrade->m_car_main_color = selected_car->get_car_main_color();
+                        car_upgrade->m_car_second_color = selected_car->get_car_second_color();
                         car_upgrade->m_car_speed_upgrade_value = selected_car->get_car_speed_upgrade();
                         car_upgrade->m_car_handling_upgrade_value = selected_car->get_car_handling_upgrade();
                         car_upgrade->m_car_rigidity_upgrade_value = selected_car->get_car_rigidity_upgrade();
@@ -603,11 +603,16 @@ namespace game
                             const auto ai_car = gameplay_fabricator->create_ai_car(ai_car_configuration_filename.str());
                             gameplay_fabricator->place_car_on_level(level, ai_car, 1);
                             
-                            std::vector<i32> possible_colors = {1, 2, 3, 4};
-                            i32 body_color_index = possible_colors.at(std::get_random_i(0, 3));
-                            possible_colors[body_color_index - 1] = possible_colors.at((body_color_index + 1) % possible_colors.size());
-                            i32 windshield_color_index = possible_colors.at(std::get_random_i(0, 3));
-                            gameplay_fabricator->customize_car(ai_car, body_color_index, windshield_color_index);
+                            glm::u8vec4 main_color;
+                            glm::u8vec4 second_color;
+                            main_color.r = std::get_random_i(0, 255);
+                            main_color.g = std::get_random_i(0, 255);
+                            main_color.b = std::get_random_i(0, 255);
+                            second_color.r = std::get_random_i(0, 255);
+                            second_color.g = std::get_random_i(0, 255);
+                            second_color.b = std::get_random_i(0, 255);
+                            
+                            gameplay_fabricator->customize_car(ai_car, main_color, second_color);
                             root->add_child(ai_car);
                             box2d_body_component->add_to_contact_ignore_list(ai_car);
                             

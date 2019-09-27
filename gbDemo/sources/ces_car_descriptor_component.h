@@ -20,8 +20,8 @@ namespace game
         
         struct car_upgrade
         {
-            i32 m_car_body_color_id = 1;
-            i32 m_car_windshield_color_id = 1;
+            glm::u8vec4 m_car_main_color = glm::u8vec4(255);
+            glm::u8vec4 m_car_second_color = glm::u8vec4(0);
             f32 m_car_speed_upgrade_value = 0.f;
             f32 m_car_handling_upgrade_value = 0.f;
             f32 m_car_rigidity_upgrade_value = 0.f;

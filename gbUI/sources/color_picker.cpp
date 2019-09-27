@@ -17,12 +17,31 @@
 #include "glm_extensions.h"
 #include "ces_sound_component.h"
 #include "texture.h"
+#include "std_extensions.h"
 
 namespace gb
 {
     namespace ui
     {
         std::string color_picker::k_color_wheel_element_name = "color_wheel_element";
+    
+        std::pair<f32, f32> color_picker::get_HS_value(const glm::vec2& point, f32 radius)
+        {
+            f32 dx = (point.x - radius) / radius;
+            f32 dy = (point.y - radius) / radius;
+            f32 saturation = sqrt(dx * dx + dy * dy);
+            f32 hue = 0.f;
+            if (saturation != 0.f)
+            {
+                hue = acos(dx / saturation);
+                if (dy < 0.f)
+                {
+                    hue = M_PI * 2.f - hue;
+                }
+            }
+            
+            return std::make_pair(glm::degrees(hue), saturation);
+        }
         
         color_picker::color_picker(const scene_fabricator_shared_ptr& fabricator) :
         gb::ui::interaction_control(fabricator)
@@ -50,10 +69,44 @@ namespace gb
             m_elements[k_background_element_name] = background;
             add_child(background);
             
-            const auto color_wheel_texture = texture::construct("color_wheel_texture", 256, 256, gl::constant::rgba_t, nullptr);
+            m_rgba = new ui8[m_radius * m_radius * 4];
             
+            for (i32 y = 0; y < m_radius; ++y)
+            {
+                for (i32 x = 0; x < m_radius; ++x)
+                {
+                    f32 hue = 0.f;
+                    f32 saturation = 0.f;
+                    f32 r = 0.f; f32 g = 0.f; f32 b = 0.f;
+                    f32 a = 0.f;
+
+                    glm::vec2 point = glm::vec2(x, y);
+                    const auto value = get_HS_value(point, m_radius / 2.f);
+                    hue = value.first;
+                    saturation = value.second;
+                    if (saturation < 1.f)
+                    {
+                        if (saturation > .99f)
+                        {
+                            a = (1.f - saturation) * 100.f;
+                        }
+                        else
+                        {
+                            a = 1.f;
+                        }
+                        std::hsv_to_rgb(r, g, b, hue, saturation, 1.f);
+                    }
+                    i32 offset = 4 * (x + y * m_radius);
+                    m_rgba[offset] = glm::clamp(r * 255.f, 0.f, 255.f);
+                    m_rgba[offset + 1] = glm::clamp(g * 255.f, 0.f, 255.f);
+                    m_rgba[offset + 2] = glm::clamp(b * 255.f, 0.f, 255.f);
+                    m_rgba[offset + 3] = glm::clamp(a * 255.f, 0.f, 255.f);
+                }
+            }
+            
+            const auto color_wheel_texture = texture::construct("color_wheel_texture", m_radius, m_radius, gl::constant::rgba_t, m_rgba);
             control::get_fabricator()->get_resource_accessor()->add_custom_resource("color_wheel_texture", color_wheel_texture);
-            const auto color_wheel = control::get_fabricator()->create_sprite("button_image.xml", "color_wheel_texture");
+            const auto color_wheel = control::get_fabricator()->create_sprite("color_picker.xml", "color_wheel_texture");
             m_elements[k_color_wheel_element_name] = color_wheel;
             add_child(color_wheel);
             
@@ -73,7 +126,7 @@ namespace gb
             }
             else if(input_state == e_input_state_released)
             {
-            
+                on_color_select(touch_point);
             }
         }
         
@@ -83,7 +136,21 @@ namespace gb
                                        e_input_state input_state)
         {
             interaction_control::on_dragging(entity, touch_point, input_source, input_state);
-            
+            on_color_select(touch_point);
+        }
+    
+        void color_picker::set_callback(const callback_t& callback)
+        {
+            m_callback = callback;
+        }
+    
+        bool color_picker::is_callback_exist() const
+        {
+            return m_callback != nullptr;
+        }
+    
+        void color_picker::on_color_select(const glm::vec2& touch_point)
+        {
             glm::vec2 size = control::size;
             glm::mat4 mat_m = ces_transformation_extension::get_absolute_transformation_in_ws(shared_from_this());
             glm::vec2 min_bound = glm::transform(glm::vec2(0.f),
@@ -94,9 +161,19 @@ namespace gb
             
             if(glm::intersect(bound, touch_point))
             {
-                
+                glm::vec2 point = glm::vec2(touch_point.x - bound.x,
+                                            touch_point.y - bound.y);
+                i32 offset = 4 * (static_cast<i32>(point.x) + static_cast<i32>(point.y) * m_radius);
+                glm::u8vec4 color;
+                color.r = m_rgba[offset];
+                color.g = m_rgba[offset + 1];
+                color.b = m_rgba[offset + 2];
+                color.a = m_rgba[offset + 3];
+                if (m_callback && (color.r > 0 || color.g > 0 || color.b > 0))
+                {
+                    m_callback(color);
+                }
             }
-            
         }
     }
 }

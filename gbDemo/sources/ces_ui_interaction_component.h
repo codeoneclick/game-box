@@ -71,14 +71,8 @@ namespace game
             e_ui_back_from_garage_label,
             e_ui_shop_label,
             e_ui_garage_preview_button,
-            e_ui_apply_body_color_1_button,
-            e_ui_apply_body_color_2_button,
-            e_ui_apply_body_color_3_button,
-            e_ui_apply_body_color_4_button,
-            e_ui_apply_windows_color_1_button,
-            e_ui_apply_windows_color_2_button,
-            e_ui_apply_windows_color_3_button,
-            e_ui_apply_windows_color_4_button,
+            e_ui_body_paint_color_picker,
+            e_ui_windshield_paint_color_picker,
             e_ui_cash_label,
             e_ui_cash_plus_button,
             e_ui_body_paint_label,
@@ -154,15 +148,9 @@ namespace game
         static const i32 k_cash_shop_dialog_table_view;
         static const i32 k_cash_shop_ok_button;
         static const i32 k_body_paint_label;
-        static const i32 k_body_paint_color_1_button;
-        static const i32 k_body_paint_color_2_button;
-        static const i32 k_body_paint_color_3_button;
-        static const i32 k_body_paint_color_4_button;
+        static const i32 k_body_paint_color_picker;
         static const i32 k_windshield_paint_label;
-        static const i32 k_windshield_paint_color_1_button;
-        static const i32 k_windshield_paint_color_2_button;
-        static const i32 k_windshield_paint_color_3_button;
-        static const i32 k_windshield_paint_color_4_button;
+        static const i32 k_windshield_paint_color_picker;
         static const i32 k_speed_upgrade_label;
         static const i32 k_handling_upgrade_label;
         static const i32 k_durability_upgrade_label;

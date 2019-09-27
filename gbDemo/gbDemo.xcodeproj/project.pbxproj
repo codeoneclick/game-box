@@ -580,6 +580,12 @@
 		928B675C228D4B79003D9F58 /* ces_garage_database_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 928B675A228D4B79003D9F58 /* ces_garage_database_component.cpp */; };
 		928B675D228D4B79003D9F58 /* ces_garage_database_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 928B675A228D4B79003D9F58 /* ces_garage_database_component.cpp */; };
 		928B675E228D4B79003D9F58 /* ces_garage_database_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 928B675A228D4B79003D9F58 /* ces_garage_database_component.cpp */; };
+		92902B7F233DE8970018A398 /* material.color_picker.ui.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92902B7A233DE8970018A398 /* material.color_picker.ui.xml */; };
+		92902B80233DE8970018A398 /* material.color_picker.ui.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92902B7A233DE8970018A398 /* material.color_picker.ui.xml */; };
+		92902B81233DE8970018A398 /* material.color_picker.ui.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92902B7A233DE8970018A398 /* material.color_picker.ui.xml */; };
+		92902B83233DE8C50018A398 /* color_picker.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92902B82233DE8C50018A398 /* color_picker.xml */; };
+		92902B84233DE8C50018A398 /* color_picker.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92902B82233DE8C50018A398 /* color_picker.xml */; };
+		92902B85233DE8C50018A398 /* color_picker.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92902B82233DE8C50018A398 /* color_picker.xml */; };
 		9290953522C35A3B005097DC /* ui_cart.png in Resources */ = {isa = PBXBuildFile; fileRef = 9290952F22C35A3B005097DC /* ui_cart.png */; };
 		9290953622C35A3B005097DC /* ui_cart.png in Resources */ = {isa = PBXBuildFile; fileRef = 9290952F22C35A3B005097DC /* ui_cart.png */; };
 		9290953722C35A3B005097DC /* ui_cart.png in Resources */ = {isa = PBXBuildFile; fileRef = 9290952F22C35A3B005097DC /* ui_cart.png */; };
@@ -2540,6 +2546,8 @@
 		928B6756228D47D6003D9F58 /* db_car_table.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = db_car_table.h; path = sources/db_car_table.h; sourceTree = "<group>"; };
 		928B675A228D4B79003D9F58 /* ces_garage_database_component.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ces_garage_database_component.cpp; path = sources/ces_garage_database_component.cpp; sourceTree = "<group>"; };
 		928B675B228D4B79003D9F58 /* ces_garage_database_component.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ces_garage_database_component.h; path = sources/ces_garage_database_component.h; sourceTree = "<group>"; };
+		92902B7A233DE8970018A398 /* material.color_picker.ui.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.color_picker.ui.xml; path = ../gbBundle/Configurations/ui_elements/materials/material.color_picker.ui.xml; sourceTree = "<group>"; };
+		92902B82233DE8C50018A398 /* color_picker.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = color_picker.xml; path = ../gbBundle/Configurations/ui_elements/color_picker.xml; sourceTree = "<group>"; };
 		9290952F22C35A3B005097DC /* ui_cart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ui_cart.png; path = ../gbBundle/Textures/ui_cart.png; sourceTree = "<group>"; };
 		9290953822C35E44005097DC /* shop_table_view_cell.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = shop_table_view_cell.cpp; path = sources/shop_table_view_cell.cpp; sourceTree = "<group>"; };
 		9290953922C35E44005097DC /* shop_table_view_cell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = shop_table_view_cell.h; path = sources/shop_table_view_cell.h; sourceTree = "<group>"; };
@@ -3632,6 +3640,7 @@
 		21DA208F1C469299008AD536 /* elements */ = {
 			isa = PBXGroup;
 			children = (
+				92902B82233DE8C50018A398 /* color_picker.xml */,
 				F32627071E02838B00383515 /* console_background.xml */,
 				F32627081E02838B00383515 /* console_message.xml */,
 				F3729BDD1DC5191F0025952A /* joystick_background.xml */,
@@ -3658,6 +3667,7 @@
 		21DA20901C46929F008AD536 /* materials */ = {
 			isa = PBXGroup;
 			children = (
+				92902B7A233DE8970018A398 /* material.color_picker.ui.xml */,
 				92BAA69022857FC8005C5883 /* material.button_image.ui.xml */,
 				F326270B1E02839D00383515 /* material.console_background.ui.xml */,
 				F326270C1E02839D00383515 /* material.console_message.ui.xml */,
@@ -5085,6 +5095,7 @@
 				92F0421E22C20C4B00E37703 /* level_13.xml in Resources */,
 				92F0431022C20CB700E37703 /* level_20.tmx in Resources */,
 				F3C79E741EEFEA0B00C991C3 /* car_2.xml in Resources */,
+				92902B7F233DE8970018A398 /* material.color_picker.ui.xml in Resources */,
 				921BBA8D2268C47900482139 /* aiwisdom.fcl in Resources */,
 				21FD2ABD1C53D48200597EBB /* material.table_view_cell_background.ui.xml in Resources */,
 				92BF4F5A2200583900E95AD7 /* material.sidewalk.base.xml in Resources */,
@@ -5229,6 +5240,7 @@
 				92601CD7228047BD000B38E1 /* ws.technique.ui.xml in Resources */,
 				21EE3D5D1B96ECC1000AE51C /* particle_01.png in Resources */,
 				92DBA9F822F472CC00AE5374 /* car_12.xml in Resources */,
+				92902B83233DE8C50018A398 /* color_picker.xml in Resources */,
 				92C2C7E322FB6FA300A1703B /* level_52.tmx in Resources */,
 				927A6E46221D59C40023243F /* material.car_1_wheel_r.base.xml in Resources */,
 				92F041F722C20C4B00E37703 /* level_49.xml in Resources */,
@@ -5732,6 +5744,7 @@
 				21E2D70A1C75C97F00BFF2B8 /* tree_view_cell_background.xml in Resources */,
 				F326270F1E0283D900383515 /* console_message.xml in Resources */,
 				92C2C77422FB6F1A00A1703B /* level_51.xml in Resources */,
+				92902B80233DE8970018A398 /* material.color_picker.ui.xml in Resources */,
 				92723ADB221DD62300555BAC /* onmid.mp3 in Resources */,
 				9213BAC72215934300F8ACB5 /* car_1.xml in Resources */,
 				92723AE1221DD62300555BAC /* offmid.mp3 in Resources */,
@@ -5753,6 +5766,7 @@
 				92F0425B22C20C4D00E37703 /* level_47.xml in Resources */,
 				92EA844922E43EB5003A3C17 /* boogie_nights.ttf in Resources */,
 				9290953622C35A3B005097DC /* ui_cart.png in Resources */,
+				92902B84233DE8C50018A398 /* color_picker.xml in Resources */,
 				92C2C7FF22FB6FA300A1703B /* level_71.tmx in Resources */,
 				2126DC831C566154003EBBDA /* content_tab_list_background.xml in Resources */,
 				92C2C79E22FB6F1A00A1703B /* level_66.xml in Resources */,
@@ -6238,6 +6252,7 @@
 				926F26AE226DBFE4004659CC /* office_05_floor.GB3DMESH in Resources */,
 				923C545F226763BF009B311E /* office_03_floor.GB3DMESH in Resources */,
 				92FAAEAD22437A7100D243C0 /* light_pole.GB3DMESH in Resources */,
+				92902B81233DE8970018A398 /* material.color_picker.ui.xml in Resources */,
 				92F94EF822CDEA1400903164 /* ui_facebook.png in Resources */,
 				F33D07C41ECC372900535334 /* car_3_wheel_r.xml in Resources */,
 				92E23F6922B0F637005DDD5D /* car_7_configuration.xml in Resources */,
@@ -6382,6 +6397,7 @@
 				92F042EE22C20CB700E37703 /* level_25.tmx in Resources */,
 				92BAA65B2281C64F005C5883 /* material.ss.cross_fade.xml in Resources */,
 				92F0426522C20C4D00E37703 /* level_24.xml in Resources */,
+				92902B85233DE8C50018A398 /* color_picker.xml in Resources */,
 				92C2C7E522FB6FA300A1703B /* level_52.tmx in Resources */,
 				92DBAA0322F472CC00AE5374 /* car_13_wheel_r.xml in Resources */,
 				92F042AC22C20CB600E37703 /* level_40.tmx in Resources */,

@@ -211,6 +211,137 @@ namespace std
 		}
 		return tokens;
 	};
+
+/*!Convert RGB to HSV color space
+  
+  Converts a given set of RGB values `r', `g', `b' into HSV
+  coordinates. The input RGB values are in the range [0, 1], and the
+  output HSV values are in the ranges h = [0, 360], and s, v = [0,
+  1], respectively.
+  
+  Red component, used as output, range: [0, 1]
+  Green component, used as output, range: [0, 1]
+  Blue component, used as output, range: [0, 1]
+  H Hue component, used as input, range: [0, 360]
+  S Hue component, used as input, range: [0, 1]
+  V Hue component, used as input, range: [0, 1]
+*/
+
+inline void rgb_to_hsv(f32 r, f32 g, f32 b, f32& h, f32& s, f32& v)
+{
+    f32 c_max = max(max(r, g), b);
+    f32 c_min = min(min(r, g), b);
+    f32 delta = c_max - c_min;
     
+    if (delta > 0.f)
+    {
+        if (c_max == r)
+        {
+            h = 60.f * (fmod(((g - b) / delta), 6));
+        }
+        else if (c_max == g)
+        {
+            h = 60.f * (((b - r) / delta) + 2);
+        }
+        else if (c_max == b)
+        {
+            h = 60 * (((r - g) / delta) + 4);
+        }
+        
+        if (c_max > 0.f)
+        {
+            s = delta / c_max;
+        }
+        else
+        {
+            s = 0.f;
+        }
+        
+        v = c_max;
+    }
+    else
+    {
+        h = 0.f;
+        s = 0.f;
+        v = c_max;
+    }
+    
+    if(h < 0.f)
+    {
+        h = 360.f + h;
+    }
+};
+
+/*! Convert HSV to RGB color space
+  
+  Converts a given set of HSV values `h', `s', `v' into RGB
+  coordinates. The output RGB values are in the range [0, 1], and
+  the input HSV values are in the ranges h = [0, 360], and s, v =
+  [0, 1], respectively.
+  
+    Red component, used as output, range: [0, 1]
+    Green component, used as output, range: [0, 1]
+    Blue component, used as output, range: [0, 1]
+    H Hue component, used as input, range: [0, 360]
+    S Hue component, used as input, range: [0, 1]
+    V Hue component, used as input, range: [0, 1]
+*/
+
+inline void hsv_to_rgb(f32& r, f32& g, f32& b, f32 h, f32 s, f32 v)
+{
+    f32 c = v * s; // Chroma
+    f32 h_prime = fmod(h / 60.f, 6);
+    f32 x = c * (1.f - fabs(fmod(h_prime, 2) - 1));
+    f32 m = v - c;
+    
+    if (0.f <= h_prime && h_prime < 1.f)
+    {
+        r = c;
+        g = x;
+        b = 0.f;
+    }
+    else if (1.f <= h_prime && h_prime < 2.f)
+    {
+        r = x;
+        g = c;
+        b = 0.f;
+    }
+    else if (2.f <= h_prime && h_prime < 3.f)
+    {
+        r = 0.f;
+        g = c;
+        b = x;
+    }
+    else if (3.f <= h_prime && h_prime < 4.f)
+    {
+        r = 0.f;
+        g = x;
+        b = c;
+    }
+    else if (4.f <= h_prime && h_prime < 5.f)
+    {
+        r = x;
+        g = 0.f;
+        b = c;
+    }
+    else if (5.f <= h_prime && h_prime < 6.f)
+    {
+        r = c;
+        g = 0.f;
+        b = x;
+    }
+    else
+    {
+        r = 0.f;
+        g = 0.f;
+        b = 0.f;
+    }
+    
+    r += m;
+    g += m;
+    b += m;
+};
+
+
 #define __CLASS_NAME__ class_name(__PRETTY_FUNCTION__)
 }

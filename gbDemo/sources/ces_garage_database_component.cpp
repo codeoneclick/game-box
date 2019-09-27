@@ -41,14 +41,14 @@ namespace game
         return m_price;
     }
     
-    i32 ces_garage_database_component::garage_dto::car_dto::get_car_body_color_id() const
+    glm::u8vec4 ces_garage_database_component::garage_dto::car_dto::get_car_main_color() const
     {
-        return m_car_body_color_id;
+        return m_car_main_color;
     }
     
-    i32 ces_garage_database_component::garage_dto::car_dto::get_car_windows_color_id() const
+    glm::u8vec4 ces_garage_database_component::garage_dto::car_dto::get_car_second_color() const
     {
-        return m_car_windows_color_id;
+        return m_car_second_color;
     }
     
     f32 ces_garage_database_component::garage_dto::car_dto::get_car_speed_upgrade() const
@@ -138,7 +138,6 @@ namespace game
             auto car_record = std::make_shared<gb::db::database_entity<db_car_table, db_car_data>>(m_database_coordinator.lock());
             if(!car_record->load_from_db(car_id))
             {
-                std::vector<i32> possible_colors = {1, 2, 3, 4};
                 i32 upgrade_points = 50;
                 auto& data = car_record->get_data();
                 data.m_id = car_id;
@@ -146,9 +145,12 @@ namespace game
                 data.m_is_openned = 0;
                 data.m_is_bought = 0;
                 data.m_price = g_cars_prices.at(car_id - 1);
-                data.m_car_body_color_id = possible_colors.at(std::get_random_i(0, 3));
-                possible_colors[data.m_car_body_color_id - 1] = possible_colors.at((data.m_car_body_color_id + 1) % possible_colors.size());
-                data.m_car_windows_color_id = possible_colors.at(std::get_random_i(0, 3));
+                data.m_car_main_color_r = std::get_random_i(0, 255);
+                data.m_car_main_color_g = std::get_random_i(0, 255);
+                data.m_car_main_color_b = std::get_random_i(0, 255);
+                data.m_car_second_color_r = std::get_random_i(0, 255);
+                data.m_car_second_color_g = std::get_random_i(0, 255);
+                data.m_car_second_color_b = std::get_random_i(0, 255);
                 i32 car_speed_upgrade = std::get_random_i(0, upgrade_points);
                 car_speed_upgrade -= car_speed_upgrade % 10;
                 data.m_car_speed_upgrade = car_speed_upgrade;
@@ -158,7 +160,6 @@ namespace game
                 data.m_car_handling_upgrade = car_handling_upgrade;
                 upgrade_points -= car_handling_upgrade;
                 data.m_car_rigidity_upgrade = upgrade_points;
-                data.m_car_skin_id = 1;
                 car_record->save_to_db();
             }
         }
@@ -176,29 +177,6 @@ namespace game
             auto& data = garager_record->get_data();
             data.m_selected_car_id = car_id;
             garager_record->save_to_db();
-        }
-    }
-    
-    void ces_garage_database_component::select_car_skin(i32 garage_id, i32 car_id, i32 car_skin_id)
-    {
-        auto garager_record = std::make_shared<gb::db::database_entity<db_garage_table, db_garage_data>>(m_database_coordinator.lock());
-        if(!garager_record->load_from_db(garage_id))
-        {
-            assert(false);
-        }
-        else
-        {
-            auto car_record = std::make_shared<gb::db::database_entity<db_car_table, db_car_data>>(m_database_coordinator.lock());
-            if(!car_record->load_from_db(car_id))
-            {
-                assert(false);
-            }
-            else
-            {
-                auto& data = car_record->get_data();
-                data.m_car_skin_id = car_skin_id;
-                car_record->save_to_db();
-            }
         }
     }
     
@@ -227,8 +205,14 @@ namespace game
                 car_dto->m_is_openned = car_record->get_data().m_is_openned;
                 car_dto->m_is_bought = car_record->get_data().m_is_bought;
                 car_dto->m_price = car_record->get_data().m_price;
-                car_dto->m_car_body_color_id = car_record->get_data().m_car_body_color_id;
-                car_dto->m_car_windows_color_id = car_record->get_data().m_car_windows_color_id;
+                car_dto->m_car_main_color = glm::u8vec4(car_record->get_data().m_car_main_color_r,
+                                                        car_record->get_data().m_car_main_color_g,
+                                                        car_record->get_data().m_car_main_color_b,
+                                                        255);
+                car_dto->m_car_second_color = glm::u8vec4(car_record->get_data().m_car_second_color_r,
+                                                          car_record->get_data().m_car_second_color_g,
+                                                          car_record->get_data().m_car_second_color_b,
+                                                          255);
                 car_dto->m_car_speed_upgrade = car_record->get_data().m_car_speed_upgrade;
                 car_dto->m_car_handling_upgrade = car_record->get_data().m_car_handling_upgrade;
                 car_dto->m_car_rigidity_upgrade = car_record->get_data().m_car_rigidity_upgrade;
@@ -384,8 +368,14 @@ namespace game
                 car_dto->m_is_openned = car_record->get_data().m_is_openned;
                 car_dto->m_is_bought = car_record->get_data().m_is_bought;
                 car_dto->m_price = car_record->get_data().m_price;
-                car_dto->m_car_body_color_id = car_record->get_data().m_car_body_color_id;
-                car_dto->m_car_windows_color_id = car_record->get_data().m_car_windows_color_id;
+                car_dto->m_car_main_color = glm::u8vec4(car_record->get_data().m_car_main_color_r,
+                                                        car_record->get_data().m_car_main_color_g,
+                                                        car_record->get_data().m_car_main_color_b,
+                                                        255);
+                car_dto->m_car_second_color = glm::u8vec4(car_record->get_data().m_car_second_color_r,
+                                                          car_record->get_data().m_car_second_color_g,
+                                                          car_record->get_data().m_car_second_color_b,
+                                                          255);
                 car_dto->m_car_speed_upgrade = car_record->get_data().m_car_speed_upgrade;
                 car_dto->m_car_handling_upgrade = car_record->get_data().m_car_handling_upgrade;
                 car_dto->m_car_rigidity_upgrade = car_record->get_data().m_car_rigidity_upgrade;
@@ -408,9 +398,9 @@ namespace game
     
     i32 ces_garage_database_component::get_price_for_color_switch(i32 garage_id, i32 car_id)
     {
-        i32 result = 0;
-        const auto car_data = get_car(garage_id, car_id);
-        result = car_data->get_id() * m_initial_price_for_color_switch * m_price_for_color_switch_increase_coefficient;
+        i32 result = 10;
+        /*const auto car_data = get_car(garage_id, car_id);
+        result = car_data->get_id() * m_initial_price_for_color_switch * m_price_for_color_switch_increase_coefficient;*/
         return result;
     }
     
@@ -459,7 +449,7 @@ namespace game
         return result;
     }
     
-    void ces_garage_database_component::set_car_body_color_id(i32 garage_id, i32 car_id, i32 color_id)
+    void ces_garage_database_component::set_car_main_color(i32 garage_id, i32 car_id, const glm::u8vec4& color)
     {
         auto garage_record = std::make_shared<gb::db::database_entity<db_garage_table, db_garage_data>>(m_database_coordinator.lock());
         if(!garage_record->load_from_db(garage_id))
@@ -476,13 +466,15 @@ namespace game
             else
             {
                 auto& data = car_record->get_data();
-                data.m_car_body_color_id = color_id;
+                data.m_car_main_color_r = color.r;
+                data.m_car_main_color_g = color.g;
+                data.m_car_main_color_b = color.b;
                 car_record->save_to_db();
             }
         }
     }
     
-    void ces_garage_database_component::set_car_windshield_color_id(i32 garage_id, i32 car_id, i32 color_id)
+void ces_garage_database_component::set_car_second_color(i32 garage_id, i32 car_id, const glm::u8vec4& color)
     {
         auto garage_record = std::make_shared<gb::db::database_entity<db_garage_table, db_garage_data>>(m_database_coordinator.lock());
         if(!garage_record->load_from_db(garage_id))
@@ -499,7 +491,9 @@ namespace game
             else
             {
                 auto& data = car_record->get_data();
-                data.m_car_windows_color_id = color_id;
+                data.m_car_second_color_r = color.r;
+                data.m_car_second_color_g = color.g;
+                data.m_car_second_color_b = color.b;
                 car_record->save_to_db();
             }
         }

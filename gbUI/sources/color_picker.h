@@ -20,8 +20,16 @@ namespace gb
             public:
             
             static std::string k_color_wheel_element_name;
+            typedef std::function<void(const glm::u8vec4)> callback_t;
             
             private:
+            
+            static std::pair<f32, f32> get_HS_value(const glm::vec2& point, f32 radius);
+            ui8* m_rgba = nullptr;
+            i32 m_radius = 144;
+            callback_t m_callback = nullptr;
+            
+            void on_color_select(const glm::vec2& point);
             
             protected:
             
@@ -43,6 +51,9 @@ namespace gb
             virtual void setup_components() override;
             
             void create() override;
+            
+            void set_callback(const callback_t& callback);
+            bool is_callback_exist() const;
         };
     };
 };

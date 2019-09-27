@@ -62,6 +62,7 @@
 #include "ui_dialogs_helper.h"
 #include "game_center_provier.h"
 #include "ces_transformation_3d_component.h"
+#include "color_picker.h"
 
 namespace game
 {
@@ -1023,137 +1024,35 @@ namespace game
                     }
                 }
                     break;
+                       
+                case ces_ui_interaction_component::e_ui::e_ui_body_paint_color_picker:
+                {
+                    const auto color_picker = std::static_pointer_cast<gb::ui::color_picker>(entity);
+                    if(!color_picker->is_callback_exist())
+                    {
+                        color_picker->set_callback([=](const glm::u8vec4& color) {
+                            if (!m_camera_follow_car.expired())
+                            {
+                                gameplay_fabricator::paint_car_body(m_camera_follow_car.lock(), color);
+                                const auto car_descriptor_component = m_camera_follow_car.lock()->get_component<ces_car_descriptor_component>();
+                                car_descriptor_component->get_car_upgrade_cache()->m_car_main_color = color;
+                            }
+                        });
+                    }
+                }
+                    break;
                     
-                case ces_ui_interaction_component::e_ui::e_ui_apply_body_color_1_button:
+                case ces_ui_interaction_component::e_ui::e_ui_windshield_paint_color_picker:
                 {
-                    const auto button = std::static_pointer_cast<gb::ui::image_button>(entity);
-                    if(!button->is_pressed_callback_exist())
+                    const auto color_picker = std::static_pointer_cast<gb::ui::color_picker>(entity);
+                    if(!color_picker->is_callback_exist())
                     {
-                        button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                        color_picker->set_callback([=](const glm::u8vec4& color) {
                             if (!m_camera_follow_car.expired())
                             {
-                                gameplay_fabricator::paint_car_body(m_camera_follow_car.lock(), ces_car_model_component::k_car_color_1);
+                                gameplay_fabricator::paint_car_windows(m_camera_follow_car.lock(), color);
                                 const auto car_descriptor_component = m_camera_follow_car.lock()->get_component<ces_car_descriptor_component>();
-                                car_descriptor_component->get_car_upgrade_cache()->m_car_body_color_id = 1;
-                            }
-                        });
-                    }
-                }
-                break;
-                    
-                case ces_ui_interaction_component::e_ui::e_ui_apply_body_color_2_button:
-                {
-                    const auto button = std::static_pointer_cast<gb::ui::image_button>(entity);
-                    if(!button->is_pressed_callback_exist())
-                    {
-                        button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
-                            if (!m_camera_follow_car.expired())
-                            {
-                                gameplay_fabricator::paint_car_body(m_camera_follow_car.lock(), ces_car_model_component::k_car_color_2);
-                                const auto car_descriptor_component = m_camera_follow_car.lock()->get_component<ces_car_descriptor_component>();
-                                car_descriptor_component->get_car_upgrade_cache()->m_car_body_color_id = 2;
-                            }
-                        });
-                    }
-                }
-                break;
-                
-                case ces_ui_interaction_component::e_ui::e_ui_apply_body_color_3_button:
-                {
-                    const auto button = std::static_pointer_cast<gb::ui::image_button>(entity);
-                    if(!button->is_pressed_callback_exist())
-                    {
-                        button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
-                            if (!m_camera_follow_car.expired())
-                            {
-                                gameplay_fabricator::paint_car_body(m_camera_follow_car.lock(), ces_car_model_component::k_car_color_3);
-                                const auto car_descriptor_component = m_camera_follow_car.lock()->get_component<ces_car_descriptor_component>();
-                                car_descriptor_component->get_car_upgrade_cache()->m_car_body_color_id = 3;
-                            }
-                        });
-                    }
-                }
-                break;
-                
-                case ces_ui_interaction_component::e_ui::e_ui_apply_body_color_4_button:
-                {
-                    const auto button = std::static_pointer_cast<gb::ui::image_button>(entity);
-                    if(!button->is_pressed_callback_exist())
-                    {
-                        button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
-                            if (!m_camera_follow_car.expired())
-                            {
-                                gameplay_fabricator::paint_car_body(m_camera_follow_car.lock(), ces_car_model_component::k_car_color_4);
-                                const auto car_descriptor_component = m_camera_follow_car.lock()->get_component<ces_car_descriptor_component>();
-                                car_descriptor_component->get_car_upgrade_cache()->m_car_body_color_id = 4;
-                            }
-                        });
-                    }
-                }
-                break;
-                
-                case ces_ui_interaction_component::e_ui::e_ui_apply_windows_color_1_button:
-                {
-                    const auto button = std::static_pointer_cast<gb::ui::image_button>(entity);
-                    if(!button->is_pressed_callback_exist())
-                    {
-                        button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
-                            if (!m_camera_follow_car.expired())
-                            {
-                                gameplay_fabricator::paint_car_windows(m_camera_follow_car.lock(), ces_car_model_component::k_car_color_1);
-                                const auto car_descriptor_component = m_camera_follow_car.lock()->get_component<ces_car_descriptor_component>();
-                                car_descriptor_component->get_car_upgrade_cache()->m_car_windshield_color_id = 1;
-                            }
-                        });
-                    }
-                }
-                break;
-                    
-                case ces_ui_interaction_component::e_ui::e_ui_apply_windows_color_2_button:
-                {
-                    const auto button = std::static_pointer_cast<gb::ui::image_button>(entity);
-                    if(!button->is_pressed_callback_exist())
-                    {
-                        button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
-                            if (!m_camera_follow_car.expired())
-                            {
-                                gameplay_fabricator::paint_car_windows(m_camera_follow_car.lock(), ces_car_model_component::k_car_color_2);
-                                const auto car_descriptor_component = m_camera_follow_car.lock()->get_component<ces_car_descriptor_component>();
-                                car_descriptor_component->get_car_upgrade_cache()->m_car_windshield_color_id = 2;
-                            }
-                        });
-                    }
-                }
-                break;
-                
-                case ces_ui_interaction_component::e_ui::e_ui_apply_windows_color_3_button:
-                {
-                    const auto button = std::static_pointer_cast<gb::ui::image_button>(entity);
-                    if(!button->is_pressed_callback_exist())
-                    {
-                        button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
-                            if (!m_camera_follow_car.expired())
-                            {
-                                gameplay_fabricator::paint_car_windows(m_camera_follow_car.lock(), ces_car_model_component::k_car_color_3);
-                                const auto car_descriptor_component = m_camera_follow_car.lock()->get_component<ces_car_descriptor_component>();
-                                car_descriptor_component->get_car_upgrade_cache()->m_car_windshield_color_id = 3;
-                            }
-                        });
-                    }
-                }
-                break;
-                
-                case ces_ui_interaction_component::e_ui::e_ui_apply_windows_color_4_button:
-                {
-                    const auto button = std::static_pointer_cast<gb::ui::image_button>(entity);
-                    if(!button->is_pressed_callback_exist())
-                    {
-                        button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
-                            if (!m_camera_follow_car.expired())
-                            {
-                                gameplay_fabricator::paint_car_windows(m_camera_follow_car.lock(), ces_car_model_component::k_car_color_4);
-                                const auto car_descriptor_component = m_camera_follow_car.lock()->get_component<ces_car_descriptor_component>();
-                                car_descriptor_component->get_car_upgrade_cache()->m_car_windshield_color_id = 4;
+                                car_descriptor_component->get_car_upgrade_cache()->m_car_second_color = color;
                             }
                         });
                     }
@@ -2178,12 +2077,12 @@ namespace game
             const auto car_upgrade = car_descriptor_component->get_car_upgrade();
             const auto car_upgrade_cache = car_descriptor_component->get_car_upgrade_cache();
             
-            if (car_upgrade->m_car_body_color_id != car_upgrade_cache->m_car_body_color_id)
+            if (car_upgrade->m_car_main_color != car_upgrade_cache->m_car_main_color)
             {
                 result += garage_database_component->get_price_for_color_switch(1, selected_car_id);
             }
             
-            if (car_upgrade->m_car_windshield_color_id != car_upgrade_cache->m_car_windshield_color_id)
+            if (car_upgrade->m_car_second_color != car_upgrade_cache->m_car_second_color)
             {
                 result += garage_database_component->get_price_for_color_switch(1, selected_car_id);
             }
@@ -2216,14 +2115,14 @@ namespace game
             const auto car_upgrade = car_descriptor_component->get_car_upgrade();
             const auto car_upgrade_cache = car_descriptor_component->get_car_upgrade_cache();
             
-            if (car_upgrade->m_car_body_color_id != car_upgrade_cache->m_car_body_color_id)
+            if (car_upgrade->m_car_main_color != car_upgrade_cache->m_car_main_color)
             {
-                garage_database_component->set_car_body_color_id(1, selected_car_id, car_upgrade_cache->m_car_body_color_id);
+                garage_database_component->set_car_main_color(1, selected_car_id, car_upgrade_cache->m_car_main_color);
             }
             
-            if (car_upgrade->m_car_windshield_color_id != car_upgrade_cache->m_car_windshield_color_id)
+            if (car_upgrade->m_car_second_color != car_upgrade_cache->m_car_second_color)
             {
-                garage_database_component->set_car_windshield_color_id(1, selected_car_id, car_upgrade_cache->m_car_windshield_color_id);
+                garage_database_component->set_car_second_color(1, selected_car_id, car_upgrade_cache->m_car_second_color);
             }
             
             if (car_upgrade->m_car_speed_upgrade_value != car_upgrade_cache->m_car_speed_upgrade_value)
