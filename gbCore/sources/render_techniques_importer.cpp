@@ -33,6 +33,13 @@
 
 namespace gb
 {
+    i32 render_techniques_importer::m_render_techniques_count = 0;
+
+    i32 render_techniques_importer::get_render_techniques_count()
+    {
+        return m_render_techniques_count;
+    }
+
     render_techniques_importer::render_techniques_importer(const std::shared_ptr<graphics_context>& graphics_context, bool is_offscreen) :
     m_graphics_context(graphics_context),
     m_offscreen(is_offscreen),
@@ -84,6 +91,7 @@ namespace gb
 		m_ordered_ws_render_techniques.sort([](const std::shared_ptr<render_technique_ws> &value_01, const std::shared_ptr<render_technique_ws> &value_02) {
 			return value_01->get_order() < value_02->get_order();
 		});
+        m_render_techniques_count++;
     }
     
     void render_techniques_importer::remove_ws_render_technique(const std::string &technique_name, i32 technique_index)
@@ -108,6 +116,7 @@ namespace gb
 				assert(false);
 			}
 		}
+        m_render_techniques_count--;
     }
     
     void render_techniques_importer::add_ss_render_technique(const std::string &technique_name, const std::shared_ptr<render_technique_ss> &technique)
@@ -115,6 +124,7 @@ namespace gb
         assert(m_ss_render_techniques.find(technique_name) == m_ss_render_techniques.end());
         m_ss_render_techniques.insert(std::make_pair(technique_name, technique));
         m_ordered_ss_render_techniques.push_back(technique);
+        m_render_techniques_count++;
     }
     
     void render_techniques_importer::remove_ss_render_technique(const std::string &technique_name)
@@ -122,6 +132,7 @@ namespace gb
         const auto& iterator = m_ss_render_techniques.find(technique_name);
         assert(iterator != m_ss_render_techniques.end());
         m_ss_render_techniques.erase(iterator);
+        m_render_techniques_count--;
     }
     
     void render_techniques_importer::save_texture(const std::shared_ptr<texture>& texture, const std::string &filename, ui32 width, ui32 height)

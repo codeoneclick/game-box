@@ -24,7 +24,10 @@ namespace gb
         {
             for(const auto& material_it : m_materials)
             {
-                material_it.second->set_custom_shader_uniform(value, uniform);
+                if (material_it)
+                {
+                    material_it->set_custom_shader_uniform(value, uniform);
+                }
             }
         }
     };
@@ -43,7 +46,10 @@ namespace gb
         {
             for(const auto& material_it : m_materials)
             {
-                material_it.second->set_custom_shader_uniform(array, size, uniform);
+                if (material_it)
+                {
+                    material_it->set_custom_shader_uniform(array, size, uniform);
+                }
             }
         }
     };

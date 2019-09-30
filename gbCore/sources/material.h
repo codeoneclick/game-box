@@ -24,6 +24,8 @@ namespace gb
     {
     private:
         
+        friend class material_cached_parameters;
+        
         std::string m_guid;
         bool m_is_guid_computed = false;
         
@@ -173,14 +175,24 @@ namespace gb
         void set_shader(const shader_shared_ptr& value);
         void add_texture(const texture_shared_ptr& value, e_shader_sampler sampler);
         
+        bool get_is_blending(i32 index) const;
+        ui32 get_blending_function_source(i32 index) const;
+        ui32 get_blending_function_destination(i32 index) const;
+        ui32 get_blending_equation(i32 index) const;
+        ui32 get_attachment_index(i32 index) const;
+        
+        void set_is_blending(i32 index, bool value);
+        void set_blending_function_source(i32 index, ui32 value);
+        void set_blending_function_destination(i32 index, ui32 value);
+        void set_blending_equation(i32 index, ui32 value);
+        void set_attachment_index(i32 index, ui32 value);
+        
         std::string get_guid();
     };
     
     class material
     {
     private:
-        
-        std::string m_technique_name;
         
     protected:
         
@@ -237,6 +249,8 @@ namespace gb
         static void set_textures(const material_shared_ptr& material,
                                  const std::shared_ptr<material_configuration>& configuration,
                                  const resource_accessor_shared_ptr& resource_accessor, bool force = false);
+        
+        std::string get_technique_name() const;
         
         bool is_culling() const;
         ui32 get_culling_mode() const;

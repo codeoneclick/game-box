@@ -21,12 +21,12 @@
     stencil_mask_read="0"
     stencil_mask_write="255"
     is_debugging="0"
-    is_batching="0"
+    is_batching="1"
     z_order="1">
     <shader filename="shader_shape_3d"/>
     <textures>
         <texture
-        filename="race.png"
+        filename="racing_tex_d_02.png"
         render_operation_name=""
         sampler_index="0"
         wrap_mode="GL_CLAMP_TO_EDGE"

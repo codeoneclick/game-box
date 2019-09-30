@@ -303,6 +303,10 @@ namespace gb
             {
                 mesh = mesh_constructor::create_plane_3d();
             }
+            else if (custom_mesh_filename == "sphere")
+            {
+                 mesh = mesh_constructor::create_sphere();
+            }
             else
             {
                 mesh = m_resource_accessor->get_resource<mesh_3d, mesh_3d_loading_operation>(custom_mesh_filename.length() != 0 ? custom_mesh_filename : shape_3d_configuration->get_mesh_filename(), true);

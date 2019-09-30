@@ -27,6 +27,8 @@ namespace gb
             
             friend class database_table;
             
+            bool m_is_valid = false;
+            
         protected:
             
             i32 m_id = -1;
@@ -51,17 +53,23 @@ namespace gb
             {
                 auto table = m_database_coordinator->get_table<table_t>();
                 table->save_to_db(m_id, m_data);
+                m_is_valid = false;
             }
             
             bool load_from_db(i32 id)
             {
-                m_id = id;
-                auto table = m_database_coordinator->get_table<table_t>();
-                bool result = table->load_from_db(m_id, [this](i32 id, char* raw_data, i32 size) {
-                    data_t* data_ptr = (data_t*)raw_data;
-                    memcpy(&m_data, data_ptr, size);
-                });
-                return result;
+                if (!m_is_valid)
+                {
+                    m_id = id;
+                    auto table = m_database_coordinator->get_table<table_t>();
+                    bool result = table->load_from_db(m_id, [this](i32 id, char* raw_data, i32 size) {
+                        data_t* data_ptr = (data_t*)raw_data;
+                        memcpy(&m_data, data_ptr, size);
+                    });
+                    m_is_valid = result;
+                    return result;
+                }
+                return m_is_valid;
             }
             
             bool delete_from_db(i32 id = -1)

@@ -24,6 +24,8 @@ namespace gb
     {
     private:
         
+        static i32 m_render_techniques_count;
+        
     protected:
         
         std::shared_ptr<graphics_context> m_graphics_context;
@@ -51,6 +53,8 @@ namespace gb
         void remove_ss_render_technique(const std::string& technique_name);
     
         bool is_render_technique_supported(const std::string& technique_name);
+        
+        static i32 get_render_techniques_count();
     };
 };
 

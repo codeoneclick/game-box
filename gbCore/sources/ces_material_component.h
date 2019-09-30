@@ -19,11 +19,18 @@ namespace gb
 {
     class ces_material_component : public ces_base_component
     {
+    public:
+        
+        static i32 get_technique_name_index(const std::string& name);
+        
     private:
+        
+        static std::map<std::string, i32> m_cached_render_technique_names;
         
     protected:
         
-        std::unordered_map<std::string, material_shared_ptr> m_materials;
+        std::vector<material_shared_ptr> m_materials;
+       
         
         void bind_custom_shader_uniforms(const material_shared_ptr& material);
 
@@ -45,6 +52,7 @@ namespace gb
         void set_culling_mode(ui32 value);
         
         material_shared_ptr get_material(const std::string& technique_name) const;
+        material_shared_ptr get_material(i32 technique_index) const;
         
 #if USED_GRAPHICS_API == VULKAN_API
 

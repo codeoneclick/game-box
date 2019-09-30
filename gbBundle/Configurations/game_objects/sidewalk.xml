@@ -1,8 +1,0 @@
-<shape_3d
-    mesh_filename="sidewalk.GB3DMESH">
-    <materials>
-		<material filename="material.sidewalk.base.xml"/>
-	</materials>
-    <animations>
-    </animations>
-</shape_3d>

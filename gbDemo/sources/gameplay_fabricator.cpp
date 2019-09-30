@@ -183,10 +183,12 @@ namespace game
                 if (tile->get_id() == 0 ||
                     tile->get_id() == 1)
                 {
-                    const auto road_straight = general_fabricator->create_shape_3d("road_straight.xml");
+                    const auto road_straight = general_fabricator->create_shape_3d("roads_shared.xml",
+                                                                                   "road_straight.GB3DMESH");
                     scene->add_child(road_straight);
                     
-                    const auto road_straight_sidewalk = general_fabricator->create_shape_3d("road_straight_sidewalk.xml");
+                    const auto road_straight_sidewalk = general_fabricator->create_shape_3d("sidewalks_shared.xml",
+                                                                                            "road_straight_sidewalk.GB3DMESH");
                     scene->add_child(road_straight_sidewalk);
                     
                     const auto position =  glm::vec3(i * 16.f + 8.f, 0.f, -j * 16.f - 8.f);
@@ -204,10 +206,12 @@ namespace game
                     tile->get_id() == 14 ||
                     tile->get_id() == 15)
                 {
-                    const auto road_corner = general_fabricator->create_shape_3d("road_corner.xml");
+                    const auto road_corner = general_fabricator->create_shape_3d("roads_shared.xml",
+                                                                                 "road_corner.GB3DMESH");
                     scene->add_child(road_corner);
                     
-                    const auto road_corner_sidewalk = general_fabricator->create_shape_3d("road_corner_sidewalk.xml");
+                    const auto road_corner_sidewalk = general_fabricator->create_shape_3d("sidewalks_shared.xml",
+                                                                                          "road_corner_sidewalk.GB3DMESH");
                     scene->add_child(road_corner_sidewalk);
                     
                     const auto position = glm::vec3(i * 16.f + 8.f, 0.f, -j * 16.f - 8.f);
@@ -242,10 +246,12 @@ namespace game
                     tile->get_id() == 9 ||
                     tile->get_id() == 10)
                 {
-                    const auto road_corner = general_fabricator->create_shape_3d("road_corner_t.xml");
+                    const auto road_corner = general_fabricator->create_shape_3d("roads_shared.xml",
+                                                                                 "road_corner_t.GB3DMESH");
                     scene->add_child(road_corner);
                     
-                    const auto road_corner_sidewalk = general_fabricator->create_shape_3d("road_corner_t_sidewalk.xml");
+                    const auto road_corner_sidewalk = general_fabricator->create_shape_3d("sidewalks_shared.xml",
+                                                                                          "road_corner_t_sidewalk.GB3DMESH");
                     scene->add_child(road_corner_sidewalk);
                     
                     const auto position = glm::vec3(i * 16.f + 8.f, 0.f, -j * 16.f - 8.f);
@@ -277,7 +283,8 @@ namespace game
                 
                 if (tile->get_id() == 21)
                 {
-                    const auto sidewalk = general_fabricator->create_shape_3d("sidewalk.xml");
+                    const auto sidewalk = general_fabricator->create_shape_3d("sidewalks_shared.xml",
+                                                                              "sidewalk.GB3DMESH");
                     scene->add_child(sidewalk);
                     auto position = glm::vec3(i * 16.f + 8.f, 0.f, -j * 16.f - 8.f);
                     sidewalk->position = position;
@@ -1231,5 +1238,32 @@ namespace game
                                     static_cast<f32>(color.z) / 255.f,
                                     1.f), car_colorization_shader_uniforms::k_windows_color);
         }
+    }
+
+    gb::game_object_3d_shared_ptr gameplay_fabricator::create_level_cash_item(const std::string& filename)
+    {
+        const auto general_fabricator = m_general_fabricator.lock();
+        const auto resource_accessor = general_fabricator->get_resource_accessor();
+        const auto item = general_fabricator->create_shape_3d("roads_shared.xml",
+                                                              "path_park_straight.GB3DMESH");
+        return item;
+    }
+
+    gb::game_object_3d_shared_ptr gameplay_fabricator::create_level_shield_item(const std::string& filename)
+    {
+        const auto general_fabricator = m_general_fabricator.lock();
+        const auto resource_accessor = general_fabricator->get_resource_accessor();
+        const auto item = general_fabricator->create_shape_3d("roads_shared.xml",
+                                                              "path_park_straight.GB3DMESH");
+        return item;
+    }
+
+    gb::game_object_3d_shared_ptr gameplay_fabricator::create_level_oil_item(const std::string& filename)
+    {
+        const auto general_fabricator = m_general_fabricator.lock();
+        const auto resource_accessor = general_fabricator->get_resource_accessor();
+        const auto item = general_fabricator->create_shape_3d("roads_shared.xml",
+                                                              "path_park_straight.GB3DMESH");
+        return item;
     }
 }

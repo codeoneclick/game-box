@@ -12,7 +12,7 @@
 
 #include "batch.h"
 #include "material.h"
-#include "mesh_2d.h"
+#include "mesh_3d.h"
 #include "vbo.h"
 #include "ibo.h"
 
@@ -30,7 +30,7 @@ namespace gb
         
     }
     
-    void batching_pipeline::batch(const material_shared_ptr& material, const mesh_2d_shared_ptr& mesh, const glm::mat4& matrix, ui32 matrix_version)
+    void batching_pipeline::batch(const material_shared_ptr& material, const mesh_3d_shared_ptr& mesh, const glm::mat4& matrix, ui32 matrix_version)
     {
         assert(material != nullptr);
         assert(material->get_shader() != nullptr);

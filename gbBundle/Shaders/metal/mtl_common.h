@@ -58,13 +58,6 @@ typedef struct
 
 typedef struct
 {
-    float4 color [[color(0)]];
-    half alpha [[color(1)]];
-    
-} oit_buffer_output_t;
-
-typedef struct
-{
     matrix_float4x4 mat_m;
     matrix_float4x4 mat_v;
     matrix_float4x4 mat_p;

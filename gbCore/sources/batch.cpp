@@ -10,14 +10,21 @@
 
 #if USED_GRAPHICS_API != NO_GRAPHICS_API
 
+#if USED_GRAPHICS_API == METAL_API
+
+#include "mtl_render_encoder.h"
+#include "mtl_buffer.h"
+
+#endif
+
 #include "material.h"
 #include "vbo.h"
 #include "ibo.h"
-#include "mesh_2d.h"
+#include "mesh_3d.h"
 #include "glm_extensions.h"
 
 namespace gb
-{
+    {
     batch_cache::batch_cache(ui32 vbo_version, ui32 ibo_version, ui32 matrix_version, ui32 vbo_offset, ui32 ibo_offset) :
     m_vbo_version(vbo_version),
     m_ibo_version(ibo_version),
@@ -91,7 +98,7 @@ namespace gb
         memset(indices, 0x0, k_max_num_indices * sizeof(ui16));
         ibo->unlock();
         
-        m_batch = std::make_shared<gb::mesh_2d>(vbo, ibo);
+        m_batch = gb::mesh_3d::construct(m_guid, vbo, ibo);
     }
     
     batch::~batch()
@@ -99,7 +106,7 @@ namespace gb
         
     }
     
-    void batch::add(const mesh_2d_shared_ptr& mesh, const glm::mat4& matrix, ui32 matrix_version)
+    void batch::add(const mesh_3d_shared_ptr& mesh, const glm::mat4& matrix, ui32 matrix_version)
     {
         ui32 mesh_id = mesh->get_id();
         auto iterator = m_cache.find(mesh_id);
@@ -198,19 +205,19 @@ namespace gb
             }
             
 #if USED_GRAPHICS_API == VULKAN_API
-
+            
             m_material->bind(m_batch->get_vbo()->get_vertex_input_state());
-
+            
 #elif USED_GRAPHICS_API == METAL_API
             
             m_material->bind(m_batch->get_vbo()->get_mtl_vertex_descriptor());
             
 #else
-
-			m_material->bind();
-
+            
+            m_material->bind();
+            
 #endif
-
+            
             m_material->get_shader()->set_mat4(glm::mat4(1.f), e_shader_uniform_mat_m);
             
             m_batch->bind(m_material->get_shader()->get_guid(), m_material->get_shader()->get_attributes());
@@ -219,10 +226,25 @@ namespace gb
             
             m_material->unbind();
             
+#if USED_GRAPHICS_API == METAL_API
+            
+            const auto vbo_mtl_buffer_id = m_batch->get_vbo()->get_mtl_buffer_id();
+            const auto ibo_mtl_buffer_id = m_batch->get_ibo()->get_mtl_buffer_id();
+            const auto mvp_uniforms = m_material->get_shader()->get_mvp_uniforms();
+            const auto render_encoder = m_material->get_render_encoder();
+            const auto mvp_uniforms_buffer_id = m_material->get_mvp_uniforms_buffer();
+            mvp_uniforms_buffer_id->update((void*)&mvp_uniforms, sizeof(shader_mvp_uniforms));
+            render_encoder->set_vertex_buffer(vbo_mtl_buffer_id, 0);
+            render_encoder->set_vertex_uniforms(mvp_uniforms_buffer_id, 1);
+            render_encoder->set_index_buffer(ibo_mtl_buffer_id, m_batch->get_ibo()->get_used_size(), 0);
+            render_encoder->draw(m_material->get_technique_name());
+            
+#endif
+            
             m_is_vbo_changed = false;
             m_is_ibo_changed = false;
         }
     }
-}
+    }
 
 #endif

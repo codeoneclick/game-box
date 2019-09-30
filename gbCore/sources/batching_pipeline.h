@@ -33,7 +33,7 @@ namespace gb
         batching_pipeline();
         ~batching_pipeline();
         
-        void batch(const material_shared_ptr& material, const mesh_2d_shared_ptr& mesh, const glm::mat4& matrix, ui32 matrix_version);
+        void batch(const material_shared_ptr& material, const mesh_3d_shared_ptr& mesh, const glm::mat4& matrix, ui32 matrix_version);
         void draw();
     };
 };

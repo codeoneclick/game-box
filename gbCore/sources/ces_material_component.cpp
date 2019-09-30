@@ -12,42 +12,66 @@
 
 #include "texture.h"
 #include "mesh_2d.h"
+#include "render_pipeline.h"
 
 namespace gb
 {
+    std::map<std::string, i32> ces_material_component::m_cached_render_technique_names;
+
+    i32 ces_material_component::get_technique_name_index(const std::string& technique_name)
+    {
+        i32 result = -1;
+        const auto it = m_cached_render_technique_names.find(technique_name);
+        if (it != m_cached_render_technique_names.end())
+        {
+            result = it->second;
+        }
+        
+        return result;
+    }
+
     ces_material_component::ces_material_component() :
     m_bind_material_imposer_callback(nullptr)
     {
-        
+        assert(render_pipeline::get_render_techniques_count() > 0);
+        m_materials.resize(render_pipeline::get_render_techniques_count(), nullptr);
     }
     
     ces_material_component::~ces_material_component()
     {
-        m_materials.clear();
+       
     }
     
     void ces_material_component::add_material(const std::string& technique_name, const material_shared_ptr& material)
     {
-        m_materials[technique_name] = material;
+        i32 technique_index = get_technique_name_index(technique_name);
+        if (technique_index == -1)
+        {
+            technique_index = static_cast<i32>(m_cached_render_technique_names.size() + 1);
+            m_cached_render_technique_names.insert({technique_name, technique_index});
+        }
+        m_materials[technique_index] = material;
     }
     
     void ces_material_component::remove_material(const std::string& technique_name)
     {
-        const auto& material_it = m_materials.find(technique_name);
-        if(material_it != m_materials.end())
-        {
-            m_materials.erase(material_it);
-        }
+        i32 technique_index = get_technique_name_index(technique_name);
+        assert(technique_index != -1);
+        m_materials[technique_index] = nullptr;
     }
     
     material_shared_ptr ces_material_component::get_material(const std::string& technique_name) const
     {
-        material_shared_ptr material = nullptr;
-        const auto& material_it = m_materials.find(technique_name);
-        if(material_it != m_materials.end())
-        {
-            material = material_it->second;
-        }
+        i32 technique_index = get_technique_name_index(technique_name);
+        assert(technique_index != -1);
+        material_shared_ptr material = m_materials[technique_index];
+        return material;
+    }
+
+    material_shared_ptr ces_material_component::get_material(i32 technique_index) const
+    {
+        assert(technique_index < m_materials.size());
+        material_shared_ptr material = m_materials[technique_index];
         return material;
     }
     
@@ -61,9 +85,12 @@ namespace gb
         }
         else
         {
-            for(const auto& material_it : m_materials)
+            for (const auto& material_it : m_materials)
             {
-                material_it.second->set_texture(texture, sampler);
+                if (material_it)
+                {
+                    material_it->set_texture(texture, sampler);
+                }
             }
         }
     }
@@ -151,7 +178,10 @@ namespace gb
         {
             for (const auto& material_it : m_materials)
             {
-                material_it.second->set_is_batching(value);
+                if (material_it)
+                {
+                    material_it->set_is_batching(value);
+                }
             }
         }
     }
@@ -160,7 +190,7 @@ namespace gb
     {
         for (const auto& material_it : m_materials)
         {
-            material_it.second->set_culling_mode(value);
+            material_it->set_culling_mode(value);
         }
     }
     
@@ -175,7 +205,7 @@ namespace gb
     {
         for(const auto& material_it : m_materials)
         {
-            if(!material_it.second->get_is_batching())
+            if(!material_it->get_is_batching())
             {
                 return false;
             }

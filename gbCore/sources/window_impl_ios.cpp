@@ -45,7 +45,7 @@ namespace gb
         assert(m_hwnd != nullptr);
         const MTKView* hwnd = (__bridge MTKView*)m_hwnd;
         auto screen_resolution = glm::ivec2(hwnd.drawableSize.width, hwnd.drawableSize.height);
-        if (screen_resolution.x > 2000.f)
+        if (screen_resolution.x >= 1920.f)
         {
             screen_resolution.x *= 0.5f;
             screen_resolution.y *= 0.5f;

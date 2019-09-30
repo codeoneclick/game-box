@@ -977,6 +977,9 @@ def main(argv):
 	lights = []
 	slow_motion_triggers = []
 	speed_up_triggers = []
+	cash_items = []
+	shield_items = []
+	oil_items = []
 	is_light_top_side = 0
 	is_light_left_side = 0
 	route_points = ""

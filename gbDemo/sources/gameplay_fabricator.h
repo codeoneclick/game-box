@@ -39,6 +39,9 @@ namespace game
         gb::db::database_coordinator_shared_ptr m_database_coordinator;
         
         gb::game_object_3d_shared_ptr create_car(const std::string& filename);
+        gb::game_object_3d_shared_ptr create_level_cash_item(const std::string& filename);
+        gb::game_object_3d_shared_ptr create_level_shield_item(const std::string& filename);
+        gb::game_object_3d_shared_ptr create_level_oil_item(const std::string& filename);
         
     public:
         

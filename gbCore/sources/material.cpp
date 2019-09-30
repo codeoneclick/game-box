@@ -33,7 +33,7 @@
 #endif
 
 namespace gb
-{
+    {
     bool blending_parameters::get_is_blending() const
     {
         return m_is_blending;
@@ -427,12 +427,63 @@ namespace gb
         m_is_guid_computed = false;
     }
     
+    bool material_cached_parameters::get_is_blending(i32 index) const
+    {
+        return m_blending_parameters[index]->m_is_blending;
+    }
+    
+    ui32 material_cached_parameters::get_blending_function_source(i32 index) const
+    {
+        return m_blending_parameters[index]->m_blending_function_source;
+    }
+    
+    ui32 material_cached_parameters::get_blending_function_destination(i32 index) const
+    {
+        return m_blending_parameters[index]->m_blending_function_destination;
+    }
+    
+    ui32 material_cached_parameters::get_blending_equation(i32 index) const
+    {
+        return m_blending_parameters[index]->m_blending_equation;
+    }
+    
+    ui32 material_cached_parameters::get_attachment_index(i32 index) const
+    {
+        return m_blending_parameters[index]->m_attachment_index;
+    }
+    
+    void material_cached_parameters::set_is_blending(i32 index, bool value)
+    {
+        m_blending_parameters[index]->m_is_blending = value;
+    }
+    
+    void material_cached_parameters::set_blending_function_source(i32 index, ui32 value)
+    {
+        m_blending_parameters[index]->m_blending_function_source = value;
+    }
+    
+    void material_cached_parameters::set_blending_function_destination(i32 index, ui32 value)
+    {
+        m_blending_parameters[index]->m_blending_function_destination = value;
+    }
+    
+    void material_cached_parameters::set_blending_equation(i32 index, ui32 value)
+    {
+        m_blending_parameters[index]->m_blending_equation = value;
+    }
+    
+    void material_cached_parameters::set_attachment_index(i32 index, ui32 value)
+    {
+        m_blending_parameters[index]->m_attachment_index = value;
+    }
+    
     std::string material_cached_parameters::get_guid()
     {
         if (!m_is_guid_computed)
         {
             std::stringstream guid_stream;
             
+            guid_stream<<m_technique_name;
             guid_stream<<m_is_culling;
             guid_stream<<m_culling_mode;
             
@@ -510,7 +561,6 @@ namespace gb
     {
         material_shared_ptr material = std::make_shared<gb::material>();
         assert(configuration);
-        material->m_technique_name = configuration->get_technique_name();
         material->m_parameters->set_technique_name(configuration->get_technique_name());
         
         material->set_culling(configuration->get_culling());
@@ -577,7 +627,6 @@ namespace gb
     void material::update_guid()
     {
         std::stringstream guid_string_stream;
-        guid_string_stream<<m_technique_name;
         guid_string_stream<<m_parameters->get_guid();
         m_guid = guid_string_stream.str();
     }
@@ -634,6 +683,12 @@ namespace gb
     {
         assert(m_parameters != nullptr);
         return m_parameters->get_is_culling();
+    }
+    
+    std::string material::get_technique_name() const
+    {
+        assert(m_parameters != nullptr);
+        return m_parameters->get_technique_name();
     }
     
     ui32 material::get_culling_mode() const
@@ -1295,6 +1350,9 @@ namespace gb
         assert(m_parameters != nullptr);
         assert(m_parameters->get_shader() != nullptr);
         
+        const auto cached_parameters = material::get_cached_parameters();
+        const auto is_same_technique = cached_parameters->get_technique_name() == m_parameters->get_technique_name();
+        
 #if USED_GRAPHICS_API == VULKAN_API
         
         if (!m_is_pipeline_constructed)
@@ -1315,7 +1373,7 @@ namespace gb
             m_depth_stencil_state = mtl_depth_stencil_state::construct(m_parameters);
         }
         
-        m_render_encoder->bind(m_technique_name);
+        m_render_encoder->bind(m_parameters->get_technique_name());
         m_render_encoder->set_render_pipeline_state(m_render_pipeline_state);
         m_render_encoder->set_depth_stencil_state(m_depth_stencil_state);
         
@@ -1334,10 +1392,10 @@ namespace gb
                 
                 if (texture->get_mtl_texture_id())
                 {
-                    if (material::get_cached_parameters()->get_textures().at(i) != texture || material::get_cached_parameters()->get_technique_name() != m_technique_name)
+                    if (cached_parameters->get_textures().at(i) != texture || !is_same_technique)
                     {
                         m_render_encoder->set_texture(texture->get_mtl_texture_id(), i);
-                        material::get_cached_parameters()->add_texture(texture, static_cast<e_shader_sampler>(i));
+                        cached_parameters->add_texture(texture, static_cast<e_shader_sampler>(i));
                     }
                 }
                 
@@ -1346,43 +1404,43 @@ namespace gb
             }
         }
         
-        if(m_parameters->get_is_depth_test() &&
-           material::get_cached_parameters()->get_is_depth_test() != m_parameters->get_is_depth_test())
+        if (m_parameters->get_is_depth_test() &&
+            cached_parameters->get_is_depth_test() != m_parameters->get_is_depth_test())
         {
             gl::command::enable(gl::constant::depth_test);
             gl::command::depth_function(gl::constant::lequal);
-            material::get_cached_parameters()->set_is_depth_test(m_parameters->get_is_depth_test());
+            cached_parameters->set_is_depth_test(m_parameters->get_is_depth_test());
         }
-        else if(material::get_cached_parameters()->get_is_depth_test() != m_parameters->get_is_depth_test())
+        else if (cached_parameters->get_is_depth_test() != m_parameters->get_is_depth_test())
         {
             gl::command::disable(gl::constant::depth_test);
-            material::get_cached_parameters()->set_is_depth_test(m_parameters->get_is_depth_test());
+            cached_parameters->set_is_depth_test(m_parameters->get_is_depth_test());
         }
         
         if(m_parameters->get_is_depth_mask() &&
-           material::get_cached_parameters()->get_is_depth_mask() != m_parameters->get_is_depth_mask())
+           cached_parameters->get_is_depth_mask() != m_parameters->get_is_depth_mask())
         {
             gl::command::depth_mask(gl::constant::yes);
-            material::get_cached_parameters()->set_is_depth_mask(m_parameters->get_is_depth_mask());
+            cached_parameters->set_is_depth_mask(m_parameters->get_is_depth_mask());
         }
-        else if(material::get_cached_parameters()->get_is_depth_mask() != m_parameters->get_is_depth_mask())
+        else if(cached_parameters->get_is_depth_mask() != m_parameters->get_is_depth_mask())
         {
             gl::command::depth_mask(gl::constant::no);
-            material::get_cached_parameters()->set_is_depth_mask(m_parameters->get_is_depth_mask());
+            cached_parameters->set_is_depth_mask(m_parameters->get_is_depth_mask());
         }
         
         if(m_parameters->get_is_culling() &&
-           (material::get_cached_parameters()->get_is_culling() != m_parameters->get_is_culling() ||
-            material::get_cached_parameters()->get_technique_name() != m_technique_name))
+           (cached_parameters->get_is_culling() != m_parameters->get_is_culling() ||
+            !is_same_technique))
         {
             gl::command::enable(gl::constant::cull_face);
-            material::get_cached_parameters()->set_is_culling(m_parameters->get_is_culling());
+            cached_parameters->set_is_culling(m_parameters->get_is_culling());
         }
-        else if(material::get_cached_parameters()->get_is_culling() != m_parameters->get_is_culling() ||
-                material::get_cached_parameters()->get_technique_name() != m_technique_name)
+        else if(cached_parameters->get_is_culling() != m_parameters->get_is_culling() ||
+                !is_same_technique)
         {
             gl::command::disable(gl::constant::cull_face);
-            material::get_cached_parameters()->set_is_culling(m_parameters->get_is_culling());
+            cached_parameters->set_is_culling(m_parameters->get_is_culling());
             
 #if USED_GRAPHICS_API == METAL_API
             
@@ -1392,11 +1450,11 @@ namespace gb
         }
         
         if(m_parameters->get_is_culling() &&
-           (material::get_cached_parameters()->get_culling_mode() != m_parameters->get_culling_mode() ||
-            material::get_cached_parameters()->get_technique_name() != m_technique_name))
+           (cached_parameters->get_culling_mode() != m_parameters->get_culling_mode() ||
+            !is_same_technique))
         {
             gl::command::cull_face(m_parameters->get_culling_mode());
-            material::get_cached_parameters()->set_culling_mode(m_parameters->get_culling_mode());
+            cached_parameters->set_culling_mode(m_parameters->get_culling_mode());
             
 #if USED_GRAPHICS_API == METAL_API
             
@@ -1405,40 +1463,40 @@ namespace gb
 #endif
         }
         
-        if(m_parameters->get_blending_parameters().at(0)->get_is_blending() &&
-           material::get_cached_parameters()->get_blending_parameters().at(0)->get_is_blending() != m_parameters->get_blending_parameters().at(0)->get_is_blending())
+        if(m_parameters->get_is_blending(0) &&
+           cached_parameters->get_is_blending(0) != m_parameters->get_is_blending(0))
         {
             gl::command::enable(gl::constant::blend);
-            material::get_cached_parameters()->get_blending_parameters().at(0)->set_is_blending(m_parameters->get_blending_parameters().at(0)->get_is_blending());
+            cached_parameters->set_is_blending(0, m_parameters->get_is_blending(0));
         }
-        else if(material::get_cached_parameters()->get_blending_parameters().at(0)->get_is_blending() != m_parameters->get_blending_parameters().at(0)->get_is_blending())
+        else if(cached_parameters->get_is_blending(0) != m_parameters->get_is_blending(0))
         {
             gl::command::disable(gl::constant::blend);
-            material::get_cached_parameters()->get_blending_parameters().at(0)->set_is_blending(m_parameters->get_blending_parameters().at(0)->get_is_blending());
+            cached_parameters->set_is_blending(0, m_parameters->get_is_blending(0));
         }
         
-        if(material::get_cached_parameters()->get_blending_parameters().at(0)->get_blending_function_source() !=
-           m_parameters->get_blending_parameters().at(0)->get_blending_function_source() ||
-           material::get_cached_parameters()->get_blending_parameters().at(0)->get_blending_function_destination() !=
-           m_parameters->get_blending_parameters().at(0)->get_blending_function_destination())
+        if(cached_parameters->get_blending_function_source(0) !=
+           m_parameters->get_blending_function_source(0) ||
+           cached_parameters->get_blending_function_destination(0) !=
+           m_parameters->get_blending_function_destination(0))
         {
-            gl::command::blend_function(m_parameters->get_blending_parameters().at(0)->get_blending_function_source(), m_parameters->get_blending_parameters().at(0)->get_blending_function_destination());
-            material::get_cached_parameters()->get_blending_parameters().at(0)->set_blending_function_source( m_parameters->get_blending_parameters().at(0)->get_blending_function_source());
-            material::get_cached_parameters()->get_blending_parameters().at(0)->set_blending_function_destination( m_parameters->get_blending_parameters().at(0)->get_blending_function_destination());
+            gl::command::blend_function(m_parameters->get_blending_function_source(0), m_parameters->get_blending_function_destination(0));
+            cached_parameters->set_blending_function_source(0, m_parameters->get_blending_function_source(0));
+            cached_parameters->set_blending_function_destination(0, m_parameters->get_blending_function_destination(0));
         }
         
-        if(material::get_cached_parameters()->get_blending_parameters().at(0)->get_blending_equation() != m_parameters->get_blending_parameters().at(0)->get_blending_equation())
+        if(cached_parameters->get_blending_equation(0) != m_parameters->get_blending_equation(0))
         {
-            gl::command::blend_equation(m_parameters->get_blending_parameters().at(0)->get_blending_equation());
-            material::get_cached_parameters()->get_blending_parameters().at(0)->set_blending_equation(m_parameters->get_blending_parameters().at(0)->get_blending_equation());
+            gl::command::blend_equation(m_parameters->get_blending_equation(0));
+            cached_parameters->set_blending_equation(0, m_parameters->get_blending_equation(0));
         }
         
         if(m_parameters->get_is_stencil_test() &&
-           (material::get_cached_parameters()->get_is_stencil_test() != m_parameters->get_is_stencil_test() ||
-            material::get_cached_parameters()->get_technique_name() != m_technique_name))
+           (cached_parameters->get_is_stencil_test() != m_parameters->get_is_stencil_test() ||
+            !is_same_technique))
         {
             gl::command::enable(gl::constant::stencil_test);
-            material::get_cached_parameters()->set_is_stencil_test(m_parameters->get_is_stencil_test());
+            cached_parameters->set_is_stencil_test(m_parameters->get_is_stencil_test());
             
 #if USED_GRAPHICS_API == METAL_API
             
@@ -1446,21 +1504,21 @@ namespace gb
             
 #endif
         }
-        else if(material::get_cached_parameters()->get_is_stencil_test() != m_parameters->get_is_stencil_test())
+        else if(cached_parameters->get_is_stencil_test() != m_parameters->get_is_stencil_test())
         {
             gl::command::disable(gl::constant::stencil_test);
-            material::get_cached_parameters()->set_is_stencil_test(m_parameters->get_is_stencil_test());
+            cached_parameters->set_is_stencil_test(m_parameters->get_is_stencil_test());
         }
         
-        if(m_parameters->get_is_color_mask_r() != material::get_cached_parameters()->get_is_color_mask_r() ||
-           m_parameters->get_is_color_mask_g() != material::get_cached_parameters()->get_is_color_mask_g() ||
-           m_parameters->get_is_color_mask_b() != material::get_cached_parameters()->get_is_color_mask_b() ||
-           m_parameters->get_is_color_mask_a() != material::get_cached_parameters()->get_is_color_mask_a())
+        if(m_parameters->get_is_color_mask_r() != cached_parameters->get_is_color_mask_r() ||
+           m_parameters->get_is_color_mask_g() != cached_parameters->get_is_color_mask_g() ||
+           m_parameters->get_is_color_mask_b() != cached_parameters->get_is_color_mask_b() ||
+           m_parameters->get_is_color_mask_a() != cached_parameters->get_is_color_mask_a())
         {
-            material::get_cached_parameters()->set_is_color_mask_r(m_parameters->get_is_color_mask_r());
-            material::get_cached_parameters()->set_is_color_mask_g(m_parameters->get_is_color_mask_g());
-            material::get_cached_parameters()->set_is_color_mask_b(m_parameters->get_is_color_mask_b());
-            material::get_cached_parameters()->set_is_color_mask_a(m_parameters->get_is_color_mask_a());
+            cached_parameters->set_is_color_mask_r(m_parameters->get_is_color_mask_r());
+            cached_parameters->set_is_color_mask_g(m_parameters->get_is_color_mask_g());
+            cached_parameters->set_is_color_mask_b(m_parameters->get_is_color_mask_b());
+            cached_parameters->set_is_color_mask_a(m_parameters->get_is_color_mask_a());
             
             gl::command::color_mask(m_parameters->get_is_color_mask_r(), m_parameters->get_is_color_mask_g(),
                                     m_parameters->get_is_color_mask_b(), m_parameters->get_is_color_mask_a());
@@ -1479,7 +1537,7 @@ namespace gb
         
 #endif
         
-        material::get_cached_parameters()->set_technique_name(m_technique_name);
+        cached_parameters->set_technique_name(m_parameters->get_technique_name());
         
     }
     
@@ -1491,7 +1549,7 @@ namespace gb
         
 #if USED_GRAPHICS_API == METAL_API
         
-        m_render_encoder->unbind(m_technique_name);
+        m_render_encoder->unbind(m_parameters->get_technique_name());
         
 #endif
         
@@ -1570,6 +1628,6 @@ namespace gb
     
 #endif
     
-}
+    }
 
 #endif

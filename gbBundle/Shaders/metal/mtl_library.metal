@@ -42,14 +42,12 @@ vertex common_v_output_t vertex_shader_ss_deferred_lighting(common_v_input_t in 
 
 fragment half4 fragment_shader_ss_deferred_lighting(common_v_output_t in [[stage_in]],
                                                      texture2d<half> opaque_color_texture [[texture(0)]],
-                                                     texture2d<half> transparent_color_texture [[texture(1)]],
-                                                     texture2d<half> transparent_alpha_texture [[texture(2)]],
-                                                     texture2d<half> lighting_texture [[texture(3)]])
+                                                     texture2d<float> transparent_color_texture [[texture(1)]],
+                                                     texture2d<half> lighting_texture [[texture(2)]])
 {
     half4 opaque_color = opaque_color_texture.sample(linear_sampler, in.texcoord);
-    half4 transparent_color = transparent_color_texture.sample(linear_sampler, in.texcoord);
+    half4 transparent_color = (half4)transparent_color_texture.sample(linear_sampler, in.texcoord);
     half4 color = opaque_color + transparent_color;
-    color.a = transparent_color.a;
     
     half4 lighting = lighting_texture.sample(linear_sampler, in.texcoord);
     color.rbg = color.rbg * clamp(lighting.rbg, half3(.001f), half3(.999f));
@@ -667,22 +665,18 @@ vertex common_v_output_t vertex_shader_particle_emitter(common_v_input_t in [[st
     return out;
 }
 
-fragment oit_buffer_output_t fragment_shader_particle_emitter(common_v_output_t in [[stage_in]],
-                                                              texture2d<half> diffuse_texture [[texture(0)]],
-                                                              texture2d<float> position_texture [[texture(1)]])
+fragment float4 fragment_shader_particle_emitter(common_v_output_t in [[stage_in]],
+                                                 texture2d<half> diffuse_texture [[texture(0)]],
+                                                 texture2d<float> position_texture [[texture(1)]])
 {
     uint2 screen_space_position = uint2(in.position.xy);
     float4 position = position_texture.read(screen_space_position);
-    float depth = position.w;
+    half depth = position.w;
     
-    oit_buffer_output_t out;
-    float4 color = float4(in.color.rbg, 1.0);
+    half4 color = half4(half3(in.color.rbg), 1.0);
     color.a = diffuse_texture.sample(linear_sampler, in.texcoord).a * in.color.a;
-    float weight = (depth - in.position.w) / 1.66;
-    out.color = float4(color.rgb * color.a, color.a * weight);
-    out.alpha = half(color.a * weight);
-    
-    return out;
+    half weight = (depth - in.position.w) / 1.66;
+    return float4(float3(color.rgb * color.a), color.a * weight);
 }
 
 //
@@ -703,17 +697,11 @@ vertex common_v_output_t vertex_shader_label(common_v_input_t in [[stage_in]],
     return out;
 }
 
-fragment oit_buffer_output_t fragment_shader_label(common_v_output_t in [[stage_in]],
-                                                   texture2d<half> diffuse_texture [[texture(0)]])
+fragment float4 fragment_shader_label(common_v_output_t in [[stage_in]],
+                                     texture2d<half> diffuse_texture [[texture(0)]])
 {
-    oit_buffer_output_t out;
-    float4 color = float4(1.0, 1.0, 1.0, 1.0) * 4.0;
-    color.a = diffuse_texture.sample(linear_sampler, in.texcoord).r;
-    float weight = clamp(pow(min(1.0, color.a * 10.0) + 0.01, 3.0) * 1e8 * pow(1.0 - in.position.z * 0.9, 3.0), 1e-2, 3e3);
-    out.color = float4(color.rgb * color.a, color.a) * weight;
-    out.alpha = half(color.a);
-    
-    return out;
+    float4 color = float4(float3(4.f), diffuse_texture.sample(linear_sampler, in.texcoord).r);
+    return color;
 }
 
 //
@@ -740,22 +728,17 @@ vertex common_v_output_t vertex_shader_trail(common_v_input_t in [[stage_in]],
     return out;
 }
 
-fragment oit_buffer_output_t fragment_shader_trail(common_v_output_t in [[stage_in]],
+fragment float4 fragment_shader_trail(common_v_output_t in [[stage_in]],
                                                    texture2d<half> diffuse_texture [[texture(0)]],
                                                    texture2d<float> position_texture [[texture(1)]])
 {
     uint2 screen_space_position = uint2(in.position.xy);
-    float4 position = position_texture.read(screen_space_position);
-    float depth = position.w;
+    half depth = position_texture.read(screen_space_position).w;
     
-    oit_buffer_output_t out;
-    float4 color = float4(in.color.rbg * -1.0, 1.0);
+    half4 color = half4(half3(in.color.rbg * -1.f), 0.0);
     color.a = diffuse_texture.sample(linear_sampler, in.texcoord).a * in.color.a;
-    float weight = (depth - in.position.w) / 1.66;
-    out.color = float4(color.rgb * color.a, color.a * weight);
-    out.alpha = half(color.a * weight);
-    
-    return out;
+    half weight = (depth - in.position.w) / 1.66;
+    return float4(float3(color.rgb * color.a), color.a * weight);
 }
 
 //

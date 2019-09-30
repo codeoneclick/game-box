@@ -60,8 +60,8 @@ namespace gb
     protected:
         
         std::string m_guid;
-        material_shared_ptr m_material;
-        mesh_2d_shared_ptr m_batch;
+        material_shared_ptr m_material = nullptr;
+        mesh_3d_shared_ptr m_batch = nullptr;
         
         ui32 m_num_vertices_in_batch;
         ui32 m_num_indices_in_batch;
@@ -73,7 +73,7 @@ namespace gb
         batch(const material_shared_ptr& material);
         ~batch();
         
-        void add(const mesh_2d_shared_ptr& mesh, const glm::mat4& matrix, ui32 matrix_version);
+        void add(const mesh_3d_shared_ptr& mesh, const glm::mat4& matrix, ui32 matrix_version);
         void reset();
         
         std::string get_guid() const;

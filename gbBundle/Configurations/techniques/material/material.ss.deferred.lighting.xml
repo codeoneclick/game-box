@@ -41,15 +41,8 @@
         min_filter="GL_LINEAR"/>
         <texture
         filename=""
-        render_operation_name="ws.transparent.base.attachment_02"
-        sampler_index="2"
-        wrap_mode="GL_CLAMP_TO_EDGE"
-        mag_filter="GL_LINEAR"
-        min_filter="GL_LINEAR"/>
-        <texture
-        filename=""
         render_operation_name="ws.deferred.lighting.attachment_01"
-        sampler_index="3"
+        sampler_index="2"
         wrap_mode="GL_CLAMP_TO_EDGE"
         mag_filter="GL_LINEAR"
         min_filter="GL_LINEAR"/>
