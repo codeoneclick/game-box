@@ -107,6 +107,9 @@ namespace game
             e_ui_speed_up_boost_trigger_label,
             e_ui_slow_motion_boost_trigger_dialog,
             e_ui_controls_dialog,
+            e_ui_daily_tasks_button,
+            e_ui_daily_tasks_label,
+            e_ui_daily_tasks_dialog,
             e_ui_max
         };
         
@@ -169,6 +172,7 @@ namespace game
         static const i32 k_slow_motion_boost_trigger_dialog_indicator_3;
         static const i32 k_controls_dialog_description_label;
         static const i32 k_controls_dialog_ok_button;
+        static const i32 k_daily_tasks_dialog_table_view;
         
         static std::array<glm::vec2, static_cast<i32>(e_ui::e_ui_max)> k_controls_position;
         

@@ -67,6 +67,9 @@ namespace game
         
         ces_base_system::add_required_component_guid(m_ui_components_mask, ces_ui_interaction_component::class_guid());
         ces_base_system::add_required_components_mask(m_ui_components_mask);
+        
+        ces_base_system::add_required_component_guid(m_camera_follow_car_components_mask, ces_car_camera_follow_component::class_guid());
+        ces_base_system::add_required_components_mask(m_camera_follow_car_components_mask);
     }
     
     ces_state_automat_system::~ces_state_automat_system()
@@ -174,16 +177,26 @@ namespace game
                         }
                     }
                 }
-                if (scene_state_automat_component->mode == ces_scene_state_automat_component::e_mode_in_game)
-                {
-                   
-                }
+
                 if (scene_state_automat_component->mode == ces_scene_state_automat_component::e_mode_garage)
                 {
                     scene_visual_effects_component->is_noises_enabled = false;
                     root->get_component<gb::ces_box2d_world_component>()->set_update_interval(.25f);
+                    
+                    if (!m_camera_follow_car.expired())
+                    {
+                        const auto car_descriptor_component = m_camera_follow_car.lock()->get_component<ces_car_descriptor_component>();
+                        if (!car_descriptor_component->get_car_upgrade()->is_equal(car_descriptor_component->get_car_upgrade_cache()))
+                        {
+                            const auto buy_upgrade_button = ui_controls_helper::get_control_as<gb::ui::image_button>(ces_ui_interaction_component::e_ui::e_ui_buy_upgrade_button);
+                            if (buy_upgrade_button)
+                            {
+                                buy_upgrade_button->focus(true, .33f);
+                            }
+                        }
+                    }
                 }
-                else if (scene_state_automat_component->mode == ces_scene_state_automat_component::e_mode_in_game)
+                if (scene_state_automat_component->mode == ces_scene_state_automat_component::e_mode_in_game)
                 {
                     if (!m_level.expired())
                     {
@@ -337,6 +350,12 @@ namespace game
                                                       hide_progress);
                     
                     ui_animation_helper::hide_to_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_leaderboard_label),
+                                                      hide_progress);
+                    
+                    ui_animation_helper::hide_to_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_daily_tasks_button),
+                                                      hide_progress);
+                    
+                    ui_animation_helper::hide_to_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_daily_tasks_label),
                                                       hide_progress);
                     
                     ui_animation_helper::hide_to_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_controls_button),
@@ -675,6 +694,13 @@ namespace game
                         ui_animation_helper::show_from_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_leaderboard_label),
                                                             show_progress);
                         
+                        ui_animation_helper::show_from_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_daily_tasks_button),
+                                                            show_progress);
+                        
+                        ui_animation_helper::show_from_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_daily_tasks_label),
+                                                            show_progress);
+                        
+                        
                         ui_animation_helper::show_from_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_controls_button),
                                                             show_progress);
                         
@@ -837,6 +863,10 @@ namespace game
             m_main_car = entity;
             std::string id = entity->tag;
             m_all_cars[id] = entity;
+        });
+        
+        ces_base_system::enumerate_entities_with_components(m_camera_follow_car_components_mask, [=](const gb::ces_entity_shared_ptr& entity) {
+            m_camera_follow_car = entity;
         });
         
         ces_base_system::enumerate_entities_with_components(m_ai_car_components_mask, [=](const gb::ces_entity_shared_ptr& entity) {

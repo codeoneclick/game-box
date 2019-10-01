@@ -128,6 +128,10 @@ namespace game
         root->add_child(shop_dialog);
         ui_animation_helper::hide_to_down(std::static_pointer_cast<gb::ui::control>(shop_dialog), 1.f);
         
+        const auto daily_tasks_dialog = gameplay_ui_fabricator->create_daily_tasks_dialog("");
+        root->add_child(daily_tasks_dialog);
+        ui_animation_helper::hide_to_down(std::static_pointer_cast<gb::ui::control>(daily_tasks_dialog), 1.f);
+        
 #if defined(__IOS__)
         
         const auto tickets_label = gameplay_ui_fabricator->create_tickets_label("");
@@ -212,6 +216,20 @@ namespace game
         if (hidden)
         {
             ui_animation_helper::hide_to_left(std::static_pointer_cast<gb::ui::control>(leaderboard_label), 1.f);
+        }
+        
+        const auto daily_tasks_button = gameplay_ui_fabricator->create_daily_tasks_button("");
+        root->add_child(daily_tasks_button);
+        if (hidden)
+        {
+            ui_animation_helper::hide_to_left(std::static_pointer_cast<gb::ui::control>(daily_tasks_button), 1.f);
+        }
+        
+        const auto daily_tasks_label = gameplay_ui_fabricator->create_daily_tasks_label("");
+        root->add_child(daily_tasks_label);
+        if (hidden)
+        {
+            ui_animation_helper::hide_to_left(std::static_pointer_cast<gb::ui::control>(daily_tasks_label), 1.f);
         }
         
         const auto screen_overlay = gameplay_ui_fabricator->create_screen_overlay("");

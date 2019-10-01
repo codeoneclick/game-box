@@ -11,6 +11,7 @@
 #include "ces_garage_database_component.h"
 #include "ces_levels_database_component.h"
 #include "ces_user_database_component.h"
+#include "ces_daily_task_database_component.h"
 
 namespace game
 {
@@ -65,5 +66,10 @@ namespace game
             }
         }
         garage_database_component->update_cars_according_rank(1, user_database_component->get_rank(1));
+        
+        const auto daily_tasks_database_component = std::make_shared<ces_daily_task_database_component>();
+        daily_tasks_database_component->set_database_coordinator(database_coordinator);
+        daily_tasks_database_component->validate_all_tasks();
+        root->add_component(daily_tasks_database_component);
     }
 }

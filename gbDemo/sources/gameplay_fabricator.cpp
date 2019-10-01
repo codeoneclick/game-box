@@ -66,6 +66,8 @@
 #include "ces_camera_collision_component.h"
 #include "ces_car_impact_component.h"
 #include "ces_keyboard_listener_component.h"
+#include "ces_daily_task_database_component.h"
+#include "db_daily_task_table.h"
 
 namespace game
 {
@@ -138,6 +140,7 @@ namespace game
         m_database_coordinator->register_table<db_garage_table>();
         m_database_coordinator->register_table<db_car_table>();
         m_database_coordinator->register_table<db_level_table>();
+        m_database_coordinator->register_table<db_daily_task_table>();
     }
     
     gb::db::database_coordinator_shared_ptr gameplay_fabricator::get_database_coordinator() const

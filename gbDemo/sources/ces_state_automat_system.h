@@ -22,6 +22,7 @@ namespace game
         std::bitset<std::numeric_limits<uint8_t>::max()> m_main_car_components_mask;
         std::bitset<std::numeric_limits<uint8_t>::max()> m_ai_car_components_mask;
         std::bitset<std::numeric_limits<uint8_t>::max()> m_ui_components_mask;
+        std::bitset<std::numeric_limits<uint8_t>::max()> m_camera_follow_car_components_mask;
         
     protected:
         
@@ -31,6 +32,7 @@ namespace game
         
         gb::ces_entity_weak_ptr m_level;
         gb::ces_entity_weak_ptr m_main_car;
+        gb::ces_entity_weak_ptr m_camera_follow_car;
         std::unordered_map<std::string, gb::ces_entity_weak_ptr> m_all_cars;
         
     public:

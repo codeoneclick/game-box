@@ -74,9 +74,13 @@ namespace game
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_shop_label)] = glm::vec2(32.f + k_image_button_size.x, 40.f + 8.f * 2.f + k_image_button_size.y * 2.f);
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_leaderboard_button)] = glm::vec2(32.f, 40.f + 8.f * 3.f + k_image_button_size.y * 3.f);
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_leaderboard_label)] = glm::vec2(32.f + k_image_button_size.x, 40.f + 8.f * 3.f + k_image_button_size.y * 3.f);
-        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_controls_button)] = glm::vec2(32.f, 40.f + 8.f * 4.f + k_image_button_size.y * 4.f);
-         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_controls_label)] = glm::vec2(32.f + k_image_button_size.x, 40.f + 8.f * 4.f + k_image_button_size.y * 4.f);
-        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_quit_game_button)] = glm::vec2(32.f, 40.f + 8.f * 4.f + k_image_button_size.y * 5.f);
+        
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_daily_tasks_button)] = glm::vec2(32.f, 40.f + 8.f * 4.f + k_image_button_size.y * 4.f);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_daily_tasks_label)] = glm::vec2(32.f + k_image_button_size.x, 40.f + 8.f * 4.f + k_image_button_size.y * 4.f);
+        
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_controls_button)] = glm::vec2(32.f, 40.f + 8.f * 5.f + k_image_button_size.y * 5.f);
+         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_controls_label)] = glm::vec2(32.f + k_image_button_size.x, 40.f + 8.f * 5.f + k_image_button_size.y * 5.f);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_quit_game_button)] = glm::vec2(32.f, 40.f + 8.f * 6.f + k_image_button_size.y * 6.f);
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_facebook_button)] = glm::vec2(32.f, 40.f + 8.f * 3.f + k_image_button_size.y * 3.f);
         
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_back_from_garage_button)] = glm::vec2(32.f, 40.f);
@@ -115,9 +119,9 @@ namespace game
         
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_performance_label)] = glm::vec2(m_screen_size.x - 32.f - 8.f - k_image_button_size.x - 160.f, 40.f + k_image_button_size.y + 8.f + k_image_button_size.y + 8.f);
         
-        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_buy_upgrade_label)] = glm::vec2(m_screen_size.x * .5f, m_screen_size.y - (k_image_button_size.y + 8.f) * 2.f);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_buy_upgrade_label)] = glm::vec2(m_screen_size.x - 32.f - k_image_button_size.x * 3.f, m_screen_size.y - (k_image_button_size.y + 8.f) * 3.f);
         
-        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_buy_upgrade_button)] = glm::vec2(m_screen_size.x * .5f - k_image_button_size.x, m_screen_size.y - (k_image_button_size.y + 8.f) * 2.f);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_buy_upgrade_button)] = glm::vec2(m_screen_size.x - 32.f - k_image_button_size.x, m_screen_size.y - (k_image_button_size.y + 8.f) * 3.f);
         
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_upgrade_speed_label)] = glm::vec2(m_screen_size.x - 32.f - 8.f - k_image_button_size.x - (k_image_button_size.x * .5f + 8.f) * 4.f + 8.f, 40.f + k_image_button_size.y + 8.f + k_image_button_size.y + 8.f);
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_upgrade_speed_progress_bar)] = glm::vec2(m_screen_size.x - 32.f - 8.f - k_image_button_size.x - (k_image_button_size.x * .5f + 8.f) * 4.f + k_image_button_size.x * .5f + 8.f, 40.f + k_image_button_size.y + 8.f + k_image_button_size.y + 8.f + k_image_button_size.y * .5f);
@@ -140,6 +144,7 @@ namespace game
         
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_career_dialog)] = glm::vec2(40.f + k_image_button_size.x + 16.f, 40.f + 16.f);
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_shop_dialog)] = glm::vec2(40.f + k_image_button_size.x + 16.f, 40.f + 16.f);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_daily_tasks_dialog)] = glm::vec2(40.f + k_image_button_size.x + 16.f, 40.f + 16.f);
         
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_body_paint_dialog)] = glm::vec2(m_screen_size.x - 32.f - 16.f - k_image_button_size.x - (k_image_button_size.x * .75f) * 4.f, 40.f + 16.f);
         
@@ -1696,5 +1701,45 @@ namespace game
     }
 
 #endif
+
+    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_daily_tasks_button(const std::string& filename)
+    {
+        const auto button = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size, "ui_target.png", nullptr);
+        add_ui_interaction_component(button, game::ces_ui_interaction_component::e_ui::e_ui_daily_tasks_button);
+        button->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_daily_tasks_button)];
+               colorize_ui_control(button);
+         button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
+         return button;
+    }
+
+    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_daily_tasks_label(const std::string& filename)
+    {
+        const auto label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(160.f, k_image_button_size.y), "DAILY TASK");
+        add_ui_interaction_component(label, game::ces_ui_interaction_component::e_ui::e_ui_daily_tasks_label);
+        label->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_daily_tasks_label)];
+        colorize_ui_control(label);
+        label->set_font_size(24.f);
+        label->set_text_vertical_aligment(gb::ui::e_element_vertical_aligment_center);
+        label->set_text_horizontal_aligment(gb::ui::e_element_horizontal_aligment_center);
+        return label;
+    }
+
+    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_daily_tasks_dialog(const std::string& filename)
+    {
+        auto dialog = m_ui_base_fabricator.lock()->create_dialog(glm::vec2(0.f));
+        colorize_ui_control(dialog);
+        dialog->visible = false;
+        dialog->show_title(false);
+        add_ui_interaction_component(dialog, game::ces_ui_interaction_component::e_ui::e_ui_daily_tasks_dialog);
+        
+        auto table_view = m_ui_base_fabricator.lock()->create_table_view(glm::vec2(300.f,
+                                                                                   m_screen_size.y - 56.f * 2.f));
+        table_view->position = glm::vec2(0.f);
+        table_view->set_background_color(k_control_transparent_color);
+        dialog->add_control(table_view, game::ces_ui_interaction_component::k_daily_tasks_dialog_table_view);
+        dialog->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_daily_tasks_dialog)];
+        
+        return dialog;
+    }
 
 }

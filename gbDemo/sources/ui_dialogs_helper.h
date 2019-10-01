@@ -54,6 +54,9 @@ namespace game
         static void push_controls_dialog(const gb::ces_entity_shared_ptr& root);
         static void pop_controls_dialog();
         
+        static void push_daily_tasks_dialog(const gb::ces_entity_shared_ptr& root);
+        static void pop_daily_tasks_dialog();
+        
     protected:
         
     public:

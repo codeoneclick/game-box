@@ -10,6 +10,7 @@
 #include "table_view.h"
 #include "shop_table_view_cell.h"
 #include "career_table_view_cell.h"
+#include "daily_task_table_view_cell.h"
 #include "dialog.h"
 #include "button.h"
 #include "image_button.h"
@@ -23,9 +24,10 @@
 #include "ces_levels_database_component.h"
 #include "ces_scene_state_automat_component.h"
 #include "ces_garage_database_component.h"
+#include "ces_daily_task_database_component.h"
 
 namespace game
-{
+    {
     gb::ces_entity_weak_ptr ui_dialogs_helper::m_pushed_dialog;
     
     void ui_dialogs_helper::push_main_menu_button_labels()
@@ -114,6 +116,23 @@ namespace game
             ui_move_animation_action_component->set_move_direction(ces_ui_move_animation_action_component::e_move_direction::e_down);
             ui_animation_helper::move_with_animation_action(leaderboard_label);
         }
+        
+        const auto daily_tasks_label = ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_daily_tasks_label);
+        if (daily_tasks_label)
+        {
+            ui_animation_helper::hide_to_up(daily_tasks_label, 1.f);
+            daily_tasks_label->visible = true;
+            auto ui_move_animation_action_component = daily_tasks_label->get_component<ces_ui_move_animation_action_component>();
+            if (!ui_move_animation_action_component)
+            {
+                ui_move_animation_action_component = std::make_shared<ces_ui_move_animation_action_component>();
+                daily_tasks_label->add_component(ui_move_animation_action_component);
+            }
+            ui_move_animation_action_component->set_duration_in_second(.33f);
+            ui_move_animation_action_component->set_move_mode(ces_ui_move_animation_action_component::e_move_mode::e_show);
+            ui_move_animation_action_component->set_move_direction(ces_ui_move_animation_action_component::e_move_direction::e_down);
+            ui_animation_helper::move_with_animation_action(daily_tasks_label);
+        }
     }
     
     void ui_dialogs_helper::pop_main_menu_button_labels()
@@ -191,6 +210,21 @@ namespace game
             ui_move_animation_action_component->set_move_mode(ces_ui_move_animation_action_component::e_move_mode::e_hide);
             ui_move_animation_action_component->set_move_direction(ces_ui_move_animation_action_component::e_move_direction::e_top);
             ui_animation_helper::move_with_animation_action(leaderboard_label);
+        }
+        
+        const auto daily_tasks_label = ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_daily_tasks_label);
+        if (daily_tasks_label)
+        {
+            auto ui_move_animation_action_component = daily_tasks_label->get_component<ces_ui_move_animation_action_component>();
+            if (!ui_move_animation_action_component)
+            {
+                ui_move_animation_action_component = std::make_shared<ces_ui_move_animation_action_component>();
+                daily_tasks_label->add_component(ui_move_animation_action_component);
+            }
+            ui_move_animation_action_component->set_duration_in_second(.33f);
+            ui_move_animation_action_component->set_move_mode(ces_ui_move_animation_action_component::e_move_mode::e_hide);
+            ui_move_animation_action_component->set_move_direction(ces_ui_move_animation_action_component::e_move_direction::e_top);
+            ui_animation_helper::move_with_animation_action(daily_tasks_label);
         }
     }
     
@@ -932,7 +966,7 @@ namespace game
             ui_controls_helper::enable_all_and_unfocus();
         }
     }
-
+    
     void ui_dialogs_helper::push_controls_dialog(const gb::ces_entity_shared_ptr& root)
     {
         const auto dialog = ui_controls_helper::get_control_as<gb::ces_entity>(ces_ui_interaction_component::e_ui::e_ui_controls_dialog);
@@ -954,7 +988,7 @@ namespace game
             }
         }
     }
-
+    
     void ui_dialogs_helper::pop_controls_dialog()
     {
         const auto dialog = ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_controls_dialog);
@@ -966,6 +1000,111 @@ namespace game
         }
     }
     
+    void ui_dialogs_helper::push_daily_tasks_dialog(const gb::ces_entity_shared_ptr& root)
+    {
+        const auto dialog = ui_controls_helper::get_control_as<gb::ui::control>(ces_ui_interaction_component::e_ui::e_ui_daily_tasks_dialog);
+        if (dialog)
+        {
+            m_pushed_dialog = dialog;
+            ui_animation_helper::hide_to_down(dialog, 1.f);
+            dialog->visible = true;
+            
+            pop_main_menu_button_labels();
+            
+            auto ui_move_animation_action_component = dialog->get_component<ces_ui_move_animation_action_component>();
+            if (!ui_move_animation_action_component)
+            {
+                ui_move_animation_action_component = std::make_shared<ces_ui_move_animation_action_component>();
+                dialog->add_component(ui_move_animation_action_component);
+            }
+            ui_move_animation_action_component->set_duration_in_second(.33f);
+            ui_move_animation_action_component->set_move_mode(ces_ui_move_animation_action_component::e_move_mode::e_show);
+            ui_move_animation_action_component->set_move_direction(ces_ui_move_animation_action_component::e_move_direction::e_top);
+            ui_animation_helper::move_with_animation_action(dialog);
+            
+            const auto daily_tasks_database_component = root->get_component<ces_daily_task_database_component>();
+            const auto tasks = daily_tasks_database_component->get_all_tasks();
+            
+            const auto daily_tasks_table_view = std::static_pointer_cast<gb::ui::table_view>(std::static_pointer_cast<gb::ui::dialog>(dialog)->get_control(ces_ui_interaction_component::k_daily_tasks_dialog_table_view));
+            
+            std::vector<gb::ui::table_view_cell_data_shared_ptr> data;
+            for (i32 i = 1; i <= tasks.size(); ++i)
+            {
+                auto daily_task_data_it = tasks.find(i);
+                if (daily_task_data_it != tasks.end())
+                {
+                    auto cell_data = std::make_shared<ui::daily_task_table_view_cell_data>();
+                    cell_data->id = daily_task_data_it->second->get_id();
+                    cell_data->name = daily_tasks_database_component->get_task_name(cell_data->id);
+                    cell_data->description = daily_tasks_database_component->get_task_description(cell_data->id);
+                    cell_data->cash_reward = daily_task_data_it->second->get_cash_reward();
+                    cell_data->progress = static_cast<f32>(daily_task_data_it->second->get_progress()) / static_cast<f32>(daily_task_data_it->second->get_requirements());
+                    cell_data->is_done = daily_task_data_it->second->get_is_done();
+                    cell_data->is_claimed = daily_task_data_it->second->get_is_claimed();
+                    data.push_back(cell_data);
+                }
+            }
+            daily_tasks_table_view->set_data_source(data);
+            daily_tasks_table_view->set_on_get_cell_callback([=](i32 index, const gb::ui::table_view_cell_data_shared_ptr& data, const gb::ces_entity_shared_ptr& table_view) {
+                gb::ui::table_view_cell_shared_ptr cell = nullptr;
+                cell = std::static_pointer_cast<gb::ui::table_view>(table_view)->reuse_cell("daily_task_cell", index);
+                if(!cell)
+                {
+                    cell = gb::ces_entity::construct<ui::daily_task_table_view_cell>(std::static_pointer_cast<gb::ui::table_view>(table_view)->get_fabricator(), index, "daily_task_cell");
+                    
+                    cell->create();
+                    cell->size = glm::vec2(300.f, 144.f);
+                    
+                    std::static_pointer_cast<ui::daily_task_table_view_cell>(cell)->set_claim_reward_button_callback_t([=](i32 index) {
+                        auto data_source = std::static_pointer_cast<gb::ui::table_view>(table_view)->get_data_source();
+                        auto data = data_source.at(index);
+                        const auto daily_task_cell_data = std::static_pointer_cast<ui::daily_task_table_view_cell_data>(data);
+                    });
+                }
+                
+                const auto daily_task_cell_data = std::static_pointer_cast<ui::daily_task_table_view_cell_data>(data);
+                std::string name = daily_task_cell_data->name;
+                std::static_pointer_cast<ui::daily_task_table_view_cell>(cell)->set_name(name);
+                std::string description = daily_task_cell_data->description;
+                std::static_pointer_cast<ui::daily_task_table_view_cell>(cell)->set_description(description);
+                i32 cash_reward = daily_task_cell_data->cash_reward;
+                std::static_pointer_cast<ui::daily_task_table_view_cell>(cell)->set_cash_reward(cash_reward);
+                f32 progress = daily_task_cell_data->progress;
+                std::static_pointer_cast<ui::daily_task_table_view_cell>(cell)->set_progress(progress);
+                bool is_done = daily_task_cell_data->is_done;
+                std::static_pointer_cast<ui::daily_task_table_view_cell>(cell)->set_is_done(is_done);
+                bool is_claimed = daily_task_cell_data->is_claimed;
+                std::static_pointer_cast<ui::daily_task_table_view_cell>(cell)->set_is_claimed(is_claimed);
+                
+                return cell;
+            });
+            daily_tasks_table_view->set_on_get_table_cell_height_callback([](i32 index) {
+                return 144.f;
+            });
+            daily_tasks_table_view->reload_data();
+        }
+    }
+    
+    void ui_dialogs_helper::pop_daily_tasks_dialog()
+    {
+        const auto dialog = ui_controls_helper::get_control_as<gb::ui::control>(ces_ui_interaction_component::e_ui::e_ui_daily_tasks_dialog);
+        if (dialog)
+        {
+            push_main_menu_button_labels();
+            
+            auto ui_move_animation_action_component = dialog->get_component<ces_ui_move_animation_action_component>();
+            if (!ui_move_animation_action_component)
+            {
+                ui_move_animation_action_component = std::make_shared<ces_ui_move_animation_action_component>();
+                dialog->add_component(ui_move_animation_action_component);
+            }
+            ui_move_animation_action_component->set_duration_in_second(.33f);
+            ui_move_animation_action_component->set_move_mode(ces_ui_move_animation_action_component::e_move_mode::e_hide);
+            ui_move_animation_action_component->set_move_direction(ces_ui_move_animation_action_component::e_move_direction::e_down);
+            ui_animation_helper::move_with_animation_action(dialog);
+        }
+    }
+    
     void ui_dialogs_helper::push_dialog(ces_ui_interaction_component::e_ui ui_id, const gb::ces_entity_shared_ptr& root)
     {
         switch (ui_id)
@@ -974,38 +1113,38 @@ namespace game
             {
                 push_shop_dialog(root);
             }
-            break;
-            
+                break;
+                
             case ces_ui_interaction_component::e_ui::e_ui_career_dialog:
             {
                 push_career_dialog(root);
             }
-            break;
+                break;
             case ces_ui_interaction_component::e_ui::e_ui_quit_game_dialog:
             {
                 push_quit_game_dialog(root);
             }
-            break;
+                break;
             case ces_ui_interaction_component::e_ui::e_ui_cash_shop_dialog:
             {
                 push_cash_shop_dialog(root);
             }
-            break;
+                break;
             case ces_ui_interaction_component::e_ui::e_ui_body_paint_dialog:
             {
                 push_body_paint_dialog(root);
             }
-            break;
+                break;
             case ces_ui_interaction_component::e_ui::e_ui_windshield_paint_dialog:
             {
                 push_windshield_paint_dialog(root);
             }
-            break;
+                break;
             case ces_ui_interaction_component::e_ui::e_ui_performance_upgrade_dialog:
             {
                 push_performance_upgrade_dialog(root);
             }
-            break;
+                break;
             case ces_ui_interaction_component::e_ui::e_ui_unlock_car_dialog:
             {
                 push_unlock_car_dialog(root);
@@ -1016,9 +1155,14 @@ namespace game
                 push_controls_dialog(root);
             }
                 break;
+            case ces_ui_interaction_component::e_ui::e_ui_daily_tasks_dialog:
+            {
+                push_daily_tasks_dialog(root);
+            }
+                break;
             default:
-            assert(false);
-            break;
+                assert(false);
+                break;
         }
     }
     
@@ -1033,37 +1177,37 @@ namespace game
                 {
                     pop_shop_dialog();
                 }
-                break;
+                    break;
                 case ces_ui_interaction_component::e_ui::e_ui_career_dialog:
                 {
                     pop_career_dialog();
                 }
-                break;
+                    break;
                 case ces_ui_interaction_component::e_ui::e_ui_quit_game_dialog:
                 {
                     pop_quit_game_dialog();
                 }
-                break;
+                    break;
                 case ces_ui_interaction_component::e_ui::e_ui_cash_shop_dialog:
                 {
                     pop_cash_shop_dialog();
                 }
-                break;
+                    break;
                 case ces_ui_interaction_component::e_ui::e_ui_body_paint_dialog:
                 {
                     pop_body_paint_dialog();
                 }
-                break;
+                    break;
                 case ces_ui_interaction_component::e_ui::e_ui_windshield_paint_dialog:
                 {
                     pop_windshield_paint_dialog();
                 }
-                break;
+                    break;
                 case ces_ui_interaction_component::e_ui::e_ui_performance_upgrade_dialog:
                 {
                     pop_performance_upgrade_dialog();
                 }
-                break;
+                    break;
                 case ces_ui_interaction_component::e_ui::e_ui_unlock_car_dialog:
                 {
                     pop_unlock_car_dialog();
@@ -1074,9 +1218,14 @@ namespace game
                     pop_controls_dialog();
                 }
                     break;
+                case ces_ui_interaction_component::e_ui::e_ui_daily_tasks_dialog:
+                {
+                    pop_daily_tasks_dialog();
+                }
+                    break;
                 default:
-                assert(false);
-                break;
+                    assert(false);
+                    break;
             }
             m_pushed_dialog.reset();
         }
@@ -1086,4 +1235,4 @@ namespace game
     {
         return m_pushed_dialog.lock();
     }
-}
+    }
