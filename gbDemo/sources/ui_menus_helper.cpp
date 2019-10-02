@@ -513,9 +513,9 @@ namespace game
         root->add_child(speed_up_boost_label);
         ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(speed_up_boost_label), 1.f);
         
-        const auto speed_up_boost_trigger_label = gameplay_ui_fabricator->create_speed_up_boost_trigger_label("");
-        root->add_child(speed_up_boost_trigger_label);
-        ui_animation_helper::hide_to_down(std::static_pointer_cast<gb::ui::control>(speed_up_boost_trigger_label), 1.f);
+        const auto speed_up_boost_trigger_dialog = gameplay_ui_fabricator->create_speed_up_boost_trigger_dialog("");
+        root->add_child(speed_up_boost_trigger_dialog);
+        ui_animation_helper::hide_to_down(std::static_pointer_cast<gb::ui::control>(speed_up_boost_trigger_dialog), 1.f);
         
         const auto speed_up_boost_progress_bar = gameplay_ui_fabricator->create_speed_up_boost_progress_bar("");
         root->add_child(speed_up_boost_progress_bar);

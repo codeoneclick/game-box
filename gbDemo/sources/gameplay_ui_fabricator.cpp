@@ -120,9 +120,9 @@ namespace game
         
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_performance_label)] = glm::vec2(m_screen_size.x - 32.f - 8.f - k_image_button_size.x - 160.f, 40.f + k_image_button_size.y + 8.f + k_image_button_size.y + 8.f);
         
-        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_buy_upgrade_label)] = glm::vec2(m_screen_size.x - 32.f - k_image_button_size.x * 3.f, m_screen_size.y - (k_image_button_size.y + 8.f) * 3.f);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_buy_upgrade_label)] = glm::vec2(m_screen_size.x - 32.f - k_image_button_size.x * 3.f, m_screen_size.y - (k_image_button_size.y + 8.f) * 2.f);
         
-        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_buy_upgrade_button)] = glm::vec2(m_screen_size.x - 32.f - k_image_button_size.x, m_screen_size.y - (k_image_button_size.y + 8.f) * 3.f);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_buy_upgrade_button)] = glm::vec2(m_screen_size.x - 32.f - k_image_button_size.x, m_screen_size.y - (k_image_button_size.y + 8.f) * 2.f);
         
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_upgrade_speed_label)] = glm::vec2(m_screen_size.x - 32.f - 8.f - k_image_button_size.x - (k_image_button_size.x * .5f + 8.f) * 4.f + 8.f, 40.f + k_image_button_size.y + 8.f + k_image_button_size.y + 8.f);
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_upgrade_speed_progress_bar)] = glm::vec2(m_screen_size.x - 32.f - 8.f - k_image_button_size.x - (k_image_button_size.x * .5f + 8.f) * 4.f + k_image_button_size.x * .5f + 8.f, 40.f + k_image_button_size.y + 8.f + k_image_button_size.y + 8.f + k_image_button_size.y * .5f);
@@ -147,9 +147,9 @@ namespace game
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_shop_dialog)] = glm::vec2(40.f + k_image_button_size.x + 16.f, 40.f + 16.f);
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_daily_tasks_dialog)] = glm::vec2(40.f + k_image_button_size.x + 16.f, 40.f + 16.f);
         
-        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_body_paint_dialog)] = glm::vec2(m_screen_size.x - 32.f - 16.f - k_image_button_size.x - (k_image_button_size.x * .75f) * 4.f, 40.f + 16.f);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_body_paint_dialog)] = glm::vec2(m_screen_size.x - 64.f - k_image_button_size.x - (k_image_button_size.x * .75f) * 4.f, 64.f);
         
-        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_windshield_paint_dialog)] = glm::vec2(m_screen_size.x - 32.f - 16.f - k_image_button_size.x - (k_image_button_size.x * .75f) * 4.f, 40.f + 16.f);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_windshield_paint_dialog)] = glm::vec2(m_screen_size.x - 64.f - k_image_button_size.x - (k_image_button_size.x * .75f) * 4.f, 64.f);
         
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_performance_upgrade_dialog)] = glm::vec2(m_screen_size.x - 32.f - 16.f - k_image_button_size.x - (k_image_button_size.x * .75f) * 4.f, 40.f + 16.f);
         
@@ -159,9 +159,10 @@ namespace game
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_speed_up_boost_label)] = glm::vec2(m_screen_size.x - 32.f - 150.f - 100.f - 8.f, 32.f + 8.f + k_image_button_size.y + 24.f);
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_speed_up_boost_progress_bar)] = glm::vec2(m_screen_size.x - 32.f - 100.f, 32.f + 8.f + k_image_button_size.y + 24.f);
     
-        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_speed_up_boost_trigger_label)] = glm::vec2(m_screen_size.x * .5f - 90.f, m_screen_size.y - (k_image_button_size.y + 8.f) * 2.f);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_slow_motion_boost_trigger_dialog)] = glm::vec2(m_screen_size.x * .5f - m_screen_size.x * .6f * .5f, m_screen_size.y - (k_image_button_size.y + 8.f) * 2.f - 48.f);
         
-        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_slow_motion_boost_trigger_dialog)] = glm::vec2(m_screen_size.x * .5f - m_screen_size.x * .6f * .5f, m_screen_size.y - (k_image_button_size.y + 8.f) - 32.f);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_speed_up_boost_trigger_dialog)] = glm::vec2(m_screen_size.x * .5f - m_screen_size.x * .6f * .5f, m_screen_size.y - (k_image_button_size.y + 8.f) * 2.f - 48.f);
+        
         
         
         ui_animation_helper::set_screen_size(m_screen_size);
@@ -1621,13 +1622,18 @@ namespace game
         return label;
     }
     
-    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_speed_up_boost_trigger_label(const std::string& filename)
+    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_speed_up_boost_trigger_dialog(const std::string& filename)
     {
-        const auto label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(180.f, 48.f), "SPEED UP");
-        add_ui_interaction_component(label, game::ces_ui_interaction_component::e_ui::e_ui_speed_up_boost_trigger_label);
-        label->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_speed_up_boost_trigger_label)];
+        auto dialog = m_ui_base_fabricator.lock()->create_dialog(glm::vec2(0.f));
+        colorize_ui_control(dialog);
+        dialog->visible = false;
+        dialog->show_title(false);
+        dialog->set_background_color(k_control_transparent_color);
+        add_ui_interaction_component(dialog, game::ces_ui_interaction_component::e_ui::e_ui_speed_up_boost_trigger_dialog);
+        
+        const auto label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(m_screen_size.x * .6f, 48.f), "FAST, FAST, NITRO !");
+        label->position = glm::vec2(0.f, 0.f);
         label->set_font_name("spincycle.otf");
-        label->set_font_mode(gb::ces_font_component::e_font_mode::e_font_mode_edge);
         label->set_text_horizontal_aligment(gb::ui::e_element_horizontal_aligment::e_element_horizontal_aligment_center);
         
         label->set_text_color(k_control_text_disabled_color, gb::ui::e_control_state::e_disabled);
@@ -1641,8 +1647,63 @@ namespace game
         label->set_text_color(k_control_text_color);
         label->set_background_color(k_control_transparent_color);
         label->set_foreground_color(k_control_transparent_color);
+        label->remove_component(gb::ces_bound_touch_component::class_guid());
         
-        return label;
+        const auto indicator_1 = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size * .66f, "ui_up_hint.png", nullptr);
+        indicator_1->position = glm::vec2(0.f, 48.f + 8.f);
+        
+        indicator_1->set_image_color(k_control_image_disabled_color, gb::ui::e_control_state::e_disabled);
+        indicator_1->set_background_color(k_control_transparent_color, gb::ui::e_control_state::e_disabled);
+        indicator_1->set_foreground_color(k_control_transparent_color, gb::ui::e_control_state::e_disabled);
+        
+        indicator_1->set_image_color(k_control_image_focused_color, gb::ui::e_control_state::e_focused);
+        indicator_1->set_background_color(k_control_transparent_color, gb::ui::e_control_state::e_focused);
+        indicator_1->set_foreground_color(k_control_transparent_color, gb::ui::e_control_state::e_focused);
+        
+        indicator_1->set_image_color(k_control_image_color);
+        indicator_1->set_background_color(k_control_transparent_color);
+        indicator_1->set_foreground_color(k_control_transparent_color);
+        indicator_1->remove_component(gb::ces_bound_touch_component::class_guid());
+        
+        const auto indicator_2 = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size  * .66f, "ui_up_hint.png", nullptr);
+        indicator_2->position = glm::vec2(m_screen_size.x * .6f * .5f - k_image_button_size.x  * .66f * .5f, 48.f + 8.f);
+        
+        indicator_2->set_image_color(k_control_image_disabled_color, gb::ui::e_control_state::e_disabled);
+        indicator_2->set_background_color(k_control_transparent_color, gb::ui::e_control_state::e_disabled);
+        indicator_2->set_foreground_color(k_control_transparent_color, gb::ui::e_control_state::e_disabled);
+        
+        indicator_2->set_image_color(k_control_image_focused_color, gb::ui::e_control_state::e_focused);
+        indicator_2->set_background_color(k_control_transparent_color, gb::ui::e_control_state::e_focused);
+        indicator_2->set_foreground_color(k_control_transparent_color, gb::ui::e_control_state::e_focused);
+        
+        indicator_2->set_image_color(k_control_image_color);
+        indicator_2->set_background_color(k_control_transparent_color);
+        indicator_2->set_foreground_color(k_control_transparent_color);
+        indicator_2->remove_component(gb::ces_bound_touch_component::class_guid());
+        
+        const auto indicator_3 = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size * .66f, "ui_up_hint.png", nullptr);
+        indicator_3->position = glm::vec2(m_screen_size.x * .6f - k_image_button_size.x  * .66f, 48.f + 8.f);
+        
+        indicator_3->set_image_color(k_control_image_disabled_color, gb::ui::e_control_state::e_disabled);
+        indicator_3->set_background_color(k_control_transparent_color, gb::ui::e_control_state::e_disabled);
+        indicator_3->set_foreground_color(k_control_transparent_color, gb::ui::e_control_state::e_disabled);
+        
+        indicator_3->set_image_color(k_control_image_focused_color, gb::ui::e_control_state::e_focused);
+        indicator_3->set_background_color(k_control_transparent_color, gb::ui::e_control_state::e_focused);
+        indicator_3->set_foreground_color(k_control_transparent_color, gb::ui::e_control_state::e_focused);
+        
+        indicator_3->set_image_color(k_control_image_color);
+        indicator_3->set_background_color(k_control_transparent_color);
+        indicator_3->set_foreground_color(k_control_transparent_color);
+        indicator_3->remove_component(gb::ces_bound_touch_component::class_guid());
+        
+        dialog->add_control(label, game::ces_ui_interaction_component::k_speed_up_boost_trigger_dialog_label);
+        dialog->add_control(indicator_1, game::ces_ui_interaction_component::k_speed_up_boost_trigger_dialog_indicator_1);
+        dialog->add_control(indicator_2, game::ces_ui_interaction_component::k_speed_up_boost_trigger_dialog_indicator_2);
+        dialog->add_control(indicator_3, game::ces_ui_interaction_component::k_speed_up_boost_trigger_dialog_indicator_3);
+        dialog->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_speed_up_boost_trigger_dialog)];
+        
+        return dialog;
     }
     
     gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_speed_up_boost_progress_bar(const std::string& filename)
@@ -1664,7 +1725,7 @@ namespace game
         dialog->set_background_color(k_control_transparent_color);
         add_ui_interaction_component(dialog, game::ces_ui_interaction_component::e_ui::e_ui_slow_motion_boost_trigger_dialog);
         
-        const auto label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(m_screen_size.x * .6f, 32.f), "SLOW DOWN ...");
+        const auto label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(m_screen_size.x * .6f, 48.f), "SLOW, SLOW, SLOW DOWN !");
         label->position = glm::vec2(0.f, 0.f);
         label->set_font_name("spincycle.otf");
         label->set_text_horizontal_aligment(gb::ui::e_element_horizontal_aligment::e_element_horizontal_aligment_center);
@@ -1683,7 +1744,7 @@ namespace game
         label->remove_component(gb::ces_bound_touch_component::class_guid());
         
         const auto indicator_1 = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size * .66f, "ui_down_hint.png", nullptr);
-        indicator_1->position = glm::vec2(0.f, 0.f);
+        indicator_1->position = glm::vec2(0.f, 48.f + 8.f);
         
         indicator_1->set_image_color(k_control_image_disabled_color, gb::ui::e_control_state::e_disabled);
         indicator_1->set_background_color(k_control_transparent_color, gb::ui::e_control_state::e_disabled);
@@ -1699,7 +1760,7 @@ namespace game
         indicator_1->remove_component(gb::ces_bound_touch_component::class_guid());
         
         const auto indicator_2 = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size  * .66f, "ui_down_hint.png", nullptr);
-        indicator_2->position = glm::vec2(m_screen_size.x * .6f * .5f - k_image_button_size.x  * .66f * .5f, 0.f);
+        indicator_2->position = glm::vec2(m_screen_size.x * .6f * .5f - k_image_button_size.x  * .66f * .5f, 48.f + 8.f);
         
         indicator_2->set_image_color(k_control_image_disabled_color, gb::ui::e_control_state::e_disabled);
         indicator_2->set_background_color(k_control_transparent_color, gb::ui::e_control_state::e_disabled);
@@ -1715,7 +1776,7 @@ namespace game
         indicator_2->remove_component(gb::ces_bound_touch_component::class_guid());
         
         const auto indicator_3 = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size * .66f, "ui_down_hint.png", nullptr);
-        indicator_3->position = glm::vec2(m_screen_size.x * .6f - k_image_button_size.x  * .66f, 0.f);
+        indicator_3->position = glm::vec2(m_screen_size.x * .6f - k_image_button_size.x  * .66f, 48.f + 8.f);
         
         indicator_3->set_image_color(k_control_image_disabled_color, gb::ui::e_control_state::e_disabled);
         indicator_3->set_background_color(k_control_transparent_color, gb::ui::e_control_state::e_disabled);
@@ -1732,7 +1793,7 @@ namespace game
         
         dialog->add_control(label, game::ces_ui_interaction_component::k_slow_motion_boost_trigger_dialog_label);
         dialog->add_control(indicator_1, game::ces_ui_interaction_component::k_slow_motion_boost_trigger_dialog_indicator_1);
-        // dialog->add_control(indicator_2, game::ces_ui_interaction_component::k_slow_motion_boost_trigger_dialog_indicator_2);
+        dialog->add_control(indicator_2, game::ces_ui_interaction_component::k_slow_motion_boost_trigger_dialog_indicator_2);
         dialog->add_control(indicator_3, game::ces_ui_interaction_component::k_slow_motion_boost_trigger_dialog_indicator_3);
         dialog->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_slow_motion_boost_trigger_dialog)];
         

@@ -160,8 +160,8 @@ namespace game
         gb::game_object_2d_shared_ptr create_slow_motion_boost_trigger_dialog(const std::string& filename);
         
         gb::game_object_2d_shared_ptr create_speed_up_boost_label(const std::string& filename);
-        gb::game_object_2d_shared_ptr create_speed_up_boost_trigger_label(const std::string& filename);
         gb::game_object_2d_shared_ptr create_speed_up_boost_progress_bar(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_speed_up_boost_trigger_dialog(const std::string& filename);
         
         gb::game_object_2d_shared_ptr create_daily_tasks_button(const std::string& filename);
         gb::game_object_2d_shared_ptr create_daily_tasks_label(const std::string& filename);

@@ -187,4 +187,49 @@ namespace game
             }
         });
     }
+
+    void ui_animation_helper::show_with_move_animation_action(const gb::ui::control_shared_ptr& control, f32 duration,
+                                                              i32 direction,
+                                                              const std::function<void()>& callback)
+    {
+        control->visible = true;
+        auto ui_move_animation_action_component = control->get_component<ces_ui_move_animation_action_component>();
+        if (!ui_move_animation_action_component)
+        {
+            ui_move_animation_action_component = std::make_shared<ces_ui_move_animation_action_component>();
+            control->add_component(ui_move_animation_action_component);
+        }
+        ui_move_animation_action_component->set_duration_in_second(duration);
+        ui_move_animation_action_component->set_move_mode(ces_ui_move_animation_action_component::e_move_mode::e_show);
+        ui_move_animation_action_component->set_move_direction(static_cast<ces_ui_move_animation_action_component::e_move_direction>(direction));
+        
+        ui_animation_helper::move_with_animation_action(control, [=]() {
+            if (callback)
+            {
+                callback();
+            }
+        });
+    }
+
+    void ui_animation_helper::hide_with_move_animation_action(const gb::ui::control_shared_ptr& control, f32 duration,
+                                                              i32 direction,
+                                                              const std::function<void()>& callback)
+    {
+        auto ui_move_animation_action_component = control->get_component<ces_ui_move_animation_action_component>();
+        if (!ui_move_animation_action_component)
+        {
+            ui_move_animation_action_component = std::make_shared<ces_ui_move_animation_action_component>();
+            control->add_component(ui_move_animation_action_component);
+        }
+        ui_move_animation_action_component->set_duration_in_second(duration);
+        ui_move_animation_action_component->set_move_mode(ces_ui_move_animation_action_component::e_move_mode::e_hide);
+        ui_move_animation_action_component->set_move_direction(static_cast<ces_ui_move_animation_action_component::e_move_direction>(direction));
+        
+        ui_animation_helper::move_with_animation_action(control, [=]() {
+            if (callback)
+            {
+                callback();
+            }
+        });
+    }
 }

@@ -105,10 +105,10 @@ namespace game
             e_ui_performance_upgrade_dialog,
             e_ui_slow_motion_boost_label,
             e_ui_slow_motion_progress_bar,
+            e_ui_slow_motion_boost_trigger_dialog,
             e_ui_speed_up_boost_label,
             e_ui_speed_up_boost_progress_bar,
-            e_ui_speed_up_boost_trigger_label,
-            e_ui_slow_motion_boost_trigger_dialog,
+            e_ui_speed_up_boost_trigger_dialog,
             e_ui_controls_dialog,
             e_ui_daily_tasks_button,
             e_ui_daily_tasks_label,
@@ -175,6 +175,10 @@ namespace game
         static const i32 k_slow_motion_boost_trigger_dialog_indicator_1;
         static const i32 k_slow_motion_boost_trigger_dialog_indicator_2;
         static const i32 k_slow_motion_boost_trigger_dialog_indicator_3;
+        static const i32 k_speed_up_boost_trigger_dialog_label;
+        static const i32 k_speed_up_boost_trigger_dialog_indicator_1;
+        static const i32 k_speed_up_boost_trigger_dialog_indicator_2;
+        static const i32 k_speed_up_boost_trigger_dialog_indicator_3;
         static const i32 k_controls_dialog_description_label;
         static const i32 k_controls_dialog_ok_button;
         static const i32 k_daily_tasks_dialog_table_view;

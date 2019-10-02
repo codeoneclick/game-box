@@ -34,6 +34,13 @@ namespace game
         static void hide_to_up(const gb::ui::control_shared_ptr& control, f32 hide_progress);
         static void hide_to_down(const gb::ui::control_shared_ptr& control, f32 hide_progress);
         
+        static void show_with_move_animation_action(const gb::ui::control_shared_ptr& control, f32 duration,
+                                                    i32 direction,
+                                                    const std::function<void()>& callback = nullptr);
+        static void hide_with_move_animation_action(const gb::ui::control_shared_ptr& control, f32 duration,
+                                                    i32 direction,
+                                                    const std::function<void()>& callback = nullptr);
+        
         static void move_with_animation_action(const gb::ui::control_shared_ptr& control, const std::function<void()>& callback = nullptr);
     };
 };

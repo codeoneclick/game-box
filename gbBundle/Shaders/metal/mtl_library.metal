@@ -52,7 +52,7 @@ fragment half4 fragment_shader_ss_deferred_lighting(common_v_output_t in [[stage
     half4 mask = mask_texture.sample(linear_sampler, in.texcoord);
     
     half4 lighting = lighting_texture.sample(linear_sampler, in.texcoord);
-    color.rbg = color.rbg * clamp(lighting.rbg, half3(mask.r * .33f), half3(.999f));
+    color.rbg = color.rbg * clamp(lighting.rbg, half3(mask.r * .15f), half3(.999f));
     return color;
 }
 
