@@ -48,6 +48,7 @@
 #include "ui_menus_helper.h"
 #include "game_center_provier.h"
 #include "audio_engine.h"
+#include "ces_daily_task_database_component.h"
 
 namespace game
 {
@@ -174,6 +175,26 @@ namespace game
                                 }
                                 claim_rank_blink_timestamp = current_time;
                             }
+                        }
+                    }
+                    
+                    const auto daily_tasks_button = ui_controls_helper::get_control_as<gb::ui::image_button>(ces_ui_interaction_component::e_ui::e_ui_daily_tasks_button);
+                    
+                    i32 ftue_step = user_database_component->get_ftue_step(1);
+                    const auto daily_tasks_database_component = root->get_component<ces_daily_task_database_component>();
+                    
+                    if (daily_tasks_database_component->is_some_task_done() && ftue_step > 1)
+                    {
+                        if (daily_tasks_button)
+                        {
+                            daily_tasks_button->focus(true, .33f);
+                        }
+                    }
+                    else
+                    {
+                        if (daily_tasks_button)
+                        {
+                            daily_tasks_button->focus(false);
                         }
                     }
                 }

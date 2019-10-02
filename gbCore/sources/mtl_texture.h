@@ -26,6 +26,7 @@ namespace gb
         };
         
         virtual void* get_mtl_raw_texture_ptr() const = 0;
+        virtual void update_pixels_data(ui32 width, ui32 height, void* pixels, ui32 format = gl::constant::rgba_t) = 0;
     };
     
     class mtl_texture
@@ -54,6 +55,8 @@ namespace gb
         
         void set_mipmaps_generated(bool value);
         bool get_is_mipmaps_generated() const;
+        
+        void update_pixels_data(ui32 width, ui32 height, void* pixels, ui32 format = gl::constant::rgba_t);
     };
 };
 

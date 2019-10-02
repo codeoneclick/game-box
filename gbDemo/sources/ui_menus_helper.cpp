@@ -28,6 +28,9 @@ namespace game
         const auto user_database_component = root->get_component<ces_user_database_component>();
         const auto garage_database_component = root->get_component<ces_garage_database_component>();
         
+        const auto screen_overlay_bottom = gameplay_ui_fabricator->create_screen_overlay_bottom("");
+        root->add_child(screen_overlay_bottom);
+        
         const auto career_button = gameplay_ui_fabricator->create_career_button("");
         root->add_child(career_button);
         if (hidden)
@@ -262,7 +265,8 @@ namespace game
         
         if (user_database_component->get_ftue_step(1) == 1)
         {
-            ui_controls_helper::disable_all_and_focus_on({ces_ui_interaction_component::e_ui::e_ui_open_garage_button});
+            ui_controls_helper::disable_all_and_focus_on({ces_ui_interaction_component::e_ui::e_ui_open_garage_button,
+                ces_ui_interaction_component::e_ui::e_ui_garage_label});
         }
     }
     

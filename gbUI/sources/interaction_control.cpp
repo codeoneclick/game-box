@@ -122,5 +122,15 @@ namespace gb
             const auto& bound_touch_component = get_component<ces_bound_touch_component>();
             bound_touch_component->set_disabled(value);
         }
+    
+        void interaction_control::set_on_pressed_callback(const t_on_pressed_callback& callback)
+        {
+            m_on_pressed_callback = callback;
+        }
+        
+        bool interaction_control::is_pressed_callback_exist() const
+        {
+            return m_on_pressed_callback != nullptr;
+        }
 	}
 }

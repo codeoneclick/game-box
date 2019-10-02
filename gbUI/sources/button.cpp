@@ -28,16 +28,6 @@ namespace gb
         
         std::string button::k_foreground_element_name = "foreground_element";
         
-        void i_button_callbacks::set_on_pressed_callback(const t_on_pressed_callback& callback)
-        {
-            m_on_pressed_callback = callback;
-        }
-        
-        bool i_button_callbacks::is_pressed_callback_exist() const
-        {
-            return m_on_pressed_callback != nullptr;
-        }
-        
         button::button(const scene_fabricator_shared_ptr& fabricator) :
         gb::ui::interaction_control(fabricator),
         m_is_selected(false),

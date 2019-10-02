@@ -1059,6 +1059,14 @@ namespace game
                         auto data_source = std::static_pointer_cast<gb::ui::table_view>(table_view)->get_data_source();
                         auto data = data_source.at(index);
                         const auto daily_task_cell_data = std::static_pointer_cast<ui::daily_task_table_view_cell_data>(data);
+                        i32 task_id = daily_task_cell_data->id;
+                        daily_tasks_database_component->set_task_is_claimed(task_id);
+                        daily_task_cell_data->is_claimed = true;
+                        const auto user_database_component = root->get_component<ces_user_database_component>();
+                        i32 cash_reward = daily_task_cell_data->cash_reward;
+                        user_database_component->inc_cash(1, cash_reward);
+                        ui_controls_helper::update_cash_amount(user_database_component->get_cash(1), cash_reward);
+                        daily_tasks_table_view->reload_data();
                     });
                 }
                 

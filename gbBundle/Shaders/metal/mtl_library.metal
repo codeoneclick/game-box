@@ -43,14 +43,16 @@ vertex common_v_output_t vertex_shader_ss_deferred_lighting(common_v_input_t in 
 fragment half4 fragment_shader_ss_deferred_lighting(common_v_output_t in [[stage_in]],
                                                      texture2d<half> opaque_color_texture [[texture(0)]],
                                                      texture2d<float> transparent_color_texture [[texture(1)]],
-                                                     texture2d<half> lighting_texture [[texture(2)]])
+                                                     texture2d<half> lighting_texture [[texture(2)]],
+                                                     texture2d<half> mask_texture [[texture(3)]])
 {
     half4 opaque_color = opaque_color_texture.sample(linear_sampler, in.texcoord);
     half4 transparent_color = (half4)transparent_color_texture.sample(linear_sampler, in.texcoord);
     half4 color = opaque_color + transparent_color;
+    half4 mask = mask_texture.sample(linear_sampler, in.texcoord);
     
     half4 lighting = lighting_texture.sample(linear_sampler, in.texcoord);
-    color.rbg = color.rbg * clamp(lighting.rbg, half3(.001f), half3(.999f));
+    color.rbg = color.rbg * clamp(lighting.rbg, half3(mask.r * .33f), half3(.999f));
     return color;
 }
 

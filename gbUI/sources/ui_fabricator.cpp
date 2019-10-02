@@ -23,6 +23,7 @@
 #include "progress_bar.h"
 #include "dialog.h"
 #include "color_picker.h"
+#include "slider.h"
 
 namespace gb
 {
@@ -171,6 +172,14 @@ namespace gb
         color_picker_shared_ptr ui_fabricator::create_color_picker(const glm::vec2& size)
         {
             auto control = gb::ces_entity::construct<gb::ui::color_picker>(m_fabricator);
+            control->create();
+            control->size = size;
+            return control;
+        }
+    
+        slider_shared_ptr ui_fabricator::create_slider(const glm::vec2& size)
+        {
+            auto control = gb::ces_entity::construct<gb::ui::slider>(m_fabricator);
             control->create();
             control->size = size;
             return control;

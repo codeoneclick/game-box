@@ -11,6 +11,7 @@ namespace gb
 		{
 		public:
 
+            typedef std::function<void(const ces_entity_shared_ptr&)> t_on_pressed_callback;
 			typedef std::function<void(const ces_entity_shared_ptr&, const glm::vec2&)> t_on_drag_started_callback;
 			typedef std::function<void(const ces_entity_shared_ptr&, const glm::vec2&)> t_on_dragging_callback;
 			typedef std::function<void(const ces_entity_shared_ptr&, const glm::vec2&)> t_on_drag_ended_callback;
@@ -22,6 +23,7 @@ namespace gb
 			std::string m_dragged_callback_guid;
 			bool m_is_dragging = false;
 
+            t_on_pressed_callback m_on_pressed_callback = nullptr;
 			t_on_drag_started_callback m_on_drag_started_callback = nullptr;
 			t_on_dragging_callback m_on_dragging_callback = nullptr;
 			t_on_drag_ended_callback m_on_drag_ended_callback = nullptr;
@@ -50,6 +52,9 @@ namespace gb
 			void set_on_drag_started_callback(const t_on_drag_started_callback& callback);
 			void set_on_dragging_callback(const t_on_dragging_callback& callback);
 			void set_on_drag_ended_callback(const t_on_drag_started_callback& callback);
+            
+            virtual void set_on_pressed_callback(const t_on_pressed_callback& callback);
+            virtual bool is_pressed_callback_exist() const;
             
             virtual void disable(bool value) override;
 		};

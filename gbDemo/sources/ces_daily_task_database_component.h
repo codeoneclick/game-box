@@ -69,7 +69,7 @@ namespace game
         
         gb::db::database_coordinator_weak_ptr m_database_coordinator;
         std::unordered_map<i32, std::shared_ptr<daily_task_dto>> m_tasks;
-        i32 m_current_day = 0;
+        i32 get_current_day();
         
         i32 get_task_cash_reward(i32 task_id);
         i32 get_task_requirements(i32 task_id);
@@ -96,6 +96,8 @@ namespace game
         void set_task_is_claimed(i32 task_id);
         
         void validate_all_tasks();
+        
+        bool is_some_task_done();
     };
 };
 

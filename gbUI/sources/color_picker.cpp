@@ -68,44 +68,11 @@ namespace gb
             const auto background = control::get_fabricator()->create_sprite("button_background.xml");
             m_elements[k_background_element_name] = background;
             add_child(background);
-            
             m_rgba = new ui8[m_radius * m_radius * 4];
+            generate_color_wheel();
             
-            for (i32 y = 0; y < m_radius; ++y)
-            {
-                for (i32 x = 0; x < m_radius; ++x)
-                {
-                    f32 hue = 0.f;
-                    f32 saturation = 0.f;
-                    f32 r = 0.f; f32 g = 0.f; f32 b = 0.f;
-                    f32 a = 0.f;
-
-                    glm::vec2 point = glm::vec2(x, y);
-                    const auto value = get_HS_value(point, m_radius / 2.f);
-                    hue = value.first;
-                    saturation = value.second;
-                    if (saturation < 1.f)
-                    {
-                        if (saturation > .99f)
-                        {
-                            a = (1.f - saturation) * 100.f;
-                        }
-                        else
-                        {
-                            a = 1.f;
-                        }
-                        std::hsv_to_rgb(r, g, b, hue, saturation, 1.f);
-                    }
-                    i32 offset = 4 * (x + y * m_radius);
-                    m_rgba[offset] = glm::clamp(r * 255.f, 0.f, 255.f);
-                    m_rgba[offset + 1] = glm::clamp(g * 255.f, 0.f, 255.f);
-                    m_rgba[offset + 2] = glm::clamp(b * 255.f, 0.f, 255.f);
-                    m_rgba[offset + 3] = glm::clamp(a * 255.f, 0.f, 255.f);
-                }
-            }
-            
-            const auto color_wheel_texture = texture::construct("color_wheel_texture", m_radius, m_radius, gl::constant::rgba_t, m_rgba);
-            control::get_fabricator()->get_resource_accessor()->add_custom_resource("color_wheel_texture", color_wheel_texture);
+            m_color_wheel_texture = texture::construct("color_wheel_texture", m_radius, m_radius, gl::constant::rgba_t, m_rgba);
+            control::get_fabricator()->get_resource_accessor()->add_custom_resource("color_wheel_texture", m_color_wheel_texture);
             const auto color_wheel = control::get_fabricator()->create_sprite("color_picker.xml", "color_wheel_texture");
             m_elements[k_color_wheel_element_name] = color_wheel;
             add_child(color_wheel);
@@ -174,6 +141,49 @@ namespace gb
                     m_callback(color);
                 }
             }
+        }
+    
+        void color_picker::generate_color_wheel()
+        {
+            for (i32 y = 0; y < m_radius; ++y)
+            {
+                for (i32 x = 0; x < m_radius; ++x)
+                {
+                    f32 hue = 0.f;
+                    f32 saturation = 0.f;
+                    f32 r = 0.f; f32 g = 0.f; f32 b = 0.f;
+                    f32 a = 0.f;
+
+                    glm::vec2 point = glm::vec2(x, y);
+                    const auto value = get_HS_value(point, m_radius / 2.f);
+                    hue = value.first;
+                    saturation = value.second;
+                    if (saturation < 1.f)
+                    {
+                        if (saturation > .99f)
+                        {
+                            a = (1.f - saturation) * 100.f;
+                        }
+                        else
+                        {
+                            a = 1.f;
+                        }
+                        std::hsv_to_rgb(r, g, b, hue, saturation, m_brightness);
+                    }
+                    i32 offset = 4 * (x + y * m_radius);
+                    m_rgba[offset] = glm::clamp(r * 255.f, 0.f, 255.f);
+                    m_rgba[offset + 1] = glm::clamp(g * 255.f, 0.f, 255.f);
+                    m_rgba[offset + 2] = glm::clamp(b * 255.f, 0.f, 255.f);
+                    m_rgba[offset + 3] = glm::clamp(a * 255.f, 0.f, 255.f);
+                }
+            }
+        }
+    
+        void color_picker::set_brightness(f32 value)
+        {
+            m_brightness = value;
+            generate_color_wheel();
+            m_color_wheel_texture->update_pixels_data(m_rgba);
         }
     }
 }

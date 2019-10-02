@@ -15,27 +15,7 @@ namespace gb
 {
     namespace ui
     {
-        
-        class i_button_callbacks
-        {
-            public:
-            
-            typedef std::function<void(const ces_entity_shared_ptr&)> t_on_pressed_callback;
-            
-            private:
-            
-            protected:
-            
-            t_on_pressed_callback m_on_pressed_callback = nullptr;
-            
-            public:
-            
-            virtual void set_on_pressed_callback(const t_on_pressed_callback& callback);
-            virtual bool is_pressed_callback_exist() const;
-            
-        };
-        
-        class button : public interaction_control, public i_button_callbacks
+        class button : public interaction_control
         {
         public:
             

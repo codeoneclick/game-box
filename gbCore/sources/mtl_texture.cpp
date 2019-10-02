@@ -32,6 +32,7 @@ namespace gb
         ~mtl_texture_impl();
         
         void* get_mtl_raw_texture_ptr() const override;
+        void update_pixels_data(ui32 width, ui32 height, void* pixels, ui32 format = gl::constant::rgba_t) override;
     };
     
     mtl_texture_impl::mtl_texture_impl(ui32 width, ui32 height, void* pixels, ui32 format)
@@ -108,6 +109,13 @@ namespace gb
     {
         return (__bridge void*)m_texture;
     }
+
+    void mtl_texture_impl::update_pixels_data(ui32 width, ui32 height, void* pixels, ui32 format)
+    {
+        ui32 bytes_per_row = width * (format == gl::constant::rgba_t ? 4 : 1);
+        MTLRegion region = MTLRegionMake2D(0, 0, width, height);
+        [m_texture replaceRegion:region mipmapLevel:0 withBytes:pixels bytesPerRow:bytes_per_row];
+    }
     
     mtl_texture::mtl_texture(ui32 width, ui32 height, void* pixels, ui32 format)
     {
@@ -142,6 +150,11 @@ namespace gb
     bool mtl_texture::get_is_mipmaps_generated() const
     {
         return m_is_mipmaps_generated;
+    }
+
+    void mtl_texture::update_pixels_data(ui32 width, ui32 height, void* pixels, ui32 format )
+    {
+        impl_as<mtl_texture_impl>()->update_pixels_data(width, height, pixels, format);
     }
 }
 

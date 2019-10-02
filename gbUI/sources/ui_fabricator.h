@@ -46,6 +46,7 @@ namespace gb
             progress_bar_shared_ptr create_progress_bar(const glm::vec2& size);
             dialog_shared_ptr create_dialog(const glm::vec2& size);
             color_picker_shared_ptr create_color_picker(const glm::vec2& size);
+            slider_shared_ptr create_slider(const glm::vec2& size);
         };
     };
 };

@@ -66,6 +66,7 @@ namespace gb
         forward_decl(image_button)
         forward_decl(progress_bar);
         forward_decl(color_picker);
+        forward_decl(slider);
     };
 };
 

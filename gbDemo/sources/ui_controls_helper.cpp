@@ -47,9 +47,14 @@ namespace game
             if (!control.expired())
             {
                 const auto ui_interaction_component = control.lock()->get_component<ces_ui_interaction_component>();
-                if (ui_interaction_component->get_ui() != ces_ui_interaction_component::e_ui::e_ui_screen_overlay)
+                if (ui_interaction_component->get_ui() != ces_ui_interaction_component::e_ui::e_ui_screen_overlay &&
+                    ui_interaction_component->get_ui() != ces_ui_interaction_component::e_ui::e_ui_screen_overlay_bottom)
                 {
                     control.lock()->disable(true);
+                }
+                else if (ui_interaction_component->get_ui() == ces_ui_interaction_component::e_ui::e_ui_screen_overlay_bottom)
+                {
+                    control.lock()->visible = focus;
                 }
             }
         }
@@ -71,10 +76,15 @@ namespace game
             if (!control.expired())
             {
                 const auto ui_interaction_component = control.lock()->get_component<ces_ui_interaction_component>();
-                if (ui_interaction_component->get_ui() != ces_ui_interaction_component::e_ui::e_ui_screen_overlay)
+                if (ui_interaction_component->get_ui() != ces_ui_interaction_component::e_ui::e_ui_screen_overlay &&
+                    ui_interaction_component->get_ui() != ces_ui_interaction_component::e_ui::e_ui_screen_overlay_bottom)
                 {
                     control.lock()->focus(false);
                     control.lock()->disable(false);
+                }
+                else if (ui_interaction_component->get_ui() == ces_ui_interaction_component::e_ui::e_ui_screen_overlay_bottom)
+                {
+                    control.lock()->visible = false;
                 }
             }
         }

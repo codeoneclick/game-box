@@ -115,7 +115,7 @@ namespace game
             const auto claim_button = gb::ces_entity::construct<gb::ui::button>(control::get_fabricator());
             claim_button->create();
             claim_button->size = glm::vec2(128.f, 48.f);
-            claim_button->position = glm::vec2(300.f - 128.f - 8.f, 144.f - 48.f - 8.f);
+            claim_button->position = glm::vec2(300.f - 128.f - 8.f, 144.f - 48.f - 2.f);
             claim_button->set_text_color(gameplay_ui_fabricator::k_control_text_disabled_color, gb::ui::e_control_state::e_disabled);
             claim_button->set_background_color(gameplay_ui_fabricator::k_control_background_disabled_color, gb::ui::e_control_state::e_disabled);
             claim_button->set_foreground_color(gameplay_ui_fabricator::k_control_foreground_disabled_color, gb::ui::e_control_state::e_disabled);
@@ -129,6 +129,7 @@ namespace game
             claim_button->set_background_color(gameplay_ui_fabricator::k_control_background_color);
             claim_button->set_foreground_color(gameplay_ui_fabricator::k_control_foreground_color);
             claim_button->set_text("CLAIM");
+            claim_button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
             m_elements[k_claim_reward_button_id] = claim_button;
             add_child(claim_button);
             
@@ -174,8 +175,8 @@ namespace game
             
             const auto progress_bar = gb::ces_entity::construct<gb::ui::progress_bar>(control::get_fabricator());
             progress_bar->create();
-            progress_bar->size = glm::vec2(156.f, 24.f);
-            progress_bar->position = glm::vec2(8.f, 144.f - 24.f - 8.f);
+            progress_bar->size = glm::vec2(144.f, 24.f);
+            progress_bar->position = glm::vec2(8.f, 144.f - 24.f - 2.f);
             progress_bar->set_progress_line_color(gameplay_ui_fabricator::k_control_text_color);
             progress_bar->set_background_color(gameplay_ui_fabricator::k_control_background_color);
             progress_bar->set_progress(.01f);
@@ -242,7 +243,7 @@ namespace game
     
         void daily_task_table_view_cell::set_progress(f32 value)
         {
-            
+            std::static_pointer_cast<gb::ui::progress_bar>(m_elements[k_progress_bar_id])->set_progress(value);
         }
     
         void daily_task_table_view_cell::set_is_done(bool value)
@@ -255,13 +256,24 @@ namespace game
             else
             {
                 std::static_pointer_cast<gb::ui::button>(m_elements[k_claim_reward_button_id])->disable(false);
-                std::static_pointer_cast<gb::ui::button>(m_elements[k_claim_reward_button_id])->focus(true);
+                std::static_pointer_cast<gb::ui::button>(m_elements[k_claim_reward_button_id])->focus(true, .33f);
             }
         }
         
         void daily_task_table_view_cell::set_is_claimed(bool value)
         {
-            
+            if (value)
+            {
+                std::static_pointer_cast<gb::ui::button>(m_elements[k_claim_reward_button_id])->visible = false;
+                std::static_pointer_cast<gb::ui::progress_bar>(m_elements[k_progress_bar_id])->visible = false;
+                std::static_pointer_cast<gb::ui::textfield>(m_elements[k_reward_label_id])->set_text("DONE !");
+            }
+            else
+            {
+                std::static_pointer_cast<gb::ui::button>(m_elements[k_claim_reward_button_id])->visible = true;
+                std::static_pointer_cast<gb::ui::progress_bar>(m_elements[k_progress_bar_id])->visible = true;
+            }
+           
         }
     
         void daily_task_table_view_cell::set_cash_reward(i32 value)

@@ -62,6 +62,7 @@ namespace game
             e_ui_full_tickets_dialog,
             e_ui_not_enough_tickets_dialog,
             e_ui_screen_overlay,
+            e_ui_screen_overlay_bottom,
             e_ui_facebook_button,
             e_ui_unlock_car_dialog,
             e_ui_quit_game_dialog,
@@ -72,7 +73,9 @@ namespace game
             e_ui_shop_label,
             e_ui_garage_preview_button,
             e_ui_body_paint_color_picker,
+            e_ui_body_paint_brightness_slider,
             e_ui_windshield_paint_color_picker,
+            e_ui_windshield_brightness_slider,
             e_ui_cash_label,
             e_ui_cash_plus_button,
             e_ui_body_paint_label,
@@ -152,8 +155,10 @@ namespace game
         static const i32 k_cash_shop_ok_button;
         static const i32 k_body_paint_label;
         static const i32 k_body_paint_color_picker;
+        static const i32 k_body_paint_brightness_slider;
         static const i32 k_windshield_paint_label;
         static const i32 k_windshield_paint_color_picker;
+        static const i32 k_windshield_paint_brightness_slider;
         static const i32 k_speed_upgrade_label;
         static const i32 k_handling_upgrade_label;
         static const i32 k_durability_upgrade_label;

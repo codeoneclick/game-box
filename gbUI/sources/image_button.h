@@ -16,7 +16,7 @@ namespace gb
 {
     namespace ui
     {
-        class image_button : public interaction_control, public i_button_callbacks
+        class image_button : public interaction_control
         {
         public:
             

@@ -70,11 +70,16 @@ namespace game
     
     ces_daily_task_database_component::ces_daily_task_database_component()
     {
+        
+    }
+    
+    i32 ces_daily_task_database_component::get_current_day()
+    {
         time_t tt;
         struct tm * ti;
         time (&tt);
         ti = localtime(&tt);
-        m_current_day = ti->tm_yday;
+        return ti->tm_yday;
     }
     
     void ces_daily_task_database_component::set_database_coordinator(const gb::db::database_coordinator_shared_ptr& database_coordinator)
@@ -96,22 +101,45 @@ namespace game
                 data.m_progress = 0;
                 data.m_is_done = 0;
                 data.m_claimed = 0;
-                data.m_day = m_current_day;
+                data.m_day = get_current_day();
                 daily_task_record->save_to_db();
             }
             else
             {
                 auto& data = daily_task_record->get_data();
-                if (m_current_day > data.m_day)
+                if (get_current_day() > data.m_day)
                 {
                     data.m_progress = 0;
                     data.m_is_done = 0;
                     data.m_claimed = 0;
-                    data.m_day = m_current_day;
+                    data.m_day = get_current_day();
                     daily_task_record->save_to_db();
                 }
             }
         }
+    }
+    
+    bool ces_daily_task_database_component::is_some_task_done()
+    {
+        bool result = false;
+        for (i32 index = 1; index <= 9; ++index)
+        {
+            auto daily_task_record = std::make_shared<gb::db::database_entity<db_daily_task_table, db_daily_task_data>>(m_database_coordinator.lock());
+            if(!daily_task_record->load_from_db(index))
+            {
+                assert(false);
+            }
+            else
+            {
+                auto& data = daily_task_record->get_data();
+                if (data.m_is_done == 1 && data.m_claimed == 0)
+                {
+                    result = true;
+                    break;
+                }
+            }
+        }
+        return result;
     }
     
     std::unordered_map<i32, std::shared_ptr<ces_daily_task_database_component::daily_task_dto>> ces_daily_task_database_component::get_all_tasks()
@@ -127,6 +155,14 @@ namespace game
             else
             {
                 auto& data = daily_task_record->get_data();
+                if (get_current_day() > data.m_day)
+                {
+                    data.m_progress = 0;
+                    data.m_is_done = 0;
+                    data.m_claimed = 0;
+                    data.m_day = get_current_day();
+                    daily_task_record->save_to_db();
+                }
                 
                 const auto daily_task_dto = std::make_shared<ces_daily_task_database_component::daily_task_dto>(m_database_coordinator.lock());
                 daily_task_dto->m_id = data.m_id;
@@ -134,6 +170,7 @@ namespace game
                 daily_task_dto->m_progress = data.m_progress;
                 daily_task_dto->m_is_done = data.m_is_done;
                 daily_task_dto->m_claimed = data.m_claimed;
+                
                 daily_task_dto->m_cash_reward = get_task_cash_reward(index);
                 daily_task_dto->m_requirements = get_task_requirements(index);
                 m_tasks.insert(std::make_pair(index, daily_task_dto));
@@ -182,7 +219,7 @@ namespace game
         if(daily_task_record->load_from_db(task_id))
         {
             auto& data = daily_task_record->get_data();
-            data.m_is_done = true;
+            data.m_is_done = 1;
             daily_task_record->save_to_db();
         }
     }
@@ -193,7 +230,7 @@ namespace game
         if(daily_task_record->load_from_db(task_id))
         {
             auto& data = daily_task_record->get_data();
-            data.m_claimed = true;
+            data.m_claimed = 1;
             daily_task_record->save_to_db();
         }
     }
@@ -251,7 +288,7 @@ namespace game
                 
             case k_drift_5_minutes:
             {
-                return 750;
+                return 2000;
             }
                 break;
                 
@@ -315,7 +352,7 @@ namespace game
                 
             case k_drift_5_minutes:
             {
-                return 5;
+                return 5 * 60;
             }
                 break;
                 
@@ -394,7 +431,7 @@ namespace game
         switch (task_id) {
             case k_visit_game_task:
             {
-                return "VISIT GAME EACH DAY TO RECEIVE ADDITIONAL CASH";
+                return "VISIT GAME EVERY DAY TO RECEIVE ADDITIONAL CASH";
             }
                 break;
                 
@@ -406,13 +443,13 @@ namespace game
                 
             case k_paint_car_task:
             {
-                return "RE-PAINT YOUR CAR, PEOPLE LOVES YOUR STYLE";
+                return "RE-PAINT YOUR CAR, PEOPLE LOVE YOUR STYLE";
             }
                 break;
                 
             case k_upgrade_car_task:
             {
-                return "UPGRADE PERFORMANCE OF YOUR CAR TO BE FIRTS IN ALL CHALLENGES";
+                return "UPGRADE PERFORMANCE OF YOUR CAR TO BE FIRST IN ALL CHALLENGES";
             }
                 break;
                 
@@ -430,7 +467,7 @@ namespace game
                 
             case k_get_3_no_damage_achievement_task:
             {
-                return "GET -- NO DAMAGE -- ACHIEVEMENT 3 TIMES";
+                return "GET -- LOW DAMAGE -- ACHIEVEMENT 3 TIMES";
             }
                 break;
                 

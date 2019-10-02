@@ -33,6 +33,9 @@
 		21E33DEF1BB9708700B540E7 /* dialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21E33DEC1BB9708700B540E7 /* dialog.cpp */; };
 		21EC9B441C65ED6B000736D8 /* switcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21EC9B421C65ED6B000736D8 /* switcher.cpp */; };
 		21EC9B451C65ED6B000736D8 /* switcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21EC9B421C65ED6B000736D8 /* switcher.cpp */; };
+		925DF64A2344A5A700C24F06 /* slider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 925DF6482344A5A700C24F06 /* slider.cpp */; };
+		925DF64B2344A5A700C24F06 /* slider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 925DF6482344A5A700C24F06 /* slider.cpp */; };
+		925DF64C2344A5A700C24F06 /* slider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 925DF6482344A5A700C24F06 /* slider.cpp */; };
 		926F26682269FE54004659CC /* interaction_control.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B5852721539804008AA8BB /* interaction_control.cpp */; };
 		926F266C2269FE82004659CC /* panel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B5852521539803008AA8BB /* panel.cpp */; };
 		92B5852821539804008AA8BB /* panel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B5852521539803008AA8BB /* panel.cpp */; };
@@ -201,6 +204,8 @@
 		21E33DF51BB9757900B540E7 /* gbCore.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = gbCore.xcodeproj; path = ../gbCore/gbCore.xcodeproj; sourceTree = "<group>"; };
 		21EC9B421C65ED6B000736D8 /* switcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = switcher.cpp; path = sources/switcher.cpp; sourceTree = SOURCE_ROOT; };
 		21EC9B431C65ED6B000736D8 /* switcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = switcher.h; path = sources/switcher.h; sourceTree = SOURCE_ROOT; };
+		925DF6482344A5A700C24F06 /* slider.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = slider.cpp; path = sources/slider.cpp; sourceTree = SOURCE_ROOT; };
+		925DF6492344A5A700C24F06 /* slider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = slider.h; path = sources/slider.h; sourceTree = SOURCE_ROOT; };
 		92B5852321539803008AA8BB /* panel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = panel.h; path = sources/panel.h; sourceTree = SOURCE_ROOT; };
 		92B5852521539803008AA8BB /* panel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = panel.cpp; path = sources/panel.cpp; sourceTree = SOURCE_ROOT; };
 		92B5852621539804008AA8BB /* interaction_control.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = interaction_control.h; path = sources/interaction_control.h; sourceTree = SOURCE_ROOT; };
@@ -375,6 +380,8 @@
 				92E2400322B123D1005DDD5D /* progress_bar.cpp */,
 				92DB2C7722FF22530025E505 /* color_picker.h */,
 				92DB2C7622FF22530025E505 /* color_picker.cpp */,
+				925DF6492344A5A700C24F06 /* slider.h */,
+				925DF6482344A5A700C24F06 /* slider.cpp */,
 			);
 			name = controls;
 			sourceTree = "<group>";
@@ -568,6 +575,7 @@
 				21EC9B451C65ED6B000736D8 /* switcher.cpp in Sources */,
 				92B5852921539804008AA8BB /* panel.cpp in Sources */,
 				21E2D6FB1C75087800BFF2B8 /* tree_view.cpp in Sources */,
+				925DF64B2344A5A700C24F06 /* slider.cpp in Sources */,
 				92B5852B21539804008AA8BB /* interaction_control.cpp in Sources */,
 				92DB2C7922FF22530025E505 /* color_picker.cpp in Sources */,
 				2126DC7F1C565145003EBBDA /* content_tab_list_cell.cpp in Sources */,
@@ -601,6 +609,7 @@
 				21EC9B441C65ED6B000736D8 /* switcher.cpp in Sources */,
 				92B5852821539804008AA8BB /* panel.cpp in Sources */,
 				21E2D6FA1C75087800BFF2B8 /* tree_view.cpp in Sources */,
+				925DF64A2344A5A700C24F06 /* slider.cpp in Sources */,
 				92B5852A21539804008AA8BB /* interaction_control.cpp in Sources */,
 				92DB2C7822FF22530025E505 /* color_picker.cpp in Sources */,
 				2126DC7E1C565145003EBBDA /* content_tab_list_cell.cpp in Sources */,
@@ -634,6 +643,7 @@
 				F36DF1BA1E953BBC00EAE49B /* action_console.cpp in Sources */,
 				F36DF1BB1E953BBC00EAE49B /* switcher.cpp in Sources */,
 				F36DF1BC1E953BBC00EAE49B /* tree_view.cpp in Sources */,
+				925DF64C2344A5A700C24F06 /* slider.cpp in Sources */,
 				F36DF1BD1E953BBC00EAE49B /* content_tab_list_cell.cpp in Sources */,
 				92DB2C7A22FF22530025E505 /* color_picker.cpp in Sources */,
 				F36DF1BE1E953BBC00EAE49B /* fullscreen_joystick.cpp in Sources */,

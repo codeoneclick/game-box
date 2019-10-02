@@ -330,7 +330,7 @@ namespace game
                     m_first_interaction_point.x > screen_width * .2f &&
                     m_first_interaction_point.x < screen_width - (screen_width * .2f))
                 {
-                    const auto car_impact_component= m_main_car.lock()->get_component<ces_car_impact_component>();
+                    const auto car_impact_component = m_main_car.lock()->get_component<ces_car_impact_component>();
                     if (car_impact_component)
                     {
                         if (delta.y > 0.f)

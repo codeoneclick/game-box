@@ -25,10 +25,16 @@ namespace gb
             private:
             
             static std::pair<f32, f32> get_HS_value(const glm::vec2& point, f32 radius);
+            
             ui8* m_rgba = nullptr;
+            texture_shared_ptr m_color_wheel_texture = nullptr;
+            
             i32 m_radius = 144;
+            f32 m_brightness = 1.f;
+            
             callback_t m_callback = nullptr;
             
+            void generate_color_wheel();
             void on_color_select(const glm::vec2& point);
             
             protected:
@@ -54,6 +60,8 @@ namespace gb
             
             void set_callback(const callback_t& callback);
             bool is_callback_exist() const;
+            
+            void set_brightness(f32 value);
         };
     };
 };

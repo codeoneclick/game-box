@@ -45,6 +45,8 @@ namespace game
         static void colorize_ui_control(const gb::ui::image_button_shared_ptr& control);
         static void colorize_ui_control(const gb::ui::button_shared_ptr& control);
         static void colorize_ui_control(const gb::ui::dialog_shared_ptr& control);
+        static void colorize_ui_control(const gb::ui::progress_bar_shared_ptr& control);
+        static void colorize_ui_control(const gb::ui::slider_shared_ptr& control);
         static void add_ui_interaction_component(const gb::ces_entity_shared_ptr& control, ces_ui_interaction_component::e_ui ui);
         
     protected:
@@ -108,6 +110,7 @@ namespace game
         gb::game_object_2d_shared_ptr create_cash_shop_dialog(const std::string& filename);
         gb::game_object_2d_shared_ptr create_open_shop_button(const std::string& filename);
         gb::game_object_2d_shared_ptr create_screen_overlay(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_screen_overlay_bottom(const std::string& filename);
         
 #if defined(__FACEBOOK_LOGIN__)
         

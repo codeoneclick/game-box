@@ -51,8 +51,10 @@ namespace game
     const i32 ces_ui_interaction_component::k_cash_shop_ok_button = 2;
     const i32 ces_ui_interaction_component::k_body_paint_label = 1;
     const i32 ces_ui_interaction_component::k_body_paint_color_picker = 2;
+    const i32 ces_ui_interaction_component::k_body_paint_brightness_slider = 3;
     const i32 ces_ui_interaction_component::k_windshield_paint_label = 1;
     const i32 ces_ui_interaction_component::k_windshield_paint_color_picker = 2;
+    const i32 ces_ui_interaction_component::k_windshield_paint_brightness_slider = 3;
     const i32 ces_ui_interaction_component::k_speed_upgrade_label = 1;
     const i32 ces_ui_interaction_component::k_handling_upgrade_label = 2;
     const i32 ces_ui_interaction_component::k_durability_upgrade_label = 3;

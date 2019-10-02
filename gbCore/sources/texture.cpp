@@ -70,6 +70,7 @@ namespace gb
         gl::command::texture_image2d(gl::constant::texture_2d, 0, format,  static_cast<i32>(width),  static_cast<i32>(height), 0, format, gl::constant::ui8_t, pixels);
         texture->m_data->m_width = width;
         texture->m_data->m_height = height;
+        texture->m_data->m_format = format;
         
 #if USED_GRAPHICS_API == METAL_API
         
@@ -245,4 +246,15 @@ namespace gb
     }
     
 #endif
+
+    void texture::update_pixels_data(void* pixels)
+    {
+        
+#if USED_GRAPHICS_API == METAL_API
+        
+        m_data->m_mtl_texture_id->update_pixels_data(m_data->m_width, m_data->m_height, pixels, m_data->m_format);
+        
+#endif
+        
+    }
 }

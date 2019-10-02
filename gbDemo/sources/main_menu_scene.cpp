@@ -61,6 +61,7 @@
 #include "game_center_provier.h"
 #include "ces_car_boost_system.h"
 #include "window_impl.h"
+#include "ces_daily_task_database_component.h"
 
 namespace game
 {
@@ -153,6 +154,9 @@ namespace game
         const auto user_database_component = get_component<ces_user_database_component>();
         const auto garage_database_component = get_component<ces_garage_database_component>();
         const auto levels_database_component = get_component<ces_levels_database_component>();
+        const auto daily_tasks_database_component = get_component<ces_daily_task_database_component>();
+        daily_tasks_database_component->inc_task_progress(ces_daily_task_database_component::k_visit_game_task, 1);
+        daily_tasks_database_component->set_task_is_done(ces_daily_task_database_component::k_visit_game_task);
         
         i32 next_level_id = levels_database_component->get_next_level_id();
         const auto level_data = levels_database_component->get_level(next_level_id);
@@ -236,8 +240,9 @@ namespace game
             }
         });
         store_provider::shared_instance()->request_products();
-        
         game_center_provier::shared_instance()->authenticate();
+        
+        
     }
     
     void main_menu_scene::on_goto_in_game_scene(gb::ces_entity_const_shared_ptr entity)

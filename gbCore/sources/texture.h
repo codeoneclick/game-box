@@ -114,6 +114,8 @@ namespace gb
         
         virtual void bind() const;
         virtual void unbind() const;
+        
+        virtual void update_pixels_data(void* pixels);
     };
 };
 
