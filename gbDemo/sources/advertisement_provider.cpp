@@ -33,6 +33,7 @@ static NSString* k_twice_cash_reward_video_id = @"ca-app-pub-1553580872284996/36
 - (void)assign_root_navigation_controller:(UINavigationController*) root_navigation_controller;
 - (bool)play_get_ticket_reward_video;
 - (bool)play_get_twice_cash_reward_video;
+- (bool)is_twice_cash_reward_video_ready;
 - (bool)play_interstitial_video;
 - (void)show_banner;
 - (void)hide_banner;
@@ -108,6 +109,11 @@ static NSString* k_twice_cash_reward_video_id = @"ca-app-pub-1553580872284996/36
         result = true;
     }
     return result;
+}
+
+- (bool)is_twice_cash_reward_video_ready
+{
+    return [self.m_get_twice_cash_reward_video_ad isReady];
 }
 
 - (bool)play_interstitial_video
@@ -321,68 +327,94 @@ namespace game
     
     bool advertisement_provider::play_get_ticket_reward_video()
     {
-        
+        if (m_is_enabled)
+        {
 #if defined(__IOS__)
         
         return [[advertisement_provider_impl shared_instance] play_get_ticket_reward_video];
         
 #endif
+        }
         
         return false;
     }
     
     bool advertisement_provider::play_get_twice_cash_reward_video()
     {
-        
+        if (m_is_enabled)
+        {
 #if defined(__IOS__)
         
         return [[advertisement_provider_impl shared_instance] play_get_twice_cash_reward_video];
         
 #endif
+        }
+        
+        return false;
+    }
+
+    bool advertisement_provider::is_twice_cash_reward_video_ready() const
+    {
+        if (m_is_enabled)
+        {
+    #if defined(__IOS__)
+            
+            return [[advertisement_provider_impl shared_instance] is_twice_cash_reward_video_ready];
+            
+    #endif
+        }
         
         return false;
     }
     
     bool advertisement_provider::play_interstitial_video()
     {
-        
+        if (m_is_enabled)
+        {
 #if defined(__IOS__)
         
         return [[advertisement_provider_impl shared_instance] play_interstitial_video];
         
 #endif
-        
+        }
         return false;
-        
     }
     
     void advertisement_provider::show_banner()
     {
-        
+        if (m_is_enabled)
+        {
 #if defined(__IOS__)
         
         [[advertisement_provider_impl shared_instance] show_banner];
         
 #endif
+        }
         
     }
     
     void advertisement_provider::hide_banner()
     {
+        if (m_is_enabled)
+        {
 #if defined(__IOS__)
         
         [[advertisement_provider_impl shared_instance] hide_banner];
         
 #endif
+        }
     }
     
     bool advertisement_provider::is_banner_shown() const
     {
+        if (m_is_enabled)
+        {
 #if defined(__IOS__)
         
         return [advertisement_provider_impl shared_instance].m_banner_view != nil;
         
 #endif
+        }
         
         return false;
     }
@@ -415,5 +447,14 @@ namespace game
     const std::function<void()> advertisement_provider::get_on_video_ended() const
     {
         return m_on_video_ended;
+    }
+
+    void advertisement_provider::set_enabled(bool value)
+    {
+        if (!value && is_banner_shown())
+        {
+            hide_banner();
+        }
+        m_is_enabled = value;
     }
 }

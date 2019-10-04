@@ -1,1 +1,1 @@
-../../../../Google-Mobile-Ads-SDK/Frameworks/frameworks/GoogleMobileAds.framework/Headers/GADServerSideVerificationOptions.h
+../../../../Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.framework/Headers/GADServerSideVerificationOptions.h

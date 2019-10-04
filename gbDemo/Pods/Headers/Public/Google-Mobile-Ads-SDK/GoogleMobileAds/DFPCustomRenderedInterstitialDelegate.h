@@ -1,1 +1,1 @@
-../../../../Google-Mobile-Ads-SDK/Frameworks/frameworks/GoogleMobileAds.framework/Headers/DFPCustomRenderedInterstitialDelegate.h
+../../../../Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.framework/Headers/DFPCustomRenderedInterstitialDelegate.h

@@ -52,7 +52,7 @@ namespace gb
             public:
             
             color_picker(const scene_fabricator_shared_ptr& fabricator);
-            virtual ~color_picker() = default;
+            virtual ~color_picker();
             
             virtual void setup_components() override;
             

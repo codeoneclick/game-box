@@ -24,7 +24,7 @@ namespace gb
         
     private:
         
-        static std::unordered_map<std::string, std::tuple<ftgl::texture_font_t*, ftgl::texture_atlas_t*, texture_shared_ptr>> m_font_atlases;
+        static std::unordered_map<std::string, std::pair<ftgl::texture_font_t*, texture_shared_ptr>> m_font_atlases;
         
         bool m_is_multiline;
         f32 m_max_line_width;

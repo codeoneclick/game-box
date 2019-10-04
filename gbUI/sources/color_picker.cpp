@@ -57,6 +57,11 @@ namespace gb
                 std::static_pointer_cast<gb::sprite>(m_elements[k_color_wheel_element_name])->size = size;
             });
         }
+    
+        color_picker::~color_picker()
+        {
+            delete[] m_rgba;
+        }
         
         void color_picker::setup_components()
         {

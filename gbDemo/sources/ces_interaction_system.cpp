@@ -79,8 +79,6 @@ namespace game
             ces_interaction_system::add_touch_recognition(entity, gb::e_input_state::e_input_state_dragged);
         });
         
-        bool is_keyboard_control = false;
-        
         if (!m_main_car.expired())
         {
             const auto car = std::static_pointer_cast<gb::game_object_3d>(m_main_car.lock());
@@ -88,6 +86,8 @@ namespace game
             const auto car_descriptor_component = car->get_component<ces_car_descriptor_component>();
             const auto car_drift_state_component = car->get_component<ces_car_drift_state_component>();
             const auto car_impact_component= m_main_car.lock()->get_component<ces_car_impact_component>();
+            const auto level_descriptor_component = m_level.lock()->get_component<ces_level_descriptor_component>();
+            f32 complexity = level_descriptor_component->complexity;
             
             const auto garage_database_component = root->get_component<ces_garage_database_component>();
             const auto selected_car = garage_database_component->get_selected_car(1);
@@ -149,7 +149,7 @@ namespace game
                         f32 force = car_model_component->get_max_force() + (selected_car->get_car_speed_upgrade() * 100.f);
                         if (car_impact_component->is_speed_up_impact_exist())
                         {
-                            force = glm::mix(force, force * car_impact_component->get_speed_up_max_impact(), .33f);
+                            force = glm::mix(force, force * glm::mix(2.f, 1.5f, complexity), .33f);
                         }
                         car_input_component->throttle = force;
                         car_input_component->steer_angle = steer_angle * handling;
@@ -160,7 +160,7 @@ namespace game
                         f32 force = car_model_component->get_max_force() + (selected_car->get_car_speed_upgrade() * 100.f);
                         if (car_impact_component->is_speed_up_impact_exist())
                         {
-                            force = glm::mix(force, force * car_impact_component->get_speed_up_max_impact(), .33f);
+                            force = glm::mix(force, force * glm::mix(2.f, 1.5f, complexity), .33f);
                         }
                         
 #if defined(__OSX__)
@@ -180,7 +180,7 @@ namespace game
                     f32 force = car_model_component->get_max_force() + (selected_car->get_car_speed_upgrade() * 100.f);
                     if (car_impact_component->is_speed_up_impact_exist())
                     {
-                        force = glm::mix(force, force * car_impact_component->get_speed_up_max_impact(), .33f);
+                        force = glm::mix(force, force * glm::mix(2.f, 1.5f, complexity), .33f);
                     }
                     car_input_component->throttle = force;
                     car_input_component->brake = 0.f;

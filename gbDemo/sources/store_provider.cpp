@@ -11,6 +11,8 @@
 
 #if defined(__IOS__)
 
+#import <GameAnalytics/GameAnalytics.h>
+
 static NSString* k_no_ads_product_str_id = @"com.drift.hyper.no_ads";
 static NSString* k_small_cash_pack_product_str_id = @"com.drift.hyper.small_cash_pack";
 static NSString* k_medium_cash_pack_product_str_id = @"com.drift.hyper.medium_cash_pack";
@@ -165,7 +167,7 @@ static NSString* k_big_cash_pack_product_str_id = @"com.drift.hyper.osx.big_cash
             {
                 [self.m_default_queue finishTransaction:transaction];
                 NSString* product_identifier = [[transaction payment] productIdentifier];
-               
+                
                 if ([product_identifier isEqualToString:k_no_ads_product_str_id])
                 {
                     self.m_is_no_ads_product_bought = YES;
@@ -173,6 +175,13 @@ static NSString* k_big_cash_pack_product_str_id = @"com.drift.hyper.osx.big_cash
                     {
                         game::store_provider::shared_instance()->get_on_puchases_restored_callback()(1);
                     }
+                    
+#if defined(__IOS__)
+                    
+                    [GameAnalytics addBusinessEventWithCurrency:@"USD" amount:1 itemType:@"functional" itemId:k_no_ads_product_str_id cartType:@"shop" autoFetchReceipt:YES];
+                    
+#endif
+                   
                 }
                 if ([product_identifier isEqualToString:k_small_cash_pack_product_str_id])
                 {
@@ -180,6 +189,14 @@ static NSString* k_big_cash_pack_product_str_id = @"com.drift.hyper.osx.big_cash
                     {
                         game::store_provider::shared_instance()->get_on_puchase_small_cash_pack_callback()();
                     }
+                    
+#if defined(__IOS__)
+                    
+                    [GameAnalytics addBusinessEventWithCurrency:@"USD" amount:3000 itemType:@"currency" itemId:k_small_cash_pack_product_str_id cartType:@"shop" autoFetchReceipt:YES];
+                    [GameAnalytics addResourceEventWithFlowType:GAResourceFlowTypeSource currency:@"cash" amount:@3000 itemType:@"IAP" itemId:k_small_cash_pack_product_str_id];
+                    
+#endif
+                    
                 }
                 if ([product_identifier isEqualToString:k_medium_cash_pack_product_str_id])
                 {
@@ -187,6 +204,14 @@ static NSString* k_big_cash_pack_product_str_id = @"com.drift.hyper.osx.big_cash
                     {
                         game::store_provider::shared_instance()->get_on_puchase_medium_cash_pack_callback()();
                     }
+                    
+#if defined(__IOS__)
+                    
+                    [GameAnalytics addBusinessEventWithCurrency:@"USD" amount:10000 itemType:@"currency" itemId:k_medium_cash_pack_product_str_id cartType:@"shop" autoFetchReceipt:YES];
+                    [GameAnalytics addResourceEventWithFlowType:GAResourceFlowTypeSource currency:@"cash" amount:@10000 itemType:@"IAP" itemId:k_medium_cash_pack_product_str_id];
+                    
+#endif
+                    
                 }
                 if ([product_identifier isEqualToString:k_big_cash_pack_product_str_id])
                 {
@@ -194,6 +219,14 @@ static NSString* k_big_cash_pack_product_str_id = @"com.drift.hyper.osx.big_cash
                     {
                         game::store_provider::shared_instance()->get_on_puchase_big_cash_pack_callback()();
                     }
+                    
+#if defined(__IOS__)
+                    
+                    [GameAnalytics addBusinessEventWithCurrency:@"USD" amount:20000 itemType:@"currency" itemId:k_big_cash_pack_product_str_id cartType:@"shop" autoFetchReceipt:YES];
+                    [GameAnalytics addResourceEventWithFlowType:GAResourceFlowTypeSource currency:@"cash" amount:@20000 itemType:@"IAP" itemId:k_big_cash_pack_product_str_id];
+                    
+#endif
+                    
                 }
             }
             break;

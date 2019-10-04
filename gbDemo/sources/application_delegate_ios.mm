@@ -11,7 +11,7 @@
 #include "advertisement_provider.h"
 #include "game_loop.h"
 #include "FCUUID.h"
-
+#import <GameAnalytics/GameAnalytics.h>
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
@@ -27,6 +27,30 @@
     FIRFirestoreSettings* settings = db.settings;
     settings.timestampsInSnapshotsEnabled = YES;
     db.settings = settings;
+    [[db collectionWithPath:@"settings"] getDocumentsWithCompletion:^(FIRQuerySnapshot* snapshot, NSError* error) {
+        if (error != nil)
+        {
+            NSLog(@"Error getting documents: %@", error);
+        }
+        else
+        {
+            for (FIRDocumentSnapshot *document in snapshot.documents)
+            {
+                NSLog(@"%@ => %@", document.documentID, document.data);
+                if ([document.documentID isEqualToString:@"O14K5VLKltsvHwhpoNfJ"])
+                {
+                    [document.data enumerateKeysAndObjectsUsingBlock:^(NSString* key, id value, BOOL* stop) {
+                         if ([key isEqualToString:@"ads_enabled"])
+                         {
+                             bool is_ads_enabled = [value boolValue];
+                             game::advertisement_provider::shared_instance()->set_enabled(is_ads_enabled);
+                         }
+                    }];
+                }
+            }
+        }
+    }];
+    
     /*__block FIRDocumentReference *reference =
     [[db collectionWithPath:@"users"] addDocumentWithData:@{@"user_id": @1,
                                                             @"rank": @1,
@@ -49,6 +73,11 @@
     }];*/
     
     [Fabric with:@[[Crashlytics class]]];
+    
+    [GameAnalytics configureBuild:@"1.0.9"];
+    [GameAnalytics configureAvailableResourceCurrencies:@[@"cash"]];
+    [GameAnalytics configureAvailableResourceItemTypes:@[@"ticket", @"car", @"car_upgrade"]];
+    [GameAnalytics initializeWithGameKey:@"a0eeda39538729648397d1071ff45a37" gameSecret:@"56559e124484f0874f37b7ad0cf78338cd9f8df0"];
     
     [[FBSDKApplicationDelegate sharedInstance] application:application
                              didFinishLaunchingWithOptions:launchOptions];

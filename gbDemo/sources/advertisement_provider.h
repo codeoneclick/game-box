@@ -17,6 +17,8 @@ namespace game
     {
     private:
         
+        bool m_is_enabled = true;
+        
     protected:
         
         static std::shared_ptr<advertisement_provider> m_instance;
@@ -32,11 +34,15 @@ namespace game
         
         static std::shared_ptr<advertisement_provider> shared_instance();
         
+        void set_enabled(bool value);
+        bool get_enabled() const;
+        
         void assign_root_navigation_controller(void* root_navigation_controller);
         void assign_root_view(void* view);
         
         bool play_get_ticket_reward_video();
         bool play_get_twice_cash_reward_video();
+        bool is_twice_cash_reward_video_ready() const;
         
         bool play_interstitial_video();
         

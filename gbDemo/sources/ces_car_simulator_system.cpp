@@ -97,7 +97,7 @@ namespace game
         f32 max_force = car_model_component->get_max_force();
         if (car_impact_component && car_impact_component->is_speed_up_impact_exist())
         {
-            max_force *= car_impact_component->get_speed_up_max_impact();
+            max_force *= 2.f;
         }
         bool has_dir = false;
         bool has_steer = false;

@@ -67,6 +67,12 @@ namespace game
             
             if (car_impact_component->is_slow_motion_impact_exist())
             {
+                if (car_impact_component->get_is_expect_to_slow_motion_impact())
+                {
+                    car_impact_component->reset_is_expect_to_slow_motion_impact();
+                    car_impact_component->add_slow_motion_impact();
+                }
+                
                 auto current_box2d_update_interval = root->get_component<gb::ces_box2d_world_component>()->get_update_interval();
                 current_box2d_update_interval = glm::mix(current_box2d_update_interval, glm::mix(.5f, .75f, complexity), .33f);
                 root->get_component<gb::ces_box2d_world_component>()->set_update_interval(current_box2d_update_interval);
@@ -88,8 +94,7 @@ namespace game
                         slow_motion_boost_progress_bar->focus(true, .33f);
                     });
 
-                    
-                    const auto slow_motion_boost_trigger_dialog = ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_slow_motion_boost_trigger_dialog);
+                    /*const auto slow_motion_boost_trigger_dialog = ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_slow_motion_boost_trigger_dialog);
                     
                     ui_animation_helper::show_with_move_animation_action(slow_motion_boost_trigger_dialog, .33f, static_cast<i32>(ces_ui_move_animation_action_component::e_move_direction::e_top), [=]() {
                         car_impact_component->set_is_slow_motion_boost_trigger_ui_shown(true);
@@ -105,7 +110,7 @@ namespace game
                         
                         const auto slow_motion_trigger_indicator_3 = std::static_pointer_cast<gb::ui::control>(std::static_pointer_cast<gb::ui::dialog>(slow_motion_boost_trigger_dialog)->get_control(ces_ui_interaction_component::k_slow_motion_boost_trigger_dialog_indicator_3));
                         slow_motion_trigger_indicator_3->focus(true, .33f);
-                    });
+                    });*/
                 }
                 const auto slow_motion_boost_progress_bar = ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_slow_motion_progress_bar);
                 std::static_pointer_cast<gb::ui::progress_bar>(slow_motion_boost_progress_bar)->set_progress(car_impact_component->get_slow_motion_impact_progress());
@@ -131,7 +136,7 @@ namespace game
                         car_impact_component->set_is_slow_motion_boost_ui_shown(false);
                     });
                     
-                    const auto slow_motion_boost_trigger_dialog = ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_slow_motion_boost_trigger_dialog);
+                    /*const auto slow_motion_boost_trigger_dialog = ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_slow_motion_boost_trigger_dialog);
                     
                     const auto slow_motion_trigger_label = std::static_pointer_cast<gb::ui::control>(std::static_pointer_cast<gb::ui::dialog>(slow_motion_boost_trigger_dialog)->get_control(ces_ui_interaction_component::k_slow_motion_boost_trigger_dialog_label));
                     slow_motion_trigger_label->focus(false);
@@ -147,12 +152,18 @@ namespace game
                     
                     ui_animation_helper::hide_with_move_animation_action(slow_motion_boost_trigger_dialog, .33f, static_cast<i32>(ces_ui_move_animation_action_component::e_move_direction::e_down), [=]() {
                         car_impact_component->set_is_slow_motion_boost_trigger_ui_shown(false);
-                    });
+                    });*/
                 }
             }
             
             if (car_impact_component->is_speed_up_impact_exist())
             {
+                if (car_impact_component->get_is_expect_to_speed_up_impact())
+                {
+                    car_impact_component->reset_is_expect_to_speed_up_impact();
+                    car_impact_component->add_speed_up_impact();
+                }
+                
                 car_impact_component->update_current_speed_up_effect_duration_in_seconds(-dt);
                 
                 if (!car_impact_component->get_is_speed_up_boost_ui_shown())
@@ -172,7 +183,7 @@ namespace game
                     });
 
                     
-                    const auto speed_up_boost_trigger_dialog = ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_speed_up_boost_trigger_dialog);
+                    /*const auto speed_up_boost_trigger_dialog = ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_speed_up_boost_trigger_dialog);
                     
                     ui_animation_helper::show_with_move_animation_action(speed_up_boost_trigger_dialog, .33f, static_cast<i32>(ces_ui_move_animation_action_component::e_move_direction::e_top), [=]() {
                         car_impact_component->set_is_speed_up_boost_trigger_ui_shown(true);
@@ -188,7 +199,7 @@ namespace game
                         
                         const auto trigger_indicator_3 = std::static_pointer_cast<gb::ui::control>(std::static_pointer_cast<gb::ui::dialog>(speed_up_boost_trigger_dialog)->get_control(ces_ui_interaction_component::k_speed_up_boost_trigger_dialog_indicator_3));
                         trigger_indicator_3->focus(true, .33f);
-                    });
+                    });*/
                 }
                 const auto speed_up_boost_progress_bar = ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_speed_up_boost_progress_bar);
                 std::static_pointer_cast<gb::ui::progress_bar>(speed_up_boost_progress_bar)->set_progress(car_impact_component->get_speed_up_impact_progress());
@@ -210,7 +221,7 @@ namespace game
                         car_impact_component->set_is_speed_up_boost_ui_shown(false);
                     });
                     
-                    const auto boost_trigger_dialog = ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_speed_up_boost_trigger_dialog);
+                    /*const auto boost_trigger_dialog = ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_speed_up_boost_trigger_dialog);
                     
                     const auto trigger_label = std::static_pointer_cast<gb::ui::control>(std::static_pointer_cast<gb::ui::dialog>(boost_trigger_dialog)->get_control(ces_ui_interaction_component::k_speed_up_boost_trigger_dialog_label));
                     trigger_label->focus(false);
@@ -226,7 +237,7 @@ namespace game
                     
                     ui_animation_helper::hide_with_move_animation_action(boost_trigger_dialog, .33f, static_cast<i32>(ces_ui_move_animation_action_component::e_move_direction::e_down), [=]() {
                         car_impact_component->set_is_speed_up_boost_trigger_ui_shown(false);
-                    });
+                    });*/
                 }
             }
             

@@ -24,7 +24,7 @@ namespace gb
     static const i32 k_max_symbols = 256;
     static const i32 k_max_num_vertices = k_max_symbols * 4;
     static const i32 k_max_num_indices = k_max_symbols * 6;
-    std::unordered_map<std::string, std::tuple<ftgl::texture_font_t*, ftgl::texture_atlas_t*, texture_shared_ptr>> ces_font_component::m_font_atlases;
+    std::unordered_map<std::string, std::pair<ftgl::texture_font_t*, texture_shared_ptr>> ces_font_component::m_font_atlases;
     
     ces_font_component::ces_font_component() :
     m_text(""),
@@ -191,14 +191,13 @@ namespace gb
             font_texture->set_wrap_mode(gl::constant::clamp_to_edge);
             font_texture->set_mag_filter(gl::constant::linear);
             font_texture->set_min_filter(gl::constant::linear);
-            m_font_atlases.insert(std::make_pair(font_guid.str(), std::make_tuple(font, atlas, font_texture)));
+            m_font_atlases.insert(std::make_pair(font_guid.str(), std::make_pair(font, font_texture)));
             m_texture = font_texture;
-            // std::cout<<"font atlases count: "<<m_font_atlases.size()<<std::endl;
         }
         else
         {
             font = std::get<0>(font_it->second);
-            m_texture = std::get<2>(font_it->second);
+            m_texture = std::get<1>(font_it->second);
         }
         
         return font;

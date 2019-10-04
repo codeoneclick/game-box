@@ -1061,6 +1061,7 @@ namespace game
                             {
                                 button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
                                     const auto user_database_component = root->get_component<ces_user_database_component>();
+                                    const auto garage_database_component = root->get_component<ces_garage_database_component>();
                                     const auto cash_amount = user_database_component->get_cash(1);
                                     const auto upgrade_price = calculate_upgrades_price(root);
                                     if (cash_amount < upgrade_price)
@@ -1076,6 +1077,7 @@ namespace game
                                         apply_car_upgrades(root);
                                         car_descriptor_component->get_car_upgrade()->apply(car_descriptor_component->get_car_upgrade_cache());
                                         user_database_component->dec_cash(1, upgrade_price);
+                                        events_provider::shared_instance()->on_car_upgraded(garage_database_component->get_previewed_car_id(), upgrade_price);
                                         ui_controls_helper::update_cash_amount(user_database_component->get_cash(1), -upgrade_price);
                                     }
                                 });
@@ -1136,6 +1138,7 @@ namespace game
                                 }
                                 garage_database_component->buy_car(1, selected_car_id);
                                 user_database_component->dec_cash(1, car_price);
+                                events_provider::shared_instance()->on_car_bought(selected_car_id, car_price);
                                 ui_menus_helper::fill_selected_car_in_garage_ui(root, m_camera_follow_car.lock());
                                 ui_controls_helper::update_cash_amount(user_database_component->get_cash(1), -car_price);
                             }
@@ -1749,6 +1752,7 @@ namespace game
             
 #if defined(__IOS__)
             
+            twice_cash_button->visible = advertisement_provider::shared_instance()->is_twice_cash_reward_video_ready();
             if(!twice_cash_button->is_pressed_callback_exist())
             {
                 twice_cash_button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
@@ -2230,4 +2234,4 @@ namespace game
             }
         }
     }
-    }
+}

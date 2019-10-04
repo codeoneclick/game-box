@@ -40,14 +40,14 @@ namespace game
         m_current_speed_up_effect_duration_in_seconds += value;
     }
     
-    f32 ces_car_impact_component::get_slow_motion_max_impact() const
+    f32 ces_car_impact_component::get_slow_motion_impact_value() const
     {
-        return m_slow_motion_max_impact;
+        return m_slow_motion_current_impact;
     }
     
-    f32 ces_car_impact_component::get_speed_up_max_impact() const
+    f32 ces_car_impact_component::get_speed_up_impact_value() const
     {
-        return m_speed_up_max_impact;
+        return m_speed_up_current_impact;
     }
     
     f32 ces_car_impact_component::get_slow_motion_impact_progress() const
@@ -83,21 +83,39 @@ namespace game
     void ces_car_impact_component::reset_is_expect_to_slow_motion_impact()
     {
         m_is_expect_to_slow_motion_impact = false;
+        //m_slow_motion_current_impact = 0.f;
     }
     
     void ces_car_impact_component::reset_is_expect_to_speed_up_impact()
     {
         m_is_expect_to_speed_up_impact = false;
+        //m_speed_up_current_impact = 0.f;
     }
     
     void ces_car_impact_component::add_slow_motion_impact()
     {
         m_current_slow_motion_effect_duration_in_seconds = m_slow_motion_effect_duration_in_seconds;
+        if (m_slow_motion_current_impact < m_slow_motion_initial_impact)
+        {
+            m_slow_motion_current_impact = m_slow_motion_initial_impact;
+        }
+        /*else
+        {
+            m_slow_motion_current_impact += m_slow_motion_delta_impact;
+        }*/
     }
     
     void ces_car_impact_component::add_speed_up_impact()
     {
         m_current_speed_up_effect_duration_in_seconds = m_speed_up_effect_duration_in_seconds;
+        if (m_speed_up_current_impact < m_speed_up_initial_impact)
+        {
+            m_speed_up_current_impact = m_speed_up_initial_impact;
+        }
+        /*else
+        {
+            m_speed_up_current_impact += m_speed_up_delta_impact;
+        }*/
     }
     
     void ces_car_impact_component::remove_slow_motion_impact()

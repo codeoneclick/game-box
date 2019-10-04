@@ -246,7 +246,6 @@
 
 - (void)generate_mipmaps: (id<MTLTexture>) texture
 {
-    //[texture mipmapLevelCount]
     id<MTLCommandQueue> command_queue = [_m_device newCommandQueue];
     id<MTLCommandBuffer> command_buffer = [command_queue commandBuffer];
     id<MTLBlitCommandEncoder> command_encoder = [command_buffer blitCommandEncoder];

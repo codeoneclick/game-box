@@ -33,5 +33,7 @@ namespace game
         void on_car_damaged(i32 level_id, i32 retries_count);
         void on_rank_updated(i32 rank);
         void on_car_selected(i32 car_id);
+        void on_car_bought(i32 car_id, i32 cash_amount);
+        void on_car_upgraded(i32 car_id, i32 cash_amount);
     };
 };

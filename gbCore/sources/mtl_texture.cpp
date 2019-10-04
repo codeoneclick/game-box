@@ -53,6 +53,7 @@ namespace gb
                                                                                   width:width
                                                                                  height:height
                                                                               mipmapped:YES];
+        m_texture_descriptor.mipmapLevelCount = 4;
         m_texture = [mtl_raw_device newTextureWithDescriptor:m_texture_descriptor];
         
         if (pixels)
