@@ -148,6 +148,20 @@ namespace game
             ui_animation_helper::hide_to_left(std::static_pointer_cast<gb::ui::control>(tickets_label), 1.f);
         }
         
+        /*const auto subscription_button = gameplay_ui_fabricator->create_subscription_button("");
+        root->add_child(subscription_button);
+        if (hidden)
+        {
+            ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(subscription_button), 1.f);
+        }
+        
+        const auto subscription_label = gameplay_ui_fabricator->create_subscription_label("");
+        root->add_child(subscription_label);
+        if (hidden)
+        {
+            ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(subscription_label), 1.f);
+        }*/
+        
 #endif
         
         const auto cash_label = gameplay_ui_fabricator->create_cash_label("");
@@ -238,6 +252,9 @@ namespace game
         const auto screen_overlay = gameplay_ui_fabricator->create_screen_overlay("");
         root->add_child(screen_overlay);
         
+        const auto screen_loading_overlay = gameplay_ui_fabricator->create_screen_loading_overlay("");
+        root->add_child(screen_loading_overlay);
+        
         const auto full_tickets_dialog = gameplay_ui_fabricator->create_full_tickets_dialog("");
         root->add_child(full_tickets_dialog);
         
@@ -246,6 +263,9 @@ namespace game
         
         const auto cash_shop_dialog = gameplay_ui_fabricator->create_cash_shop_dialog("");
         root->add_child(cash_shop_dialog);
+        
+        const auto subscription_dialog = gameplay_ui_fabricator->create_subscription_dialog("");
+        root->add_child(subscription_dialog);
         
 #if defined(__OSX__)
         
@@ -446,6 +466,9 @@ namespace game
         
         const auto screen_overlay = gameplay_ui_fabricator->create_screen_overlay("");
         root->add_child(screen_overlay);
+        
+        const auto screen_loading_overlay = gameplay_ui_fabricator->create_screen_loading_overlay("");
+        root->add_child(screen_loading_overlay);
         
         const auto full_tickets_dialog = gameplay_ui_fabricator->create_full_tickets_dialog("");
         root->add_child(full_tickets_dialog);

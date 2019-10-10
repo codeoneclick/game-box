@@ -134,7 +134,7 @@ namespace game
             place_label->set_font_name("spincycle.otf");
             place_label->set_text_color(gameplay_ui_fabricator::k_control_text_color);
             place_label->set_visible_edges(false);
-            place_label->set_font_mode(gb::ces_font_component::e_font_mode_edge);
+            place_label->set_font_mode(gb::ces_font_component::e_font_mode_regular);
             m_elements[k_place_label_id] = place_label;
             add_child(place_label);
             

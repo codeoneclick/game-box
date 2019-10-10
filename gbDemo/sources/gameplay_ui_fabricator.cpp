@@ -163,7 +163,8 @@ namespace game
         
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_speed_up_boost_trigger_dialog)] = glm::vec2(m_screen_size.x * .5f - m_screen_size.x * .6f * .5f, m_screen_size.y - (k_image_button_size.y + 8.f) * 2.f - 48.f);
         
-        
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_subscription_button)] = glm::vec2(m_screen_size.x - 32.f - k_image_button_size.x, 168.f);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_subscription_label)] = glm::vec2(m_screen_size.x - 32.f - k_image_button_size.x - 160.f - 2.f, 168.f);
         
         ui_animation_helper::set_screen_size(m_screen_size);
     }
@@ -424,24 +425,26 @@ namespace game
     
     gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_tutorial_steer_left_label(const std::string& filename)
     {
-        const auto label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(96.f, 192.f), "PRESS");
+        const auto label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(96.f, 192.f), "TAP");
         add_ui_interaction_component(label, game::ces_ui_interaction_component::e_ui::e_ui_level_tutorial_steer_left_label);
         label->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_level_tutorial_steer_left_label)];
         label->set_text_color(k_control_text_color);
         label->set_visible_edges(false);
-        label->set_font_mode(gb::ces_font_component::e_font_mode_edge);
+        label->set_font_name("spincycle.otf");
+        label->set_font_mode(gb::ces_font_component::e_font_mode_regular);
         label->remove_component(gb::ces_bound_touch_component::class_guid());
         return label;
     }
     
     gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_tutorial_steer_right_label(const std::string& filename)
     {
-        const auto label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(96.f, 192.f), "PRESS");
+        const auto label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(96.f, 192.f), "TAP");
         add_ui_interaction_component(label, game::ces_ui_interaction_component::e_ui::e_ui_level_tutorial_steer_right_label);
         label->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_level_tutorial_steer_right_label)];
         label->set_text_color(k_control_text_color);
         label->set_visible_edges(false);
-        label->set_font_mode(gb::ces_font_component::e_font_mode_edge);
+        label->set_font_name("spincycle.otf");
+        label->set_font_mode(gb::ces_font_component::e_font_mode_regular);
         label->remove_component(gb::ces_bound_touch_component::class_guid());
         return label;
     }
@@ -653,7 +656,7 @@ namespace game
     {
         auto dialog = m_ui_base_fabricator.lock()->create_dialog(glm::vec2(0.f));
         add_ui_interaction_component(dialog, game::ces_ui_interaction_component::e_ui::e_ui_win_dialog);
-        dialog->set_title("WIN");
+        dialog->set_title("FINISHED");
         dialog->set_title_text_color(k_control_text_color);
         
         const auto place_label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(450.f, 24.f), "FINISHED AT PLACE: SECOND");
@@ -728,22 +731,19 @@ namespace game
         star3_achievement_label->set_visible_edges(false);
         star3_achievement_label->set_font_size(17.f);
         
-        const auto restart_button = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size, "ui_restart.png", nullptr);
-        restart_button->position = glm::vec2(450.f * .5f - k_image_button_size.x * 2.f, 124.f);
-        colorize_ui_control(restart_button);
-        restart_button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
-        
-        const auto twice_cash_button = m_ui_base_fabricator.lock()->create_button(glm::vec2(k_image_button_size.x * 2.f, k_image_button_size.y), nullptr);
+        const auto twice_cash_button = m_ui_base_fabricator.lock()->create_button(glm::vec2(k_image_button_size.x * 2.f, 32.f), nullptr);
         twice_cash_button->set_text("2X CASH");
-        twice_cash_button->position = glm::vec2(450.f * .5f - k_image_button_size.x, 124.f);
-        twice_cash_button->set_font_size(17.f);
+        twice_cash_button->position = glm::vec2(450. - k_image_button_size.x * 2.f, -36.f);
+        twice_cash_button->set_font_size(18.f);
         twice_cash_button->set_text_horizontal_aligment(gb::ui::e_element_horizontal_aligment_center);
         twice_cash_button->set_text_vertical_aligment(gb::ui::e_element_vertical_aligment_center);
         colorize_ui_control(twice_cash_button);
         twice_cash_button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
         
-        const auto continue_button = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size, "ui_next.png", nullptr);
-        continue_button->position = glm::vec2(450.f * .5f + k_image_button_size.x, 124.f);
+        const auto continue_button = m_ui_base_fabricator.lock()->create_button(glm::vec2(450.f, k_image_button_size.y), nullptr);
+        continue_button->position = glm::vec2(0.f, 124.f);
+        continue_button->set_text("TAP  TO  CONTINUE");
+        continue_button->set_text_horizontal_aligment(gb::ui::e_element_horizontal_aligment_center);
         colorize_ui_control(continue_button);
         continue_button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
         
@@ -758,7 +758,6 @@ namespace game
         dialog->add_control(star3_achievement_label, game::ces_ui_interaction_component::k_win_dialog_star3_achievement_label);
         dialog->add_control(continue_button, game::ces_ui_interaction_component::k_end_game_dialog_continue_button);
         dialog->add_control(twice_cash_button, game::ces_ui_interaction_component::k_win_dialog_twice_cash_button_button);
-        dialog->add_control(restart_button, game::ces_ui_interaction_component::k_end_game_dialog_restart_button);
         
         dialog->visible = false;
         dialog->position = glm::vec2(m_screen_size.x * .5f - 450.f * .5f, m_screen_size.y * .5 - 48.f);
@@ -1069,6 +1068,26 @@ namespace game
         overlay->color = glm::u8vec4(0, 0, 0, 220);
         overlay->position = glm::vec2(-m_screen_size.x * .5f, -m_screen_size.y * .5f);
         overlay->size = glm::vec2(m_screen_size.x, m_screen_size.y);
+        overlay->visible = false;
+        return overlay;
+    }
+
+    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_screen_loading_overlay(const std::string& filename)
+    {
+        const auto overlay = m_general_fabricator.lock()->create_sprite("button_background.xml");
+        add_ui_interaction_component(overlay, game::ces_ui_interaction_component::e_ui::e_ui_screen_loading_overlay);
+        
+        const auto label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(m_screen_size.x, k_image_button_size.y * 1.5f), "WAIT.....");
+        label->position = glm::vec2(m_screen_size.x * .5f, m_screen_size.y - k_image_button_size.y * 1.5f * .5f);
+        label->set_text_vertical_aligment(gb::ui::e_element_vertical_aligment_center);
+        label->set_text_horizontal_aligment(gb::ui::e_element_horizontal_aligment_center);
+        add_ui_interaction_component(label, game::ces_ui_interaction_component::e_ui::e_ui_screen_loading_label);
+        colorize_ui_control(label);
+        
+        overlay->color = glm::u8vec4(0, 0, 0, 220);
+        overlay->position = glm::vec2(-m_screen_size.x * .5f, -m_screen_size.y * .5f);
+        overlay->size = glm::vec2(m_screen_size.x, m_screen_size.y);
+        overlay->add_child(label);
         overlay->visible = false;
         return overlay;
     }
@@ -1879,4 +1898,70 @@ namespace game
         return dialog;
     }
 
+    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_subscription_button(const std::string& filename)
+    {
+        const auto button = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size, "ui_cart.png", nullptr);
+        add_ui_interaction_component(button, game::ces_ui_interaction_component::e_ui::e_ui_subscription_button);
+        button->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_subscription_button)];
+               colorize_ui_control(button);
+        button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
+        return button;
+    }
+
+    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_subscription_label(const std::string& filename)
+    {
+        const auto button = m_ui_base_fabricator.lock()->create_button(glm::vec2(160.f, k_image_button_size.y), nullptr);
+        add_ui_interaction_component(button, game::ces_ui_interaction_component::e_ui::e_ui_subscription_label);
+        button->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_subscription_label)];
+        button->set_text("VIP");
+        colorize_ui_control(button);
+        button->set_font_size(24.f);
+        button->set_text_vertical_aligment(gb::ui::e_element_vertical_aligment_center);
+        button->set_text_horizontal_aligment(gb::ui::e_element_horizontal_aligment_center);
+        button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
+        return button;
+    }
+
+    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_subscription_dialog(const std::string& filename)
+    {
+        auto dialog = m_ui_base_fabricator.lock()->create_dialog(glm::vec2(0.f));
+        add_ui_interaction_component(dialog, game::ces_ui_interaction_component::e_ui::e_ui_subscription_dialog);
+        
+        dialog->set_title("SUBSCRIPTION");
+        dialog->set_title_text_color(k_control_text_color);
+        
+        const auto label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(400.f, 24.f), "VIP SUBSCRIPTION IS FREE FOR THE FIRST WEEK. VIP SUBSCRIPTION HAS A TRIPLE   CASH BENEFIT FROM ANY REWARD, AND UNLOCK ALL CARS IGNORING YOUR          CURRENT RANK! BUT YOU STILL NEED TO   BUY A CARS.");
+        
+        label->position = glm::vec2(0.f, 0.f);
+        label->set_text_color(k_control_text_color);
+        label->set_font_name("spincycle.otf");
+        label->set_background_color(k_control_transparent_color);
+        label->set_foreground_color(k_control_transparent_color);
+        label->set_multiline(true);
+        
+        const auto yes_button = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size, "ui_checkmark.png", nullptr);
+        yes_button->position = glm::vec2(420.f * .5f - k_image_button_size.x * 2.f, 80.f);
+        yes_button->set_image_color(glm::u8vec4(64, 64, 255, 255));
+        yes_button->set_background_color(glm::u8vec4(0, 96, 0, 96));
+        yes_button->set_foreground_color(k_control_foreground_color);
+        yes_button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
+        
+        const auto no_button = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size, "ui_cross.png", nullptr);
+        no_button->position = glm::vec2(420.f * .5f + k_image_button_size.x, 80.f);
+        no_button->set_image_color(glm::u8vec4(255, 64, 64, 255));
+        no_button->set_background_color(glm::u8vec4(96, 0, 0, 96));
+        no_button->set_foreground_color(k_control_foreground_color);
+        no_button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
+        
+        dialog->add_control(label, game::ces_ui_interaction_component::k_subscription_dialog_label);
+        dialog->add_control(yes_button, game::ces_ui_interaction_component::k_subscription_dialog_yes_button);
+        dialog->add_control(no_button, game::ces_ui_interaction_component::k_subscription_dialog_no_button);
+        dialog->visible = false;
+        glm::vec2 dialog_size = dialog->size;
+               dialog->position = glm::vec2(m_screen_size.x * .5f - dialog_size.x * .5f,
+                                            m_screen_size.y * .5f - dialog_size.y * .5f);
+        dialog->set_background_color(k_control_background_color);
+        
+        return dialog;
+    }
 }

@@ -526,6 +526,9 @@
 		927BB1902229369E001CBD2D /* mtl_library.metal in Sources */ = {isa = PBXBuildFile; fileRef = 927BB18F2229369E001CBD2D /* mtl_library.metal */; };
 		927BB1912229369E001CBD2D /* mtl_library.metal in Sources */ = {isa = PBXBuildFile; fileRef = 927BB18F2229369E001CBD2D /* mtl_library.metal */; };
 		927BB1922229369E001CBD2D /* mtl_library.metal in Sources */ = {isa = PBXBuildFile; fileRef = 927BB18F2229369E001CBD2D /* mtl_library.metal */; };
+		927C8C4F234DD5A9008ABFAC /* push_notifications_provider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 927C8C4D234DD5A9008ABFAC /* push_notifications_provider.cpp */; };
+		927C8C50234DD5A9008ABFAC /* push_notifications_provider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 927C8C4D234DD5A9008ABFAC /* push_notifications_provider.cpp */; };
+		927C8C51234DD5A9008ABFAC /* push_notifications_provider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 927C8C4D234DD5A9008ABFAC /* push_notifications_provider.cpp */; };
 		9289D84C22E847FA005E327A /* ui_color.png in Resources */ = {isa = PBXBuildFile; fileRef = 9289D84722E847F9005E327A /* ui_color.png */; };
 		9289D84D22E847FA005E327A /* ui_color.png in Resources */ = {isa = PBXBuildFile; fileRef = 9289D84722E847F9005E327A /* ui_color.png */; };
 		9289D84E22E847FA005E327A /* ui_color.png in Resources */ = {isa = PBXBuildFile; fileRef = 9289D84722E847F9005E327A /* ui_color.png */; };
@@ -2507,6 +2510,8 @@
 		927AA4A823432F95002152E0 /* db_daily_task_table.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = db_daily_task_table.h; path = sources/db_daily_task_table.h; sourceTree = "<group>"; };
 		927BB18722293305001CBD2D /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
 		927BB18F2229369E001CBD2D /* mtl_library.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; name = mtl_library.metal; path = ../gbBundle/Shaders/metal/mtl_library.metal; sourceTree = "<group>"; };
+		927C8C4D234DD5A9008ABFAC /* push_notifications_provider.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; name = push_notifications_provider.cpp; path = sources/push_notifications_provider.cpp; sourceTree = "<group>"; };
+		927C8C4E234DD5A9008ABFAC /* push_notifications_provider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = push_notifications_provider.h; path = sources/push_notifications_provider.h; sourceTree = "<group>"; };
 		9289D84722E847F9005E327A /* ui_color.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ui_color.png; path = ../gbBundle/Textures/ui_color.png; sourceTree = "<group>"; };
 		9289D84F22E869E4005E327A /* retro_car_1_windows_color_mask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = retro_car_1_windows_color_mask.png; path = ../gbBundle/Textures/retro_car_1_windows_color_mask.png; sourceTree = "<group>"; };
 		928B6707228C1539003D9F58 /* sky_pz.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sky_pz.png; path = ../gbBundle/Textures/sky_pz.png; sourceTree = "<group>"; };
@@ -3483,6 +3488,7 @@
 		21B403351B7A09D6003382AB /* sources */ = {
 			isa = PBXGroup;
 			children = (
+				927C8C47234DD55E008ABFAC /* push notifications managment */,
 				92AF449222F1C96700505E3D /* game center managment */,
 				92F94EFD22CE061C00903164 /* in app purchases managment */,
 				92A2D15722CDDFB30014A588 /* social network managment */,
@@ -3824,6 +3830,15 @@
 				922FCD4A22EB13D80040C71F /* ui_wrench.png */,
 			);
 			name = ui;
+			sourceTree = "<group>";
+		};
+		927C8C47234DD55E008ABFAC /* push notifications managment */ = {
+			isa = PBXGroup;
+			children = (
+				927C8C4E234DD5A9008ABFAC /* push_notifications_provider.h */,
+				927C8C4D234DD5A9008ABFAC /* push_notifications_provider.cpp */,
+			);
+			name = "push notifications managment";
 			sourceTree = "<group>";
 		};
 		9290955E22CB5124005097DC /* mask */ = {
@@ -6868,6 +6883,7 @@
 				92514DF6229526D900DE70AA /* ces_car_progression_system.cpp in Sources */,
 				92B5853221539B15008AA8BB /* ui_editor_transition.cpp in Sources */,
 				92C2C6CE22F9637400A1703B /* ces_car_boost_system.cpp in Sources */,
+				927C8C4F234DD5A9008ABFAC /* push_notifications_provider.cpp in Sources */,
 				92AF449522F1C98A00505E3D /* game_center_provier.cpp in Sources */,
 				F3ED657F1F22264C0047F89D /* ces_scene_state_automat_component.cpp in Sources */,
 				F30F08CA1E014F86001564B6 /* main_menu_scene.cpp in Sources */,
@@ -6963,6 +6979,7 @@
 				92601CE522805BBA000B38E1 /* ces_level_descriptor_component.cpp in Sources */,
 				92514DF7229526DA00DE70AA /* ces_car_progression_system.cpp in Sources */,
 				92C2C6CF22F9637400A1703B /* ces_car_boost_system.cpp in Sources */,
+				927C8C50234DD5A9008ABFAC /* push_notifications_provider.cpp in Sources */,
 				92AF449622F1C98A00505E3D /* game_center_provier.cpp in Sources */,
 				212B18CB1B8232EE00FFDCE7 /* application_delegate_ios.mm in Sources */,
 				F38069191F2613A800AE1D67 /* gameplay_configuration_accessor.cpp in Sources */,
@@ -7058,6 +7075,7 @@
 				F380691A1F2613A900AE1D67 /* gameplay_configuration_accessor.cpp in Sources */,
 				9213BAD92216C9E400F8ACB5 /* ces_car_model_component.cpp in Sources */,
 				92C2C6D022F9637400A1703B /* ces_car_boost_system.cpp in Sources */,
+				927C8C51234DD5A9008ABFAC /* push_notifications_provider.cpp in Sources */,
 				92AF449722F1C98A00505E3D /* game_center_provier.cpp in Sources */,
 				9252EC03225F4E91002EF105 /* ces_level_route_component.cpp in Sources */,
 				92B5853421539B19008AA8BB /* ui_editor_scene..cpp in Sources */,
@@ -7373,11 +7391,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_ENTITLEMENTS = "Hyper Drift.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COMPRESS_PNG_FILES = NO;
-				CURRENT_PROJECT_VERSION = 33;
+				CURRENT_PROJECT_VERSION = 36;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = R75F335JW3;
 				ENABLE_BITCODE = YES;
@@ -7411,7 +7431,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LLVM_LTO = NO;
-				MARKETING_VERSION = 1.0.9;
+				MARKETING_VERSION = 1.0.10;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -7455,11 +7475,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_ENTITLEMENTS = "Hyper Drift.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COMPRESS_PNG_FILES = NO;
-				CURRENT_PROJECT_VERSION = 33;
+				CURRENT_PROJECT_VERSION = 36;
 				DEVELOPMENT_TEAM = R75F335JW3;
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -7493,7 +7515,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LLVM_LTO = YES_THIN;
-				MARKETING_VERSION = 1.0.9;
+				MARKETING_VERSION = 1.0.10;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-l\"FirebaseCore\"",

@@ -165,6 +165,6 @@ namespace game
     
     void ces_car_model_component::set_max_force(f32 value)
     {
-        m_max_speed = value;
+        m_max_force = value;
     }
 }

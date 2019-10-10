@@ -57,12 +57,18 @@ namespace game
         static void push_daily_tasks_dialog(const gb::ces_entity_shared_ptr& root);
         static void pop_daily_tasks_dialog();
         
+        static void push_subscription_dialog(const gb::ces_entity_shared_ptr& root);
+        static void pop_subscription_dialog();
+        
     protected:
         
     public:
         
         static void push_dialog(ces_ui_interaction_component::e_ui ui_id, const gb::ces_entity_shared_ptr& root);
         static void pop_dialog();
+        
+        static void show_loading_screen();
+        static void hide_loading_screen();
         
         static gb::ces_entity_shared_ptr get_pushed_dialog();
     };

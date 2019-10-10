@@ -57,8 +57,7 @@ namespace game
         void push_pause_menu_dialog(const gb::ces_entity_shared_ptr& root);
         void push_restart_dialog(const gb::ces_entity_shared_ptr& root);
         void push_quit_dialog(const gb::ces_entity_shared_ptr& root);
-        void push_win_dialog(const gb::ces_entity_shared_ptr& root);
-        void push_loose_dialog(const gb::ces_entity_shared_ptr& root);
+        void push_race_ended_dialog(const gb::ces_entity_shared_ptr& root);
         void push_full_tickets_dialog(const gb::ces_entity_shared_ptr& root);
         void push_not_enough_tickets_dialog(const gb::ces_entity_shared_ptr& root);
         

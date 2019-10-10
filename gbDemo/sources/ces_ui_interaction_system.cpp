@@ -157,11 +157,11 @@ namespace game
                             {
                                 level_descriptor_component->current_round_time = current_round_time;
                             }
-                            else if (!level_descriptor_component->is_loose)
+                            else
                             {
                                 level_descriptor_component->current_round_time = 0.f;
                                 const auto level_descriptor_component = m_level.lock()->get_component<ces_level_descriptor_component>();
-                                level_descriptor_component->is_win = true;
+                                level_descriptor_component->is_race_ended = true;
                                 
                                 const auto car_input_component = m_main_car.lock()->get_component<ces_car_input_component>();
                                 if (car_input_component)
@@ -170,7 +170,7 @@ namespace game
                                     const auto car_ai_input_component = std::make_shared<ces_car_ai_input_component>();
                                     m_main_car.lock()->add_component(car_ai_input_component);
                                     pop_current_dialog();
-                                    push_win_dialog(root);
+                                    push_race_ended_dialog(root);
                                 }
                                 
                                 if (!m_countdown_label.expired())
@@ -401,7 +401,7 @@ namespace game
                 }
                 
                 const auto level_descriptor_component = m_level.lock()->get_component<ces_level_descriptor_component>();
-                if (!level_descriptor_component->is_win && !level_descriptor_component->is_loose)
+                if (!level_descriptor_component->is_race_ended && !level_descriptor_component->is_car_damaged)
                 {
                     const auto damage_bar = ui_controls_helper::get_control_as<gb::ui::progress_bar>(ces_ui_interaction_component::e_ui::e_ui_car_damage_bar);
                     if (damage_bar)
@@ -423,41 +423,10 @@ namespace game
                         }
                         else
                         {
-                            level_descriptor_component->is_loose = true;
-                            const auto car_input_component = m_main_car.lock()->get_component<ces_car_input_component>();
-                            if (car_input_component)
-                            {
-                                m_main_car.lock()->remove_component(car_input_component);
-                                const auto car_ai_input_component = std::make_shared<ces_car_ai_input_component>();
-                                m_main_car.lock()->add_component(car_ai_input_component);
-                                pop_current_dialog();
-                                push_loose_dialog(root);
-                                
-                                if (!m_main_car.expired())
-                                {
-                                    const auto main_car = m_main_car.lock();
-                                    const auto car_parts_component = main_car->get_component<ces_car_parts_component>();
-                                    car_parts_component->get_part(ces_car_parts_component::parts::k_ui_speed_label)->visible = false;
-                                    car_parts_component->get_part(ces_car_parts_component::parts::k_ui_speed_value_label)->visible = false;
-                                    car_parts_component->get_part(ces_car_parts_component::parts::k_ui_drift_label)->visible = false;
-                                    car_parts_component->get_part(ces_car_parts_component::parts::k_ui_drift_value_label)->visible = false;
-                                    car_parts_component->get_part(ces_car_parts_component::parts::k_ui_rpm_label)->visible = false;
-                                    car_parts_component->get_part(ces_car_parts_component::parts::k_ui_rpm_value_label)->visible = false;
-                                    car_parts_component->get_part(ces_car_parts_component::parts::k_ui_direction_arrow)->visible = false;
-                                }
-                            }
-                            
-                            if (!m_countdown_label.expired())
-                            {
-                                m_countdown_label.lock()->remove_from_parent();
-                                m_countdown_label.reset();
-                            }
-                            
-                            if (!m_cars_list_dialog.expired())
-                            {
-                                m_cars_list_dialog.lock()->remove_from_parent();
-                                m_cars_list_dialog.reset();
-                            }
+                            level_descriptor_component->is_car_damaged = true;
+                            m_main_car.lock()->get_component<ces_car_model_component>()->set_max_force( m_main_car.lock()->get_component<ces_car_model_component>()->get_max_force() * .25f);
+                            ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_car_damage_bar)->focus(true, .33f);
+                            ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_car_damage_label)->focus(true, .33f);
                         }
                     }
                 }
@@ -1347,7 +1316,30 @@ namespace game
                 }
                     break;
                     
-                    
+                case ces_ui_interaction_component::e_ui::e_ui_subscription_button:
+                case ces_ui_interaction_component::e_ui::e_ui_subscription_label:
+                {
+                    const auto button = std::static_pointer_cast<gb::ui::interaction_control>(entity);
+                    if(!button->is_pressed_callback_exist())
+                    {
+                        button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                            const auto pushed_dialog = ui_dialogs_helper::get_pushed_dialog();
+                            if (!pushed_dialog || (pushed_dialog && pushed_dialog != ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_subscription_dialog)))
+                            {
+                                if (pushed_dialog)
+                                {
+                                    ui_dialogs_helper::pop_dialog();
+                                }
+                                ui_dialogs_helper::push_dialog(ces_ui_interaction_component::e_ui::e_ui_subscription_dialog, root);
+                            }
+                            else if (pushed_dialog && pushed_dialog == ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_subscription_dialog))
+                            {
+                                ui_dialogs_helper::pop_dialog();
+                            }
+                        });
+                    }
+                }
+                    break;
                 default:
                     break;
             }
@@ -1507,7 +1499,7 @@ namespace game
         }
     }
     
-    void ces_ui_interaction_system::push_win_dialog(const gb::ces_entity_shared_ptr& root)
+    void ces_ui_interaction_system::push_race_ended_dialog(const gb::ces_entity_shared_ptr& root)
     {
         const auto win_dialog = ui_controls_helper::get_control_as<gb::ces_entity>(ces_ui_interaction_component::e_ui::e_ui_win_dialog);
         if (win_dialog)
@@ -1529,7 +1521,8 @@ namespace game
                 daily_task_database_component->set_task_is_done(ces_daily_task_database_component::k_race_5_task);
             }
             
-            const auto continue_button = std::static_pointer_cast<gb::ui::image_button>(std::static_pointer_cast<gb::ui::dialog>(win_dialog)->get_control(ces_ui_interaction_component::k_end_game_dialog_continue_button));
+            const auto continue_button = std::static_pointer_cast<gb::ui::button>(std::static_pointer_cast<gb::ui::dialog>(win_dialog)->get_control(ces_ui_interaction_component::k_end_game_dialog_continue_button));
+            continue_button->focus(true, .33f);
             
             if(!continue_button->is_pressed_callback_exist())
             {
@@ -1549,28 +1542,6 @@ namespace game
                         gb::pause_run_loop();
                         gb::al::audio_engine::pause_all();
                         mute_sounds(root);
-                    }
-                });
-            }
-            
-            const auto restart_button = std::static_pointer_cast<gb::ui::image_button>(std::static_pointer_cast<gb::ui::dialog>(win_dialog)->get_control(ces_ui_interaction_component::k_end_game_dialog_restart_button));
-            
-            if(!restart_button->is_pressed_callback_exist())
-            {
-                restart_button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
-                    pop_current_dialog();
-                    const auto user_database_component = root->get_component<ces_user_database_component>();
-                    i32 tickets_count = user_database_component->get_tickets(1);
-                    if (tickets_count > 0)
-                    {
-                        const auto level_descriptor_component = m_level.lock()->get_component<ces_level_descriptor_component>();
-                        level_descriptor_component->is_paused = false;
-                        m_scene.lock()->get_component<ces_scene_state_automat_component>()->mode = ces_scene_state_automat_component::e_mode_in_game;
-                        m_scene.lock()->get_component<ces_scene_state_automat_component>()->state = ces_scene_state_automat_component::e_state_should_preload;
-                    }
-                    else
-                    {
-                        push_not_enough_tickets_dialog(root);
                     }
                 });
             }
@@ -1735,6 +1706,13 @@ namespace game
                     daily_task_database_component->inc_task_progress(ces_daily_task_database_component::k_open_one_level_task, 1);
                     daily_task_database_component->set_task_is_done(ces_daily_task_database_component::k_open_one_level_task);
                 }
+                
+                bool is_car_damaged = level_descriptor_component->is_car_damaged;
+                if (is_car_damaged)
+                {
+                    const auto user_database_component = root->get_component<ces_user_database_component>();
+                            user_database_component->dec_ticket(1);
+                }
             }
             else
             {
@@ -1819,93 +1797,6 @@ namespace game
             }
         }
         game_center_provier::shared_instance()->report_drifring_score(sum_drift_seconds);
-    }
-    
-    void ces_ui_interaction_system::push_loose_dialog(const gb::ces_entity_shared_ptr &root)
-    {
-        const auto loose_dialog = ui_controls_helper::get_control_as<gb::ces_entity>(ces_ui_interaction_component::e_ui::e_ui_loose_dialog);
-        if (loose_dialog)
-        {
-            loose_dialog->visible = true;
-            m_current_pushed_dialog = loose_dialog;
-            
-            ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_screen_overlay)->visible = true;
-            
-            const auto daily_task_database_component = root->get_component<ces_daily_task_database_component>();
-            daily_task_database_component->inc_task_progress(ces_daily_task_database_component::k_race_5_task, 1);
-            auto daily_task = daily_task_database_component->get_task(ces_daily_task_database_component::k_race_5_task);
-            if (daily_task->get_progress() >= daily_task->get_requirements())
-            {
-                daily_task_database_component->set_task_is_done(ces_daily_task_database_component::k_race_5_task);
-            }
-            
-            const auto continue_button = std::static_pointer_cast<gb::ui::image_button>(std::static_pointer_cast<gb::ui::dialog>(loose_dialog)->get_control(ces_ui_interaction_component::k_loose_dialog_continue_button));
-            
-            if(!continue_button->is_pressed_callback_exist())
-            {
-                continue_button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
-                    pop_current_dialog();
-                    m_scene.lock()->get_component<ces_scene_state_automat_component>()->mode = ces_scene_state_automat_component::e_mode_main_menu;
-                    m_scene.lock()->get_component<ces_scene_state_automat_component>()->state = ces_scene_state_automat_component::e_state_should_preload;
-                    advertisement_provider::shared_instance()->set_on_video_ended([=]() {
-                        gb::resume_run_loop();
-                        gb::al::audio_engine::resume_all();
-                        unmute_sounds(root);
-                    });
-                    const auto user_database_component = root->get_component<ces_user_database_component>();
-                    if (!user_database_component->get_is_purchased_no_ads(1) && advertisement_provider::shared_instance()->play_interstitial_video())
-                    {
-                        gb::pause_run_loop();
-                        gb::al::audio_engine::pause_all();
-                        mute_sounds(root);
-                    }
-                });
-            }
-            
-            const auto restart_button = std::static_pointer_cast<gb::ui::image_button>(std::static_pointer_cast<gb::ui::dialog>(loose_dialog)->get_control(ces_ui_interaction_component::k_loose_dialog_restart_button));
-            
-            if(!restart_button->is_pressed_callback_exist())
-            {
-                restart_button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
-                    pop_current_dialog();
-                    const auto user_database_component = root->get_component<ces_user_database_component>();
-                    i32 tickets_count = user_database_component->get_tickets(1);
-                    if (tickets_count > 0)
-                    {
-                        const auto level_descriptor_component = m_level.lock()->get_component<ces_level_descriptor_component>();
-                        level_descriptor_component->is_paused = false;
-                        m_scene.lock()->get_component<ces_scene_state_automat_component>()->mode = ces_scene_state_automat_component::e_mode_in_game;
-                        m_scene.lock()->get_component<ces_scene_state_automat_component>()->state = ces_scene_state_automat_component::e_state_should_preload;
-                        advertisement_provider::shared_instance()->set_on_video_ended([=]() {
-                            gb::resume_run_loop();
-                            gb::al::audio_engine::resume_all();
-                            unmute_sounds(root);
-                        });
-                        if (!user_database_component->get_is_purchased_no_ads(1) && advertisement_provider::shared_instance()->play_interstitial_video())
-                        {
-                            gb::pause_run_loop();
-                            gb::al::audio_engine::pause_all();
-                            mute_sounds(root);
-                        }
-                    }
-                    else
-                    {
-                        push_not_enough_tickets_dialog(root);
-                    }
-                });
-            }
-            
-            ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_pause_button)->visible = false;
-            
-            const auto user_database_component = root->get_component<ces_user_database_component>();
-            user_database_component->dec_ticket(1);
-            
-            const auto levels_database_component = root->get_component<ces_levels_database_component>();
-            levels_database_component->inc_retries_count(levels_database_component->get_playing_level_id());
-            events_provider::shared_instance()->on_car_damaged(levels_database_component->get_playing_level_id(),
-                                                               levels_database_component->get_retries_count(levels_database_component->get_playing_level_id()));
-        }
-        
     }
     
     void ces_ui_interaction_system::push_full_tickets_dialog(const gb::ces_entity_shared_ptr& root)

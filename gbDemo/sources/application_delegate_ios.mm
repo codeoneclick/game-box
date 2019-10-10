@@ -9,6 +9,7 @@
 #include "application_delegate_ios.h"
 #include "game_controller_ios.h"
 #include "advertisement_provider.h"
+#include "push_notifications_provider.h"
 #include "game_loop.h"
 #include "FCUUID.h"
 #import <GameAnalytics/GameAnalytics.h>
@@ -82,6 +83,8 @@
     [[FBSDKApplicationDelegate sharedInstance] application:application
                              didFinishLaunchingWithOptions:launchOptions];
     
+    game::push_notifications_provider::shared_instance()->authenticate();
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     game_controller_ios *vc = [[game_controller_ios alloc] init];
     UINavigationController* navigation_controller = [[UINavigationController alloc] initWithRootViewController:vc];
@@ -103,7 +106,7 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-
+    game::push_notifications_provider::shared_instance()->schedule_offline_notifications();
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application

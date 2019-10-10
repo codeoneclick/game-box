@@ -421,6 +421,38 @@ namespace game
             user_record->save_to_db();
         }
     }
+
+    bool ces_user_database_component::get_is_purchased_vip_subscription(i32 user_id) const
+    {
+        bool result = false;
+        auto user_record = std::make_shared<gb::db::database_entity<db_user_table, db_user_data>>(m_database_coordinator.lock());
+        if(!user_record->load_from_db(user_id))
+        {
+            assert(false);
+        }
+        else
+        {
+            auto& data = user_record->get_data();
+            result = data.m_is_vip_subscription == 1;
+        }
+        
+        return result;
+    }
+
+    void ces_user_database_component::set_is_purchased_vip_subscription(i32 user_id, bool value) const
+    {
+        auto user_record = std::make_shared<gb::db::database_entity<db_user_table, db_user_data>>(m_database_coordinator.lock());
+        if(!user_record->load_from_db(user_id))
+        {
+            assert(false);
+        }
+        else
+        {
+            auto& data = user_record->get_data();
+            data.m_is_vip_subscription = value ? 1 : 0;
+            user_record->save_to_db();
+        }
+    }
     
     void ces_user_database_component::inc_cash(i32 user_id, i32 value)
     {
@@ -472,7 +504,7 @@ namespace game
         {
             result = user->get_ftue_step();
         }
-        return result;
+        return result >= 0 ? result : 255;
     }
     
     void ces_user_database_component::inc_ftue_step(i32 user_id)

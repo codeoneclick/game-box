@@ -322,7 +322,6 @@ namespace game
         box2d_body_component->angular_velocity = angular_velocity;
         box2d_body_component->linear_velocity = velocity_wc;
         
-        
         f32 velocity_wc_length = glm::length(velocity_wc);
         f32 current_velocity_length_squared = velocity_wc_length * velocity_wc_length;
         f32 max_speed_squared = car_model_component->get_max_speed() * car_model_component->get_max_speed();

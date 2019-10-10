@@ -133,6 +133,9 @@ namespace game
         bool get_is_purchased_no_ads(i32 user_id) const;
         void set_is_purchased_no_ads(i32 user_id, bool value) const;
         
+        bool get_is_purchased_vip_subscription(i32 user_id) const;
+        void set_is_purchased_vip_subscription(i32 user_id, bool value) const;
+        
         i32 get_cash_per_level() const;
         i32 get_cash_per_drift_seconds() const;
         

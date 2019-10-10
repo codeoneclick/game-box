@@ -88,8 +88,7 @@ namespace game
             const auto level_descriptor_component = m_level.lock()->get_component<ces_level_descriptor_component>();
             if (level_descriptor_component->is_started &&
                 !level_descriptor_component->is_paused &&
-                !level_descriptor_component->is_win &&
-                !level_descriptor_component->is_loose)
+                !level_descriptor_component->is_race_ended)
             {
                 const auto level_tutorial_component = m_level.lock()->get_component<ces_level_tutorial_component>();
                 if (level_tutorial_component->is_active)

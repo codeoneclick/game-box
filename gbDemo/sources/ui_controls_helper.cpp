@@ -48,7 +48,8 @@ namespace game
             {
                 const auto ui_interaction_component = control.lock()->get_component<ces_ui_interaction_component>();
                 if (ui_interaction_component->get_ui() != ces_ui_interaction_component::e_ui::e_ui_screen_overlay &&
-                    ui_interaction_component->get_ui() != ces_ui_interaction_component::e_ui::e_ui_screen_overlay_bottom)
+                    ui_interaction_component->get_ui() != ces_ui_interaction_component::e_ui::e_ui_screen_overlay_bottom &&
+                    ui_interaction_component->get_ui() != ces_ui_interaction_component::e_ui::e_ui_screen_loading_overlay)
                 {
                     control.lock()->disable(true);
                 }
@@ -77,7 +78,8 @@ namespace game
             {
                 const auto ui_interaction_component = control.lock()->get_component<ces_ui_interaction_component>();
                 if (ui_interaction_component->get_ui() != ces_ui_interaction_component::e_ui::e_ui_screen_overlay &&
-                    ui_interaction_component->get_ui() != ces_ui_interaction_component::e_ui::e_ui_screen_overlay_bottom)
+                    ui_interaction_component->get_ui() != ces_ui_interaction_component::e_ui::e_ui_screen_overlay_bottom &&
+                    ui_interaction_component->get_ui() != ces_ui_interaction_component::e_ui::e_ui_screen_loading_overlay)
                 {
                     control.lock()->focus(false);
                     control.lock()->disable(false);

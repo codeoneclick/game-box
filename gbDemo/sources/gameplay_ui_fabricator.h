@@ -111,6 +111,7 @@ namespace game
         gb::game_object_2d_shared_ptr create_open_shop_button(const std::string& filename);
         gb::game_object_2d_shared_ptr create_screen_overlay(const std::string& filename);
         gb::game_object_2d_shared_ptr create_screen_overlay_bottom(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_screen_loading_overlay(const std::string& filename);
         
 #if defined(__FACEBOOK_LOGIN__)
         
@@ -166,6 +167,10 @@ namespace game
         gb::game_object_2d_shared_ptr create_daily_tasks_button(const std::string& filename);
         gb::game_object_2d_shared_ptr create_daily_tasks_label(const std::string& filename);
         gb::game_object_2d_shared_ptr create_daily_tasks_dialog(const std::string& filename);
+        
+        gb::game_object_2d_shared_ptr create_subscription_button(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_subscription_label(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_subscription_dialog(const std::string& filename);
     };
 };
 

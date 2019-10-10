@@ -63,6 +63,8 @@ namespace game
             e_ui_not_enough_tickets_dialog,
             e_ui_screen_overlay,
             e_ui_screen_overlay_bottom,
+            e_ui_screen_loading_overlay,
+            e_ui_screen_loading_label,
             e_ui_facebook_button,
             e_ui_unlock_car_dialog,
             e_ui_quit_game_dialog,
@@ -113,6 +115,9 @@ namespace game
             e_ui_daily_tasks_button,
             e_ui_daily_tasks_label,
             e_ui_daily_tasks_dialog,
+            e_ui_subscription_button,
+            e_ui_subscription_label,
+            e_ui_subscription_dialog,
             e_ui_max
         };
         
@@ -182,6 +187,9 @@ namespace game
         static const i32 k_controls_dialog_description_label;
         static const i32 k_controls_dialog_ok_button;
         static const i32 k_daily_tasks_dialog_table_view;
+        static const i32 k_subscription_dialog_label;
+        static const i32 k_subscription_dialog_yes_button;
+        static const i32 k_subscription_dialog_no_button;
         
         static std::array<glm::vec2, static_cast<i32>(e_ui::e_ui_max)> k_controls_position;
         

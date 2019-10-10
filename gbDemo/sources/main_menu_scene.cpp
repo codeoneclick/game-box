@@ -239,6 +239,18 @@ namespace game
                 }
             }
         });
+        
+        store_provider::shared_instance()->set_on_subscription_status_changed_callback([=](bool status) {
+            if (status)
+            {
+                std::cout<<"subscription is active"<<std::endl;
+            }
+            else
+            {
+                std::cout<<"subscription is inactive"<<std::endl;
+            }
+        });
+        
         store_provider::shared_instance()->request_products();
         game_center_provier::shared_instance()->authenticate();
         

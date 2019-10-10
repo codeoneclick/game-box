@@ -267,7 +267,7 @@ namespace game
             shop_item_cell_data = std::make_shared<ui::shop_table_view_cell_data>();
             shop_item_cell_data->id = store_provider::k_no_ads_product_id;
             shop_item_cell_data->product_name = "NO ADS";
-            shop_item_cell_data->product_description = "REMOVE BANNER AND INTERSTITIAL VIDEOS";
+            shop_item_cell_data->product_description = "REMOVE BANNER AND            INTERSTITIAL VIDEOS";
             shop_item_cell_data->product_price = .99f;
             shop_item_cell_data->is_bought = false;
             shop_item_cell_data->is_restore = false;
@@ -321,33 +321,51 @@ namespace game
                         
                         if (product_item_data->id == store_provider::k_no_ads_product_id)
                         {
-                            store_provider::shared_instance()->buy_no_ads_product();
+                            show_loading_screen();
+                            store_provider::shared_instance()->buy_no_ads_product([=](bool result) {
+                                hide_loading_screen();
+                            });
                         }
                         
                         if (product_item_data->id == store_provider::k_cash_pack_1_product_id)
                         {
-                            store_provider::shared_instance()->buy_small_cash_pack([=]() {
-                                const auto user_database_component = root->get_component<ces_user_database_component>();
-                                user_database_component->inc_cash(1, 3000);
-                                ui_controls_helper::update_cash_amount(user_database_component->get_cash(1), 3000);
+                            show_loading_screen();
+                            store_provider::shared_instance()->buy_small_cash_pack([=](bool result) {
+                                hide_loading_screen();
+                                if (result)
+                                {
+                                    const auto user_database_component = root->get_component<ces_user_database_component>();
+                                    user_database_component->inc_cash(1, 3000);
+                                    ui_controls_helper::update_cash_amount(user_database_component->get_cash(1), 3000);
+                                }
                             });
                         }
                         
                         if (product_item_data->id == store_provider::k_cash_pack_2_product_id)
                         {
-                            store_provider::shared_instance()->buy_medium_cash_pack([=]() {
-                                const auto user_database_component = root->get_component<ces_user_database_component>();
-                                user_database_component->inc_cash(1, 10000);
-                                ui_controls_helper::update_cash_amount(user_database_component->get_cash(1), 10000);
+                            show_loading_screen();
+                            store_provider::shared_instance()->buy_medium_cash_pack([=](bool result) {
+                                hide_loading_screen();
+                                if (result)
+                                {
+                                    const auto user_database_component = root->get_component<ces_user_database_component>();
+                                    user_database_component->inc_cash(1, 10000);
+                                    ui_controls_helper::update_cash_amount(user_database_component->get_cash(1), 10000);
+                                }
                             });
                         }
                         
                         if (product_item_data->id == store_provider::k_cash_pack_3_product_id)
                         {
-                            store_provider::shared_instance()->buy_big_cash_pack([=]() {
-                                const auto user_database_component = root->get_component<ces_user_database_component>();
-                                user_database_component->inc_cash(1, 20000);
-                                ui_controls_helper::update_cash_amount(user_database_component->get_cash(1), 20000);
+                            show_loading_screen();
+                            store_provider::shared_instance()->buy_big_cash_pack([=](bool result) {
+                                hide_loading_screen();
+                                if (result)
+                                {
+                                    const auto user_database_component = root->get_component<ces_user_database_component>();
+                                    user_database_component->inc_cash(1, 20000);
+                                    ui_controls_helper::update_cash_amount(user_database_component->get_cash(1), 20000);
+                                }
                             });
                         }
                     });
@@ -624,28 +642,43 @@ namespace game
                         const auto product_item_data = std::static_pointer_cast<ui::shop_table_view_cell_data>(data);
                         if (product_item_data->id == store_provider::k_cash_pack_1_product_id)
                         {
-                            store_provider::shared_instance()->buy_small_cash_pack([=](){
-                                const auto user_database_component = root->get_component<ces_user_database_component>();
-                                user_database_component->inc_cash(1, 3000);
-                                ui_controls_helper::update_cash_amount(user_database_component->get_cash(1), 3000);
+                            show_loading_screen();
+                            store_provider::shared_instance()->buy_small_cash_pack([=](bool result){
+                                hide_loading_screen();
+                                if (result)
+                                {
+                                    const auto user_database_component = root->get_component<ces_user_database_component>();
+                                    user_database_component->inc_cash(1, 3000);
+                                    ui_controls_helper::update_cash_amount(user_database_component->get_cash(1), 3000);
+                                }
                             });
                         }
                         
                         if (product_item_data->id == store_provider::k_cash_pack_2_product_id)
                         {
-                            store_provider::shared_instance()->buy_medium_cash_pack([=](){
-                                const auto user_database_component = root->get_component<ces_user_database_component>();
-                                user_database_component->inc_cash(1, 10000);
-                                ui_controls_helper::update_cash_amount(user_database_component->get_cash(1), 10000);
+                            show_loading_screen();
+                            store_provider::shared_instance()->buy_medium_cash_pack([=](bool result){
+                                hide_loading_screen();
+                                if (result)
+                                {
+                                    const auto user_database_component = root->get_component<ces_user_database_component>();
+                                    user_database_component->inc_cash(1, 10000);
+                                    ui_controls_helper::update_cash_amount(user_database_component->get_cash(1), 10000);
+                                }
                             });
                         }
                         
                         if (product_item_data->id == store_provider::k_cash_pack_3_product_id)
                         {
-                            store_provider::shared_instance()->buy_big_cash_pack([=](){
-                                const auto user_database_component = root->get_component<ces_user_database_component>();
-                                user_database_component->inc_cash(1, 20000);
-                                ui_controls_helper::update_cash_amount(user_database_component->get_cash(1), 20000);
+                            show_loading_screen();
+                            store_provider::shared_instance()->buy_big_cash_pack([=](bool result){
+                                hide_loading_screen();
+                                if (result)
+                                {
+                                    const auto user_database_component = root->get_component<ces_user_database_component>();
+                                    user_database_component->inc_cash(1, 20000);
+                                    ui_controls_helper::update_cash_amount(user_database_component->get_cash(1), 20000);
+                                }
                             });
                         }
                         
@@ -1113,6 +1146,52 @@ namespace game
         }
     }
     
+    void ui_dialogs_helper::push_subscription_dialog(const gb::ces_entity_shared_ptr& root)
+    {
+        const auto dialog = ui_controls_helper::get_control_as<gb::ces_entity>(ces_ui_interaction_component::e_ui::e_ui_subscription_dialog);
+        if (dialog)
+        {
+            dialog->visible = true;
+            m_pushed_dialog = dialog;
+            
+            ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_screen_overlay)->visible = true;
+            ui_controls_helper::disable_all_and_focus_on({ces_ui_interaction_component::e_ui::e_ui_subscription_dialog}, false);
+            
+            const auto yes_button = std::static_pointer_cast<gb::ui::image_button>(std::static_pointer_cast<gb::ui::dialog>(dialog)->get_control(ces_ui_interaction_component::k_subscription_dialog_yes_button));
+            
+            if(!yes_button->is_pressed_callback_exist())
+            {
+                yes_button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                    pop_dialog();
+                    show_loading_screen();
+                    store_provider::shared_instance()->buy_vip_subscription([=](bool result) {
+                        hide_loading_screen();
+                    });
+                });
+            }
+            
+            const auto no_button = std::static_pointer_cast<gb::ui::image_button>(std::static_pointer_cast<gb::ui::dialog>(dialog)->get_control(ces_ui_interaction_component::k_subscription_dialog_no_button));
+            
+            if(!no_button->is_pressed_callback_exist())
+            {
+                no_button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                    pop_dialog();
+                });
+            }
+        }
+    }
+    
+    void ui_dialogs_helper::pop_subscription_dialog()
+    {
+        const auto dialog = ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_subscription_dialog);
+        if (dialog)
+        {
+            dialog->visible = false;
+            ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_screen_overlay)->visible = false;
+            ui_controls_helper::enable_all_and_unfocus();
+        }
+    }
+    
     void ui_dialogs_helper::push_dialog(ces_ui_interaction_component::e_ui ui_id, const gb::ces_entity_shared_ptr& root)
     {
         switch (ui_id)
@@ -1166,6 +1245,11 @@ namespace game
             case ces_ui_interaction_component::e_ui::e_ui_daily_tasks_dialog:
             {
                 push_daily_tasks_dialog(root);
+            }
+                break;
+            case ces_ui_interaction_component::e_ui::e_ui_subscription_dialog:
+            {
+                push_subscription_dialog(root);
             }
                 break;
             default:
@@ -1231,6 +1315,11 @@ namespace game
                     pop_daily_tasks_dialog();
                 }
                     break;
+                case ces_ui_interaction_component::e_ui::e_ui_subscription_dialog:
+                {
+                    pop_subscription_dialog();
+                }
+                    break;
                 default:
                     assert(false);
                     break;
@@ -1243,4 +1332,18 @@ namespace game
     {
         return m_pushed_dialog.lock();
     }
+    
+    void ui_dialogs_helper::show_loading_screen()
+    {
+        const auto screen_loading_overlay = ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_screen_loading_overlay);
+        screen_loading_overlay->visible = true;
+        ui_controls_helper::disable_all_and_focus_on({ces_ui_interaction_component::e_ui::e_ui_screen_loading_label}, true);
     }
+    
+    void ui_dialogs_helper::hide_loading_screen()
+    {
+        const auto screen_loading_overlay = ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_screen_loading_overlay);
+        screen_loading_overlay->visible = false;
+        ui_controls_helper::enable_all_and_unfocus();
+    }
+}

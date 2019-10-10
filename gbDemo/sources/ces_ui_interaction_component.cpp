@@ -78,7 +78,10 @@ namespace game
     const i32 ces_ui_interaction_component::k_speed_up_boost_trigger_dialog_indicator_1 = 2;
     const i32 ces_ui_interaction_component::k_speed_up_boost_trigger_dialog_indicator_2 = 3;
     const i32 ces_ui_interaction_component::k_speed_up_boost_trigger_dialog_indicator_3 = 4;
-    
+    const i32 ces_ui_interaction_component::k_subscription_dialog_label = 1;
+    const i32 ces_ui_interaction_component::k_subscription_dialog_yes_button = 2;
+    const i32 ces_ui_interaction_component::k_subscription_dialog_no_button = 3;
+
     ces_ui_interaction_component::ces_ui_interaction_component() :
     m_ui(e_ui::e_ui_unknown)
     {

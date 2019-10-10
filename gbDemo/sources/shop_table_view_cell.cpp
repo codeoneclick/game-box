@@ -104,8 +104,8 @@ namespace game
             
             const auto buy_product_button = gb::ces_entity::construct<gb::ui::image_button>(control::get_fabricator());
             buy_product_button->create("ui_cart.png");
-            buy_product_button->size = glm::vec2(32.f, 32.f);
-            buy_product_button->position = glm::vec2(220.f, 54.f);
+            buy_product_button->size = glm::vec2(48.f, 48.f);
+            buy_product_button->position = glm::vec2(200.f, 35.f);
             buy_product_button->set_image_color(gameplay_ui_fabricator::k_control_image_color);
             buy_product_button->set_background_color(gameplay_ui_fabricator::k_control_background_color);
             buy_product_button->set_foreground_color(gameplay_ui_fabricator::k_control_foreground_color);
@@ -159,7 +159,7 @@ namespace game
             product_price_label->set_text("0.99$");
             product_price_label->set_font_mode(gb::ces_font_component::e_font_mode_regular);
             product_price_label->set_font_name("spincycle.otf");
-            product_price_label->position = glm::vec2(180.f, 60.f);
+            product_price_label->position = glm::vec2(140.f, 62.f);
             product_price_label->set_text_color(gameplay_ui_fabricator::k_control_text_color);
             product_price_label->set_background_color(gameplay_ui_fabricator::k_control_transparent_color);
             product_price_label->set_foreground_color(gameplay_ui_fabricator::k_control_transparent_color);

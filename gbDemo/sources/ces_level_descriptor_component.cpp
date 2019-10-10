@@ -28,20 +28,20 @@ namespace game
             return m_is_paused = value;
         });
         
-        is_win.getter([=]() {
-            return m_is_win;
+        is_race_ended.getter([=]() {
+            return m_is_race_ended;
         });
         
-        is_win.setter([=](f32 value) {
-            m_is_win = value;
+        is_race_ended.setter([=](f32 value) {
+            m_is_race_ended = value;
         });
         
-        is_loose.getter([=]() {
-            return m_is_loose;
+        is_car_damaged.getter([=]() {
+            return m_is_car_damaged;
         });
         
-        is_loose.setter([=](f32 value) {
-            m_is_loose = value;
+        is_car_damaged.setter([=](f32 value) {
+            m_is_car_damaged = value;
         });
         
         start_timestamp.getter([=]() {

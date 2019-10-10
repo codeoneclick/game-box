@@ -21,7 +21,7 @@ namespace game
     void db_user_table::construct()
     {
         bool result = m_database->execute("CREATE TABLE IF NOT EXISTS [user]"
-                                          "([id] INTEGER NO NULL, [tickets] INTEGER NO NULL, [cash] INTEGER NO NULL, [last_ticket_dec_timestamp] INTEGER NO NULL, [rank] INTEGER NO NULL, [claimed_rank] INTEGER NO NULL, [stars_collected] INTEGER NO NULL, [ftue_step] INTEGER NO NULL, [revision] INTEGER NO NULL, [data] BLOB NOT NULL, constraint [pk_id] primary key ([id]));");
+                                          "([id] INTEGER NO NULL, [tickets] INTEGER NO NULL, [cash] INTEGER NO NULL, [last_ticket_dec_timestamp] INTEGER NO NULL, [rank] INTEGER NO NULL, [claimed_rank] INTEGER NO NULL, [stars_collected] INTEGER NO NULL, [ftue_step] INTEGER NO NULL, [revision] INTEGER NO NULL, [is_purchased_no_ads] INTEGER NO NULL, [is_vip_subscription] INTEGER NO NULL, [data] BLOB NOT NULL, constraint [pk_id] primary key ([id]));");
         if (!is_column_exist("cash"))
         {
             if (!add_new_column("cash"))
@@ -33,6 +33,22 @@ namespace game
         if (!is_column_exist("ftue_step"))
         {
             if (!add_new_column("ftue_step"))
+            {
+                assert(false);
+            }
+        }
+        
+        if (!is_column_exist("is_purchased_no_ads"))
+        {
+            if (!add_new_column("is_purchased_no_ads"))
+            {
+                assert(false);
+            }
+        }
+        
+        if (!is_column_exist("is_vip_subscription"))
+        {
+            if (!add_new_column("is_vip_subscription"))
             {
                 assert(false);
             }
@@ -60,7 +76,7 @@ namespace game
         memcpy(raw_data, &data, size);
         
         std::stringstream predicate;
-        predicate<<"insert or replace into user(id, tickets, cash, last_ticket_dec_timestamp, rank, claimed_rank, stars_collected, ftue_step, revision, data) values("<<id<<","<<data.m_tickets<<","<<data.m_cash<<","<<data.m_last_ticket_dec_timestamp<<","<<data.m_rank<<","<<data.m_claimed_rank<<","<<data.m_stars_collected<<","<<data.m_ftue_step<<","<<data.m_revision<<", ?);";
+        predicate<<"insert or replace into user(id, tickets, cash, last_ticket_dec_timestamp, rank, claimed_rank, stars_collected, ftue_step, revision, is_purchased_no_ads, is_vip_subscription, data) values("<<id<<","<<data.m_tickets<<","<<data.m_cash<<","<<data.m_last_ticket_dec_timestamp<<","<<data.m_rank<<","<<data.m_claimed_rank<<","<<data.m_stars_collected<<","<<data.m_ftue_step<<","<<data.m_revision<<","<<data.m_is_purchased_no_ads<<","<<data.m_is_vip_subscription<<", ?);";
         bool result = m_database->insert(predicate.str(), raw_data, size, 1);
         return result;
     }

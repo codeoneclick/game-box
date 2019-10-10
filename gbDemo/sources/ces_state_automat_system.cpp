@@ -197,6 +197,30 @@ namespace game
                             daily_tasks_button->focus(false);
                         }
                     }
+                    
+                    const auto vip_subscription_button = ui_controls_helper::get_control_as<gb::ui::image_button>(ces_ui_interaction_component::e_ui::e_ui_subscription_button);
+                    
+                    if (!user_database_component->get_is_purchased_vip_subscription(1) && ftue_step > 1)
+                    {
+                        if (vip_subscription_button)
+                        {
+                            vip_subscription_button->focus(true, .33f);
+                        }
+                    }
+                    else
+                    {
+                        if (vip_subscription_button)
+                        {
+                            vip_subscription_button->focus(false);
+                            vip_subscription_button->visible = false;
+                        }
+                        
+                        const auto vip_subscription_label = ui_controls_helper::get_control_as<gb::ui::image_button>(ces_ui_interaction_component::e_ui::e_ui_subscription_label);
+                        if (vip_subscription_label)
+                        {
+                            vip_subscription_label->visible = false;
+                        }
+                    }
                 }
 
                 if (scene_state_automat_component->mode == ces_scene_state_automat_component::e_mode_garage)
@@ -224,8 +248,7 @@ namespace game
                         const auto level_descriptor_component = m_level.lock()->get_component<ces_level_descriptor_component>();
                         if (level_descriptor_component->is_started &&
                             !level_descriptor_component->is_paused &&
-                            !level_descriptor_component->is_win &&
-                            !level_descriptor_component->is_loose)
+                            !level_descriptor_component->is_race_ended)
                         {
                             f32 start_timestamp = level_descriptor_component->start_timestamp;
                             f32 delta = std::get_tick_count() - start_timestamp;
@@ -281,7 +304,7 @@ namespace game
                             sound_component->set_volume(ces_car_sounds_set_component::sounds::k_engine_on_high, 0.f);
                             sound_component->set_volume(ces_car_sounds_set_component::sounds::k_drift, 0.f);
                         }
-                        else if (level_descriptor_component->is_win || level_descriptor_component->is_loose)
+                        else if (level_descriptor_component->is_race_ended)
                         {
                             scene_visual_effects_component->is_noises_enabled = true;
                             
@@ -377,6 +400,12 @@ namespace game
                                                       hide_progress);
                     
                     ui_animation_helper::hide_to_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_daily_tasks_label),
+                                                      hide_progress);
+                    
+                    ui_animation_helper::hide_to_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_subscription_button),
+                                                      hide_progress);
+                    
+                    ui_animation_helper::hide_to_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_subscription_label),
                                                       hide_progress);
                     
                     ui_animation_helper::hide_to_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_controls_button),
@@ -719,6 +748,12 @@ namespace game
                                                             show_progress);
                         
                         ui_animation_helper::show_from_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_daily_tasks_label),
+                                                            show_progress);
+                        
+                        ui_animation_helper::show_from_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_subscription_button),
+                                                                                   show_progress);
+                                               
+                        ui_animation_helper::show_from_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_subscription_label),
                                                             show_progress);
                         
                         
