@@ -1,0 +1,6 @@
+<shape_3d mesh_filename="">
+    <materials>
+        <material filename="material.demo_ground.xml"/>
+    </materials>
+    <animations/>
+</shape_3d>

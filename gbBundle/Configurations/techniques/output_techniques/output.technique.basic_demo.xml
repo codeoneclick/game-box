@@ -1,0 +1,3 @@
+<output_technique guid="ss.output.basic_demo">
+    <material filename="material.ss.output.basic_demo.xml"/>
+</output_technique>

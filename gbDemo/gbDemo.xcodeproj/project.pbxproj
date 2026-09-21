@@ -1992,6 +1992,39 @@
 		F3F301771E0C22DF0039D2CE /* car_progression_rank_8.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3F301751E0C22DF0039D2CE /* car_progression_rank_8.xml */; };
 		F3F301791E0C22F70039D2CE /* material.car_3_wheel_r.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3F301781E0C22F70039D2CE /* material.car_3_wheel_r.base.xml */; };
 		F3F3017A1E0C22F70039D2CE /* material.car_3_wheel_r.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3F301781E0C22F70039D2CE /* material.car_3_wheel_r.base.xml */; };
+		FA2026092100000000000002 /* transition.basic_demo.xml in Resources */ = {isa = PBXBuildFile; fileRef = FA2026092100000000000001 /* transition.basic_demo.xml */; };
+		FA2026092100000000000003 /* transition.basic_demo.xml in Resources */ = {isa = PBXBuildFile; fileRef = FA2026092100000000000001 /* transition.basic_demo.xml */; };
+		FA2026092100000000000004 /* transition.basic_demo.xml in Resources */ = {isa = PBXBuildFile; fileRef = FA2026092100000000000001 /* transition.basic_demo.xml */; };
+		FA2026092100000000000006 /* output.technique.basic_demo.xml in Resources */ = {isa = PBXBuildFile; fileRef = FA2026092100000000000005 /* output.technique.basic_demo.xml */; };
+		FA2026092100000000000007 /* output.technique.basic_demo.xml in Resources */ = {isa = PBXBuildFile; fileRef = FA2026092100000000000005 /* output.technique.basic_demo.xml */; };
+		FA2026092100000000000008 /* output.technique.basic_demo.xml in Resources */ = {isa = PBXBuildFile; fileRef = FA2026092100000000000005 /* output.technique.basic_demo.xml */; };
+		FA202609210000000000000A /* material.ss.output.basic_demo.xml in Resources */ = {isa = PBXBuildFile; fileRef = FA2026092100000000000009 /* material.ss.output.basic_demo.xml */; };
+		FA202609210000000000000B /* material.ss.output.basic_demo.xml in Resources */ = {isa = PBXBuildFile; fileRef = FA2026092100000000000009 /* material.ss.output.basic_demo.xml */; };
+		FA202609210000000000000C /* material.ss.output.basic_demo.xml in Resources */ = {isa = PBXBuildFile; fileRef = FA2026092100000000000009 /* material.ss.output.basic_demo.xml */; };
+		FA202609210000000000000E /* ss.technique.basic_demo.xml in Resources */ = {isa = PBXBuildFile; fileRef = FA202609210000000000000D /* ss.technique.basic_demo.xml */; };
+		FA202609210000000000000F /* ss.technique.basic_demo.xml in Resources */ = {isa = PBXBuildFile; fileRef = FA202609210000000000000D /* ss.technique.basic_demo.xml */; };
+		FA2026092100000000000010 /* ss.technique.basic_demo.xml in Resources */ = {isa = PBXBuildFile; fileRef = FA202609210000000000000D /* ss.technique.basic_demo.xml */; };
+		FA2026092100000000000012 /* material.ss.basic_demo.xml in Resources */ = {isa = PBXBuildFile; fileRef = FA2026092100000000000011 /* material.ss.basic_demo.xml */; };
+		FA2026092100000000000013 /* material.ss.basic_demo.xml in Resources */ = {isa = PBXBuildFile; fileRef = FA2026092100000000000011 /* material.ss.basic_demo.xml */; };
+		FA2026092100000000000014 /* material.ss.basic_demo.xml in Resources */ = {isa = PBXBuildFile; fileRef = FA2026092100000000000011 /* material.ss.basic_demo.xml */; };
+		FA2026092100000000000016 /* demo_ground.xml in Resources */ = {isa = PBXBuildFile; fileRef = FA2026092100000000000015 /* demo_ground.xml */; };
+		FA2026092100000000000017 /* demo_ground.xml in Resources */ = {isa = PBXBuildFile; fileRef = FA2026092100000000000015 /* demo_ground.xml */; };
+		FA2026092100000000000018 /* demo_ground.xml in Resources */ = {isa = PBXBuildFile; fileRef = FA2026092100000000000015 /* demo_ground.xml */; };
+		FA202609210000000000001A /* demo_cube.xml in Resources */ = {isa = PBXBuildFile; fileRef = FA2026092100000000000019 /* demo_cube.xml */; };
+		FA202609210000000000001B /* demo_cube.xml in Resources */ = {isa = PBXBuildFile; fileRef = FA2026092100000000000019 /* demo_cube.xml */; };
+		FA202609210000000000001C /* demo_cube.xml in Resources */ = {isa = PBXBuildFile; fileRef = FA2026092100000000000019 /* demo_cube.xml */; };
+		FA202609210000000000001E /* material.demo_ground.xml in Resources */ = {isa = PBXBuildFile; fileRef = FA202609210000000000001D /* material.demo_ground.xml */; };
+		FA202609210000000000001F /* material.demo_ground.xml in Resources */ = {isa = PBXBuildFile; fileRef = FA202609210000000000001D /* material.demo_ground.xml */; };
+		FA2026092100000000000020 /* material.demo_ground.xml in Resources */ = {isa = PBXBuildFile; fileRef = FA202609210000000000001D /* material.demo_ground.xml */; };
+		FA2026092100000000000022 /* material.demo_cube.xml in Resources */ = {isa = PBXBuildFile; fileRef = FA2026092100000000000021 /* material.demo_cube.xml */; };
+		FA2026092100000000000023 /* material.demo_cube.xml in Resources */ = {isa = PBXBuildFile; fileRef = FA2026092100000000000021 /* material.demo_cube.xml */; };
+		FA2026092100000000000024 /* material.demo_cube.xml in Resources */ = {isa = PBXBuildFile; fileRef = FA2026092100000000000021 /* material.demo_cube.xml */; };
+		FA2026092100000000000026 /* demo_ground.png in Resources */ = {isa = PBXBuildFile; fileRef = FA2026092100000000000025 /* demo_ground.png */; };
+		FA2026092100000000000027 /* demo_ground.png in Resources */ = {isa = PBXBuildFile; fileRef = FA2026092100000000000025 /* demo_ground.png */; };
+		FA2026092100000000000028 /* demo_ground.png in Resources */ = {isa = PBXBuildFile; fileRef = FA2026092100000000000025 /* demo_ground.png */; };
+		FA202609210000000000002A /* demo_cube.png in Resources */ = {isa = PBXBuildFile; fileRef = FA2026092100000000000029 /* demo_cube.png */; };
+		FA202609210000000000002B /* demo_cube.png in Resources */ = {isa = PBXBuildFile; fileRef = FA2026092100000000000029 /* demo_cube.png */; };
+		FA202609210000000000002C /* demo_cube.png in Resources */ = {isa = PBXBuildFile; fileRef = FA2026092100000000000029 /* demo_cube.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -3075,6 +3108,17 @@
 		F3F301751E0C22DF0039D2CE /* car_progression_rank_8.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = car_progression_rank_8.xml; path = ../gbBundle/Configurations/game_objects/car_progression_rank_8.xml; sourceTree = "<group>"; };
 		F3F301781E0C22F70039D2CE /* material.car_3_wheel_r.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.car_3_wheel_r.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.car_3_wheel_r.base.xml; sourceTree = "<group>"; };
 		FB0EA180E03E102E39745B6F /* libPods-gbDemo-ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-gbDemo-ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA2026092100000000000001 /* transition.basic_demo.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = transition.basic_demo.xml; path = ../gbBundle/Configurations/transitions/transition.basic_demo.xml; sourceTree = "<group>"; };
+		FA2026092100000000000005 /* output.technique.basic_demo.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = output.technique.basic_demo.xml; path = ../gbBundle/Configurations/techniques/output_techniques/output.technique.basic_demo.xml; sourceTree = "<group>"; };
+		FA2026092100000000000009 /* material.ss.output.basic_demo.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.ss.output.basic_demo.xml; path = ../gbBundle/Configurations/techniques/material/material.ss.output.basic_demo.xml; sourceTree = "<group>"; };
+		FA202609210000000000000D /* ss.technique.basic_demo.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ss.technique.basic_demo.xml; path = ../gbBundle/Configurations/techniques/ss_techniques/ss.technique.basic_demo.xml; sourceTree = "<group>"; };
+		FA2026092100000000000011 /* material.ss.basic_demo.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.ss.basic_demo.xml; path = ../gbBundle/Configurations/techniques/material/material.ss.basic_demo.xml; sourceTree = "<group>"; };
+		FA2026092100000000000015 /* demo_ground.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = demo_ground.xml; path = ../gbBundle/Configurations/game_objects/demo_ground.xml; sourceTree = "<group>"; };
+		FA2026092100000000000019 /* demo_cube.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = demo_cube.xml; path = ../gbBundle/Configurations/game_objects/demo_cube.xml; sourceTree = "<group>"; };
+		FA202609210000000000001D /* material.demo_ground.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.demo_ground.xml; path = ../gbBundle/Configurations/game_objects/materials/material.demo_ground.xml; sourceTree = "<group>"; };
+		FA2026092100000000000021 /* material.demo_cube.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.demo_cube.xml; path = ../gbBundle/Configurations/game_objects/materials/material.demo_cube.xml; sourceTree = "<group>"; };
+		FA2026092100000000000025 /* demo_ground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = demo_ground.png; path = ../gbBundle/Textures/demo_ground.png; sourceTree = "<group>"; };
+		FA2026092100000000000029 /* demo_cube.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = demo_cube.png; path = ../gbBundle/Textures/demo_cube.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -3172,6 +3216,8 @@
 				21DA20581C4674B2008AD536 /* material.ss.deferred.lighting.xml */,
 				92B49AE32255FD13002F7EED /* material.ss.ao.xml */,
 				92601CCE228045BE000B38E1 /* material.ss.output.xml */,
+				FA2026092100000000000011 /* material.ss.basic_demo.xml */,
+				FA2026092100000000000009 /* material.ss.output.basic_demo.xml */,
 			);
 			name = materials;
 			sourceTree = "<group>";
@@ -3220,8 +3266,10 @@
 				92601C9D228032DF000B38E1 /* ss.technique.tv.xml */,
 				92BAA65C2281C67D005C5883 /* ss.technique.cross_fade.xml */,
 				92601CCA22804392000B38E1 /* ss.technique.compose.xml */,
+				FA202609210000000000000D /* ss.technique.basic_demo.xml */,
 				92601CDE22804E3C000B38E1 /* ss.technique.compose.ui.xml */,
 				92601CD2228045E5000B38E1 /* output.technique.xml */,
+				FA2026092100000000000005 /* output.technique.basic_demo.xml */,
 			);
 			name = render_techniques;
 			sourceTree = "<group>";
@@ -3380,6 +3428,7 @@
 			isa = PBXGroup;
 			children = (
 				F30F08CD1E0153CE001564B6 /* transition.main_menu.xml */,
+				FA2026092100000000000001 /* transition.basic_demo.xml */,
 			);
 			name = transitions;
 			sourceTree = "<group>";
@@ -3693,6 +3742,8 @@
 				927AA49D23423B9D002152E0 /* ui */,
 				92C2C80A22FC5EA600A1703B /* cars */,
 				92601C84227C3B32000B38E1 /* arrow.png */,
+				FA2026092100000000000029 /* demo_cube.png */,
+				FA2026092100000000000025 /* demo_ground.png */,
 				92F0434022C2325A00E37703 /* launch_screen.png */,
 				21EE3D5C1B96ECC1000AE51C /* particle_01.png */,
 				21EE3DAF1B970C06000AE51C /* particle_02.png */,
@@ -3748,6 +3799,8 @@
 			isa = PBXGroup;
 			children = (
 				926F26E1226DF4DD004659CC /* roads_shared.xml */,
+				FA2026092100000000000019 /* demo_cube.xml */,
+				FA2026092100000000000015 /* demo_ground.xml */,
 				92BF4F2921FF3E8300E95AD7 /* sidewalks_shared.xml */,
 			);
 			name = road;
@@ -3781,6 +3834,8 @@
 			isa = PBXGroup;
 			children = (
 				926F26E5226DF510004659CC /* material.roads_shared.base.xml */,
+				FA2026092100000000000021 /* material.demo_cube.xml */,
+				FA202609210000000000001D /* material.demo_ground.xml */,
 				92BF4F552200583800E95AD7 /* material.sidewalks_shared.base.xml */,
 			);
 			name = road;
@@ -4995,6 +5050,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA2026092100000000000002 /* transition.basic_demo.xml in Resources */,
+				FA2026092100000000000006 /* output.technique.basic_demo.xml in Resources */,
+				FA202609210000000000000A /* material.ss.output.basic_demo.xml in Resources */,
+				FA202609210000000000000E /* ss.technique.basic_demo.xml in Resources */,
+				FA2026092100000000000012 /* material.ss.basic_demo.xml in Resources */,
+				FA2026092100000000000016 /* demo_ground.xml in Resources */,
+				FA202609210000000000001A /* demo_cube.xml in Resources */,
+				FA202609210000000000001E /* material.demo_ground.xml in Resources */,
+				FA2026092100000000000022 /* material.demo_cube.xml in Resources */,
+				FA2026092100000000000026 /* demo_ground.png in Resources */,
+				FA202609210000000000002A /* demo_cube.png in Resources */,
 				9213BABE22156CB100F8ACB5 /* road_straight.GB3DMESH in Resources */,
 				92F041DF22C20C4A00E37703 /* level_1.xml in Resources */,
 				92DBAA4322F475A000AE5374 /* retro_car_13.GB3DMESH in Resources */,
@@ -5561,6 +5627,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA2026092100000000000003 /* transition.basic_demo.xml in Resources */,
+				FA2026092100000000000007 /* output.technique.basic_demo.xml in Resources */,
+				FA202609210000000000000B /* material.ss.output.basic_demo.xml in Resources */,
+				FA202609210000000000000F /* ss.technique.basic_demo.xml in Resources */,
+				FA2026092100000000000013 /* material.ss.basic_demo.xml in Resources */,
+				FA2026092100000000000017 /* demo_ground.xml in Resources */,
+				FA202609210000000000001B /* demo_cube.xml in Resources */,
+				FA202609210000000000001F /* material.demo_ground.xml in Resources */,
+				FA2026092100000000000023 /* material.demo_cube.xml in Resources */,
+				FA2026092100000000000027 /* demo_ground.png in Resources */,
+				FA202609210000000000002B /* demo_cube.png in Resources */,
 				92C2C78622FB6F1A00A1703B /* level_68.xml in Resources */,
 				92DBA9E722F472CC00AE5374 /* car_12_wheel_l.xml in Resources */,
 				926F26B0226DBFE4004659CC /* office_08_floor.GB3DMESH in Resources */,
@@ -6130,6 +6207,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA2026092100000000000004 /* transition.basic_demo.xml in Resources */,
+				FA2026092100000000000008 /* output.technique.basic_demo.xml in Resources */,
+				FA202609210000000000000C /* material.ss.output.basic_demo.xml in Resources */,
+				FA2026092100000000000010 /* ss.technique.basic_demo.xml in Resources */,
+				FA2026092100000000000014 /* material.ss.basic_demo.xml in Resources */,
+				FA2026092100000000000018 /* demo_ground.xml in Resources */,
+				FA202609210000000000001C /* demo_cube.xml in Resources */,
+				FA2026092100000000000020 /* material.demo_ground.xml in Resources */,
+				FA2026092100000000000024 /* material.demo_cube.xml in Resources */,
+				FA2026092100000000000028 /* demo_ground.png in Resources */,
+				FA202609210000000000002C /* demo_cube.png in Resources */,
 				92F0422F22C20C4C00E37703 /* level_30.xml in Resources */,
 				92F0424D22C20C4C00E37703 /* level_7.xml in Resources */,
 				92DBAA4522F475A000AE5374 /* retro_car_13.GB3DMESH in Resources */,

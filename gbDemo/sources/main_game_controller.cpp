@@ -8,9 +8,6 @@
 
 #include "main_game_controller.h"
 #include "main_menu_transition.h"
-#include "game_commands_container.h"
-#include "game_command.h"
-#include "ns_ui_commands.h"
 #include "thread_operation.h"
 
 namespace game
@@ -31,15 +28,9 @@ namespace game
         gb::thread_operation_shared_ptr operation = std::make_shared<gb::thread_operation>(gb::thread_operation::e_thread_operation_queue_main);
         operation->set_execution_callback([=]() {
             
-            gb::game_commands_container_shared_ptr commands = std::make_shared<gb::game_commands_container>();
-            
-			gb::game_command_i_shared_ptr command = std::make_shared<gb::game_command<on_goto_ui_editor_scene::t_command>>(std::bind(&main_game_controller::goto_ui_editor_scene, this));
-			commands->add_command(on_goto_ui_editor_scene::guid, command);
-            
-            auto transition = std::make_shared<main_menu_transition>("transition.main_menu.xml", get_window(), false);
+            auto transition = std::make_shared<main_menu_transition>("transition.basic_demo.xml", get_window(), false);
             main_game_controller::add_transition(transition);
-            main_game_controller::goto_transition("transition.main_menu.xml");
-            transition->set_external_commands(commands);
+            main_game_controller::goto_transition("transition.basic_demo.xml");
         });
         operation->add_to_execution_queue();
     }
