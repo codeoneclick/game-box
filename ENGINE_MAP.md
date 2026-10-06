@@ -100,7 +100,7 @@ This document maps the repository as inspected on 2026-09-20. It describes the c
     "database": ["gbDatabase/sources/database_connection.cpp", "gbDatabase/sources/database_coordinator.cpp", "gbDatabase/sources/database_table.cpp"],
     "network": ["gbNetwork/sources/connection.cpp", "gbNetwork/sources/command_processor.cpp", "gbNetwork/sources/ces_network_system.cpp"],
     "build": ["gbScripts/build-gbDemo.ps1", "gbCore/gbCore.sln", "gbCore/gbCore.vcxproj", "gbCore/gbCore.xcodeproj/project.pbxproj"],
-    "samples": ["gbDemo/sources/main_game_controller.cpp", "gbDemo/sources/main_menu_transition.cpp", "gbDemo/sources/main_menu_scene.cpp", "gbServer/sources/main.cpp"]
+    "samples": ["gbDemo/sources/main_game_controller.cpp", "gbDemo/sources/island_demo_transition.cpp", "gbDemo/sources/island_demo_scene.cpp", "gbServer/sources/main.cpp"]
   },
   "uncertainties": [
     "No build or runtime test was performed for each renderer/platform combination during this documentation audit.",
@@ -151,7 +151,7 @@ This map was verified by reading declarations, implementations, project metadata
 
 **Public API.** `game_controller::add_transition()`, `goto_transition()`, `game_transition::add_system()`, `set_fabricator()`, `add_listener_to_game_loop()`.
 
-**Typical flow.** Platform `main` creates an application delegate; it creates a platform controller and `window_impl`; `main_game_controller` queues creation of a `main_menu_transition`; `goto_transition()` calls `game_transition::on_activated()`; the transition builds render techniques and built-in systems, constructs its scene, then registers `ces_systems_feeder` with the game loop. Each native run-loop tick calls `game_loop::on_update()`.
+**Typical flow.** Platform `main` creates an application delegate; it creates a platform controller and `window_impl`; `main_game_controller` queues creation of a `island_demo_transition`; `goto_transition()` calls `game_transition::on_activated()`; the transition builds render techniques and built-in systems, constructs its scene, then registers `ces_systems_feeder` with the game loop. Each native run-loop tick calls `game_loop::on_update()`.
 
 **Add new functionality.** Put application transitions and scene selection in the application module (`gbDemo` or another executable); add reusable lifecycle capability to `gbCore` only when multiple applications need it.
 
@@ -200,7 +200,7 @@ The runtime type ID is assigned lazily by `STTI_CLASS_GUID` from the insertion o
 
 **Important files.** `gbCore/sources/ces_base_system.{h,cpp}`, `ces_systems_feeder.{h,cpp}`, `game_transition.cpp`; representative systems: `ces_render_system.cpp`, `ces_box2d_system.cpp`, `gbDemo/sources/ces_car_boost_system.cpp`.
 
-**Evidence.** `ces_base_system.cpp` stores mask-to-weak-entity vectors and implements enumeration/eligibility/cleanup. `ces_systems_feeder.cpp` queues membership changes, sorts registered systems, and contains the five execution loops. `game_transition.cpp` explicitly registers and orders the eight built-in systems. `gbDemo/sources/in_game_scene.cpp` and `main_menu_scene.cpp` explicitly register application systems, mostly without assigning an order.
+**Evidence.** `ces_base_system.cpp` stores mask-to-weak-entity vectors and implements enumeration/eligibility/cleanup. `ces_systems_feeder.cpp` queues membership changes, sorts registered systems, and contains the five execution loops. `game_transition.cpp` explicitly registers and orders the eight built-in systems. `gbDemo/sources/in_game_scene.cpp` explicitly registers application systems, mostly without assigning an order.
 
 **Dependencies.** Component GUID masks, scene cameras, the global game loop, the scene root.
 
@@ -221,7 +221,7 @@ The runtime type ID is assigned lazily by `STTI_CLASS_GUID` from the insertion o
 | Component/system type ID | First call to `class_guid()` inserts the function address into the base class GUID set; assigned ID is current set size | Implicit/lazy | `main_headers.h`, `ces_base_component.cpp`, `ces_base_system.cpp`. Order is process-first-use order; IDs are not stable serialization keys. |
 | Component on entity | `ces_entity::add_component()` stores by runtime type ID and sets its mask bit | Explicit mutation; query refresh is deferred | `ces_entity.cpp`. If attached to a feeder, it queues `on_entity_component_added()`. It does not call `component->set_owner()`. |
 | Entity in system query | Feeder processes added/removed/changed entity events against every required mask | Implicit/deferred | `ces_entity.cpp`, `ces_systems_feeder.cpp`. Membership becomes current at the next feeder update, not immediately after mutation. |
-| System in transition | `game_transition::add_system()` forwards to feeder; built-ins are added in activation and app systems in scene `create()` | Explicit | `game_transition.cpp`, `in_game_scene.cpp`, `main_menu_scene.cpp`. Duplicate type IDs replace the map entry but still append to the ordered list; no duplicate guard was found. |
+| System in transition | `game_transition::add_system()` forwards to feeder; built-ins are added in activation and app systems in scene `create()` | Explicit | `game_transition.cpp`, `in_game_scene.cpp`. Duplicate type IDs replace the map entry but still append to the ordered list; no duplicate guard was found. |
 | Game-loop listener | Global add/remove listener functions place `shared_ptr` listeners in the loop's set | Explicit | `game_loop.h/.cpp`, `game_transition.cpp`, `game_controller.cpp`. Iteration order is the set comparator's pointer ordering, not a declared subsystem-priority contract. |
 | Input listener | `input_context::add_listener()` | Explicit | `input_context.cpp`, `game_transition.cpp`. |
 | Render technique | Transition XML is read during activation and techniques are added to the pipeline | Data-driven plus explicit construction | `game_transition.cpp`, generated transition configuration files, `render_pipeline.cpp`. |
@@ -397,7 +397,7 @@ The table describes source topology and selected branches only. API conformance,
 
 **Purpose.** Own a root entity tree, cameras, commands, factories, physics world, and transition-scoped systems.
 
-**Important classes.** `scene_graph`, application subclasses such as `main_menu_scene` and `in_game_scene`, `game_transition`, `scene_fabricator`, `gameplay_fabricator`, `ui_fabricator`.
+**Important classes.** `scene_graph`, application subclasses such as `island_demo_scene` and `in_game_scene`, `game_transition`, `scene_fabricator`, `gameplay_fabricator`, `ui_fabricator`.
 
 **Important files.** `scene_graph.{h,cpp}`, `scene_fabricator.{h,cpp}`, `game_transition.cpp`, `gbDemo/sources/*_transition.cpp`, `*_scene.cpp`, `gameplay_fabricator.cpp`.
 

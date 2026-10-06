@@ -8,7 +8,6 @@
 
 #include "game_controller_ios.h"
 #include "main_game_controller.h"
-#include "main_menu_transition.h"
 #include "window_impl.h"
 
 #import <FBSDKCoreKit/FBSDKCoreKit.h>

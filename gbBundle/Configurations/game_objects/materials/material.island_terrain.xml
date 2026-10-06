@@ -23,11 +23,8 @@
     is_debugging="0"
     is_batching="0"
     z_order="1">
-    <shader filename="shader_demo_primitive"/>
-    <textures>
-        <texture filename="demo_cube.png" render_operation_name="" sampler_index="0"
-                 wrap_mode="GL_CLAMP_TO_EDGE" mag_filter="GL_LINEAR" min_filter="GL_LINEAR"/>
-    </textures>
+    <shader filename="shader_island_terrain"/>
+    <textures/>
     <blendings>
         <blending is_enabled="0" attachment_index="0" blending_function_source="GL_ZERO"
                   blending_function_destination="GL_ZERO" blending_equation="GL_FUNC_ADD"/>

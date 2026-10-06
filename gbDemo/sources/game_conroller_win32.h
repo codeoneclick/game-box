@@ -20,7 +20,6 @@ namespace game
     protected:
         
         main_game_controller_shared_ptr m_game_controller;
-        main_menu_transition_shared_ptr m_game_transition;
         
     public:
         

@@ -10,6 +10,33 @@
 
 using namespace metal;
 
+vertex common_v_output_t vertex_shader_island_terrain(common_v_input_t in [[stage_in]],
+                                                       constant common_u_input_t& uniforms [[buffer(1)]])
+{
+    common_v_output_t out;
+    float4 position = float4(in.position, 1.0);
+    out.position = get_mat_mvp(uniforms) * position;
+    out.view_space_position = get_mat_m(uniforms) * position;
+    out.normal = normalize((get_mat_n(uniforms) * float4(in.normal.xyz, 0.0)).xyz);
+    out.color = in.color;
+    out.texcoord = in.texcoord;
+    out.tangent = float3(1.0, 0.0, 0.0);
+    out.bitangent = cross(out.normal, out.tangent);
+    return out;
+}
+
+fragment g_buffer_output_t fragment_shader_island_terrain(common_v_output_t in [[stage_in]])
+{
+    g_buffer_output_t out;
+    float3 normal = normalize(in.normal);
+    float diffuse = max(dot(normal, normalize(float3(0.35, 0.8, 0.45))), 0.0);
+    out.color = half4(half3(in.color.rgb * (0.5 + 0.5 * diffuse)), 1.0);
+    out.normal = half4(half3(normal), 1.0);
+    out.position = in.view_space_position;
+    out.position.w = in.position.z;
+    return out;
+}
+
 //
 
 half4 blur_texture(texture2d<half> texture,
@@ -397,35 +424,6 @@ vertex common_v_output_t vertex_shader_shape_3d(common_v_input_t in [[stage_in]]
     float3 bitangent = normalize(cross(-normal, tangent));
     out.bitangent = bitangent;
     
-    return out;
-}
-
-vertex common_v_output_t vertex_shader_demo_primitive(common_v_input_t in [[stage_in]],
-                                                       constant common_u_input_t& uniforms [[buffer(1)]])
-{
-    common_v_output_t out;
-    float4 in_position = float4(in.position, 1.0);
-    out.position = get_mat_mvp(uniforms) * in_position;
-    out.view_space_position = get_mat_m(uniforms) * in_position;
-    out.texcoord = in.texcoord;
-    float4x4 mat_n = get_mat_n(uniforms);
-    out.normal = normalize((mat_n * in.normal).xyz);
-    out.tangent = normalize((mat_n * in.tangent).xyz);
-    out.bitangent = normalize(cross(-out.normal, out.tangent));
-    return out;
-}
-
-fragment g_buffer_output_t fragment_shader_demo_primitive(common_v_output_t in [[stage_in]],
-                                                           texture2d<half> diffuse_texture [[texture(0)]])
-{
-    g_buffer_output_t out;
-    float3 normal = normalize(in.normal);
-    float diffuse = max(dot(normal, normalize(float3(0.35, 0.8, 0.45))), 0.0);
-    half4 albedo = diffuse_texture.sample(repeat_sampler, in.texcoord);
-    out.color = half4(albedo.rgb * half(0.45 + 0.55 * diffuse), albedo.a);
-    out.normal = half4(half3(normal), 1.0);
-    out.position = in.view_space_position;
-    out.position.w = in.position.z;
     return out;
 }
 

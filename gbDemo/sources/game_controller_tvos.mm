@@ -8,7 +8,6 @@
 
 #include "game_controller_tvos.h"
 #include "main_game_controller.h"
-#include "main_menu_transition.h"
 #include "window_impl.h"
 
 #if USED_GRAPHICS_API == METAL_API

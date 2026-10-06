@@ -1,7 +1,8 @@
 <ss_technique
     guid="ss.compose"
     frame_width="1024"
-    frame_height="768">
+    frame_height="768"
+    skip_frames="0">
     <material filename="material.ss.compose.xml"/>
     <attachments>
         <attachment

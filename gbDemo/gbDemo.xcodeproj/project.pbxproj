@@ -42,7 +42,9 @@
 		2102EB481B7D2D9000F20197 /* main_game_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2102EB451B7D2D9000F20197 /* main_game_controller.cpp */; };
 		2102EB4F1B7D34F900F20197 /* libgbCore-osx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 21B4034B1B7A0A3B003382AB /* libgbCore-osx.a */; };
 		2102EB5C1B7E4E7900F20197 /* ws.technique.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2102EB581B7E4E7900F20197 /* ws.technique.base.xml */; };
+		61CF5283675AC84E65CE0366 /* ws.technique.island_demo.xml in Resources */ = {isa = PBXBuildFile; fileRef = 1A071CAEBB2E0959630503F7 /* ws.technique.island_demo.xml */; };
 		2102EB5D1B7E4E7900F20197 /* ws.technique.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2102EB581B7E4E7900F20197 /* ws.technique.base.xml */; };
+		6C9B311394E68E49A2297E23 /* ws.technique.island_demo.xml in Resources */ = {isa = PBXBuildFile; fileRef = 1A071CAEBB2E0959630503F7 /* ws.technique.island_demo.xml */; };
 		211AE4CF1C457CEA00A93C9B /* ws.technique.deferred.lighting.xml in Resources */ = {isa = PBXBuildFile; fileRef = 211AE4CE1C457CEA00A93C9B /* ws.technique.deferred.lighting.xml */; };
 		211AE4D71C4581E200A93C9B /* ws.technique.deferred.lighting.xml in Resources */ = {isa = PBXBuildFile; fileRef = 211AE4CE1C457CEA00A93C9B /* ws.technique.deferred.lighting.xml */; };
 		2126DB901C50EA19003EBBDA /* ws.technique.emissive.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2126DB8F1C50EA19003EBBDA /* ws.technique.emissive.xml */; };
@@ -1814,10 +1816,14 @@
 		F30077D71F31D5AB009F2EDF /* gameplay_ui_fabricator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30077D51F31D5AB009F2EDF /* gameplay_ui_fabricator.cpp */; };
 		F30077D81F31D5AB009F2EDF /* gameplay_ui_fabricator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30077D51F31D5AB009F2EDF /* gameplay_ui_fabricator.cpp */; };
 		F30077D91F31D5AB009F2EDF /* gameplay_ui_fabricator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30077D51F31D5AB009F2EDF /* gameplay_ui_fabricator.cpp */; };
-		F30F08C61E014F2A001564B6 /* main_menu_transition.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30F08C41E014F2A001564B6 /* main_menu_transition.cpp */; };
-		F30F08C71E014F2A001564B6 /* main_menu_transition.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30F08C41E014F2A001564B6 /* main_menu_transition.cpp */; };
-		F30F08CA1E014F86001564B6 /* main_menu_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30F08C81E014F86001564B6 /* main_menu_scene.cpp */; };
-		F30F08CB1E014F86001564B6 /* main_menu_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30F08C81E014F86001564B6 /* main_menu_scene.cpp */; };
+		8638B3B979F79844E57A53E3 /* island_demo_transition.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 495B23FBF83B7F62D692ED84 /* island_demo_transition.cpp */; };
+		3BD65F14146803E94800A595 /* island_demo_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5897808789A96CB284D27F2 /* island_demo_scene.cpp */; };
+		99AE9B2E817848C8D2A7CEC3 /* terrain_mesh_builder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5C471F769DF17A12B263574 /* terrain_mesh_builder.cpp */; };
+		47538F6A6E315EB4AA5CE87D /* terrain_generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4DEFED68A5B412947862B94C /* terrain_generator.cpp */; };
+		9F323B2BF9A326883CB952F5 /* island_demo_transition.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 495B23FBF83B7F62D692ED84 /* island_demo_transition.cpp */; };
+		DB3AEB3B8BEEA676FBD158B8 /* island_demo_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5897808789A96CB284D27F2 /* island_demo_scene.cpp */; };
+		C2116A6F1A0ECF08DEF42171 /* terrain_mesh_builder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5C471F769DF17A12B263574 /* terrain_mesh_builder.cpp */; };
+		19D176F7048677D90CDE2A0F /* terrain_generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4DEFED68A5B412947862B94C /* terrain_generator.cpp */; };
 		F30F08D11E0153CE001564B6 /* transition.main_menu.xml in Resources */ = {isa = PBXBuildFile; fileRef = F30F08CD1E0153CE001564B6 /* transition.main_menu.xml */; };
 		F30F08D21E0153CE001564B6 /* transition.main_menu.xml in Resources */ = {isa = PBXBuildFile; fileRef = F30F08CD1E0153CE001564B6 /* transition.main_menu.xml */; };
 		F31423C81EF92C2B008A23B5 /* material.car_3_wheel_l.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = F31423C71EF92C2B008A23B5 /* material.car_3_wheel_l.base.xml */; };
@@ -1882,9 +1888,11 @@
 		F36DBF631F29EBDF0073F892 /* ces_ui_interaction_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36DBF611F29EBDF0073F892 /* ces_ui_interaction_system.cpp */; };
 		F36DBF641F29EBDF0073F892 /* ces_ui_interaction_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36DBF611F29EBDF0073F892 /* ces_ui_interaction_system.cpp */; };
 		F36DBF651F29EBDF0073F892 /* ces_ui_interaction_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36DBF611F29EBDF0073F892 /* ces_ui_interaction_system.cpp */; };
-		F36DF22D1E953C5600EAE49B /* main_menu_transition.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30F08C41E014F2A001564B6 /* main_menu_transition.cpp */; };
 		F36DF2341E953C5600EAE49B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 21B4033B1B7A09FD003382AB /* main.m */; };
-		F36DF2421E953C5600EAE49B /* main_menu_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30F08C81E014F86001564B6 /* main_menu_scene.cpp */; };
+		841E3E1FA27165DA0DAFD154 /* island_demo_transition.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 495B23FBF83B7F62D692ED84 /* island_demo_transition.cpp */; };
+		765A97409E0F787A56310C2B /* island_demo_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5897808789A96CB284D27F2 /* island_demo_scene.cpp */; };
+		F1099EF95894B08437FF9EAF /* terrain_mesh_builder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5C471F769DF17A12B263574 /* terrain_mesh_builder.cpp */; };
+		6BB61FCC0D07167ECB446AA0 /* terrain_generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4DEFED68A5B412947862B94C /* terrain_generator.cpp */; };
 		F36DF24C1E953C5600EAE49B /* main_game_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2102EB451B7D2D9000F20197 /* main_game_controller.cpp */; };
 		F36DF24F1E953C5600EAE49B /* ces_ai_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3CB17831E71692500AF603B /* ces_ai_system.cpp */; };
 		F36DF25C1E953C5600EAE49B /* table_view_cell_background.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21FD2AB71C53D3B700597EBB /* table_view_cell_background.xml */; };
@@ -1913,6 +1921,7 @@
 		F36DF2B41E953C5600EAE49B /* content_tab_list_background.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2126DC801C566154003EBBDA /* content_tab_list_background.xml */; };
 		F36DF2B51E953C5600EAE49B /* material.switcher_background.ui.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21EC9B481C65F6A4000736D8 /* material.switcher_background.ui.xml */; };
 		F36DF2C01E953C5600EAE49B /* ws.technique.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2102EB581B7E4E7900F20197 /* ws.technique.base.xml */; };
+		05E23649A0463AE63FDA5F65 /* ws.technique.island_demo.xml in Resources */ = {isa = PBXBuildFile; fileRef = 1A071CAEBB2E0959630503F7 /* ws.technique.island_demo.xml */; };
 		F36DF2C21E953C5600EAE49B /* material.tree_view_background.ui.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21E2D70B1C75C9AA00BFF2B8 /* material.tree_view_background.ui.xml */; };
 		F36DF2C41E953C5600EAE49B /* information_bubble_01.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3303C1C1E800B0B00F11F62 /* information_bubble_01.xml */; };
 		F36DF2CD1E953C5600EAE49B /* material.stroke.emissive.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2126DBBF1C50EE4A003EBBDA /* material.stroke.emissive.xml */; };
@@ -1992,9 +2001,9 @@
 		F3F301771E0C22DF0039D2CE /* car_progression_rank_8.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3F301751E0C22DF0039D2CE /* car_progression_rank_8.xml */; };
 		F3F301791E0C22F70039D2CE /* material.car_3_wheel_r.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3F301781E0C22F70039D2CE /* material.car_3_wheel_r.base.xml */; };
 		F3F3017A1E0C22F70039D2CE /* material.car_3_wheel_r.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3F301781E0C22F70039D2CE /* material.car_3_wheel_r.base.xml */; };
-		FA2026092100000000000002 /* transition.basic_demo.xml in Resources */ = {isa = PBXBuildFile; fileRef = FA2026092100000000000001 /* transition.basic_demo.xml */; };
-		FA2026092100000000000003 /* transition.basic_demo.xml in Resources */ = {isa = PBXBuildFile; fileRef = FA2026092100000000000001 /* transition.basic_demo.xml */; };
-		FA2026092100000000000004 /* transition.basic_demo.xml in Resources */ = {isa = PBXBuildFile; fileRef = FA2026092100000000000001 /* transition.basic_demo.xml */; };
+		78404BC50C0B0261E05BB732 /* transition.island_demo.xml in Resources */ = {isa = PBXBuildFile; fileRef = FBF6A48A5E1BF48DE622868F /* transition.island_demo.xml */; };
+		D76E426B7FEBF4BEBB9689F5 /* transition.island_demo.xml in Resources */ = {isa = PBXBuildFile; fileRef = FBF6A48A5E1BF48DE622868F /* transition.island_demo.xml */; };
+		66887360D1FD72532F73B62F /* transition.island_demo.xml in Resources */ = {isa = PBXBuildFile; fileRef = FBF6A48A5E1BF48DE622868F /* transition.island_demo.xml */; };
 		FA2026092100000000000006 /* output.technique.basic_demo.xml in Resources */ = {isa = PBXBuildFile; fileRef = FA2026092100000000000005 /* output.technique.basic_demo.xml */; };
 		FA2026092100000000000007 /* output.technique.basic_demo.xml in Resources */ = {isa = PBXBuildFile; fileRef = FA2026092100000000000005 /* output.technique.basic_demo.xml */; };
 		FA2026092100000000000008 /* output.technique.basic_demo.xml in Resources */ = {isa = PBXBuildFile; fileRef = FA2026092100000000000005 /* output.technique.basic_demo.xml */; };
@@ -2007,24 +2016,12 @@
 		FA2026092100000000000012 /* material.ss.basic_demo.xml in Resources */ = {isa = PBXBuildFile; fileRef = FA2026092100000000000011 /* material.ss.basic_demo.xml */; };
 		FA2026092100000000000013 /* material.ss.basic_demo.xml in Resources */ = {isa = PBXBuildFile; fileRef = FA2026092100000000000011 /* material.ss.basic_demo.xml */; };
 		FA2026092100000000000014 /* material.ss.basic_demo.xml in Resources */ = {isa = PBXBuildFile; fileRef = FA2026092100000000000011 /* material.ss.basic_demo.xml */; };
-		FA2026092100000000000016 /* demo_ground.xml in Resources */ = {isa = PBXBuildFile; fileRef = FA2026092100000000000015 /* demo_ground.xml */; };
-		FA2026092100000000000017 /* demo_ground.xml in Resources */ = {isa = PBXBuildFile; fileRef = FA2026092100000000000015 /* demo_ground.xml */; };
-		FA2026092100000000000018 /* demo_ground.xml in Resources */ = {isa = PBXBuildFile; fileRef = FA2026092100000000000015 /* demo_ground.xml */; };
-		FA202609210000000000001A /* demo_cube.xml in Resources */ = {isa = PBXBuildFile; fileRef = FA2026092100000000000019 /* demo_cube.xml */; };
-		FA202609210000000000001B /* demo_cube.xml in Resources */ = {isa = PBXBuildFile; fileRef = FA2026092100000000000019 /* demo_cube.xml */; };
-		FA202609210000000000001C /* demo_cube.xml in Resources */ = {isa = PBXBuildFile; fileRef = FA2026092100000000000019 /* demo_cube.xml */; };
-		FA202609210000000000001E /* material.demo_ground.xml in Resources */ = {isa = PBXBuildFile; fileRef = FA202609210000000000001D /* material.demo_ground.xml */; };
-		FA202609210000000000001F /* material.demo_ground.xml in Resources */ = {isa = PBXBuildFile; fileRef = FA202609210000000000001D /* material.demo_ground.xml */; };
-		FA2026092100000000000020 /* material.demo_ground.xml in Resources */ = {isa = PBXBuildFile; fileRef = FA202609210000000000001D /* material.demo_ground.xml */; };
-		FA2026092100000000000022 /* material.demo_cube.xml in Resources */ = {isa = PBXBuildFile; fileRef = FA2026092100000000000021 /* material.demo_cube.xml */; };
-		FA2026092100000000000023 /* material.demo_cube.xml in Resources */ = {isa = PBXBuildFile; fileRef = FA2026092100000000000021 /* material.demo_cube.xml */; };
-		FA2026092100000000000024 /* material.demo_cube.xml in Resources */ = {isa = PBXBuildFile; fileRef = FA2026092100000000000021 /* material.demo_cube.xml */; };
-		FA2026092100000000000026 /* demo_ground.png in Resources */ = {isa = PBXBuildFile; fileRef = FA2026092100000000000025 /* demo_ground.png */; };
-		FA2026092100000000000027 /* demo_ground.png in Resources */ = {isa = PBXBuildFile; fileRef = FA2026092100000000000025 /* demo_ground.png */; };
-		FA2026092100000000000028 /* demo_ground.png in Resources */ = {isa = PBXBuildFile; fileRef = FA2026092100000000000025 /* demo_ground.png */; };
-		FA202609210000000000002A /* demo_cube.png in Resources */ = {isa = PBXBuildFile; fileRef = FA2026092100000000000029 /* demo_cube.png */; };
-		FA202609210000000000002B /* demo_cube.png in Resources */ = {isa = PBXBuildFile; fileRef = FA2026092100000000000029 /* demo_cube.png */; };
-		FA202609210000000000002C /* demo_cube.png in Resources */ = {isa = PBXBuildFile; fileRef = FA2026092100000000000029 /* demo_cube.png */; };
+		5D5CA43DD412DDEEF1E9D4D8 /* island_terrain.xml in Resources */ = {isa = PBXBuildFile; fileRef = B03BBCAEAF0EADAC4962DAA0 /* island_terrain.xml */; };
+		5B3D06B0F005F0501B8D6216 /* island_terrain.xml in Resources */ = {isa = PBXBuildFile; fileRef = B03BBCAEAF0EADAC4962DAA0 /* island_terrain.xml */; };
+		7797B99E12487F962EA127DE /* island_terrain.xml in Resources */ = {isa = PBXBuildFile; fileRef = B03BBCAEAF0EADAC4962DAA0 /* island_terrain.xml */; };
+		7FB7D8FCB1AF6699D81E5E18 /* material.island_terrain.xml in Resources */ = {isa = PBXBuildFile; fileRef = 5277CBDEC95D25661D6BC982 /* material.island_terrain.xml */; };
+		ED869D2FDB5C3F896E920CE9 /* material.island_terrain.xml in Resources */ = {isa = PBXBuildFile; fileRef = 5277CBDEC95D25661D6BC982 /* material.island_terrain.xml */; };
+		F3F6012F351A141F1CA4A0B3 /* material.island_terrain.xml in Resources */ = {isa = PBXBuildFile; fileRef = 5277CBDEC95D25661D6BC982 /* material.island_terrain.xml */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -2285,6 +2282,7 @@
 		2102EB451B7D2D9000F20197 /* main_game_controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main_game_controller.cpp; path = sources/main_game_controller.cpp; sourceTree = "<group>"; };
 		2102EB461B7D2D9000F20197 /* main_game_controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = main_game_controller.h; path = sources/main_game_controller.h; sourceTree = "<group>"; };
 		2102EB581B7E4E7900F20197 /* ws.technique.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ws.technique.base.xml; path = ../gbBundle/Configurations/techniques/ws_techniques/ws.technique.base.xml; sourceTree = "<group>"; };
+		1A071CAEBB2E0959630503F7 /* ws.technique.island_demo.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ws.technique.island_demo.xml; path = ../gbBundle/Configurations/techniques/ws_techniques/ws.technique.island_demo.xml; sourceTree = "<group>"; };
 		21176FD31BC55B5600890D7C /* ns_ui_commands.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ns_ui_commands.h; path = sources/ns_ui_commands.h; sourceTree = "<group>"; };
 		211AE4CE1C457CEA00A93C9B /* ws.technique.deferred.lighting.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ws.technique.deferred.lighting.xml; path = ../gbBundle/Configurations/techniques/ws_techniques/ws.technique.deferred.lighting.xml; sourceTree = "<group>"; };
 		211B31381B7E899B00178968 /* Hyper Drift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Hyper Drift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -3032,10 +3030,15 @@
 		F30077D11F31CD00009F2EDF /* car_progression_rank_3.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = car_progression_rank_3.xml; path = ../gbBundle/Configurations/gameplay/car_progression_rank_3.xml; sourceTree = "<group>"; };
 		F30077D51F31D5AB009F2EDF /* gameplay_ui_fabricator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = gameplay_ui_fabricator.cpp; path = sources/gameplay_ui_fabricator.cpp; sourceTree = "<group>"; };
 		F30077D61F31D5AB009F2EDF /* gameplay_ui_fabricator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = gameplay_ui_fabricator.h; path = sources/gameplay_ui_fabricator.h; sourceTree = "<group>"; };
-		F30F08C41E014F2A001564B6 /* main_menu_transition.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main_menu_transition.cpp; path = sources/main_menu_transition.cpp; sourceTree = "<group>"; };
-		F30F08C51E014F2A001564B6 /* main_menu_transition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = main_menu_transition.h; path = sources/main_menu_transition.h; sourceTree = "<group>"; };
-		F30F08C81E014F86001564B6 /* main_menu_scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main_menu_scene.cpp; path = sources/main_menu_scene.cpp; sourceTree = "<group>"; };
-		F30F08C91E014F86001564B6 /* main_menu_scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = main_menu_scene.h; path = sources/main_menu_scene.h; sourceTree = "<group>"; };
+		495B23FBF83B7F62D692ED84 /* island_demo_transition.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = island_demo_transition.cpp; path = sources/island_demo_transition.cpp; sourceTree = "<group>"; };
+		C5897808789A96CB284D27F2 /* island_demo_scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = island_demo_scene.cpp; path = sources/island_demo_scene.cpp; sourceTree = "<group>"; };
+		F5C471F769DF17A12B263574 /* terrain_mesh_builder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = terrain_mesh_builder.cpp; path = sources/terrain_mesh_builder.cpp; sourceTree = "<group>"; };
+		4DEFED68A5B412947862B94C /* terrain_generator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = terrain_generator.cpp; path = sources/terrain_generator.cpp; sourceTree = "<group>"; };
+		8271FCB224C8AF33F10EC176 /* island_demo_transition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = island_demo_transition.h; path = sources/island_demo_transition.h; sourceTree = "<group>"; };
+		D8378A514422E4D0C849A183 /* island_demo_scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = island_demo_scene.h; path = sources/island_demo_scene.h; sourceTree = "<group>"; };
+		B3EF9A06C4A2650BE6328B36 /* terrain_mesh_builder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = terrain_mesh_builder.h; path = sources/terrain_mesh_builder.h; sourceTree = "<group>"; };
+		63338AA62925C837E73B1819 /* terrain_generator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = terrain_generator.h; path = sources/terrain_generator.h; sourceTree = "<group>"; };
+		51A2FDDB6F21B07A34B423AD /* terrain_data.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = terrain_data.h; path = sources/terrain_data.h; sourceTree = "<group>"; };
 		F30F08CD1E0153CE001564B6 /* transition.main_menu.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = transition.main_menu.xml; path = ../gbBundle/Configurations/transitions/transition.main_menu.xml; sourceTree = "<group>"; };
 		F31423C71EF92C2B008A23B5 /* material.car_3_wheel_l.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.car_3_wheel_l.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.car_3_wheel_l.base.xml; sourceTree = "<group>"; };
 		F31423D31EF93F78008A23B5 /* material.car_2_wheel_l.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.car_2_wheel_l.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.car_2_wheel_l.base.xml; sourceTree = "<group>"; };
@@ -3055,7 +3058,9 @@
 		F3303C1F1E800B5500F11F62 /* material.information_bubble.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.information_bubble.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.information_bubble.base.xml; sourceTree = "<group>"; };
 		F33D07C11ECC362400535334 /* car_3_wheel_r.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = car_3_wheel_r.xml; path = ../gbBundle/Configurations/game_objects/car_3_wheel_r.xml; sourceTree = "<group>"; };
 		F33D07D61ECC639E00535334 /* shader_shape_3d.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_shape_3d.frag; path = ../gbBundle/Shaders/shader_shape_3d.frag; sourceTree = "<group>"; };
+		287CC606BFE8B6EF69BAB871 /* shader_island_terrain.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_island_terrain.frag; path = ../gbBundle/Shaders/shader_island_terrain.frag; sourceTree = "<group>"; };
 		F33D07D71ECC639E00535334 /* shader_shape_3d.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_shape_3d.vert; path = ../gbBundle/Shaders/shader_shape_3d.vert; sourceTree = "<group>"; };
+		089D3DFA8835670D0CD31CB5 /* shader_island_terrain.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_island_terrain.vert; path = ../gbBundle/Shaders/shader_island_terrain.vert; sourceTree = "<group>"; };
 		F33D8E7F1F38529700AB6994 /* shader_tex2d_r_attribute_color.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_tex2d_r_attribute_color.frag; path = ../gbBundle/Shaders/shader_tex2d_r_attribute_color.frag; sourceTree = "<group>"; };
 		F33D8E801F38529700AB6994 /* shader_tex2d_r_attribute_color.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_tex2d_r_attribute_color.vert; path = ../gbBundle/Shaders/shader_tex2d_r_attribute_color.vert; sourceTree = "<group>"; };
 		F34D14881F2F2F6000208CFF /* gb_database.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = gb_database.xcodeproj; path = ../gbDatabase/gb_database.xcodeproj; sourceTree = "<group>"; };
@@ -3108,17 +3113,13 @@
 		F3F301751E0C22DF0039D2CE /* car_progression_rank_8.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = car_progression_rank_8.xml; path = ../gbBundle/Configurations/game_objects/car_progression_rank_8.xml; sourceTree = "<group>"; };
 		F3F301781E0C22F70039D2CE /* material.car_3_wheel_r.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.car_3_wheel_r.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.car_3_wheel_r.base.xml; sourceTree = "<group>"; };
 		FB0EA180E03E102E39745B6F /* libPods-gbDemo-ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-gbDemo-ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		FA2026092100000000000001 /* transition.basic_demo.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = transition.basic_demo.xml; path = ../gbBundle/Configurations/transitions/transition.basic_demo.xml; sourceTree = "<group>"; };
+		FBF6A48A5E1BF48DE622868F /* transition.island_demo.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = transition.island_demo.xml; path = ../gbBundle/Configurations/transitions/transition.island_demo.xml; sourceTree = "<group>"; };
 		FA2026092100000000000005 /* output.technique.basic_demo.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = output.technique.basic_demo.xml; path = ../gbBundle/Configurations/techniques/output_techniques/output.technique.basic_demo.xml; sourceTree = "<group>"; };
 		FA2026092100000000000009 /* material.ss.output.basic_demo.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.ss.output.basic_demo.xml; path = ../gbBundle/Configurations/techniques/material/material.ss.output.basic_demo.xml; sourceTree = "<group>"; };
 		FA202609210000000000000D /* ss.technique.basic_demo.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ss.technique.basic_demo.xml; path = ../gbBundle/Configurations/techniques/ss_techniques/ss.technique.basic_demo.xml; sourceTree = "<group>"; };
 		FA2026092100000000000011 /* material.ss.basic_demo.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.ss.basic_demo.xml; path = ../gbBundle/Configurations/techniques/material/material.ss.basic_demo.xml; sourceTree = "<group>"; };
-		FA2026092100000000000015 /* demo_ground.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = demo_ground.xml; path = ../gbBundle/Configurations/game_objects/demo_ground.xml; sourceTree = "<group>"; };
-		FA2026092100000000000019 /* demo_cube.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = demo_cube.xml; path = ../gbBundle/Configurations/game_objects/demo_cube.xml; sourceTree = "<group>"; };
-		FA202609210000000000001D /* material.demo_ground.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.demo_ground.xml; path = ../gbBundle/Configurations/game_objects/materials/material.demo_ground.xml; sourceTree = "<group>"; };
-		FA2026092100000000000021 /* material.demo_cube.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.demo_cube.xml; path = ../gbBundle/Configurations/game_objects/materials/material.demo_cube.xml; sourceTree = "<group>"; };
-		FA2026092100000000000025 /* demo_ground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = demo_ground.png; path = ../gbBundle/Textures/demo_ground.png; sourceTree = "<group>"; };
-		FA2026092100000000000029 /* demo_cube.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = demo_cube.png; path = ../gbBundle/Textures/demo_cube.png; sourceTree = "<group>"; };
+		B03BBCAEAF0EADAC4962DAA0 /* island_terrain.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = island_terrain.xml; path = ../gbBundle/Configurations/game_objects/island_terrain.xml; sourceTree = "<group>"; };
+		5277CBDEC95D25661D6BC982 /* material.island_terrain.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.island_terrain.xml; path = ../gbBundle/Configurations/game_objects/materials/material.island_terrain.xml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -3251,6 +3252,7 @@
 			children = (
 				2102EB521B7E4E0000F20197 /* materials */,
 				2102EB581B7E4E7900F20197 /* ws.technique.base.xml */,
+				1A071CAEBB2E0959630503F7 /* ws.technique.island_demo.xml */,
 				2126DC951C567D50003EBBDA /* ws.technique.transparent.base.xml */,
 				92260EE122E6E93F0071C6A0 /* ws.technique.stencil.deferred.lighting.xml */,
 				211AE4CE1C457CEA00A93C9B /* ws.technique.deferred.lighting.xml */,
@@ -3353,7 +3355,9 @@
 				9273C59521C8FBEE00F909F0 /* shader_animated_shape_3d.vert */,
 				9273C58E21C8FBEE00F909F0 /* shader_animated_shape_3d.frag */,
 				F33D07D71ECC639E00535334 /* shader_shape_3d.vert */,
+				089D3DFA8835670D0CD31CB5 /* shader_island_terrain.vert */,
 				F33D07D61ECC639E00535334 /* shader_shape_3d.frag */,
+				287CC606BFE8B6EF69BAB871 /* shader_island_terrain.frag */,
 				0237E67A1F55B7E20011D2C0 /* shader_preprocessing_splatting_textures.frag */,
 				0237E67B1F55B7E20011D2C0 /* shader_preprocessing_splatting_textures.vert */,
 				F33D8E801F38529700AB6994 /* shader_tex2d_r_attribute_color.vert */,
@@ -3428,7 +3432,7 @@
 			isa = PBXGroup;
 			children = (
 				F30F08CD1E0153CE001564B6 /* transition.main_menu.xml */,
-				FA2026092100000000000001 /* transition.basic_demo.xml */,
+				FBF6A48A5E1BF48DE622868F /* transition.island_demo.xml */,
 			);
 			name = transitions;
 			sourceTree = "<group>";
@@ -3742,8 +3746,6 @@
 				927AA49D23423B9D002152E0 /* ui */,
 				92C2C80A22FC5EA600A1703B /* cars */,
 				92601C84227C3B32000B38E1 /* arrow.png */,
-				FA2026092100000000000029 /* demo_cube.png */,
-				FA2026092100000000000025 /* demo_ground.png */,
 				92F0434022C2325A00E37703 /* launch_screen.png */,
 				21EE3D5C1B96ECC1000AE51C /* particle_01.png */,
 				21EE3DAF1B970C06000AE51C /* particle_02.png */,
@@ -3799,8 +3801,7 @@
 			isa = PBXGroup;
 			children = (
 				926F26E1226DF4DD004659CC /* roads_shared.xml */,
-				FA2026092100000000000019 /* demo_cube.xml */,
-				FA2026092100000000000015 /* demo_ground.xml */,
+				B03BBCAEAF0EADAC4962DAA0 /* island_terrain.xml */,
 				92BF4F2921FF3E8300E95AD7 /* sidewalks_shared.xml */,
 			);
 			name = road;
@@ -3834,8 +3835,7 @@
 			isa = PBXGroup;
 			children = (
 				926F26E5226DF510004659CC /* material.roads_shared.base.xml */,
-				FA2026092100000000000021 /* material.demo_cube.xml */,
-				FA202609210000000000001D /* material.demo_ground.xml */,
+				5277CBDEC95D25661D6BC982 /* material.island_terrain.xml */,
 				92BF4F552200583800E95AD7 /* material.sidewalks_shared.base.xml */,
 			);
 			name = road;
@@ -4476,8 +4476,6 @@
 			children = (
 				92B5852E21539B15008AA8BB /* ui_editor_transition.cpp */,
 				92B5852D21539B15008AA8BB /* ui_editor_transition.h */,
-				F30F08C51E014F2A001564B6 /* main_menu_transition.h */,
-				F30F08C41E014F2A001564B6 /* main_menu_transition.cpp */,
 				9200D2A32265F2B600DCB2D3 /* in_game_transition.h */,
 				9200D2A22265F2B600DCB2D3 /* in_game_transition.cpp */,
 			);
@@ -4489,8 +4487,15 @@
 			children = (
 				92B5852C21539B15008AA8BB /* ui_editor_scene..cpp */,
 				92B5852F21539B15008AA8BB /* ui_editor_scene.h */,
-				F30F08C91E014F86001564B6 /* main_menu_scene.h */,
-				F30F08C81E014F86001564B6 /* main_menu_scene.cpp */,
+				8271FCB224C8AF33F10EC176 /* island_demo_transition.h */,
+				D8378A514422E4D0C849A183 /* island_demo_scene.h */,
+				B3EF9A06C4A2650BE6328B36 /* terrain_mesh_builder.h */,
+				63338AA62925C837E73B1819 /* terrain_generator.h */,
+				51A2FDDB6F21B07A34B423AD /* terrain_data.h */,
+				495B23FBF83B7F62D692ED84 /* island_demo_transition.cpp */,
+				C5897808789A96CB284D27F2 /* island_demo_scene.cpp */,
+				F5C471F769DF17A12B263574 /* terrain_mesh_builder.cpp */,
+				4DEFED68A5B412947862B94C /* terrain_generator.cpp */,
 				9200D29E2265F29200DCB2D3 /* in_game_scene.h */,
 				9200D29D2265F29200DCB2D3 /* in_game_scene.cpp */,
 			);
@@ -5050,17 +5055,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FA2026092100000000000002 /* transition.basic_demo.xml in Resources */,
+				78404BC50C0B0261E05BB732 /* transition.island_demo.xml in Resources */,
 				FA2026092100000000000006 /* output.technique.basic_demo.xml in Resources */,
 				FA202609210000000000000A /* material.ss.output.basic_demo.xml in Resources */,
 				FA202609210000000000000E /* ss.technique.basic_demo.xml in Resources */,
 				FA2026092100000000000012 /* material.ss.basic_demo.xml in Resources */,
-				FA2026092100000000000016 /* demo_ground.xml in Resources */,
-				FA202609210000000000001A /* demo_cube.xml in Resources */,
-				FA202609210000000000001E /* material.demo_ground.xml in Resources */,
-				FA2026092100000000000022 /* material.demo_cube.xml in Resources */,
-				FA2026092100000000000026 /* demo_ground.png in Resources */,
-				FA202609210000000000002A /* demo_cube.png in Resources */,
+				5D5CA43DD412DDEEF1E9D4D8 /* island_terrain.xml in Resources */,
+				7FB7D8FCB1AF6699D81E5E18 /* material.island_terrain.xml in Resources */,
 				9213BABE22156CB100F8ACB5 /* road_straight.GB3DMESH in Resources */,
 				92F041DF22C20C4A00E37703 /* level_1.xml in Resources */,
 				92DBAA4322F475A000AE5374 /* retro_car_13.GB3DMESH in Resources */,
@@ -5352,6 +5353,7 @@
 				926F26B2226DBFE4004659CC /* office_07_ground_floor.GB3DMESH in Resources */,
 				F3237EAD1E9E589200337A9C /* textfield_background.xml in Resources */,
 				2102EB5C1B7E4E7900F20197 /* ws.technique.base.xml in Resources */,
+				61CF5283675AC84E65CE0366 /* ws.technique.island_demo.xml in Resources */,
 				92F042F822C20CB700E37703 /* level_30.tmx in Resources */,
 				92F041D322C20C4A00E37703 /* level_10.xml in Resources */,
 				F31423D41EF93F78008A23B5 /* material.car_2_wheel_l.base.xml in Resources */,
@@ -5627,17 +5629,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FA2026092100000000000003 /* transition.basic_demo.xml in Resources */,
+				D76E426B7FEBF4BEBB9689F5 /* transition.island_demo.xml in Resources */,
 				FA2026092100000000000007 /* output.technique.basic_demo.xml in Resources */,
 				FA202609210000000000000B /* material.ss.output.basic_demo.xml in Resources */,
 				FA202609210000000000000F /* ss.technique.basic_demo.xml in Resources */,
 				FA2026092100000000000013 /* material.ss.basic_demo.xml in Resources */,
-				FA2026092100000000000017 /* demo_ground.xml in Resources */,
-				FA202609210000000000001B /* demo_cube.xml in Resources */,
-				FA202609210000000000001F /* material.demo_ground.xml in Resources */,
-				FA2026092100000000000023 /* material.demo_cube.xml in Resources */,
-				FA2026092100000000000027 /* demo_ground.png in Resources */,
-				FA202609210000000000002B /* demo_cube.png in Resources */,
+				5B3D06B0F005F0501B8D6216 /* island_terrain.xml in Resources */,
+				ED869D2FDB5C3F896E920CE9 /* material.island_terrain.xml in Resources */,
 				92C2C78622FB6F1A00A1703B /* level_68.xml in Resources */,
 				92DBA9E722F472CC00AE5374 /* car_12_wheel_l.xml in Resources */,
 				926F26B0226DBFE4004659CC /* office_08_floor.GB3DMESH in Resources */,
@@ -6080,6 +6078,7 @@
 				92F0430222C20CB700E37703 /* level_48.tmx in Resources */,
 				92DBAA4422F475A000AE5374 /* retro_car_13.GB3DMESH in Resources */,
 				2102EB5D1B7E4E7900F20197 /* ws.technique.base.xml in Resources */,
+				6C9B311394E68E49A2297E23 /* ws.technique.island_demo.xml in Resources */,
 				92BFF7ED22F453B300B2C435 /* retro_car_4_body_color_mask.png in Resources */,
 				92E23FA122B0F696005DDD5D /* car_6.xml in Resources */,
 				92C2C79522FB6F1A00A1703B /* level_54.xml in Resources */,
@@ -6207,17 +6206,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FA2026092100000000000004 /* transition.basic_demo.xml in Resources */,
+				66887360D1FD72532F73B62F /* transition.island_demo.xml in Resources */,
 				FA2026092100000000000008 /* output.technique.basic_demo.xml in Resources */,
 				FA202609210000000000000C /* material.ss.output.basic_demo.xml in Resources */,
 				FA2026092100000000000010 /* ss.technique.basic_demo.xml in Resources */,
 				FA2026092100000000000014 /* material.ss.basic_demo.xml in Resources */,
-				FA2026092100000000000018 /* demo_ground.xml in Resources */,
-				FA202609210000000000001C /* demo_cube.xml in Resources */,
-				FA2026092100000000000020 /* material.demo_ground.xml in Resources */,
-				FA2026092100000000000024 /* material.demo_cube.xml in Resources */,
-				FA2026092100000000000028 /* demo_ground.png in Resources */,
-				FA202609210000000000002C /* demo_cube.png in Resources */,
+				7797B99E12487F962EA127DE /* island_terrain.xml in Resources */,
+				F3F6012F351A141F1CA4A0B3 /* material.island_terrain.xml in Resources */,
 				92F0422F22C20C4C00E37703 /* level_30.xml in Resources */,
 				92F0424D22C20C4C00E37703 /* level_7.xml in Resources */,
 				92DBAA4522F475A000AE5374 /* retro_car_13.GB3DMESH in Resources */,
@@ -6525,6 +6520,7 @@
 				92F0431522C20CB700E37703 /* level_44.tmx in Resources */,
 				927A6E52221D59F90023243F /* car_1_wheel_l.xml in Resources */,
 				F36DF2C01E953C5600EAE49B /* ws.technique.base.xml in Resources */,
+				05E23649A0463AE63FDA5F65 /* ws.technique.island_demo.xml in Resources */,
 				92BF4F5C2200583900E95AD7 /* material.sidewalks_shared.base.xml in Resources */,
 				92E23FD222B0F6F7005DDD5D /* material.car_5_wheel_r.base.xml in Resources */,
 				92C2C78D22FB6F1A00A1703B /* level_56.xml in Resources */,
@@ -6918,7 +6914,6 @@
 				92E2401022B140C1005DDD5D /* ui_controls_helper.cpp in Sources */,
 				92387F2A22E08DCD00FBE57A /* ui_menus_helper.cpp in Sources */,
 				F38069091F25EA9200AE1D67 /* level_configuration.cpp in Sources */,
-				F30F08C61E014F2A001564B6 /* main_menu_transition.cpp in Sources */,
 				927AA4A923432F95002152E0 /* db_daily_task_table.cpp in Sources */,
 				9213BAE122170A2700F8ACB5 /* ces_car_simulator_component.cpp in Sources */,
 				92E23EEA22AE57F7005DDD5D /* levels_set_configuration.cpp in Sources */,
@@ -6974,7 +6969,10 @@
 				927C8C4F234DD5A9008ABFAC /* push_notifications_provider.cpp in Sources */,
 				92AF449522F1C98A00505E3D /* game_center_provier.cpp in Sources */,
 				F3ED657F1F22264C0047F89D /* ces_scene_state_automat_component.cpp in Sources */,
-				F30F08CA1E014F86001564B6 /* main_menu_scene.cpp in Sources */,
+				8638B3B979F79844E57A53E3 /* island_demo_transition.cpp in Sources */,
+				3BD65F14146803E94800A595 /* island_demo_scene.cpp in Sources */,
+				99AE9B2E817848C8D2A7CEC3 /* terrain_mesh_builder.cpp in Sources */,
+				47538F6A6E315EB4AA5CE87D /* terrain_generator.cpp in Sources */,
 				927AA48D2341DD9E002152E0 /* ces_level_item_shield_component.cpp in Sources */,
 				F3ED65521F21E3390047F89D /* gameplay_configuration_accessor.cpp in Sources */,
 				92E7370122BCFCC200EC0C5E /* gameplay_constants_helper.cpp in Sources */,
@@ -7009,7 +7007,6 @@
 				F3ED655C1F21E6E30047F89D /* gameplay_fabricator.cpp in Sources */,
 				9290953B22C35E44005097DC /* shop_table_view_cell.cpp in Sources */,
 				9213BAE722170A7400F8ACB5 /* ces_car_simulator_system.cpp in Sources */,
-				F30F08C71E014F2A001564B6 /* main_menu_transition.cpp in Sources */,
 				92601C93227C5F47000B38E1 /* ces_car_ai_input_component.cpp in Sources */,
 				92E2401122B140C1005DDD5D /* ui_controls_helper.cpp in Sources */,
 				92387F2B22E08DCD00FBE57A /* ui_menus_helper.cpp in Sources */,
@@ -7034,7 +7031,10 @@
 				923C5482226874B8009B311E /* ces_ai_car_replay_system.cpp in Sources */,
 				F38069141F2609C500AE1D67 /* ces_car_parts_component.cpp in Sources */,
 				2102EB481B7D2D9000F20197 /* main_game_controller.cpp in Sources */,
-				F30F08CB1E014F86001564B6 /* main_menu_scene.cpp in Sources */,
+				9F323B2BF9A326883CB952F5 /* island_demo_transition.cpp in Sources */,
+				DB3AEB3B8BEEA676FBD158B8 /* island_demo_scene.cpp in Sources */,
+				C2116A6F1A0ECF08DEF42171 /* terrain_mesh_builder.cpp in Sources */,
+				19D176F7048677D90CDE2A0F /* terrain_generator.cpp in Sources */,
 				92BAA6782282C1C2005C5883 /* ces_scene_visual_effects_system.cpp in Sources */,
 				92B5853E21539B46008AA8BB /* editable_button.cpp in Sources */,
 				92C2C6C622F9633200A1703B /* ces_car_impact_component.cpp in Sources */,
@@ -7119,7 +7119,6 @@
 				923C54362267401D009B311E /* advertisement_provider.cpp in Sources */,
 				923C5488226874E1009B311E /* ces_car_replay_player_component.cpp in Sources */,
 				927AA4852341DD73002152E0 /* ces_level_item_cash_component.cpp in Sources */,
-				F36DF22D1E953C5600EAE49B /* main_menu_transition.cpp in Sources */,
 				926F26742269FEDD004659CC /* ui_editable_fabricator.cpp in Sources */,
 				928B6728228C1E91003D9F58 /* car_configuration.cpp in Sources */,
 				928B6759228D47D6003D9F58 /* db_car_table.cpp in Sources */,
@@ -7170,7 +7169,10 @@
 				927AA48F2341DD9E002152E0 /* ces_level_item_shield_component.cpp in Sources */,
 				923C547622679D3C009B311E /* ces_car_replay_record_component.cpp in Sources */,
 				92E7370322BCFCC200EC0C5E /* gameplay_constants_helper.cpp in Sources */,
-				F36DF2421E953C5600EAE49B /* main_menu_scene.cpp in Sources */,
+				841E3E1FA27165DA0DAFD154 /* island_demo_transition.cpp in Sources */,
+				765A97409E0F787A56310C2B /* island_demo_scene.cpp in Sources */,
+				F1099EF95894B08437FF9EAF /* terrain_mesh_builder.cpp in Sources */,
+				6BB61FCC0D07167ECB446AA0 /* terrain_generator.cpp in Sources */,
 				921BBA942269B29300482139 /* ces_car_fuzzy_logic_component.cpp in Sources */,
 				92E736FC22BBAC2200EC0C5E /* events_provider.cpp in Sources */,
 				923C5483226874B8009B311E /* ces_ai_car_replay_system.cpp in Sources */,

@@ -18,7 +18,7 @@ Choose ownership from existing consumers. A generic name in a short prompt does 
 - Component declaration: `gbDemo/sources/ces_car_input_component.h` and `.cpp`.
 - System declaration/query: `gbDemo/sources/ces_car_boost_system.h` and `.cpp`.
 - Core system ordering/registration: `gbCore/sources/game_transition.cpp`.
-- Application system registration: `gbDemo/sources/in_game_scene.cpp` and `main_menu_scene.cpp`.
+- Application system registration: `gbDemo/sources/in_game_scene.cpp`.
 
 Use the complete examples and explanation in `CODE_PATTERNS.md`; do not copy an isolated macro or callback without its construction and registration steps.
 

@@ -77,12 +77,6 @@
     <ClCompile Include="sources\main_game_controller.cpp">
       <Filter>sources</Filter>
     </ClCompile>
-    <ClCompile Include="sources\main_menu_transition.cpp">
-      <Filter>sources\modules\transitions</Filter>
-    </ClCompile>
-    <ClCompile Include="sources\main_menu_scene.cpp">
-      <Filter>sources\modules\scenes</Filter>
-    </ClCompile>
     <ClCompile Include="..\gb_client_server_shared\sources\ces_ai_system.cpp">
       <Filter>sources\ces managment\systems</Filter>
     </ClCompile>
@@ -274,12 +268,6 @@
     <ClInclude Include="sources\main_game_controller.h">
       <Filter>sources</Filter>
     </ClInclude>
-    <ClInclude Include="sources\main_menu_transition.h">
-      <Filter>sources\modules\transitions</Filter>
-    </ClInclude>
-    <ClInclude Include="sources\main_menu_scene.h">
-      <Filter>sources\modules\scenes</Filter>
-    </ClInclude>
     <ClInclude Include="sources\ns_ui_commands.h">
       <Filter>sources\ui_commands</Filter>
     </ClInclude>
@@ -466,5 +454,16 @@
     <ClInclude Include="sources\levels_list_table_view_cell.h">
       <Filter>sources\ui managment</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="sources\terrain_generator.cpp"><Filter>sources</Filter></ClCompile>
+    <ClCompile Include="sources\terrain_mesh_builder.cpp"><Filter>sources</Filter></ClCompile>
+    <ClCompile Include="sources\island_demo_scene.cpp"><Filter>sources</Filter></ClCompile>
+    <ClCompile Include="sources\island_demo_transition.cpp"><Filter>sources</Filter></ClCompile>
+    <ClInclude Include="sources\terrain_data.h"><Filter>sources</Filter></ClInclude>
+    <ClInclude Include="sources\terrain_generator.h"><Filter>sources</Filter></ClInclude>
+    <ClInclude Include="sources\terrain_mesh_builder.h"><Filter>sources</Filter></ClInclude>
+    <ClInclude Include="sources\island_demo_scene.h"><Filter>sources</Filter></ClInclude>
+    <ClInclude Include="sources\island_demo_transition.h"><Filter>sources</Filter></ClInclude>
   </ItemGroup>
 </Project>

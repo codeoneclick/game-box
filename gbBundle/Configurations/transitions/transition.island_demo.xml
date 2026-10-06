@@ -1,7 +1,7 @@
-<transition guid="transition.basic_demo">
+<transition guid="transition.island_demo">
     <output_technique filename="output.technique.basic_demo.xml"/>
     <ws_techniques>
-        <ws_technique filename="ws.technique.base.xml"/>
+        <ws_technique filename="ws.technique.island_demo.xml"/>
     </ws_techniques>
     <ss_techniques>
         <ss_technique filename="ss.technique.basic_demo.xml"/>

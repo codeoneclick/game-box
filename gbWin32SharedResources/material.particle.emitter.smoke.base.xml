@@ -11,9 +11,15 @@
     cull_face_mode="GL_FRONT"
     is_stencil_test="0"
     stencil_function="GL_ALWAYS"
-    stencil_function_parameter_1="0"
-    stencil_function_parameter_2="0"
-    stencil_mask_parameter="0"
+    back_stencil_op_1="KEEP"
+    back_stencil_op_2="KEEP"
+    back_stencil_op_3="KEEP"
+    front_stencil_op_1="KEEP"
+    front_stencil_op_2="KEEP"
+    front_stencil_op_3="KEEP"
+    stencil_ref_value="0"
+    stencil_mask_read="0"
+    stencil_mask_write="0"
     is_debugging="0"
     is_batching="0"
     z_order="1">
@@ -23,6 +29,13 @@
         filename="particle_03.png"
         render_operation_name=""
         sampler_index="0"
+        wrap_mode="GL_CLAMP_TO_EDGE"
+        mag_filter="GL_LINEAR"
+        min_filter="GL_LINEAR"/>
+        <texture
+        filename=""
+        render_operation_name="ws.base.attachment_03"
+        sampler_index="1"
         wrap_mode="GL_CLAMP_TO_EDGE"
         mag_filter="GL_LINEAR"
         min_filter="GL_LINEAR"/>

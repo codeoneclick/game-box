@@ -93,8 +93,10 @@
     <ClCompile Include="sources\game_objects_custom_uniforms.cpp" />
     <ClCompile Include="sources\main.cpp" />
     <ClCompile Include="sources\main_game_controller.cpp" />
-    <ClCompile Include="sources\main_menu_scene.cpp" />
-    <ClCompile Include="sources\main_menu_transition.cpp" />
+    <ClCompile Include="sources\terrain_generator.cpp" />
+    <ClCompile Include="sources\terrain_mesh_builder.cpp" />
+    <ClCompile Include="sources\island_demo_scene.cpp" />
+    <ClCompile Include="sources\island_demo_transition.cpp" />
     <ClCompile Include="sources\ss_render_technique_custom_uniforms.cpp" />
     <ClCompile Include="sources\ui_animation_helper.cpp" />
     <ClCompile Include="sources\ui_controls_helper.cpp" />
@@ -159,8 +161,11 @@
     <ClInclude Include="sources\game_conroller_win32.h" />
     <ClInclude Include="sources\game_objects_custom_uniforms.h" />
     <ClInclude Include="sources\main_game_controller.h" />
-    <ClInclude Include="sources\main_menu_scene.h" />
-    <ClInclude Include="sources\main_menu_transition.h" />
+    <ClInclude Include="sources\terrain_data.h" />
+    <ClInclude Include="sources\terrain_generator.h" />
+    <ClInclude Include="sources\terrain_mesh_builder.h" />
+    <ClInclude Include="sources\island_demo_scene.h" />
+    <ClInclude Include="sources\island_demo_transition.h" />
     <ClInclude Include="sources\ns_ui_commands.h" />
     <ClInclude Include="sources\ss_render_technique_custom_uniforms.h" />
     <ClInclude Include="sources\ui_animation_helper.h" />

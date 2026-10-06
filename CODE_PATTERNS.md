@@ -255,7 +255,7 @@ Do not add a new C++ render-technique subclass unless the pass cannot be represe
 
 ## Creating a scene
 
-**Best source examples:** `gbDemo/sources/main_menu_transition.cpp`, `main_menu_scene.h`, and `main_menu_scene.cpp`.
+**Best source examples:** `gbDemo/sources/island_demo_transition.cpp`, `island_demo_scene.h`, and `island_demo_scene.cpp`.
 
 Scene:
 

@@ -3,7 +3,7 @@
     "tasks": [
         {
             "label": "Build gbDemo (Debug x64)",
-            "type": "shell",
+            "type": "process",
             "command": "powershell.exe",
             "args": [
                 "-NoProfile",
@@ -19,6 +19,9 @@
             "group": {
                 "kind": "build",
                 "isDefault": true
+            },
+            "options": {
+                "cwd": "${workspaceFolder}"
             },
             "problemMatcher": "$msCompile"
         }

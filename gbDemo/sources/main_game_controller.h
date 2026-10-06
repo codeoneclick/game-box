@@ -24,7 +24,7 @@ namespace game
         main_game_controller(const std::shared_ptr<gb::window_impl>& window);
         ~main_game_controller();
         
-        void goto_main_menu_scene();
+        void goto_island_demo_scene();
 		void goto_ui_editor_scene();
     };
 };

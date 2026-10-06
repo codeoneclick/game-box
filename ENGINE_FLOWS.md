@@ -28,9 +28,9 @@ flowchart TD
     T --> U[game_loop::on_update]
 ```
 
-Windows uses `gbDemo/sources/main.cpp` -> `application_delegate_win32` -> `game_conroller_win32`; Apple uses `gbDemo/sources/main.m` and native app delegates. The Windows controller creates a 1280x720 `window_impl`. `main_game_controller::goto_main_menu_scene()` deliberately queues transition creation through a main-queue `thread_operation`, which is executed by `thread_operations_pool::update()` from the game loop.
+Windows uses `gbDemo/sources/main.cpp` -> `application_delegate_win32` -> `game_conroller_win32`; Apple uses `gbDemo/sources/main.m` and native app delegates. The Windows controller creates a 1280x720 `window_impl`. `main_game_controller::goto_island_demo_scene()` deliberately queues transition creation through a main-queue `thread_operation`, which is executed by `thread_operations_pool::update()` from the game loop.
 
-Transition activation is the composition root for one running world. It loads `transition.main_menu.xml`, builds render techniques, installs default system orders 0 through 7, registers the feeder with the game loop, constructs the scene, assigns feeder/root, and invokes `scene_graph::create()`.
+Transition activation is the composition root for one running world. The default demo loads `transition.island_demo.xml`, builds render techniques, installs default system orders 0 through 7, registers the feeder with the game loop, constructs the scene, assigns feeder/root, and invokes `scene_graph::create()`.
 
 ## Frame update
 

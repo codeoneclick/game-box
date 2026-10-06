@@ -8,7 +8,7 @@
             "program": "${workspaceFolder}\\gbDemo\\output\\debug\\x64\\gb_demo.exe",
             "cwd": "${workspaceFolder}\\gbDemo",
             "preLaunchTask": "Build gbDemo (Debug x64)",
-            "console": "internalConsole"
+            "console": "integratedTerminal"
         }
     ]
 }
