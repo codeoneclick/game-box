@@ -7,6 +7,7 @@
 #include "configuration_accessor.h"
 #include "game_transition.h"
 #include "input_context.h"
+#include "glm_extensions.h"
 #include "mesh_3d.h"
 #include "vbo.h"
 #include "ibo.h"
@@ -26,10 +27,70 @@ namespace game
         private:
             std::weak_ptr<gb::camera_3d> m_camera;
             bool m_is_dragging = false;
+            bool m_is_panning = false;
+            glm::vec3 m_pan_anchor;
+            std::shared_ptr<const terrain_mesh_data> m_surface;
+            float m_water_y;
             float m_yaw = 45.f;
             float m_pitch = 55.f;
             const float m_radius = 245.f;
-            const glm::vec3 m_target = glm::vec3(0.f, 6.f, 0.f);
+            glm::vec3 m_target = glm::vec3(0.f, 6.f, 0.f);
+
+            bool cursor_ray(const glm::ivec2& point, glm::ray& ray)
+            {
+                const auto camera = m_camera.lock();
+                if (!camera) return false;
+                const auto viewport = camera->get_viewport();
+                if (viewport.z <= 0 || viewport.w <= 0) return false;
+                const glm::vec2 ndc(2.f * (point.x - viewport.x) / viewport.z - 1.f,
+                                   1.f - 2.f * (point.y - viewport.y) / viewport.w);
+                const auto inverse_vp = glm::inverse(camera->get_mat_p() * camera->get_mat_v());
+                glm::vec4 far_point = inverse_vp * glm::vec4(ndc, 1.f, 1.f);
+                if (std::abs(far_point.w) < .000001f) return false;
+                const glm::vec3 origin = camera->get_position();
+                const glm::vec3 direction = glm::normalize(glm::vec3(far_point) / far_point.w - origin);
+                ray.set_origin(origin);
+                ray.set_direction(direction);
+                return true;
+            }
+
+            bool cursor_on_plane(const glm::ivec2& point, float height, glm::vec3& hit)
+            {
+                glm::ray ray;
+                if (!cursor_ray(point, ray) || std::abs(ray.get_direction().y) < .00001f) return false;
+                const float distance = (height - ray.get_origin().y) / ray.get_direction().y;
+                if (distance <= 0.f || !std::isfinite(distance)) return false;
+                hit = ray.get_origin() + ray.get_direction() * distance;
+                return true;
+            }
+
+            bool pick_surface(const glm::ivec2& point, glm::vec3& hit)
+            {
+                glm::ray ray;
+                if (!cursor_ray(point, ray)) return false;
+                bool found = cursor_on_plane(point, m_water_y, hit);
+                float nearest = found ? glm::length(hit - ray.get_origin()) : std::numeric_limits<float>::max();
+                const auto position = [](const terrain_vertex& vertex) {
+                    return glm::vec3(vertex.position[0], vertex.position[1], vertex.position[2]);
+                };
+                for (size_t i = 0; i < m_surface->indices.size(); i += 3)
+                {
+                    glm::vec3 candidate;
+                    if (glm::triangle_intersection(position(m_surface->vertices[m_surface->indices[i]]),
+                        position(m_surface->vertices[m_surface->indices[i + 1]]),
+                        position(m_surface->vertices[m_surface->indices[i + 2]]), ray, &candidate))
+                    {
+                        const float distance = glm::dot(candidate - ray.get_origin(), ray.get_direction());
+                        if (distance > 0.f && distance < nearest)
+                        {
+                            nearest = distance;
+                            hit = candidate;
+                            found = true;
+                        }
+                    }
+                }
+                return found;
+            }
 
             void update_camera()
             {
@@ -46,24 +107,33 @@ namespace game
             }
 
         public:
-            explicit orbit_camera_input(const std::shared_ptr<gb::camera_3d>& camera) : m_camera(camera)
+            orbit_camera_input(const std::shared_ptr<gb::camera_3d>& camera,
+                               const terrain_mesh_data& surface, float water_y) :
+                m_camera(camera), m_surface(std::make_shared<terrain_mesh_data>(surface)), m_water_y(water_y)
             {
                 update_camera();
             }
 
-            void on_gr_pressed(const glm::ivec2&, const glm::ivec2&, gb::e_input_source source, ui32 index) override
+            void on_gr_pressed(const glm::ivec2& point, const glm::ivec2&, gb::e_input_source source, ui32 index) override
             {
-                if (source == gb::e_input_source_mouse_left && index == 0) m_is_dragging = true;
+                if (index != 0) return;
+                if (source == gb::e_input_source_mouse_left && !m_is_panning) m_is_dragging = true;
+                if (source == gb::e_input_source_mouse_right)
+                {
+                    m_is_dragging = false;
+                    m_is_panning = pick_surface(point, m_pan_anchor);
+                }
             }
 
             void on_gr_released(const glm::ivec2&, const glm::ivec2&, gb::e_input_source source, ui32 index) override
             {
                 if (source == gb::e_input_source_mouse_left && index == 0) m_is_dragging = false;
+                if (source == gb::e_input_source_mouse_right && index == 0) m_is_panning = false;
             }
 
             void on_gr_moved(const glm::ivec2&, const glm::ivec2&, const glm::ivec2&, ui32) override {}
 
-            void on_gr_dragged(const glm::ivec2&, const glm::ivec2&, const glm::ivec2& delta,
+            void on_gr_dragged(const glm::ivec2& point, const glm::ivec2&, const glm::ivec2& delta,
                                gb::e_input_source source, ui32 index) override
             {
                 if (m_is_dragging && source == gb::e_input_source_mouse_left && index == 0)
@@ -71,6 +141,18 @@ namespace game
                     m_yaw += static_cast<float>(delta.x) * .25f;
                     m_pitch = glm::clamp(m_pitch - static_cast<float>(delta.y) * .25f, 10.f, 80.f);
                     update_camera();
+                }
+                if (m_is_panning && source == gb::e_input_source_mouse_right && index == 0)
+                {
+                    glm::vec3 cursor_world;
+                    if (cursor_on_plane(point, m_pan_anchor.y, cursor_world))
+                    {
+                        // Translate opposite the cursor motion on the grabbed surface.
+                        const glm::vec3 translation = m_pan_anchor - cursor_world;
+                        m_target.x += translation.x;
+                        m_target.z += translation.z;
+                        update_camera();
+                    }
                 }
             }
 
@@ -142,7 +224,7 @@ namespace game
         // A distant overview needs a suitably distant near plane for depth precision.
         auto camera=std::make_shared<gb::camera_3d>(60.f,10.f,600.f,glm::ivec4(0,0,resolution.x,resolution.y),true);
         set_camera_3d(camera);
-        m_orbit_listener = std::make_shared<orbit_camera_input>(camera);
+        m_orbit_listener = std::make_shared<orbit_camera_input>(camera, terrain_mesh, config.water_y);
         const auto input_context = get_transition()->get_input_context();
         m_input_context = input_context;
         input_context->add_listener(m_orbit_listener);

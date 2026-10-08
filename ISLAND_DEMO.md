@@ -19,6 +19,14 @@ changes yaw; vertical motion changes elevation, clamped to 10–80 degrees.
 The initial view remains at yaw 45°, elevation 55°, radius 245 m. Releasing the
 button stops camera movement. There is no zoom in this version.
 
+Hold the **right mouse button** to grab the terrain or sea under the cursor and
+pan. The camera translates opposite the cursor's motion in world space; the
+grabbed point stays under the cursor without changing yaw, pitch or distance.
+The grab height comes from the nearest terrain triangle or the water plane and
+remains fixed until release, so crossing terrace edges does not cause jumps.
+Right-button panning takes priority while both buttons are held. Releasing the
+button, losing mouse capture or losing window focus ends the drag on Windows.
+
 ## Build and launch (PowerShell, repository root)
 
 ```powershell
@@ -97,8 +105,15 @@ and malformed parameters/data. This
 does not introduce or claim an engine-owned unit-test suite.
 
 Windows `debug-client|x64` build and Vulkan runtime/frame capture were exercised.
-The default mesh has 23,808 vertices and 7,936 triangles. Validation stderr was
-empty during the island smoke run. Existing conversion warnings remain in
+Right-button ground/sea pan, stop-on-release/capture-loss and left-button orbit
+were exercised through Win32 mouse messages and compared captured frames.
+A standalone probe linked to the built `gb_core.lib` also exercised simultaneous
+left/right UI captures: right drag/release preserved subsequent left drag/release,
+with each callback invoked exactly once.
+The default mesh has 23,808 vertices and 7,936 triangles. No validation messages
+appeared during rendering/input, but closing the demo reported pending command
+buffers in `vkDestroyCommandPool` (`VUID-vkDestroyCommandPool-commandPool-00041`).
+Graphics shutdown was not changed by the camera work. Existing conversion warnings remain in
 core headers. Metal/Xcode and dormant OpenGL builds/runs are **UNKNOWN** on this
 Windows machine; source/project updates are not proof of runtime parity.
 
@@ -139,6 +154,8 @@ Created:
 Modified:
 
 - `gbDemo/sources/main_game_controller.cpp`, `main_game_controller.h`: default island startup
+- `gbCore/sources/input_context_win32.cpp`: right-button events, independent button states and mouse capture cancellation
+- `gbCore/sources/ces_touch_system.{h,cpp}`: separate UI captures by mouse source and touch index
 - `.vscode/launch.json`, `.vscode/tasks.json`: F5 build and debug launch
 - `gbDemo/sources/game_conroller_win32.h`, `game_conroller_osx.h`: remove unused cube-transition members
 - `gbDemo/sources/game_controller_ios.mm`, `game_controller_tvos.mm`: remove cube-transition includes

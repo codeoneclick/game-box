@@ -16,7 +16,8 @@ namespace gb
 
 	protected:
 
-		bool m_is_tapped;
+        bool m_is_left_tapped;
+        bool m_is_right_tapped;
 
 	public:
 
@@ -25,7 +26,8 @@ namespace gb
 	};
 
 	input_context_win32::input_context_win32(const std::shared_ptr<window_impl>& window) :
-		m_is_tapped(false)
+        m_is_left_tapped(false),
+        m_is_right_tapped(false)
 	{
 
 	}
@@ -39,10 +41,19 @@ namespace gb
 
 		auto input_context = g_input_context.lock();
 
-		POINT mouse_position;
-		GetCursorPos(&mouse_position);
-		ScreenToClient(hwnd, &mouse_position);
-		glm::ivec2 current_touch_point = glm::ivec2(mouse_position.x, mouse_position.y);
+        // Mouse messages carry client coordinates, including negative values
+        // while captured outside the window. Do not poll a newer cursor position.
+        glm::ivec2 current_touch_point(static_cast<short>(LOWORD(param_l)),
+                                      static_cast<short>(HIWORD(param_l)));
+        const auto cancel_drag = [&]() {
+            const auto point = input_context->get_previous_touch_point();
+            if (input_context->m_is_left_tapped)
+                input_context->gr_released(point, input_context->get_touch_area_size(), e_input_source_mouse_left, 0);
+            if (input_context->m_is_right_tapped)
+                input_context->gr_released(point, input_context->get_touch_area_size(), e_input_source_mouse_right, 0);
+            input_context->m_is_left_tapped = false;
+            input_context->m_is_right_tapped = false;
+        };
 
 		switch (message)
 		{
@@ -101,37 +112,58 @@ namespace gb
 			return 0;
 		}
 
-		case WM_RBUTTONDOWN:
-		{
-			return 0;
+        case WM_RBUTTONDOWN:
+        {
+            input_context->m_is_right_tapped = true;
+            input_context->gr_pressed(current_touch_point, input_context->get_touch_area_size(), e_input_source_mouse_right, 0);
+            input_context->set_previous_touch_point(current_touch_point);
+            SetCapture(hwnd);
+            return 0;
 		}
-		case WM_RBUTTONUP:
-		{
-			return 0;
+        case WM_RBUTTONUP:
+        {
+            input_context->m_is_right_tapped = false;
+            input_context->gr_released(current_touch_point, input_context->get_touch_area_size(), e_input_source_mouse_right, 0);
+            input_context->set_previous_touch_point(current_touch_point);
+            if (!input_context->m_is_left_tapped && GetCapture() == hwnd) ReleaseCapture();
+            return 0;
 		}
 
 		case WM_LBUTTONDOWN:
 		{
 			input_context->gr_pressed(current_touch_point, input_context->get_touch_area_size(), gb::e_input_source_mouse_left, 0);
 			input_context->set_previous_touch_point(current_touch_point);
-			input_context->m_is_tapped = true;
+            input_context->m_is_left_tapped = true;
+            SetCapture(hwnd);
 			return 0;
 		}
 		case WM_LBUTTONUP:
 		{
 			input_context->gr_released(current_touch_point, input_context->get_touch_area_size(), gb::e_input_source_mouse_left, 0);
 			input_context->set_previous_touch_point(current_touch_point);
-			input_context->m_is_tapped = false;
-			return 0;
-		}
-		}
-
-		if (input_context->m_is_tapped)
-		{
-			glm::ivec2 delta = current_touch_point - input_context->get_previous_touch_point();
-			input_context->gr_dragged(current_touch_point, input_context->get_touch_area_size(), delta, gb::e_input_source_mouse_left, 0);
-			input_context->set_previous_touch_point(current_touch_point);
-		}
+            input_context->m_is_left_tapped = false;
+            if (!input_context->m_is_right_tapped && GetCapture() == hwnd) ReleaseCapture();
+            return 0;
+        }
+        case WM_CAPTURECHANGED:
+        case WM_CANCELMODE:
+        case WM_KILLFOCUS:
+        {
+            cancel_drag();
+            if (message != WM_CAPTURECHANGED && GetCapture() == hwnd) ReleaseCapture();
+            return 0;
+        }
+        case WM_MOUSEMOVE:
+        {
+            glm::ivec2 delta = current_touch_point - input_context->get_previous_touch_point();
+            if (input_context->m_is_left_tapped)
+                input_context->gr_dragged(current_touch_point, input_context->get_touch_area_size(), delta, e_input_source_mouse_left, 0);
+            if (input_context->m_is_right_tapped)
+                input_context->gr_dragged(current_touch_point, input_context->get_touch_area_size(), delta, e_input_source_mouse_right, 0);
+            input_context->set_previous_touch_point(current_touch_point);
+            break;
+        }
+        }
 
 		return DefWindowProc(hwnd, message, param_w, param_l);
 	}

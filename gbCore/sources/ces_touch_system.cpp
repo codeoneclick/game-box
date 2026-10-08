@@ -46,9 +46,11 @@ namespace gb
             {
                 if (std::get<4>(event) <= 1)
                 {
+                    const auto source_index = std::get<0>(event) == e_input_source_mouse_right ? 1 : 0;
+                    auto& source_captured_entities = m_captured_entities[source_index][std::get<4>(event)];
                     ces_entity_shared_ptr intersected_entity = ces_touch_system::intersected_entity(entity, event);
                     
-                    const auto& captured_entities = m_captured_entities[std::get<4>(event)];
+                    const auto& captured_entities = source_captured_entities;
                     auto iterator = std::find_if(captured_entities.begin(), captured_entities.end(), [intersected_entity] (const ces_entity_weak_ptr& entity_weak) {
                         return !entity_weak.expired() && entity_weak.lock() == intersected_entity;
                     });
@@ -59,7 +61,7 @@ namespace gb
                     
                     if (std::get<1>(event) == e_input_state_released)
                     {
-                        const auto& captured_entities = m_captured_entities[std::get<4>(event)];
+                        const auto& captured_entities = source_captured_entities;
                         for (const auto& entity_weak : captured_entities)
                         {
                             if (!entity_weak.expired())
@@ -91,20 +93,20 @@ namespace gb
                                 }
                             }
                         }
-                        m_captured_entities[std::get<4>(event)].clear();
+                        source_captured_entities.clear();
                     }
                     if(intersected_entity)
                     {
                         if(std::get<1>(event) == e_input_state_pressed)
                         {
-                            m_captured_entities[std::get<4>(event)].insert(intersected_entity);
+                            source_captured_entities.insert(intersected_entity);
                         }
                         
                         auto bound_touch_component = intersected_entity->get_component<ces_bound_touch_component>();
                         std::list<ces_bound_touch_component::t_callback> callbacks = bound_touch_component->get_callbacks(std::get<1>(event));
                         for(const auto& callback : callbacks)
                         {
-                            const auto& captured_entities = m_captured_entities[std::get<4>(event)];
+                            const auto& captured_entities = source_captured_entities;
                             auto iterator = std::find_if(captured_entities.begin(), captured_entities.end(), [intersected_entity] (const ces_entity_weak_ptr& entity_weak) {
                                 return !entity_weak.expired() && entity_weak.lock() == intersected_entity;
                             });
@@ -133,9 +135,9 @@ namespace gb
                         }
                     }
                     if(std::get<1>(event) == e_input_state_dragged &&
-                       m_captured_entities[std::get<4>(event)].size() != 0)
+                       !source_captured_entities.empty())
                     {
-                        const auto& captured_entities = m_captured_entities[std::get<4>(event)];
+                        const auto& captured_entities = source_captured_entities;
                         for(const auto& entity_weak : captured_entities)
                         {
                             if(!entity_weak.expired())

@@ -23,7 +23,7 @@ namespace gb
         typedef std::tuple<e_input_source, e_input_state, glm::ivec2, glm::ivec2, ui32> input_event_t;
         
         std::queue<input_event_t> m_events;
-        std::array<std::set<ces_entity_weak_ptr, ces_entity_weak_comparator>, 2> m_captured_entities;
+        std::array<std::array<std::set<ces_entity_weak_ptr, ces_entity_weak_comparator>, 2>, 2> m_captured_entities;
         
          std::bitset<std::numeric_limits<uint8_t>::max()> m_keyboard_listeners_components_mask;
         
