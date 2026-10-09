@@ -591,7 +591,7 @@ The table describes source topology and selected branches only. API conformance,
 
 **Dependencies and public API.** The demo consumes all engine libraries and exposes no stable library API of its own. Its scenes and fabricators are the main usage examples.
 
-**Typical flow.** Build/stage -> demo entry point -> main-menu transition -> configured scene and game systems. `gbDemo` exercises lifecycle, ECS, Box2D car simulation, route AI, UI, sound, database, asset loading, and rendering.
+**Typical flow.** Build/stage -> demo entry point -> default island transition -> configured scene and game systems. `gbDemo` exercises lifecycle, ECS, Box2D car simulation, route AI, UI, sound, database, asset loading, and rendering.
 
 **Add new functionality.** Put application examples in `gbDemo` when they are part of the racing game; add a focused new sample only when it demonstrates a reusable engine facility more clearly.
 
@@ -604,3 +604,27 @@ The table describes source topology and selected branches only. API conformance,
 3. Regenerate configuration code; do not hand-edit it.
 4. Treat ECS GUID allocation, component capacity, feeder phases, resource commit threading, graphics API selection, and backend singleton lifetimes as high-risk engine contracts.
 5. Update both MSBuild and Xcode metadata for new engine files unless the feature is intentionally platform-specific.
+
+## Default island ocean sample (verified 2026-10-08)
+
+The default controller now selects `island_demo_transition`, whose scene creates
+signed terrain terraces (-8..7), a seabed, nine static-XZ world-wave water patches plus a
+coarse horizon skirt, three buoyant wooden props and three static rocks.
+`ces_ocean_system` is application-owned, registered at order 6 before render
+(order 7), and owns one shared wave clock. `ces_buoyancy_component` holds
+probe/settings/state data; receiver uniforms carry per-prop wetness.
+The source of truth for assets is `gbBundle`; the Windows build stages them.
+See `ISLAND_DEMO.md` for controls, verification and platform limits.
+
+The application-owned male resident uses `resident_navigation` and
+`resident_behavior` CPU helpers plus `ces_island_resident_component/system`.
+Its order-6 system chooses motion/clip in `on_feed_start` (before animation's
+order-3 `on_feed`) and copies evaluated bones in `on_feed` (before render7).
+`island_resident_demo` owns model setup and a weak-entity clothing listener;
+the scene removes that listener on destruction. The resident has its own bone
+and color buffers, independent of ocean receiver uniforms. Bulk legacy uniform
+setters skip matrix arrays, so the demo forwards its bone array through the
+existing individual material setter. PT4B's missing normals are handled by
+derivative flat normals; its Metal descriptor is now supplied without changing
+the 32-byte vertex layout. FBX preflight stays in the demo because synchronous
+resource-loading failures can assert; canonical sources remain in `gbBundle`.

@@ -14,17 +14,19 @@ int main()
     auto other = config;
     ++other.seed;
     assert(data.layers != game::terrain_generator::generate(other).layers);
-    bool present[8] = {};
+    assert(config.underwater_layers_count == 8);
+    assert(data.layer_at(-1, 0) == game::terrain_data::empty_layer);
+    bool present[16] = {};
     for (const auto layer : data.layers)
     {
-        assert(layer >= -1 && layer < 8);
-        if (layer >= 0) present[layer] = true;
+        assert(layer == game::terrain_data::empty_layer || (layer >= -8 && layer < 8));
+        if (layer != game::terrain_data::empty_layer) present[layer+8] = true;
     }
     for (bool value : present) assert(value);
     const auto mesh = game::terrain_mesh_builder::build(data);
     assert(!mesh.vertices.empty() && mesh.vertices.size() <= 65535);
     assert(mesh.indices.size() % 3 == 0);
-    bool tops[8] = {};
+    bool tops[16] = {};
     bool walls = false;
     for (const auto& vertex : mesh.vertices)
     {
@@ -32,9 +34,10 @@ int main()
         if (vertex.normal[1] > .99f)
         {
             const int layer = static_cast<int>(std::round(vertex.position[1] / config.layer_height));
-            assert(layer >= 0 && layer < 8);
-            assert(std::abs(vertex.position[1] - layer * config.layer_height) < .0001f);
-            tops[layer] = true;
+            assert(layer >= -8 && layer < 8);
+            const float expected_height=layer==0 ? config.shore_height : layer*config.layer_height;
+            assert(std::abs(vertex.position[1] - expected_height) < .0001f);
+            tops[layer+8] = true;
         }
         else { assert(std::abs(vertex.normal[1]) < .0001f); walls = true; }
     }
@@ -69,6 +72,7 @@ int main()
     other.resolution = 1024;
     assert(game::terrain_mesh_builder::build(game::terrain_generator::generate(other)).vertices.size() <= 65535);
     other.layers_count = 1;
+    other.underwater_layers_count = 0;
     game::terrain_mesh_builder::build(game::terrain_generator::generate(other));
     const auto reject_config = [](game::terrain_config invalid) {
         bool failed = false;
@@ -80,6 +84,7 @@ int main()
     other = config; other.layers_count = 9; reject_config(other);
     other = config; other.layer_height = 0.f; reject_config(other);
     other = config; other.water_y = 0.f; reject_config(other);
+    other = config; other.underwater_layers_count = 9; reject_config(other);
     const auto reject_data = [](const game::terrain_data& invalid) {
         bool failed = false;
         try { game::terrain_mesh_builder::build(invalid); }
@@ -89,8 +94,8 @@ int main()
     auto edited = data;
     edited.layers.pop_back(); reject_data(edited);
     edited = data; edited.layers[0] = 8; reject_data(edited);
-    edited = data; edited.layers[253 * 256 + 254] = 0; reject_data(edited);
-    edited = data; edited.layers[128 * 256 + 136] = -1; reject_data(edited);
+    edited = data; edited.layers[0] = 0; reject_data(edited);
+    edited = data; edited.layers[(config.resolution/2)*config.resolution+config.resolution/2] = game::terrain_data::empty_layer; reject_data(edited);
     edited = data;
     // Rotation of logical cells must rotate the mesh without regenerating it.
     for (int z=0; z<config.resolution; ++z)

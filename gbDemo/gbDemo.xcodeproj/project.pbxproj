@@ -2022,6 +2022,367 @@
 		7FB7D8FCB1AF6699D81E5E18 /* material.island_terrain.xml in Resources */ = {isa = PBXBuildFile; fileRef = 5277CBDEC95D25661D6BC982 /* material.island_terrain.xml */; };
 		ED869D2FDB5C3F896E920CE9 /* material.island_terrain.xml in Resources */ = {isa = PBXBuildFile; fileRef = 5277CBDEC95D25661D6BC982 /* material.island_terrain.xml */; };
 		F3F6012F351A141F1CA4A0B3 /* material.island_terrain.xml in Resources */ = {isa = PBXBuildFile; fileRef = 5277CBDEC95D25661D6BC982 /* material.island_terrain.xml */; };
+		418480B276EC58910FBA2FF4 /* ocean_wave_model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD922F56F0579CBF272D222C /* ocean_wave_model.cpp */; };
+		1E536954A38549772F582ACE /* ocean_wave_model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD922F56F0579CBF272D222C /* ocean_wave_model.cpp */; };
+		7B50DCCD90EEB12D3D3D000D /* ocean_wave_model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD922F56F0579CBF272D222C /* ocean_wave_model.cpp */; };
+		F3C5A2D86AB2D8E1EAE21D5E /* ocean_mesh_builder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 844899274468FDD3DC8C7CE7 /* ocean_mesh_builder.cpp */; };
+		1045F032889453055CD6589B /* ocean_mesh_builder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 844899274468FDD3DC8C7CE7 /* ocean_mesh_builder.cpp */; };
+		360149EB8CA0D9557A19BDC3 /* ocean_mesh_builder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 844899274468FDD3DC8C7CE7 /* ocean_mesh_builder.cpp */; };
+		F56635D6914C986F0399A47E /* ocean_shader_uniforms.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 164EDCA7782B63BFAD30B2AE /* ocean_shader_uniforms.cpp */; };
+		C9ED3209F1EB3A0525D594F1 /* ocean_shader_uniforms.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 164EDCA7782B63BFAD30B2AE /* ocean_shader_uniforms.cpp */; };
+		E383A0B1ECC275A85DFF9C4B /* ocean_shader_uniforms.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 164EDCA7782B63BFAD30B2AE /* ocean_shader_uniforms.cpp */; };
+		0014F2E7FEA718BC62A7964D /* ces_ocean_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40E2BF897BEC1A7ACD0CCB47 /* ces_ocean_system.cpp */; };
+		46AE2F349EB9AF8F0FF0E2ED /* ces_ocean_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40E2BF897BEC1A7ACD0CCB47 /* ces_ocean_system.cpp */; };
+		DA4BA0B0FC15ABA94EF24D36 /* ces_ocean_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40E2BF897BEC1A7ACD0CCB47 /* ces_ocean_system.cpp */; };
+		75FCFD82A0A101F1BBC3220B /* ocean.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9D0CFF01317E40D5E638EE1F /* ocean.xml */; };
+		0F531EED0C0ACE767E5D4635 /* ocean.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9D0CFF01317E40D5E638EE1F /* ocean.xml */; };
+		69F34503579710A94145938B /* ocean.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9D0CFF01317E40D5E638EE1F /* ocean.xml */; };
+		1F6249942E6357771C41C39F /* ocean_prop.xml in Resources */ = {isa = PBXBuildFile; fileRef = A4286FACD8BFB2B1EA54AFF6 /* ocean_prop.xml */; };
+		D3CA0B3E1EDE20BA6198D762 /* ocean_prop.xml in Resources */ = {isa = PBXBuildFile; fileRef = A4286FACD8BFB2B1EA54AFF6 /* ocean_prop.xml */; };
+		F6887F32122EDE6575C79E36 /* ocean_prop.xml in Resources */ = {isa = PBXBuildFile; fileRef = A4286FACD8BFB2B1EA54AFF6 /* ocean_prop.xml */; };
+		898C61983AF358FB97971D83 /* material.ocean.xml in Resources */ = {isa = PBXBuildFile; fileRef = 39C90A622BDE3D596E3C6809 /* material.ocean.xml */; };
+		39848819EB2B9E9B5CB11ED3 /* material.ocean.xml in Resources */ = {isa = PBXBuildFile; fileRef = 39C90A622BDE3D596E3C6809 /* material.ocean.xml */; };
+		D8EA00B17ECC9C3A8E2A2F58 /* material.ocean.xml in Resources */ = {isa = PBXBuildFile; fileRef = 39C90A622BDE3D596E3C6809 /* material.ocean.xml */; };
+		A7345198F994EC4FFAEC8BB3 /* material.ocean_prop.xml in Resources */ = {isa = PBXBuildFile; fileRef = D92CDE547D61A8CFF517B82D /* material.ocean_prop.xml */; };
+		DF3AFC81DAC20375AB5A133A /* material.ocean_prop.xml in Resources */ = {isa = PBXBuildFile; fileRef = D92CDE547D61A8CFF517B82D /* material.ocean_prop.xml */; };
+		C62D43E99917A7953E395BE7 /* material.ocean_prop.xml in Resources */ = {isa = PBXBuildFile; fileRef = D92CDE547D61A8CFF517B82D /* material.ocean_prop.xml */; };
+		7A1EA634C102E1BC05DFA6AE /* material.ss.ocean_compose.xml in Resources */ = {isa = PBXBuildFile; fileRef = C9884BA56FE65C3D6325E3ED /* material.ss.ocean_compose.xml */; };
+		584DED6F2F58E60E62A70A9B /* material.ss.ocean_compose.xml in Resources */ = {isa = PBXBuildFile; fileRef = C9884BA56FE65C3D6325E3ED /* material.ss.ocean_compose.xml */; };
+		0109609772010CE31A67E91A /* material.ss.ocean_compose.xml in Resources */ = {isa = PBXBuildFile; fileRef = C9884BA56FE65C3D6325E3ED /* material.ss.ocean_compose.xml */; };
+		6C9FC6EBCB4EA820196F3416 /* material.ss.output.island_demo.xml in Resources */ = {isa = PBXBuildFile; fileRef = 20B0ED85AFAAEF3D01A3179B /* material.ss.output.island_demo.xml */; };
+		CB81BF37FC40B1EAE9CAF508 /* material.ss.output.island_demo.xml in Resources */ = {isa = PBXBuildFile; fileRef = 20B0ED85AFAAEF3D01A3179B /* material.ss.output.island_demo.xml */; };
+		ECCEB21611C2BDF840802CA4 /* material.ss.output.island_demo.xml in Resources */ = {isa = PBXBuildFile; fileRef = 20B0ED85AFAAEF3D01A3179B /* material.ss.output.island_demo.xml */; };
+		54C514EBDC28B1256B1630E9 /* output.technique.island_demo.xml in Resources */ = {isa = PBXBuildFile; fileRef = FB36F872C5E6E686B69C5767 /* output.technique.island_demo.xml */; };
+		B19304A0F3CF20885B7CD8BD /* output.technique.island_demo.xml in Resources */ = {isa = PBXBuildFile; fileRef = FB36F872C5E6E686B69C5767 /* output.technique.island_demo.xml */; };
+		65B3079A38A2B93D3EB68BB0 /* output.technique.island_demo.xml in Resources */ = {isa = PBXBuildFile; fileRef = FB36F872C5E6E686B69C5767 /* output.technique.island_demo.xml */; };
+		A37BF62C19B4947DA0132AE3 /* ss.technique.ocean_compose.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8893B4EDA45B5C4F89E26035 /* ss.technique.ocean_compose.xml */; };
+		532B87A4D7FD28D01800C30C /* ss.technique.ocean_compose.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8893B4EDA45B5C4F89E26035 /* ss.technique.ocean_compose.xml */; };
+		E76BA378D2B02619FCA478C2 /* ss.technique.ocean_compose.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8893B4EDA45B5C4F89E26035 /* ss.technique.ocean_compose.xml */; };
+		E292727AD8C04BD2BFD9716C /* ws.technique.ocean.xml in Resources */ = {isa = PBXBuildFile; fileRef = BBE3F41F602DF5A1BE8F9977 /* ws.technique.ocean.xml */; };
+		47D708B6E7A5B157C153FEE3 /* ws.technique.ocean.xml in Resources */ = {isa = PBXBuildFile; fileRef = BBE3F41F602DF5A1BE8F9977 /* ws.technique.ocean.xml */; };
+		351236BC5E215C7B95BCA40B /* ws.technique.ocean.xml in Resources */ = {isa = PBXBuildFile; fileRef = BBE3F41F602DF5A1BE8F9977 /* ws.technique.ocean.xml */; };
+		CFC28CC720CEE23086F58723 /* shader_ocean.frag in Resources */ = {isa = PBXBuildFile; fileRef = 874D989BEF23876454C4A1D5 /* shader_ocean.frag */; };
+		D9EF2BA71E3B3701BD2B0F42 /* shader_ocean.frag in Resources */ = {isa = PBXBuildFile; fileRef = 874D989BEF23876454C4A1D5 /* shader_ocean.frag */; };
+		F24B676C48447BA67E92CCBB /* shader_ocean.frag in Resources */ = {isa = PBXBuildFile; fileRef = 874D989BEF23876454C4A1D5 /* shader_ocean.frag */; };
+		CEEC4C0C5EA4C14DB7949889 /* shader_ocean.vert in Resources */ = {isa = PBXBuildFile; fileRef = 670CB4660EF644A6267365F0 /* shader_ocean.vert */; };
+		6D7A34C2F82998E990AF04C2 /* shader_ocean.vert in Resources */ = {isa = PBXBuildFile; fileRef = 670CB4660EF644A6267365F0 /* shader_ocean.vert */; };
+		F278720881D92941D1C439E1 /* shader_ocean.vert in Resources */ = {isa = PBXBuildFile; fileRef = 670CB4660EF644A6267365F0 /* shader_ocean.vert */; };
+		AD6DE80C2652CBFDE7BC9D28 /* shader_ocean_compose.frag in Resources */ = {isa = PBXBuildFile; fileRef = A420ECD51A7884140CBD6235 /* shader_ocean_compose.frag */; };
+		41356A9BFFD1B85813F188ED /* shader_ocean_compose.frag in Resources */ = {isa = PBXBuildFile; fileRef = A420ECD51A7884140CBD6235 /* shader_ocean_compose.frag */; };
+		78DBDD34FB5A774203E631DC /* shader_ocean_compose.frag in Resources */ = {isa = PBXBuildFile; fileRef = A420ECD51A7884140CBD6235 /* shader_ocean_compose.frag */; };
+		55D56B73E1B7D0C9478BB7B9 /* shader_ocean_compose.vert in Resources */ = {isa = PBXBuildFile; fileRef = 8181964D5751251E6C090E86 /* shader_ocean_compose.vert */; };
+		BEA77D35EAE4D593C5354EAC /* shader_ocean_compose.vert in Resources */ = {isa = PBXBuildFile; fileRef = 8181964D5751251E6C090E86 /* shader_ocean_compose.vert */; };
+		A3B7075877708630C7AD6F58 /* shader_ocean_compose.vert in Resources */ = {isa = PBXBuildFile; fileRef = 8181964D5751251E6C090E86 /* shader_ocean_compose.vert */; };
+		069A5CFE8567874D12053A67 /* buoyancy_simulation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 644DDA5A0CC4997C01B854E1 /* buoyancy_simulation.cpp */; };
+		BDB1B5BC946AA840C285C4E1 /* buoyancy_simulation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 644DDA5A0CC4997C01B854E1 /* buoyancy_simulation.cpp */; };
+		80E508B08F0612703F214622 /* buoyancy_simulation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 644DDA5A0CC4997C01B854E1 /* buoyancy_simulation.cpp */; };
+		2AC45259153EB068C2DDE91A /* ces_buoyancy_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B14FE92FCBB5F45AC008F37A /* ces_buoyancy_component.cpp */; };
+		470DA9938CC58D6392F4BB9D /* ces_buoyancy_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B14FE92FCBB5F45AC008F37A /* ces_buoyancy_component.cpp */; };
+		C01EAC9D40F8E0F54C2D4511 /* ces_buoyancy_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B14FE92FCBB5F45AC008F37A /* ces_buoyancy_component.cpp */; };
+		B672AAF5DE35A87FD492AA0C /* ocean_demo_props.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AFA0C0227C4FCA58A568F04 /* ocean_demo_props.cpp */; };
+		F273908A382D4E56B2E498C5 /* ocean_demo_props.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AFA0C0227C4FCA58A568F04 /* ocean_demo_props.cpp */; };
+		3F4070E32ED3EEC51CE668B5 /* ocean_demo_props.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AFA0C0227C4FCA58A568F04 /* ocean_demo_props.cpp */; };
+		8B3E3F16D8996ECA63C4A859 /* mtl_ocean.h in Resources */ = {isa = PBXBuildFile; fileRef = 803361A3BFE1A43D75422D76 /* mtl_ocean.h */; };
+		C36EA6A092D93C4C73B555BA /* mtl_ocean.h in Resources */ = {isa = PBXBuildFile; fileRef = 803361A3BFE1A43D75422D76 /* mtl_ocean.h */; };
+		13E112D6D38C63DEF47463EE /* mtl_ocean.h in Resources */ = {isa = PBXBuildFile; fileRef = 803361A3BFE1A43D75422D76 /* mtl_ocean.h */; };
+		7B5D2F455EABD92BAFDD71A1 /* resident_navigation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45C0A5A2063FDC44A351E059 /* resident_navigation.cpp */; };
+		A6E7E9A00C431F61C037DB6F /* resident_navigation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45C0A5A2063FDC44A351E059 /* resident_navigation.cpp */; };
+		279EFA9C291FDB57AF67E1F4 /* resident_navigation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45C0A5A2063FDC44A351E059 /* resident_navigation.cpp */; };
+		34F66238B5F69530535E1E42 /* resident_behavior.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B77428D6841BAA50F9EFEEAD /* resident_behavior.cpp */; };
+		42ABBC5ED1F5ACB0215B254F /* resident_behavior.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B77428D6841BAA50F9EFEEAD /* resident_behavior.cpp */; };
+		15DD0F7E04BAFE2CE2AC8B4F /* resident_behavior.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B77428D6841BAA50F9EFEEAD /* resident_behavior.cpp */; };
+		56B6A00FA6BFA3040E51B79C /* resident_shader_uniforms.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6276F2083ED180E2A55C71E6 /* resident_shader_uniforms.cpp */; };
+		2F2C5E913BEDEA0B28756FC0 /* resident_shader_uniforms.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6276F2083ED180E2A55C71E6 /* resident_shader_uniforms.cpp */; };
+		2DC20DDBD619BD3DC6912706 /* resident_shader_uniforms.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6276F2083ED180E2A55C71E6 /* resident_shader_uniforms.cpp */; };
+		8D257428E71A45A8F7509EEB /* ces_island_resident_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1ADA084BF43B022907552BA4 /* ces_island_resident_component.cpp */; };
+		CA01106CC99F6222196EC12F /* ces_island_resident_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1ADA084BF43B022907552BA4 /* ces_island_resident_component.cpp */; };
+		1AAC6F04B45B763A9F84DE57 /* ces_island_resident_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1ADA084BF43B022907552BA4 /* ces_island_resident_component.cpp */; };
+		28D14315CA1D1B3A878AEDBA /* ces_island_resident_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B691A7BA3D55BFBF4646E816 /* ces_island_resident_system.cpp */; };
+		96B5C910AE7A3A2D5965210E /* ces_island_resident_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B691A7BA3D55BFBF4646E816 /* ces_island_resident_system.cpp */; };
+		FA6291FC0BCAC44565DE11C9 /* ces_island_resident_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B691A7BA3D55BFBF4646E816 /* ces_island_resident_system.cpp */; };
+		639A6DDCC0A0E8F6CA6D87A2 /* island_resident_demo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 71C8D4F429FE11056752A0DC /* island_resident_demo.cpp */; };
+		F05AE9296606C5E2D16DEE2C /* island_resident_demo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 71C8D4F429FE11056752A0DC /* island_resident_demo.cpp */; };
+		E8EC6D0E7EC7C58184AE52ED /* island_resident_demo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 71C8D4F429FE11056752A0DC /* island_resident_demo.cpp */; };
+		E9DB009299CE0A233D1D401D /* island_resident.xml in Resources */ = {isa = PBXBuildFile; fileRef = 73360986658204632A422F1B /* island_resident.xml */; };
+		62522E8DB09910A37C528AEA /* island_resident.xml in Resources */ = {isa = PBXBuildFile; fileRef = 73360986658204632A422F1B /* island_resident.xml */; };
+		E20F5DD846061CB72882B6C3 /* island_resident.xml in Resources */ = {isa = PBXBuildFile; fileRef = 73360986658204632A422F1B /* island_resident.xml */; };
+		E5228925654E5FE4F55354EC /* material.island_resident.xml in Resources */ = {isa = PBXBuildFile; fileRef = AE6DAF2E6D537A8185CB1E91 /* material.island_resident.xml */; };
+		1826F383B847D4BBA18E89FF /* material.island_resident.xml in Resources */ = {isa = PBXBuildFile; fileRef = AE6DAF2E6D537A8185CB1E91 /* material.island_resident.xml */; };
+		0F5BE549F8D19C4A7A19DBE6 /* material.island_resident.xml in Resources */ = {isa = PBXBuildFile; fileRef = AE6DAF2E6D537A8185CB1E91 /* material.island_resident.xml */; };
+		132B994311827FF61879D0D0 /* island_resident.fbx in Resources */ = {isa = PBXBuildFile; fileRef = F7A700D29CA9FA5CF7FA4B0C /* island_resident.fbx */; };
+		06A53B3E959935F9ACC1162D /* island_resident.fbx in Resources */ = {isa = PBXBuildFile; fileRef = F7A700D29CA9FA5CF7FA4B0C /* island_resident.fbx */; };
+		20F0BF7F8FAA38EA1BE78F4C /* island_resident.fbx in Resources */ = {isa = PBXBuildFile; fileRef = F7A700D29CA9FA5CF7FA4B0C /* island_resident.fbx */; };
+		1B2648A903B0F4B1A67AB60F /* island_resident_idle.fbx in Resources */ = {isa = PBXBuildFile; fileRef = 341AF683E993DC48A3821E11 /* island_resident_idle.fbx */; };
+		3EAF1458BA819FEE4837F1E8 /* island_resident_idle.fbx in Resources */ = {isa = PBXBuildFile; fileRef = 341AF683E993DC48A3821E11 /* island_resident_idle.fbx */; };
+		BFA27E9738C960546F32D744 /* island_resident_idle.fbx in Resources */ = {isa = PBXBuildFile; fileRef = 341AF683E993DC48A3821E11 /* island_resident_idle.fbx */; };
+		FDF3473B0D679015E5948D05 /* island_resident_walk.fbx in Resources */ = {isa = PBXBuildFile; fileRef = 10FBA633DA8A4B6356E7232B /* island_resident_walk.fbx */; };
+		8D9C4135862C8FB1572B2E8B /* island_resident_walk.fbx in Resources */ = {isa = PBXBuildFile; fileRef = 10FBA633DA8A4B6356E7232B /* island_resident_walk.fbx */; };
+		279033F516A90BEFD8386753 /* island_resident_walk.fbx in Resources */ = {isa = PBXBuildFile; fileRef = 10FBA633DA8A4B6356E7232B /* island_resident_walk.fbx */; };
+		CE0388110FC6D6A3DD858891 /* shader_island_resident.frag in Resources */ = {isa = PBXBuildFile; fileRef = 4E7AB772734803AD58EB2926 /* shader_island_resident.frag */; };
+		25E1FBD72F9952FB0D0B5E0D /* shader_island_resident.frag in Resources */ = {isa = PBXBuildFile; fileRef = 4E7AB772734803AD58EB2926 /* shader_island_resident.frag */; };
+		E662A6F3E91A2C250D77B63A /* shader_island_resident.frag in Resources */ = {isa = PBXBuildFile; fileRef = 4E7AB772734803AD58EB2926 /* shader_island_resident.frag */; };
+		B3DE3068BE5971F9F83F04F7 /* shader_island_resident.vert in Resources */ = {isa = PBXBuildFile; fileRef = C5CE1342A9F7D64CA10B325F /* shader_island_resident.vert */; };
+		63764EC6E96C87A0FE70C3D4 /* shader_island_resident.vert in Resources */ = {isa = PBXBuildFile; fileRef = C5CE1342A9F7D64CA10B325F /* shader_island_resident.vert */; };
+		25686828F5DF2D8AA3A7539E /* shader_island_resident.vert in Resources */ = {isa = PBXBuildFile; fileRef = C5CE1342A9F7D64CA10B325F /* shader_island_resident.vert */; };
+		B290D053EFBC4BCAA0B80C3E /* mtl_island_resident.h in Resources */ = {isa = PBXBuildFile; fileRef = C2472D31857B0C53C3028B53 /* mtl_island_resident.h */; };
+		C41B3BA4119D1D5440ABA9D7 /* mtl_island_resident.h in Resources */ = {isa = PBXBuildFile; fileRef = C2472D31857B0C53C3028B53 /* mtl_island_resident.h */; };
+		E99AD17562C062D56AFD8380 /* mtl_island_resident.h in Resources */ = {isa = PBXBuildFile; fileRef = C2472D31857B0C53C3028B53 /* mtl_island_resident.h */; };
+		FBE1E4ADCC80771A6F13DB00 /* island_resident_clothing_mask.png in Resources */ = {isa = PBXBuildFile; fileRef = B82D2E767D3FBA5A838F6E37 /* island_resident_clothing_mask.png */; };
+		A098ABE52B76F59C58836084 /* island_resident_clothing_mask.png in Resources */ = {isa = PBXBuildFile; fileRef = B82D2E767D3FBA5A838F6E37 /* island_resident_clothing_mask.png */; };
+		BFB8BA979F990780AF027190 /* island_resident_clothing_mask.png in Resources */ = {isa = PBXBuildFile; fileRef = B82D2E767D3FBA5A838F6E37 /* island_resident_clothing_mask.png */; };
+		332E2A4E4F7737A2125F472F /* island_resident_palette.png in Resources */ = {isa = PBXBuildFile; fileRef = E917EA416A6B61CDDCDABF8B /* island_resident_palette.png */; };
+		8D5C449233FAC9B52AB155F6 /* island_resident_palette.png in Resources */ = {isa = PBXBuildFile; fileRef = E917EA416A6B61CDDCDABF8B /* island_resident_palette.png */; };
+		BFB4D7B890D4DEDF28BE31B2 /* island_resident_palette.png in Resources */ = {isa = PBXBuildFile; fileRef = E917EA416A6B61CDDCDABF8B /* island_resident_palette.png */; };
+
+		CCBBB622C08880F8C916F676 /* material.ocean_foam.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2F7BD3BF0B8F9812A2CB5E38 /* material.ocean_foam.xml */; };
+		BB6CA8ACD3142187FB669C04 /* material.ocean_foam.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2F7BD3BF0B8F9812A2CB5E38 /* material.ocean_foam.xml */; };
+		5D8AB16BAA5999B6E1C601AD /* material.ocean_foam.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2F7BD3BF0B8F9812A2CB5E38 /* material.ocean_foam.xml */; };
+		DA62EE38F1498A0861D1BD72 /* material.water_distance.xml in Resources */ = {isa = PBXBuildFile; fileRef = F6EBDBAD350873E748F73CEC /* material.water_distance.xml */; };
+		B528FCDE98EF92DDE14AE890 /* material.water_distance.xml in Resources */ = {isa = PBXBuildFile; fileRef = F6EBDBAD350873E748F73CEC /* material.water_distance.xml */; };
+		C58570912E6C812DE7E8010A /* material.water_distance.xml in Resources */ = {isa = PBXBuildFile; fileRef = F6EBDBAD350873E748F73CEC /* material.water_distance.xml */; };
+		673FE95BCFF7D37AE29C3DD3 /* material.water_jfa0.xml in Resources */ = {isa = PBXBuildFile; fileRef = 160D11851368DF49C695F300 /* material.water_jfa0.xml */; };
+		BF9F2783DA164FE518048B25 /* material.water_jfa0.xml in Resources */ = {isa = PBXBuildFile; fileRef = 160D11851368DF49C695F300 /* material.water_jfa0.xml */; };
+		4E30DEC9F3660CEB9CF89508 /* material.water_jfa0.xml in Resources */ = {isa = PBXBuildFile; fileRef = 160D11851368DF49C695F300 /* material.water_jfa0.xml */; };
+		1F6476DEE8729A3AAD1E4506 /* material.water_jfa1.xml in Resources */ = {isa = PBXBuildFile; fileRef = F6CA067089FA378BB389C2D6 /* material.water_jfa1.xml */; };
+		4EAC0F58274E25F6FFE71FFB /* material.water_jfa1.xml in Resources */ = {isa = PBXBuildFile; fileRef = F6CA067089FA378BB389C2D6 /* material.water_jfa1.xml */; };
+		5ED337C970FE3F694DC91861 /* material.water_jfa1.xml in Resources */ = {isa = PBXBuildFile; fileRef = F6CA067089FA378BB389C2D6 /* material.water_jfa1.xml */; };
+		CAC92AE3F4B7C0CF65255100 /* material.water_jfa10.xml in Resources */ = {isa = PBXBuildFile; fileRef = 7580573A0BA595B19E6C9843 /* material.water_jfa10.xml */; };
+		5E7341A8005DB46D11C1F498 /* material.water_jfa10.xml in Resources */ = {isa = PBXBuildFile; fileRef = 7580573A0BA595B19E6C9843 /* material.water_jfa10.xml */; };
+		5D816B2F840586C9BB6B4DB9 /* material.water_jfa10.xml in Resources */ = {isa = PBXBuildFile; fileRef = 7580573A0BA595B19E6C9843 /* material.water_jfa10.xml */; };
+		6DABA7F33C220F537812F36F /* material.water_jfa11.xml in Resources */ = {isa = PBXBuildFile; fileRef = 108E6F96F90DB73E114F0F0D /* material.water_jfa11.xml */; };
+		7C2E56B9E1F848674DBC246F /* material.water_jfa11.xml in Resources */ = {isa = PBXBuildFile; fileRef = 108E6F96F90DB73E114F0F0D /* material.water_jfa11.xml */; };
+		97ECAAE8DEB6BA1D5A87836B /* material.water_jfa11.xml in Resources */ = {isa = PBXBuildFile; fileRef = 108E6F96F90DB73E114F0F0D /* material.water_jfa11.xml */; };
+		AA8DAA076140A4BFE42368C0 /* material.water_jfa2.xml in Resources */ = {isa = PBXBuildFile; fileRef = 26581A7E488B3B5FEC242F93 /* material.water_jfa2.xml */; };
+		B2B6E4CBF3EDA09503CB44BC /* material.water_jfa2.xml in Resources */ = {isa = PBXBuildFile; fileRef = 26581A7E488B3B5FEC242F93 /* material.water_jfa2.xml */; };
+		C234F69840F8E53EA0922361 /* material.water_jfa2.xml in Resources */ = {isa = PBXBuildFile; fileRef = 26581A7E488B3B5FEC242F93 /* material.water_jfa2.xml */; };
+		6776B69929A2CC8C7B626E49 /* material.water_jfa3.xml in Resources */ = {isa = PBXBuildFile; fileRef = F71F0509B63CA03F1704714E /* material.water_jfa3.xml */; };
+		DA254BF203A33F81FDE5A3F2 /* material.water_jfa3.xml in Resources */ = {isa = PBXBuildFile; fileRef = F71F0509B63CA03F1704714E /* material.water_jfa3.xml */; };
+		B69629D8789AE81A9A7FB19C /* material.water_jfa3.xml in Resources */ = {isa = PBXBuildFile; fileRef = F71F0509B63CA03F1704714E /* material.water_jfa3.xml */; };
+		699CE64F8686B5F05207B51E /* material.water_jfa4.xml in Resources */ = {isa = PBXBuildFile; fileRef = FF9CB88BE3CF40FE37922C04 /* material.water_jfa4.xml */; };
+		282BD2C3F9EC3BB009C65EC7 /* material.water_jfa4.xml in Resources */ = {isa = PBXBuildFile; fileRef = FF9CB88BE3CF40FE37922C04 /* material.water_jfa4.xml */; };
+		B3668BC8CA9613EF3030F61A /* material.water_jfa4.xml in Resources */ = {isa = PBXBuildFile; fileRef = FF9CB88BE3CF40FE37922C04 /* material.water_jfa4.xml */; };
+		6750DC18665981E8E34C4F9C /* material.water_jfa5.xml in Resources */ = {isa = PBXBuildFile; fileRef = 3EAEB9B1B448EB9FA4E250E6 /* material.water_jfa5.xml */; };
+		0035A4E1B9DB074A55B4D9E2 /* material.water_jfa5.xml in Resources */ = {isa = PBXBuildFile; fileRef = 3EAEB9B1B448EB9FA4E250E6 /* material.water_jfa5.xml */; };
+		7294C3C55F2955E9E7E3B595 /* material.water_jfa5.xml in Resources */ = {isa = PBXBuildFile; fileRef = 3EAEB9B1B448EB9FA4E250E6 /* material.water_jfa5.xml */; };
+		F5A2EB08A4AFC155F3157C8C /* material.water_jfa6.xml in Resources */ = {isa = PBXBuildFile; fileRef = D6D22F2E40448E57F49B623C /* material.water_jfa6.xml */; };
+		D963C6DCEC48BF7E5AE89C0E /* material.water_jfa6.xml in Resources */ = {isa = PBXBuildFile; fileRef = D6D22F2E40448E57F49B623C /* material.water_jfa6.xml */; };
+		F62C4CAEAB141211FD96D277 /* material.water_jfa6.xml in Resources */ = {isa = PBXBuildFile; fileRef = D6D22F2E40448E57F49B623C /* material.water_jfa6.xml */; };
+		B0293155D5FFD1AD0EDA216C /* material.water_jfa7.xml in Resources */ = {isa = PBXBuildFile; fileRef = AAB4D103405D87A6EFFCD81B /* material.water_jfa7.xml */; };
+		93D9ED5DACAF21AA3861FE65 /* material.water_jfa7.xml in Resources */ = {isa = PBXBuildFile; fileRef = AAB4D103405D87A6EFFCD81B /* material.water_jfa7.xml */; };
+		2C546150559B7B0A91379AB3 /* material.water_jfa7.xml in Resources */ = {isa = PBXBuildFile; fileRef = AAB4D103405D87A6EFFCD81B /* material.water_jfa7.xml */; };
+		CF241B2B75F3E9FD850D2B4C /* material.water_jfa8.xml in Resources */ = {isa = PBXBuildFile; fileRef = EE7BE06A8D7CC576DC686083 /* material.water_jfa8.xml */; };
+		814C9384629A3EB92BFBD780 /* material.water_jfa8.xml in Resources */ = {isa = PBXBuildFile; fileRef = EE7BE06A8D7CC576DC686083 /* material.water_jfa8.xml */; };
+		CED05829617C51EC1E784290 /* material.water_jfa8.xml in Resources */ = {isa = PBXBuildFile; fileRef = EE7BE06A8D7CC576DC686083 /* material.water_jfa8.xml */; };
+		D2FE6996BBB3EE3FE326FF0E /* material.water_jfa9.xml in Resources */ = {isa = PBXBuildFile; fileRef = BC6D86441967F877060D781A /* material.water_jfa9.xml */; };
+		B7CC452623C1B4578B9AEBE4 /* material.water_jfa9.xml in Resources */ = {isa = PBXBuildFile; fileRef = BC6D86441967F877060D781A /* material.water_jfa9.xml */; };
+		F1F0D90F1EE62D9D44C701C4 /* material.water_jfa9.xml in Resources */ = {isa = PBXBuildFile; fileRef = BC6D86441967F877060D781A /* material.water_jfa9.xml */; };
+		E4ECBABCF0563A39E17660FA /* material.water_land.xml in Resources */ = {isa = PBXBuildFile; fileRef = EF6FC83D980A3FCA253EA697 /* material.water_land.xml */; };
+		07AC60D882C481C0ECDFBE87 /* material.water_land.xml in Resources */ = {isa = PBXBuildFile; fileRef = EF6FC83D980A3FCA253EA697 /* material.water_land.xml */; };
+		65CD070E159033B57A012E6F /* material.water_land.xml in Resources */ = {isa = PBXBuildFile; fileRef = EF6FC83D980A3FCA253EA697 /* material.water_land.xml */; };
+		FEDB5C4D622FAE3673B508C0 /* material.water_mask.xml in Resources */ = {isa = PBXBuildFile; fileRef = F02875B13D9B213636CC97A4 /* material.water_mask.xml */; };
+		48CF804000EBD7F51E2958A9 /* material.water_mask.xml in Resources */ = {isa = PBXBuildFile; fileRef = F02875B13D9B213636CC97A4 /* material.water_mask.xml */; };
+		FF54F3D74A2D6AF128A7F8D4 /* material.water_mask.xml in Resources */ = {isa = PBXBuildFile; fileRef = F02875B13D9B213636CC97A4 /* material.water_mask.xml */; };
+		C58709AB8D11DE06FAE01EB8 /* material.water_seed.xml in Resources */ = {isa = PBXBuildFile; fileRef = C1112DCB11D7964B3FC0757C /* material.water_seed.xml */; };
+		A14A1B9362A03A9F16334BDC /* material.water_seed.xml in Resources */ = {isa = PBXBuildFile; fileRef = C1112DCB11D7964B3FC0757C /* material.water_seed.xml */; };
+		F2A1E4875774BD7A8C3FDB5E /* material.water_seed.xml in Resources */ = {isa = PBXBuildFile; fileRef = C1112DCB11D7964B3FC0757C /* material.water_seed.xml */; };
+		1467FD9819AB0E4056784554 /* water_distance.xml in Resources */ = {isa = PBXBuildFile; fileRef = CC5F56C2E533353BAC435B21 /* water_distance.xml */; };
+		B0D4D94B23B3FB571EFD0BDF /* water_distance.xml in Resources */ = {isa = PBXBuildFile; fileRef = CC5F56C2E533353BAC435B21 /* water_distance.xml */; };
+		E0B1CFAD757447F5EE57ADED /* water_distance.xml in Resources */ = {isa = PBXBuildFile; fileRef = CC5F56C2E533353BAC435B21 /* water_distance.xml */; };
+		64015ABCC46798BC57E7EECD /* water_jfa0.xml in Resources */ = {isa = PBXBuildFile; fileRef = 81EDC94C16ADBAC252F0869A /* water_jfa0.xml */; };
+		8353190484EE6BC6D9F641A4 /* water_jfa0.xml in Resources */ = {isa = PBXBuildFile; fileRef = 81EDC94C16ADBAC252F0869A /* water_jfa0.xml */; };
+		6414077726C44BC79A158D56 /* water_jfa0.xml in Resources */ = {isa = PBXBuildFile; fileRef = 81EDC94C16ADBAC252F0869A /* water_jfa0.xml */; };
+		DFE75DCDD9EF20655A7DB15E /* water_jfa1.xml in Resources */ = {isa = PBXBuildFile; fileRef = 4047E8C5C584A3B74CEBFB19 /* water_jfa1.xml */; };
+		1393AA71D2AE6D7BA545B2FF /* water_jfa1.xml in Resources */ = {isa = PBXBuildFile; fileRef = 4047E8C5C584A3B74CEBFB19 /* water_jfa1.xml */; };
+		0BAC89E4864459538D3D9BF3 /* water_jfa1.xml in Resources */ = {isa = PBXBuildFile; fileRef = 4047E8C5C584A3B74CEBFB19 /* water_jfa1.xml */; };
+		6470B86797E351AB31E6C8F3 /* water_jfa10.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9BEA3A649F6EEAECCFF0F09A /* water_jfa10.xml */; };
+		9B11E58E7FBE5E2C43C46526 /* water_jfa10.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9BEA3A649F6EEAECCFF0F09A /* water_jfa10.xml */; };
+		75E88ACEBEE664733A1E7CC9 /* water_jfa10.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9BEA3A649F6EEAECCFF0F09A /* water_jfa10.xml */; };
+		BA0070764C39439F1B790C31 /* water_jfa11.xml in Resources */ = {isa = PBXBuildFile; fileRef = 87685EA797DBA4B3534E142F /* water_jfa11.xml */; };
+		0547C48B6DC0CB543B99DAF9 /* water_jfa11.xml in Resources */ = {isa = PBXBuildFile; fileRef = 87685EA797DBA4B3534E142F /* water_jfa11.xml */; };
+		931CEDEE555D0C2E03D5C59D /* water_jfa11.xml in Resources */ = {isa = PBXBuildFile; fileRef = 87685EA797DBA4B3534E142F /* water_jfa11.xml */; };
+		15F8754323359757C9726F84 /* water_jfa2.xml in Resources */ = {isa = PBXBuildFile; fileRef = D4C425D0A47CE258AD4184A4 /* water_jfa2.xml */; };
+		3D4BC85168E6F1A27F8AFDFB /* water_jfa2.xml in Resources */ = {isa = PBXBuildFile; fileRef = D4C425D0A47CE258AD4184A4 /* water_jfa2.xml */; };
+		B63695852721BA3ADC2CA2A6 /* water_jfa2.xml in Resources */ = {isa = PBXBuildFile; fileRef = D4C425D0A47CE258AD4184A4 /* water_jfa2.xml */; };
+		7EFF88E4507CA98A6C1322A3 /* water_jfa3.xml in Resources */ = {isa = PBXBuildFile; fileRef = 0A11D4CBFAA3583CF80C3270 /* water_jfa3.xml */; };
+		DAF46841EF9E32BBC12E007A /* water_jfa3.xml in Resources */ = {isa = PBXBuildFile; fileRef = 0A11D4CBFAA3583CF80C3270 /* water_jfa3.xml */; };
+		A7D1A030A90C1D6EB278B057 /* water_jfa3.xml in Resources */ = {isa = PBXBuildFile; fileRef = 0A11D4CBFAA3583CF80C3270 /* water_jfa3.xml */; };
+		3F1A71526AC6293E33A847A5 /* water_jfa4.xml in Resources */ = {isa = PBXBuildFile; fileRef = 649EF60315C4BE40923ACF66 /* water_jfa4.xml */; };
+		802B3F07A48132B1ACE7DC7C /* water_jfa4.xml in Resources */ = {isa = PBXBuildFile; fileRef = 649EF60315C4BE40923ACF66 /* water_jfa4.xml */; };
+		4A6CC3CEB2615B96E9EC1A6D /* water_jfa4.xml in Resources */ = {isa = PBXBuildFile; fileRef = 649EF60315C4BE40923ACF66 /* water_jfa4.xml */; };
+		DDFA55D49B9184E14B5D00B3 /* water_jfa5.xml in Resources */ = {isa = PBXBuildFile; fileRef = D374252E64023FAB295BE161 /* water_jfa5.xml */; };
+		DF789B092145F0A9D3F97460 /* water_jfa5.xml in Resources */ = {isa = PBXBuildFile; fileRef = D374252E64023FAB295BE161 /* water_jfa5.xml */; };
+		B1587F29F36D7E3CF2B89912 /* water_jfa5.xml in Resources */ = {isa = PBXBuildFile; fileRef = D374252E64023FAB295BE161 /* water_jfa5.xml */; };
+		DD9D7FBAE27E4FA004D7241C /* water_jfa6.xml in Resources */ = {isa = PBXBuildFile; fileRef = 5DBFF126D6E744490B3BAFD4 /* water_jfa6.xml */; };
+		057CEA97B8A114650EA6AD2C /* water_jfa6.xml in Resources */ = {isa = PBXBuildFile; fileRef = 5DBFF126D6E744490B3BAFD4 /* water_jfa6.xml */; };
+		0DE8654D6109CEDC7DEFF8F5 /* water_jfa6.xml in Resources */ = {isa = PBXBuildFile; fileRef = 5DBFF126D6E744490B3BAFD4 /* water_jfa6.xml */; };
+		ED053E68545D80D1C1B0CD94 /* water_jfa7.xml in Resources */ = {isa = PBXBuildFile; fileRef = 94C7AD710EA362225BFF2638 /* water_jfa7.xml */; };
+		6BB971DEC6263B8E09FB9AC4 /* water_jfa7.xml in Resources */ = {isa = PBXBuildFile; fileRef = 94C7AD710EA362225BFF2638 /* water_jfa7.xml */; };
+		E84C435E212DD34DA182B9D1 /* water_jfa7.xml in Resources */ = {isa = PBXBuildFile; fileRef = 94C7AD710EA362225BFF2638 /* water_jfa7.xml */; };
+		D77110D6723BD4549F0DF32B /* water_jfa8.xml in Resources */ = {isa = PBXBuildFile; fileRef = 45EDEDA70FE0190244540437 /* water_jfa8.xml */; };
+		D8033F64DBD85E1832ABF3BF /* water_jfa8.xml in Resources */ = {isa = PBXBuildFile; fileRef = 45EDEDA70FE0190244540437 /* water_jfa8.xml */; };
+		9CE6A08D1EA00C7194BB4980 /* water_jfa8.xml in Resources */ = {isa = PBXBuildFile; fileRef = 45EDEDA70FE0190244540437 /* water_jfa8.xml */; };
+		0E515C8B9EF0DE0BB2ACB0D4 /* water_jfa9.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8552D8C5375BDF8DCBFB5DE4 /* water_jfa9.xml */; };
+		EC5889862DAB6380ACD3A8A8 /* water_jfa9.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8552D8C5375BDF8DCBFB5DE4 /* water_jfa9.xml */; };
+		80708291575537F7A46F0348 /* water_jfa9.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8552D8C5375BDF8DCBFB5DE4 /* water_jfa9.xml */; };
+		9747711E7F9E803695477308 /* water_land.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9335AB093DA0DD727D6E0F1F /* water_land.xml */; };
+		56522DE386C65C9F75E13E6B /* water_land.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9335AB093DA0DD727D6E0F1F /* water_land.xml */; };
+		0098B2071283B3C25B8051EB /* water_land.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9335AB093DA0DD727D6E0F1F /* water_land.xml */; };
+		04DA64C8D24BA88B0A902E24 /* water_mask.xml in Resources */ = {isa = PBXBuildFile; fileRef = D1D387CA4727147D0D4AB098 /* water_mask.xml */; };
+		9BB982FA5E89F441335D6C3E /* water_mask.xml in Resources */ = {isa = PBXBuildFile; fileRef = D1D387CA4727147D0D4AB098 /* water_mask.xml */; };
+		F9647A71E1329BF713CEF702 /* water_mask.xml in Resources */ = {isa = PBXBuildFile; fileRef = D1D387CA4727147D0D4AB098 /* water_mask.xml */; };
+		6D33176F94641B75733437D0 /* water_seed.xml in Resources */ = {isa = PBXBuildFile; fileRef = B3465321915D1495368D6F67 /* water_seed.xml */; };
+		059BBDE30047A90F17D2F997 /* water_seed.xml in Resources */ = {isa = PBXBuildFile; fileRef = B3465321915D1495368D6F67 /* water_seed.xml */; };
+		DC2A24BAC01A849B68134925 /* water_seed.xml in Resources */ = {isa = PBXBuildFile; fileRef = B3465321915D1495368D6F67 /* water_seed.xml */; };
+		D3083FEA4B4E3CD2BD89BAA1 /* ws.technique.ocean_foam.xml in Resources */ = {isa = PBXBuildFile; fileRef = 671582D42BF1C0B503976438 /* ws.technique.ocean_foam.xml */; };
+		B686629E464F31E233A832E1 /* ws.technique.ocean_foam.xml in Resources */ = {isa = PBXBuildFile; fileRef = 671582D42BF1C0B503976438 /* ws.technique.ocean_foam.xml */; };
+		B3A1BD995B2801E3F4E080EC /* ws.technique.ocean_foam.xml in Resources */ = {isa = PBXBuildFile; fileRef = 671582D42BF1C0B503976438 /* ws.technique.ocean_foam.xml */; };
+		DBE1FDC50CA4226F6802008A /* ws.technique.water_distance.xml in Resources */ = {isa = PBXBuildFile; fileRef = A8DE7D7C24BDA45943293F61 /* ws.technique.water_distance.xml */; };
+		A1E8B5416B6EFAA840534794 /* ws.technique.water_distance.xml in Resources */ = {isa = PBXBuildFile; fileRef = A8DE7D7C24BDA45943293F61 /* ws.technique.water_distance.xml */; };
+		F71CE96789B73E01E3DF143F /* ws.technique.water_distance.xml in Resources */ = {isa = PBXBuildFile; fileRef = A8DE7D7C24BDA45943293F61 /* ws.technique.water_distance.xml */; };
+		6F78F3BE4E5F96E67A1CCB37 /* ws.technique.water_jfa0.xml in Resources */ = {isa = PBXBuildFile; fileRef = 6F7AD0C60420D4D7501B7393 /* ws.technique.water_jfa0.xml */; };
+		A850BDBC5DB866509FE643A5 /* ws.technique.water_jfa0.xml in Resources */ = {isa = PBXBuildFile; fileRef = 6F7AD0C60420D4D7501B7393 /* ws.technique.water_jfa0.xml */; };
+		C2FF123FE2F336AD3444D4EE /* ws.technique.water_jfa0.xml in Resources */ = {isa = PBXBuildFile; fileRef = 6F7AD0C60420D4D7501B7393 /* ws.technique.water_jfa0.xml */; };
+		8C6A19E4E6155AE0AB24FF16 /* ws.technique.water_jfa1.xml in Resources */ = {isa = PBXBuildFile; fileRef = 1933A5160FA02C0F88133AF9 /* ws.technique.water_jfa1.xml */; };
+		3A152A71365AC767913F3220 /* ws.technique.water_jfa1.xml in Resources */ = {isa = PBXBuildFile; fileRef = 1933A5160FA02C0F88133AF9 /* ws.technique.water_jfa1.xml */; };
+		C91999C8EE0D135A6B63685F /* ws.technique.water_jfa1.xml in Resources */ = {isa = PBXBuildFile; fileRef = 1933A5160FA02C0F88133AF9 /* ws.technique.water_jfa1.xml */; };
+		A468B28187FD3A70E75419D0 /* ws.technique.water_jfa10.xml in Resources */ = {isa = PBXBuildFile; fileRef = 693E771A786CF5D9C8BBDBF9 /* ws.technique.water_jfa10.xml */; };
+		1DC951FECD96A5DE52992662 /* ws.technique.water_jfa10.xml in Resources */ = {isa = PBXBuildFile; fileRef = 693E771A786CF5D9C8BBDBF9 /* ws.technique.water_jfa10.xml */; };
+		1C90CD9FBBA1971B6116C2EF /* ws.technique.water_jfa10.xml in Resources */ = {isa = PBXBuildFile; fileRef = 693E771A786CF5D9C8BBDBF9 /* ws.technique.water_jfa10.xml */; };
+		4C0FDB98C46D9697FC3244F4 /* ws.technique.water_jfa11.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21F5959E510459D121A85081 /* ws.technique.water_jfa11.xml */; };
+		46BA8E8106D8743A69D229FF /* ws.technique.water_jfa11.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21F5959E510459D121A85081 /* ws.technique.water_jfa11.xml */; };
+		AA201A62728D7487C8D93BAE /* ws.technique.water_jfa11.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21F5959E510459D121A85081 /* ws.technique.water_jfa11.xml */; };
+		14E6C3A54CA716C987770BED /* ws.technique.water_jfa2.xml in Resources */ = {isa = PBXBuildFile; fileRef = 4939EBE1937E5E7DEE7830A3 /* ws.technique.water_jfa2.xml */; };
+		BD69A9E3A61D3CDC5831BF30 /* ws.technique.water_jfa2.xml in Resources */ = {isa = PBXBuildFile; fileRef = 4939EBE1937E5E7DEE7830A3 /* ws.technique.water_jfa2.xml */; };
+		D39F01194789D7322D07338C /* ws.technique.water_jfa2.xml in Resources */ = {isa = PBXBuildFile; fileRef = 4939EBE1937E5E7DEE7830A3 /* ws.technique.water_jfa2.xml */; };
+		53DBAD3A2808AFCC28092EBD /* ws.technique.water_jfa3.xml in Resources */ = {isa = PBXBuildFile; fileRef = 094C7B01192AAC16D1CCB812 /* ws.technique.water_jfa3.xml */; };
+		C677FB0C2332F4B380125270 /* ws.technique.water_jfa3.xml in Resources */ = {isa = PBXBuildFile; fileRef = 094C7B01192AAC16D1CCB812 /* ws.technique.water_jfa3.xml */; };
+		A477820835B60EBF986B36CE /* ws.technique.water_jfa3.xml in Resources */ = {isa = PBXBuildFile; fileRef = 094C7B01192AAC16D1CCB812 /* ws.technique.water_jfa3.xml */; };
+		CDBABBEA8D98BB348099CDB7 /* ws.technique.water_jfa4.xml in Resources */ = {isa = PBXBuildFile; fileRef = BC1559C4B6CF05AB66706881 /* ws.technique.water_jfa4.xml */; };
+		3049D769218496627C241271 /* ws.technique.water_jfa4.xml in Resources */ = {isa = PBXBuildFile; fileRef = BC1559C4B6CF05AB66706881 /* ws.technique.water_jfa4.xml */; };
+		30CC4B0322918A54657E8D77 /* ws.technique.water_jfa4.xml in Resources */ = {isa = PBXBuildFile; fileRef = BC1559C4B6CF05AB66706881 /* ws.technique.water_jfa4.xml */; };
+		C06FE2879DB5464966BE7E73 /* ws.technique.water_jfa5.xml in Resources */ = {isa = PBXBuildFile; fileRef = 1DF846BB14BF36F07CB83A7C /* ws.technique.water_jfa5.xml */; };
+		5CE2FB066921706BEDEB613F /* ws.technique.water_jfa5.xml in Resources */ = {isa = PBXBuildFile; fileRef = 1DF846BB14BF36F07CB83A7C /* ws.technique.water_jfa5.xml */; };
+		06E2C106063476D7A3AD0839 /* ws.technique.water_jfa5.xml in Resources */ = {isa = PBXBuildFile; fileRef = 1DF846BB14BF36F07CB83A7C /* ws.technique.water_jfa5.xml */; };
+		05AB52737FEF3AC3B9A8C515 /* ws.technique.water_jfa6.xml in Resources */ = {isa = PBXBuildFile; fileRef = D1BCF35048EAE6EAD74A8177 /* ws.technique.water_jfa6.xml */; };
+		5C4915F4D844271DEF302578 /* ws.technique.water_jfa6.xml in Resources */ = {isa = PBXBuildFile; fileRef = D1BCF35048EAE6EAD74A8177 /* ws.technique.water_jfa6.xml */; };
+		593C847317D89C31AA210F8B /* ws.technique.water_jfa6.xml in Resources */ = {isa = PBXBuildFile; fileRef = D1BCF35048EAE6EAD74A8177 /* ws.technique.water_jfa6.xml */; };
+		136B5E7318BC08CD32276A59 /* ws.technique.water_jfa7.xml in Resources */ = {isa = PBXBuildFile; fileRef = FD20DF5C55E54671C77015BC /* ws.technique.water_jfa7.xml */; };
+		517EBEFE7CD08FCE39E3F7BB /* ws.technique.water_jfa7.xml in Resources */ = {isa = PBXBuildFile; fileRef = FD20DF5C55E54671C77015BC /* ws.technique.water_jfa7.xml */; };
+		AB4C09FD92EC5B98790487E8 /* ws.technique.water_jfa7.xml in Resources */ = {isa = PBXBuildFile; fileRef = FD20DF5C55E54671C77015BC /* ws.technique.water_jfa7.xml */; };
+		7BBDD4BAF565C7FDCF3E4B1A /* ws.technique.water_jfa8.xml in Resources */ = {isa = PBXBuildFile; fileRef = 541F614AAA7882374961C61B /* ws.technique.water_jfa8.xml */; };
+		F59E1D14C0CCB696435B6799 /* ws.technique.water_jfa8.xml in Resources */ = {isa = PBXBuildFile; fileRef = 541F614AAA7882374961C61B /* ws.technique.water_jfa8.xml */; };
+		B18EF205FB6D26FBFB84C7EF /* ws.technique.water_jfa8.xml in Resources */ = {isa = PBXBuildFile; fileRef = 541F614AAA7882374961C61B /* ws.technique.water_jfa8.xml */; };
+		25ECEF8F7AD34ECE0ACD7FA6 /* ws.technique.water_jfa9.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2EF2FFC70E9383AD0D14230F /* ws.technique.water_jfa9.xml */; };
+		F1A10CB0CA8C721F54864FB4 /* ws.technique.water_jfa9.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2EF2FFC70E9383AD0D14230F /* ws.technique.water_jfa9.xml */; };
+		45959ABB47CA8EF03062E44F /* ws.technique.water_jfa9.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2EF2FFC70E9383AD0D14230F /* ws.technique.water_jfa9.xml */; };
+		62FC2DB36897CC835B4B3C2B /* ws.technique.water_mask.xml in Resources */ = {isa = PBXBuildFile; fileRef = 054031B3E4125CC13564E0E4 /* ws.technique.water_mask.xml */; };
+		98F78E987D402918BDE291D5 /* ws.technique.water_mask.xml in Resources */ = {isa = PBXBuildFile; fileRef = 054031B3E4125CC13564E0E4 /* ws.technique.water_mask.xml */; };
+		6D480AB55222D6033B221A08 /* ws.technique.water_mask.xml in Resources */ = {isa = PBXBuildFile; fileRef = 054031B3E4125CC13564E0E4 /* ws.technique.water_mask.xml */; };
+		4DBF812EA90D6A3202FF3E55 /* ws.technique.water_seed.xml in Resources */ = {isa = PBXBuildFile; fileRef = 0953276F4591274EA2754305 /* ws.technique.water_seed.xml */; };
+		BE8EDCBD6DD50BEEFFEDB7D4 /* ws.technique.water_seed.xml in Resources */ = {isa = PBXBuildFile; fileRef = 0953276F4591274EA2754305 /* ws.technique.water_seed.xml */; };
+		DC0DFF85AC7BC38660D27421 /* ws.technique.water_seed.xml in Resources */ = {isa = PBXBuildFile; fileRef = 0953276F4591274EA2754305 /* ws.technique.water_seed.xml */; };
+		381BC15DF11BF8C19C0C1E26 /* shader_ocean_foam.frag in Resources */ = {isa = PBXBuildFile; fileRef = FF61239FC5DF6380565698C1 /* shader_ocean_foam.frag */; };
+		67415F31A2C78C65B29370CA /* shader_ocean_foam.frag in Resources */ = {isa = PBXBuildFile; fileRef = FF61239FC5DF6380565698C1 /* shader_ocean_foam.frag */; };
+		2ECE22541F51A1A40623F25B /* shader_ocean_foam.frag in Resources */ = {isa = PBXBuildFile; fileRef = FF61239FC5DF6380565698C1 /* shader_ocean_foam.frag */; };
+		22AB725544375D382E73FA2C /* shader_ocean_foam.vert in Resources */ = {isa = PBXBuildFile; fileRef = FB5D99DB303B4187A3300484 /* shader_ocean_foam.vert */; };
+		F0F4951EF2AE89B21511EBBD /* shader_ocean_foam.vert in Resources */ = {isa = PBXBuildFile; fileRef = FB5D99DB303B4187A3300484 /* shader_ocean_foam.vert */; };
+		28FB2047C7A68678D512D703 /* shader_ocean_foam.vert in Resources */ = {isa = PBXBuildFile; fileRef = FB5D99DB303B4187A3300484 /* shader_ocean_foam.vert */; };
+		D7EA1A1A0D7F9D0F2D7766C4 /* shader_water_distance.frag in Resources */ = {isa = PBXBuildFile; fileRef = 19C6EA1EBE719FF755E1D848 /* shader_water_distance.frag */; };
+		26CAEF16344517DF57B69B95 /* shader_water_distance.frag in Resources */ = {isa = PBXBuildFile; fileRef = 19C6EA1EBE719FF755E1D848 /* shader_water_distance.frag */; };
+		FF4E155642038BB6788E1988 /* shader_water_distance.frag in Resources */ = {isa = PBXBuildFile; fileRef = 19C6EA1EBE719FF755E1D848 /* shader_water_distance.frag */; };
+		B2104A9FC7D3D2D7350284E6 /* shader_water_distance.vert in Resources */ = {isa = PBXBuildFile; fileRef = 778D526B597CB5914A367183 /* shader_water_distance.vert */; };
+		FD16749E79246E09BFE4AED0 /* shader_water_distance.vert in Resources */ = {isa = PBXBuildFile; fileRef = 778D526B597CB5914A367183 /* shader_water_distance.vert */; };
+		DF2E687CEEF00F6B860C2A02 /* shader_water_distance.vert in Resources */ = {isa = PBXBuildFile; fileRef = 778D526B597CB5914A367183 /* shader_water_distance.vert */; };
+		F9485D208DFA3F49CD790CE9 /* shader_water_jfa0.frag in Resources */ = {isa = PBXBuildFile; fileRef = 4F84377D3B6BC31532A61DF3 /* shader_water_jfa0.frag */; };
+		F55BB0CE116063C4EB21DA21 /* shader_water_jfa0.frag in Resources */ = {isa = PBXBuildFile; fileRef = 4F84377D3B6BC31532A61DF3 /* shader_water_jfa0.frag */; };
+		9C40164547607B80CA1CD957 /* shader_water_jfa0.frag in Resources */ = {isa = PBXBuildFile; fileRef = 4F84377D3B6BC31532A61DF3 /* shader_water_jfa0.frag */; };
+		83287FA53F9C5B6C239076B2 /* shader_water_jfa0.vert in Resources */ = {isa = PBXBuildFile; fileRef = 3254C23259FAC2146993EDD3 /* shader_water_jfa0.vert */; };
+		E4E5186CB09C4C24949EC168 /* shader_water_jfa0.vert in Resources */ = {isa = PBXBuildFile; fileRef = 3254C23259FAC2146993EDD3 /* shader_water_jfa0.vert */; };
+		ED8FD46D6C3C3575C3FD9D68 /* shader_water_jfa0.vert in Resources */ = {isa = PBXBuildFile; fileRef = 3254C23259FAC2146993EDD3 /* shader_water_jfa0.vert */; };
+		498C13EDABB43CC222B5AEA4 /* shader_water_jfa1.frag in Resources */ = {isa = PBXBuildFile; fileRef = 8F025BA9BC3364441297614C /* shader_water_jfa1.frag */; };
+		F4371AB85E63924B45E1E725 /* shader_water_jfa1.frag in Resources */ = {isa = PBXBuildFile; fileRef = 8F025BA9BC3364441297614C /* shader_water_jfa1.frag */; };
+		998F16BC5BD97E1BC196B0B0 /* shader_water_jfa1.frag in Resources */ = {isa = PBXBuildFile; fileRef = 8F025BA9BC3364441297614C /* shader_water_jfa1.frag */; };
+		915D9A1FEEEDE8AC3EEA5FA6 /* shader_water_jfa1.vert in Resources */ = {isa = PBXBuildFile; fileRef = D1F7A0FECDC3D40B4EC53A97 /* shader_water_jfa1.vert */; };
+		276B9F7CFD47502847B38F38 /* shader_water_jfa1.vert in Resources */ = {isa = PBXBuildFile; fileRef = D1F7A0FECDC3D40B4EC53A97 /* shader_water_jfa1.vert */; };
+		69A36059FB779D407D70420D /* shader_water_jfa1.vert in Resources */ = {isa = PBXBuildFile; fileRef = D1F7A0FECDC3D40B4EC53A97 /* shader_water_jfa1.vert */; };
+		7CFFAD7E1FD03DA5A79CCDDE /* shader_water_jfa10.frag in Resources */ = {isa = PBXBuildFile; fileRef = 833F2C87E0EA549204A10A2B /* shader_water_jfa10.frag */; };
+		DF2116B0F0D224073647B6EA /* shader_water_jfa10.frag in Resources */ = {isa = PBXBuildFile; fileRef = 833F2C87E0EA549204A10A2B /* shader_water_jfa10.frag */; };
+		F11F540C274D1EDC1BA0E67B /* shader_water_jfa10.frag in Resources */ = {isa = PBXBuildFile; fileRef = 833F2C87E0EA549204A10A2B /* shader_water_jfa10.frag */; };
+		C71DAD0F668EF7FDF9494E70 /* shader_water_jfa10.vert in Resources */ = {isa = PBXBuildFile; fileRef = AB5DB900E81BF0DE4A71FD29 /* shader_water_jfa10.vert */; };
+		611F69ACD909116A3832D638 /* shader_water_jfa10.vert in Resources */ = {isa = PBXBuildFile; fileRef = AB5DB900E81BF0DE4A71FD29 /* shader_water_jfa10.vert */; };
+		BDF86B928C862F71D03D8B4D /* shader_water_jfa10.vert in Resources */ = {isa = PBXBuildFile; fileRef = AB5DB900E81BF0DE4A71FD29 /* shader_water_jfa10.vert */; };
+		7109116012DAB0831A03C77D /* shader_water_jfa11.frag in Resources */ = {isa = PBXBuildFile; fileRef = BC53E6DC2C43600A48C5B81D /* shader_water_jfa11.frag */; };
+		E1BD96A830DFB8221171B132 /* shader_water_jfa11.frag in Resources */ = {isa = PBXBuildFile; fileRef = BC53E6DC2C43600A48C5B81D /* shader_water_jfa11.frag */; };
+		4A398A6BFC58DC24C51E1ABC /* shader_water_jfa11.frag in Resources */ = {isa = PBXBuildFile; fileRef = BC53E6DC2C43600A48C5B81D /* shader_water_jfa11.frag */; };
+		285122870632660627647A05 /* shader_water_jfa11.vert in Resources */ = {isa = PBXBuildFile; fileRef = AD932221BE3B60BD1227B226 /* shader_water_jfa11.vert */; };
+		4566D96E2EC67EDA3A3C55EE /* shader_water_jfa11.vert in Resources */ = {isa = PBXBuildFile; fileRef = AD932221BE3B60BD1227B226 /* shader_water_jfa11.vert */; };
+		CDB89FA948D7474369361EEB /* shader_water_jfa11.vert in Resources */ = {isa = PBXBuildFile; fileRef = AD932221BE3B60BD1227B226 /* shader_water_jfa11.vert */; };
+		C0A81A0637FF90A01C775DBA /* shader_water_jfa2.frag in Resources */ = {isa = PBXBuildFile; fileRef = 09865AACE2B313A3BFC46290 /* shader_water_jfa2.frag */; };
+		27738127CC1165F56BCA7D28 /* shader_water_jfa2.frag in Resources */ = {isa = PBXBuildFile; fileRef = 09865AACE2B313A3BFC46290 /* shader_water_jfa2.frag */; };
+		955D8A04E04FCDF6E71539B3 /* shader_water_jfa2.frag in Resources */ = {isa = PBXBuildFile; fileRef = 09865AACE2B313A3BFC46290 /* shader_water_jfa2.frag */; };
+		3B2A86812D0750784B515276 /* shader_water_jfa2.vert in Resources */ = {isa = PBXBuildFile; fileRef = DF28B34CDB550469C86F9C8F /* shader_water_jfa2.vert */; };
+		CD4619FD4D92AEDFE738F206 /* shader_water_jfa2.vert in Resources */ = {isa = PBXBuildFile; fileRef = DF28B34CDB550469C86F9C8F /* shader_water_jfa2.vert */; };
+		5AF49349A19B5ACB60014C92 /* shader_water_jfa2.vert in Resources */ = {isa = PBXBuildFile; fileRef = DF28B34CDB550469C86F9C8F /* shader_water_jfa2.vert */; };
+		6D7FCE9B7296F30627055A37 /* shader_water_jfa3.frag in Resources */ = {isa = PBXBuildFile; fileRef = D902E651380DD29F9E7EA900 /* shader_water_jfa3.frag */; };
+		752BDBAACFB507979B2A5460 /* shader_water_jfa3.frag in Resources */ = {isa = PBXBuildFile; fileRef = D902E651380DD29F9E7EA900 /* shader_water_jfa3.frag */; };
+		3AF9C162CC00C3E0C09F5F02 /* shader_water_jfa3.frag in Resources */ = {isa = PBXBuildFile; fileRef = D902E651380DD29F9E7EA900 /* shader_water_jfa3.frag */; };
+		681649A3ECF1BF1B5200BB5D /* shader_water_jfa3.vert in Resources */ = {isa = PBXBuildFile; fileRef = 8F6F88D57179180A867BF701 /* shader_water_jfa3.vert */; };
+		963A81BF193A6C6DF18CF71C /* shader_water_jfa3.vert in Resources */ = {isa = PBXBuildFile; fileRef = 8F6F88D57179180A867BF701 /* shader_water_jfa3.vert */; };
+		9C873672731B9B279E457A78 /* shader_water_jfa3.vert in Resources */ = {isa = PBXBuildFile; fileRef = 8F6F88D57179180A867BF701 /* shader_water_jfa3.vert */; };
+		ACB1BB6BE6E69BA643ABC08F /* shader_water_jfa4.frag in Resources */ = {isa = PBXBuildFile; fileRef = 2CC869ABB420D30EBF26E6F1 /* shader_water_jfa4.frag */; };
+		45C2208A492676A23D45C60D /* shader_water_jfa4.frag in Resources */ = {isa = PBXBuildFile; fileRef = 2CC869ABB420D30EBF26E6F1 /* shader_water_jfa4.frag */; };
+		50FFD263613734320CEE3986 /* shader_water_jfa4.frag in Resources */ = {isa = PBXBuildFile; fileRef = 2CC869ABB420D30EBF26E6F1 /* shader_water_jfa4.frag */; };
+		0F6C6FFACF3AE96CD3E812FB /* shader_water_jfa4.vert in Resources */ = {isa = PBXBuildFile; fileRef = 5F4F381CD5368161DE273DD3 /* shader_water_jfa4.vert */; };
+		3F63C1C9B167F529F88509D5 /* shader_water_jfa4.vert in Resources */ = {isa = PBXBuildFile; fileRef = 5F4F381CD5368161DE273DD3 /* shader_water_jfa4.vert */; };
+		5F5935B943D6A1D8F19DD402 /* shader_water_jfa4.vert in Resources */ = {isa = PBXBuildFile; fileRef = 5F4F381CD5368161DE273DD3 /* shader_water_jfa4.vert */; };
+		B71448570B49DF40D67EBB06 /* shader_water_jfa5.frag in Resources */ = {isa = PBXBuildFile; fileRef = 7D3AF14EB0E377CD2F38AEA4 /* shader_water_jfa5.frag */; };
+		E9AEACDB4A6ADFB6762995A8 /* shader_water_jfa5.frag in Resources */ = {isa = PBXBuildFile; fileRef = 7D3AF14EB0E377CD2F38AEA4 /* shader_water_jfa5.frag */; };
+		E763FFCFEC0BBC8565AF1017 /* shader_water_jfa5.frag in Resources */ = {isa = PBXBuildFile; fileRef = 7D3AF14EB0E377CD2F38AEA4 /* shader_water_jfa5.frag */; };
+		5C8D86E14EB23B2EC2CBBE86 /* shader_water_jfa5.vert in Resources */ = {isa = PBXBuildFile; fileRef = C5CA8B4CDA82DFECD7265614 /* shader_water_jfa5.vert */; };
+		A2C70127CEA37285C5D75757 /* shader_water_jfa5.vert in Resources */ = {isa = PBXBuildFile; fileRef = C5CA8B4CDA82DFECD7265614 /* shader_water_jfa5.vert */; };
+		045183ED36B8239C044D8A1F /* shader_water_jfa5.vert in Resources */ = {isa = PBXBuildFile; fileRef = C5CA8B4CDA82DFECD7265614 /* shader_water_jfa5.vert */; };
+		04D784C83165BFD025436C90 /* shader_water_jfa6.frag in Resources */ = {isa = PBXBuildFile; fileRef = F37F334F4123B0CA9C855479 /* shader_water_jfa6.frag */; };
+		FACD93953F4BBFCE38FEB7C1 /* shader_water_jfa6.frag in Resources */ = {isa = PBXBuildFile; fileRef = F37F334F4123B0CA9C855479 /* shader_water_jfa6.frag */; };
+		A978B57404A3C6F5B0BD763E /* shader_water_jfa6.frag in Resources */ = {isa = PBXBuildFile; fileRef = F37F334F4123B0CA9C855479 /* shader_water_jfa6.frag */; };
+		52B390EF9AFD9DE4EB8CB21E /* shader_water_jfa6.vert in Resources */ = {isa = PBXBuildFile; fileRef = E0E830BD6D529EF6E7BDCBF9 /* shader_water_jfa6.vert */; };
+		C9DDB248ED8B4AEB3FA41CF4 /* shader_water_jfa6.vert in Resources */ = {isa = PBXBuildFile; fileRef = E0E830BD6D529EF6E7BDCBF9 /* shader_water_jfa6.vert */; };
+		9BC74272C08884AFD9553414 /* shader_water_jfa6.vert in Resources */ = {isa = PBXBuildFile; fileRef = E0E830BD6D529EF6E7BDCBF9 /* shader_water_jfa6.vert */; };
+		08D72EABF8CC7AE82CE66FD3 /* shader_water_jfa7.frag in Resources */ = {isa = PBXBuildFile; fileRef = 47F4ABD06C0B5155A8503173 /* shader_water_jfa7.frag */; };
+		ABE55583269AA84CB45A3F14 /* shader_water_jfa7.frag in Resources */ = {isa = PBXBuildFile; fileRef = 47F4ABD06C0B5155A8503173 /* shader_water_jfa7.frag */; };
+		D51D2A362ECC9ADA54DA6FBE /* shader_water_jfa7.frag in Resources */ = {isa = PBXBuildFile; fileRef = 47F4ABD06C0B5155A8503173 /* shader_water_jfa7.frag */; };
+		634C4F92C41B35D49E90F13E /* shader_water_jfa7.vert in Resources */ = {isa = PBXBuildFile; fileRef = 32AB57D77BB07E5D5FDF5A55 /* shader_water_jfa7.vert */; };
+		B98642E30B9A5FBD881BEC4C /* shader_water_jfa7.vert in Resources */ = {isa = PBXBuildFile; fileRef = 32AB57D77BB07E5D5FDF5A55 /* shader_water_jfa7.vert */; };
+		5150AC5F2FCF1A6726D0B6FD /* shader_water_jfa7.vert in Resources */ = {isa = PBXBuildFile; fileRef = 32AB57D77BB07E5D5FDF5A55 /* shader_water_jfa7.vert */; };
+		D27BD4419B33ED73A1286782 /* shader_water_jfa8.frag in Resources */ = {isa = PBXBuildFile; fileRef = 8117024ECDD773D90FEF81E2 /* shader_water_jfa8.frag */; };
+		77AD7EF90170E39F917894C6 /* shader_water_jfa8.frag in Resources */ = {isa = PBXBuildFile; fileRef = 8117024ECDD773D90FEF81E2 /* shader_water_jfa8.frag */; };
+		441B43B40A586087E235EA78 /* shader_water_jfa8.frag in Resources */ = {isa = PBXBuildFile; fileRef = 8117024ECDD773D90FEF81E2 /* shader_water_jfa8.frag */; };
+		2E4ED41F0484AD8021AC838B /* shader_water_jfa8.vert in Resources */ = {isa = PBXBuildFile; fileRef = B3AD1DFA5BA414256D798744 /* shader_water_jfa8.vert */; };
+		DE02DBDD061BD6334AC7513E /* shader_water_jfa8.vert in Resources */ = {isa = PBXBuildFile; fileRef = B3AD1DFA5BA414256D798744 /* shader_water_jfa8.vert */; };
+		28363938DCB944137F7132DE /* shader_water_jfa8.vert in Resources */ = {isa = PBXBuildFile; fileRef = B3AD1DFA5BA414256D798744 /* shader_water_jfa8.vert */; };
+		561A7CC4052FBD3A09E1A9FA /* shader_water_jfa9.frag in Resources */ = {isa = PBXBuildFile; fileRef = 4CCA4588334B6E742F634CBC /* shader_water_jfa9.frag */; };
+		E2B900007809E8D8AB928565 /* shader_water_jfa9.frag in Resources */ = {isa = PBXBuildFile; fileRef = 4CCA4588334B6E742F634CBC /* shader_water_jfa9.frag */; };
+		D0838F801EC7DBB52F067103 /* shader_water_jfa9.frag in Resources */ = {isa = PBXBuildFile; fileRef = 4CCA4588334B6E742F634CBC /* shader_water_jfa9.frag */; };
+		499F9B4B08B100492A602857 /* shader_water_jfa9.vert in Resources */ = {isa = PBXBuildFile; fileRef = 584A57D49C821E16937971AA /* shader_water_jfa9.vert */; };
+		5CA9B807DD44205DC3FB159E /* shader_water_jfa9.vert in Resources */ = {isa = PBXBuildFile; fileRef = 584A57D49C821E16937971AA /* shader_water_jfa9.vert */; };
+		D4187AB3DF0447C451598224 /* shader_water_jfa9.vert in Resources */ = {isa = PBXBuildFile; fileRef = 584A57D49C821E16937971AA /* shader_water_jfa9.vert */; };
+		1CFC2CE8FCE6F2C9708AE6AA /* shader_water_land.frag in Resources */ = {isa = PBXBuildFile; fileRef = 531D5B08184770AAA0323307 /* shader_water_land.frag */; };
+		B09DC5DFE2F0F98F9AFA1698 /* shader_water_land.frag in Resources */ = {isa = PBXBuildFile; fileRef = 531D5B08184770AAA0323307 /* shader_water_land.frag */; };
+		F4698CE89D896ED2B89C3BE2 /* shader_water_land.frag in Resources */ = {isa = PBXBuildFile; fileRef = 531D5B08184770AAA0323307 /* shader_water_land.frag */; };
+		B9CF700D5025AFABEB7F84BB /* shader_water_land.vert in Resources */ = {isa = PBXBuildFile; fileRef = F9454C6A7BCA1F896185C2C2 /* shader_water_land.vert */; };
+		59E177A21D29402FCA3DC432 /* shader_water_land.vert in Resources */ = {isa = PBXBuildFile; fileRef = F9454C6A7BCA1F896185C2C2 /* shader_water_land.vert */; };
+		FDFDA7FC9CC71CB30CDCB2E3 /* shader_water_land.vert in Resources */ = {isa = PBXBuildFile; fileRef = F9454C6A7BCA1F896185C2C2 /* shader_water_land.vert */; };
+		4BFA8CC4CC6DD29B957DE77D /* shader_water_mask.frag in Resources */ = {isa = PBXBuildFile; fileRef = 6234EBEB1C591B07B64DA7D1 /* shader_water_mask.frag */; };
+		91056DC15AC8BE73093B9518 /* shader_water_mask.frag in Resources */ = {isa = PBXBuildFile; fileRef = 6234EBEB1C591B07B64DA7D1 /* shader_water_mask.frag */; };
+		CD676D039117D7FDE598DC35 /* shader_water_mask.frag in Resources */ = {isa = PBXBuildFile; fileRef = 6234EBEB1C591B07B64DA7D1 /* shader_water_mask.frag */; };
+		72A88FC2F658CB93D4E862FC /* shader_water_mask.vert in Resources */ = {isa = PBXBuildFile; fileRef = B4652CED9AE4E10BCA428A7D /* shader_water_mask.vert */; };
+		ACB60C4360E5F80ADF54CAC5 /* shader_water_mask.vert in Resources */ = {isa = PBXBuildFile; fileRef = B4652CED9AE4E10BCA428A7D /* shader_water_mask.vert */; };
+		8100F6A44B70224B9FBBA177 /* shader_water_mask.vert in Resources */ = {isa = PBXBuildFile; fileRef = B4652CED9AE4E10BCA428A7D /* shader_water_mask.vert */; };
+		C7F0EA3E747C425A645D4D55 /* shader_water_seed.frag in Resources */ = {isa = PBXBuildFile; fileRef = BE3EDF6BF806B2B3E068AB57 /* shader_water_seed.frag */; };
+		C19D08F5D2E6BE0FD2866CCD /* shader_water_seed.frag in Resources */ = {isa = PBXBuildFile; fileRef = BE3EDF6BF806B2B3E068AB57 /* shader_water_seed.frag */; };
+		B109C6F573B5A459FCC8D924 /* shader_water_seed.frag in Resources */ = {isa = PBXBuildFile; fileRef = BE3EDF6BF806B2B3E068AB57 /* shader_water_seed.frag */; };
+		EEBE90AFE1484E201736B37E /* shader_water_seed.vert in Resources */ = {isa = PBXBuildFile; fileRef = D84A6EF65DAB06263E430076 /* shader_water_seed.vert */; };
+		CE7D59B6A6E9FA7BE2E1D3EA /* shader_water_seed.vert in Resources */ = {isa = PBXBuildFile; fileRef = D84A6EF65DAB06263E430076 /* shader_water_seed.vert */; };
+		FA5EA05122BF5AEDFBD2AF4D /* shader_water_seed.vert in Resources */ = {isa = PBXBuildFile; fileRef = D84A6EF65DAB06263E430076 /* shader_water_seed.vert */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -3120,6 +3481,141 @@
 		FA2026092100000000000011 /* material.ss.basic_demo.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.ss.basic_demo.xml; path = ../gbBundle/Configurations/techniques/material/material.ss.basic_demo.xml; sourceTree = "<group>"; };
 		B03BBCAEAF0EADAC4962DAA0 /* island_terrain.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = island_terrain.xml; path = ../gbBundle/Configurations/game_objects/island_terrain.xml; sourceTree = "<group>"; };
 		5277CBDEC95D25661D6BC982 /* material.island_terrain.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.island_terrain.xml; path = ../gbBundle/Configurations/game_objects/materials/material.island_terrain.xml; sourceTree = "<group>"; };
+		5A838DA85AC086E9FF89E7D6 /* ocean_wave_model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ocean_wave_model.h; path = sources/ocean_wave_model.h; sourceTree = "<group>"; };
+		AD922F56F0579CBF272D222C /* ocean_wave_model.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ocean_wave_model.cpp; path = sources/ocean_wave_model.cpp; sourceTree = "<group>"; };
+		997455B6AF223F7BC19A9D44 /* ocean_mesh_builder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ocean_mesh_builder.h; path = sources/ocean_mesh_builder.h; sourceTree = "<group>"; };
+		844899274468FDD3DC8C7CE7 /* ocean_mesh_builder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ocean_mesh_builder.cpp; path = sources/ocean_mesh_builder.cpp; sourceTree = "<group>"; };
+		0FC98979F031C0BB676A1DB3 /* ocean_shader_uniforms.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ocean_shader_uniforms.h; path = sources/ocean_shader_uniforms.h; sourceTree = "<group>"; };
+		164EDCA7782B63BFAD30B2AE /* ocean_shader_uniforms.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ocean_shader_uniforms.cpp; path = sources/ocean_shader_uniforms.cpp; sourceTree = "<group>"; };
+		FFF0E56B047111F900A3E2ED /* ces_ocean_system.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_ocean_system.h; path = sources/ces_ocean_system.h; sourceTree = "<group>"; };
+		40E2BF897BEC1A7ACD0CCB47 /* ces_ocean_system.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_ocean_system.cpp; path = sources/ces_ocean_system.cpp; sourceTree = "<group>"; };
+		9D0CFF01317E40D5E638EE1F /* ocean.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ocean.xml; path = ../gbBundle/Configurations/game_objects/ocean.xml; sourceTree = "<group>"; };
+		A4286FACD8BFB2B1EA54AFF6 /* ocean_prop.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ocean_prop.xml; path = ../gbBundle/Configurations/game_objects/ocean_prop.xml; sourceTree = "<group>"; };
+		39C90A622BDE3D596E3C6809 /* material.ocean.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.ocean.xml; path = ../gbBundle/Configurations/game_objects/materials/material.ocean.xml; sourceTree = "<group>"; };
+		D92CDE547D61A8CFF517B82D /* material.ocean_prop.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.ocean_prop.xml; path = ../gbBundle/Configurations/game_objects/materials/material.ocean_prop.xml; sourceTree = "<group>"; };
+		C9884BA56FE65C3D6325E3ED /* material.ss.ocean_compose.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.ss.ocean_compose.xml; path = ../gbBundle/Configurations/techniques/material/material.ss.ocean_compose.xml; sourceTree = "<group>"; };
+		20B0ED85AFAAEF3D01A3179B /* material.ss.output.island_demo.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.ss.output.island_demo.xml; path = ../gbBundle/Configurations/techniques/material/material.ss.output.island_demo.xml; sourceTree = "<group>"; };
+		FB36F872C5E6E686B69C5767 /* output.technique.island_demo.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = output.technique.island_demo.xml; path = ../gbBundle/Configurations/techniques/output_techniques/output.technique.island_demo.xml; sourceTree = "<group>"; };
+		8893B4EDA45B5C4F89E26035 /* ss.technique.ocean_compose.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ss.technique.ocean_compose.xml; path = ../gbBundle/Configurations/techniques/ss_techniques/ss.technique.ocean_compose.xml; sourceTree = "<group>"; };
+		BBE3F41F602DF5A1BE8F9977 /* ws.technique.ocean.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ws.technique.ocean.xml; path = ../gbBundle/Configurations/techniques/ws_techniques/ws.technique.ocean.xml; sourceTree = "<group>"; };
+		874D989BEF23876454C4A1D5 /* shader_ocean.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_ocean.frag; path = ../gbBundle/Shaders/shader_ocean.frag; sourceTree = "<group>"; };
+		670CB4660EF644A6267365F0 /* shader_ocean.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_ocean.vert; path = ../gbBundle/Shaders/shader_ocean.vert; sourceTree = "<group>"; };
+		A420ECD51A7884140CBD6235 /* shader_ocean_compose.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_ocean_compose.frag; path = ../gbBundle/Shaders/shader_ocean_compose.frag; sourceTree = "<group>"; };
+		8181964D5751251E6C090E86 /* shader_ocean_compose.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_ocean_compose.vert; path = ../gbBundle/Shaders/shader_ocean_compose.vert; sourceTree = "<group>"; };
+		1D2EED690ED5B91EC094BADE /* buoyancy_simulation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = buoyancy_simulation.h; path = sources/buoyancy_simulation.h; sourceTree = "<group>"; };
+		644DDA5A0CC4997C01B854E1 /* buoyancy_simulation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = buoyancy_simulation.cpp; path = sources/buoyancy_simulation.cpp; sourceTree = "<group>"; };
+		8818972C1134759A3579C674 /* ces_buoyancy_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_buoyancy_component.h; path = sources/ces_buoyancy_component.h; sourceTree = "<group>"; };
+		B14FE92FCBB5F45AC008F37A /* ces_buoyancy_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_buoyancy_component.cpp; path = sources/ces_buoyancy_component.cpp; sourceTree = "<group>"; };
+		C89AEC1D8B1C4E830F91B446 /* ocean_demo_props.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ocean_demo_props.h; path = sources/ocean_demo_props.h; sourceTree = "<group>"; };
+		9AFA0C0227C4FCA58A568F04 /* ocean_demo_props.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ocean_demo_props.cpp; path = sources/ocean_demo_props.cpp; sourceTree = "<group>"; };
+		803361A3BFE1A43D75422D76 /* mtl_ocean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mtl_ocean.h; path = ../gbBundle/Shaders/metal/mtl_ocean.h; sourceTree = "<group>"; };
+		D4FCB25F4B2D565D8DCE9BED /* resident_navigation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = resident_navigation.h; path = sources/resident_navigation.h; sourceTree = "<group>"; };
+		45C0A5A2063FDC44A351E059 /* resident_navigation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = resident_navigation.cpp; path = sources/resident_navigation.cpp; sourceTree = "<group>"; };
+		3AADA6E6F76B1E8C78EA1D70 /* resident_behavior.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = resident_behavior.h; path = sources/resident_behavior.h; sourceTree = "<group>"; };
+		B77428D6841BAA50F9EFEEAD /* resident_behavior.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = resident_behavior.cpp; path = sources/resident_behavior.cpp; sourceTree = "<group>"; };
+		87FAFD747128E6A51E3020C1 /* resident_shader_uniforms.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = resident_shader_uniforms.h; path = sources/resident_shader_uniforms.h; sourceTree = "<group>"; };
+		6276F2083ED180E2A55C71E6 /* resident_shader_uniforms.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = resident_shader_uniforms.cpp; path = sources/resident_shader_uniforms.cpp; sourceTree = "<group>"; };
+		E1304A92666E02DB49FE1DC2 /* ces_island_resident_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_island_resident_component.h; path = sources/ces_island_resident_component.h; sourceTree = "<group>"; };
+		1ADA084BF43B022907552BA4 /* ces_island_resident_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_island_resident_component.cpp; path = sources/ces_island_resident_component.cpp; sourceTree = "<group>"; };
+		04AD197C1C404961C7BE05A4 /* ces_island_resident_system.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_island_resident_system.h; path = sources/ces_island_resident_system.h; sourceTree = "<group>"; };
+		B691A7BA3D55BFBF4646E816 /* ces_island_resident_system.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_island_resident_system.cpp; path = sources/ces_island_resident_system.cpp; sourceTree = "<group>"; };
+		9910DD8A50614B75E86E328B /* island_resident_demo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = island_resident_demo.h; path = sources/island_resident_demo.h; sourceTree = "<group>"; };
+		71C8D4F429FE11056752A0DC /* island_resident_demo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = island_resident_demo.cpp; path = sources/island_resident_demo.cpp; sourceTree = "<group>"; };
+		73360986658204632A422F1B /* island_resident.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = island_resident.xml; path = ../gbBundle/Configurations/game_objects/island_resident.xml; sourceTree = "<group>"; };
+		AE6DAF2E6D537A8185CB1E91 /* material.island_resident.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.island_resident.xml; path = ../gbBundle/Configurations/game_objects/materials/material.island_resident.xml; sourceTree = "<group>"; };
+		F7A700D29CA9FA5CF7FA4B0C /* island_resident.fbx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = island_resident.fbx; path = ../gbBundle/Meshes/island_resident.fbx; sourceTree = "<group>"; };
+		341AF683E993DC48A3821E11 /* island_resident_idle.fbx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = island_resident_idle.fbx; path = ../gbBundle/Meshes/island_resident_idle.fbx; sourceTree = "<group>"; };
+		10FBA633DA8A4B6356E7232B /* island_resident_walk.fbx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = island_resident_walk.fbx; path = ../gbBundle/Meshes/island_resident_walk.fbx; sourceTree = "<group>"; };
+		4E7AB772734803AD58EB2926 /* shader_island_resident.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_island_resident.frag; path = ../gbBundle/Shaders/shader_island_resident.frag; sourceTree = "<group>"; };
+		C5CE1342A9F7D64CA10B325F /* shader_island_resident.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_island_resident.vert; path = ../gbBundle/Shaders/shader_island_resident.vert; sourceTree = "<group>"; };
+		C2472D31857B0C53C3028B53 /* mtl_island_resident.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mtl_island_resident.h; path = ../gbBundle/Shaders/metal/mtl_island_resident.h; sourceTree = "<group>"; };
+		B82D2E767D3FBA5A838F6E37 /* island_resident_clothing_mask.png */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = island_resident_clothing_mask.png; path = ../gbBundle/Textures/island_resident_clothing_mask.png; sourceTree = "<group>"; };
+		E917EA416A6B61CDDCDABF8B /* island_resident_palette.png */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = island_resident_palette.png; path = ../gbBundle/Textures/island_resident_palette.png; sourceTree = "<group>"; };
+		EF693528B84E3FCF319E70CE /* resident_asset_validation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = resident_asset_validation.h; path = sources/resident_asset_validation.h; sourceTree = "<group>"; };
+		2F7BD3BF0B8F9812A2CB5E38 /* material.ocean_foam.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.ocean_foam.xml; path = ../gbBundle/Configurations/game_objects/materials/material.ocean_foam.xml; sourceTree = "<group>"; };
+		F6EBDBAD350873E748F73CEC /* material.water_distance.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.water_distance.xml; path = ../gbBundle/Configurations/game_objects/materials/material.water_distance.xml; sourceTree = "<group>"; };
+		160D11851368DF49C695F300 /* material.water_jfa0.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.water_jfa0.xml; path = ../gbBundle/Configurations/game_objects/materials/material.water_jfa0.xml; sourceTree = "<group>"; };
+		F6CA067089FA378BB389C2D6 /* material.water_jfa1.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.water_jfa1.xml; path = ../gbBundle/Configurations/game_objects/materials/material.water_jfa1.xml; sourceTree = "<group>"; };
+		7580573A0BA595B19E6C9843 /* material.water_jfa10.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.water_jfa10.xml; path = ../gbBundle/Configurations/game_objects/materials/material.water_jfa10.xml; sourceTree = "<group>"; };
+		108E6F96F90DB73E114F0F0D /* material.water_jfa11.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.water_jfa11.xml; path = ../gbBundle/Configurations/game_objects/materials/material.water_jfa11.xml; sourceTree = "<group>"; };
+		26581A7E488B3B5FEC242F93 /* material.water_jfa2.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.water_jfa2.xml; path = ../gbBundle/Configurations/game_objects/materials/material.water_jfa2.xml; sourceTree = "<group>"; };
+		F71F0509B63CA03F1704714E /* material.water_jfa3.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.water_jfa3.xml; path = ../gbBundle/Configurations/game_objects/materials/material.water_jfa3.xml; sourceTree = "<group>"; };
+		FF9CB88BE3CF40FE37922C04 /* material.water_jfa4.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.water_jfa4.xml; path = ../gbBundle/Configurations/game_objects/materials/material.water_jfa4.xml; sourceTree = "<group>"; };
+		3EAEB9B1B448EB9FA4E250E6 /* material.water_jfa5.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.water_jfa5.xml; path = ../gbBundle/Configurations/game_objects/materials/material.water_jfa5.xml; sourceTree = "<group>"; };
+		D6D22F2E40448E57F49B623C /* material.water_jfa6.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.water_jfa6.xml; path = ../gbBundle/Configurations/game_objects/materials/material.water_jfa6.xml; sourceTree = "<group>"; };
+		AAB4D103405D87A6EFFCD81B /* material.water_jfa7.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.water_jfa7.xml; path = ../gbBundle/Configurations/game_objects/materials/material.water_jfa7.xml; sourceTree = "<group>"; };
+		EE7BE06A8D7CC576DC686083 /* material.water_jfa8.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.water_jfa8.xml; path = ../gbBundle/Configurations/game_objects/materials/material.water_jfa8.xml; sourceTree = "<group>"; };
+		BC6D86441967F877060D781A /* material.water_jfa9.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.water_jfa9.xml; path = ../gbBundle/Configurations/game_objects/materials/material.water_jfa9.xml; sourceTree = "<group>"; };
+		EF6FC83D980A3FCA253EA697 /* material.water_land.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.water_land.xml; path = ../gbBundle/Configurations/game_objects/materials/material.water_land.xml; sourceTree = "<group>"; };
+		F02875B13D9B213636CC97A4 /* material.water_mask.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.water_mask.xml; path = ../gbBundle/Configurations/game_objects/materials/material.water_mask.xml; sourceTree = "<group>"; };
+		C1112DCB11D7964B3FC0757C /* material.water_seed.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.water_seed.xml; path = ../gbBundle/Configurations/game_objects/materials/material.water_seed.xml; sourceTree = "<group>"; };
+		CC5F56C2E533353BAC435B21 /* water_distance.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = water_distance.xml; path = ../gbBundle/Configurations/game_objects/water_distance.xml; sourceTree = "<group>"; };
+		81EDC94C16ADBAC252F0869A /* water_jfa0.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = water_jfa0.xml; path = ../gbBundle/Configurations/game_objects/water_jfa0.xml; sourceTree = "<group>"; };
+		4047E8C5C584A3B74CEBFB19 /* water_jfa1.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = water_jfa1.xml; path = ../gbBundle/Configurations/game_objects/water_jfa1.xml; sourceTree = "<group>"; };
+		9BEA3A649F6EEAECCFF0F09A /* water_jfa10.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = water_jfa10.xml; path = ../gbBundle/Configurations/game_objects/water_jfa10.xml; sourceTree = "<group>"; };
+		87685EA797DBA4B3534E142F /* water_jfa11.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = water_jfa11.xml; path = ../gbBundle/Configurations/game_objects/water_jfa11.xml; sourceTree = "<group>"; };
+		D4C425D0A47CE258AD4184A4 /* water_jfa2.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = water_jfa2.xml; path = ../gbBundle/Configurations/game_objects/water_jfa2.xml; sourceTree = "<group>"; };
+		0A11D4CBFAA3583CF80C3270 /* water_jfa3.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = water_jfa3.xml; path = ../gbBundle/Configurations/game_objects/water_jfa3.xml; sourceTree = "<group>"; };
+		649EF60315C4BE40923ACF66 /* water_jfa4.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = water_jfa4.xml; path = ../gbBundle/Configurations/game_objects/water_jfa4.xml; sourceTree = "<group>"; };
+		D374252E64023FAB295BE161 /* water_jfa5.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = water_jfa5.xml; path = ../gbBundle/Configurations/game_objects/water_jfa5.xml; sourceTree = "<group>"; };
+		5DBFF126D6E744490B3BAFD4 /* water_jfa6.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = water_jfa6.xml; path = ../gbBundle/Configurations/game_objects/water_jfa6.xml; sourceTree = "<group>"; };
+		94C7AD710EA362225BFF2638 /* water_jfa7.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = water_jfa7.xml; path = ../gbBundle/Configurations/game_objects/water_jfa7.xml; sourceTree = "<group>"; };
+		45EDEDA70FE0190244540437 /* water_jfa8.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = water_jfa8.xml; path = ../gbBundle/Configurations/game_objects/water_jfa8.xml; sourceTree = "<group>"; };
+		8552D8C5375BDF8DCBFB5DE4 /* water_jfa9.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = water_jfa9.xml; path = ../gbBundle/Configurations/game_objects/water_jfa9.xml; sourceTree = "<group>"; };
+		9335AB093DA0DD727D6E0F1F /* water_land.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = water_land.xml; path = ../gbBundle/Configurations/game_objects/water_land.xml; sourceTree = "<group>"; };
+		D1D387CA4727147D0D4AB098 /* water_mask.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = water_mask.xml; path = ../gbBundle/Configurations/game_objects/water_mask.xml; sourceTree = "<group>"; };
+		B3465321915D1495368D6F67 /* water_seed.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = water_seed.xml; path = ../gbBundle/Configurations/game_objects/water_seed.xml; sourceTree = "<group>"; };
+		671582D42BF1C0B503976438 /* ws.technique.ocean_foam.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ws.technique.ocean_foam.xml; path = ../gbBundle/Configurations/techniques/ws_techniques/ws.technique.ocean_foam.xml; sourceTree = "<group>"; };
+		A8DE7D7C24BDA45943293F61 /* ws.technique.water_distance.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ws.technique.water_distance.xml; path = ../gbBundle/Configurations/techniques/ws_techniques/ws.technique.water_distance.xml; sourceTree = "<group>"; };
+		6F7AD0C60420D4D7501B7393 /* ws.technique.water_jfa0.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ws.technique.water_jfa0.xml; path = ../gbBundle/Configurations/techniques/ws_techniques/ws.technique.water_jfa0.xml; sourceTree = "<group>"; };
+		1933A5160FA02C0F88133AF9 /* ws.technique.water_jfa1.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ws.technique.water_jfa1.xml; path = ../gbBundle/Configurations/techniques/ws_techniques/ws.technique.water_jfa1.xml; sourceTree = "<group>"; };
+		693E771A786CF5D9C8BBDBF9 /* ws.technique.water_jfa10.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ws.technique.water_jfa10.xml; path = ../gbBundle/Configurations/techniques/ws_techniques/ws.technique.water_jfa10.xml; sourceTree = "<group>"; };
+		21F5959E510459D121A85081 /* ws.technique.water_jfa11.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ws.technique.water_jfa11.xml; path = ../gbBundle/Configurations/techniques/ws_techniques/ws.technique.water_jfa11.xml; sourceTree = "<group>"; };
+		4939EBE1937E5E7DEE7830A3 /* ws.technique.water_jfa2.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ws.technique.water_jfa2.xml; path = ../gbBundle/Configurations/techniques/ws_techniques/ws.technique.water_jfa2.xml; sourceTree = "<group>"; };
+		094C7B01192AAC16D1CCB812 /* ws.technique.water_jfa3.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ws.technique.water_jfa3.xml; path = ../gbBundle/Configurations/techniques/ws_techniques/ws.technique.water_jfa3.xml; sourceTree = "<group>"; };
+		BC1559C4B6CF05AB66706881 /* ws.technique.water_jfa4.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ws.technique.water_jfa4.xml; path = ../gbBundle/Configurations/techniques/ws_techniques/ws.technique.water_jfa4.xml; sourceTree = "<group>"; };
+		1DF846BB14BF36F07CB83A7C /* ws.technique.water_jfa5.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ws.technique.water_jfa5.xml; path = ../gbBundle/Configurations/techniques/ws_techniques/ws.technique.water_jfa5.xml; sourceTree = "<group>"; };
+		D1BCF35048EAE6EAD74A8177 /* ws.technique.water_jfa6.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ws.technique.water_jfa6.xml; path = ../gbBundle/Configurations/techniques/ws_techniques/ws.technique.water_jfa6.xml; sourceTree = "<group>"; };
+		FD20DF5C55E54671C77015BC /* ws.technique.water_jfa7.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ws.technique.water_jfa7.xml; path = ../gbBundle/Configurations/techniques/ws_techniques/ws.technique.water_jfa7.xml; sourceTree = "<group>"; };
+		541F614AAA7882374961C61B /* ws.technique.water_jfa8.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ws.technique.water_jfa8.xml; path = ../gbBundle/Configurations/techniques/ws_techniques/ws.technique.water_jfa8.xml; sourceTree = "<group>"; };
+		2EF2FFC70E9383AD0D14230F /* ws.technique.water_jfa9.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ws.technique.water_jfa9.xml; path = ../gbBundle/Configurations/techniques/ws_techniques/ws.technique.water_jfa9.xml; sourceTree = "<group>"; };
+		054031B3E4125CC13564E0E4 /* ws.technique.water_mask.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ws.technique.water_mask.xml; path = ../gbBundle/Configurations/techniques/ws_techniques/ws.technique.water_mask.xml; sourceTree = "<group>"; };
+		0953276F4591274EA2754305 /* ws.technique.water_seed.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ws.technique.water_seed.xml; path = ../gbBundle/Configurations/techniques/ws_techniques/ws.technique.water_seed.xml; sourceTree = "<group>"; };
+		AE7FBF91A6037B0A252DD9F7 /* mtl_water_interaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mtl_water_interaction.h; path = ../gbBundle/Shaders/metal/mtl_water_interaction.h; sourceTree = "<group>"; };
+		FF61239FC5DF6380565698C1 /* shader_ocean_foam.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_ocean_foam.frag; path = ../gbBundle/Shaders/shader_ocean_foam.frag; sourceTree = "<group>"; };
+		FB5D99DB303B4187A3300484 /* shader_ocean_foam.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_ocean_foam.vert; path = ../gbBundle/Shaders/shader_ocean_foam.vert; sourceTree = "<group>"; };
+		19C6EA1EBE719FF755E1D848 /* shader_water_distance.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_water_distance.frag; path = ../gbBundle/Shaders/shader_water_distance.frag; sourceTree = "<group>"; };
+		778D526B597CB5914A367183 /* shader_water_distance.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_water_distance.vert; path = ../gbBundle/Shaders/shader_water_distance.vert; sourceTree = "<group>"; };
+		4F84377D3B6BC31532A61DF3 /* shader_water_jfa0.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_water_jfa0.frag; path = ../gbBundle/Shaders/shader_water_jfa0.frag; sourceTree = "<group>"; };
+		3254C23259FAC2146993EDD3 /* shader_water_jfa0.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_water_jfa0.vert; path = ../gbBundle/Shaders/shader_water_jfa0.vert; sourceTree = "<group>"; };
+		8F025BA9BC3364441297614C /* shader_water_jfa1.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_water_jfa1.frag; path = ../gbBundle/Shaders/shader_water_jfa1.frag; sourceTree = "<group>"; };
+		D1F7A0FECDC3D40B4EC53A97 /* shader_water_jfa1.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_water_jfa1.vert; path = ../gbBundle/Shaders/shader_water_jfa1.vert; sourceTree = "<group>"; };
+		833F2C87E0EA549204A10A2B /* shader_water_jfa10.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_water_jfa10.frag; path = ../gbBundle/Shaders/shader_water_jfa10.frag; sourceTree = "<group>"; };
+		AB5DB900E81BF0DE4A71FD29 /* shader_water_jfa10.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_water_jfa10.vert; path = ../gbBundle/Shaders/shader_water_jfa10.vert; sourceTree = "<group>"; };
+		BC53E6DC2C43600A48C5B81D /* shader_water_jfa11.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_water_jfa11.frag; path = ../gbBundle/Shaders/shader_water_jfa11.frag; sourceTree = "<group>"; };
+		AD932221BE3B60BD1227B226 /* shader_water_jfa11.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_water_jfa11.vert; path = ../gbBundle/Shaders/shader_water_jfa11.vert; sourceTree = "<group>"; };
+		09865AACE2B313A3BFC46290 /* shader_water_jfa2.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_water_jfa2.frag; path = ../gbBundle/Shaders/shader_water_jfa2.frag; sourceTree = "<group>"; };
+		DF28B34CDB550469C86F9C8F /* shader_water_jfa2.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_water_jfa2.vert; path = ../gbBundle/Shaders/shader_water_jfa2.vert; sourceTree = "<group>"; };
+		D902E651380DD29F9E7EA900 /* shader_water_jfa3.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_water_jfa3.frag; path = ../gbBundle/Shaders/shader_water_jfa3.frag; sourceTree = "<group>"; };
+		8F6F88D57179180A867BF701 /* shader_water_jfa3.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_water_jfa3.vert; path = ../gbBundle/Shaders/shader_water_jfa3.vert; sourceTree = "<group>"; };
+		2CC869ABB420D30EBF26E6F1 /* shader_water_jfa4.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_water_jfa4.frag; path = ../gbBundle/Shaders/shader_water_jfa4.frag; sourceTree = "<group>"; };
+		5F4F381CD5368161DE273DD3 /* shader_water_jfa4.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_water_jfa4.vert; path = ../gbBundle/Shaders/shader_water_jfa4.vert; sourceTree = "<group>"; };
+		7D3AF14EB0E377CD2F38AEA4 /* shader_water_jfa5.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_water_jfa5.frag; path = ../gbBundle/Shaders/shader_water_jfa5.frag; sourceTree = "<group>"; };
+		C5CA8B4CDA82DFECD7265614 /* shader_water_jfa5.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_water_jfa5.vert; path = ../gbBundle/Shaders/shader_water_jfa5.vert; sourceTree = "<group>"; };
+		F37F334F4123B0CA9C855479 /* shader_water_jfa6.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_water_jfa6.frag; path = ../gbBundle/Shaders/shader_water_jfa6.frag; sourceTree = "<group>"; };
+		E0E830BD6D529EF6E7BDCBF9 /* shader_water_jfa6.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_water_jfa6.vert; path = ../gbBundle/Shaders/shader_water_jfa6.vert; sourceTree = "<group>"; };
+		47F4ABD06C0B5155A8503173 /* shader_water_jfa7.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_water_jfa7.frag; path = ../gbBundle/Shaders/shader_water_jfa7.frag; sourceTree = "<group>"; };
+		32AB57D77BB07E5D5FDF5A55 /* shader_water_jfa7.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_water_jfa7.vert; path = ../gbBundle/Shaders/shader_water_jfa7.vert; sourceTree = "<group>"; };
+		8117024ECDD773D90FEF81E2 /* shader_water_jfa8.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_water_jfa8.frag; path = ../gbBundle/Shaders/shader_water_jfa8.frag; sourceTree = "<group>"; };
+		B3AD1DFA5BA414256D798744 /* shader_water_jfa8.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_water_jfa8.vert; path = ../gbBundle/Shaders/shader_water_jfa8.vert; sourceTree = "<group>"; };
+		4CCA4588334B6E742F634CBC /* shader_water_jfa9.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_water_jfa9.frag; path = ../gbBundle/Shaders/shader_water_jfa9.frag; sourceTree = "<group>"; };
+		584A57D49C821E16937971AA /* shader_water_jfa9.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_water_jfa9.vert; path = ../gbBundle/Shaders/shader_water_jfa9.vert; sourceTree = "<group>"; };
+		531D5B08184770AAA0323307 /* shader_water_land.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_water_land.frag; path = ../gbBundle/Shaders/shader_water_land.frag; sourceTree = "<group>"; };
+		F9454C6A7BCA1F896185C2C2 /* shader_water_land.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_water_land.vert; path = ../gbBundle/Shaders/shader_water_land.vert; sourceTree = "<group>"; };
+		6234EBEB1C591B07B64DA7D1 /* shader_water_mask.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_water_mask.frag; path = ../gbBundle/Shaders/shader_water_mask.frag; sourceTree = "<group>"; };
+		B4652CED9AE4E10BCA428A7D /* shader_water_mask.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_water_mask.vert; path = ../gbBundle/Shaders/shader_water_mask.vert; sourceTree = "<group>"; };
+		BE3EDF6BF806B2B3E068AB57 /* shader_water_seed.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_water_seed.frag; path = ../gbBundle/Shaders/shader_water_seed.frag; sourceTree = "<group>"; };
+		D84A6EF65DAB06263E430076 /* shader_water_seed.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_water_seed.vert; path = ../gbBundle/Shaders/shader_water_seed.vert; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -3517,6 +4013,7 @@
 		21B403091B7A0968003382AB = {
 			isa = PBXGroup;
 			children = (
+				52425D996B5DEDA4EFEBE42E /* World Space Water */,
 				21B403361B7A09DB003382AB /* libraries */,
 				21B403351B7A09D6003382AB /* sources */,
 				21B403381B7A09E6003382AB /* support */,
@@ -4491,6 +4988,57 @@
 				D8378A514422E4D0C849A183 /* island_demo_scene.h */,
 				B3EF9A06C4A2650BE6328B36 /* terrain_mesh_builder.h */,
 				63338AA62925C837E73B1819 /* terrain_generator.h */,
+				EF693528B84E3FCF319E70CE /* resident_asset_validation.h */,
+				D4FCB25F4B2D565D8DCE9BED /* resident_navigation.h */,
+				45C0A5A2063FDC44A351E059 /* resident_navigation.cpp */,
+				3AADA6E6F76B1E8C78EA1D70 /* resident_behavior.h */,
+				B77428D6841BAA50F9EFEEAD /* resident_behavior.cpp */,
+				87FAFD747128E6A51E3020C1 /* resident_shader_uniforms.h */,
+				6276F2083ED180E2A55C71E6 /* resident_shader_uniforms.cpp */,
+				E1304A92666E02DB49FE1DC2 /* ces_island_resident_component.h */,
+				1ADA084BF43B022907552BA4 /* ces_island_resident_component.cpp */,
+				04AD197C1C404961C7BE05A4 /* ces_island_resident_system.h */,
+				B691A7BA3D55BFBF4646E816 /* ces_island_resident_system.cpp */,
+				9910DD8A50614B75E86E328B /* island_resident_demo.h */,
+				71C8D4F429FE11056752A0DC /* island_resident_demo.cpp */,
+				73360986658204632A422F1B /* island_resident.xml */,
+				AE6DAF2E6D537A8185CB1E91 /* material.island_resident.xml */,
+				F7A700D29CA9FA5CF7FA4B0C /* island_resident.fbx */,
+				341AF683E993DC48A3821E11 /* island_resident_idle.fbx */,
+				10FBA633DA8A4B6356E7232B /* island_resident_walk.fbx */,
+				4E7AB772734803AD58EB2926 /* shader_island_resident.frag */,
+				C5CE1342A9F7D64CA10B325F /* shader_island_resident.vert */,
+				C2472D31857B0C53C3028B53 /* mtl_island_resident.h */,
+				B82D2E767D3FBA5A838F6E37 /* island_resident_clothing_mask.png */,
+				E917EA416A6B61CDDCDABF8B /* island_resident_palette.png */,
+				1D2EED690ED5B91EC094BADE /* buoyancy_simulation.h */,
+				644DDA5A0CC4997C01B854E1 /* buoyancy_simulation.cpp */,
+				8818972C1134759A3579C674 /* ces_buoyancy_component.h */,
+				B14FE92FCBB5F45AC008F37A /* ces_buoyancy_component.cpp */,
+				C89AEC1D8B1C4E830F91B446 /* ocean_demo_props.h */,
+				9AFA0C0227C4FCA58A568F04 /* ocean_demo_props.cpp */,
+				803361A3BFE1A43D75422D76 /* mtl_ocean.h */,
+				5A838DA85AC086E9FF89E7D6 /* ocean_wave_model.h */,
+				AD922F56F0579CBF272D222C /* ocean_wave_model.cpp */,
+				997455B6AF223F7BC19A9D44 /* ocean_mesh_builder.h */,
+				844899274468FDD3DC8C7CE7 /* ocean_mesh_builder.cpp */,
+				0FC98979F031C0BB676A1DB3 /* ocean_shader_uniforms.h */,
+				164EDCA7782B63BFAD30B2AE /* ocean_shader_uniforms.cpp */,
+				FFF0E56B047111F900A3E2ED /* ces_ocean_system.h */,
+				40E2BF897BEC1A7ACD0CCB47 /* ces_ocean_system.cpp */,
+				9D0CFF01317E40D5E638EE1F /* ocean.xml */,
+				A4286FACD8BFB2B1EA54AFF6 /* ocean_prop.xml */,
+				39C90A622BDE3D596E3C6809 /* material.ocean.xml */,
+				D92CDE547D61A8CFF517B82D /* material.ocean_prop.xml */,
+				C9884BA56FE65C3D6325E3ED /* material.ss.ocean_compose.xml */,
+				20B0ED85AFAAEF3D01A3179B /* material.ss.output.island_demo.xml */,
+				FB36F872C5E6E686B69C5767 /* output.technique.island_demo.xml */,
+				8893B4EDA45B5C4F89E26035 /* ss.technique.ocean_compose.xml */,
+				BBE3F41F602DF5A1BE8F9977 /* ws.technique.ocean.xml */,
+				874D989BEF23876454C4A1D5 /* shader_ocean.frag */,
+				670CB4660EF644A6267365F0 /* shader_ocean.vert */,
+				A420ECD51A7884140CBD6235 /* shader_ocean_compose.frag */,
+				8181964D5751251E6C090E86 /* shader_ocean_compose.vert */,
 				51A2FDDB6F21B07A34B423AD /* terrain_data.h */,
 				495B23FBF83B7F62D692ED84 /* island_demo_transition.cpp */,
 				C5897808789A96CB284D27F2 /* island_demo_scene.cpp */,
@@ -4755,6 +5303,92 @@
 			name = fonts;
 			sourceTree = "<group>";
 		};
+		52425D996B5DEDA4EFEBE42E /* World Space Water */ = {isa = PBXGroup; children = (
+				2F7BD3BF0B8F9812A2CB5E38 /* material.ocean_foam.xml */,
+				F6EBDBAD350873E748F73CEC /* material.water_distance.xml */,
+				160D11851368DF49C695F300 /* material.water_jfa0.xml */,
+				F6CA067089FA378BB389C2D6 /* material.water_jfa1.xml */,
+				7580573A0BA595B19E6C9843 /* material.water_jfa10.xml */,
+				108E6F96F90DB73E114F0F0D /* material.water_jfa11.xml */,
+				26581A7E488B3B5FEC242F93 /* material.water_jfa2.xml */,
+				F71F0509B63CA03F1704714E /* material.water_jfa3.xml */,
+				FF9CB88BE3CF40FE37922C04 /* material.water_jfa4.xml */,
+				3EAEB9B1B448EB9FA4E250E6 /* material.water_jfa5.xml */,
+				D6D22F2E40448E57F49B623C /* material.water_jfa6.xml */,
+				AAB4D103405D87A6EFFCD81B /* material.water_jfa7.xml */,
+				EE7BE06A8D7CC576DC686083 /* material.water_jfa8.xml */,
+				BC6D86441967F877060D781A /* material.water_jfa9.xml */,
+				EF6FC83D980A3FCA253EA697 /* material.water_land.xml */,
+				F02875B13D9B213636CC97A4 /* material.water_mask.xml */,
+				C1112DCB11D7964B3FC0757C /* material.water_seed.xml */,
+				CC5F56C2E533353BAC435B21 /* water_distance.xml */,
+				81EDC94C16ADBAC252F0869A /* water_jfa0.xml */,
+				4047E8C5C584A3B74CEBFB19 /* water_jfa1.xml */,
+				9BEA3A649F6EEAECCFF0F09A /* water_jfa10.xml */,
+				87685EA797DBA4B3534E142F /* water_jfa11.xml */,
+				D4C425D0A47CE258AD4184A4 /* water_jfa2.xml */,
+				0A11D4CBFAA3583CF80C3270 /* water_jfa3.xml */,
+				649EF60315C4BE40923ACF66 /* water_jfa4.xml */,
+				D374252E64023FAB295BE161 /* water_jfa5.xml */,
+				5DBFF126D6E744490B3BAFD4 /* water_jfa6.xml */,
+				94C7AD710EA362225BFF2638 /* water_jfa7.xml */,
+				45EDEDA70FE0190244540437 /* water_jfa8.xml */,
+				8552D8C5375BDF8DCBFB5DE4 /* water_jfa9.xml */,
+				9335AB093DA0DD727D6E0F1F /* water_land.xml */,
+				D1D387CA4727147D0D4AB098 /* water_mask.xml */,
+				B3465321915D1495368D6F67 /* water_seed.xml */,
+				671582D42BF1C0B503976438 /* ws.technique.ocean_foam.xml */,
+				A8DE7D7C24BDA45943293F61 /* ws.technique.water_distance.xml */,
+				6F7AD0C60420D4D7501B7393 /* ws.technique.water_jfa0.xml */,
+				1933A5160FA02C0F88133AF9 /* ws.technique.water_jfa1.xml */,
+				693E771A786CF5D9C8BBDBF9 /* ws.technique.water_jfa10.xml */,
+				21F5959E510459D121A85081 /* ws.technique.water_jfa11.xml */,
+				4939EBE1937E5E7DEE7830A3 /* ws.technique.water_jfa2.xml */,
+				094C7B01192AAC16D1CCB812 /* ws.technique.water_jfa3.xml */,
+				BC1559C4B6CF05AB66706881 /* ws.technique.water_jfa4.xml */,
+				1DF846BB14BF36F07CB83A7C /* ws.technique.water_jfa5.xml */,
+				D1BCF35048EAE6EAD74A8177 /* ws.technique.water_jfa6.xml */,
+				FD20DF5C55E54671C77015BC /* ws.technique.water_jfa7.xml */,
+				541F614AAA7882374961C61B /* ws.technique.water_jfa8.xml */,
+				2EF2FFC70E9383AD0D14230F /* ws.technique.water_jfa9.xml */,
+				054031B3E4125CC13564E0E4 /* ws.technique.water_mask.xml */,
+				0953276F4591274EA2754305 /* ws.technique.water_seed.xml */,
+				AE7FBF91A6037B0A252DD9F7 /* mtl_water_interaction.h */,
+				FF61239FC5DF6380565698C1 /* shader_ocean_foam.frag */,
+				FB5D99DB303B4187A3300484 /* shader_ocean_foam.vert */,
+				19C6EA1EBE719FF755E1D848 /* shader_water_distance.frag */,
+				778D526B597CB5914A367183 /* shader_water_distance.vert */,
+				4F84377D3B6BC31532A61DF3 /* shader_water_jfa0.frag */,
+				3254C23259FAC2146993EDD3 /* shader_water_jfa0.vert */,
+				8F025BA9BC3364441297614C /* shader_water_jfa1.frag */,
+				D1F7A0FECDC3D40B4EC53A97 /* shader_water_jfa1.vert */,
+				833F2C87E0EA549204A10A2B /* shader_water_jfa10.frag */,
+				AB5DB900E81BF0DE4A71FD29 /* shader_water_jfa10.vert */,
+				BC53E6DC2C43600A48C5B81D /* shader_water_jfa11.frag */,
+				AD932221BE3B60BD1227B226 /* shader_water_jfa11.vert */,
+				09865AACE2B313A3BFC46290 /* shader_water_jfa2.frag */,
+				DF28B34CDB550469C86F9C8F /* shader_water_jfa2.vert */,
+				D902E651380DD29F9E7EA900 /* shader_water_jfa3.frag */,
+				8F6F88D57179180A867BF701 /* shader_water_jfa3.vert */,
+				2CC869ABB420D30EBF26E6F1 /* shader_water_jfa4.frag */,
+				5F4F381CD5368161DE273DD3 /* shader_water_jfa4.vert */,
+				7D3AF14EB0E377CD2F38AEA4 /* shader_water_jfa5.frag */,
+				C5CA8B4CDA82DFECD7265614 /* shader_water_jfa5.vert */,
+				F37F334F4123B0CA9C855479 /* shader_water_jfa6.frag */,
+				E0E830BD6D529EF6E7BDCBF9 /* shader_water_jfa6.vert */,
+				47F4ABD06C0B5155A8503173 /* shader_water_jfa7.frag */,
+				32AB57D77BB07E5D5FDF5A55 /* shader_water_jfa7.vert */,
+				8117024ECDD773D90FEF81E2 /* shader_water_jfa8.frag */,
+				B3AD1DFA5BA414256D798744 /* shader_water_jfa8.vert */,
+				4CCA4588334B6E742F634CBC /* shader_water_jfa9.frag */,
+				584A57D49C821E16937971AA /* shader_water_jfa9.vert */,
+				531D5B08184770AAA0323307 /* shader_water_land.frag */,
+				F9454C6A7BCA1F896185C2C2 /* shader_water_land.vert */,
+				6234EBEB1C591B07B64DA7D1 /* shader_water_mask.frag */,
+				B4652CED9AE4E10BCA428A7D /* shader_water_mask.vert */,
+				BE3EDF6BF806B2B3E068AB57 /* shader_water_seed.frag */,
+				D84A6EF65DAB06263E430076 /* shader_water_seed.vert */,
+			); name = "World Space Water"; sourceTree = "<group>"; };
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -5055,6 +5689,114 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CCBBB622C08880F8C916F676 /* material.ocean_foam.xml in Resources */,
+				DA62EE38F1498A0861D1BD72 /* material.water_distance.xml in Resources */,
+				673FE95BCFF7D37AE29C3DD3 /* material.water_jfa0.xml in Resources */,
+				1F6476DEE8729A3AAD1E4506 /* material.water_jfa1.xml in Resources */,
+				CAC92AE3F4B7C0CF65255100 /* material.water_jfa10.xml in Resources */,
+				6DABA7F33C220F537812F36F /* material.water_jfa11.xml in Resources */,
+				AA8DAA076140A4BFE42368C0 /* material.water_jfa2.xml in Resources */,
+				6776B69929A2CC8C7B626E49 /* material.water_jfa3.xml in Resources */,
+				699CE64F8686B5F05207B51E /* material.water_jfa4.xml in Resources */,
+				6750DC18665981E8E34C4F9C /* material.water_jfa5.xml in Resources */,
+				F5A2EB08A4AFC155F3157C8C /* material.water_jfa6.xml in Resources */,
+				B0293155D5FFD1AD0EDA216C /* material.water_jfa7.xml in Resources */,
+				CF241B2B75F3E9FD850D2B4C /* material.water_jfa8.xml in Resources */,
+				D2FE6996BBB3EE3FE326FF0E /* material.water_jfa9.xml in Resources */,
+				E4ECBABCF0563A39E17660FA /* material.water_land.xml in Resources */,
+				FEDB5C4D622FAE3673B508C0 /* material.water_mask.xml in Resources */,
+				C58709AB8D11DE06FAE01EB8 /* material.water_seed.xml in Resources */,
+				1467FD9819AB0E4056784554 /* water_distance.xml in Resources */,
+				64015ABCC46798BC57E7EECD /* water_jfa0.xml in Resources */,
+				DFE75DCDD9EF20655A7DB15E /* water_jfa1.xml in Resources */,
+				6470B86797E351AB31E6C8F3 /* water_jfa10.xml in Resources */,
+				BA0070764C39439F1B790C31 /* water_jfa11.xml in Resources */,
+				15F8754323359757C9726F84 /* water_jfa2.xml in Resources */,
+				7EFF88E4507CA98A6C1322A3 /* water_jfa3.xml in Resources */,
+				3F1A71526AC6293E33A847A5 /* water_jfa4.xml in Resources */,
+				DDFA55D49B9184E14B5D00B3 /* water_jfa5.xml in Resources */,
+				DD9D7FBAE27E4FA004D7241C /* water_jfa6.xml in Resources */,
+				ED053E68545D80D1C1B0CD94 /* water_jfa7.xml in Resources */,
+				D77110D6723BD4549F0DF32B /* water_jfa8.xml in Resources */,
+				0E515C8B9EF0DE0BB2ACB0D4 /* water_jfa9.xml in Resources */,
+				9747711E7F9E803695477308 /* water_land.xml in Resources */,
+				04DA64C8D24BA88B0A902E24 /* water_mask.xml in Resources */,
+				6D33176F94641B75733437D0 /* water_seed.xml in Resources */,
+				D3083FEA4B4E3CD2BD89BAA1 /* ws.technique.ocean_foam.xml in Resources */,
+				DBE1FDC50CA4226F6802008A /* ws.technique.water_distance.xml in Resources */,
+				6F78F3BE4E5F96E67A1CCB37 /* ws.technique.water_jfa0.xml in Resources */,
+				8C6A19E4E6155AE0AB24FF16 /* ws.technique.water_jfa1.xml in Resources */,
+				A468B28187FD3A70E75419D0 /* ws.technique.water_jfa10.xml in Resources */,
+				4C0FDB98C46D9697FC3244F4 /* ws.technique.water_jfa11.xml in Resources */,
+				14E6C3A54CA716C987770BED /* ws.technique.water_jfa2.xml in Resources */,
+				53DBAD3A2808AFCC28092EBD /* ws.technique.water_jfa3.xml in Resources */,
+				CDBABBEA8D98BB348099CDB7 /* ws.technique.water_jfa4.xml in Resources */,
+				C06FE2879DB5464966BE7E73 /* ws.technique.water_jfa5.xml in Resources */,
+				05AB52737FEF3AC3B9A8C515 /* ws.technique.water_jfa6.xml in Resources */,
+				136B5E7318BC08CD32276A59 /* ws.technique.water_jfa7.xml in Resources */,
+				7BBDD4BAF565C7FDCF3E4B1A /* ws.technique.water_jfa8.xml in Resources */,
+				25ECEF8F7AD34ECE0ACD7FA6 /* ws.technique.water_jfa9.xml in Resources */,
+				62FC2DB36897CC835B4B3C2B /* ws.technique.water_mask.xml in Resources */,
+				4DBF812EA90D6A3202FF3E55 /* ws.technique.water_seed.xml in Resources */,
+				381BC15DF11BF8C19C0C1E26 /* shader_ocean_foam.frag in Resources */,
+				22AB725544375D382E73FA2C /* shader_ocean_foam.vert in Resources */,
+				D7EA1A1A0D7F9D0F2D7766C4 /* shader_water_distance.frag in Resources */,
+				B2104A9FC7D3D2D7350284E6 /* shader_water_distance.vert in Resources */,
+				F9485D208DFA3F49CD790CE9 /* shader_water_jfa0.frag in Resources */,
+				83287FA53F9C5B6C239076B2 /* shader_water_jfa0.vert in Resources */,
+				498C13EDABB43CC222B5AEA4 /* shader_water_jfa1.frag in Resources */,
+				915D9A1FEEEDE8AC3EEA5FA6 /* shader_water_jfa1.vert in Resources */,
+				7CFFAD7E1FD03DA5A79CCDDE /* shader_water_jfa10.frag in Resources */,
+				C71DAD0F668EF7FDF9494E70 /* shader_water_jfa10.vert in Resources */,
+				7109116012DAB0831A03C77D /* shader_water_jfa11.frag in Resources */,
+				285122870632660627647A05 /* shader_water_jfa11.vert in Resources */,
+				C0A81A0637FF90A01C775DBA /* shader_water_jfa2.frag in Resources */,
+				3B2A86812D0750784B515276 /* shader_water_jfa2.vert in Resources */,
+				6D7FCE9B7296F30627055A37 /* shader_water_jfa3.frag in Resources */,
+				681649A3ECF1BF1B5200BB5D /* shader_water_jfa3.vert in Resources */,
+				ACB1BB6BE6E69BA643ABC08F /* shader_water_jfa4.frag in Resources */,
+				0F6C6FFACF3AE96CD3E812FB /* shader_water_jfa4.vert in Resources */,
+				B71448570B49DF40D67EBB06 /* shader_water_jfa5.frag in Resources */,
+				5C8D86E14EB23B2EC2CBBE86 /* shader_water_jfa5.vert in Resources */,
+				04D784C83165BFD025436C90 /* shader_water_jfa6.frag in Resources */,
+				52B390EF9AFD9DE4EB8CB21E /* shader_water_jfa6.vert in Resources */,
+				08D72EABF8CC7AE82CE66FD3 /* shader_water_jfa7.frag in Resources */,
+				634C4F92C41B35D49E90F13E /* shader_water_jfa7.vert in Resources */,
+				D27BD4419B33ED73A1286782 /* shader_water_jfa8.frag in Resources */,
+				2E4ED41F0484AD8021AC838B /* shader_water_jfa8.vert in Resources */,
+				561A7CC4052FBD3A09E1A9FA /* shader_water_jfa9.frag in Resources */,
+				499F9B4B08B100492A602857 /* shader_water_jfa9.vert in Resources */,
+				1CFC2CE8FCE6F2C9708AE6AA /* shader_water_land.frag in Resources */,
+				B9CF700D5025AFABEB7F84BB /* shader_water_land.vert in Resources */,
+				4BFA8CC4CC6DD29B957DE77D /* shader_water_mask.frag in Resources */,
+				72A88FC2F658CB93D4E862FC /* shader_water_mask.vert in Resources */,
+				C7F0EA3E747C425A645D4D55 /* shader_water_seed.frag in Resources */,
+				EEBE90AFE1484E201736B37E /* shader_water_seed.vert in Resources */,
+
+				332E2A4E4F7737A2125F472F /* island_resident_palette.png in Resources */,
+				FBE1E4ADCC80771A6F13DB00 /* island_resident_clothing_mask.png in Resources */,
+				B290D053EFBC4BCAA0B80C3E /* mtl_island_resident.h in Resources */,
+				B3DE3068BE5971F9F83F04F7 /* shader_island_resident.vert in Resources */,
+				CE0388110FC6D6A3DD858891 /* shader_island_resident.frag in Resources */,
+				FDF3473B0D679015E5948D05 /* island_resident_walk.fbx in Resources */,
+				1B2648A903B0F4B1A67AB60F /* island_resident_idle.fbx in Resources */,
+				132B994311827FF61879D0D0 /* island_resident.fbx in Resources */,
+				E5228925654E5FE4F55354EC /* material.island_resident.xml in Resources */,
+				E9DB009299CE0A233D1D401D /* island_resident.xml in Resources */,
+				8B3E3F16D8996ECA63C4A859 /* mtl_ocean.h in Resources */,
+				55D56B73E1B7D0C9478BB7B9 /* shader_ocean_compose.vert in Resources */,
+				AD6DE80C2652CBFDE7BC9D28 /* shader_ocean_compose.frag in Resources */,
+				CEEC4C0C5EA4C14DB7949889 /* shader_ocean.vert in Resources */,
+				CFC28CC720CEE23086F58723 /* shader_ocean.frag in Resources */,
+				E292727AD8C04BD2BFD9716C /* ws.technique.ocean.xml in Resources */,
+				A37BF62C19B4947DA0132AE3 /* ss.technique.ocean_compose.xml in Resources */,
+				54C514EBDC28B1256B1630E9 /* output.technique.island_demo.xml in Resources */,
+				6C9FC6EBCB4EA820196F3416 /* material.ss.output.island_demo.xml in Resources */,
+				7A1EA634C102E1BC05DFA6AE /* material.ss.ocean_compose.xml in Resources */,
+				A7345198F994EC4FFAEC8BB3 /* material.ocean_prop.xml in Resources */,
+				898C61983AF358FB97971D83 /* material.ocean.xml in Resources */,
+				1F6249942E6357771C41C39F /* ocean_prop.xml in Resources */,
+				75FCFD82A0A101F1BBC3220B /* ocean.xml in Resources */,
 				78404BC50C0B0261E05BB732 /* transition.island_demo.xml in Resources */,
 				FA2026092100000000000006 /* output.technique.basic_demo.xml in Resources */,
 				FA202609210000000000000A /* material.ss.output.basic_demo.xml in Resources */,
@@ -5629,6 +6371,114 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB6CA8ACD3142187FB669C04 /* material.ocean_foam.xml in Resources */,
+				B528FCDE98EF92DDE14AE890 /* material.water_distance.xml in Resources */,
+				BF9F2783DA164FE518048B25 /* material.water_jfa0.xml in Resources */,
+				4EAC0F58274E25F6FFE71FFB /* material.water_jfa1.xml in Resources */,
+				5E7341A8005DB46D11C1F498 /* material.water_jfa10.xml in Resources */,
+				7C2E56B9E1F848674DBC246F /* material.water_jfa11.xml in Resources */,
+				B2B6E4CBF3EDA09503CB44BC /* material.water_jfa2.xml in Resources */,
+				DA254BF203A33F81FDE5A3F2 /* material.water_jfa3.xml in Resources */,
+				282BD2C3F9EC3BB009C65EC7 /* material.water_jfa4.xml in Resources */,
+				0035A4E1B9DB074A55B4D9E2 /* material.water_jfa5.xml in Resources */,
+				D963C6DCEC48BF7E5AE89C0E /* material.water_jfa6.xml in Resources */,
+				93D9ED5DACAF21AA3861FE65 /* material.water_jfa7.xml in Resources */,
+				814C9384629A3EB92BFBD780 /* material.water_jfa8.xml in Resources */,
+				B7CC452623C1B4578B9AEBE4 /* material.water_jfa9.xml in Resources */,
+				07AC60D882C481C0ECDFBE87 /* material.water_land.xml in Resources */,
+				48CF804000EBD7F51E2958A9 /* material.water_mask.xml in Resources */,
+				A14A1B9362A03A9F16334BDC /* material.water_seed.xml in Resources */,
+				B0D4D94B23B3FB571EFD0BDF /* water_distance.xml in Resources */,
+				8353190484EE6BC6D9F641A4 /* water_jfa0.xml in Resources */,
+				1393AA71D2AE6D7BA545B2FF /* water_jfa1.xml in Resources */,
+				9B11E58E7FBE5E2C43C46526 /* water_jfa10.xml in Resources */,
+				0547C48B6DC0CB543B99DAF9 /* water_jfa11.xml in Resources */,
+				3D4BC85168E6F1A27F8AFDFB /* water_jfa2.xml in Resources */,
+				DAF46841EF9E32BBC12E007A /* water_jfa3.xml in Resources */,
+				802B3F07A48132B1ACE7DC7C /* water_jfa4.xml in Resources */,
+				DF789B092145F0A9D3F97460 /* water_jfa5.xml in Resources */,
+				057CEA97B8A114650EA6AD2C /* water_jfa6.xml in Resources */,
+				6BB971DEC6263B8E09FB9AC4 /* water_jfa7.xml in Resources */,
+				D8033F64DBD85E1832ABF3BF /* water_jfa8.xml in Resources */,
+				EC5889862DAB6380ACD3A8A8 /* water_jfa9.xml in Resources */,
+				56522DE386C65C9F75E13E6B /* water_land.xml in Resources */,
+				9BB982FA5E89F441335D6C3E /* water_mask.xml in Resources */,
+				059BBDE30047A90F17D2F997 /* water_seed.xml in Resources */,
+				B686629E464F31E233A832E1 /* ws.technique.ocean_foam.xml in Resources */,
+				A1E8B5416B6EFAA840534794 /* ws.technique.water_distance.xml in Resources */,
+				A850BDBC5DB866509FE643A5 /* ws.technique.water_jfa0.xml in Resources */,
+				3A152A71365AC767913F3220 /* ws.technique.water_jfa1.xml in Resources */,
+				1DC951FECD96A5DE52992662 /* ws.technique.water_jfa10.xml in Resources */,
+				46BA8E8106D8743A69D229FF /* ws.technique.water_jfa11.xml in Resources */,
+				BD69A9E3A61D3CDC5831BF30 /* ws.technique.water_jfa2.xml in Resources */,
+				C677FB0C2332F4B380125270 /* ws.technique.water_jfa3.xml in Resources */,
+				3049D769218496627C241271 /* ws.technique.water_jfa4.xml in Resources */,
+				5CE2FB066921706BEDEB613F /* ws.technique.water_jfa5.xml in Resources */,
+				5C4915F4D844271DEF302578 /* ws.technique.water_jfa6.xml in Resources */,
+				517EBEFE7CD08FCE39E3F7BB /* ws.technique.water_jfa7.xml in Resources */,
+				F59E1D14C0CCB696435B6799 /* ws.technique.water_jfa8.xml in Resources */,
+				F1A10CB0CA8C721F54864FB4 /* ws.technique.water_jfa9.xml in Resources */,
+				98F78E987D402918BDE291D5 /* ws.technique.water_mask.xml in Resources */,
+				BE8EDCBD6DD50BEEFFEDB7D4 /* ws.technique.water_seed.xml in Resources */,
+				67415F31A2C78C65B29370CA /* shader_ocean_foam.frag in Resources */,
+				F0F4951EF2AE89B21511EBBD /* shader_ocean_foam.vert in Resources */,
+				26CAEF16344517DF57B69B95 /* shader_water_distance.frag in Resources */,
+				FD16749E79246E09BFE4AED0 /* shader_water_distance.vert in Resources */,
+				F55BB0CE116063C4EB21DA21 /* shader_water_jfa0.frag in Resources */,
+				E4E5186CB09C4C24949EC168 /* shader_water_jfa0.vert in Resources */,
+				F4371AB85E63924B45E1E725 /* shader_water_jfa1.frag in Resources */,
+				276B9F7CFD47502847B38F38 /* shader_water_jfa1.vert in Resources */,
+				DF2116B0F0D224073647B6EA /* shader_water_jfa10.frag in Resources */,
+				611F69ACD909116A3832D638 /* shader_water_jfa10.vert in Resources */,
+				E1BD96A830DFB8221171B132 /* shader_water_jfa11.frag in Resources */,
+				4566D96E2EC67EDA3A3C55EE /* shader_water_jfa11.vert in Resources */,
+				27738127CC1165F56BCA7D28 /* shader_water_jfa2.frag in Resources */,
+				CD4619FD4D92AEDFE738F206 /* shader_water_jfa2.vert in Resources */,
+				752BDBAACFB507979B2A5460 /* shader_water_jfa3.frag in Resources */,
+				963A81BF193A6C6DF18CF71C /* shader_water_jfa3.vert in Resources */,
+				45C2208A492676A23D45C60D /* shader_water_jfa4.frag in Resources */,
+				3F63C1C9B167F529F88509D5 /* shader_water_jfa4.vert in Resources */,
+				E9AEACDB4A6ADFB6762995A8 /* shader_water_jfa5.frag in Resources */,
+				A2C70127CEA37285C5D75757 /* shader_water_jfa5.vert in Resources */,
+				FACD93953F4BBFCE38FEB7C1 /* shader_water_jfa6.frag in Resources */,
+				C9DDB248ED8B4AEB3FA41CF4 /* shader_water_jfa6.vert in Resources */,
+				ABE55583269AA84CB45A3F14 /* shader_water_jfa7.frag in Resources */,
+				B98642E30B9A5FBD881BEC4C /* shader_water_jfa7.vert in Resources */,
+				77AD7EF90170E39F917894C6 /* shader_water_jfa8.frag in Resources */,
+				DE02DBDD061BD6334AC7513E /* shader_water_jfa8.vert in Resources */,
+				E2B900007809E8D8AB928565 /* shader_water_jfa9.frag in Resources */,
+				5CA9B807DD44205DC3FB159E /* shader_water_jfa9.vert in Resources */,
+				B09DC5DFE2F0F98F9AFA1698 /* shader_water_land.frag in Resources */,
+				59E177A21D29402FCA3DC432 /* shader_water_land.vert in Resources */,
+				91056DC15AC8BE73093B9518 /* shader_water_mask.frag in Resources */,
+				ACB60C4360E5F80ADF54CAC5 /* shader_water_mask.vert in Resources */,
+				C19D08F5D2E6BE0FD2866CCD /* shader_water_seed.frag in Resources */,
+				CE7D59B6A6E9FA7BE2E1D3EA /* shader_water_seed.vert in Resources */,
+
+				8D5C449233FAC9B52AB155F6 /* island_resident_palette.png in Resources */,
+				A098ABE52B76F59C58836084 /* island_resident_clothing_mask.png in Resources */,
+				C41B3BA4119D1D5440ABA9D7 /* mtl_island_resident.h in Resources */,
+				63764EC6E96C87A0FE70C3D4 /* shader_island_resident.vert in Resources */,
+				25E1FBD72F9952FB0D0B5E0D /* shader_island_resident.frag in Resources */,
+				8D9C4135862C8FB1572B2E8B /* island_resident_walk.fbx in Resources */,
+				3EAF1458BA819FEE4837F1E8 /* island_resident_idle.fbx in Resources */,
+				06A53B3E959935F9ACC1162D /* island_resident.fbx in Resources */,
+				1826F383B847D4BBA18E89FF /* material.island_resident.xml in Resources */,
+				62522E8DB09910A37C528AEA /* island_resident.xml in Resources */,
+				C36EA6A092D93C4C73B555BA /* mtl_ocean.h in Resources */,
+				BEA77D35EAE4D593C5354EAC /* shader_ocean_compose.vert in Resources */,
+				41356A9BFFD1B85813F188ED /* shader_ocean_compose.frag in Resources */,
+				6D7A34C2F82998E990AF04C2 /* shader_ocean.vert in Resources */,
+				D9EF2BA71E3B3701BD2B0F42 /* shader_ocean.frag in Resources */,
+				47D708B6E7A5B157C153FEE3 /* ws.technique.ocean.xml in Resources */,
+				532B87A4D7FD28D01800C30C /* ss.technique.ocean_compose.xml in Resources */,
+				B19304A0F3CF20885B7CD8BD /* output.technique.island_demo.xml in Resources */,
+				CB81BF37FC40B1EAE9CAF508 /* material.ss.output.island_demo.xml in Resources */,
+				584DED6F2F58E60E62A70A9B /* material.ss.ocean_compose.xml in Resources */,
+				DF3AFC81DAC20375AB5A133A /* material.ocean_prop.xml in Resources */,
+				39848819EB2B9E9B5CB11ED3 /* material.ocean.xml in Resources */,
+				D3CA0B3E1EDE20BA6198D762 /* ocean_prop.xml in Resources */,
+				0F531EED0C0ACE767E5D4635 /* ocean.xml in Resources */,
 				D76E426B7FEBF4BEBB9689F5 /* transition.island_demo.xml in Resources */,
 				FA2026092100000000000007 /* output.technique.basic_demo.xml in Resources */,
 				FA202609210000000000000B /* material.ss.output.basic_demo.xml in Resources */,
@@ -6206,6 +7056,114 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5D8AB16BAA5999B6E1C601AD /* material.ocean_foam.xml in Resources */,
+				C58570912E6C812DE7E8010A /* material.water_distance.xml in Resources */,
+				4E30DEC9F3660CEB9CF89508 /* material.water_jfa0.xml in Resources */,
+				5ED337C970FE3F694DC91861 /* material.water_jfa1.xml in Resources */,
+				5D816B2F840586C9BB6B4DB9 /* material.water_jfa10.xml in Resources */,
+				97ECAAE8DEB6BA1D5A87836B /* material.water_jfa11.xml in Resources */,
+				C234F69840F8E53EA0922361 /* material.water_jfa2.xml in Resources */,
+				B69629D8789AE81A9A7FB19C /* material.water_jfa3.xml in Resources */,
+				B3668BC8CA9613EF3030F61A /* material.water_jfa4.xml in Resources */,
+				7294C3C55F2955E9E7E3B595 /* material.water_jfa5.xml in Resources */,
+				F62C4CAEAB141211FD96D277 /* material.water_jfa6.xml in Resources */,
+				2C546150559B7B0A91379AB3 /* material.water_jfa7.xml in Resources */,
+				CED05829617C51EC1E784290 /* material.water_jfa8.xml in Resources */,
+				F1F0D90F1EE62D9D44C701C4 /* material.water_jfa9.xml in Resources */,
+				65CD070E159033B57A012E6F /* material.water_land.xml in Resources */,
+				FF54F3D74A2D6AF128A7F8D4 /* material.water_mask.xml in Resources */,
+				F2A1E4875774BD7A8C3FDB5E /* material.water_seed.xml in Resources */,
+				E0B1CFAD757447F5EE57ADED /* water_distance.xml in Resources */,
+				6414077726C44BC79A158D56 /* water_jfa0.xml in Resources */,
+				0BAC89E4864459538D3D9BF3 /* water_jfa1.xml in Resources */,
+				75E88ACEBEE664733A1E7CC9 /* water_jfa10.xml in Resources */,
+				931CEDEE555D0C2E03D5C59D /* water_jfa11.xml in Resources */,
+				B63695852721BA3ADC2CA2A6 /* water_jfa2.xml in Resources */,
+				A7D1A030A90C1D6EB278B057 /* water_jfa3.xml in Resources */,
+				4A6CC3CEB2615B96E9EC1A6D /* water_jfa4.xml in Resources */,
+				B1587F29F36D7E3CF2B89912 /* water_jfa5.xml in Resources */,
+				0DE8654D6109CEDC7DEFF8F5 /* water_jfa6.xml in Resources */,
+				E84C435E212DD34DA182B9D1 /* water_jfa7.xml in Resources */,
+				9CE6A08D1EA00C7194BB4980 /* water_jfa8.xml in Resources */,
+				80708291575537F7A46F0348 /* water_jfa9.xml in Resources */,
+				0098B2071283B3C25B8051EB /* water_land.xml in Resources */,
+				F9647A71E1329BF713CEF702 /* water_mask.xml in Resources */,
+				DC2A24BAC01A849B68134925 /* water_seed.xml in Resources */,
+				B3A1BD995B2801E3F4E080EC /* ws.technique.ocean_foam.xml in Resources */,
+				F71CE96789B73E01E3DF143F /* ws.technique.water_distance.xml in Resources */,
+				C2FF123FE2F336AD3444D4EE /* ws.technique.water_jfa0.xml in Resources */,
+				C91999C8EE0D135A6B63685F /* ws.technique.water_jfa1.xml in Resources */,
+				1C90CD9FBBA1971B6116C2EF /* ws.technique.water_jfa10.xml in Resources */,
+				AA201A62728D7487C8D93BAE /* ws.technique.water_jfa11.xml in Resources */,
+				D39F01194789D7322D07338C /* ws.technique.water_jfa2.xml in Resources */,
+				A477820835B60EBF986B36CE /* ws.technique.water_jfa3.xml in Resources */,
+				30CC4B0322918A54657E8D77 /* ws.technique.water_jfa4.xml in Resources */,
+				06E2C106063476D7A3AD0839 /* ws.technique.water_jfa5.xml in Resources */,
+				593C847317D89C31AA210F8B /* ws.technique.water_jfa6.xml in Resources */,
+				AB4C09FD92EC5B98790487E8 /* ws.technique.water_jfa7.xml in Resources */,
+				B18EF205FB6D26FBFB84C7EF /* ws.technique.water_jfa8.xml in Resources */,
+				45959ABB47CA8EF03062E44F /* ws.technique.water_jfa9.xml in Resources */,
+				6D480AB55222D6033B221A08 /* ws.technique.water_mask.xml in Resources */,
+				DC0DFF85AC7BC38660D27421 /* ws.technique.water_seed.xml in Resources */,
+				2ECE22541F51A1A40623F25B /* shader_ocean_foam.frag in Resources */,
+				28FB2047C7A68678D512D703 /* shader_ocean_foam.vert in Resources */,
+				FF4E155642038BB6788E1988 /* shader_water_distance.frag in Resources */,
+				DF2E687CEEF00F6B860C2A02 /* shader_water_distance.vert in Resources */,
+				9C40164547607B80CA1CD957 /* shader_water_jfa0.frag in Resources */,
+				ED8FD46D6C3C3575C3FD9D68 /* shader_water_jfa0.vert in Resources */,
+				998F16BC5BD97E1BC196B0B0 /* shader_water_jfa1.frag in Resources */,
+				69A36059FB779D407D70420D /* shader_water_jfa1.vert in Resources */,
+				F11F540C274D1EDC1BA0E67B /* shader_water_jfa10.frag in Resources */,
+				BDF86B928C862F71D03D8B4D /* shader_water_jfa10.vert in Resources */,
+				4A398A6BFC58DC24C51E1ABC /* shader_water_jfa11.frag in Resources */,
+				CDB89FA948D7474369361EEB /* shader_water_jfa11.vert in Resources */,
+				955D8A04E04FCDF6E71539B3 /* shader_water_jfa2.frag in Resources */,
+				5AF49349A19B5ACB60014C92 /* shader_water_jfa2.vert in Resources */,
+				3AF9C162CC00C3E0C09F5F02 /* shader_water_jfa3.frag in Resources */,
+				9C873672731B9B279E457A78 /* shader_water_jfa3.vert in Resources */,
+				50FFD263613734320CEE3986 /* shader_water_jfa4.frag in Resources */,
+				5F5935B943D6A1D8F19DD402 /* shader_water_jfa4.vert in Resources */,
+				E763FFCFEC0BBC8565AF1017 /* shader_water_jfa5.frag in Resources */,
+				045183ED36B8239C044D8A1F /* shader_water_jfa5.vert in Resources */,
+				A978B57404A3C6F5B0BD763E /* shader_water_jfa6.frag in Resources */,
+				9BC74272C08884AFD9553414 /* shader_water_jfa6.vert in Resources */,
+				D51D2A362ECC9ADA54DA6FBE /* shader_water_jfa7.frag in Resources */,
+				5150AC5F2FCF1A6726D0B6FD /* shader_water_jfa7.vert in Resources */,
+				441B43B40A586087E235EA78 /* shader_water_jfa8.frag in Resources */,
+				28363938DCB944137F7132DE /* shader_water_jfa8.vert in Resources */,
+				D0838F801EC7DBB52F067103 /* shader_water_jfa9.frag in Resources */,
+				D4187AB3DF0447C451598224 /* shader_water_jfa9.vert in Resources */,
+				F4698CE89D896ED2B89C3BE2 /* shader_water_land.frag in Resources */,
+				FDFDA7FC9CC71CB30CDCB2E3 /* shader_water_land.vert in Resources */,
+				CD676D039117D7FDE598DC35 /* shader_water_mask.frag in Resources */,
+				8100F6A44B70224B9FBBA177 /* shader_water_mask.vert in Resources */,
+				B109C6F573B5A459FCC8D924 /* shader_water_seed.frag in Resources */,
+				FA5EA05122BF5AEDFBD2AF4D /* shader_water_seed.vert in Resources */,
+
+				BFB4D7B890D4DEDF28BE31B2 /* island_resident_palette.png in Resources */,
+				BFB8BA979F990780AF027190 /* island_resident_clothing_mask.png in Resources */,
+				E99AD17562C062D56AFD8380 /* mtl_island_resident.h in Resources */,
+				25686828F5DF2D8AA3A7539E /* shader_island_resident.vert in Resources */,
+				E662A6F3E91A2C250D77B63A /* shader_island_resident.frag in Resources */,
+				279033F516A90BEFD8386753 /* island_resident_walk.fbx in Resources */,
+				BFA27E9738C960546F32D744 /* island_resident_idle.fbx in Resources */,
+				20F0BF7F8FAA38EA1BE78F4C /* island_resident.fbx in Resources */,
+				0F5BE549F8D19C4A7A19DBE6 /* material.island_resident.xml in Resources */,
+				E20F5DD846061CB72882B6C3 /* island_resident.xml in Resources */,
+				13E112D6D38C63DEF47463EE /* mtl_ocean.h in Resources */,
+				A3B7075877708630C7AD6F58 /* shader_ocean_compose.vert in Resources */,
+				78DBDD34FB5A774203E631DC /* shader_ocean_compose.frag in Resources */,
+				F278720881D92941D1C439E1 /* shader_ocean.vert in Resources */,
+				F24B676C48447BA67E92CCBB /* shader_ocean.frag in Resources */,
+				351236BC5E215C7B95BCA40B /* ws.technique.ocean.xml in Resources */,
+				E76BA378D2B02619FCA478C2 /* ss.technique.ocean_compose.xml in Resources */,
+				65B3079A38A2B93D3EB68BB0 /* output.technique.island_demo.xml in Resources */,
+				ECCEB21611C2BDF840802CA4 /* material.ss.output.island_demo.xml in Resources */,
+				0109609772010CE31A67E91A /* material.ss.ocean_compose.xml in Resources */,
+				C62D43E99917A7953E395BE7 /* material.ocean_prop.xml in Resources */,
+				D8EA00B17ECC9C3A8E2A2F58 /* material.ocean.xml in Resources */,
+				F6887F32122EDE6575C79E36 /* ocean_prop.xml in Resources */,
+				69F34503579710A94145938B /* ocean.xml in Resources */,
 				66887360D1FD72532F73B62F /* transition.island_demo.xml in Resources */,
 				FA2026092100000000000008 /* output.technique.basic_demo.xml in Resources */,
 				FA202609210000000000000C /* material.ss.output.basic_demo.xml in Resources */,
@@ -6906,6 +7864,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				639A6DDCC0A0E8F6CA6D87A2 /* island_resident_demo.cpp in Sources */,
+				28D14315CA1D1B3A878AEDBA /* ces_island_resident_system.cpp in Sources */,
+				8D257428E71A45A8F7509EEB /* ces_island_resident_component.cpp in Sources */,
+				56B6A00FA6BFA3040E51B79C /* resident_shader_uniforms.cpp in Sources */,
+				34F66238B5F69530535E1E42 /* resident_behavior.cpp in Sources */,
+				7B5D2F455EABD92BAFDD71A1 /* resident_navigation.cpp in Sources */,
+				B672AAF5DE35A87FD492AA0C /* ocean_demo_props.cpp in Sources */,
+				2AC45259153EB068C2DDE91A /* ces_buoyancy_component.cpp in Sources */,
+				069A5CFE8567874D12053A67 /* buoyancy_simulation.cpp in Sources */,
+				0014F2E7FEA718BC62A7964D /* ces_ocean_system.cpp in Sources */,
+				F56635D6914C986F0399A47E /* ocean_shader_uniforms.cpp in Sources */,
+				F3C5A2D86AB2D8E1EAE21D5E /* ocean_mesh_builder.cpp in Sources */,
+				418480B276EC58910FBA2FF4 /* ocean_wave_model.cpp in Sources */,
 				F38069131F2609C500AE1D67 /* ces_car_parts_component.cpp in Sources */,
 				9290953A22C35E44005097DC /* shop_table_view_cell.cpp in Sources */,
 				9213BAE622170A7400F8ACB5 /* ces_car_simulator_system.cpp in Sources */,
@@ -7004,6 +7975,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F05AE9296606C5E2D16DEE2C /* island_resident_demo.cpp in Sources */,
+				96B5C910AE7A3A2D5965210E /* ces_island_resident_system.cpp in Sources */,
+				CA01106CC99F6222196EC12F /* ces_island_resident_component.cpp in Sources */,
+				2F2C5E913BEDEA0B28756FC0 /* resident_shader_uniforms.cpp in Sources */,
+				42ABBC5ED1F5ACB0215B254F /* resident_behavior.cpp in Sources */,
+				A6E7E9A00C431F61C037DB6F /* resident_navigation.cpp in Sources */,
+				F273908A382D4E56B2E498C5 /* ocean_demo_props.cpp in Sources */,
+				470DA9938CC58D6392F4BB9D /* ces_buoyancy_component.cpp in Sources */,
+				BDB1B5BC946AA840C285C4E1 /* buoyancy_simulation.cpp in Sources */,
+				46AE2F349EB9AF8F0FF0E2ED /* ces_ocean_system.cpp in Sources */,
+				C9ED3209F1EB3A0525D594F1 /* ocean_shader_uniforms.cpp in Sources */,
+				1045F032889453055CD6589B /* ocean_mesh_builder.cpp in Sources */,
+				1E536954A38549772F582ACE /* ocean_wave_model.cpp in Sources */,
 				F3ED655C1F21E6E30047F89D /* gameplay_fabricator.cpp in Sources */,
 				9290953B22C35E44005097DC /* shop_table_view_cell.cpp in Sources */,
 				9213BAE722170A7400F8ACB5 /* ces_car_simulator_system.cpp in Sources */,
@@ -7102,6 +8086,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E8EC6D0E7EC7C58184AE52ED /* island_resident_demo.cpp in Sources */,
+				FA6291FC0BCAC44565DE11C9 /* ces_island_resident_system.cpp in Sources */,
+				1AAC6F04B45B763A9F84DE57 /* ces_island_resident_component.cpp in Sources */,
+				2DC20DDBD619BD3DC6912706 /* resident_shader_uniforms.cpp in Sources */,
+				15DD0F7E04BAFE2CE2AC8B4F /* resident_behavior.cpp in Sources */,
+				279EFA9C291FDB57AF67E1F4 /* resident_navigation.cpp in Sources */,
+				3F4070E32ED3EEC51CE668B5 /* ocean_demo_props.cpp in Sources */,
+				C01EAC9D40F8E0F54C2D4511 /* ces_buoyancy_component.cpp in Sources */,
+				80E508B08F0612703F214622 /* buoyancy_simulation.cpp in Sources */,
+				DA4BA0B0FC15ABA94EF24D36 /* ces_ocean_system.cpp in Sources */,
+				E383A0B1ECC275A85DFF9C4B /* ocean_shader_uniforms.cpp in Sources */,
+				360149EB8CA0D9557A19BDC3 /* ocean_mesh_builder.cpp in Sources */,
+				7B50DCCD90EEB12D3D3D000D /* ocean_wave_model.cpp in Sources */,
 				F3ED655D1F21E6E30047F89D /* gameplay_fabricator.cpp in Sources */,
 				9290953C22C35E44005097DC /* shop_table_view_cell.cpp in Sources */,
 				F351AF471EB082E10017E43E /* game_controller_tvos.mm in Sources */,

@@ -328,3 +328,18 @@ for (const auto& route : scene_asset->get_objects("route"))
 ```
 
 A `scene_2d`/`scene_3d` is a resource containing parsed scene data. It is not the same object as the active `scene_graph` root. The application fabricator decides how parsed objects become runtime entities.
+
+## Procedural ocean meshes and receiver uniforms
+
+`gbDemo/sources/island_demo_scene.cpp` is a configured procedural mesh example.
+For PTNTC vertices, compute CPU min/max explicitly and use the established
+`mesh_3d::construct(guid, vbo, ibo, max, min)` overload; legacy automatic bounds
+expect a different packed vertex layout. Rotating ocean props use radius
+culling because the box path only transforms two extrema.
+
+`ocean_shader_uniforms.{h,cpp}` shows a matching 496-byte vertex/fragment
+uniform wrapper. `ces_ocean_system` attaches it before first rendering and
+updates it at order 6. Use `get_uniforms()` with the known wrapper cast here:
+the legacy templated `get_uniforms_as<T>` assignment is incompatible with this
+derived wrapper. Keep wave settings, time and receiver parameters together;
+do not animate floating transforms with a second independent clock.

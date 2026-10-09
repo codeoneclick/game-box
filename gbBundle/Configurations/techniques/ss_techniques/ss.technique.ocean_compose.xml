@@ -1,0 +1,12 @@
+﻿<ss_technique
+    guid="ss.ocean_compose"
+    frame_width="1024"
+    frame_height="768"
+    skip_frames="0">
+    <material filename="material.ss.ocean_compose.xml"/>
+    <attachments>
+        <attachment name="attachment_01" pixel_format="71"
+                    clear_color_r="0.0" clear_color_g="0.0" clear_color_b="0.0" clear_color_a="1.0"/>
+    </attachments>
+</ss_technique>
+

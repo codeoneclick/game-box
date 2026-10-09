@@ -141,6 +141,14 @@ namespace gb
         }
     }
     
+    void input_context::gr_scrolled(const glm::ivec2& point, const glm::ivec2& area_size, f32 delta)
+    {
+        for(const auto& listener : m_listeners)
+        {
+            listener->on_gr_scrolled(point, area_size, delta);
+        }
+    }
+
     void input_context::key_up(i32 key)
     {
         for(const auto& listener : m_listeners)

@@ -199,6 +199,10 @@ namespace gb
     vertex_declaration(size, external_data)
     {
 
+#if USED_GRAPHICS_API == METAL_API
+        m_mtl_vertex_descriptor=mtl_vertex_descriptor::create_PT4B_vertex_descriptor();
+#endif
+
 #if USED_GRAPHICS_API == VULKAN_API
 
 		m_attributes_description.resize(6);

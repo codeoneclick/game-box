@@ -115,6 +115,28 @@ namespace gb
         m_vertex_descriptor.layouts[0].stepFunction = MTLVertexStepFunctionPerVertex;
     }
     
+    class mtl_vertex_descriptor_impl_PT4B : public mtl_vertex_descriptor_impl {
+    public:
+        mtl_vertex_descriptor_impl_PT4B(){
+            m_vertex_descriptor.attributes[0].format=MTLVertexFormatFloat3;
+            m_vertex_descriptor.attributes[0].offset=offsetof(vbo::vertex_attribute_PT4B,m_position);
+            m_vertex_descriptor.attributes[1].format=MTLVertexFormatHalf2;
+            m_vertex_descriptor.attributes[1].offset=offsetof(vbo::vertex_attribute_PT4B,m_texcoord);
+            m_vertex_descriptor.attributes[4].format=MTLVertexFormatUChar4Normalized;
+            m_vertex_descriptor.attributes[4].offset=offsetof(vbo::vertex_attribute_PT4B,m_bone_weights);
+            m_vertex_descriptor.attributes[5].format=MTLVertexFormatUChar4;
+            m_vertex_descriptor.attributes[5].offset=offsetof(vbo::vertex_attribute_PT4B,m_bone_ids);
+            for(int i:{0,1,4,5})m_vertex_descriptor.attributes[i].bufferIndex=0;
+            m_vertex_descriptor.layouts[0].stride=sizeof(vbo::vertex_attribute_PT4B);
+            m_vertex_descriptor.layouts[0].stepFunction=MTLVertexStepFunctionPerVertex;
+        }
+    };
+    std::shared_ptr<mtl_vertex_descriptor> mtl_vertex_descriptor::m_PT4B_vertex_descriptor = nullptr;
+    std::shared_ptr<mtl_vertex_descriptor> mtl_vertex_descriptor::create_PT4B_vertex_descriptor(){
+        if(!m_PT4B_vertex_descriptor){m_PT4B_vertex_descriptor=std::make_shared<mtl_vertex_descriptor>();
+            m_PT4B_vertex_descriptor->m_vertex_descriptor_impl=std::make_shared<mtl_vertex_descriptor_impl_PT4B>();}
+        return m_PT4B_vertex_descriptor;
+    }
     std::shared_ptr<mtl_vertex_descriptor> mtl_vertex_descriptor::m_PTNTC_vertex_descriptor = nullptr;
     std::shared_ptr<mtl_vertex_descriptor> mtl_vertex_descriptor::m_PTC_vertex_descriptor = nullptr;
     

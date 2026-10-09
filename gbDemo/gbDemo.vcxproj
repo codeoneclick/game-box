@@ -95,7 +95,7 @@
     <ClCompile Include="sources\main_game_controller.cpp" />
     <ClCompile Include="sources\terrain_generator.cpp" />
     <ClCompile Include="sources\terrain_mesh_builder.cpp" />
-    <ClCompile Include="sources\island_demo_scene.cpp" />
+    <ClCompile Include="sources\island_demo_scene.cpp"><ExceptionHandling>Sync</ExceptionHandling></ClCompile>
     <ClCompile Include="sources\island_demo_transition.cpp" />
     <ClCompile Include="sources\ss_render_technique_custom_uniforms.cpp" />
     <ClCompile Include="sources\ui_animation_helper.cpp" />
@@ -466,4 +466,125 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
+  <ItemGroup>
+    <ClInclude Include="sources\ocean_wave_model.h"></ClInclude>
+    <ClCompile Include="sources\ocean_wave_model.cpp"></ClCompile>
+    <ClInclude Include="sources\ocean_mesh_builder.h"></ClInclude>
+    <ClCompile Include="sources\ocean_mesh_builder.cpp"></ClCompile>
+    <ClInclude Include="sources\ocean_shader_uniforms.h"></ClInclude>
+    <ClCompile Include="sources\ocean_shader_uniforms.cpp"></ClCompile>
+    <ClInclude Include="sources\ces_ocean_system.h"></ClInclude>
+    <ClCompile Include="sources\ces_ocean_system.cpp"></ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="sources\buoyancy_simulation.h"></ClInclude>
+    <ClCompile Include="sources\buoyancy_simulation.cpp"></ClCompile>
+    <ClInclude Include="sources\ces_buoyancy_component.h"></ClInclude>
+    <ClCompile Include="sources\ces_buoyancy_component.cpp"></ClCompile>
+    <ClInclude Include="sources\ocean_demo_props.h"></ClInclude>
+    <ClCompile Include="sources\ocean_demo_props.cpp"></ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="sources\resident_navigation.h"></ClInclude>
+    <ClCompile Include="sources\resident_navigation.cpp"><ExceptionHandling>Sync</ExceptionHandling></ClCompile>
+    <ClInclude Include="sources\resident_behavior.h"></ClInclude>
+    <ClCompile Include="sources\resident_behavior.cpp"></ClCompile>
+    <ClInclude Include="sources\resident_shader_uniforms.h"></ClInclude>
+    <ClCompile Include="sources\resident_shader_uniforms.cpp"><ExceptionHandling>Sync</ExceptionHandling></ClCompile>
+    <ClInclude Include="sources\ces_island_resident_component.h"></ClInclude>
+    <ClCompile Include="sources\ces_island_resident_component.cpp"></ClCompile>
+    <ClInclude Include="sources\ces_island_resident_system.h"></ClInclude>
+    <ClCompile Include="sources\ces_island_resident_system.cpp"></ClCompile>
+    <ClInclude Include="sources\island_resident_demo.h"></ClInclude>
+    <ClCompile Include="sources\island_resident_demo.cpp"><ExceptionHandling>Sync</ExceptionHandling></ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="sources\resident_asset_validation.h"></ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\gbBundle\Configurations\game_objects\materials\material.ocean_foam.xml"></None>
+    <None Include="..\gbBundle\Configurations\game_objects\materials\material.water_distance.xml"></None>
+    <None Include="..\gbBundle\Configurations\game_objects\materials\material.water_jfa0.xml"></None>
+    <None Include="..\gbBundle\Configurations\game_objects\materials\material.water_jfa1.xml"></None>
+    <None Include="..\gbBundle\Configurations\game_objects\materials\material.water_jfa10.xml"></None>
+    <None Include="..\gbBundle\Configurations\game_objects\materials\material.water_jfa11.xml"></None>
+    <None Include="..\gbBundle\Configurations\game_objects\materials\material.water_jfa2.xml"></None>
+    <None Include="..\gbBundle\Configurations\game_objects\materials\material.water_jfa3.xml"></None>
+    <None Include="..\gbBundle\Configurations\game_objects\materials\material.water_jfa4.xml"></None>
+    <None Include="..\gbBundle\Configurations\game_objects\materials\material.water_jfa5.xml"></None>
+    <None Include="..\gbBundle\Configurations\game_objects\materials\material.water_jfa6.xml"></None>
+    <None Include="..\gbBundle\Configurations\game_objects\materials\material.water_jfa7.xml"></None>
+    <None Include="..\gbBundle\Configurations\game_objects\materials\material.water_jfa8.xml"></None>
+    <None Include="..\gbBundle\Configurations\game_objects\materials\material.water_jfa9.xml"></None>
+    <None Include="..\gbBundle\Configurations\game_objects\materials\material.water_land.xml"></None>
+    <None Include="..\gbBundle\Configurations\game_objects\materials\material.water_mask.xml"></None>
+    <None Include="..\gbBundle\Configurations\game_objects\materials\material.water_seed.xml"></None>
+    <None Include="..\gbBundle\Configurations\game_objects\water_distance.xml"></None>
+    <None Include="..\gbBundle\Configurations\game_objects\water_jfa0.xml"></None>
+    <None Include="..\gbBundle\Configurations\game_objects\water_jfa1.xml"></None>
+    <None Include="..\gbBundle\Configurations\game_objects\water_jfa10.xml"></None>
+    <None Include="..\gbBundle\Configurations\game_objects\water_jfa11.xml"></None>
+    <None Include="..\gbBundle\Configurations\game_objects\water_jfa2.xml"></None>
+    <None Include="..\gbBundle\Configurations\game_objects\water_jfa3.xml"></None>
+    <None Include="..\gbBundle\Configurations\game_objects\water_jfa4.xml"></None>
+    <None Include="..\gbBundle\Configurations\game_objects\water_jfa5.xml"></None>
+    <None Include="..\gbBundle\Configurations\game_objects\water_jfa6.xml"></None>
+    <None Include="..\gbBundle\Configurations\game_objects\water_jfa7.xml"></None>
+    <None Include="..\gbBundle\Configurations\game_objects\water_jfa8.xml"></None>
+    <None Include="..\gbBundle\Configurations\game_objects\water_jfa9.xml"></None>
+    <None Include="..\gbBundle\Configurations\game_objects\water_land.xml"></None>
+    <None Include="..\gbBundle\Configurations\game_objects\water_mask.xml"></None>
+    <None Include="..\gbBundle\Configurations\game_objects\water_seed.xml"></None>
+    <None Include="..\gbBundle\Configurations\techniques\ws_techniques\ws.technique.ocean_foam.xml"></None>
+    <None Include="..\gbBundle\Configurations\techniques\ws_techniques\ws.technique.water_distance.xml"></None>
+    <None Include="..\gbBundle\Configurations\techniques\ws_techniques\ws.technique.water_jfa0.xml"></None>
+    <None Include="..\gbBundle\Configurations\techniques\ws_techniques\ws.technique.water_jfa1.xml"></None>
+    <None Include="..\gbBundle\Configurations\techniques\ws_techniques\ws.technique.water_jfa10.xml"></None>
+    <None Include="..\gbBundle\Configurations\techniques\ws_techniques\ws.technique.water_jfa11.xml"></None>
+    <None Include="..\gbBundle\Configurations\techniques\ws_techniques\ws.technique.water_jfa2.xml"></None>
+    <None Include="..\gbBundle\Configurations\techniques\ws_techniques\ws.technique.water_jfa3.xml"></None>
+    <None Include="..\gbBundle\Configurations\techniques\ws_techniques\ws.technique.water_jfa4.xml"></None>
+    <None Include="..\gbBundle\Configurations\techniques\ws_techniques\ws.technique.water_jfa5.xml"></None>
+    <None Include="..\gbBundle\Configurations\techniques\ws_techniques\ws.technique.water_jfa6.xml"></None>
+    <None Include="..\gbBundle\Configurations\techniques\ws_techniques\ws.technique.water_jfa7.xml"></None>
+    <None Include="..\gbBundle\Configurations\techniques\ws_techniques\ws.technique.water_jfa8.xml"></None>
+    <None Include="..\gbBundle\Configurations\techniques\ws_techniques\ws.technique.water_jfa9.xml"></None>
+    <None Include="..\gbBundle\Configurations\techniques\ws_techniques\ws.technique.water_mask.xml"></None>
+    <None Include="..\gbBundle\Configurations\techniques\ws_techniques\ws.technique.water_seed.xml"></None>
+    <ClInclude Include="..\gbBundle\Shaders\metal\mtl_water_interaction.h"></ClInclude>
+    <None Include="..\gbBundle\Shaders\shader_ocean_foam.frag"></None>
+    <None Include="..\gbBundle\Shaders\shader_ocean_foam.vert"></None>
+    <None Include="..\gbBundle\Shaders\shader_water_distance.frag"></None>
+    <None Include="..\gbBundle\Shaders\shader_water_distance.vert"></None>
+    <None Include="..\gbBundle\Shaders\shader_water_jfa0.frag"></None>
+    <None Include="..\gbBundle\Shaders\shader_water_jfa0.vert"></None>
+    <None Include="..\gbBundle\Shaders\shader_water_jfa1.frag"></None>
+    <None Include="..\gbBundle\Shaders\shader_water_jfa1.vert"></None>
+    <None Include="..\gbBundle\Shaders\shader_water_jfa10.frag"></None>
+    <None Include="..\gbBundle\Shaders\shader_water_jfa10.vert"></None>
+    <None Include="..\gbBundle\Shaders\shader_water_jfa11.frag"></None>
+    <None Include="..\gbBundle\Shaders\shader_water_jfa11.vert"></None>
+    <None Include="..\gbBundle\Shaders\shader_water_jfa2.frag"></None>
+    <None Include="..\gbBundle\Shaders\shader_water_jfa2.vert"></None>
+    <None Include="..\gbBundle\Shaders\shader_water_jfa3.frag"></None>
+    <None Include="..\gbBundle\Shaders\shader_water_jfa3.vert"></None>
+    <None Include="..\gbBundle\Shaders\shader_water_jfa4.frag"></None>
+    <None Include="..\gbBundle\Shaders\shader_water_jfa4.vert"></None>
+    <None Include="..\gbBundle\Shaders\shader_water_jfa5.frag"></None>
+    <None Include="..\gbBundle\Shaders\shader_water_jfa5.vert"></None>
+    <None Include="..\gbBundle\Shaders\shader_water_jfa6.frag"></None>
+    <None Include="..\gbBundle\Shaders\shader_water_jfa6.vert"></None>
+    <None Include="..\gbBundle\Shaders\shader_water_jfa7.frag"></None>
+    <None Include="..\gbBundle\Shaders\shader_water_jfa7.vert"></None>
+    <None Include="..\gbBundle\Shaders\shader_water_jfa8.frag"></None>
+    <None Include="..\gbBundle\Shaders\shader_water_jfa8.vert"></None>
+    <None Include="..\gbBundle\Shaders\shader_water_jfa9.frag"></None>
+    <None Include="..\gbBundle\Shaders\shader_water_jfa9.vert"></None>
+    <None Include="..\gbBundle\Shaders\shader_water_land.frag"></None>
+    <None Include="..\gbBundle\Shaders\shader_water_land.vert"></None>
+    <None Include="..\gbBundle\Shaders\shader_water_mask.frag"></None>
+    <None Include="..\gbBundle\Shaders\shader_water_mask.vert"></None>
+    <None Include="..\gbBundle\Shaders\shader_water_seed.frag"></None>
+    <None Include="..\gbBundle\Shaders\shader_water_seed.vert"></None>
+  </ItemGroup>
 </Project>

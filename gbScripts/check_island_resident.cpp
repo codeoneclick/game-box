@@ -1,0 +1,66 @@
+#include "terrain_generator.h"
+#include "terrain_mesh_builder.h"
+#include "resident_navigation.h"
+#include "resident_behavior.h"
+#include <cassert>
+#include <cmath>
+#include <iostream>
+#include <limits>
+int main(){
+    auto quad=[](game::terrain_mesh_data& mesh,float x0,float z0,float x1,float z1){
+        uint16_t base=static_cast<uint16_t>(mesh.vertices.size());
+        for(auto p:{game::resident_point{x0,z0},game::resident_point{x0,z1},game::resident_point{x1,z1},game::resident_point{x1,z0}})
+            mesh.vertices.push_back({{{p.x,.5f,p.z}},{{0,1,0}},{{255,255,255,255}}});
+        for(auto i:{0,1,2,0,2,3})mesh.indices.push_back(base+static_cast<uint16_t>(i));
+    };
+    game::terrain_mesh_data ring;
+    quad(ring,-10,-10,10,-5);quad(ring,-10,5,10,10);quad(ring,-10,-5,-5,5);quad(ring,5,-5,10,5);
+    auto ring_nav=game::build_resident_navigation(ring,.5f);
+    assert(!ring_nav.segment_is_safe({-7.5f,0},{7.5f,0}));
+    auto ring_path=ring_nav.find_path({-7.5f,0},{7.5f,0});assert(!ring_path.empty());
+    for(size_t i=1;i<ring_path.size();++i)assert(ring_nav.segment_is_safe(ring_path[i-1],ring_path[i]));
+    game::terrain_mesh_data separate;quad(separate,-10,-10,-5,10);quad(separate,5,-10,10,10);
+    assert(game::build_resident_navigation(separate,.5f).find_path({-7.5f,0},{7.5f,0}).empty());
+    game::terrain_mesh_data narrow;quad(narrow,0,0,1,10);
+    assert(!game::create_resident_state(game::build_resident_navigation(narrow,.5f),1).available);
+    game::terrain_mesh_data wide;quad(wide,-10,-10,10,10);
+    auto wide_nav=game::build_resident_navigation(wide,.5f);
+    auto corner=game::create_resident_state(wide_nav,1);corner.position={0,0};corner.yaw=-1;corner.walking=true;
+    corner.route={{0,0},{0,.03f},{.03f,.03f},{1,1}};corner.route_index=1;
+    game::step_resident(wide_nav,.1f,corner);assert(std::abs(corner.yaw+1)<=.31416f);
+    game::terrain_config config;
+    auto mesh=game::terrain_mesh_builder::build(game::terrain_generator::generate(config));
+    auto nav=game::build_resident_navigation(mesh,config.shore_height);
+    auto state=game::create_resident_state(nav,1337);
+    assert(state.available&&nav.is_safe(state.position));
+    auto points=nav.reachable_points(state.position);assert(points.size()>100);
+    assert(!nav.is_safe({0,0}));assert(!nav.is_safe({1000,1000}));
+    auto route=nav.find_path(state.position,points.back());assert(!route.empty());
+    for(auto p:route)assert(nav.is_safe(p));
+    for(size_t i=1;i<route.size();++i)assert(nav.segment_is_safe(route[i-1],route[i]));
+    auto empty=game::build_resident_navigation({},config.shore_height);
+    assert(!game::create_resident_state(empty,1).available);
+    for(auto seed:{42u,2026u}){
+        auto variant=config;variant.seed=seed;variant.resolution=seed==42?256:512;
+        auto variant_nav=game::build_resident_navigation(game::terrain_mesh_builder::build(game::terrain_generator::generate(variant)),variant.shore_height);
+        auto visitor=game::create_resident_state(variant_nav,seed);assert(visitor.available&&variant_nav.is_safe(visitor.position));
+        auto targets=variant_nav.reachable_points(visitor.position);assert(!targets.empty());
+        auto path=variant_nav.find_path(visitor.position,targets.back());assert(!path.empty());
+        for(size_t i=1;i<path.size();++i)assert(variant_nav.segment_is_safe(path[i-1],path[i]));
+    }
+    auto other=state;bool idle=false,walk=false;int stops=0;
+    for(int i=0;i<180000;++i){auto before=state;game::step_resident(nav,1.f/60,state);game::step_resident(nav,1.f/60,other);
+        assert(state.position.x==other.position.x&&state.position.z==other.position.z);
+        assert(nav.is_safe(state.position)&&nav.segment_is_safe(before.position,state.position));
+        assert(std::abs(std::atan2(std::sin(state.yaw-before.yaw),std::cos(state.yaw-before.yaw)))<=3.141593f/60+.00001f);
+        idle|=!state.walking;walk|=state.walking;if(before.walking&&!state.walking)++stops;
+    }
+    assert(idle&&walk&&stops>100);
+    auto before=state;game::step_resident(nav,0,state);game::step_resident(nav,-1,state);
+    game::step_resident(nav,std::numeric_limits<float>::quiet_NaN(),state);
+    assert(state.position.x==before.position.x&&state.position.z==before.position.z&&state.idle_remaining==before.idle_remaining);
+    game::step_resident(nav,2,state);
+    float dx=state.position.x-before.position.x,dz=state.position.z-before.position.z;
+    assert(std::sqrt(dx*dx+dz*dz)<=.1201f&&nav.is_safe(state.position));
+    std::cout<<"Resident navigation/behavior smoke passed: reachable="<<points.size()<<" stops="<<stops<<std::endl;
+}

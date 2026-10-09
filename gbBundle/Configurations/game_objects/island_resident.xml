@@ -1,0 +1,7 @@
+<shape_3d mesh_filename="island_resident.fbx">
+ <materials><material filename="material.island_resident.xml"/></materials>
+ <animations>
+  <animation animation_filename="island_resident_idle.fbx" animation_name="idle" start_index="0" end_index="89" animation_mask_filename=""/>
+  <animation animation_filename="island_resident_walk.fbx" animation_name="walk" start_index="0" end_index="23" animation_mask_filename=""/>
+ </animations>
+</shape_3d>

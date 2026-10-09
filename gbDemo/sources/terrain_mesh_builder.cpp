@@ -82,26 +82,28 @@ namespace game
         if (data.layers.size() != static_cast<size_t>(config.resolution)*config.resolution)
             throw std::invalid_argument("Terrain cell count does not match resolution");
         for (int layer : data.layers)
-            if (layer < -1 || layer >= config.layers_count)
+            if (layer != terrain_data::empty_layer && (layer < -config.underwater_layers_count || layer >= config.layers_count))
                 throw std::invalid_argument("Terrain cell layer out of range");
-        for (int layer = 0; layer < config.layers_count; ++layer)
+        const int count = config.layers_count + config.underwater_layers_count;
+        for (int layer = -config.underwater_layers_count; layer < config.layers_count; ++layer)
             validate_layer_mask(data, layer);
-        const int segments = std::min(config.resolution, 512);
+        const int segments = std::min(config.resolution, 320);
         const float cell = config.world_size/config.resolution;
-        std::vector<std::vector<float>> radii(config.layers_count, std::vector<float>(segments));
-        for (int layer = 0; layer < config.layers_count; ++layer)
+        std::vector<std::vector<float>> radii(count, std::vector<float>(segments));
+        for (int layer = 0; layer < count; ++layer)
         for (int i = 0; i < segments; ++i)
         {
             const float angle = i*6.283185307f/segments;
             const float dx = std::cos(angle), dz = std::sin(angle);
-            if (occupancy(data, 0.f, 0.f, layer) < .5f)
+            const int label = layer - config.underwater_layers_count;
+            if (occupancy(data, 0.f, 0.f, label) < .5f)
                 throw std::invalid_argument("Terrain layer must contain the origin");
             float boundary = 0.f;
             bool outside = false;
             // Scan, rather than binary-search: reject a second occupied interval.
             for (float r = cell*.25f; r <= config.world_size*.72f; r += cell*.25f)
             {
-                const bool inside = occupancy(data, dx*r, dz*r, layer) >= .5f;
+                const bool inside = occupancy(data, dx*r, dz*r, label) >= .5f;
                 if (outside && inside)
                     throw std::invalid_argument("Terrain layer is not star-shaped");
                 if (!inside && !outside)
@@ -110,7 +112,7 @@ namespace game
                     for (int step = 0; step < 12; ++step)
                     {
                         const float mid = (lo+hi)*.5f;
-                        if (occupancy(data, dx*mid, dz*mid, layer) >= .5f) lo=mid;
+                        if (occupancy(data, dx*mid, dz*mid, label) >= .5f) lo=mid;
                         else hi=mid;
                     }
                     boundary=(lo+hi)*.5f;
@@ -136,28 +138,32 @@ namespace game
             const float angle=i*6.283185307f/segments;
             return {{radii[layer][i]*std::cos(angle), height, radii[layer][i]*std::sin(angle)}};
         };
-        for (int layer=0; layer<config.layers_count; ++layer)
+        for (int layer=0; layer<count; ++layer)
         {
-            const float y=layer*config.layer_height;
-            const color grass = {{static_cast<uint8_t>(85+layer*4), static_cast<uint8_t>(145+layer*5),
-                                  static_cast<uint8_t>(69+layer*3), 255}};
-            const color debug = {{static_cast<uint8_t>(55+layer*22), static_cast<uint8_t>(180-layer*12), 110, 255}};
+            const int label = layer - config.underwater_layers_count;
+            const float y=label==0 ? config.shore_height : label*config.layer_height;
+            const int land_label=std::max(label,0);
+            const color grass = {{static_cast<uint8_t>(85+land_label*4), static_cast<uint8_t>(145+land_label*5),
+                                  static_cast<uint8_t>(69+land_label*3), 255}};
+            const color debug = {{static_cast<uint8_t>(35+layer*13), static_cast<uint8_t>(210-layer*9), static_cast<uint8_t>(60+(layer%4)*45), 255}};
             const color soil = {{static_cast<uint8_t>(120+layer*3), static_cast<uint8_t>(85+layer*3),
                                  static_cast<uint8_t>(54+layer*2), 255}};
             for (int i=0; i<segments; ++i)
             {
                 const int j=(i+1)%segments;
                 const auto a=at(layer,i,y), b=at(layer,j,y);
-                if (layer+1 < config.layers_count)
+                const color tint = config.debug_layer_colors ? debug : (label < 0 ? color{{177,163,118,255}} : grass);
+                if (layer+1 < count)
                 {
                     if (radii[layer][i] <= radii[layer+1][i] || radii[layer][j] <= radii[layer+1][j])
                         throw std::invalid_argument("Terrain terraces must have positive width");
                     const auto c=at(layer+1,i,y), d=at(layer+1,j,y);
-                    triangle(mesh,a,c,b,up,config.debug_layer_colors ? debug : grass);
-                    triangle(mesh,b,c,d,up,config.debug_layer_colors ? debug : grass);
+                    triangle(mesh,a,c,b,up,tint);
+                    triangle(mesh,b,c,d,up,tint);
                 }
-                else triangle(mesh,a,{{0.f,y,0.f}},b,up,config.debug_layer_colors ? debug : grass);
-                const float bottom=layer==0 ? config.water_y-config.layer_height : y-config.layer_height;
+                else triangle(mesh,a,{{0.f,y,0.f}},b,up,tint);
+                const float bottom=layer==0 ? std::min(config.water_y-config.layer_height, y-config.layer_height)
+                    : (label==0 ? -config.layer_height : (label==1 ? config.shore_height : y-config.layer_height));
                 const auto c=at(layer,i,bottom), d=at(layer,j,bottom);
                 const float nx=b[2]-a[2], nz=a[0]-b[0];
                 const float length=std::sqrt(nx*nx+nz*nz);
@@ -178,6 +184,17 @@ namespace game
         const color blue={{48,153,174,255}};
         triangle(mesh,{{-s,y,-s}},{{-s,y,s}},{{s,y,-s}},up,blue);
         triangle(mesh,{{s,y,-s}},{{-s,y,s}},{{s,y,s}},up,blue);
+        return mesh;
+    }
+
+    terrain_mesh_data terrain_mesh_builder::build_seabed(const terrain_config& config)
+    {
+        auto mesh = build_water(config);
+        for (auto& vertex : mesh.vertices)
+        {
+            vertex.position[1] = -(config.underwater_layers_count+1)*config.layer_height;
+            vertex.color = {{137,135,100,255}};
+        }
         return mesh;
     }
 }

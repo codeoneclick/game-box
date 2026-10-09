@@ -1,6 +1,14 @@
 #include "island_demo_scene.h"
 #include "terrain_generator.h"
 #include "terrain_mesh_builder.h"
+#include "ocean_mesh_builder.h"
+#include "ocean_shader_uniforms.h"
+#include "ces_ocean_system.h"
+#include "ces_transformation_3d_component.h"
+#include "ocean_demo_props.h"
+#include "ces_buoyancy_component.h"
+#include "island_resident_demo.h"
+#include "ces_island_resident_system.h"
 #include "camera_2d.h"
 #include "camera_3d.h"
 #include "ces_geometry_3d_component.h"
@@ -33,8 +41,9 @@ namespace game
             float m_water_y;
             float m_yaw = 45.f;
             float m_pitch = 55.f;
-            const float m_radius = 245.f;
-            glm::vec3 m_target = glm::vec3(0.f, 6.f, 0.f);
+            float m_radius = 245.f;
+            float m_min_radius = 35.f;
+            glm::vec3 m_target = glm::vec3(-24.f, 6.f, 24.f);
 
             bool cursor_ray(const glm::ivec2& point, glm::ray& ray)
             {
@@ -108,9 +117,15 @@ namespace game
 
         public:
             orbit_camera_input(const std::shared_ptr<gb::camera_3d>& camera,
-                               const terrain_mesh_data& surface, float water_y) :
+                               const terrain_mesh_data& surface, float water_y, const glm::vec3& resident_focus) :
                 m_camera(camera), m_surface(std::make_shared<terrain_mesh_data>(surface)), m_water_y(water_y)
             {
+                if(const char* inspect=std::getenv("GB_OCEAN_INSPECT")){
+                    if(std::string(inspect)=="1"){m_target=glm::vec3(-85.f,0.f,100.f);m_radius=85.f;m_pitch=35.f;}
+                }
+                if(const char* inspect=std::getenv("GB_RESIDENT_INSPECT")){
+                    if(std::string(inspect)=="1"){m_target=resident_focus;m_radius=3.5f;m_min_radius=2.5f;m_pitch=12.f;m_yaw=90.f;}
+                }
                 update_camera();
             }
 
@@ -156,6 +171,18 @@ namespace game
                 }
             }
 
+            void on_gr_scrolled(const glm::ivec2& point, const glm::ivec2&, f32 delta) override
+            {
+                if (!std::isfinite(delta) || delta==0.f) return;
+                m_radius=glm::clamp(m_radius*std::exp(-delta*.12f),m_min_radius,700.f);
+                update_camera();
+                // Rebase an active grab after zoom so the next drag cannot jump.
+                if(m_is_panning) {
+                    glm::vec3 hit;
+                    if(cursor_on_plane(point,m_pan_anchor.y,hit)) m_pan_anchor=hit;
+                }
+            }
+
             void on_key_up(i32) override {}
             void on_key_down(i32) override {}
             void on_virtual_keyboard_input(const std::string&) override {}
@@ -182,7 +209,15 @@ namespace game
             auto indices_buffer=std::make_shared<gb::ibo>(static_cast<ui32>(data.indices.size()),gb::gl::constant::static_draw);
             std::copy(data.indices.begin(),data.indices.end(),indices_buffer->lock());
             indices_buffer->unlock();
-            return gb::mesh_3d::construct(guid,vertices_buffer,indices_buffer);
+            // mesh_3d's legacy automatic bounds assume PT4B, while this upload is PTNTC.
+            glm::vec3 min_bound(std::numeric_limits<float>::max()),max_bound(std::numeric_limits<float>::lowest());
+            for(const auto& vertex:data.vertices){
+                const glm::vec3 p(vertex.position[0],vertex.position[1],vertex.position[2]);
+                min_bound=glm::min(min_bound,p);max_bound=glm::max(max_bound,p);
+            }
+            // Include water displacement so its rest plane isn't culled at the frustum edge.
+            if(guid.find("island.water")==0){min_bound.y=-1.f;max_bound.y=1.f;}
+            return gb::mesh_3d::construct(guid,vertices_buffer,indices_buffer,max_bound,min_bound);
         }
     }
 
@@ -193,12 +228,15 @@ namespace game
         if (const auto input_context = m_input_context.lock())
         {
             input_context->remove_listener(m_orbit_listener);
+            if(m_resident_listener)input_context->remove_listener(m_resident_listener);
         }
     }
 
     void island_demo_scene::create()
     {
         gb::scene_graph::create();
+        auto field_debug=add_component<gb::ces_render_technique_uniforms_component>()->construct_uniforms<ocean_field_debug_uniforms>(gb::ces_render_technique_uniforms_component::e_shader_uniform_type_fragment,"compose");
+        if(const char* value=std::getenv("GB_OCEAN_FIELD_VIEW"))field_debug->set(glm::vec4(std::atoi(value),0,0,0),"field_debug");
         terrain_config config;
         const char* debug=std::getenv("GB_ISLAND_LAYER_COLORS");
         config.debug_layer_colors=debug && std::string(debug)=="1";
@@ -209,28 +247,78 @@ namespace game
         const auto built=std::chrono::steady_clock::now();
         const auto configuration=std::static_pointer_cast<gb::shape_3d_configuration>(
             get_transition()->get_configuration_accessor()->get_shape_3d_configuration("island_terrain.xml"));
-        const auto add_shape=[&](const terrain_mesh_data& data,const std::string& guid) {
+        ocean_settings ocean;
+        ocean.mean_level=config.water_y;
+        auto ocean_system=std::make_shared<ces_ocean_system>(ocean);
+        get_transition()->add_system(ocean_system);
+        const auto water_configuration=std::static_pointer_cast<gb::shape_3d_configuration>(
+            get_transition()->get_configuration_accessor()->get_shape_3d_configuration("ocean.xml"));
+        const auto prop_configuration=std::static_pointer_cast<gb::shape_3d_configuration>(
+            get_transition()->get_configuration_accessor()->get_shape_3d_configuration("ocean_prop.xml"));
+        const auto add_shape=[&](const terrain_mesh_data& data,const std::string& guid,bool water=false) {
             auto shape=gb::ces_entity::construct<gb::shape_3d>();
             shape->tag=guid;
             shape->get_component<gb::ces_geometry_3d_component>()->set_mesh(upload_mesh(data,guid));
-            get_fabricator()->add_materials(shape,configuration->get_materials_configurations());
+            const auto material_configuration=water?water_configuration:
+                (guid.find("ocean.prop.")==0?prop_configuration:configuration);
+            get_fabricator()->add_materials(shape,material_configuration->get_materials_configurations());
             add_child(shape);
+            if(water)ocean_system->add_surface(shape);else {
+                ocean_system->add_receiver(shape);
+                auto mask=gb::ces_entity::construct<gb::shape_3d>();
+                auto mg=mask->get_component<gb::ces_geometry_3d_component>();mg->set_mesh(shape->get_component<gb::ces_geometry_3d_component>()->get_mesh()->as_3d());mg->bounding_mode=gb::ces_geometry_component::e_none;
+                const auto mc=std::static_pointer_cast<gb::shape_3d_configuration>(get_transition()->get_configuration_accessor()->get_shape_3d_configuration(guid.find("island.")==0?"water_land.xml":"water_mask.xml"));
+                get_fabricator()->add_materials(mask,mc->get_materials_configurations());shape->add_child(mask);ocean_system->add_interaction(shape,mask);
+            }
+            return shape;
         };
+        terrain_mesh_data field_quad;
+        field_quad.vertices={{{{-1,-1,0}},{{0,0,1}},{{255,255,255,255}}},{{{1,-1,0}},{{0,0,1}},{{255,255,255,255}}},{{{-1,1,0}},{{0,0,1}},{{255,255,255,255}}},{{{1,1,0}},{{0,0,1}},{{255,255,255,255}}}};
+        field_quad.indices={0,1,2,1,3,2};
+        for(const auto& name:{"water_seed","water_jfa0","water_jfa1","water_jfa2","water_jfa3","water_jfa4","water_jfa5","water_jfa6","water_jfa7","water_jfa8","water_jfa9","water_jfa10","water_jfa11","water_distance"}){
+            auto quad=gb::ces_entity::construct<gb::shape_3d>();auto geometry=quad->get_component<gb::ces_geometry_3d_component>();
+            geometry->set_mesh(upload_mesh(field_quad,std::string("field.")+name));geometry->bounding_mode=gb::ces_geometry_component::e_none;
+            auto c=std::static_pointer_cast<gb::shape_3d_configuration>(get_transition()->get_configuration_accessor()->get_shape_3d_configuration(std::string(name)+".xml"));
+            get_fabricator()->add_materials(quad,c->get_materials_configurations());add_child(quad);
+        }
         add_shape(terrain_mesh,"island.terrain");
-        add_shape(terrain_mesh_builder::build_water(config),"island.water");
+        add_shape(terrain_mesh_builder::build_seabed(config),"island.seabed");
+        const auto water_patches=ocean_mesh_builder::build(config.water_size,384);
+        for(size_t i=0;i<water_patches.size();++i)add_shape(water_patches[i],"island.water."+std::to_string(i),true);
+        add_shape(ocean_mesh_builder::build_horizon(config.water_size,4096.f,384),"island.water.horizon",true);
+        const auto props=build_ocean_demo_props(ocean);
+        for(size_t i=0;i<props.size();++i){
+            const auto& p=props[i];auto shape=add_shape(p.mesh,"ocean.prop."+std::to_string(i));
+            auto geometry=shape->get_component<gb::ces_geometry_3d_component>();
+            geometry->bounding_mode=gb::ces_geometry_component::e_radius;
+            float radius=0;for(const auto& vertex:p.mesh.vertices)radius=std::max(radius,glm::length(glm::vec3(vertex.position[0],vertex.position[1],vertex.position[2])));
+            geometry->set_bounding_radius(radius);
+            auto transform=shape->get_component<gb::ces_transformation_3d_component>();
+            transform->set_position(glm::vec3(p.position.x,p.position.y,p.position.z));transform->set_rotation(glm::vec3(0,p.yaw,0));
+            if(p.floating){auto buoyancy=shape->add_component<ces_buoyancy_component>();buoyancy->settings=p.buoyancy;buoyancy->probes=p.probes;buoyancy->state.position=p.position;buoyancy->state.yaw=p.yaw;}
+        }
 
+        glm::vec3 resident_focus(-62.f,1.45f,74.f);
+        try {
+            auto resident=create_island_resident_demo(get_fabricator(),terrain_mesh,config.shore_height);
+            resident_focus=resident.focus;add_child(resident.shape);get_transition()->add_system(resident.system);
+            m_resident_listener=resident.input;
+        } catch(const std::exception& error){std::cerr<<"Resident setup failed: "<<error.what()<<std::endl;}
         const glm::ivec2 resolution=get_transition()->get_window()->get_resolution_size_in_points();
         set_camera_2d(std::make_shared<gb::camera_2d>(resolution.x,resolution.y));
         // A distant overview needs a suitably distant near plane for depth precision.
-        auto camera=std::make_shared<gb::camera_3d>(60.f,10.f,600.f,glm::ivec4(0,0,resolution.x,resolution.y),true);
+        const bool resident_inspect=std::getenv("GB_RESIDENT_INSPECT")&&std::string(std::getenv("GB_RESIDENT_INSPECT"))=="1";
+        auto camera=std::make_shared<gb::camera_3d>(60.f,resident_inspect?.1f:10.f,1200.f,glm::ivec4(0,0,resolution.x,resolution.y),true);
         set_camera_3d(camera);
-        m_orbit_listener = std::make_shared<orbit_camera_input>(camera, terrain_mesh, config.water_y);
+        m_orbit_listener = std::make_shared<orbit_camera_input>(camera, terrain_mesh, config.water_y,resident_focus);
         const auto input_context = get_transition()->get_input_context();
         m_input_context = input_context;
         input_context->add_listener(m_orbit_listener);
+        if(m_resident_listener)input_context->add_listener(m_resident_listener);
         std::cout << "Island seed=" << config.seed << " layers=" << config.layers_count
                   << " vertices=" << terrain_mesh.vertices.size() << " triangles=" << terrain_mesh.indices.size()/3
                   << " generation_ms=" << std::chrono::duration<double,std::milli>(generated-start).count()
                   << " mesh_ms=" << std::chrono::duration<double,std::milli>(built-generated).count() << std::endl;
+        std::cout<<"Ocean patches="<<water_patches.size()<<" terraces="<<config.layers_count<<"+"<<config.underwater_layers_count<<std::endl;
     }
 }

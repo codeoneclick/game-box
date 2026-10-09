@@ -1,0 +1,4 @@
+<material back_stencil_op_1="KEEP" back_stencil_op_2="KEEP" back_stencil_op_3="REPLACE" cull_face_mode="GL_BACK" front_stencil_op_1="KEEP" front_stencil_op_2="KEEP" front_stencil_op_3="REPLACE" is_batching="0" is_color_mask_a="1" is_color_mask_b="1" is_color_mask_g="1" is_color_mask_r="1" is_cull_face="0" is_debugging="0" is_depth_mask="0" is_depth_test="0" is_stencil_test="0" stencil_function="GL_ALWAYS" stencil_mask_read="0" stencil_mask_write="255" stencil_ref_value="128" technique_name="ws.water.jfa2" technique_pass="0" z_order="1">
+    <shader filename="shader_water_jfa2" />
+    <textures><texture filename="" mag_filter="GL_NEAREST" min_filter="GL_NEAREST" render_operation_name="ws.water.jfa1.attachment_01" sampler_index="0" wrap_mode="GL_CLAMP_TO_EDGE" /></textures><blendings><blending attachment_index="0" blending_equation="GL_FUNC_ADD" blending_function_destination="GL_ZERO" blending_function_source="GL_ZERO" is_enabled="0" /></blendings>
+</material>

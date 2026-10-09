@@ -1,0 +1,7 @@
+﻿<shape_3d mesh_filename="">
+    <materials>
+        <material filename="material.ocean_prop.xml"/>
+    </materials>
+    <animations/>
+</shape_3d>
+

@@ -153,6 +153,15 @@ namespace gb
             if (message != WM_CAPTURECHANGED && GetCapture() == hwnd) ReleaseCapture();
             return 0;
         }
+        case WM_MOUSEWHEEL:
+        {
+            // Unlike move/button messages, wheel coordinates are screen-relative.
+            POINT point={current_touch_point.x,current_touch_point.y};
+            ScreenToClient(hwnd,&point);
+            const float delta=static_cast<short>(HIWORD(param_w))/static_cast<float>(WHEEL_DELTA);
+            input_context->gr_scrolled(glm::ivec2(point.x,point.y),input_context->get_touch_area_size(),delta);
+            return 0;
+        }
         case WM_MOUSEMOVE:
         {
             glm::ivec2 delta = current_touch_point - input_context->get_previous_touch_point();

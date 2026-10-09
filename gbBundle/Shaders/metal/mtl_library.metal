@@ -10,6 +10,10 @@
 
 using namespace metal;
 
+#include "mtl_ocean.h"
+#include "mtl_water_interaction.h"
+#include "mtl_island_resident.h"
+
 vertex common_v_output_t vertex_shader_island_terrain(common_v_input_t in [[stage_in]],
                                                        constant common_u_input_t& uniforms [[buffer(1)]])
 {
@@ -25,15 +29,25 @@ vertex common_v_output_t vertex_shader_island_terrain(common_v_input_t in [[stag
     return out;
 }
 
-fragment g_buffer_output_t fragment_shader_island_terrain(common_v_output_t in [[stage_in]])
+fragment g_buffer_output_t fragment_shader_island_terrain(common_v_output_t in [[stage_in]],constant ocean_uniforms& u [[buffer(0)]])
 {
     g_buffer_output_t out;
     float3 normal = normalize(in.normal);
-    float diffuse = max(dot(normal, normalize(float3(0.35, 0.8, 0.45))), 0.0);
-    out.color = half4(half3(in.color.rgb * (0.5 + 0.5 * diffuse)), 1.0);
-    out.normal = half4(half3(normal), 1.0);
+    float diffuse = max(dot(normal, normalize(u.sun.xyz)), 0.0);
+    float3 p=in.view_space_position.xyz;
+    float water=ocean_ocean_height(p.xz,u),submerged=max(water-p.y,0.0);
+    // Only surfaces within wave reach receive instantaneous wetness.
+    // Stored buoyancy wetness remains independent of the current wave envelope.
+    float crest_level=u.time_level.y+1.1*(u.wave0.w+u.wave1.w+u.wave2.w+u.wave3.w);
+    float reachable=1.0-smoothstep(crest_level-.05,crest_level,p.y);
+    float wet=max(u.extra.y*(1.0-smoothstep(0.0,1.5,p.y-u.time_level.y)),reachable*(1.0-smoothstep(0.0,.65,p.y-water)));
+    float3 color=in.color.rgb*(0.5+0.5*diffuse)*mix(1.0,.64,wet);
+    if(submerged>0.0){float caustics=ocean_caustic_pattern(p.xz*u.caustic_params.x,u)*max(normal.y,.12)+ocean_caustic_pattern(float2(p.x+p.z,p.y)*u.caustic_params.x,u)*(1.0-abs(normal.y))*.4;color+=float3(.36,.54,.39)*caustics*u.caustic_params.z*exp(-submerged*u.caustic_params.w);}
+    float3 v=normalize(u.camera.xyz-p),h=normalize(v+normalize(u.sun.xyz));color+=wet*.2*pow(max(dot(normal,h),0.0),64.0);
+    out.color = half4(half3(color),1);
+    out.normal = half4(half3(normal*.5+.5), 1.0);
     out.position = in.view_space_position;
-    out.position.w = in.position.z;
+    out.position.w = max(-(u.view*float4(p,1)).z,.001);
     return out;
 }
 

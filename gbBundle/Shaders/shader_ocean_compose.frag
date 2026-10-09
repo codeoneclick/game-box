@@ -1,0 +1,2 @@
+uniform vec4 field_debug;
+void main(){if(field_debug.x>0.0){vec4 f=texture2D(sampler_04,v_texcoord);vec3 c=vec3(clamp(f.x/8.0,0.0,1.0));if(field_debug.x==15.0){vec2 sides=texture2D(sampler_05,v_texcoord).rg;c=vec3(min(sides.r,sides.g));}if(field_debug.x==17.0)c=vec3(f.yz*.5+.5,0);attachment_01=vec4(c,1);return;}vec4 water=texture2D(sampler_02,v_texcoord),foam=texture2D(sampler_03,v_texcoord);vec3 color=mix(texture2D(sampler_01,v_texcoord).rgb,water.rgb,water.a);attachment_01=vec4(color*(1.0-foam.a)+foam.rgb,1);}

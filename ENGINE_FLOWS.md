@@ -328,3 +328,26 @@ flowchart TD
 ```
 
 The `game_controller` destructor clears transitions, and the `resource_accessor` destructor stops/joins its worker. Exact application shutdown ordering across native delegates, static graphics singletons, the job-pool singleton, audio, and network threads is `UNKNOWN`; investigate those destructors before adding shutdown-sensitive work.
+
+## Island ocean frame
+
+```mermaid
+flowchart LR
+    A[Ocean clock and CPU wave model] --> B[Buoyancy probes and transforms]
+    A --> C[Ocean and receiver uniforms]
+    B --> D[Opaque ws.base: terrain seabed props]
+    C --> D
+    D --> E[Scene color normal and position/depth color attachments]
+    E --> F[ws.ocean: waves refraction SSR]
+    C --> F
+    F --> G[ss.ocean_compose]
+    D --> G
+    G --> H[Output gamma and presentation]
+```
+
+Water samples separate scene-data color attachments, never the pooled active
+hardware depth attachment. Empty scene position/depth has zero alpha; valid
+geometry has positive linear view depth. CPU and shader sampling share a direct static-XZ domain-warped height field.
+Geometry mask, seed/JFA/resolve and raised foam are configured WS stages before
+composition; their field is independent of the player camera. The ocean system
+clamps simulation time to 0.25 s per frame and updates uniforms after buoyancy.

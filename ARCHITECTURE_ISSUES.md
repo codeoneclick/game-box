@@ -187,3 +187,29 @@ Future direction: define public include directories, internal namespaces/headers
 - `UNKNOWN`: serialization compatibility/versioning guarantees for GB3DMESH, GB3DANIM, and GB3DSCENE.
 
 Each unknown should be resolved with a focused build/runtime task rather than guessed during an unrelated feature change.
+
+## 23. Ocean sample: scene data and procedural bounds
+
+The Vulkan WS depth attachments can be shared across techniques. Sampling the
+active hardware depth image as a texture risks a feedback/layout conflict.
+The ocean sample instead writes world position and positive linear view depth
+to a separate color attachment in the opaque pass and reads it in the water
+pass. Its clear alpha is zero so background pixels cannot masquerade as geometry.
+
+Legacy automatic `mesh_3d` bounds assume PT4B packing; the ocean's PTNTC data
+uses explicit CPU bounds. Box culling transforms only min/max, so rotated props
+use radius bounds. These are local uses of existing APIs, not core fixes.
+
+Windows Vulkan rendering was exercised. Existing shutdown command-pool
+validation messages remain. Metal source parity and Xcode membership do not
+establish a green Metal build; Metal and dormant OpenGL remain UNKNOWN.
+
+## Configured world-water pass constraints
+
+`game_transition.cpp` overrides WS configuration sizes with the window dimensions.
+World field shaders must query actual texture sizes. `ces_render_system` strips
+prefixes through the first underscore from technique names; dotted WS GUIDs avoid
+invalid technique indices. Scene-owned interaction meshes are retained until
+teardown because clearing geometry immediately can destroy Vulkan buffers still
+referenced by submitted commands. This is a demo-local lifetime workaround, not
+an engine resource-retirement API. See ISLAND_DEMO.md for memory and projected-waterline limits.

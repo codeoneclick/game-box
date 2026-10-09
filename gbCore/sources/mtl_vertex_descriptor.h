@@ -36,6 +36,7 @@ namespace gb
         
         static std::shared_ptr<mtl_vertex_descriptor> m_PTNTC_vertex_descriptor;
         static std::shared_ptr<mtl_vertex_descriptor> m_PTC_vertex_descriptor;
+        static std::shared_ptr<mtl_vertex_descriptor> m_PT4B_vertex_descriptor;
         
     protected:
         
@@ -52,6 +53,7 @@ namespace gb
         
         static std::shared_ptr<mtl_vertex_descriptor> create_PTNTC_vertex_descriptor();
         static std::shared_ptr<mtl_vertex_descriptor> create_PTC_vertex_descriptor();
+        static std::shared_ptr<mtl_vertex_descriptor> create_PT4B_vertex_descriptor();
         
         void* get_mtl_vertex_descriptor_ptr() const;
     };

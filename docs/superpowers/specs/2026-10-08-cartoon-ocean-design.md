@@ -1,6 +1,6 @@
 # Cartoon ocean and sixteen island terraces
 
-Status: design brief approved in conversation; written specification awaiting user review.
+Status: approved and implemented; Windows Vulkan verified. Platform and lifecycle verification limits are documented in ISLAND_DEMO.md.
 
 ## Outcome
 

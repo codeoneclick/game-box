@@ -77,6 +77,9 @@ namespace gb
                                    const glm::ivec2& delta,
                                    e_input_source e_input_source, ui32 index) = 0;
         
+        // Wheel delta is measured in notches; fractional high-resolution input is preserved.
+        virtual void on_gr_scrolled(const glm::ivec2&, const glm::ivec2&, f32) {}
+
         virtual void on_key_up(i32 key) = 0;
         virtual void on_key_down(i32 key) = 0;
         
@@ -133,6 +136,8 @@ namespace gb
                         const glm::ivec2& delta,
                         e_input_source input_source, ui32 index);
         
+        void gr_scrolled(const glm::ivec2& point, const glm::ivec2& area_size, f32 delta);
+
         void key_up(i32 key);
         void key_down(i32 key);
         
