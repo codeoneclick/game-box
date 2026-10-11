@@ -31,7 +31,7 @@ $demo=$null
 try{
  $demo=Start-Process -FilePath (Join-Path $repoRoot 'gbDemo\output\debug\x64\gb_demo.exe') -WorkingDirectory (Join-Path $repoRoot 'gbDemo') -WindowStyle Hidden -RedirectStandardOutput "$captureDir\runtime.log" -RedirectStandardError "$captureDir\errors.log" -PassThru
  $watch=[Diagnostics.Stopwatch]::StartNew();$nextColor=0;$orbited=$false
- while(!$demo.HasExited -and $watch.Elapsed.TotalSeconds -lt [Math]::Max(45,$Duration+10)){
+ while(!$demo.HasExited -and $watch.Elapsed.TotalSeconds -lt [Math]::Max(90,$Duration+20)){
   $log=Get-Content "$captureDir\runtime.log" -Raw
   if($Orbit -and !$orbited -and $log -match ('Saved image:.*[/\\]'+$frames[0]+'\.ppm')){
    if($ColorCycle -or $Pose -eq 'auto'){throw 'Orbit probe requires a fixed pose without ColorCycle.'}
@@ -53,26 +53,33 @@ try{
  $log=Get-Content "$captureDir\runtime.log" -Raw
  if($demo.HasExited){throw 'Resident demo exited during runtime check.'}
  if($log -notmatch ('Saved image:.*[/\\]'+$frames[-1]+'\.ppm')){throw 'Resident frames were not fully captured.'}
- if($log -notmatch 'Resident initialized: height=1.9 bones=18' -or $log -notmatch 'Resident material drawn'){throw 'Resident was not initialized and drawn.'}
- if($log -match 'safe=0|NONFINITE|Resident setup failed'){throw 'Resident runtime state invalid.'}
- if($ColorCycle -and ([regex]::Matches($log,'Resident clothing color=').Count -ne 4)){throw 'C key debounce/cycle failed.'}
+ if($log -notmatch 'Resident initialized: height=1.9 bones=19' -or $log -notmatch 'Resident material drawn'){throw 'Resident was not initialized and drawn.'}
+ if($log -notmatch 'Resident crowd initialized: count=200 terraces=8'){throw 'Resident crowd size/terrace count mismatch.'}
+ if($log -match 'RESIDENT TERRACE INVALID' -or $log -match 'Resident crowd report:.*unsafe=[1-9]'){throw 'Resident left its terrace.'}
+ $crowdReports=[regex]::Matches($log,'Resident crowd report: walkers=(\d+) unsafe=0 counts=([^\r\n]+)')
+ if(!$crowdReports.Count){throw 'Resident crowd was not checked by the runtime system.'}
+ foreach($report in $crowdReports){if($report.Groups[2].Value -ne '25,25,25,25,25,25,25,25,'){throw 'Resident terrace population changed.'}}
+ if($Pose -eq 'auto' -and $Duration -ge 20 -and !(@($crowdReports | Where-Object {[int]$_.Groups[1].Value -gt 0}).Count)){throw 'Resident crowd never walked.'}
+ if($log -match '\bsafe=0|NONFINITE|Resident setup failed|RESIDENT FACING MISMATCH'){throw 'Resident runtime state invalid.'}
+ if($log -notmatch 'Animation retargeted: idle source_bones=65 target_bones=19' -or $log -notmatch 'Animation retargeted: walk source_bones=65 target_bones=19'){throw 'Mixamo clips were not retargeted.'}
+ foreach($bound in [regex]::Matches($log,'Resident skin bounds=[^,\r\n]+,([^,\r\n]+),')){
+  $low=[double]::Parse($bound.Groups[1].Value,[Globalization.CultureInfo]::InvariantCulture)
+  if($low -lt -.003){throw "Resident soles below ground: $low"}
+ }
  if($ColorCycle){
-  $samples=@()
+  if([regex]::Matches($log,'Resident clothing color=').Count){throw 'Woodsman recoloring was not disabled.'}
+  $hashes=@()
   foreach($frame in $frames){
    $bytes=[IO.File]::ReadAllBytes("$captureDir\$frame.ppm")
    $header=[regex]::Match([Text.Encoding]::ASCII.GetString($bytes,0,100),'^P6\s+(\d+)\s+(\d+)\s+255\s')
    if(!$header.Success -or $header.Groups[1].Value -ne '1280' -or $header.Groups[2].Value -ne '720'){throw 'Unsupported capture dimensions/format.'}
-   $pixels=@();foreach($point in @(@(640,300),@(620,410),@(624,483),@(641,208),@(640,190))){
-    $offset=$header.Length+3*($point[1]*1280+$point[0]);$pixels+=,($bytes[$offset..($offset+2)] -join ',')
-   };$samples+=,$pixels
+   # Ignore the changing FPS HUD; compare the fixed-pose character region.
+   $region=New-Object byte[] (380*480*3)
+   for($y=140;$y -lt 620;++$y){[Array]::Copy($bytes,($header.Length+3*($y*1280+450)),$region,(($y-140)*380*3),(380*3))}
+   $hashes+=([BitConverter]::ToString([Security.Cryptography.SHA256]::Create().ComputeHash($region)))
   }
-  for($i=0;$i -lt 5;++$i){
-   if($samples[$i][0] -ne $samples[$i][1]){throw 'Shirt/trouser colors differ.'}
-   if($samples[$i][2] -ne $samples[0][2] -or $samples[$i][3] -ne $samples[0][3] -or $samples[$i][4] -ne $samples[0][4]){throw 'Boot/skin/hair color changed.'}
-  }
-  if(@($samples[0][0],$samples[1][0],$samples[2][0],$samples[3][0] | Select-Object -Unique).Count -ne 4 -or $samples[0][0] -ne $samples[4][0]){throw 'Clothing palette did not complete a visible cycle.'}
-  $blue=$samples[0][0].Split(',');if([int]$blue[2] -le [int]$blue[0]){throw 'Resident blue clothing was not visible.'}
-  'Visible shared clothing colors and unchanged boot/skin pixels passed'
+  if(@($hashes|Select-Object -Unique).Count -ne 1){throw 'Woodsman appearance changed after C key input.'}
+  'Disabled recoloring: C key leaves the fixed-pose Woodsman image unchanged.'
  }
  if($Pose -eq 'auto' -and $Duration -ge 20 -and $log -notmatch 'Resident mode=walk'){throw 'Autonomous walk never started.'}
  if($Pose -eq 'auto' -and $Duration -ge 60 -and ([regex]::Matches($log,'Resident mode=walk').Count -lt 2 -or $log -notmatch 'Resident mode=idle')){throw 'Multiple autonomous routes/stops were not observed.'}

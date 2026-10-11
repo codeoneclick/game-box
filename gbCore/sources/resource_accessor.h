@@ -11,6 +11,7 @@
 #include "main_headers.h"
 #include "declarations.h"
 #include "game_loop.h"
+#include <condition_variable>
 
 namespace gb
 {
@@ -23,8 +24,11 @@ namespace gb
         std::unordered_map<std::string, resource_loading_operation_shared_ptr> m_operationsQueue;
         std::unordered_map<std::string, resource_shared_ptr> m_resources;
         std::queue<std::tuple<resource_shared_ptr, bool>> m_resources_need_to_callback;
+        std::queue<resource_loading_operation_shared_ptr> m_operations_to_serialize;
+        std::queue<resource_loading_operation_shared_ptr> m_operations_to_commit;
         
         std::mutex m_mutex;
+        std::condition_variable m_work_available;
         std::thread m_thread;
         bool m_thread_executed;
         

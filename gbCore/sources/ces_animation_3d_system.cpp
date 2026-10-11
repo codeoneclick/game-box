@@ -3,7 +3,7 @@
 //  gbCore
 //
 //  Created by serhii serhiiv on 5/16/17.
-//  Copyright © 2017 sergey.sergeev. All rights reserved.
+//  Copyright В© 2017 sergey.sergeev. All rights reserved.
 //
 
 #include "ces_animation_3d_system.h"
@@ -35,7 +35,12 @@ namespace gb
     
     void ces_animation_3d_system::on_feed(const ces_entity_shared_ptr& root, f32 dt)
     {
-        ces_base_system::enumerate_entities_with_components(m_animation_components_mask, [=](const gb::ces_entity_shared_ptr& entity) {
+        // Exact sampling reuse for consecutive instances of the same pose.
+        // Bind transformations and callbacks remain per-instance and every tick.
+        frame_3d_data_shared_ptr sampled_frame_01,sampled_frame_02;
+        f32 sampled_interpolation=0.f;
+        ui64 sampled_revision_01=0,sampled_revision_02=0;
+        ces_base_system::enumerate_entities_with_components(m_animation_components_mask, [&](const gb::ces_entity_shared_ptr& entity) {
             auto animation_3d_mixer_component = entity->get_component<gb::ces_animation_3d_mixer_component>();
             auto animation_3d_mask_component = entity->get_component<gb::ces_animation_3d_mask_component>();
             auto skeleton_3d_component = entity->get_component<gb::ces_skeleton_3d_component>();
@@ -68,8 +73,12 @@ namespace gb
                         
                         if(!is_animation_ended)
                         {
-                            std::vector<std::tuple<i32, i32, f32>> additional_sequence_updated_states;
-                            const auto additional_animation_states = animation_3d_mixer_component->get_additional_animation_states();
+                            // Capacity is reused across characters and frames.
+                            thread_local std::vector<std::tuple<i32, i32, f32>> additional_sequence_updated_states;
+                            additional_sequence_updated_states.clear();
+                            // Preserve the callback-safe snapshot but reuse its capacity.
+                            thread_local std::vector<animation_3d_state_shared_ptr> additional_animation_states;
+                            additional_animation_states = animation_3d_mixer_component->get_additional_animation_states();
                             if (animation_3d_mixer_component->is_additional_animation_states_exist())
                             {
                                 assert(animation_3d_mask_component != nullptr && "animation mask should be exist");
@@ -115,6 +124,13 @@ namespace gb
                             const auto main_sequence_frame_02 = main_animation_sequence->get_frame(main_sequence_frame_index_02);
                             
                             i32 num_bones = skeleton_3d_component->get_num_bones();
+                            const bool can_cache=!should_blend_frame && additional_animation_states.empty();
+                            const bool reuse_pose=can_cache && sampled_frame_01==main_sequence_frame_01 &&
+                                sampled_frame_02==main_sequence_frame_02 && sampled_interpolation==interpolation &&
+                                sampled_revision_01==main_sequence_frame_01->get_revision() &&
+                                sampled_revision_02==main_sequence_frame_02->get_revision() &&
+                                m_sampled_pose.size()==static_cast<size_t>(num_bones);
+                            if(can_cache && !reuse_pose)m_sampled_pose.resize(num_bones);
                             bone_3d_shared_ptr bone = nullptr;
                             
                             glm::vec3 position;
@@ -125,6 +141,14 @@ namespace gb
                             {
                                 bone = skeleton_3d_component->get_bone(i);
                                 
+                                if(reuse_pose)
+                                {
+                                    position=m_sampled_pose[i].position;
+                                    rotation=m_sampled_pose[i].rotation;
+                                    scale=m_sampled_pose[i].scale;
+                                }
+                                else
+                                {
                                 position = glm::mix(main_sequence_frame_01->get_position(i),
                                                     main_sequence_frame_02->get_position(i),
                                                     interpolation);
@@ -136,6 +160,7 @@ namespace gb
                                 scale = glm::mix(main_sequence_frame_01->get_scale(i),
                                                  main_sequence_frame_02->get_scale(i),
                                                  interpolation);
+                                }
                                 
                                 if (animation_3d_mixer_component->is_additional_animation_states_exist())
                                 {
@@ -172,20 +197,18 @@ namespace gb
                                                                                              additional_sequence_frame_02->get_scale(i),
                                                                                              additional_sequence_frame_interpolation);
                                         
+                                        const f32 bone_weight=animation_3d_mask_component->get_bone_weight(additional_animation_state->get_animation_name(),bone->get_name());
                                         position = glm::mix(position,
                                                             additional_sequence_frame_position,
-                                                            animation_3d_mask_component->get_bone_weight(additional_animation_state->get_animation_name(),
-                                                                                                         bone->get_name()));
+                                                            bone_weight);
                                         
                                         rotation = glm::slerp(rotation,
                                                               additional_sequence_frame_rotation,
-                                                              animation_3d_mask_component->get_bone_weight(additional_animation_state->get_animation_name(),
-                                                                                                           bone->get_name()));
+                                                              bone_weight);
                                         
                                         scale = glm::mix(scale,
                                                          additional_sequence_frame_scale,
-                                                         animation_3d_mask_component->get_bone_weight(additional_animation_state->get_animation_name(),
-                                                                                                      bone->get_name()));
+                                                         bone_weight);
                                     }
                                 }
                                 
@@ -193,11 +216,19 @@ namespace gb
                                 animation_3d_mixer_component->update_blending_frame_rotation(i, rotation);
                                 animation_3d_mixer_component->update_blending_frame_scale(i, scale);
                                 
-                                glm::mat4x4 matrix_t = glm::translate(glm::mat4(1.f), position);
-                                glm::mat4x4 matrix_r = glm::toMat4(rotation);
-                                glm::mat4x4 matrix_s = glm::scale(glm::mat4x4(1.f), scale);
-                                skeleton_3d_component->get_bones_transformations()[i] = matrix_t * matrix_r * matrix_s;
+                                const auto local_transformation=reuse_pose?m_sampled_pose[i].transformation:
+                                    compose_animation_transform(position, rotation, scale);
+                                skeleton_3d_component->get_bones_transformations()[i] = local_transformation;
+                                if(can_cache && !reuse_pose)m_sampled_pose[i]={position,scale,rotation,local_transformation};
                                 bone->set_transformation(skeleton_3d_component->get_bones_transformations() + i);
+                            }
+                            if(can_cache)
+                            {
+                                sampled_frame_01=main_sequence_frame_01;
+                                sampled_frame_02=main_sequence_frame_02;
+                                sampled_interpolation=interpolation;
+                                sampled_revision_01=main_sequence_frame_01->get_revision();
+                                sampled_revision_02=main_sequence_frame_02->get_revision();
                             }
                             
                             for(const auto& root_bone : skeleton_3d_component->get_root_bones())
@@ -205,20 +236,10 @@ namespace gb
                                 root_bone->update();
                             }
                             
-                            auto bones_transformations = animation_3d_mixer_component->get_transformations();
-                            for(i32 i = 0; i < num_bones; ++i)
-                            {
-                                bone = skeleton_3d_component->get_bone(i);
-                                if(bone->get_transformation() != nullptr)
-                                {
-                                    glm::mat4 bone_transformation = (*bone->get_transformation());
-                                    bones_transformations[i] = bone_transformation;
-                                }
-                                else
-                                {
-                                    bones_transformations[i] = glm::mat4(1.f);
-                                }
-                            }
+                            // Every bone pointer was set to this dense array above.
+                            // Root updates finish before the final palette is copied.
+                            const auto transformations=skeleton_3d_component->get_bones_transformations();
+                            std::copy(transformations,transformations+num_bones,animation_3d_mixer_component->get_transformations());
                         }
                     }
                 }
@@ -252,10 +273,7 @@ namespace gb
             animation_3d_mixer_component->update_blending_frame_rotation(i, rotation);
             animation_3d_mixer_component->update_blending_frame_scale(i, scale);
             
-            glm::mat4x4 matrix_t = glm::translate(glm::mat4(1.0f), position);
-            glm::mat4x4 matrix_r = glm::toMat4(rotation);
-            glm::mat4x4 matrix_s = glm::scale(glm::mat4x4(1.0f), scale);
-            skeleton_3d_component->get_bones_transformations()[i] = matrix_t * matrix_r * matrix_s;
+            skeleton_3d_component->get_bones_transformations()[i] = compose_animation_transform(position, rotation, scale);
             bone = skeleton_3d_component->get_bone(i);
             bone->set_transformation(skeleton_3d_component->get_bones_transformations() + i);
         }

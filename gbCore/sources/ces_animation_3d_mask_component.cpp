@@ -30,6 +30,7 @@ namespace gb
     void animation_3d_mask::add_bone_mask(const std::string& name, f32 weight)
     {
         m_bones_mask.push_back(std::make_shared<bone_3d_mask>(name, weight));
+        m_weights_by_name.emplace(name,weight);
     }
     
     const std::vector<bone_3d_mask_shared_ptr>& animation_3d_mask::get_bones_mask() const
@@ -53,16 +54,8 @@ namespace gb
     
     f32 animation_3d_mask::get_bone_weight(const std::string& bone_name) const
     {
-        f32 result = 0.f;
-        for (auto bone : m_bones_mask)
-        {
-            if (bone->get_name() == bone_name)
-            {
-                result = bone->get_weight();
-                break;
-            }
-        }
-        return result;
+        const auto it=m_weights_by_name.find(bone_name);
+        return it==m_weights_by_name.end()?0.f:it->second;
     }
     
     ces_animation_3d_mask_component::ces_animation_3d_mask_component()

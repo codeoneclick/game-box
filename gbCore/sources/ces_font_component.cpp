@@ -53,6 +53,18 @@ namespace gb
     {
         
     }
+
+    void ces_font_component::clear_atlas_cache()
+    {
+        for (const auto& entry : m_font_atlases)
+        {
+            auto font = entry.second.first;
+            auto atlas = font->atlas;
+            ftgl::texture_font_delete(font);
+            ftgl::texture_atlas_delete(atlas);
+        }
+        m_font_atlases.clear();
+    }
     
     mesh_2d_shared_ptr ces_font_component::request_mesh_2d()
     {

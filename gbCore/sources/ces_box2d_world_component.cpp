@@ -65,7 +65,7 @@ namespace gb
             auto box2d_body_component = entity_01->get_component<ces_box2d_body_component>();
             if(box2d_body_component)
             {
-                const auto contact_ignore_list = box2d_body_component->get_contact_ignore_list();
+                const auto& contact_ignore_list = box2d_body_component->get_contact_ignore_list();
                 const auto result = std::find_if(contact_ignore_list.begin(), contact_ignore_list.end(), [=](const ces_entity_weak_ptr& entity) {
                     return !entity.expired() && entity.lock() == entity_02;
                 });
@@ -87,7 +87,7 @@ namespace gb
             auto box2d_body_component = entity_02->get_component<ces_box2d_body_component>();
             if(box2d_body_component)
             {
-                const auto contact_ignore_list = box2d_body_component->get_contact_ignore_list();
+                const auto& contact_ignore_list = box2d_body_component->get_contact_ignore_list();
                 const auto result = std::find_if(contact_ignore_list.begin(), contact_ignore_list.end(), [=](const ces_entity_weak_ptr& entity) {
                     return !entity.expired() && entity.lock() == entity_01;
                 });

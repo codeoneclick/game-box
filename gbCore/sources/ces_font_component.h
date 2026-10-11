@@ -55,6 +55,9 @@ namespace gb
         STTI_CLASS_GUID(ces_font_component, ces_base_component::g_guids_container)
         ces_font_component();
         ~ces_font_component();
+
+        // Call after font components are released, while the graphics device is alive.
+        static void clear_atlas_cache();
         
         mesh_2d_shared_ptr request_mesh_2d();
         mesh_3d_shared_ptr request_mesh_3d();

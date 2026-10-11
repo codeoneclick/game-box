@@ -1,6 +1,7 @@
 #pragma once
 
 #include "main_headers.h"
+#include <unordered_map>
 
 #if USED_GRAPHICS_API == VULKAN_API
 
@@ -34,6 +35,8 @@ namespace gb
 		VkQueue m_present_queue = VK_NULL_HANDLE;
 
 		VkCommandPool m_command_pool = VK_NULL_HANDLE;
+		VkPipelineCache m_pipeline_cache = VK_NULL_HANDLE;
+		std::unordered_map<std::string, VkPipeline> m_graphics_pipelines;
 
 		VkPhysicalDeviceMemoryProperties m_memory_properties;
 
@@ -41,9 +44,9 @@ namespace gb
 			VK_KHR_SWAPCHAIN_EXTENSION_NAME
 		};
 
-		VkSemaphore m_present_complete_semaphore;
-		VkSemaphore m_render_complete_semaphore;
-		VkSemaphore m_overlay_complete_semaphore;
+		VkSemaphore m_present_complete_semaphore = VK_NULL_HANDLE;
+		VkSemaphore m_render_complete_semaphore = VK_NULL_HANDLE;
+		VkSemaphore m_overlay_complete_semaphore = VK_NULL_HANDLE;
 
 		VkPipelineStageFlags m_submit_pipeline_stages = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
 		VkSubmitInfo m_submit_info;
@@ -82,6 +85,12 @@ namespace gb
 		vk_queue_family get_queue_family();
 
 		VkCommandPool get_command_pool() const;
+		VkPipelineCache get_pipeline_cache() const;
+		void destroy_pipeline_cache();
+		// Requires an idle device and released scene resources.
+		void destroy_frame_resources();
+		void destroy();
+		VkPipeline get_or_create_graphics_pipeline(const std::string& key, const VkGraphicsPipelineCreateInfo& info);
 
 		VkQueue get_graphics_queue() const;
 		VkQueue get_present_queue() const;

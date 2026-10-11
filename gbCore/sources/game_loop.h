@@ -39,7 +39,7 @@ namespace gb
         std::chrono::steady_clock::time_point m_previous_run_loop_timestamp = std::chrono::steady_clock::now();
         bool m_is_paused = false;
         
-        clock_t m_delta_ticks;
+        double m_fps_elapsed = 0.0;
         static i32 m_fps;
         static i32 m_frames_num;
         

@@ -22,6 +22,7 @@ namespace gb
 #if USED_GRAPHICS_API == VULKAN_API
 
 	static shader* g_vk_shader = nullptr;
+	static std::atomic<ui64> g_vk_pipeline_identity { 0 };
 
 #endif
     
@@ -442,9 +443,9 @@ namespace gb
 		{
 			vkDestroyPipelineLayout(device, m_pipeline_layout, nullptr);
 		}
-		for (auto descriptor_pool : m_vk_frame_descriptor_pools)
+		for (const auto& frame_pools : m_vk_frame_descriptor_pools)
 		{
-			if (descriptor_pool != VK_NULL_HANDLE)
+			for (auto descriptor_pool : frame_pools)
 			{
 				vkDestroyDescriptorPool(device, descriptor_pool, nullptr);
 			}
@@ -592,9 +593,12 @@ namespace gb
 		ui8 fallback_pixel[] = { 255, 255, 255, 255 };
 		m_vk_fallback_texture = texture::construct(get_guid() + ".fallback", 1, 1, gl::constant::rgba_t, fallback_pixel);
 		const ui32 images_count = vk_swap_chain::get_instance()->get_images_count();
-		m_vk_frame_descriptor_pools.resize(images_count, VK_NULL_HANDLE);
+		m_vk_pipeline_identity = ++g_vk_pipeline_identity;
+		m_vk_frame_descriptor_pools.resize(images_count);
+		m_vk_frame_descriptor_counts.resize(images_count, 0);
 		m_vk_frame_numbers.resize(images_count, 0);
 		m_vk_frame_uniform_buffers.resize(images_count);
+		m_vk_frame_uniform_buffer_indices.resize(images_count, 0);
 		m_vk_frame_uniform_buffer_offsets.resize(images_count, 0);
 
 #endif
@@ -1077,48 +1081,70 @@ namespace gb
 		const VkDevice logical_device = device->get_logical_device();
 		const ui32 image_index = device->get_current_image_index();
 		const ui64 frame_number = device->get_frame_number(image_index);
-		if (m_vk_frame_descriptor_pools[image_index] == VK_NULL_HANDLE)
+		if (m_vk_frame_numbers[image_index] != frame_number)
 		{
-			const ui32 descriptor_sets_count = 1024;
+			// begin_frame follows the image fence wait; all chunks can be reused.
+			for (auto pool : m_vk_frame_descriptor_pools[image_index])
+			{
+				VK_CHECK(vkResetDescriptorPool(logical_device, pool, 0));
+			}
+			m_vk_frame_descriptor_counts[image_index] = 0;
+			m_vk_frame_uniform_buffer_offsets[image_index] = 0;
+			m_vk_frame_uniform_buffer_indices[image_index] = 0;
+			m_vk_frame_numbers[image_index] = frame_number;
+		}
+		const ui32 descriptor_sets_count = 256;
+		const ui32 pool_index = m_vk_frame_descriptor_counts[image_index] / descriptor_sets_count;
+		auto& pools = m_vk_frame_descriptor_pools[image_index];
+		if (pool_index == pools.size())
+		{
 			std::vector<VkDescriptorPoolSize> pool_sizes = {
 				vk_initializers::descriptor_pool_size(VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 6 * descriptor_sets_count),
 				vk_initializers::descriptor_pool_size(VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, e_shader_sampler_max * descriptor_sets_count)
 			};
 			VkDescriptorPoolCreateInfo pool_create_info = vk_initializers::descriptor_pool_create_info(pool_sizes, descriptor_sets_count);
-			VK_CHECK(vkCreateDescriptorPool(logical_device, &pool_create_info, nullptr, &m_vk_frame_descriptor_pools[image_index]));
-		}
-		if (m_vk_frame_numbers[image_index] != frame_number)
-		{
-			VK_CHECK(vkResetDescriptorPool(logical_device, m_vk_frame_descriptor_pools[image_index], 0));
-			m_vk_frame_uniform_buffer_offsets[image_index] = 0;
-			m_vk_frame_numbers[image_index] = frame_number;
-		}
-		if (!m_vk_frame_uniform_buffers[image_index])
-		{
-			const VkDeviceSize uniform_buffer_size = 2 * 1024 * 1024;
-			m_vk_frame_uniform_buffers[image_index] = std::make_shared<vk_buffer>();
-			VK_CHECK(vk_utils::create_buffer(VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT,
-										 VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT,
-										 m_vk_frame_uniform_buffers[image_index], uniform_buffer_size));
-			VK_CHECK(m_vk_frame_uniform_buffers[image_index]->map());
+			VkDescriptorPool pool = VK_NULL_HANDLE;
+			VK_CHECK(vkCreateDescriptorPool(logical_device, &pool_create_info, nullptr, &pool));
+			pools.push_back(pool);
 		}
 
 		VkDescriptorSet descriptor_set = VK_NULL_HANDLE;
 		VkDescriptorSetAllocateInfo descriptor_set_alloc_info = {};
 		descriptor_set_alloc_info.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO;
-		descriptor_set_alloc_info.descriptorPool = m_vk_frame_descriptor_pools[image_index];
+		descriptor_set_alloc_info.descriptorPool = pools[pool_index];
 		descriptor_set_alloc_info.descriptorSetCount = 1;
 		descriptor_set_alloc_info.pSetLayouts = &m_vk_descriptor_set_layout;
 		VK_CHECK(vkAllocateDescriptorSets(logical_device, &descriptor_set_alloc_info, &descriptor_set));
+		++m_vk_frame_descriptor_counts[image_index];
 
-		VkPhysicalDeviceProperties device_properties = {};
-		vkGetPhysicalDeviceProperties(device->get_physical_device(), &device_properties);
-		const VkDeviceSize uniform_buffer_alignment = device_properties.limits.minUniformBufferOffsetAlignment;
+		if (m_vk_uniform_buffer_alignment == 0)
+		{
+			VkPhysicalDeviceProperties device_properties = {};
+			vkGetPhysicalDeviceProperties(device->get_physical_device(), &device_properties);
+			m_vk_uniform_buffer_alignment = device_properties.limits.minUniformBufferOffsetAlignment;
+		}
+		const VkDeviceSize uniform_buffer_alignment = m_vk_uniform_buffer_alignment;
 		auto construct_uniform_buffer_info = [&](const void* data, VkDeviceSize size) {
 			auto& offset = m_vk_frame_uniform_buffer_offsets[image_index];
+			auto& index = m_vk_frame_uniform_buffer_indices[image_index];
+			auto& buffers = m_vk_frame_uniform_buffers[image_index];
 			offset = (offset + uniform_buffer_alignment - 1) & ~(uniform_buffer_alignment - 1);
-			const auto buffer = m_vk_frame_uniform_buffers[image_index];
-			assert(offset + size <= buffer->get_size());
+			while (index < buffers.size() && offset + size > buffers[index]->get_size())
+			{
+				++index;
+				offset = 0;
+			}
+			if (index == buffers.size())
+			{
+				// Keep earlier chunks alive: recorded descriptors still reference them.
+				const VkDeviceSize chunk_size = std::max<VkDeviceSize>(64 * 1024, size);
+				auto storage = std::make_shared<vk_buffer>();
+				VK_CHECK(vk_utils::create_buffer(VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT,
+					VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT, storage, chunk_size));
+				VK_CHECK(storage->map());
+				buffers.push_back(storage);
+			}
+			const auto& buffer = buffers[index];
 			memcpy(static_cast<ui8*>(buffer->get_mapped_data()) + offset, data, size);
 			VkDescriptorBufferInfo result = {};
 			result.buffer = buffer->get_handler();
@@ -1141,12 +1167,12 @@ namespace gb
 			construct_uniform_buffer_info(&mat_n[0][0], sizeof(glm::mat4))
 		};
 		const ui32 bindings[] = { 0, 1, 2, 11, 12, 13 };
-		std::array<VkWriteDescriptorSet, 6> descriptor_writes;
-		for (ui32 i = 0; i < descriptor_writes.size(); ++i)
+		std::array<VkWriteDescriptorSet, 6 + e_shader_sampler_max> descriptor_writes;
+		std::array<VkDescriptorImageInfo, e_shader_sampler_max> image_infos;
+		for (ui32 i = 0; i < buffer_infos.size(); ++i)
 		{
 			descriptor_writes[i] = vk_initializers::write_descriptor_set(descriptor_set, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, bindings[i], &buffer_infos[i]);
 		}
-		vkUpdateDescriptorSets(logical_device, static_cast<ui32>(descriptor_writes.size()), descriptor_writes.data(), 0, nullptr);
 
 		for (ui32 sampler = 0; sampler < e_shader_sampler_max; ++sampler)
 		{
@@ -1156,10 +1182,10 @@ namespace gb
 			{
 				texture = m_cached_uniform[uniform_index]->get_texture();
 			}
-			VkDescriptorImageInfo image_info = vk_initializers::descriptor_image_info(texture->get_vk_sampler(), texture->get_vk_image_view(), VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
-			VkWriteDescriptorSet descriptor_write = vk_initializers::write_descriptor_set(descriptor_set, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, 3 + sampler, &image_info);
-			vkUpdateDescriptorSets(logical_device, 1, &descriptor_write, 0, nullptr);
+			image_infos[sampler] = vk_initializers::descriptor_image_info(texture->get_vk_sampler(), texture->get_vk_image_view(), VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
+			descriptor_writes[6 + sampler] = vk_initializers::write_descriptor_set(descriptor_set, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, 3 + sampler, &image_infos[sampler]);
 		}
+		vkUpdateDescriptorSets(logical_device, static_cast<ui32>(descriptor_writes.size()), descriptor_writes.data(), 0, nullptr);
 		return descriptor_set;
 	}
 

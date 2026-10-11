@@ -41,6 +41,7 @@ namespace gb
     {
         while (!m_events.empty())
         {
+            m_is_event_ray_valid = false;
             const auto& event = m_events.front();
             if (std::get<0>(event) == e_input_source_mouse_left || std::get<0>(event) == e_input_source_mouse_right)
             {
@@ -194,7 +195,7 @@ namespace gb
     
     ces_entity_shared_ptr ces_touch_system::intersected_entity(const ces_entity_shared_ptr& entity, const input_event_t& event)
     {
-        std::vector<ces_entity_shared_ptr> children = entity->children;
+        const std::vector<ces_entity_shared_ptr>& children = entity->children;
         ces_entity_shared_ptr intersected_entity = nullptr;
         
         for (const auto& child : children)
@@ -282,20 +283,24 @@ namespace gb
                 
                 const auto camera_3d = ces_base_system::get_current_camera_3d();
                 assert(camera_3d != nullptr);
-                glm::ray ray;
-                glm::unproject(glm::ivec2(touch_point_in_viewport_space.x,
+                if (!m_is_event_ray_valid)
+                {
+                    if (!m_event_ray) m_event_ray.reset(new glm::ray());
+                    glm::unproject(glm::ivec2(touch_point_in_viewport_space.x,
                                           touch_point_in_viewport_space.y),
                                camera_3d->get_mat_v(),
                                camera_3d->get_mat_p(),
                                camera_3d->get_viewport(),
-                               &ray);
+                               m_event_ray.get());
+                    m_is_event_ray_valid = true;
+                }
                 
                 glm::vec4 bound = mat_m * glm::vec4(min_bound, 1.f);
                 min_bound = glm::vec3(bound.x, bound.y, bound.z);
                 bound = mat_m * glm::vec4(max_bound, 1.f);
                 max_bound = glm::vec3(bound.x, bound.y, bound.z);
                 
-                if (glm::intersect(ray, min_bound, max_bound))
+                if (glm::intersect(*m_event_ray, min_bound, max_bound))
                 {
                     intersected_entity = entity;
                 }

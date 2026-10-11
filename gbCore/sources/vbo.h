@@ -179,6 +179,18 @@ namespace gb
 		std::shared_ptr<vk_buffer> m_main_buffer = nullptr;
 		std::shared_ptr<vk_buffer> m_staging_buffer = nullptr;
 
+        struct dynamic_frame_buffers
+        {
+            ui64 frame_number = static_cast<ui64>(-1);
+            ui32 used_buffers = 0;
+            std::vector<std::shared_ptr<vk_buffer>> buffers;
+            std::vector<ui32> versions;
+        };
+        mutable std::vector<dynamic_frame_buffers> m_dynamic_frames;
+        std::vector<ui8> m_dynamic_data;
+        ui32 m_dynamic_version = 0;
+
+
 		VkPipelineVertexInputStateCreateInfo m_vk_vertex_input;
 		VkPipelineInputAssemblyStateCreateInfo m_vk_input_assembly;
 

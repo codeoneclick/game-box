@@ -17,6 +17,13 @@ namespace gb
     private:
         
         std::bitset<std::numeric_limits<uint8_t>::max()> m_animation_components_mask;
+        struct sampled_bone
+        {
+            glm::vec3 position,scale;
+            glm::quat rotation;
+            glm::mat4 transformation;
+        };
+        std::vector<sampled_bone> m_sampled_pose;
         
         bool validate_current_animation_sequence(const ces_animation_3d_mixer_component_shared_ptr& animation_3d_mixer_component,
                                                  const ces_skeleton_3d_component_shared_ptr& skeleton_3d_component,

@@ -40,6 +40,8 @@ namespace gb
         
         ui32 m_matrix_m_version;
         ui32 m_absolute_matrix_version;
+        glm::mat4 m_normal_matrix;
+        ui32 m_normal_matrix_version = static_cast<ui32>(-1);
         
         bool m_is_in_camera_space;
         e_mode m_mode;
@@ -66,6 +68,7 @@ namespace gb
         
         virtual void update_absolute_transformation(const glm::mat4& parent_mat_m);
         virtual glm::mat4 get_absolute_transformation();
+        const glm::mat4& get_normal_transformation();
         
         void set_is_in_camera_space(bool value);
         bool is_in_camera_space() const;

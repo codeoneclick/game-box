@@ -35,6 +35,12 @@ namespace gb
 
 #if USED_GRAPHICS_API == VULKAN_API
 
+        if (m_mode == gl::constant::dynamic_draw)
+        {
+            m_dynamic_frames.resize(vk_device::get_instance()->get_draw_cmd_buffers().size());
+        }
+        else
+        {
 		m_staging_buffer = std::make_shared<vk_buffer>();
 		VkResult result = vk_utils::create_buffer(VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT, m_staging_buffer, sizeof(ui16) * m_allocated_size);
 		assert(result == VK_SUCCESS);
@@ -42,6 +48,8 @@ namespace gb
 		m_main_buffer = std::make_shared<vk_buffer>();
 		result = vk_utils::create_buffer(VK_BUFFER_USAGE_INDEX_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, m_main_buffer, sizeof(ui16) * m_allocated_size);
 		assert(result == VK_SUCCESS);
+
+        }
 
 #endif
         
@@ -130,11 +138,32 @@ namespace gb
 
 #if USED_GRAPHICS_API == VULKAN_API
 
-		m_staging_buffer->map(sizeof(ui16) * m_used_size, 0);
-		m_staging_buffer->copy_to(m_data, sizeof(ui16) * m_used_size);
-		m_staging_buffer->unmap();
-
-		vk_utils::copy_buffers(m_staging_buffer, m_main_buffer);
+        if (!m_is_using_batch && submit_to_vram)
+        {
+            const VkDeviceSize bytes = sizeof(ui16) * m_used_size;
+            if (m_mode == gl::constant::dynamic_draw)
+            {
+                // Snapshot submitted data; unlock(..., false) must not change GPU contents.
+                m_dynamic_data.resize(static_cast<std::size_t>(bytes));
+                memcpy(m_dynamic_data.data(), m_data, static_cast<std::size_t>(bytes));
+                ++m_dynamic_version;
+            }
+            else
+            {
+                if (!m_staging_buffer)
+                {
+                    m_staging_buffer = std::make_shared<vk_buffer>();
+                    VK_CHECK(vk_utils::create_buffer(VK_BUFFER_USAGE_TRANSFER_SRC_BIT,
+                        VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT,
+                        m_staging_buffer, sizeof(ui16) * m_allocated_size));
+                }
+                VK_CHECK(m_staging_buffer->map(bytes, 0));
+                m_staging_buffer->copy_to(m_data, bytes);
+                m_staging_buffer->unmap();
+                vk_utils::copy_buffers(m_staging_buffer, m_main_buffer, bytes);
+                m_staging_buffer.reset();
+            }
+        }
 
 #endif
         
@@ -156,7 +185,47 @@ namespace gb
 
 			ui32 current_image_index = vk_device::get_instance()->get_current_image_index();
 			VkCommandBuffer draw_cmd_buffer = vk_device::get_instance()->get_draw_cmd_buffer(current_image_index);
-			VkBuffer buffer = m_main_buffer->get_handler();
+            VkBuffer buffer = VK_NULL_HANDLE;
+            if (m_mode == gl::constant::dynamic_draw)
+            {
+                // The image fence was waited by make_current() before any draw.
+                // Use another slot if this mesh changes between draws of the same frame.
+                auto& frame = m_dynamic_frames[current_image_index];
+                const ui64 frame_number = vk_device::get_instance()->get_frame_number(current_image_index);
+                if (frame.frame_number != frame_number)
+                {
+                    frame.frame_number = frame_number;
+                    frame.used_buffers = 0;
+                }
+                ui32 slot = frame.used_buffers == 0 ? 0 : frame.used_buffers - 1;
+                if (frame.used_buffers == 0 || frame.versions[slot] != m_dynamic_version)
+                {
+                    slot = frame.used_buffers++;
+                    if (slot == frame.buffers.size())
+                    {
+                        auto storage = std::make_shared<vk_buffer>();
+                        VK_CHECK(vk_utils::create_buffer(VK_BUFFER_USAGE_INDEX_BUFFER_BIT,
+                            VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT,
+                            storage, sizeof(ui16) * m_allocated_size));
+                        VK_CHECK(storage->map());
+                        frame.buffers.push_back(storage);
+                        frame.versions.push_back(static_cast<ui32>(-1));
+                    }
+                    if (frame.versions[slot] != m_dynamic_version)
+                    {
+                        if (!m_dynamic_data.empty())
+                        {
+                            memcpy(frame.buffers[slot]->get_mapped_data(), m_dynamic_data.data(), m_dynamic_data.size());
+                        }
+                        frame.versions[slot] = m_dynamic_version;
+                    }
+                }
+                buffer = frame.buffers[slot]->get_handler();
+            }
+            else
+            {
+                buffer = m_main_buffer->get_handler();
+            }
 			vkCmdBindIndexBuffer(draw_cmd_buffer, buffer, 0, VK_INDEX_TYPE_UINT16);
 
 #endif

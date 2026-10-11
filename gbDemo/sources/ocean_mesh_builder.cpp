@@ -7,9 +7,13 @@ namespace game {
     {
         if(!std::isfinite(size)||size<=0||cells<1||cells>1024) throw std::invalid_argument("Invalid ocean grid");
         std::vector<terrain_mesh_data> patches;
+        const size_t patches_per_axis = static_cast<size_t>((cells+127)/128);
+        patches.reserve(patches_per_axis*patches_per_axis);
         for(int oz=0;oz<cells;oz+=128) for(int ox=0;ox<cells;ox+=128) {
             const int nx=std::min(128,cells-ox),nz=std::min(128,cells-oz);
             terrain_mesh_data mesh;
+            mesh.vertices.reserve(static_cast<size_t>(nx+1)*(nz+1));
+            mesh.indices.reserve(static_cast<size_t>(nx)*nz*6);
             for(int z=0;z<=nz;++z) for(int x=0;x<=nx;++x){
                 const int gx=ox+x,gz=oz+z;float px=gx*size/cells-size*.5f,pz=gz*size/cells-size*.5f;
                 // World grid indices give identical jitter on both sides of patch seams.
@@ -37,6 +41,8 @@ namespace game {
         if(!std::isfinite(inner_size)||!std::isfinite(outer_size)||inner_size<=0||outer_size<=inner_size||segments<1||segments>1024)
             throw std::invalid_argument("Invalid ocean horizon");
         terrain_mesh_data mesh;
+        mesh.vertices.reserve(static_cast<size_t>(segments+1)*8);
+        mesh.indices.reserve(static_cast<size_t>(segments)*24);
         for(int side=0;side<4;++side){
             const uint16_t base=static_cast<uint16_t>(mesh.vertices.size());
             for(int i=0;i<=segments;++i)for(float size:{inner_size,outer_size}){

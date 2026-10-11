@@ -25,12 +25,51 @@ int main(){
     assert(!game::create_resident_state(game::build_resident_navigation(narrow,.5f),1).available);
     game::terrain_mesh_data wide;quad(wide,-10,-10,10,10);
     auto wide_nav=game::build_resident_navigation(wide,.5f);
+    auto compare_support=[](const game::resident_navigation& cached){
+        auto exact=cached;exact.solid_cells.clear();
+        assert(std::count(cached.solid_cells.begin(),cached.solid_cells.end(),uint8_t(1))>0);
+        for(int z=0;z<cached.height;++z)for(int x=0;x<cached.width;++x){
+            for(auto offset:{.001f,.25f,.5f,.75f,.999f}){
+                game::resident_point p={cached.origin_x+(x+offset)*cached.cell_size,cached.origin_z+(z+offset)*cached.cell_size};
+                assert(cached.surface_supports(p)==exact.surface_supports(p));
+                assert(cached.is_safe(p)==exact.is_safe(p));
+            }
+        }
+    };
+    compare_support(wide_nav);compare_support(ring_nav);
     auto corner=game::create_resident_state(wide_nav,1);corner.position={0,0};corner.yaw=-1;corner.walking=true;
     corner.route={{0,0},{0,.03f},{.03f,.03f},{1,1}};corner.route_index=1;
-    game::step_resident(wide_nav,.1f,corner);assert(std::abs(corner.yaw+1)<=.31416f);
+    game::step_resident(wide_nav,.1f,corner);
+    assert(std::abs(corner.yaw-std::atan2(corner.position.x,corner.position.z))<.00001f);
     game::terrain_config config;
     auto mesh=game::terrain_mesh_builder::build(game::terrain_generator::generate(config));
     auto nav=game::build_resident_navigation(mesh,config.shore_height);
+    std::vector<game::resident_navigation> terraces;
+    std::vector<std::vector<game::resident_state>> crowds;
+    for(int level=0;level<config.layers_count;++level){
+        terraces.push_back(game::build_resident_navigation(mesh,level?level*config.layer_height:config.shore_height));
+        compare_support(terraces.back());
+        crowds.push_back(game::create_resident_population(terraces.back(),25,1337+level));
+        const auto& crowd=crowds.back();assert(crowd.size()==25);
+        for(size_t i=0;i<crowd.size();++i){
+            assert(crowd[i].available&&terraces.back().is_safe(crowd[i].position));
+            for(size_t j=0;j<i;++j){float dx=crowd[i].position.x-crowd[j].position.x,dz=crowd[i].position.z-crowd[j].position.z;
+                assert(dx*dx+dz*dz>=2.4f*2.4f);
+            }
+        }
+        if(level+1<config.layers_count)assert(!terraces.back().is_safe({0,0}));
+    }
+    int crowd_walks=0;std::vector<std::vector<uint8_t>> moved(crowds.size(),std::vector<uint8_t>(25,0));
+    for(int tick=0;tick<600;++tick)for(size_t level=0;level<crowds.size();++level)for(auto& visitor:crowds[level]){
+        auto previous=visitor;game::step_resident(terraces[level],.1f,visitor);
+        assert(visitor.available&&terraces[level].is_safe(visitor.position));
+        assert(terraces[level].segment_is_safe(previous.position,visitor.position));
+        if(visitor.position.x!=previous.position.x||visitor.position.z!=previous.position.z)moved[level][&visitor-crowds[level].data()]=1;
+        if(!previous.walking&&visitor.walking)++crowd_walks;
+    }
+    assert(crowd_walks>=200);
+    for(const auto& level:moved)for(auto walked:level)assert(walked);
+    std::cout<<"Resident crowd smoke passed: count=200 terraces=8 walks="<<crowd_walks<<std::endl;
     auto state=game::create_resident_state(nav,1337);
     assert(state.available&&nav.is_safe(state.position));
     auto points=nav.reachable_points(state.position);assert(points.size()>100);
@@ -52,7 +91,8 @@ int main(){
     for(int i=0;i<180000;++i){auto before=state;game::step_resident(nav,1.f/60,state);game::step_resident(nav,1.f/60,other);
         assert(state.position.x==other.position.x&&state.position.z==other.position.z);
         assert(nav.is_safe(state.position)&&nav.segment_is_safe(before.position,state.position));
-        assert(std::abs(std::atan2(std::sin(state.yaw-before.yaw),std::cos(state.yaw-before.yaw)))<=3.141593f/60+.00001f);
+        const float dx=state.position.x-before.position.x,dz=state.position.z-before.position.z;
+        if(dx*dx+dz*dz>1.e-12f)assert(std::abs(std::atan2(std::sin(state.yaw-std::atan2(dx,dz)),std::cos(state.yaw-std::atan2(dx,dz))))<.00001f);
         idle|=!state.walking;walk|=state.walking;if(before.walking&&!state.walking)++stops;
     }
     assert(idle&&walk&&stops>100);

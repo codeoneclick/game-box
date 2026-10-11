@@ -182,7 +182,7 @@ namespace gb
         m_shapes_parameters.emplace_back(parameters);
     }
     
-    std::vector<ces_box2d_body_component::box2d_shape_parameters> ces_box2d_body_component::get_shapes_parameters() const
+    const std::vector<ces_box2d_body_component::box2d_shape_parameters>& ces_box2d_body_component::get_shapes_parameters() const
     {
         return m_shapes_parameters;
     }
@@ -192,7 +192,7 @@ namespace gb
         m_contact_ignore_list.push_back(entity);
     }
     
-    std::list<ces_entity_weak_ptr> ces_box2d_body_component::get_contact_ignore_list() const
+    const std::list<ces_entity_weak_ptr>& ces_box2d_body_component::get_contact_ignore_list() const
     {
         /*std::remove_if(m_contact_ignore_list.begin(), m_contact_ignore_list.end(), [=](const ces_entity_weak_ptr& entity) {
             return entity.expired();

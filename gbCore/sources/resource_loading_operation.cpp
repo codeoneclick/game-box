@@ -35,6 +35,6 @@ namespace gb
     
     e_resource_loading_operation_status resource_loading_operation::get_status() const
     {
-        return m_status;
+        return m_status.load();
     }
 }

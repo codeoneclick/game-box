@@ -43,6 +43,7 @@ namespace gb
             virtual ui32 get_values_size() = 0;
             
             std::unordered_map<std::string, std::shared_ptr<shader_uniform>> get_uniforms() const;
+            const std::unordered_map<std::string, std::shared_ptr<shader_uniform>>& get_uniforms_ref() const;
             e_shader_uniform_type get_type() const;
             
             template<typename T>

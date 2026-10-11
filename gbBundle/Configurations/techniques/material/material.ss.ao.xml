@@ -30,26 +30,26 @@
         render_operation_name="ws.base.attachment_02"
         sampler_index="0"
         wrap_mode="GL_CLAMP_TO_EDGE"
-        mag_filter="GL_LINEAR"
-        min_filter="GL_LINEAR"/>
+        mag_filter="GL_NEAREST"
+        min_filter="GL_NEAREST"/>
         <texture
         filename=""
         render_operation_name="ws.base.attachment_03"
         sampler_index="1"
         wrap_mode="GL_CLAMP_TO_EDGE"
-        mag_filter="GL_LINEAR"
-        min_filter="GL_LINEAR"/>
+        mag_filter="GL_NEAREST"
+        min_filter="GL_NEAREST"/>
         <texture
         filename="ssao_random.png"
         render_operation_name=""
         sampler_index="2"
         wrap_mode="GL_REPEAT"
-        mag_filter="GL_LINEAR"
-        min_filter="GL_LINEAR"/>
+        mag_filter="GL_NEAREST"
+        min_filter="GL_NEAREST"/>
     </textures>
     <blendings>
         <blending
-        is_enabled="1"
+        is_enabled="0"
         attachment_index="0"
         blending_function_source="GL_SRC_ALPHA"
         blending_function_destination="GL_ONE_MINUS_SRC_ALPHA"

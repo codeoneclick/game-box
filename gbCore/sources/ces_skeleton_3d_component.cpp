@@ -29,10 +29,14 @@ namespace gb
                                           const sequence_3d_transfering_data_shared_ptr &sequence_transfering_data)
     {
         assert(skeleton_transfering_data != nullptr);
+        m_root_bones.clear();
+        m_bones_by_id.clear();
         m_num_bones = skeleton_transfering_data->get_num_bones();
-        m_bones_transformations = new glm::mat4x4[m_num_bones];
+        m_bones_by_id.reserve(m_num_bones);
+        m_bones_storage.resize(m_num_bones);
+        m_bones_transformations = m_bones_storage.data();
         
-        std::vector<bone_3d_data_shared_ptr> bones_raw_data = skeleton_transfering_data->get_bones_raw_data();
+        const auto& bones_raw_data = skeleton_transfering_data->get_bones_raw_data();
         for(const auto& bone_raw_data : bones_raw_data)
         {
             i32 id = bone_raw_data->get_bone_id();
@@ -42,7 +46,7 @@ namespace gb
             if(bone == nullptr)
             {
                 bone = std::make_shared<bone_3d>(id, parent_id, name);
-                std::cout<<"bone with name: "<<name<<" created"<<std::endl;
+                // Rig creation is repeated for crowd members; avoid per-bone console flushes.
             }
             ces_skeleton_3d_component::add_bone(bone);
         }
@@ -58,6 +62,11 @@ namespace gb
         if (bone->get_parent_id() == -1)
         {
             m_root_bones.insert(bone);
+            const auto id = bone->get_id();
+            if (id >= 0 && static_cast<ui32>(id) < m_num_bones) {
+                if (m_bones_by_id.size() <= static_cast<size_t>(id)) m_bones_by_id.resize(id + 1);
+                if (!m_bones_by_id[id]) m_bones_by_id[id] = bone;
+            }
             return;
         }
         
@@ -65,6 +74,11 @@ namespace gb
         if (parent != nullptr)
         {
             parent->add_child(bone);
+            const auto id = bone->get_id();
+            if (id >= 0 && static_cast<ui32>(id) < m_num_bones) {
+                if (m_bones_by_id.size() <= static_cast<size_t>(id)) m_bones_by_id.resize(id + 1);
+                if (!m_bones_by_id[id]) m_bones_by_id[id] = bone;
+            }
             return;
         }
         assert(false);
@@ -72,6 +86,11 @@ namespace gb
     
     bone_3d_shared_ptr ces_skeleton_3d_component::get_bone(i32 index) const
     {
+        // Animation queries every bone twice per frame. Avoid a recursive
+        // hierarchy search for registered IDs; keep the legacy fallback for
+        // children attached directly through the public bone graph.
+        if (index >= 0 && static_cast<size_t>(index) < m_bones_by_id.size() && m_bones_by_id[index])
+            return m_bones_by_id[index];
         for(const auto& root : m_root_bones)
         {
             if (root->get_id() == index)
@@ -115,7 +134,7 @@ namespace gb
         return m_num_bones;
     }
     
-    const std::set<bone_3d_shared_ptr> ces_skeleton_3d_component::get_root_bones() const
+    const std::set<bone_3d_shared_ptr>& ces_skeleton_3d_component::get_root_bones() const
     {
         return m_root_bones;
     }

@@ -1,0 +1,1001 @@
+{
+  "backend": "Windows Vulkan",
+  "captures": [
+    {
+      "accepted": true,
+      "label": "core-audit-restored",
+      "profile": {
+        "cpu": {},
+        "draw_calls": null,
+        "frame_ms": null,
+        "gpu": {},
+        "gpu_frame_ms": null,
+        "triangles": null,
+        "upload_call_ms": null,
+        "upload_frame_ms": null
+      },
+      "purpose": "Ordinary baseline Release; validation on",
+      "stderr_bytes": 0,
+      "summary": {
+        "configuration": "release",
+        "elapsed_seconds": 14.051678899999999,
+        "feeder_ms": 13.672633333333332,
+        "first_report_seconds": 10.8307126,
+        "private_bytes": 742027264,
+        "process_cpu_seconds": 24.71875,
+        "residents": 200,
+        "samples": 3,
+        "steady_cpu_core_equivalents": 0.9721205198224988,
+        "threads": 26,
+        "wall_ms": 13.697000000000001,
+        "working_set_bytes": 436588544
+      }
+    },
+    {
+      "accepted": true,
+      "label": "core-audit-clean-long",
+      "profile": {
+        "cpu": {
+          "acquire_fences": {
+            "mean_calls": 1.0,
+            "mean_ms": 1.3871958148148151
+          },
+          "acquire_image": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.002392500185185185
+          },
+          "descriptors": {
+            "mean_calls": 258.0,
+            "mean_ms": 0.2993345740740741
+          },
+          "output": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.009637979074074076
+          },
+          "queue_present": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.15051062962962966
+          },
+          "queue_submit": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.05308258888888887
+          },
+          "ss:ss.ao": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.009763951851851856
+          },
+          "ss:ss.ao.blur": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.0065735338888888864
+          },
+          "ss:ss.island_ui": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.00668344037037037
+          },
+          "ss:ss.ocean_compose": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.008191790370370369
+          },
+          "submit_present": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.2076262407407408
+          },
+          "upload_flush": {
+            "mean_calls": 0.019135825925925935,
+            "mean_ms": 0.08000284944444441
+          },
+          "wait_frame_fence": {
+            "mean_calls": 1.0,
+            "mean_ms": 1.3793337962962962
+          },
+          "wait_image_fence": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.002177252962962963
+          },
+          "ws:ws.base": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.8551045740740739
+          },
+          "ws:ws.ocean": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.13529264814814812
+          },
+          "ws:ws.ocean.foam": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.1139674074074074
+          },
+          "ws:ws.ui": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.02730351851851852
+          },
+          "ws:ws.water.distance": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.01634201851851852
+          },
+          "ws:ws.water.jfa0": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.017975890740740744
+          },
+          "ws:ws.water.jfa1": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.016241079629629635
+          },
+          "ws:ws.water.jfa10": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.01589338333333333
+          },
+          "ws:ws.water.jfa11": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.01534259444444445
+          },
+          "ws:ws.water.jfa2": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.01603394814814815
+          },
+          "ws:ws.water.jfa3": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.016327720370370374
+          },
+          "ws:ws.water.jfa4": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.01619526666666667
+          },
+          "ws:ws.water.jfa5": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.015867192592592592
+          },
+          "ws:ws.water.jfa6": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.015950909259259256
+          },
+          "ws:ws.water.jfa7": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.015424292592592596
+          },
+          "ws:ws.water.jfa8": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.01579024814814815
+          },
+          "ws:ws.water.jfa9": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.015641296296296296
+          },
+          "ws:ws.water.mask": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.17401351851851857
+          },
+          "ws:ws.water.seed": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.023765966666666662
+          }
+        },
+        "draw_calls": {
+          "count": 6501,
+          "maximum": 258.0,
+          "mean": 258.0,
+          "p50": 258.0,
+          "p95": 258.0,
+          "p99": 258.0
+        },
+        "frame_ms": {
+          "count": 6502,
+          "maximum": 48.6604,
+          "mean": 4.757204367886818,
+          "p50": 4.566,
+          "p95": 6.176434999999998,
+          "p99": 10.715438999999975
+        },
+        "gpu": {
+          "frame": {
+            "mean_calls": 120.0,
+            "mean_ms": 4.657171481481483
+          },
+          "output": {
+            "mean_calls": 120.0,
+            "mean_ms": 0.0158245925925926
+          },
+          "ss:ss.ao": {
+            "mean_calls": 120.0,
+            "mean_ms": 0.5034318333333334
+          },
+          "ss:ss.ao.blur": {
+            "mean_calls": 120.0,
+            "mean_ms": 0.35990964814814824
+          },
+          "ss:ss.island_ui": {
+            "mean_calls": 120.0,
+            "mean_ms": 0.015797094444444444
+          },
+          "ss:ss.ocean_compose": {
+            "mean_calls": 120.0,
+            "mean_ms": 0.022861905555555558
+          },
+          "ws:ws.base": {
+            "mean_calls": 120.0,
+            "mean_ms": 0.3609454444444445
+          },
+          "ws:ws.ocean": {
+            "mean_calls": 120.0,
+            "mean_ms": 1.1229255555555555
+          },
+          "ws:ws.ocean.foam": {
+            "mean_calls": 120.0,
+            "mean_ms": 0.3248250000000001
+          },
+          "ws:ws.ui": {
+            "mean_calls": 120.0,
+            "mean_ms": 0.00725712648148148
+          },
+          "ws:ws.water.distance": {
+            "mean_calls": 120.0,
+            "mean_ms": 0.05624224814814815
+          },
+          "ws:ws.water.jfa0": {
+            "mean_calls": 120.0,
+            "mean_ms": 0.052757648148148165
+          },
+          "ws:ws.water.jfa1": {
+            "mean_calls": 120.0,
+            "mean_ms": 0.08819279074074074
+          },
+          "ws:ws.water.jfa10": {
+            "mean_calls": 120.0,
+            "mean_ms": 0.1587635740740741
+          },
+          "ws:ws.water.jfa11": {
+            "mean_calls": 120.0,
+            "mean_ms": 0.1574151851851852
+          },
+          "ws:ws.water.jfa2": {
+            "mean_calls": 120.0,
+            "mean_ms": 0.2276446111111111
+          },
+          "ws:ws.water.jfa3": {
+            "mean_calls": 120.0,
+            "mean_ms": 0.16543794444444443
+          },
+          "ws:ws.water.jfa4": {
+            "mean_calls": 120.0,
+            "mean_ms": 0.1445159814814815
+          },
+          "ws:ws.water.jfa5": {
+            "mean_calls": 120.0,
+            "mean_ms": 0.1521673518518519
+          },
+          "ws:ws.water.jfa6": {
+            "mean_calls": 120.0,
+            "mean_ms": 0.15239850000000002
+          },
+          "ws:ws.water.jfa7": {
+            "mean_calls": 120.0,
+            "mean_ms": 0.15398009259259263
+          },
+          "ws:ws.water.jfa8": {
+            "mean_calls": 120.0,
+            "mean_ms": 0.16437962962962963
+          },
+          "ws:ws.water.jfa9": {
+            "mean_calls": 120.0,
+            "mean_ms": 0.16476012962962963
+          },
+          "ws:ws.water.mask": {
+            "mean_calls": 120.0,
+            "mean_ms": 0.03451924259259259
+          },
+          "ws:ws.water.seed": {
+            "mean_calls": 120.0,
+            "mean_ms": 0.034432940740740735
+          }
+        },
+        "gpu_frame_ms": {
+          "count": 6498,
+          "maximum": 6.24602,
+          "mean": 4.6572669636811295,
+          "p50": 4.4581599999999995,
+          "p95": 5.468483,
+          "p99": 5.696401300000001
+        },
+        "triangles": {
+          "count": 6501,
+          "maximum": 883416.0,
+          "mean": 883415.9643131826,
+          "p50": 883416.0,
+          "p95": 883416.0,
+          "p99": 883416.0
+        },
+        "upload_call_ms": {
+          "count": 124,
+          "maximum": 10.0646,
+          "mean": 4.180794354838711,
+          "p50": 0.57515,
+          "p95": 9.88833,
+          "p99": 9.991157000000001
+        },
+        "upload_frame_ms": {
+          "count": 62,
+          "maximum": 10.1606,
+          "mean": 8.361588709677422,
+          "p50": 9.03875,
+          "p95": 10.069949999999999,
+          "p99": 10.12156
+        }
+      },
+      "purpose": "Baseline probe; validation and implicit layers off",
+      "stderr_bytes": 0,
+      "summary": {
+        "configuration": "release",
+        "elapsed_seconds": 39.823653,
+        "feeder_ms": 4.750727407407407,
+        "first_report_seconds": 9.5570832,
+        "private_bytes": 699994112,
+        "process_cpu_seconds": 41.25,
+        "residents": 200,
+        "samples": 54,
+        "steady_cpu_core_equivalents": 0.6841708876151008,
+        "threads": 22,
+        "wall_ms": 4.757499444444445,
+        "working_set_bytes": 410583040
+      }
+    },
+    {
+      "accepted": true,
+      "label": "optimized-cached-probe-long",
+      "profile": {
+        "cpu": {
+          "acquire_fences": {
+            "mean_calls": 1.0,
+            "mean_ms": 1.9414210416666666
+          },
+          "acquire_image": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.0032093747916666668
+          },
+          "descriptors": {
+            "mean_calls": 258.0,
+            "mean_ms": 0.2416684791666667
+          },
+          "output": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.010506196041666667
+          },
+          "queue_present": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.2023543541666667
+          },
+          "queue_submit": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.058870710416666645
+          },
+          "ss:ss.ao": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.011919029999999997
+          },
+          "ss:ss.ao.blur": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.007795538333333334
+          },
+          "ss:ss.island_ui": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.0071196875
+          },
+          "ss:ss.ocean_compose": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.008399756666666666
+          },
+          "submit_present": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.26604129166666673
+          },
+          "wait_frame_fence": {
+            "mean_calls": 1.0,
+            "mean_ms": 1.9273918749999999
+          },
+          "wait_image_fence": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.003223158958333335
+          },
+          "ws:ws.base": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.8322677291666666
+          },
+          "ws:ws.ocean": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.13970931250000002
+          },
+          "ws:ws.ocean.foam": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.11563995208333333
+          },
+          "ws:ws.ui": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.02143706875
+          },
+          "ws:ws.water.distance": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.009294028958333334
+          },
+          "ws:ws.water.jfa0": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.009714862291666666
+          },
+          "ws:ws.water.jfa1": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.009609807708333336
+          },
+          "ws:ws.water.jfa10": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.009192500624999997
+          },
+          "ws:ws.water.jfa11": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.008084826875000001
+          },
+          "ws:ws.water.jfa2": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.009421511250000002
+          },
+          "ws:ws.water.jfa3": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.011004135833333336
+          },
+          "ws:ws.water.jfa4": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.008550468541666663
+          },
+          "ws:ws.water.jfa5": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.008512415416666665
+          },
+          "ws:ws.water.jfa6": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.007869634374999998
+          },
+          "ws:ws.water.jfa7": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.008661666666666666
+          },
+          "ws:ws.water.jfa8": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.008092693125
+          },
+          "ws:ws.water.jfa9": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.008315399999999999
+          },
+          "ws:ws.water.mask": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.17974575000000004
+          },
+          "ws:ws.water.seed": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.014992760416666662
+          }
+        },
+        "draw_calls": {
+          "count": 5813,
+          "maximum": 258.0,
+          "mean": 258.0,
+          "p50": 258.0,
+          "p95": 258.0,
+          "p99": 258.0
+        },
+        "frame_ms": {
+          "count": 5813,
+          "maximum": 31.4173,
+          "mean": 5.300778634095974,
+          "p50": 4.659,
+          "p95": 8.293059999999999,
+          "p99": 12.457572000000006
+        },
+        "gpu": {
+          "frame": {
+            "mean_calls": 120.0,
+            "mean_ms": 5.020571250000001
+          },
+          "output": {
+            "mean_calls": 120.0,
+            "mean_ms": 0.01702950833333333
+          },
+          "ss:ss.ao": {
+            "mean_calls": 120.0,
+            "mean_ms": 0.5720083333333333
+          },
+          "ss:ss.ao.blur": {
+            "mean_calls": 120.0,
+            "mean_ms": 0.40293304166666655
+          },
+          "ss:ss.island_ui": {
+            "mean_calls": 120.0,
+            "mean_ms": 0.018116443749999996
+          },
+          "ss:ss.ocean_compose": {
+            "mean_calls": 120.0,
+            "mean_ms": 0.027406391666666665
+          },
+          "ws:ws.base": {
+            "mean_calls": 120.0,
+            "mean_ms": 0.41742375
+          },
+          "ws:ws.ocean": {
+            "mean_calls": 120.0,
+            "mean_ms": 1.0574838958333332
+          },
+          "ws:ws.ocean.foam": {
+            "mean_calls": 120.0,
+            "mean_ms": 0.35917531250000007
+          },
+          "ws:ws.ui": {
+            "mean_calls": 120.0,
+            "mean_ms": 0.010577422916666664
+          },
+          "ws:ws.water.distance": {
+            "mean_calls": 120.0,
+            "mean_ms": 0.0622741375
+          },
+          "ws:ws.water.jfa0": {
+            "mean_calls": 120.0,
+            "mean_ms": 0.05672622083333334
+          },
+          "ws:ws.water.jfa1": {
+            "mean_calls": 120.0,
+            "mean_ms": 0.10191301250000002
+          },
+          "ws:ws.water.jfa10": {
+            "mean_calls": 120.0,
+            "mean_ms": 0.1745015
+          },
+          "ws:ws.water.jfa11": {
+            "mean_calls": 120.0,
+            "mean_ms": 0.17371620833333332
+          },
+          "ws:ws.water.jfa2": {
+            "mean_calls": 120.0,
+            "mean_ms": 0.252588375
+          },
+          "ws:ws.water.jfa3": {
+            "mean_calls": 120.0,
+            "mean_ms": 0.19274199999999994
+          },
+          "ws:ws.water.jfa4": {
+            "mean_calls": 120.0,
+            "mean_ms": 0.1678222916666667
+          },
+          "ws:ws.water.jfa5": {
+            "mean_calls": 120.0,
+            "mean_ms": 0.1650368125
+          },
+          "ws:ws.water.jfa6": {
+            "mean_calls": 120.0,
+            "mean_ms": 0.1752271458333334
+          },
+          "ws:ws.water.jfa7": {
+            "mean_calls": 120.0,
+            "mean_ms": 0.16852445833333338
+          },
+          "ws:ws.water.jfa8": {
+            "mean_calls": 120.0,
+            "mean_ms": 0.17931770833333338
+          },
+          "ws:ws.water.jfa9": {
+            "mean_calls": 120.0,
+            "mean_ms": 0.18246020833333332
+          },
+          "ws:ws.water.mask": {
+            "mean_calls": 120.0,
+            "mean_ms": 0.03156373958333333
+          },
+          "ws:ws.water.seed": {
+            "mean_calls": 120.0,
+            "mean_ms": 0.03837475624999999
+          }
+        },
+        "gpu_frame_ms": {
+          "count": 5810,
+          "maximum": 8.96147,
+          "mean": 5.022416660929429,
+          "p50": 4.29843,
+          "p95": 6.8801475,
+          "p99": 7.1011356
+        },
+        "triangles": {
+          "count": 5813,
+          "maximum": 883416.0,
+          "mean": 883415.9938069844,
+          "p50": 883416.0,
+          "p95": 883416.0,
+          "p99": 883416.0
+        },
+        "upload_call_ms": null,
+        "upload_frame_ms": null
+      },
+      "purpose": "Optimized probe; validation and implicit layers off",
+      "stderr_bytes": 0,
+      "summary": {
+        "configuration": "release",
+        "elapsed_seconds": 33.3650929,
+        "feeder_ms": 5.293852500000001,
+        "first_report_seconds": 3.1516026,
+        "private_bytes": 491450368,
+        "process_cpu_seconds": 19.5,
+        "residents": 200,
+        "samples": 48,
+        "steady_cpu_core_equivalents": 0.5645304659581695,
+        "threads": 22,
+        "wall_ms": 5.3013731250000005,
+        "working_set_bytes": 208769024
+      }
+    },
+    {
+      "accepted": false,
+      "label": "optimized-native-validation",
+      "purpose": "Native allocator correctness stress; validation on; not a benchmark",
+      "stderr_bytes": 0,
+      "summary": {
+        "configuration": "release",
+        "elapsed_seconds": 9.5509415,
+        "feeder_ms": 15.689633333333333,
+        "first_report_seconds": 5.7753331,
+        "private_bytes": 541929472,
+        "process_cpu_seconds": 8.296875,
+        "residents": 200,
+        "samples": 3,
+        "steady_cpu_core_equivalents": 0.9451406740445464,
+        "threads": 22,
+        "wall_ms": 15.6957,
+        "working_set_bytes": 245063680
+      }
+    },
+    {
+      "accepted": false,
+      "label": "optimized-clean-long",
+      "purpose": "Overlapping demo captures; invalid performance comparison",
+      "stderr_bytes": 0,
+      "summary": {
+        "configuration": "release",
+        "elapsed_seconds": 33.77904,
+        "feeder_ms": 7.480222352941176,
+        "first_report_seconds": 3.6986059,
+        "private_bytes": 492478464,
+        "process_cpu_seconds": 26.609375,
+        "residents": 200,
+        "samples": 34,
+        "steady_cpu_core_equivalents": 0.7804464932082135,
+        "threads": 22,
+        "wall_ms": 7.489278529411764,
+        "working_set_bytes": 213680128
+      }
+    },
+    {
+      "accepted": false,
+      "label": "optimized-isolated-long",
+      "profile": {
+        "cpu": {
+          "acquire_fences": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.012586602857142856
+          },
+          "acquire_image": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.0022314876190476186
+          },
+          "descriptors": {
+            "mean_calls": 258.0,
+            "mean_ms": 1.1071445952380954
+          },
+          "output": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.020896152380952375
+          },
+          "queue_present": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.2038795
+          },
+          "queue_submit": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.06215426190476192
+          },
+          "ss:ss.ao": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.021313611904761904
+          },
+          "ss:ss.ao.blur": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.01786422619047619
+          },
+          "ss:ss.island_ui": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.017546190476190472
+          },
+          "ss:ss.ocean_compose": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.020128011904761905
+          },
+          "submit_present": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.2709493333333332
+          },
+          "wait_frame_fence": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.007133753571428571
+          },
+          "wait_image_fence": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.0007251191666666669
+          },
+          "ws:ws.base": {
+            "mean_calls": 1.0,
+            "mean_ms": 2.970127857142857
+          },
+          "ws:ws.ocean": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.24751757142857148
+          },
+          "ws:ws.ocean.foam": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.2094715952380953
+          },
+          "ws:ws.ui": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.055350576190476175
+          },
+          "ws:ws.water.distance": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.01980918333333333
+          },
+          "ws:ws.water.jfa0": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.020889854761904764
+          },
+          "ws:ws.water.jfa1": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.019377697619047615
+          },
+          "ws:ws.water.jfa10": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.01917716666666667
+          },
+          "ws:ws.water.jfa11": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.018457516666666667
+          },
+          "ws:ws.water.jfa2": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.01893948571428572
+          },
+          "ws:ws.water.jfa3": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.01851646428571429
+          },
+          "ws:ws.water.jfa4": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.020013633333333333
+          },
+          "ws:ws.water.jfa5": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.019541688095238093
+          },
+          "ws:ws.water.jfa6": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.019465380952380956
+          },
+          "ws:ws.water.jfa7": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.01843095476190476
+          },
+          "ws:ws.water.jfa8": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.018502750000000002
+          },
+          "ws:ws.water.jfa9": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.019644526190476196
+          },
+          "ws:ws.water.mask": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.28103914285714293
+          },
+          "ws:ws.water.seed": {
+            "mean_calls": 1.0,
+            "mean_ms": 0.025433866666666666
+          }
+        },
+        "draw_calls": {
+          "count": 5123,
+          "maximum": 258.0,
+          "mean": 258.0,
+          "p50": 258.0,
+          "p95": 258.0,
+          "p99": 258.0
+        },
+        "frame_ms": {
+          "count": 5123,
+          "maximum": 59.2148,
+          "mean": 6.070719324614484,
+          "p50": 5.4818,
+          "p95": 10.038199999999984,
+          "p99": 18.321941999999993
+        },
+        "gpu": {
+          "frame": {
+            "mean_calls": 120.0,
+            "mean_ms": 4.8490728571428585
+          },
+          "output": {
+            "mean_calls": 120.0,
+            "mean_ms": 0.018672769047619046
+          },
+          "ss:ss.ao": {
+            "mean_calls": 120.0,
+            "mean_ms": 0.5586249047619047
+          },
+          "ss:ss.ao.blur": {
+            "mean_calls": 120.0,
+            "mean_ms": 0.37404038095238107
+          },
+          "ss:ss.island_ui": {
+            "mean_calls": 120.0,
+            "mean_ms": 0.021824002380952383
+          },
+          "ss:ss.ocean_compose": {
+            "mean_calls": 120.0,
+            "mean_ms": 0.03516343571428571
+          },
+          "ws:ws.base": {
+            "mean_calls": 120.0,
+            "mean_ms": 0.40979735714285725
+          },
+          "ws:ws.ocean": {
+            "mean_calls": 120.0,
+            "mean_ms": 1.024337642857143
+          },
+          "ws:ws.ocean.foam": {
+            "mean_calls": 120.0,
+            "mean_ms": 0.3304964047619047
+          },
+          "ws:ws.ui": {
+            "mean_calls": 120.0,
+            "mean_ms": 0.01066463619047619
+          },
+          "ws:ws.water.distance": {
+            "mean_calls": 120.0,
+            "mean_ms": 0.05473910238095238
+          },
+          "ws:ws.water.jfa0": {
+            "mean_calls": 120.0,
+            "mean_ms": 0.052085433333333334
+          },
+          "ws:ws.water.jfa1": {
+            "mean_calls": 120.0,
+            "mean_ms": 0.08523641904761901
+          },
+          "ws:ws.water.jfa10": {
+            "mean_calls": 120.0,
+            "mean_ms": 0.15247133333333332
+          },
+          "ws:ws.water.jfa11": {
+            "mean_calls": 120.0,
+            "mean_ms": 0.1986850238095238
+          },
+          "ws:ws.water.jfa2": {
+            "mean_calls": 120.0,
+            "mean_ms": 0.27347988095238096
+          },
+          "ws:ws.water.jfa3": {
+            "mean_calls": 120.0,
+            "mean_ms": 0.16287750000000004
+          },
+          "ws:ws.water.jfa4": {
+            "mean_calls": 120.0,
+            "mean_ms": 0.14057714285714284
+          },
+          "ws:ws.water.jfa5": {
+            "mean_calls": 120.0,
+            "mean_ms": 0.19900309523809523
+          },
+          "ws:ws.water.jfa6": {
+            "mean_calls": 120.0,
+            "mean_ms": 0.14402842857142859
+          },
+          "ws:ws.water.jfa7": {
+            "mean_calls": 120.0,
+            "mean_ms": 0.1505767380952381
+          },
+          "ws:ws.water.jfa8": {
+            "mean_calls": 120.0,
+            "mean_ms": 0.21610823809523802
+          },
+          "ws:ws.water.jfa9": {
+            "mean_calls": 120.0,
+            "mean_ms": 0.15814373809523813
+          },
+          "ws:ws.water.mask": {
+            "mean_calls": 120.0,
+            "mean_ms": 0.028754388095238087
+          },
+          "ws:ws.water.seed": {
+            "mean_calls": 120.0,
+            "mean_ms": 0.033126195238095235
+          }
+        },
+        "gpu_frame_ms": {
+          "count": 5120,
+          "maximum": 8.21834,
+          "mean": 4.848618671875005,
+          "p50": 4.24502,
+          "p95": 6.652583,
+          "p99": 6.898955600000001
+        },
+        "triangles": {
+          "count": 5123,
+          "maximum": 883416.0,
+          "mean": 883415.8411087254,
+          "p50": 883416.0,
+          "p95": 883416.0,
+          "p99": 883416.0
+        },
+        "upload_call_ms": null,
+        "upload_frame_ms": null
+      },
+      "purpose": "Old probe queried environment per draw; invalid shipping comparison",
+      "stderr_bytes": 0,
+      "summary": {
+        "configuration": "release",
+        "elapsed_seconds": 33.7788122,
+        "feeder_ms": 6.071117142857143,
+        "first_report_seconds": 3.6708379,
+        "private_bytes": 493088768,
+        "process_cpu_seconds": 30.625,
+        "residents": 200,
+        "samples": 42,
+        "steady_cpu_core_equivalents": 0.9125473609901447,
+        "threads": 22,
+        "wall_ms": 6.079296666666666,
+        "working_set_bytes": 213700608
+      }
+    },
+    {
+      "accepted": true,
+      "label": "optimized-final",
+      "purpose": "Ordinary final Release; default validation off; implicit layers off",
+      "stderr_bytes": 0,
+      "summary": {
+        "configuration": "release",
+        "elapsed_seconds": 32.7714371,
+        "feeder_ms": 4.473718749999999,
+        "first_report_seconds": 2.6434767999999997,
+        "private_bytes": 490893312,
+        "process_cpu_seconds": 20,
+        "residents": 200,
+        "samples": 56,
+        "steady_cpu_core_equivalents": 0.599339093476701,
+        "threads": 22,
+        "wall_ms": 4.510074285714285,
+        "working_set_bytes": 214953984
+      }
+    }
+  ],
+  "limitations": [
+    "Private bytes are process memory, not VRAM.",
+    "No overall GPU/frame or p99 improvement established at matching validation settings.",
+    "Fixed-view pixel equivalence does not verify all cameras or other backends.",
+    "Baseline and optimized ordinary Release validation defaults differ."
+  ],
+  "quality": {
+    "difference_bbox": null,
+    "exact_scene_pixel_match": true,
+    "ignored_hud_rectangle": [
+      900,
+      0,
+      1280,
+      120
+    ],
+    "ocean_time": 3,
+    "residents": 0
+  },
+  "residents": 200,
+  "resolution": [
+    1280,
+    720
+  ],
+  "verification_date": "2026-10-11"
+}

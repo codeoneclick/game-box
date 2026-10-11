@@ -38,10 +38,9 @@ namespace gb
     
     void game_loop::on_update()
     {
-        clock_t begin_frame_tick = clock();
-        
         std::chrono::steady_clock::time_point current_run_loop_timestamp = std::chrono::steady_clock::now();
-        f32 dt = std::chrono::duration_cast<std::chrono::milliseconds>(current_run_loop_timestamp - m_previous_run_loop_timestamp).count() / 1000.f;
+        const double elapsed = std::chrono::duration<double>(current_run_loop_timestamp - m_previous_run_loop_timestamp).count();
+        const f32 dt = static_cast<f32>(elapsed);
         m_previous_run_loop_timestamp = current_run_loop_timestamp;
         if (!m_is_paused)
         {
@@ -55,13 +54,12 @@ namespace gb
         }
         thread_operations_pool::shared_instance()->update();
         
-        clock_t end_frame_tick = clock();
-        m_delta_ticks += end_frame_tick - begin_frame_tick;
+        m_fps_elapsed += elapsed;
         m_frames_num++;
-        if ((m_delta_ticks/ (double) CLOCKS_PER_SEC) * 1000.0 > 1000.0)
+        if (m_fps_elapsed >= 1.0)
         {
-            m_delta_ticks -= CLOCKS_PER_SEC;
-            m_fps = m_frames_num;
+            m_fps = static_cast<i32>(m_frames_num / m_fps_elapsed + .5);
+            m_fps_elapsed = 0.0;
             m_frames_num = 0;
         }
     }
@@ -79,16 +77,20 @@ namespace gb
     void game_loop::reset_run_loop_timestamp()
     {
         m_previous_run_loop_timestamp = std::chrono::steady_clock::now();
+        m_fps_elapsed = 0.0;
+        m_frames_num = 0;
     }
     
     void game_loop::pause_run_loop()
     {
         m_is_paused = true;
+        reset_run_loop_timestamp();
     }
     
     void game_loop::resume_run_loop()
     {
         m_is_paused = false;
+        reset_run_loop_timestamp();
     }
     
     i32 game_loop::get_fps()

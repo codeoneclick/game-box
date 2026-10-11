@@ -69,6 +69,11 @@ namespace gb
 		game_loop_win32::shared_instance()->pause_run_loop();
 	}
 
+    void reset_run_loop_timestamp()
+    {
+        game_loop_win32::shared_instance()->reset_run_loop_timestamp();
+    }
+
 	void resume_run_loop()
 	{
 		game_loop_win32::shared_instance()->resume_run_loop();

@@ -9,11 +9,19 @@
 #include "vk_swap_chain.h"
 #include "vk_utils.h"
 #include "ws_technique_configuration.h"
+#include <atomic>
 
 namespace gb
 {
     VkRenderPass vk_render_pass_descriptor::m_current_render_pass = VK_NULL_HANDLE;
     ui32 vk_render_pass_descriptor::m_current_color_attachments_count = 0;
+    ui64 vk_render_pass_descriptor::m_current_pipeline_identity = 0;
+    static std::atomic<ui64> g_render_pass_identity { 0 };
+
+    vk_render_pass_descriptor::vk_render_pass_descriptor()
+    {
+        m_pipeline_identity = ++g_render_pass_identity;
+    }
     std::unordered_map<ui64, std::weak_ptr<vk_render_pass_descriptor::depth_attachment_data>> vk_render_pass_descriptor::m_depth_attachments_pool;
 
     vk_render_pass_descriptor::depth_attachment_data::~depth_attachment_data()
@@ -441,6 +449,7 @@ namespace gb
         vkCmdSetScissor(command_buffer, 0, 1, &scissor);
 
         m_current_render_pass = render_pass;
+        m_current_pipeline_identity = m_pipeline_identity;
         m_current_color_attachments_count = m_mode == e_mode_output ? 1 : static_cast<ui32>(m_color_attachments_texture.size());
     }
 

@@ -44,7 +44,8 @@ namespace gb
     m_name(name),
     m_transformation(nullptr),
     m_base_transformation(glm::mat4(1.f)),
-    m_bind_transformation(glm::mat4(1.f))
+    m_bind_transformation(glm::mat4(1.f)),
+    m_inverse_bind_transformation(glm::mat4(1.f))
     {
         
     }
@@ -159,7 +160,7 @@ namespace gb
         {
             iterator->update();
         }
-        m_base_transformation = (*m_transformation) * glm::inverse(m_bind_transformation);
+        m_base_transformation = (*m_transformation) * m_inverse_bind_transformation;
         (*m_transformation) = (*m_transformation) * m_bind_transformation;
     }
     
@@ -168,6 +169,7 @@ namespace gb
         if (m_transformation != nullptr)
         {
             m_bind_transformation = glm::inverse(*m_transformation);
+            m_inverse_bind_transformation = glm::inverse(m_bind_transformation);
         }
         for(const auto& iterator : m_children)
         {

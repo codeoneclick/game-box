@@ -140,7 +140,7 @@ namespace gb
         const auto render_technique_uniforms_component = root->get_component<ces_render_technique_uniforms_component>();
         if (render_technique_uniforms_component)
         {
-            const auto ss_techniques = m_render_pipeline->get_ss_techniques();
+            const auto& ss_techniques = m_render_pipeline->get_ss_techniques();
             for (auto ss_technique_it : ss_techniques)
             {
                 std::size_t name_position = ss_technique_it->get_name().find("_") + 1;
@@ -149,7 +149,7 @@ namespace gb
                 const auto uniforms_wrapper = render_technique_uniforms_component->get_uniforms(technique_name);
                 if (uniforms_wrapper)
                 {
-                    const auto uniforms = uniforms_wrapper->get_uniforms();
+                    const auto& uniforms = uniforms_wrapper->get_uniforms_ref();
                     ss_technique_it->get_material()->set_custom_shader_uniforms(uniforms);
                     ss_technique_it->set_uniforms(uniforms_wrapper);
                 }
@@ -162,7 +162,7 @@ namespace gb
             const auto uniforms_wrapper = render_technique_uniforms_component->get_uniforms(technique_name);
             if (uniforms_wrapper)
             {
-                const auto uniforms = uniforms_wrapper->get_uniforms();
+                const auto& uniforms = uniforms_wrapper->get_uniforms_ref();
                 main_technique->get_material()->set_custom_shader_uniforms(uniforms);
                 main_technique->set_uniforms(uniforms_wrapper);
             }
@@ -178,7 +178,7 @@ namespace gb
         const auto camera_3d_position = camera_3d->get_position();
         const auto frustum_3d = camera_3d->get_frustum();
         
-        ces_base_system::enumerate_entities_with_components(m_render_components_mask, [=](const ces_entity_shared_ptr& entity) {
+        const auto process_entity = [=](const ces_entity_shared_ptr& entity) {
             
             bool is_visible = entity->get_is_visible() && entity->get_is_visible_in_next_frame();
             if(is_visible)
@@ -284,7 +284,20 @@ namespace gb
                     }
                 }
             }
-        });
+        };
+        if (m_material_revision != ces_material_component::get_material_revision())
+        {
+            // A render callback can add a material for a later pass in this frame.
+            ces_base_system::enumerate_entities_with_components(m_render_components_mask, process_entity);
+            return;
+        }
+        for (const auto& weak_entity : m_render_entities_by_technique[technique_index])
+        {
+            if (const auto entity = weak_entity.lock())
+            {
+                process_entity(entity);
+            }
+        }
     }
     
     void ces_render_system::draw_2d_entities(const std::string &technique_name)
@@ -305,17 +318,17 @@ namespace gb
                 const auto shader_uniforms_component = entity->get_component<ces_shader_uniforms_component>();
                 if (shader_uniforms_component)
                 {
-                    auto buffers = shader_uniforms_component->get_vertex_buffers();
-                    for (const auto& buffer_it : buffers)
+                    const auto& vertex_buffers = shader_uniforms_component->get_vertex_buffers();
+                    for (const auto& buffer_it : vertex_buffers)
                     {
-                        const auto uniforms = buffer_it.second->get_uniforms();
+                        const auto& uniforms = buffer_it.second->get_uniforms_ref();
                         material_component->set_custom_shader_uniforms(uniforms, technique_name);
                     }
                     
-                    buffers = shader_uniforms_component->get_fragment_buffers();
-                    for (const auto& buffer_it : buffers)
+                    const auto& fragment_buffers = shader_uniforms_component->get_fragment_buffers();
+                    for (const auto& buffer_it : fragment_buffers)
                     {
-                        const auto uniforms = buffer_it.second->get_uniforms();
+                        const auto& uniforms = buffer_it.second->get_uniforms_ref();
                         material_component->set_custom_shader_uniforms(uniforms, technique_name);
                     }
                 }
@@ -349,7 +362,7 @@ namespace gb
                 }
                 
                 glm::mat4 mat_m = transformation_component->get_absolute_transformation();
-                glm::mat4 mat_n = glm::transpose(glm::inverse(mat_m));
+                const auto& mat_n = transformation_component->get_normal_transformation();
                 
 #if defined(__USE_BATCHING__)
                 
@@ -380,8 +393,8 @@ namespace gb
                     render_encoder->set_vertex_uniforms(mvp_uniforms_buffer_id, 1);
                     if (shader_uniforms_component)
                     {
-                        auto buffers = shader_uniforms_component->get_vertex_buffers();
-                        for (const auto& buffer_it : buffers)
+                        const auto& vertex_buffers = shader_uniforms_component->get_vertex_buffers();
+                        for (const auto& buffer_it : vertex_buffers)
                         {
                             void* custom_uniforms_value = buffer_it.second->get_values();
                             ui32 custom_uniforms_size = buffer_it.second->get_values_size();
@@ -394,8 +407,8 @@ namespace gb
                             }
                         }
                         
-                        buffers = shader_uniforms_component->get_fragment_buffers();
-                        for (const auto& buffer_it : buffers)
+                        const auto& fragment_buffers = shader_uniforms_component->get_fragment_buffers();
+                        for (const auto& buffer_it : fragment_buffers)
                         {
                             void* custom_uniforms_value = buffer_it.second->get_values();
                             ui32 custom_uniforms_size = buffer_it.second->get_values_size();
@@ -451,14 +464,14 @@ namespace gb
             const auto& vertex_buffers = shader_uniforms_component->get_vertex_buffers();
             for (const auto& buffer_it : vertex_buffers)
             {
-                const auto& uniforms = buffer_it.second->get_uniforms();
+                const auto& uniforms = buffer_it.second->get_uniforms_ref();
                 material_component->set_custom_shader_uniforms(uniforms, technique_name);
             }
             
             const auto& fragment_buffers = shader_uniforms_component->get_fragment_buffers();
             for (const auto& buffer_it : fragment_buffers)
             {
-                const auto uniforms = buffer_it.second->get_uniforms();
+                const auto& uniforms = buffer_it.second->get_uniforms_ref();
                 material_component->set_custom_shader_uniforms(uniforms, technique_name);
             }
         }
@@ -484,7 +497,7 @@ namespace gb
         material->get_shader()->set_mat4(ces_base_system::get_current_camera_3d()->get_mat_v(), e_shader_uniform_mat_v);
         
         glm::mat4 mat_m = transformation_component->get_absolute_transformation();
-        glm::mat4 mat_n = glm::transpose(glm::inverse(mat_m));
+        const auto& mat_n = transformation_component->get_normal_transformation();
         
 #if defined(__USE_BATCHING__)
         
@@ -515,8 +528,8 @@ namespace gb
             render_encoder->set_vertex_uniforms(mvp_uniforms_buffer_id, 1);
             if (shader_uniforms_component)
             {
-                auto buffers = shader_uniforms_component->get_vertex_buffers();
-                for (const auto& buffer_it : buffers)
+                const auto& vertex_buffers = shader_uniforms_component->get_vertex_buffers();
+                for (const auto& buffer_it : vertex_buffers)
                 {
                     void* custom_uniforms_value = buffer_it.second->get_values();
                     ui32 custom_uniforms_size = buffer_it.second->get_values_size();
@@ -529,8 +542,8 @@ namespace gb
                     }
                 }
                 
-                buffers = shader_uniforms_component->get_fragment_buffers();
-                for (const auto& buffer_it : buffers)
+                const auto& fragment_buffers = shader_uniforms_component->get_fragment_buffers();
+                for (const auto& buffer_it : fragment_buffers)
                 {
                     void* custom_uniforms_value = buffer_it.second->get_values();
                     ui32 custom_uniforms_size = buffer_it.second->get_values_size();
@@ -554,7 +567,29 @@ namespace gb
     
     void ces_render_system::on_feed_end(f32 dt)
     {
-        auto ws_techniques = m_render_pipeline->get_ws_techniques();
+        const auto& ws_techniques = m_render_pipeline->get_ws_techniques();
+        // Preserve query order, but visit only entities with a material for each pass.
+        // Rebuild every frame so material replacements require no registration protocol.
+        m_render_entities_by_technique.resize(render_pipeline::get_render_techniques_count());
+        m_material_revision = ces_material_component::get_material_revision();
+        for (auto& entities : m_render_entities_by_technique)
+        {
+            entities.clear();
+        }
+        ces_base_system::enumerate_entities_with_components(m_render_components_mask, [this](const ces_entity_shared_ptr& entity) {
+            const auto& materials = entity->get_component_raw<ces_material_component>()->get_materials();
+            if (m_render_entities_by_technique.size() < materials.size())
+            {
+                m_render_entities_by_technique.resize(materials.size());
+            }
+            for (std::size_t index = 0; index < materials.size(); ++index)
+            {
+                if (materials[index])
+                {
+                    m_render_entities_by_technique[index].push_back(entity);
+                }
+            }
+        });
         for(const auto& technique : ws_techniques)
         {
             std::size_t name_position = technique->get_name().find("_") + 1;
@@ -581,9 +616,13 @@ namespace gb
             technique->unbind();
         }
         
-        ces_base_system::enumerate_entities_with_components(m_render_target_components_mask, [](const ces_entity_shared_ptr& entity) {
+        ces_base_system::enumerate_entities_with_components(m_render_target_components_mask, [this](const ces_entity_shared_ptr& entity) {
             auto render_target_component = entity->get_component<ces_render_target_component>();
-            auto screen_quad_mesh = mesh_constructor::create_screen_quad();
+            if (!m_render_target_quad_mesh)
+            {
+                m_render_target_quad_mesh = mesh_constructor::create_screen_quad();
+            }
+            const auto& screen_quad_mesh = m_render_target_quad_mesh;
             auto render_target = render_target_component->get_render_target();
             auto material = render_target_component->get_material();
             if(render_target_component->get_on_render_begin_callback() != nullptr)

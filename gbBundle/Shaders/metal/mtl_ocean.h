@@ -57,9 +57,11 @@ vertex common_v_output_t vertex_shader_ocean_compose(common_v_input_t in [[stage
  common_v_output_t out={};out.position=float4(in.position,1);out.texcoord=in.texcoord;return out;
 }
 struct ocean_field_debug {float4 field_debug;};
-fragment half4 fragment_shader_ocean_compose(common_v_output_t in [[stage_in]],texture2d<float> scene [[texture(0)]],texture2d<float> water [[texture(1)]],texture2d<float> foam_tex [[texture(2)]],texture2d<float> field_tex [[texture(3)]],texture2d<float> mask_tex [[texture(4)]],constant ocean_field_debug& debug [[buffer(0)]]){
+fragment half4 fragment_shader_ocean_compose(common_v_output_t in [[stage_in]],texture2d<float> scene [[texture(0)]],texture2d<float> water [[texture(1)]],texture2d<float> foam_tex [[texture(2)]],texture2d<float> field_tex [[texture(3)]],texture2d<float> mask_tex [[texture(4)]],texture2d<float> ao_tex [[texture(5)]],constant ocean_field_debug& debug [[buffer(1)]]){
  if(debug.field_debug.x>0.0){float4 field=field_tex.sample(ocean_nearest,in.texcoord);float3 c=float3(clamp(field.x/8.0,0.0,1.0));if(debug.field_debug.x==15.0){float2 sides=mask_tex.sample(ocean_nearest,in.texcoord).rg;c=float3(min(sides.r,sides.g));}if(debug.field_debug.x==17.0)c=float3(field.yz*.5+.5,0);return half4(half3(c),1);}
- float4 w=water.sample(linear_sampler,in.texcoord),f=foam_tex.sample(linear_sampler,in.texcoord);return half4(half3(mix(scene.sample(linear_sampler,in.texcoord).rgb,w.rgb,w.a)*(1.0-f.a)+f.rgb),1);
+ float ao=ao_tex.sample(linear_sampler,in.texcoord).r;
+ if(debug.field_debug.y>0.0)return half4(half3(ao),1);
+ float4 w=water.sample(linear_sampler,in.texcoord),f=foam_tex.sample(linear_sampler,in.texcoord);return half4(half3(mix(scene.sample(linear_sampler,in.texcoord).rgb*ao,w.rgb,w.a)*(1.0-f.a)+f.rgb),1);
 }
 float2 ocean_screen_uv(float3 p,constant ocean_uniforms& u){float4 clip=u.projection*u.view*float4(p,1);return float2(.5+.5*clip.x/clip.w,.5-.5*clip.y/clip.w);}
 bool ocean_valid_uv(float2 uv){return all(uv>float2(.002))&&all(uv<float2(.998));}
@@ -141,7 +143,11 @@ fragment half4 fragment_shader_ocean(common_v_output_t in [[stage_in]],constant 
  color*=.97+.06*field_noise(p.xz*.039);
 
  float depth_difference=scene.w>0.0?max(scene.w-depth,0.0):1000.0;
- float width,influence;float4 layers=world_foam(p,width,influence,u,field_tex);float4 field=interaction_sample(p.xz,u,field_tex);
+ // Base-water foam values affect only these diagnostic views; visible foam has its own pass.
+ float width=0.0,influence=0.0;float4 layers=float4(0),field=float4(0);
+ if(u.extra.x==1.0||u.extra.x==7.0||u.extra.x==8.0||u.extra.x==18.0||u.extra.x==19.0||u.extra.x==20.0)
+  layers=world_foam(p,width,influence,u,field_tex);
+ if(u.extra.x==15.0||u.extra.x==16.0||u.extra.x==17.0)field=interaction_sample(p.xz,u,field_tex);
  if(u.extra.x==1.0)color=float3(layers.w);if(u.extra.x==4.0)color=float3(clamp(thickness/16.0,0.0,1.0));
  if(u.extra.x==6.0)color=float3(clamp(depth_difference/u.foam_bands.y,0.0,1.0));
  if(u.extra.x==7.0)color=float3(layers.x);if(u.extra.x==8.0)color=float3(layers.z);

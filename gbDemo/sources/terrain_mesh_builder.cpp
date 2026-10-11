@@ -133,6 +133,10 @@ namespace game
                          + 6.f*previous[i] + 4.f*previous[(i+1)%segments] + previous[(i+2)%segments])/16.f;
         }
         terrain_mesh_data mesh;
+        // Four triangles per contour segment/layer, except the innermost top fan has one.
+        const size_t vertex_count = static_cast<size_t>(4*count-1)*segments*3;
+        mesh.vertices.reserve(std::min<size_t>(vertex_count,65535));
+        mesh.indices.reserve(std::min<size_t>(vertex_count,65535));
         const point up = {{0.f, 1.f, 0.f}};
         const auto at = [&](int layer, int i, float height) -> point {
             const float angle=i*6.283185307f/segments;

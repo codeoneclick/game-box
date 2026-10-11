@@ -11,6 +11,7 @@
 
 #include "main_headers.h"
 #include "declarations.h"
+#include <atomic>
 
 namespace gb
 {
@@ -46,7 +47,7 @@ protected:
     std::function<void()> m_cancel_callback;
     
     mutable std::recursive_mutex m_mutex;
-    ui8 m_status;
+    std::atomic<ui8> m_status;
     
 public:
     
@@ -68,6 +69,7 @@ public:
     e_thread_operation_queue get_operation_queue_name() const;
     thread_operation_shared_ptr next_operation();
     bool pop_operation();
+    bool pop_operation(const thread_operation_shared_ptr& expected);
     bool is_queue_empty() const;
 };
 };

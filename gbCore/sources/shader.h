@@ -208,10 +208,14 @@ namespace gb
 		std::vector<ui8> m_vk_vs_custom_uniforms_data;
 		std::vector<ui8> m_vk_fs_custom_uniforms_data;
 		texture_shared_ptr m_vk_fallback_texture = nullptr;
-		std::vector<VkDescriptorPool> m_vk_frame_descriptor_pools;
+		std::vector<std::vector<VkDescriptorPool>> m_vk_frame_descriptor_pools;
+		std::vector<ui32> m_vk_frame_descriptor_counts;
 		std::vector<ui64> m_vk_frame_numbers;
-		std::vector<std::shared_ptr<vk_buffer>> m_vk_frame_uniform_buffers;
+		std::vector<std::vector<std::shared_ptr<vk_buffer>>> m_vk_frame_uniform_buffers;
+		std::vector<ui32> m_vk_frame_uniform_buffer_indices;
 		std::vector<VkDeviceSize> m_vk_frame_uniform_buffer_offsets;
+		VkDeviceSize m_vk_uniform_buffer_alignment = 0;
+		ui64 m_vk_pipeline_identity = 0;
 
 #endif
         
@@ -289,6 +293,7 @@ namespace gb
 
 		VkPipelineLayout get_pipeline_layout() const;
 		VkDescriptorSet construct_descriptor_set();
+		ui64 get_pipeline_identity() const { return m_vk_pipeline_identity; }
 		static void bind_vulkan_descriptor_set();
 
 #endif

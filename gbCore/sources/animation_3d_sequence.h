@@ -9,6 +9,7 @@
 #pragma once
 
 #include "resource.h"
+#include "animation_3d_retargeter.h"
 
 namespace gb
 {
@@ -23,6 +24,7 @@ namespace gb
         std::vector<glm::quat> m_rotations;
         std::vector<glm::vec3> m_positions;
         std::vector<glm::vec3> m_scales;
+        ui64 m_revision=0;
         
     public:
         
@@ -32,6 +34,9 @@ namespace gb
         frame_3d_data(i32 num_bones);
         
         ~frame_3d_data();
+        frame_3d_data& operator=(const frame_3d_data&);
+        ui32 get_num_bones() const;
+        ui64 get_revision() const;
         
         const glm::quat& get_rotation(ui32 index) const;
         const glm::vec3& get_position(ui32 index) const;
@@ -51,12 +56,14 @@ namespace gb
         std::vector<frame_3d_data_shared_ptr> m_frames;
         i32 m_animation_fps;
         std::string m_animation_name;
+        std::shared_ptr<const animation_3d_rig> m_rig;
         
     public:
         
         sequence_3d_transfering_data(const std::string& animation_name,
                                      i32 animation_fps,
-                                     const std::vector<frame_3d_data_shared_ptr>& frames);
+                                     const std::vector<frame_3d_data_shared_ptr>& frames,
+                                     const std::shared_ptr<const animation_3d_rig>& rig = nullptr);
         
         ~sequence_3d_transfering_data();
         
@@ -64,6 +71,7 @@ namespace gb
         i32 get_animation_fps() const;
         const std::string get_animation_name() const;
         frame_3d_data_shared_ptr get_frame(i32 index) const;
+        std::shared_ptr<const animation_3d_rig> get_rig() const;
     };
     
     class animation_3d_sequence : public resource
@@ -90,5 +98,6 @@ namespace gb
         i32 get_animation_fps() const;
         const std::string get_animation_name() const;
         frame_3d_data_shared_ptr get_frame(i32 index) const;
+        std::shared_ptr<const animation_3d_rig> get_rig() const;
     };
 };

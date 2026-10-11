@@ -1,63 +1,43 @@
 uniform mat4 mat_v;
-
-float sample_ao(vec2 texcoord, vec3 position, vec3 normal, float range, float bias_value)
-{
-    vec3 ao_direction = texture2D(sampler_02, texcoord).xyz - position;
-    float ao_distance = length(ao_direction);
-
-    if (ao_distance <= 0.00001)
-    {
-        return 0.0;
-    }
-
-    float intensity = clamp(
-        (dot(ao_direction / ao_distance, normal) - bias_value) /
-        (1.0 + ao_distance),
-        0.0,
-        1.0);
-    float attenuation = 1.0 - smoothstep(range * 0.5, range, ao_distance);
-    return intensity * attenuation;
-}
-
+uniform mat4 mat_p;
+// World-space radius, angular bias, strength, encoded-normal flag.
+uniform vec4 ao_params;
 void main()
 {
-    const float range = 1.2;
-    const float bias_value = 0.6;
-    const float sin_45 = 0.707;
-    const int iterations = 4;
-    const vec2 directions[4] = vec2[](
-        vec2(1.0, 0.0),
-        vec2(-1.0, 0.0),
-        vec2(0.0, 1.0),
-        vec2(0.0, -1.0));
-
-    vec4 normal_sample = texture2D(sampler_01, v_texcoord);
-    vec3 position = texture2D(sampler_02, v_texcoord).xyz;
-    vec4 position_in_view_space = mat_v * vec4(position, 1.0);
-    vec2 random_direction = texture2D(sampler_03, v_texcoord * 32.0).xz;
-
-    float ao = 0.0;
-    if (normal_sample.w > 0.0 && abs(position_in_view_space.z) > 0.00001)
+    vec4 p = texture2D(sampler_02, v_texcoord);
+    vec4 ns = texture2D(sampler_01, v_texcoord);
+    vec3 n = ao_params.w > 0.5 ? ns.xyz * 2.0 - 1.0 : ns.xyz;
+    vec3 vp = (mat_v * vec4(p.xyz, 1.0)).xyz;
+    float depth = -vp.z;
+    if (p.w <= 0.0 || ns.w <= 0.0 || dot(n,n) < 0.01 || depth <= 0.001 || ao_params.z <= 0.0)
     {
-        float radius = range / position_in_view_space.z;
-
-        for (int i = 0; i < iterations; ++i)
+        gl_FragColor = vec4(1.0);
+        return;
+    }
+    n = normalize((mat_v * vec4(n,0.0)).xyz);
+    float radius = max(ao_params.x, 0.001);
+    vec2 uv_radius = 0.5 * abs(vec2(mat_p[0][0],mat_p[1][1])) * radius / depth;
+    float rotation = texture2D(sampler_03,v_texcoord*32.0).r * 6.2831853;
+    float occlusion = 0.0;
+    // Fixed denominator: offscreen/background samples contribute no occlusion.
+    for (int direction = 0; direction < 8; ++direction)
+    {
+        float angle = rotation + float(direction) * 0.7853982;
+        vec2 direction_vector = vec2(cos(angle),sin(angle));
+        for (int ring = 0; ring < 4; ++ring)
         {
-            vec2 texcoord_offset_1 = reflect(directions[i], random_direction);
-            vec2 texcoord_offset_2 = vec2(
-                texcoord_offset_1.x * sin_45 - texcoord_offset_1.y * sin_45,
-                texcoord_offset_1.x * sin_45 + texcoord_offset_1.y * sin_45);
-
-            texcoord_offset_1 *= radius;
-            texcoord_offset_2 *= radius;
-
-            ao += sample_ao(v_texcoord + texcoord_offset_1 * 0.25, position, normal_sample.xyz, range, bias_value);
-            ao += sample_ao(v_texcoord + texcoord_offset_2 * 0.50, position, normal_sample.xyz, range, bias_value);
-            ao += sample_ao(v_texcoord + texcoord_offset_1 * 0.75, position, normal_sample.xyz, range, bias_value);
-            ao += sample_ao(v_texcoord + texcoord_offset_2, position, normal_sample.xyz, range, bias_value);
+            float fraction = (float(ring)+0.5)/4.0;
+            vec2 uv = v_texcoord + direction_vector*uv_radius*fraction;
+            if (any(lessThan(uv,vec2(0.0))) || any(greaterThan(uv,vec2(1.0)))) continue;
+            vec4 q = texture2D(sampler_02,uv);
+            if (q.w <= 0.0) continue;
+            vec3 delta = (mat_v * vec4(q.xyz,1.0)).xyz - vp;
+            float distance_value = length(delta);
+            if (distance_value < 0.03 || distance_value >= radius) continue;
+            float horizon = max(dot(n,delta/distance_value)-ao_params.y,0.0);
+            occlusion += horizon * (1.0-smoothstep(radius*0.25,radius,distance_value));
         }
     }
-
-    ao /= float(iterations) * 4.0;
-    gl_FragColor = vec4(vec3(pow(1.0 - ao, 24.0)), 1.0);
+    float visibility = pow(1.0-clamp(occlusion/32.0*ao_params.z*2.0,0.0,0.85),1.5);
+    gl_FragColor = vec4(vec3(visibility),1.0);
 }

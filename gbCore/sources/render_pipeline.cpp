@@ -7,6 +7,7 @@
 //
 
 #include "render_pipeline.h"
+#include "render_statistics.h"
 
 #if USED_GRAPHICS_API != NO_GRAPHICS_API
 
@@ -33,6 +34,7 @@ namespace gb
 
     void render_pipeline::on_draw_begin()
     {
+        render_statistics::begin_frame();
 		assert(m_graphics_context);
 
         m_graphics_context->make_current();
@@ -91,6 +93,7 @@ namespace gb
         {
             m_graphics_context->draw();
         }
+        render_statistics::end_frame();
     }
     
     texture_shared_ptr render_pipeline::get_technique_texture(const std::string& technique_name)

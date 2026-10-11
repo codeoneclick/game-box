@@ -51,6 +51,8 @@ namespace gb
 
         static VkRenderPass m_current_render_pass;
         static ui32 m_current_color_attachments_count;
+        ui64 m_pipeline_identity = 0;
+        static ui64 m_current_pipeline_identity;
 
         void construct(const std::string& guid, ui32 width, ui32 height, const std::vector<std::shared_ptr<configuration>>& attachments_configurations, bool is_depth_load_enabled);
         void create_color_attachment(const std::string& guid, VkFormat format, ui32 width, ui32 height);
@@ -60,7 +62,7 @@ namespace gb
 
     public:
 
-        vk_render_pass_descriptor() = default;
+        vk_render_pass_descriptor();
         ~vk_render_pass_descriptor();
 
         static std::shared_ptr<vk_render_pass_descriptor> construct_ws_render_pass_descriptor(const std::shared_ptr<ws_technique_configuration>& configuration);
@@ -69,6 +71,7 @@ namespace gb
 
         static VkRenderPass get_current_render_pass();
         static ui32 get_current_color_attachments_count();
+        static ui64 get_current_pipeline_identity() { return m_current_pipeline_identity; }
 
         void bind() override;
         void unbind() override;

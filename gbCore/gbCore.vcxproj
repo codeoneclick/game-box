@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="debug-client|Win32">
@@ -624,6 +624,7 @@
     <ClInclude Include="sources\memory_map.h" />
     <ClInclude Include="sources\mesh_2d.h" />
     <ClInclude Include="sources\mesh_3d.h" />
+    <ClInclude Include="sources\render_statistics.h" />
     <ClInclude Include="sources\mesh_3d_commiter_gbmesh3d.h" />
     <ClInclude Include="sources\mesh_3d_loading_operation.h" />
     <ClInclude Include="sources\mesh_3d_serializer_gbmesh3d.h" />
@@ -1814,4 +1815,8 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
+  <ItemGroup>
+    <ClInclude Include="sources\animation_3d_retargeter.h" />
+    <ClCompile Include="sources\animation_3d_retargeter.cpp" />
+  </ItemGroup>
 </Project>

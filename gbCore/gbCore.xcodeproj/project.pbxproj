@@ -2021,6 +2021,10 @@
 		F3FA55FA1F3494E1003FE616 /* pngwutil.c in Sources */ = {isa = PBXBuildFile; fileRef = 2130DFB01D211D95002B6F61 /* pngwutil.c */; };
 		F3FA55FB1F3494E1003FE616 /* pngwutil.c in Sources */ = {isa = PBXBuildFile; fileRef = 2130DFB01D211D95002B6F61 /* pngwutil.c */; };
 		F3FA55FC1F3494E2003FE616 /* pngwutil.c in Sources */ = {isa = PBXBuildFile; fileRef = 2130DFB01D211D95002B6F61 /* pngwutil.c */; };
+		7C6FB5C21BCE8D8540DB2681 /* animation_3d_retargeter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45D0374BCE5455E66F584B9F /* animation_3d_retargeter.cpp */; };
+		2D4758DE20B7AB3074E93584 /* animation_3d_retargeter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45D0374BCE5455E66F584B9F /* animation_3d_retargeter.cpp */; };
+		87B499D26FB6B52E06B1FFB7 /* animation_3d_retargeter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45D0374BCE5455E66F584B9F /* animation_3d_retargeter.cpp */; };
+		EBDF35D816A6FD7F8B5FD777 /* animation_3d_retargeter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45D0374BCE5455E66F584B9F /* animation_3d_retargeter.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -2905,6 +2909,7 @@
 		92FAAEF82243C22100D243C0 /* particle_emitter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = particle_emitter.cpp; path = sources/particle_emitter.cpp; sourceTree = "<group>"; };
 		92FAAEF92243C22100D243C0 /* particle_emitter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = particle_emitter.h; path = sources/particle_emitter.h; sourceTree = "<group>"; };
 		F30EFFDA1EC5A298007BC868 /* mesh_3d.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mesh_3d.cpp; path = sources/mesh_3d.cpp; sourceTree = "<group>"; };
+		A8FA90001010202600000001 /* render_statistics.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = render_statistics.h; path = sources/render_statistics.h; sourceTree = "<group>"; };
 		F30EFFDB1EC5A298007BC868 /* mesh_3d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mesh_3d.h; path = sources/mesh_3d.h; sourceTree = "<group>"; };
 		F30EFFE01EC5A2F2007BC868 /* animation_3d_sequence.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = animation_3d_sequence.cpp; path = sources/animation_3d_sequence.cpp; sourceTree = "<group>"; };
 		F30EFFE11EC5A2F2007BC868 /* animation_3d_sequence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = animation_3d_sequence.h; path = sources/animation_3d_sequence.h; sourceTree = "<group>"; };
@@ -3377,6 +3382,8 @@
 		F3FA55E21F34928E003FE616 /* utf8-utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "utf8-utils.h"; path = "libraries/freetype-gl/utf8-utils.h"; sourceTree = "<group>"; };
 		F3FA55EF1F3492BA003FE616 /* edtaa3func.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = edtaa3func.c; path = "libraries/freetype-gl/edtaa3func.c"; sourceTree = "<group>"; };
 		F3FA55F01F3492BA003FE616 /* edtaa3func.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = edtaa3func.h; path = "libraries/freetype-gl/edtaa3func.h"; sourceTree = "<group>"; };
+		39BD2FA8BC2C8EB811D86833 /* animation_3d_retargeter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = sources/animation_3d_retargeter.h; sourceTree = "<group>"; };
+		45D0374BCE5455E66F584B9F /* animation_3d_retargeter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = sources/animation_3d_retargeter.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -3691,6 +3698,7 @@
 		21B402B41B7A07E9003382AB = {
 			isa = PBXGroup;
 			children = (
+				FEBE24C0F914373AD53C576F /* Animation Retargeting */,
 				21B402D81B7A0871003382AB /* libraries */,
 				21B402D71B7A0864003382AB /* sources */,
 				21B402BE1B7A07E9003382AB /* products */,
@@ -4514,6 +4522,7 @@
 				2173D1E01B7CA774002912BE /* mesh_2d.h */,
 				2173D1DF1B7CA774002912BE /* mesh_2d.cpp */,
 				F30EFFDB1EC5A298007BC868 /* mesh_3d.h */,
+				A8FA90001010202600000001 /* render_statistics.h */,
 				F30EFFDA1EC5A298007BC868 /* mesh_3d.cpp */,
 				F30EFFE71EC5AB8D007BC868 /* bone_3d.h */,
 				F30EFFE61EC5AB8D007BC868 /* bone_3d.cpp */,
@@ -5413,6 +5422,10 @@
 			path = winfonts;
 			sourceTree = "<group>";
 		};
+		FEBE24C0F914373AD53C576F /* Animation Retargeting */ = {isa = PBXGroup; children = (
+				39BD2FA8BC2C8EB811D86833 /* animation_3d_retargeter.h */,
+				45D0374BCE5455E66F584B9F /* animation_3d_retargeter.cpp */,
+			); name = "Animation Retargeting"; sourceTree = "<group>"; };
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -5573,6 +5586,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7C6FB5C21BCE8D8540DB2681 /* animation_3d_retargeter.cpp in Sources */,
 				F30E00021EC5F305007BC868 /* mesh_3d_commiter_gbmesh3d.cpp in Sources */,
 				F3FA55001F348DF2003FE616 /* ftraster.c in Sources */,
 				02F249311E33AFF50071568F /* render_target.cpp in Sources */,
@@ -6067,6 +6081,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2D4758DE20B7AB3074E93584 /* animation_3d_retargeter.cpp in Sources */,
 				F30E00001EC5F305007BC868 /* mesh_3d_commiter_gbmesh3d.cpp in Sources */,
 				921FE65D22DCB2DC000B3EC9 /* b2CapsuleShape.cpp in Sources */,
 				F3FA54FE1F348DF2003FE616 /* ftraster.c in Sources */,
@@ -6585,6 +6600,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				87B499D26FB6B52E06B1FFB7 /* animation_3d_retargeter.cpp in Sources */,
 				F30E00011EC5F305007BC868 /* mesh_3d_commiter_gbmesh3d.cpp in Sources */,
 				F3FA54FF1F348DF2003FE616 /* ftraster.c in Sources */,
 				921BBA0B2268B27700482139 /* FuzzyOutVariableBase.cpp in Sources */,
@@ -7105,6 +7121,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EBDF35D816A6FD7F8B5FD777 /* animation_3d_retargeter.cpp in Sources */,
 				F36DF0F91E953B3C00EAE49B /* render_target.cpp in Sources */,
 				921BBA152268B27700482139 /* FuzzyVariableBase.cpp in Sources */,
 				92BAA730228AAC3E005C5883 /* cubemap_texture_commiter_png.cpp in Sources */,

@@ -1,0 +1,31 @@
+{
+  "cubes": 130,
+  "vertices": 1040,
+  "faces": 780,
+  "triangles": 1560,
+  "height_m": 1.9,
+  "blockbench_unit_m": 0.04042553191489361,
+  "bones": [
+    "root",
+    "hips",
+    "spine",
+    "chest",
+    "neck",
+    "head",
+    "upper_arm_l",
+    "lower_arm_l",
+    "hand_l",
+    "upper_leg_l",
+    "lower_leg_l",
+    "foot_l",
+    "upper_arm_r",
+    "lower_arm_r",
+    "hand_r",
+    "upper_leg_r",
+    "lower_leg_r",
+    "foot_r"
+  ],
+  "animations": [],
+  "geometry_sha256": "8e2e10121b1f91daee03b09159baddfc0cf2a113c917fe38eaae59fa1b28fc58",
+  "texture_sha256": "bc90aaefee928a8a2685167ce7d95653c31f6f253aac1ea368c72d3aa6712a56"
+}

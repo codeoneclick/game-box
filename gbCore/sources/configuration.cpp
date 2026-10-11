@@ -7,6 +7,9 @@
 //
 
 #include "configuration.h"
+#include <fstream>
+#include <mutex>
+#include <iterator>
 #include "common.h"
 
 namespace gb
@@ -139,7 +142,7 @@ namespace gb
 		{ 20, "GL_EQUAL" },
 		{ 21, "GL_NOTEQUAL" },
 		{ 22, "GL_FUNC_ADD" },
-        { 23, "GL_FUNC_MIN" }
+        { 23, "GL_FUNC_MIN" },
         { 24, "GL_FUNC_MAX" }
 	};
 
@@ -193,23 +196,59 @@ namespace gb
     
     pugi::xml_parse_result configuration::open_xml(pugi::xml_document &xml, const std::string &filename)
     {
-        std::string search_filename = filename;
-        pugi::xml_parse_result result = xml.load_file(search_filename.c_str());
-        if(result.status != pugi::status_ok)
+        struct parsed_xml
         {
-            search_filename = bundlepath().append(search_filename);
-            result = xml.load_file(search_filename.c_str());
-        }
-        
-        if(result.status == pugi::status_ok)
+            std::string contents;
+            std::shared_ptr<pugi::xml_document> document;
+            pugi::xml_parse_result result;
+        };
+        static std::mutex cache_mutex;
+        static std::map<std::string, parsed_xml> cache;
+        static size_t source_bytes = 0;
+        const size_t max_source_bytes = 4 * 1024 * 1024;
+        const size_t max_documents = 64;
+        pugi::xml_parse_result result;
+        result.status = pugi::status_file_not_found;
+        const std::array<std::string, 2> paths = {filename, bundlepath() + filename};
+        for(const auto& path : paths)
         {
-            m_filename = search_filename;
+            std::ifstream stream(path, std::ios::binary);
+            if(!stream) continue;
+            const std::string contents((std::istreambuf_iterator<char>(stream)), std::istreambuf_iterator<char>());
+            if(stream.bad()) { result.status = pugi::status_io_error; continue; }
+            {
+                std::lock_guard<std::mutex> guard(cache_mutex);
+                const auto found = cache.find(path);
+                // Compare actual bytes, preserving reload behavior even for
+                // same-size edits within a filesystem timestamp tick.
+                if(found != cache.end() && found->second.contents == contents)
+                {
+                    xml.reset(*found->second.document);
+                    m_filename = path;
+                    return found->second.result;
+                }
+            }
+            const auto document = std::make_shared<pugi::xml_document>();
+            result = document->load_buffer(contents.data(), contents.size());
+            if(result.status != pugi::status_ok) continue;
+            xml.reset(*document);
+            m_filename = path;
+            if(contents.size() <= max_source_bytes)
+            {
+                std::lock_guard<std::mutex> guard(cache_mutex);
+                if(cache.size() >= max_documents || source_bytes + contents.size() > max_source_bytes)
+                {
+                    cache.clear();
+                    source_bytes = 0;
+                }
+                const auto found = cache.find(path);
+                if(found != cache.end()) source_bytes -= found->second.contents.size();
+                cache[path] = parsed_xml{contents, document, result};
+                source_bytes += contents.size();
+            }
+            return result;
         }
-        else
-        {
-            assert(false);
-        }
-        
+        assert(false);
         return result;
     };
     

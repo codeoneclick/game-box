@@ -29,6 +29,8 @@ namespace gb
         ~mesh_constructor() = default;
         
         static mesh_2d_shared_ptr create_screen_quad();
+        // Call after scene meshes are released and before device teardown.
+        static void clear_shared_meshes();
         static mesh_2d_shared_ptr create_shape_quad(bool is_use_batch = false);
         static mesh_2d_shared_ptr create_circle();
         

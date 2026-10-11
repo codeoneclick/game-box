@@ -1,191 +1,126 @@
-//
-//  thread_operations_pool.cpp
-//  gbCore
-//
-//  Created by sergey.sergeev on 10/28/15.
-//  Copyright © 2015 sergey.sergeev. All rights reserved.
-//
-
 #include "thread_operations_pool.h"
+#include <exception>
 
 namespace gb
 {
     std::shared_ptr<thread_operations_pool> thread_operations_pool::m_shared_instance = nullptr;
-    
+
     std::shared_ptr<thread_operations_pool> thread_operations_pool::shared_instance()
     {
-        if(!m_shared_instance)
-        {
-            m_shared_instance = std::make_shared<thread_operations_pool>();
-        }
-        return m_shared_instance;
+        // Function-local initialization serializes concurrent first use.
+        static const auto instance = std::make_shared<thread_operations_pool>();
+        return instance;
     }
-    
-    thread_operations_pool::thread_operations_pool()
+
+    thread_operations_pool::thread_operations_pool() : m_is_running(true)
     {
-        m_is_running = 1;
         for(ui32 index = 0; index < k_max_threads_pet_queue; ++index)
-        {
-            m_threads.at(index) = std::thread([this, index]() {
-                thread_operations_pool::update_thread(index);
-            });
-        }
+            m_threads.at(index) = std::thread([this, index]() { update_thread(index); });
     }
-    
+
     thread_operations_pool::~thread_operations_pool()
     {
-        m_is_running = 0;
-        for(ui32 index = 0; index < k_max_threads_pet_queue; ++index)
         {
-            if(m_threads.at(index).joinable())
-            {
-                m_threads.at(index).join();
-            }
+            std::lock_guard<std::mutex> guard(m_mutex);
+            m_is_running = false;
         }
+        m_work_available.notify_all();
+        for(auto& thread : m_threads) if(thread.joinable()) thread.join();
     }
-    
-    void thread_operations_pool::add_operation(const thread_operation_shared_ptr& operation, thread_operation::e_thread_operation_queue operation_queue)
+
+    void thread_operations_pool::add_operation(const thread_operation_shared_ptr& operation,
+                                               thread_operation::e_thread_operation_queue operation_queue)
     {
-        std::lock_guard<std::mutex> guard(m_mutex);
-        ui32 thread_id = 0;
-        size_t min_operations_count = m_operations.at(0).at(operation_queue).size();
-        for (ui32 i = 0; i < m_operations.size(); ++i)
         {
-            if(m_operations.at(i).at(operation_queue).size() < min_operations_count)
+            std::lock_guard<std::mutex> guard(m_mutex);
+            if(!m_is_running) return;
+            ui32 thread_id = 0;
+            auto min_count = m_operations.at(0).at(operation_queue).size();
+            for(ui32 i = 1; i < m_operations.size(); ++i)
             {
-                min_operations_count = m_operations.at(i).at(operation_queue).size();
-                thread_id = i;
+                const auto count = m_operations.at(i).at(operation_queue).size();
+                if(count < min_count) { min_count = count; thread_id = i; }
+            }
+            m_operations.at(thread_id).at(operation_queue).push(operation);
+            ++m_work_generation;
+        }
+        m_work_available.notify_all();
+    }
+
+    bool thread_operations_pool::process_operation(ui32 thread_id,
+        thread_operation::e_thread_operation_queue queue, thread_operation::e_thread_operation_queue executor)
+    {
+        thread_operation_shared_ptr operation;
+        {
+            std::lock_guard<std::mutex> guard(m_mutex);
+            auto& operations = m_operations.at(thread_id).at(queue);
+            if(!m_is_running || operations.empty() || m_claimed.at(thread_id).at(queue)) return false;
+            m_claimed.at(thread_id).at(queue) = true;
+            operation = operations.front();
+        }
+        // Do not hold the pool mutex while traversing dependencies or calling user code.
+        const auto dependency = operation->next_operation();
+        bool runnable = dependency->get_operation_queue_name() == executor;
+        std::exception_ptr failure;
+        if(runnable)
+        {
+            try
+            {
+                dependency->execute();
+                // A dependency may be shared with a chain on another worker.
+                // Its callback must finish before this chain advances.
+                runnable = dependency->is_completed();
+                if(runnable) operation->pop_operation(dependency);
+            }
+            catch(...)
+            {
+                failure = std::current_exception();
+                operation->pop_operation(dependency);
             }
         }
-        m_operations.at(thread_id).at(operation_queue).push(operation);
+        {
+            std::lock_guard<std::mutex> guard(m_mutex);
+            if(runnable && dependency == operation) m_operations.at(thread_id).at(queue).pop();
+            m_claimed.at(thread_id).at(queue) = false;
+            if(runnable) ++m_work_generation;
+        }
+        if(runnable) m_work_available.notify_all();
+        if(failure) std::rethrow_exception(failure);
+        return runnable;
     }
-    
+
     void thread_operations_pool::update_thread(ui32 thread_id)
     {
 #if defined(__IOS__) || defined(__OSX__) || defined(__TVOS__)
-
-        std::stringstream thread_id_string_stream;
-        thread_id_string_stream<<"gb.core.thread.pool.";
-        thread_id_string_stream<<thread_id;
-        pthread_setname_np(thread_id_string_stream.str().c_str());
-
+        const auto name = std::string("gb.core.thread.pool.") + std::to_string(thread_id);
+        pthread_setname_np(name.c_str());
 #endif
-
-        while (m_is_running)
+        for(;;)
         {
-            bool is_background_queue_empty = thread_operations_pool::is_queue_empty(thread_id, thread_operation::e_thread_operation_queue_background);
-            bool is_main_queue_empty = thread_operations_pool::is_queue_empty(thread_id, thread_operation::e_thread_operation_queue_main);
-            if (is_background_queue_empty && is_main_queue_empty)
+            size_t generation;
             {
-                std::this_thread::sleep_for(std::chrono::milliseconds(100));
+                std::lock_guard<std::mutex> guard(m_mutex);
+                if(!m_is_running) return;
+                generation = m_work_generation;
             }
-            else
-            {
-                if(!is_background_queue_empty)
-                {
-                    thread_operation_shared_ptr operation = thread_operations_pool::next_operation(thread_id, thread_operation::e_thread_operation_queue_background);
-                    if(!operation)
-                    {
-                        continue;
-                    }
-                    thread_operation_shared_ptr dependency_operation = operation->next_operation();
-                    if(dependency_operation->get_operation_queue_name() == thread_operation::e_thread_operation_queue_background)
-                    {
-                        if(!dependency_operation->is_canceled())
-                        {
-                            dependency_operation->execute();
-                        }
-                        operation->pop_operation();
-                    }
-                    if(dependency_operation == operation)
-                    {
-                        thread_operations_pool::pop_operation(thread_id, thread_operation::e_thread_operation_queue_background);
-                    }
-                }
-                
-                if(!is_main_queue_empty)
-                {
-                    thread_operation_shared_ptr operation = thread_operations_pool::next_operation(thread_id, thread_operation::e_thread_operation_queue_main);
-                    if(!operation)
-                    {
-                        continue;
-                    }
-                    thread_operation_shared_ptr dependency_operation = operation->next_operation();
-                    if(dependency_operation->get_operation_queue_name() == thread_operation::e_thread_operation_queue_background)
-                    {
-                        if(!dependency_operation->is_canceled())
-                        {
-                            dependency_operation->execute();
-                        }
-                        operation->pop_operation();
-                    }
-                }
-            }
+            const bool background = process_operation(thread_id, thread_operation::e_thread_operation_queue_background,
+                                                       thread_operation::e_thread_operation_queue_background);
+            const bool main = process_operation(thread_id, thread_operation::e_thread_operation_queue_main,
+                                                 thread_operation::e_thread_operation_queue_background);
+            if(background || main) continue;
+            std::unique_lock<std::mutex> lock(m_mutex);
+            m_work_available.wait(lock, [this, generation]() { return !m_is_running || m_work_generation != generation; });
         }
     }
-    
+
     void thread_operations_pool::update()
     {
         for(ui32 thread_id = 0; thread_id < m_threads.size(); ++thread_id)
         {
-            if(!thread_operations_pool::is_queue_empty(thread_id, thread_operation::e_thread_operation_queue_main))
-            {
-                thread_operation_shared_ptr operation = thread_operations_pool::next_operation(thread_id, thread_operation::e_thread_operation_queue_main);
-                if(!operation)
-                {
-                    return;
-                }
-                thread_operation_shared_ptr dependency_operation = operation->next_operation();
-                if(dependency_operation->get_operation_queue_name() == thread_operation::e_thread_operation_queue_main)
-                {
-                    if(!dependency_operation->is_canceled())
-                    {
-                        dependency_operation->execute();
-                    }
-                    operation->pop_operation();
-                }
-                if(dependency_operation == operation)
-                {
-                    thread_operations_pool::pop_operation(thread_id, thread_operation::e_thread_operation_queue_main);
-                }
-            }
-            
-            if(!thread_operations_pool::is_queue_empty(thread_id, thread_operation::e_thread_operation_queue_background))
-            {
-                thread_operation_shared_ptr operation = thread_operations_pool::next_operation(thread_id, thread_operation::e_thread_operation_queue_background);
-                if(!operation)
-                {
-                    return;
-                }
-                thread_operation_shared_ptr dependency_operation = operation->next_operation();
-                if(dependency_operation->get_operation_queue_name() == thread_operation::e_thread_operation_queue_main)
-                {
-                    if(!dependency_operation->is_canceled())
-                    {
-                        dependency_operation->execute();
-                    }
-                    operation->pop_operation();
-                }
-            }
+            process_operation(thread_id, thread_operation::e_thread_operation_queue_main,
+                               thread_operation::e_thread_operation_queue_main);
+            process_operation(thread_id, thread_operation::e_thread_operation_queue_background,
+                               thread_operation::e_thread_operation_queue_main);
         }
-    }
-    
-    thread_operation_shared_ptr thread_operations_pool::next_operation(ui32 thread_id, thread_operation::e_thread_operation_queue operation_queue)
-    {
-        std::lock_guard<std::mutex> guard(m_mutex);
-        thread_operation_shared_ptr operation = m_operations.at(thread_id).at(operation_queue).empty() ? nullptr : m_operations.at(thread_id).at(operation_queue).front();
-        return operation;
-    }
-    
-    void thread_operations_pool::pop_operation(ui32 threadId, thread_operation::e_thread_operation_queue operation_queue)
-    {
-        std::lock_guard<std::mutex> guard(m_mutex);
-        m_operations.at(threadId).at(operation_queue).pop();
-    }
-    
-    bool thread_operations_pool::is_queue_empty(ui32 threadId, thread_operation::e_thread_operation_queue operation_queue)
-    {
-        std::lock_guard<std::mutex> guard(m_mutex);
-        return m_operations.at(threadId).at(operation_queue).empty();
     }
 }

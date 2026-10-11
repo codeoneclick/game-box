@@ -52,7 +52,7 @@ namespace gb
             child_transformation_component->update_absolute_transformation(parent_absolute_matrix);
         }
        
-        std::vector<ces_entity_shared_ptr> children = entity->children;
+        const std::vector<ces_entity_shared_ptr>& children = entity->children;
         for(const auto& child : children)
         {
             ces_transformation_extension::update_absolute_transformation_recursively(child);

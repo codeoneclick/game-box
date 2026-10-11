@@ -1,94 +1,84 @@
-//
-//  mtl_ssao.metal
-//  gbDemo
-//
-//  Created by serhii.s on 6/24/19.
-//  Copyright © 2019 sergey.sergeev. All rights reserved.
-//
-
 #include <metal_stdlib>
 #include "mtl_common.h"
-
 using namespace metal;
-
-vertex common_v_output_t vertex_shader_ss_ssao(common_v_input_t in [[stage_in]],
-                                               constant common_u_input_t& uniforms [[ buffer(1) ]])
+constexpr sampler ssao_nearest(coord::normalized,address::clamp_to_edge,filter::nearest);
+constexpr sampler ssao_noise(coord::normalized,address::repeat,filter::nearest);
+vertex common_v_output_t vertex_shader_ss_ssao(common_v_input_t in [[stage_in]])
 {
     common_v_output_t out;
-    
-    float4 in_position = float4(float3(in.position), 1.0);
-    out.position = in_position;
-    out.texcoord = (float2)in.texcoord;
-    
+    out.position=float4(in.position,1.0);
+    out.texcoord=float2(in.texcoord);
     return out;
 }
-
 fragment half4 fragment_shader_ss_ssao(common_v_output_t in [[stage_in]],
-                                       constant ssao_u_input_t& ssao_uniforms [[buffer(1)]],
-                                       texture2d<half> normal_texture [[texture(0)]],
-                                       texture2d<float> position_texture [[texture(1)]],
-                                       texture2d<half> random_texture [[texture(2)]])
+    constant ssao_u_input_t& uniforms [[buffer(1)]],
+    texture2d<float> normals [[texture(0)]],texture2d<float> positions [[texture(1)]],
+    texture2d<float> noise [[texture(2)]])
 {
-    const half range = 1.2f;
-    const half half_range = range * .5f;
-    const half bias_value = .6f;
-    const half2 directions[4] = { half2(1.f, 0.f), half2(-1.f, 0.f), half2(0.f, 1.f), half2(0.f, -1.f) };
-    const half4 normal = normal_texture.sample(linear_sampler, in.texcoord);
-    const float4 position = position_texture.sample(linear_sampler, in.texcoord);
-    const float4 position_in_view_space = ssao_uniforms.mat_v * float4(position.x, position.y, position.z, 1.0);
-    const half2 random = random_texture.sample(repeat_sampler, in.texcoord * 32.f).xz;
-    
-    half ao = .0f;
-    const half radius = range / position_in_view_space.z;
-
-    const half sin_45 = .707f;
-    const int iterations = 4;
-    
-    float2 texcoord_offset_1;
-    float2 texcoord_offset_2;
-    
-    float4 position_with_offset;
-    if (normal.w > 0.f)
+    float4 p = positions.sample(ssao_nearest,in.texcoord);
+    float4 ns = normals.sample(ssao_nearest,in.texcoord);
+    float3 n = uniforms.ao_params.w > 0.5 ? ns.xyz * 2.0 - 1.0 : ns.xyz;
+    float3 vp = (uniforms.mat_v * float4(p.xyz, 1.0)).xyz;
+    float depth = -vp.z;
+    if (p.w <= 0.0 || ns.w <= 0.0 || dot(n,n) < 0.01 || depth <= 0.001 || uniforms.ao_params.z <= 0.0)
     {
-        for (int i = 0; i < iterations; ++i)
+        return half4(float4(1.0));
+    }
+    n = normalize((uniforms.mat_v * float4(n,0.0)).xyz);
+    float radius = max(uniforms.ao_params.x, 0.001);
+    float2 uv_radius = 0.5 * abs(float2(uniforms.mat_p[0][0],uniforms.mat_p[1][1])) * radius / depth;
+    float rotation = noise.sample(ssao_noise,in.texcoord*32.0).r * 6.2831853;
+    float occlusion = 0.0;
+    // Fixed denominator: offscreen/background samples contribute no occlusion.
+    for (int direction = 0; direction < 8; ++direction)
+    {
+        float angle = rotation + float(direction) * 0.7853982;
+        float2 direction_vector = float2(cos(angle),sin(angle));
+        for (int ring = 0; ring < 4; ++ring)
         {
-            texcoord_offset_1 = static_cast<float2>(reflect(directions[i], random));
-            texcoord_offset_2.x = texcoord_offset_1.x * sin_45 - texcoord_offset_1.y * sin_45;
-            texcoord_offset_2.y = texcoord_offset_1.x * sin_45 + texcoord_offset_1.y * sin_45;
-            
-            texcoord_offset_1 *= radius;
-            texcoord_offset_2 *= radius;
-            
-            position_with_offset = position_texture.sample(repeat_sampler, in.texcoord + texcoord_offset_1 * .25f);
-            half3 ao_direction = static_cast<half3>(position_with_offset.xyz - position.xyz);
-            half ao_distance = length(ao_direction);
-            half intensity = saturate((dot(ao_direction / ao_distance, normal.xyz) - bias_value) * (1.f / (1.f + ao_distance)));
-            half attenuation = smoothstep(range, half_range, ao_distance);
-            ao += intensity * attenuation;
-            
-            position_with_offset = position_texture.sample(repeat_sampler, in.texcoord + texcoord_offset_2 * .5f);
-            ao_direction = static_cast<half3>(position_with_offset.xyz - position.xyz);
-            ao_distance = length(ao_direction);
-            intensity = saturate((dot(ao_direction / ao_distance, normal.xyz) - bias_value) * (1.f / (1.f + ao_distance)));
-            attenuation = smoothstep(range, half_range, ao_distance);
-            ao += intensity * attenuation;
-            
-            position_with_offset = position_texture.sample(repeat_sampler, in.texcoord + texcoord_offset_1 * .75f);
-            ao_direction = static_cast<half3>(position_with_offset.xyz - position.xyz);
-            ao_distance = length(ao_direction);
-            intensity = saturate((dot(ao_direction / ao_distance, normal.xyz) - bias_value) * (1.f / (1.f + ao_distance)));
-            attenuation = smoothstep(range, half_range, ao_distance);
-            ao += intensity * attenuation;
-            
-            position_with_offset = position_texture.sample(repeat_sampler, in.texcoord + texcoord_offset_2);
-            ao_direction = static_cast<half3>(position_with_offset.xyz - position.xyz);
-            ao_distance = length(ao_direction);
-            intensity = saturate((dot(ao_direction / ao_distance, normal.xyz) - bias_value) * (1.f / (1.f + ao_distance)));
-            attenuation = smoothstep(range, half_range, ao_distance);
-            ao += intensity * attenuation;
+            float fraction = (float(ring)+0.5)/4.0;
+            float2 uv = in.texcoord + direction_vector*uv_radius*fraction;
+            if (any(uv < float2(0.0)) || any(uv > float2(1.0))) continue;
+            float4 q = positions.sample(ssao_nearest,uv);
+            if (q.w <= 0.0) continue;
+            float3 delta = (uniforms.mat_v * float4(q.xyz,1.0)).xyz - vp;
+            float distance_value = length(delta);
+            if (distance_value < 0.03 || distance_value >= radius) continue;
+            float horizon = max(dot(n,delta/distance_value)-uniforms.ao_params.y,0.0);
+            occlusion += horizon * (1.0-smoothstep(radius*0.25,radius,distance_value));
         }
     }
-    
-    ao /= static_cast<half>(iterations) * 4.f;
-    return half4(pow(1.f - ao, 24));
+    float visibility = pow(1.0-clamp(occlusion/32.0*uniforms.ao_params.z*2.0,0.0,0.85),1.5);
+    return half4(float4(float3(visibility),1.0));
+}
+
+vertex common_v_output_t vertex_shader_ss_ssao_blur(common_v_input_t in [[stage_in]])
+{
+    common_v_output_t out;
+    out.position=float4(in.position,1.0);
+    out.texcoord=float2(in.texcoord);
+    return out;
+}
+fragment half4 fragment_shader_ss_ssao_blur(common_v_output_t in [[stage_in]],
+    texture2d<float> ao [[texture(0)]],texture2d<float> positions [[texture(1)]],texture2d<float> normals [[texture(2)]])
+{
+    float4 p = positions.sample(ssao_nearest,in.texcoord);
+    float4 ns = normals.sample(ssao_nearest,in.texcoord);
+    if (p.w <= 0.0 || ns.w <= 0.0) { return half4(1.0); }
+    float3 n = normalize(ns.xyz*2.0-1.0);
+    float2 pixel = 1.0/float2(ao.get_width(),ao.get_height());
+    float total = 0.0, weights = 0.0;
+    for (int y=-2; y<=2; ++y) for (int x=-2; x<=2; ++x)
+    {
+        float2 uv = in.texcoord + float2(x,y)*pixel;
+        if (any(uv < float2(0.0)) || any(uv > float2(1.0))) continue;
+        float4 q = positions.sample(ssao_nearest,uv);
+        float4 nq = normals.sample(ssao_nearest,uv);
+        if (q.w <= 0.0 || nq.w <= 0.0) continue;
+        float weight = exp(-float(x*x+y*y)/8.0-abs(q.w-p.w)/0.36);
+        weight *= pow(max(dot(n,normalize(nq.xyz*2.0-1.0)),0.0),8.0);
+        total += ao.sample(ssao_nearest,uv).r*weight;
+        weights += weight;
+    }
+    return half4(float4(float3(total/max(weights,0.0001)),1.0));
 }

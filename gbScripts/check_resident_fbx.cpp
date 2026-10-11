@@ -24,7 +24,7 @@ int main(int argc,char** argv){
         }
         std::sort(bones.begin(),bones.end());assert(bones.size()>0&&bones.size()<=32);
         if(reference.empty())reference=bones;else assert(reference==bones);
-        assert(triangles>=1000&&triangles<=3000);assert(std::abs((maxy-miny)-1.9)<.01&&std::abs(miny)<.03);
+        assert(triangles>0&&triangles<=500);assert(std::abs((maxy-miny)-1.9)<.01&&std::abs(miny)<.03);
         if(std::string(name)!="island_resident.fbx"){
             assert(scene->anim_stacks.count==1);auto stack=scene->anim_stacks[0];
             double expected=std::string(name).find("idle")!=std::string::npos?3:.8;

@@ -184,6 +184,8 @@ namespace game
         struct values
         {
             glm::mat4 m_mat_v;
+            glm::mat4 m_mat_p;
+            glm::vec4 m_ao_params;
         }
         
 #if defined(__OSX__) || defined(__IOS__) || defined(__TVOS__)
@@ -203,11 +205,19 @@ namespace game
         ssao_shader_uniforms(gb::ces_render_technique_uniforms_component::e_shader_uniform_type type) : gb::ces_render_technique_uniforms_component::shader_uniforms(type)
         {
             m_uniforms["mat_v"] = std::make_shared<gb::shader_uniform>(gb::e_uniform_type_mat4);
+            m_uniforms["mat_p"] = std::make_shared<gb::shader_uniform>(gb::e_uniform_type_mat4);
+            m_uniforms["ao_params"] = std::make_shared<gb::shader_uniform>(gb::e_uniform_type_vec4);
+            // Radius in world units, angular bias, strength, encoded-normal flag.
+            set(glm::mat4(1.f), "mat_v");
+            set(glm::mat4(1.f), "mat_p");
+            set(glm::vec4(1.2f, .6f, 1.f, 0.f), "ao_params");
         }
         
         void* get_values() override
         {
             m_values.m_mat_v = m_uniforms["mat_v"]->get_mat4();
+            m_values.m_mat_p = m_uniforms["mat_p"]->get_mat4();
+            m_values.m_ao_params = m_uniforms["ao_params"]->get_vec4();
             return static_cast<void*>(&m_values);
         }
         

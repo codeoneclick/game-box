@@ -43,6 +43,7 @@ namespace gb
             virtual ui32 get_values_size() = 0;
             
             std::unordered_map<std::string, std::shared_ptr<shader_uniform>> get_uniforms() const;
+            const std::unordered_map<std::string, std::shared_ptr<shader_uniform>>& get_uniforms_ref() const;
             e_shader_uniform_mode get_mode() const;
             
             std::string get_name() const;

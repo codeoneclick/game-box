@@ -42,6 +42,7 @@ namespace gb
 #endif
         
         mesh_2d_shared_ptr m_camera_2d_mesh;
+        mesh_2d_shared_ptr m_render_target_quad_mesh;
         glm::vec4 m_camera_2d_bounds;
         
         std::bitset<std::numeric_limits<uint8_t>::max()> m_render_components_mask;
@@ -49,6 +50,8 @@ namespace gb
         
         std::vector<std::map<f32, ces_entity_weak_ptr>> m_visible_2d_entities;
         std::vector<std::queue<ces_entity_weak_ptr>> m_visible_3d_entities;
+        std::vector<std::vector<ces_entity_weak_ptr>> m_render_entities_by_technique;
+        ui64 m_material_revision = 0;
         
         void draw_2d_entities(const std::string &technique_name);
         void draw_3d_entities(const std::string &technique_name);

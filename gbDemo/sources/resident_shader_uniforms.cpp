@@ -6,9 +6,12 @@ resident_bone_uniforms::resident_bone_uniforms(gb::ces_shader_uniforms_component
     m_uniforms["u_bones"]=std::make_shared<gb::shader_uniform>(gb::e_uniform_type_mat4_array,64);
     m_uniforms["u_bones"]->set(m_bones,64);
 }
-void resident_bone_uniforms::update(const glm::mat4* bones,int count){
+void resident_bone_uniforms::update(const glm::mat4* bones,int count,float ground_height){
     if(!bones||count<1||count>64)throw std::runtime_error("Invalid resident bone palette");
-    for(int i=0;i<64;++i)m_bones[i]=i<count?bones[i]:glm::mat4(1);
+    for(int i=0;i<count;++i)m_bones[i]=bones[i];
+    for(int i=count;i<m_previous_count;++i)m_bones[i]=glm::mat4(1);
+    m_previous_count=count;
+    for(int i=0;i<count;++i)m_bones[i][3].y-=ground_height;
     m_uniforms["u_bones"]->set(m_bones,64);
 }
 resident_color_uniforms::resident_color_uniforms(gb::ces_shader_uniforms_component::e_shader_uniform_mode mode,const std::string& name):shader_uniforms(mode,name){

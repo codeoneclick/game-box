@@ -12,6 +12,19 @@
 namespace gb
 {
     const std::string k_bindpose_animation_name = "bindpose";
+    ui32 frame_3d_data::get_num_bones() const { return static_cast<ui32>(m_positions.size()); }
+    ui64 frame_3d_data::get_revision() const { return m_revision; }
+    frame_3d_data& frame_3d_data::operator=(const frame_3d_data& other)
+    {
+        if(this!=&other)
+        {
+            m_rotations=other.m_rotations;m_positions=other.m_positions;m_scales=other.m_scales;
+            ++m_revision;
+        }
+        return *this;
+    }
+    std::shared_ptr<const animation_3d_rig> sequence_3d_transfering_data::get_rig() const { return m_rig; }
+    std::shared_ptr<const animation_3d_rig> animation_3d_sequence::get_rig() const { return is_loaded()?m_sequence_data->get_rig():nullptr; }
     
     frame_3d_data::frame_3d_data(const std::vector<glm::quat>& rotations,
                                  const std::vector<glm::vec3>& positions,
@@ -59,26 +72,31 @@ namespace gb
     {
         assert(m_positions.size() > index);
         m_positions[index] = position;
+        ++m_revision;
     }
     
     void frame_3d_data::update_rotation(ui32 index, const glm::quat& rotation)
     {
         assert(m_rotations.size() > index);
         m_rotations[index] = rotation;
+        ++m_revision;
     }
     
     void frame_3d_data::update_scale(ui32 index, const glm::vec3& scale)
     {
         assert(m_scales.size() > index);
         m_scales[index] = scale;
+        ++m_revision;
     }
     
     sequence_3d_transfering_data::sequence_3d_transfering_data(const std::string& animation_name,
                                                                i32 animation_fps,
-                                                               const std::vector<frame_3d_data_shared_ptr>& frames) :
+                                                               const std::vector<frame_3d_data_shared_ptr>& frames,
+                                                               const std::shared_ptr<const animation_3d_rig>& rig) :
     m_animation_name(animation_name),
     m_animation_fps(animation_fps),
-    m_frames(frames)
+    m_frames(frames),
+    m_rig(rig)
     {
         m_type = e_resource_transfering_data_type_sequence;
     }

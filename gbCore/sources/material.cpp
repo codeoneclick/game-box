@@ -536,6 +536,16 @@ namespace gb
     
     std::shared_ptr<material_cached_parameters> material::m_cached_parameters = nullptr;
     std::once_flag g_cached_parameters_created;
+    void material::clear_cached_resources()
+    {
+        if (!m_cached_parameters) return;
+        m_cached_parameters->set_shader(nullptr);
+        for (i32 i = 0; i < e_shader_sampler_max; ++i)
+        {
+            m_cached_parameters->add_texture(nullptr, static_cast<e_shader_sampler>(i));
+        }
+    }
+
     std::shared_ptr<material_cached_parameters> material::get_cached_parameters()
     {
         std::call_once(g_cached_parameters_created, []{
@@ -1682,7 +1692,51 @@ namespace gb
         m_graphics_pipeline.subpass = 0;
         m_graphics_pipeline.basePipelineHandle = VK_NULL_HANDLE;
         
-        VK_CHECK(vkCreateGraphicsPipelines(vk_device::get_instance()->get_logical_device(), VK_NULL_HANDLE, 1, &m_graphics_pipeline, nullptr, &m_pipeline));
+        // Key every state this constructor supplies. Native shader/layout/pass handles
+        // keep unrelated resources separate; dynamic viewport/scissor values are excluded.
+        // Padding in fixed-state structs can cause a conservative cache miss only.
+        std::string pipeline_key;
+        auto append_state = [&pipeline_key](const auto& value) {
+            pipeline_key.append(reinterpret_cast<const char*>(&value), sizeof(value));
+        };
+        append_state(m_graphics_pipeline.flags);
+        append_state(m_graphics_pipeline.layout);
+        append_state(m_graphics_pipeline.renderPass);
+        append_state(m_graphics_pipeline.subpass);
+        append_state(shader->get_pipeline_identity());
+        append_state(vk_render_pass_descriptor::get_current_pipeline_identity());
+        for (const auto& stage : shader_stages)
+        {
+            append_state(stage.flags);
+            append_state(stage.stage);
+            append_state(stage.module);
+            pipeline_key.append(stage.pName, strlen(stage.pName) + 1);
+            append_state(stage.pSpecializationInfo);
+        }
+        append_state(vertex_input_state.flags);
+        append_state(vertex_input_state.vertexBindingDescriptionCount);
+        for (ui32 i = 0; i < vertex_input_state.vertexBindingDescriptionCount; ++i)
+            append_state(vertex_input_state.pVertexBindingDescriptions[i]);
+        append_state(vertex_input_state.vertexAttributeDescriptionCount);
+        for (ui32 i = 0; i < vertex_input_state.vertexAttributeDescriptionCount; ++i)
+            append_state(vertex_input_state.pVertexAttributeDescriptions[i]);
+        append_state(m_input_assembly_state);
+        append_state(m_rasterization_state);
+        append_state(m_multisampling_state);
+        append_state(m_depth_stencil_state);
+        append_state(m_viewport_state.flags);
+        append_state(m_viewport_state.viewportCount);
+        append_state(m_viewport_state.scissorCount);
+        append_state(m_color_blend_state.flags);
+        append_state(m_color_blend_state.logicOpEnable);
+        append_state(m_color_blend_state.logicOp);
+        append_state(m_color_blend_state.blendConstants);
+        append_state(m_color_blend_state.attachmentCount);
+        for (const auto& attachment : color_blend_attachments) append_state(attachment);
+        append_state(m_dynamic_state.flags);
+        append_state(m_dynamic_state.dynamicStateCount);
+        for (const auto& state : m_dynamic_states) append_state(state);
+        m_pipeline = vk_device::get_instance()->get_or_create_graphics_pipeline(pipeline_key, m_graphics_pipeline);
         
         
         //VkDescriptorBufferInfo descriptor_buffer_info = {};

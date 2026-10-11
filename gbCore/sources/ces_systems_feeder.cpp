@@ -10,6 +10,9 @@
 #include "ces_base_system.h"
 #include "scene_graph.h"
 #include "ces_system_modifiers_component.h"
+#include <chrono>
+#include <cstdlib>
+#include <typeinfo>
 
 namespace gb
 {
@@ -35,49 +38,58 @@ namespace gb
     
     void ces_systems_feeder::on_update(f32 dt)
     {
+        // Opt-in diagnostics only: preserve system order and all feeder phases.
+        static const bool profile = std::getenv("GB_PROFILE_SYSTEMS") != nullptr;
+        static std::map<std::string, double> samples;
+        static size_t frames = 0;
+        static double wall_ms = 0, cpu_ms = 0;
+        const auto begin = profile ? std::chrono::steady_clock::now() : std::chrono::steady_clock::time_point{};
+        static auto previous_begin = begin;
+        const double frame_ms = profile ? std::chrono::duration<double, std::milli>(begin - previous_begin).count() : 0.;
+        if (profile) previous_begin = begin;
+        auto measure = [&](const ces_base_system_shared_ptr& system, const char* phase, const std::chrono::steady_clock::time_point& start) {
+            if (profile && frames >= 60)
+                samples[std::string(typeid(*system).name()) + "/" + phase] += std::chrono::duration<double, std::milli>(std::chrono::steady_clock::now() - start).count();
+        };
         if(m_root)
         {
-            while(!m_changed_entities.empty())
+            // Batch query erasures, retaining the original final append order.
+            // Changes still become visible only at the start of the next tick.
             {
-                const auto it = m_changed_entities.front();
-                m_changed_entities.pop();
-                const auto entity = it.second.lock();
-                if(entity)
+                struct change { e_entity_state state; ces_entity_shared_ptr entity; };
+                std::vector<change> changes;
+                std::unordered_map<const ces_entity*,size_t> last_erase;
+                while (!m_changed_entities.empty())
                 {
-                    for (const auto& system : m_ordered_systems)
+                    const auto event=m_changed_entities.front();
+                    m_changed_entities.pop();
+                    if (auto entity=event.second.lock())
                     {
-                        for (auto& required_mask : system->m_references_to_required_entities)
+                        if (event.first==e_entity_state_changed || event.first==e_entity_state_removed)
+                            last_erase[entity.get()]=changes.size();
+                        changes.push_back({event.first,std::move(entity)});
+                    }
+                }
+                if (!changes.empty())
+                {
+                    for (const auto& system:m_ordered_systems)
+                    {
+                        for (auto& required_mask:system->m_references_to_required_entities)
                         {
-                            if (required_mask.second.size() > 2048)
+                            auto& references=required_mask.second;
+                            if (!last_erase.empty())
+                                references.erase(std::remove_if(references.begin(),references.end(),[&](const ces_entity_weak_ptr& weak) {
+                                    const auto entity=weak.lock();
+                                    return !entity || last_erase.count(entity.get())!=0;
+                                }),references.end());
+                            for(size_t index=0;index<changes.size();++index)
                             {
-                                std::cout<<"too much references for entitites: "<<required_mask.second.size()<<std::endl;
-                                const auto system_modifiers_component = m_root->get_component<ces_system_modifiers_component>();
-                                if (system_modifiers_component)
-                                {
-                                    system_modifiers_component->cleanup();
-                                    system->cleanup(m_root);
-                                    system_modifiers_component->cleanup_done();
-                                    break;
-                                }
-                                else
-                                {
-                                    assert(false);
-                                }
-                            }
-                            if(it.first == e_entity_state_changed || it.first == e_entity_state_removed)
-                            {
-                                required_mask.second.erase(std::remove_if(required_mask.second.begin(), required_mask.second.end(), [&entity](const ces_entity_weak_ptr& weak_entity) {
-                                    bool result = weak_entity.lock() == entity;
-                                    result |= weak_entity.expired();
-                                    return result;
-                                }), required_mask.second.end());
-                            }
-                            if(it.first == e_entity_state_changed || it.first == e_entity_state_added)
-                            {
-                                if(entity->is_components_exist(required_mask.first))
-                                {
-                                    required_mask.second.push_back(entity);
-                                }
+                                const auto& event=changes[index];
+                                const auto erased=last_erase.find(event.entity.get());
+                                if (erased!=last_erase.end() && index<erased->second) continue;
+                                if ((event.state==e_entity_state_changed || event.state==e_entity_state_added) &&
+                                    event.entity->is_components_exist(required_mask.first))
+                                    references.push_back(event.entity);
                             }
                         }
                     }
@@ -92,7 +104,9 @@ namespace gb
                 system->set_current_camera_3d(scene->get_camera_3d());
                 if (system->can_be_feeded(m_root))
                 {
+                    const auto start = profile ? std::chrono::steady_clock::now() : begin;
                     system->on_feed_start(dt);
+                    measure(system, "start", start);
                 }
             }
             
@@ -100,7 +114,9 @@ namespace gb
             {
                 if (system->can_be_feeded(m_root))
                 {
+                    const auto start = profile ? std::chrono::steady_clock::now() : begin;
                     system->on_feed(m_root, dt);
+                    measure(system, "feed", start);
                 }
             }
             
@@ -108,7 +124,9 @@ namespace gb
             {
                 if (system->can_be_feeded(m_root))
                 {
+                    const auto start = profile ? std::chrono::steady_clock::now() : begin;
                     system->on_feed_end(dt);
+                    measure(system, "end", start);
                 }
             }
             
@@ -120,6 +138,19 @@ namespace gb
             for(const auto& system : m_ordered_systems)
             {
                 system->cleanup_done(m_root);
+            }
+            if (profile) {
+                if (frames >= 60) {
+                    cpu_ms += std::chrono::duration<double, std::milli>(std::chrono::steady_clock::now() - begin).count();
+                    wall_ms += frame_ms;
+                }
+                ++frames;
+                if (frames > 60 && (frames - 60) % 120 == 0) {
+                    std::cout << "PROFILE wall_ms=" << wall_ms / 120 << " feeder_ms=" << cpu_ms / 120 << std::endl;
+                    for (const auto& sample : samples) if (sample.second / 120 > .05)
+                        std::cout << "PROFILE " << sample.first << " ms=" << sample.second / 120 << std::endl;
+                    samples.clear();wall_ms = cpu_ms = 0;
+                }
             }
         }
     }

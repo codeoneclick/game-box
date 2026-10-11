@@ -15,6 +15,7 @@
 #include "vk_device.h"
 #include "vk_utils.h"
 #include "shader.h"
+#include "render_statistics.h"
 
 namespace gb
 {
@@ -312,6 +313,7 @@ namespace gb
 #if USED_GRAPHICS_API == OPENGL_20_API || USED_GRAPHICS_API == OPENGL_30_API
 
 			gl::command::draw_elements(m_mode, m_ibo->get_used_size(), gl::constant::ui16_t, NULL);
+            render_statistics::record_indexed(m_ibo->get_used_size(), 1, m_mode == gl::constant::triangles);
 
 #elif USED_GRAPHICS_API == VULKAN_API
 
@@ -319,6 +321,7 @@ namespace gb
 			VkCommandBuffer draw_cmd_buffer = vk_device::get_instance()->get_draw_cmd_buffer(current_image_index);
 			shader::bind_vulkan_descriptor_set();
 			vkCmdDrawIndexed(draw_cmd_buffer, m_ibo->get_used_size(), 1, 0, 0, 0);
+            render_statistics::record_indexed(m_ibo->get_used_size());
 
 #endif
 
@@ -333,6 +336,7 @@ namespace gb
 #if USED_GRAPHICS_API == OPENGL_20_API || USED_GRAPHICS_API == OPENGL_30_API
 
 			gl::command::draw_elements(m_mode, indices, gl::constant::ui16_t, NULL);
+            render_statistics::record_indexed(indices, 1, m_mode == gl::constant::triangles);
 
 #elif USED_GRAPHICS_API == VULKAN_API
 
@@ -340,6 +344,7 @@ namespace gb
 			VkCommandBuffer draw_cmd_buffer = vk_device::get_instance()->get_draw_cmd_buffer(current_image_index);
 			shader::bind_vulkan_descriptor_set();
 			vkCmdDrawIndexed(draw_cmd_buffer, indices, 1, 0, 0, 0);
+            render_statistics::record_indexed(indices);
 
 #endif
 

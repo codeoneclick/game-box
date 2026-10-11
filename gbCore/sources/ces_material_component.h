@@ -22,10 +22,12 @@ namespace gb
     public:
         
         static i32 get_technique_name_index(const std::string& name);
+        static ui64 get_material_revision();
         
     private:
         
         static std::map<std::string, i32> m_cached_render_technique_names;
+        static ui64 m_material_revision;
         
     protected:
         
@@ -53,6 +55,7 @@ namespace gb
         
         material_shared_ptr get_material(const std::string& technique_name) const;
         material_shared_ptr get_material(i32 technique_index) const;
+        const std::vector<material_shared_ptr>& get_materials() const;
         
 #if USED_GRAPHICS_API == VULKAN_API
 

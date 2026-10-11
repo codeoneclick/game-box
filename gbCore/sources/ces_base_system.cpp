@@ -69,9 +69,9 @@ namespace gb
         const auto& references_to_required_entities = m_references_to_required_entities.at(mask);
         for (const auto& entity_weak : references_to_required_entities)
         {
-            if(!entity_weak.expired())
+            if (auto entity = entity_weak.lock())
             {
-                enumerator(entity_weak.lock());
+                enumerator(entity);
             }
         }
     }

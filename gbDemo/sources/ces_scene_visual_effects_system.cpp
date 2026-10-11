@@ -90,6 +90,7 @@ namespace game
             uniforms_wrapper = render_technique_uniforms_component->get_uniforms("ss.ao");
             glm::mat4 mat_v = camera_3d->get_mat_v();
             uniforms_wrapper->set(mat_v, "mat_v");
+            uniforms_wrapper->set(camera_3d->get_mat_p(), "mat_p");
             
             uniforms_wrapper = render_technique_uniforms_component->get_uniforms("ss.crossfade");
             uniforms_wrapper->set(is_crossfade_effect_enabled ? 1.f : -1.f, "enabled");

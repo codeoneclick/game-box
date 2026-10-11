@@ -50,6 +50,7 @@ namespace gb
         glm::mat4  m_base_transformation;
         glm::mat4* m_transformation;
         glm::mat4  m_bind_transformation;
+        glm::mat4  m_inverse_bind_transformation;
         
     public:
         

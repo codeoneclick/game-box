@@ -17,6 +17,12 @@
 namespace gb
 {
     std::map<std::string, i32> ces_material_component::m_cached_render_technique_names;
+    ui64 ces_material_component::m_material_revision = 0;
+
+    ui64 ces_material_component::get_material_revision()
+    {
+        return m_material_revision;
+    }
 
     i32 ces_material_component::get_technique_name_index(const std::string& technique_name)
     {
@@ -51,6 +57,7 @@ namespace gb
             m_cached_render_technique_names.insert({technique_name, technique_index});
         }
         m_materials[technique_index] = material;
+        ++m_material_revision;
     }
     
     void ces_material_component::remove_material(const std::string& technique_name)
@@ -58,6 +65,7 @@ namespace gb
         i32 technique_index = get_technique_name_index(technique_name);
         assert(technique_index != -1);
         m_materials[technique_index] = nullptr;
+        ++m_material_revision;
     }
     
     material_shared_ptr ces_material_component::get_material(const std::string& technique_name) const
@@ -66,6 +74,11 @@ namespace gb
         assert(technique_index != -1);
         material_shared_ptr material = m_materials[technique_index];
         return material;
+    }
+
+    const std::vector<material_shared_ptr>& ces_material_component::get_materials() const
+    {
+        return m_materials;
     }
 
     material_shared_ptr ces_material_component::get_material(i32 technique_index) const

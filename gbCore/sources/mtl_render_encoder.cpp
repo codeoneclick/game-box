@@ -12,6 +12,7 @@
 #include "mtl_depth_stencil_state.h"
 #include "mtl_texture.h"
 #include "mtl_buffer.h"
+#include "render_statistics.h"
 
 #if USED_GRAPHICS_API == METAL_API
 
@@ -172,6 +173,7 @@ namespace gb
                                    indexType:MTLIndexTypeUInt16
                                  indexBuffer:m_index_buffer
                            indexBufferOffset:0];
+        render_statistics::record_indexed(m_indices_count);
     }
     
     mtl_render_encoder::mtl_render_encoder()

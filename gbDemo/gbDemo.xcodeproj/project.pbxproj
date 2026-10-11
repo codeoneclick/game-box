@@ -43,8 +43,10 @@
 		2102EB4F1B7D34F900F20197 /* libgbCore-osx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 21B4034B1B7A0A3B003382AB /* libgbCore-osx.a */; };
 		2102EB5C1B7E4E7900F20197 /* ws.technique.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2102EB581B7E4E7900F20197 /* ws.technique.base.xml */; };
 		61CF5283675AC84E65CE0366 /* ws.technique.island_demo.xml in Resources */ = {isa = PBXBuildFile; fileRef = 1A071CAEBB2E0959630503F7 /* ws.technique.island_demo.xml */; };
+		CFF7ED1DB6E244E4A8492C50 /* ws.technique.island_ui.xml in Resources */ = {isa = PBXBuildFile; fileRef = 013EA5524A044AC29E0B83EA /* ws.technique.island_ui.xml */; };
 		2102EB5D1B7E4E7900F20197 /* ws.technique.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2102EB581B7E4E7900F20197 /* ws.technique.base.xml */; };
 		6C9B311394E68E49A2297E23 /* ws.technique.island_demo.xml in Resources */ = {isa = PBXBuildFile; fileRef = 1A071CAEBB2E0959630503F7 /* ws.technique.island_demo.xml */; };
+		F4D441CE104744F7B31FBC0C /* ws.technique.island_ui.xml in Resources */ = {isa = PBXBuildFile; fileRef = 013EA5524A044AC29E0B83EA /* ws.technique.island_ui.xml */; };
 		211AE4CF1C457CEA00A93C9B /* ws.technique.deferred.lighting.xml in Resources */ = {isa = PBXBuildFile; fileRef = 211AE4CE1C457CEA00A93C9B /* ws.technique.deferred.lighting.xml */; };
 		211AE4D71C4581E200A93C9B /* ws.technique.deferred.lighting.xml in Resources */ = {isa = PBXBuildFile; fileRef = 211AE4CE1C457CEA00A93C9B /* ws.technique.deferred.lighting.xml */; };
 		2126DB901C50EA19003EBBDA /* ws.technique.emissive.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2126DB8F1C50EA19003EBBDA /* ws.technique.emissive.xml */; };
@@ -1922,6 +1924,7 @@
 		F36DF2B51E953C5600EAE49B /* material.switcher_background.ui.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21EC9B481C65F6A4000736D8 /* material.switcher_background.ui.xml */; };
 		F36DF2C01E953C5600EAE49B /* ws.technique.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2102EB581B7E4E7900F20197 /* ws.technique.base.xml */; };
 		05E23649A0463AE63FDA5F65 /* ws.technique.island_demo.xml in Resources */ = {isa = PBXBuildFile; fileRef = 1A071CAEBB2E0959630503F7 /* ws.technique.island_demo.xml */; };
+		DAA76D3F61B746B8B1025BE6 /* ws.technique.island_ui.xml in Resources */ = {isa = PBXBuildFile; fileRef = 013EA5524A044AC29E0B83EA /* ws.technique.island_ui.xml */; };
 		F36DF2C21E953C5600EAE49B /* material.tree_view_background.ui.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21E2D70B1C75C9AA00BFF2B8 /* material.tree_view_background.ui.xml */; };
 		F36DF2C41E953C5600EAE49B /* information_bubble_01.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3303C1C1E800B0B00F11F62 /* information_bubble_01.xml */; };
 		F36DF2CD1E953C5600EAE49B /* material.stroke.emissive.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2126DBBF1C50EE4A003EBBDA /* material.stroke.emissive.xml */; };
@@ -2050,14 +2053,20 @@
 		584DED6F2F58E60E62A70A9B /* material.ss.ocean_compose.xml in Resources */ = {isa = PBXBuildFile; fileRef = C9884BA56FE65C3D6325E3ED /* material.ss.ocean_compose.xml */; };
 		0109609772010CE31A67E91A /* material.ss.ocean_compose.xml in Resources */ = {isa = PBXBuildFile; fileRef = C9884BA56FE65C3D6325E3ED /* material.ss.ocean_compose.xml */; };
 		6C9FC6EBCB4EA820196F3416 /* material.ss.output.island_demo.xml in Resources */ = {isa = PBXBuildFile; fileRef = 20B0ED85AFAAEF3D01A3179B /* material.ss.output.island_demo.xml */; };
+		259C022E6C514A8AB235DA8D /* material.ss.island_ui.xml in Resources */ = {isa = PBXBuildFile; fileRef = E9540042CB544A2594490255 /* material.ss.island_ui.xml */; };
 		CB81BF37FC40B1EAE9CAF508 /* material.ss.output.island_demo.xml in Resources */ = {isa = PBXBuildFile; fileRef = 20B0ED85AFAAEF3D01A3179B /* material.ss.output.island_demo.xml */; };
+		15F15BEF5E10462DAB1790DF /* material.ss.island_ui.xml in Resources */ = {isa = PBXBuildFile; fileRef = E9540042CB544A2594490255 /* material.ss.island_ui.xml */; };
 		ECCEB21611C2BDF840802CA4 /* material.ss.output.island_demo.xml in Resources */ = {isa = PBXBuildFile; fileRef = 20B0ED85AFAAEF3D01A3179B /* material.ss.output.island_demo.xml */; };
+		E253D5EEA4D14E239F55D82E /* material.ss.island_ui.xml in Resources */ = {isa = PBXBuildFile; fileRef = E9540042CB544A2594490255 /* material.ss.island_ui.xml */; };
 		54C514EBDC28B1256B1630E9 /* output.technique.island_demo.xml in Resources */ = {isa = PBXBuildFile; fileRef = FB36F872C5E6E686B69C5767 /* output.technique.island_demo.xml */; };
 		B19304A0F3CF20885B7CD8BD /* output.technique.island_demo.xml in Resources */ = {isa = PBXBuildFile; fileRef = FB36F872C5E6E686B69C5767 /* output.technique.island_demo.xml */; };
 		65B3079A38A2B93D3EB68BB0 /* output.technique.island_demo.xml in Resources */ = {isa = PBXBuildFile; fileRef = FB36F872C5E6E686B69C5767 /* output.technique.island_demo.xml */; };
 		A37BF62C19B4947DA0132AE3 /* ss.technique.ocean_compose.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8893B4EDA45B5C4F89E26035 /* ss.technique.ocean_compose.xml */; };
+		4DEC5F01315A4B5EAF18F806 /* ss.technique.island_ui.xml in Resources */ = {isa = PBXBuildFile; fileRef = 452C0749A0734155AB616247 /* ss.technique.island_ui.xml */; };
 		532B87A4D7FD28D01800C30C /* ss.technique.ocean_compose.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8893B4EDA45B5C4F89E26035 /* ss.technique.ocean_compose.xml */; };
+		1974F73368604EDF868CFE77 /* ss.technique.island_ui.xml in Resources */ = {isa = PBXBuildFile; fileRef = 452C0749A0734155AB616247 /* ss.technique.island_ui.xml */; };
 		E76BA378D2B02619FCA478C2 /* ss.technique.ocean_compose.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8893B4EDA45B5C4F89E26035 /* ss.technique.ocean_compose.xml */; };
+		EE6E4B033472428E93ED569E /* ss.technique.island_ui.xml in Resources */ = {isa = PBXBuildFile; fileRef = 452C0749A0734155AB616247 /* ss.technique.island_ui.xml */; };
 		E292727AD8C04BD2BFD9716C /* ws.technique.ocean.xml in Resources */ = {isa = PBXBuildFile; fileRef = BBE3F41F602DF5A1BE8F9977 /* ws.technique.ocean.xml */; };
 		47D708B6E7A5B157C153FEE3 /* ws.technique.ocean.xml in Resources */ = {isa = PBXBuildFile; fileRef = BBE3F41F602DF5A1BE8F9977 /* ws.technique.ocean.xml */; };
 		351236BC5E215C7B95BCA40B /* ws.technique.ocean.xml in Resources */ = {isa = PBXBuildFile; fileRef = BBE3F41F602DF5A1BE8F9977 /* ws.technique.ocean.xml */; };
@@ -2110,8 +2119,11 @@
 		1826F383B847D4BBA18E89FF /* material.island_resident.xml in Resources */ = {isa = PBXBuildFile; fileRef = AE6DAF2E6D537A8185CB1E91 /* material.island_resident.xml */; };
 		0F5BE549F8D19C4A7A19DBE6 /* material.island_resident.xml in Resources */ = {isa = PBXBuildFile; fileRef = AE6DAF2E6D537A8185CB1E91 /* material.island_resident.xml */; };
 		132B994311827FF61879D0D0 /* island_resident.fbx in Resources */ = {isa = PBXBuildFile; fileRef = F7A700D29CA9FA5CF7FA4B0C /* island_resident.fbx */; };
+		41166F31F25D4F4E94E0A1D4 /* woodsman.fbx in Resources */ = {isa = PBXBuildFile; fileRef = D7E02426BA724CB8AAF43395 /* woodsman.fbx */; };
 		06A53B3E959935F9ACC1162D /* island_resident.fbx in Resources */ = {isa = PBXBuildFile; fileRef = F7A700D29CA9FA5CF7FA4B0C /* island_resident.fbx */; };
+		CC9D7B6CE2AE44A2A860A83B /* woodsman.fbx in Resources */ = {isa = PBXBuildFile; fileRef = D7E02426BA724CB8AAF43395 /* woodsman.fbx */; };
 		20F0BF7F8FAA38EA1BE78F4C /* island_resident.fbx in Resources */ = {isa = PBXBuildFile; fileRef = F7A700D29CA9FA5CF7FA4B0C /* island_resident.fbx */; };
+		5790B3CF036F4A23B11F9F3A /* woodsman.fbx in Resources */ = {isa = PBXBuildFile; fileRef = D7E02426BA724CB8AAF43395 /* woodsman.fbx */; };
 		1B2648A903B0F4B1A67AB60F /* island_resident_idle.fbx in Resources */ = {isa = PBXBuildFile; fileRef = 341AF683E993DC48A3821E11 /* island_resident_idle.fbx */; };
 		3EAF1458BA819FEE4837F1E8 /* island_resident_idle.fbx in Resources */ = {isa = PBXBuildFile; fileRef = 341AF683E993DC48A3821E11 /* island_resident_idle.fbx */; };
 		BFA27E9738C960546F32D744 /* island_resident_idle.fbx in Resources */ = {isa = PBXBuildFile; fileRef = 341AF683E993DC48A3821E11 /* island_resident_idle.fbx */; };
@@ -2128,11 +2140,17 @@
 		C41B3BA4119D1D5440ABA9D7 /* mtl_island_resident.h in Resources */ = {isa = PBXBuildFile; fileRef = C2472D31857B0C53C3028B53 /* mtl_island_resident.h */; };
 		E99AD17562C062D56AFD8380 /* mtl_island_resident.h in Resources */ = {isa = PBXBuildFile; fileRef = C2472D31857B0C53C3028B53 /* mtl_island_resident.h */; };
 		FBE1E4ADCC80771A6F13DB00 /* island_resident_clothing_mask.png in Resources */ = {isa = PBXBuildFile; fileRef = B82D2E767D3FBA5A838F6E37 /* island_resident_clothing_mask.png */; };
+		0C7FC37757A742ECA4ED7509 /* woodsman_no_recolor.png in Resources */ = {isa = PBXBuildFile; fileRef = F5A8C97A172E414180EA05CF /* woodsman_no_recolor.png */; };
 		A098ABE52B76F59C58836084 /* island_resident_clothing_mask.png in Resources */ = {isa = PBXBuildFile; fileRef = B82D2E767D3FBA5A838F6E37 /* island_resident_clothing_mask.png */; };
+		FFBB2B08818248A4B5CEA5BF /* woodsman_no_recolor.png in Resources */ = {isa = PBXBuildFile; fileRef = F5A8C97A172E414180EA05CF /* woodsman_no_recolor.png */; };
 		BFB8BA979F990780AF027190 /* island_resident_clothing_mask.png in Resources */ = {isa = PBXBuildFile; fileRef = B82D2E767D3FBA5A838F6E37 /* island_resident_clothing_mask.png */; };
+		D4A57DFF4A5C4087B93FDCB1 /* woodsman_no_recolor.png in Resources */ = {isa = PBXBuildFile; fileRef = F5A8C97A172E414180EA05CF /* woodsman_no_recolor.png */; };
 		332E2A4E4F7737A2125F472F /* island_resident_palette.png in Resources */ = {isa = PBXBuildFile; fileRef = E917EA416A6B61CDDCDABF8B /* island_resident_palette.png */; };
+		BD0756C7D1A2456FA2A7D855 /* woodsman.png in Resources */ = {isa = PBXBuildFile; fileRef = 06AC9407C0A94FD38E505C32 /* woodsman.png */; };
 		8D5C449233FAC9B52AB155F6 /* island_resident_palette.png in Resources */ = {isa = PBXBuildFile; fileRef = E917EA416A6B61CDDCDABF8B /* island_resident_palette.png */; };
+		F95E9212D9BD475E98087577 /* woodsman.png in Resources */ = {isa = PBXBuildFile; fileRef = 06AC9407C0A94FD38E505C32 /* woodsman.png */; };
 		BFB4D7B890D4DEDF28BE31B2 /* island_resident_palette.png in Resources */ = {isa = PBXBuildFile; fileRef = E917EA416A6B61CDDCDABF8B /* island_resident_palette.png */; };
+		F311EFC7EA884165AEF67A21 /* woodsman.png in Resources */ = {isa = PBXBuildFile; fileRef = 06AC9407C0A94FD38E505C32 /* woodsman.png */; };
 
 		CCBBB622C08880F8C916F676 /* material.ocean_foam.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2F7BD3BF0B8F9812A2CB5E38 /* material.ocean_foam.xml */; };
 		BB6CA8ACD3142187FB669C04 /* material.ocean_foam.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2F7BD3BF0B8F9812A2CB5E38 /* material.ocean_foam.xml */; };
@@ -2383,6 +2401,30 @@
 		EEBE90AFE1484E201736B37E /* shader_water_seed.vert in Resources */ = {isa = PBXBuildFile; fileRef = D84A6EF65DAB06263E430076 /* shader_water_seed.vert */; };
 		CE7D59B6A6E9FA7BE2E1D3EA /* shader_water_seed.vert in Resources */ = {isa = PBXBuildFile; fileRef = D84A6EF65DAB06263E430076 /* shader_water_seed.vert */; };
 		FA5EA05122BF5AEDFBD2AF4D /* shader_water_seed.vert in Resources */ = {isa = PBXBuildFile; fileRef = D84A6EF65DAB06263E430076 /* shader_water_seed.vert */; };
+		DF8188CB6F1AC90E54748746 /* shader_ss_ssao.vert in Resources */ = {isa = PBXBuildFile; fileRef = A4FA80BBFA601504698D57C2 /* shader_ss_ssao.vert */; };
+		2926B8AC36EE53DA2E937C01 /* shader_ss_ssao.vert in Resources */ = {isa = PBXBuildFile; fileRef = A4FA80BBFA601504698D57C2 /* shader_ss_ssao.vert */; };
+		9807D6DEB391FFF445A50619 /* shader_ss_ssao.vert in Resources */ = {isa = PBXBuildFile; fileRef = A4FA80BBFA601504698D57C2 /* shader_ss_ssao.vert */; };
+		98C923DB7BD67FD590B6E993 /* shader_ss_ssao.frag in Resources */ = {isa = PBXBuildFile; fileRef = E5BAF89766354E952AF50937 /* shader_ss_ssao.frag */; };
+		FB9749DCFC4007BE89CB6797 /* shader_ss_ssao.frag in Resources */ = {isa = PBXBuildFile; fileRef = E5BAF89766354E952AF50937 /* shader_ss_ssao.frag */; };
+		8C8950ABA1CE600D26DFB80C /* shader_ss_ssao.frag in Resources */ = {isa = PBXBuildFile; fileRef = E5BAF89766354E952AF50937 /* shader_ss_ssao.frag */; };
+		474DCD86D0CCBA5DC59B030C /* shader_ss_ssao_blur.vert in Resources */ = {isa = PBXBuildFile; fileRef = 12B83C46F8F3ED0AEF8C00BD /* shader_ss_ssao_blur.vert */; };
+		E6333025F2ABCF9EF7DE37A7 /* shader_ss_ssao_blur.vert in Resources */ = {isa = PBXBuildFile; fileRef = 12B83C46F8F3ED0AEF8C00BD /* shader_ss_ssao_blur.vert */; };
+		855FE945D73FC135DDE4CA26 /* shader_ss_ssao_blur.vert in Resources */ = {isa = PBXBuildFile; fileRef = 12B83C46F8F3ED0AEF8C00BD /* shader_ss_ssao_blur.vert */; };
+		22890EEBF74B33F62225D0BE /* shader_ss_ssao_blur.frag in Resources */ = {isa = PBXBuildFile; fileRef = 3B043E0303E61E7CFC67AB01 /* shader_ss_ssao_blur.frag */; };
+		E4F741C0A7D72EAAFB5EF2E0 /* shader_ss_ssao_blur.frag in Resources */ = {isa = PBXBuildFile; fileRef = 3B043E0303E61E7CFC67AB01 /* shader_ss_ssao_blur.frag */; };
+		D89B3CA2ED7751E4BE2E4E8E /* shader_ss_ssao_blur.frag in Resources */ = {isa = PBXBuildFile; fileRef = 3B043E0303E61E7CFC67AB01 /* shader_ss_ssao_blur.frag */; };
+		33CE02EBA7D3A95A9809FE49 /* material.ss.ao_blur.xml in Resources */ = {isa = PBXBuildFile; fileRef = DBC0BD9256592788CDEE4390 /* material.ss.ao_blur.xml */; };
+		3B1307A76D1F8B21651CF5A3 /* material.ss.ao_blur.xml in Resources */ = {isa = PBXBuildFile; fileRef = DBC0BD9256592788CDEE4390 /* material.ss.ao_blur.xml */; };
+		A0647146AA8191472C8DAB54 /* material.ss.ao_blur.xml in Resources */ = {isa = PBXBuildFile; fileRef = DBC0BD9256592788CDEE4390 /* material.ss.ao_blur.xml */; };
+		C2C390D622983E2A26012D2B /* ss.technique.ao_blur.xml in Resources */ = {isa = PBXBuildFile; fileRef = 7F345E85E4C917B180A2C6BA /* ss.technique.ao_blur.xml */; };
+		D6D52A4C8F98AC23411C7DEC /* ss.technique.ao_blur.xml in Resources */ = {isa = PBXBuildFile; fileRef = 7F345E85E4C917B180A2C6BA /* ss.technique.ao_blur.xml */; };
+		3E3DD46AA3E5D68EAEB8C468 /* ss.technique.ao_blur.xml in Resources */ = {isa = PBXBuildFile; fileRef = 7F345E85E4C917B180A2C6BA /* ss.technique.ao_blur.xml */; };
+		9E6D668B4AADACCD5B34F61F /* character_idle.fbx in Resources */ = {isa = PBXBuildFile; fileRef = B342654A02E16257E14F3B9F /* character_idle.fbx */; };
+		51007D5EC7C962E7F9BA6C4E /* character_walking.fbx in Resources */ = {isa = PBXBuildFile; fileRef = 4FED0379091E38F57CA32690 /* character_walking.fbx */; };
+		20653C70CDDF0962DC7A048F /* character_idle.fbx in Resources */ = {isa = PBXBuildFile; fileRef = B342654A02E16257E14F3B9F /* character_idle.fbx */; };
+		5E01328B3EBEF7FB6A697527 /* character_walking.fbx in Resources */ = {isa = PBXBuildFile; fileRef = 4FED0379091E38F57CA32690 /* character_walking.fbx */; };
+		393A45F8C9D968A34036A116 /* character_idle.fbx in Resources */ = {isa = PBXBuildFile; fileRef = B342654A02E16257E14F3B9F /* character_idle.fbx */; };
+		B527FE06AFB5F22C8CD223D8 /* character_walking.fbx in Resources */ = {isa = PBXBuildFile; fileRef = 4FED0379091E38F57CA32690 /* character_walking.fbx */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -2644,6 +2686,7 @@
 		2102EB461B7D2D9000F20197 /* main_game_controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = main_game_controller.h; path = sources/main_game_controller.h; sourceTree = "<group>"; };
 		2102EB581B7E4E7900F20197 /* ws.technique.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ws.technique.base.xml; path = ../gbBundle/Configurations/techniques/ws_techniques/ws.technique.base.xml; sourceTree = "<group>"; };
 		1A071CAEBB2E0959630503F7 /* ws.technique.island_demo.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ws.technique.island_demo.xml; path = ../gbBundle/Configurations/techniques/ws_techniques/ws.technique.island_demo.xml; sourceTree = "<group>"; };
+		013EA5524A044AC29E0B83EA /* ws.technique.island_ui.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ws.technique.island_ui.xml; path = ../gbBundle/Configurations/techniques/ws_techniques/ws.technique.island_ui.xml; sourceTree = "<group>"; };
 		21176FD31BC55B5600890D7C /* ns_ui_commands.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ns_ui_commands.h; path = sources/ns_ui_commands.h; sourceTree = "<group>"; };
 		211AE4CE1C457CEA00A93C9B /* ws.technique.deferred.lighting.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ws.technique.deferred.lighting.xml; path = ../gbBundle/Configurations/techniques/ws_techniques/ws.technique.deferred.lighting.xml; sourceTree = "<group>"; };
 		211B31381B7E899B00178968 /* Hyper Drift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Hyper Drift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -3495,8 +3538,10 @@
 		D92CDE547D61A8CFF517B82D /* material.ocean_prop.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.ocean_prop.xml; path = ../gbBundle/Configurations/game_objects/materials/material.ocean_prop.xml; sourceTree = "<group>"; };
 		C9884BA56FE65C3D6325E3ED /* material.ss.ocean_compose.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.ss.ocean_compose.xml; path = ../gbBundle/Configurations/techniques/material/material.ss.ocean_compose.xml; sourceTree = "<group>"; };
 		20B0ED85AFAAEF3D01A3179B /* material.ss.output.island_demo.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.ss.output.island_demo.xml; path = ../gbBundle/Configurations/techniques/material/material.ss.output.island_demo.xml; sourceTree = "<group>"; };
+		E9540042CB544A2594490255 /* material.ss.island_ui.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.ss.island_ui.xml; path = ../gbBundle/Configurations/techniques/material/material.ss.island_ui.xml; sourceTree = "<group>"; };
 		FB36F872C5E6E686B69C5767 /* output.technique.island_demo.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = output.technique.island_demo.xml; path = ../gbBundle/Configurations/techniques/output_techniques/output.technique.island_demo.xml; sourceTree = "<group>"; };
 		8893B4EDA45B5C4F89E26035 /* ss.technique.ocean_compose.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ss.technique.ocean_compose.xml; path = ../gbBundle/Configurations/techniques/ss_techniques/ss.technique.ocean_compose.xml; sourceTree = "<group>"; };
+		452C0749A0734155AB616247 /* ss.technique.island_ui.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ss.technique.island_ui.xml; path = ../gbBundle/Configurations/techniques/ss_techniques/ss.technique.island_ui.xml; sourceTree = "<group>"; };
 		BBE3F41F602DF5A1BE8F9977 /* ws.technique.ocean.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ws.technique.ocean.xml; path = ../gbBundle/Configurations/techniques/ws_techniques/ws.technique.ocean.xml; sourceTree = "<group>"; };
 		874D989BEF23876454C4A1D5 /* shader_ocean.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_ocean.frag; path = ../gbBundle/Shaders/shader_ocean.frag; sourceTree = "<group>"; };
 		670CB4660EF644A6267365F0 /* shader_ocean.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_ocean.vert; path = ../gbBundle/Shaders/shader_ocean.vert; sourceTree = "<group>"; };
@@ -3524,13 +3569,16 @@
 		73360986658204632A422F1B /* island_resident.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = island_resident.xml; path = ../gbBundle/Configurations/game_objects/island_resident.xml; sourceTree = "<group>"; };
 		AE6DAF2E6D537A8185CB1E91 /* material.island_resident.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.island_resident.xml; path = ../gbBundle/Configurations/game_objects/materials/material.island_resident.xml; sourceTree = "<group>"; };
 		F7A700D29CA9FA5CF7FA4B0C /* island_resident.fbx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = island_resident.fbx; path = ../gbBundle/Meshes/island_resident.fbx; sourceTree = "<group>"; };
+		D7E02426BA724CB8AAF43395 /* woodsman.fbx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = woodsman.fbx; path = ../gbBundle/Meshes/woodsman.fbx; sourceTree = "<group>"; };
 		341AF683E993DC48A3821E11 /* island_resident_idle.fbx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = island_resident_idle.fbx; path = ../gbBundle/Meshes/island_resident_idle.fbx; sourceTree = "<group>"; };
 		10FBA633DA8A4B6356E7232B /* island_resident_walk.fbx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = island_resident_walk.fbx; path = ../gbBundle/Meshes/island_resident_walk.fbx; sourceTree = "<group>"; };
 		4E7AB772734803AD58EB2926 /* shader_island_resident.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_island_resident.frag; path = ../gbBundle/Shaders/shader_island_resident.frag; sourceTree = "<group>"; };
 		C5CE1342A9F7D64CA10B325F /* shader_island_resident.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_island_resident.vert; path = ../gbBundle/Shaders/shader_island_resident.vert; sourceTree = "<group>"; };
 		C2472D31857B0C53C3028B53 /* mtl_island_resident.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mtl_island_resident.h; path = ../gbBundle/Shaders/metal/mtl_island_resident.h; sourceTree = "<group>"; };
 		B82D2E767D3FBA5A838F6E37 /* island_resident_clothing_mask.png */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = island_resident_clothing_mask.png; path = ../gbBundle/Textures/island_resident_clothing_mask.png; sourceTree = "<group>"; };
+		F5A8C97A172E414180EA05CF /* woodsman_no_recolor.png */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = woodsman_no_recolor.png; path = ../gbBundle/Textures/woodsman_no_recolor.png; sourceTree = "<group>"; };
 		E917EA416A6B61CDDCDABF8B /* island_resident_palette.png */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = island_resident_palette.png; path = ../gbBundle/Textures/island_resident_palette.png; sourceTree = "<group>"; };
+		06AC9407C0A94FD38E505C32 /* woodsman.png */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = woodsman.png; path = ../gbBundle/Textures/woodsman.png; sourceTree = "<group>"; };
 		EF693528B84E3FCF319E70CE /* resident_asset_validation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = resident_asset_validation.h; path = sources/resident_asset_validation.h; sourceTree = "<group>"; };
 		2F7BD3BF0B8F9812A2CB5E38 /* material.ocean_foam.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.ocean_foam.xml; path = ../gbBundle/Configurations/game_objects/materials/material.ocean_foam.xml; sourceTree = "<group>"; };
 		F6EBDBAD350873E748F73CEC /* material.water_distance.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.water_distance.xml; path = ../gbBundle/Configurations/game_objects/materials/material.water_distance.xml; sourceTree = "<group>"; };
@@ -3616,6 +3664,14 @@
 		B4652CED9AE4E10BCA428A7D /* shader_water_mask.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_water_mask.vert; path = ../gbBundle/Shaders/shader_water_mask.vert; sourceTree = "<group>"; };
 		BE3EDF6BF806B2B3E068AB57 /* shader_water_seed.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_water_seed.frag; path = ../gbBundle/Shaders/shader_water_seed.frag; sourceTree = "<group>"; };
 		D84A6EF65DAB06263E430076 /* shader_water_seed.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_water_seed.vert; path = ../gbBundle/Shaders/shader_water_seed.vert; sourceTree = "<group>"; };
+		A4FA80BBFA601504698D57C2 /* shader_ss_ssao.vert */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = shader_ss_ssao.vert; path = ../gbBundle/Shaders/shader_ss_ssao.vert; sourceTree = "<group>"; };
+		E5BAF89766354E952AF50937 /* shader_ss_ssao.frag */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = shader_ss_ssao.frag; path = ../gbBundle/Shaders/shader_ss_ssao.frag; sourceTree = "<group>"; };
+		12B83C46F8F3ED0AEF8C00BD /* shader_ss_ssao_blur.vert */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = shader_ss_ssao_blur.vert; path = ../gbBundle/Shaders/shader_ss_ssao_blur.vert; sourceTree = "<group>"; };
+		3B043E0303E61E7CFC67AB01 /* shader_ss_ssao_blur.frag */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = shader_ss_ssao_blur.frag; path = ../gbBundle/Shaders/shader_ss_ssao_blur.frag; sourceTree = "<group>"; };
+		DBC0BD9256592788CDEE4390 /* material.ss.ao_blur.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = material.ss.ao_blur.xml; path = ../gbBundle/Configurations/techniques/material/material.ss.ao_blur.xml; sourceTree = "<group>"; };
+		7F345E85E4C917B180A2C6BA /* ss.technique.ao_blur.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = ss.technique.ao_blur.xml; path = ../gbBundle/Configurations/techniques/ss_techniques/ss.technique.ao_blur.xml; sourceTree = "<group>"; };
+		B342654A02E16257E14F3B9F /* character_idle.fbx */ = {isa = PBXFileReference; lastKnownFileType = file; name = character_idle.fbx; path = ../gbResources/character_idle.fbx; sourceTree = "<group>"; };
+		4FED0379091E38F57CA32690 /* character_walking.fbx */ = {isa = PBXFileReference; lastKnownFileType = file; name = character_walking.fbx; path = ../gbResources/character_walking.fbx; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -3749,6 +3805,7 @@
 				2102EB521B7E4E0000F20197 /* materials */,
 				2102EB581B7E4E7900F20197 /* ws.technique.base.xml */,
 				1A071CAEBB2E0959630503F7 /* ws.technique.island_demo.xml */,
+				013EA5524A044AC29E0B83EA /* ws.technique.island_ui.xml */,
 				2126DC951C567D50003EBBDA /* ws.technique.transparent.base.xml */,
 				92260EE122E6E93F0071C6A0 /* ws.technique.stencil.deferred.lighting.xml */,
 				211AE4CE1C457CEA00A93C9B /* ws.technique.deferred.lighting.xml */,
@@ -4013,6 +4070,8 @@
 		21B403091B7A0968003382AB = {
 			isa = PBXGroup;
 			children = (
+				F74412662FEB85BEE657D92D /* Mixamo Clips */,
+				0D5A4B76A592BEC0F3390E52 /* Island SSAO */,
 				52425D996B5DEDA4EFEBE42E /* World Space Water */,
 				21B403361B7A09DB003382AB /* libraries */,
 				21B403351B7A09D6003382AB /* sources */,
@@ -5004,13 +5063,16 @@
 				73360986658204632A422F1B /* island_resident.xml */,
 				AE6DAF2E6D537A8185CB1E91 /* material.island_resident.xml */,
 				F7A700D29CA9FA5CF7FA4B0C /* island_resident.fbx */,
+				D7E02426BA724CB8AAF43395 /* woodsman.fbx */,
 				341AF683E993DC48A3821E11 /* island_resident_idle.fbx */,
 				10FBA633DA8A4B6356E7232B /* island_resident_walk.fbx */,
 				4E7AB772734803AD58EB2926 /* shader_island_resident.frag */,
 				C5CE1342A9F7D64CA10B325F /* shader_island_resident.vert */,
 				C2472D31857B0C53C3028B53 /* mtl_island_resident.h */,
 				B82D2E767D3FBA5A838F6E37 /* island_resident_clothing_mask.png */,
+				F5A8C97A172E414180EA05CF /* woodsman_no_recolor.png */,
 				E917EA416A6B61CDDCDABF8B /* island_resident_palette.png */,
+				06AC9407C0A94FD38E505C32 /* woodsman.png */,
 				1D2EED690ED5B91EC094BADE /* buoyancy_simulation.h */,
 				644DDA5A0CC4997C01B854E1 /* buoyancy_simulation.cpp */,
 				8818972C1134759A3579C674 /* ces_buoyancy_component.h */,
@@ -5032,8 +5094,10 @@
 				D92CDE547D61A8CFF517B82D /* material.ocean_prop.xml */,
 				C9884BA56FE65C3D6325E3ED /* material.ss.ocean_compose.xml */,
 				20B0ED85AFAAEF3D01A3179B /* material.ss.output.island_demo.xml */,
+				E9540042CB544A2594490255 /* material.ss.island_ui.xml */,
 				FB36F872C5E6E686B69C5767 /* output.technique.island_demo.xml */,
 				8893B4EDA45B5C4F89E26035 /* ss.technique.ocean_compose.xml */,
+				452C0749A0734155AB616247 /* ss.technique.island_ui.xml */,
 				BBE3F41F602DF5A1BE8F9977 /* ws.technique.ocean.xml */,
 				874D989BEF23876454C4A1D5 /* shader_ocean.frag */,
 				670CB4660EF644A6267365F0 /* shader_ocean.vert */,
@@ -5389,6 +5453,18 @@
 				BE3EDF6BF806B2B3E068AB57 /* shader_water_seed.frag */,
 				D84A6EF65DAB06263E430076 /* shader_water_seed.vert */,
 			); name = "World Space Water"; sourceTree = "<group>"; };
+		0D5A4B76A592BEC0F3390E52 /* Island SSAO */ = {isa = PBXGroup; children = (
+				A4FA80BBFA601504698D57C2 /* shader_ss_ssao.vert */,
+				E5BAF89766354E952AF50937 /* shader_ss_ssao.frag */,
+				12B83C46F8F3ED0AEF8C00BD /* shader_ss_ssao_blur.vert */,
+				3B043E0303E61E7CFC67AB01 /* shader_ss_ssao_blur.frag */,
+				DBC0BD9256592788CDEE4390 /* material.ss.ao_blur.xml */,
+				7F345E85E4C917B180A2C6BA /* ss.technique.ao_blur.xml */,
+			); name = "Island SSAO"; sourceTree = "<group>"; };
+		F74412662FEB85BEE657D92D /* Mixamo Clips */ = {isa = PBXGroup; children = (
+				B342654A02E16257E14F3B9F /* character_idle.fbx */,
+				4FED0379091E38F57CA32690 /* character_walking.fbx */,
+			); name = "Mixamo Clips"; sourceTree = "<group>"; };
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -5689,6 +5765,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E6D668B4AADACCD5B34F61F /* character_idle.fbx in Resources */,
+				51007D5EC7C962E7F9BA6C4E /* character_walking.fbx in Resources */,
+				DF8188CB6F1AC90E54748746 /* shader_ss_ssao.vert in Resources */,
+				98C923DB7BD67FD590B6E993 /* shader_ss_ssao.frag in Resources */,
+				474DCD86D0CCBA5DC59B030C /* shader_ss_ssao_blur.vert in Resources */,
+				22890EEBF74B33F62225D0BE /* shader_ss_ssao_blur.frag in Resources */,
+				33CE02EBA7D3A95A9809FE49 /* material.ss.ao_blur.xml in Resources */,
+				C2C390D622983E2A26012D2B /* ss.technique.ao_blur.xml in Resources */,
 				CCBBB622C08880F8C916F676 /* material.ocean_foam.xml in Resources */,
 				DA62EE38F1498A0861D1BD72 /* material.water_distance.xml in Resources */,
 				673FE95BCFF7D37AE29C3DD3 /* material.water_jfa0.xml in Resources */,
@@ -5774,13 +5858,16 @@
 				EEBE90AFE1484E201736B37E /* shader_water_seed.vert in Resources */,
 
 				332E2A4E4F7737A2125F472F /* island_resident_palette.png in Resources */,
+				BD0756C7D1A2456FA2A7D855 /* woodsman.png in Resources */,
 				FBE1E4ADCC80771A6F13DB00 /* island_resident_clothing_mask.png in Resources */,
+				0C7FC37757A742ECA4ED7509 /* woodsman_no_recolor.png in Resources */,
 				B290D053EFBC4BCAA0B80C3E /* mtl_island_resident.h in Resources */,
 				B3DE3068BE5971F9F83F04F7 /* shader_island_resident.vert in Resources */,
 				CE0388110FC6D6A3DD858891 /* shader_island_resident.frag in Resources */,
 				FDF3473B0D679015E5948D05 /* island_resident_walk.fbx in Resources */,
 				1B2648A903B0F4B1A67AB60F /* island_resident_idle.fbx in Resources */,
 				132B994311827FF61879D0D0 /* island_resident.fbx in Resources */,
+				41166F31F25D4F4E94E0A1D4 /* woodsman.fbx in Resources */,
 				E5228925654E5FE4F55354EC /* material.island_resident.xml in Resources */,
 				E9DB009299CE0A233D1D401D /* island_resident.xml in Resources */,
 				8B3E3F16D8996ECA63C4A859 /* mtl_ocean.h in Resources */,
@@ -5790,8 +5877,10 @@
 				CFC28CC720CEE23086F58723 /* shader_ocean.frag in Resources */,
 				E292727AD8C04BD2BFD9716C /* ws.technique.ocean.xml in Resources */,
 				A37BF62C19B4947DA0132AE3 /* ss.technique.ocean_compose.xml in Resources */,
+				4DEC5F01315A4B5EAF18F806 /* ss.technique.island_ui.xml in Resources */,
 				54C514EBDC28B1256B1630E9 /* output.technique.island_demo.xml in Resources */,
 				6C9FC6EBCB4EA820196F3416 /* material.ss.output.island_demo.xml in Resources */,
+				259C022E6C514A8AB235DA8D /* material.ss.island_ui.xml in Resources */,
 				7A1EA634C102E1BC05DFA6AE /* material.ss.ocean_compose.xml in Resources */,
 				A7345198F994EC4FFAEC8BB3 /* material.ocean_prop.xml in Resources */,
 				898C61983AF358FB97971D83 /* material.ocean.xml in Resources */,
@@ -6096,6 +6185,7 @@
 				F3237EAD1E9E589200337A9C /* textfield_background.xml in Resources */,
 				2102EB5C1B7E4E7900F20197 /* ws.technique.base.xml in Resources */,
 				61CF5283675AC84E65CE0366 /* ws.technique.island_demo.xml in Resources */,
+				CFF7ED1DB6E244E4A8492C50 /* ws.technique.island_ui.xml in Resources */,
 				92F042F822C20CB700E37703 /* level_30.tmx in Resources */,
 				92F041D322C20C4A00E37703 /* level_10.xml in Resources */,
 				F31423D41EF93F78008A23B5 /* material.car_2_wheel_l.base.xml in Resources */,
@@ -6371,6 +6461,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				20653C70CDDF0962DC7A048F /* character_idle.fbx in Resources */,
+				5E01328B3EBEF7FB6A697527 /* character_walking.fbx in Resources */,
+				2926B8AC36EE53DA2E937C01 /* shader_ss_ssao.vert in Resources */,
+				FB9749DCFC4007BE89CB6797 /* shader_ss_ssao.frag in Resources */,
+				E6333025F2ABCF9EF7DE37A7 /* shader_ss_ssao_blur.vert in Resources */,
+				E4F741C0A7D72EAAFB5EF2E0 /* shader_ss_ssao_blur.frag in Resources */,
+				3B1307A76D1F8B21651CF5A3 /* material.ss.ao_blur.xml in Resources */,
+				D6D52A4C8F98AC23411C7DEC /* ss.technique.ao_blur.xml in Resources */,
 				BB6CA8ACD3142187FB669C04 /* material.ocean_foam.xml in Resources */,
 				B528FCDE98EF92DDE14AE890 /* material.water_distance.xml in Resources */,
 				BF9F2783DA164FE518048B25 /* material.water_jfa0.xml in Resources */,
@@ -6456,13 +6554,16 @@
 				CE7D59B6A6E9FA7BE2E1D3EA /* shader_water_seed.vert in Resources */,
 
 				8D5C449233FAC9B52AB155F6 /* island_resident_palette.png in Resources */,
+				F95E9212D9BD475E98087577 /* woodsman.png in Resources */,
 				A098ABE52B76F59C58836084 /* island_resident_clothing_mask.png in Resources */,
+				FFBB2B08818248A4B5CEA5BF /* woodsman_no_recolor.png in Resources */,
 				C41B3BA4119D1D5440ABA9D7 /* mtl_island_resident.h in Resources */,
 				63764EC6E96C87A0FE70C3D4 /* shader_island_resident.vert in Resources */,
 				25E1FBD72F9952FB0D0B5E0D /* shader_island_resident.frag in Resources */,
 				8D9C4135862C8FB1572B2E8B /* island_resident_walk.fbx in Resources */,
 				3EAF1458BA819FEE4837F1E8 /* island_resident_idle.fbx in Resources */,
 				06A53B3E959935F9ACC1162D /* island_resident.fbx in Resources */,
+				CC9D7B6CE2AE44A2A860A83B /* woodsman.fbx in Resources */,
 				1826F383B847D4BBA18E89FF /* material.island_resident.xml in Resources */,
 				62522E8DB09910A37C528AEA /* island_resident.xml in Resources */,
 				C36EA6A092D93C4C73B555BA /* mtl_ocean.h in Resources */,
@@ -6472,8 +6573,10 @@
 				D9EF2BA71E3B3701BD2B0F42 /* shader_ocean.frag in Resources */,
 				47D708B6E7A5B157C153FEE3 /* ws.technique.ocean.xml in Resources */,
 				532B87A4D7FD28D01800C30C /* ss.technique.ocean_compose.xml in Resources */,
+				1974F73368604EDF868CFE77 /* ss.technique.island_ui.xml in Resources */,
 				B19304A0F3CF20885B7CD8BD /* output.technique.island_demo.xml in Resources */,
 				CB81BF37FC40B1EAE9CAF508 /* material.ss.output.island_demo.xml in Resources */,
+				15F15BEF5E10462DAB1790DF /* material.ss.island_ui.xml in Resources */,
 				584DED6F2F58E60E62A70A9B /* material.ss.ocean_compose.xml in Resources */,
 				DF3AFC81DAC20375AB5A133A /* material.ocean_prop.xml in Resources */,
 				39848819EB2B9E9B5CB11ED3 /* material.ocean.xml in Resources */,
@@ -6929,6 +7032,7 @@
 				92DBAA4422F475A000AE5374 /* retro_car_13.GB3DMESH in Resources */,
 				2102EB5D1B7E4E7900F20197 /* ws.technique.base.xml in Resources */,
 				6C9B311394E68E49A2297E23 /* ws.technique.island_demo.xml in Resources */,
+				F4D441CE104744F7B31FBC0C /* ws.technique.island_ui.xml in Resources */,
 				92BFF7ED22F453B300B2C435 /* retro_car_4_body_color_mask.png in Resources */,
 				92E23FA122B0F696005DDD5D /* car_6.xml in Resources */,
 				92C2C79522FB6F1A00A1703B /* level_54.xml in Resources */,
@@ -7056,6 +7160,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				393A45F8C9D968A34036A116 /* character_idle.fbx in Resources */,
+				B527FE06AFB5F22C8CD223D8 /* character_walking.fbx in Resources */,
+				9807D6DEB391FFF445A50619 /* shader_ss_ssao.vert in Resources */,
+				8C8950ABA1CE600D26DFB80C /* shader_ss_ssao.frag in Resources */,
+				855FE945D73FC135DDE4CA26 /* shader_ss_ssao_blur.vert in Resources */,
+				D89B3CA2ED7751E4BE2E4E8E /* shader_ss_ssao_blur.frag in Resources */,
+				A0647146AA8191472C8DAB54 /* material.ss.ao_blur.xml in Resources */,
+				3E3DD46AA3E5D68EAEB8C468 /* ss.technique.ao_blur.xml in Resources */,
 				5D8AB16BAA5999B6E1C601AD /* material.ocean_foam.xml in Resources */,
 				C58570912E6C812DE7E8010A /* material.water_distance.xml in Resources */,
 				4E30DEC9F3660CEB9CF89508 /* material.water_jfa0.xml in Resources */,
@@ -7141,13 +7253,16 @@
 				FA5EA05122BF5AEDFBD2AF4D /* shader_water_seed.vert in Resources */,
 
 				BFB4D7B890D4DEDF28BE31B2 /* island_resident_palette.png in Resources */,
+				F311EFC7EA884165AEF67A21 /* woodsman.png in Resources */,
 				BFB8BA979F990780AF027190 /* island_resident_clothing_mask.png in Resources */,
+				D4A57DFF4A5C4087B93FDCB1 /* woodsman_no_recolor.png in Resources */,
 				E99AD17562C062D56AFD8380 /* mtl_island_resident.h in Resources */,
 				25686828F5DF2D8AA3A7539E /* shader_island_resident.vert in Resources */,
 				E662A6F3E91A2C250D77B63A /* shader_island_resident.frag in Resources */,
 				279033F516A90BEFD8386753 /* island_resident_walk.fbx in Resources */,
 				BFA27E9738C960546F32D744 /* island_resident_idle.fbx in Resources */,
 				20F0BF7F8FAA38EA1BE78F4C /* island_resident.fbx in Resources */,
+				5790B3CF036F4A23B11F9F3A /* woodsman.fbx in Resources */,
 				0F5BE549F8D19C4A7A19DBE6 /* material.island_resident.xml in Resources */,
 				E20F5DD846061CB72882B6C3 /* island_resident.xml in Resources */,
 				13E112D6D38C63DEF47463EE /* mtl_ocean.h in Resources */,
@@ -7157,8 +7272,10 @@
 				F24B676C48447BA67E92CCBB /* shader_ocean.frag in Resources */,
 				351236BC5E215C7B95BCA40B /* ws.technique.ocean.xml in Resources */,
 				E76BA378D2B02619FCA478C2 /* ss.technique.ocean_compose.xml in Resources */,
+				EE6E4B033472428E93ED569E /* ss.technique.island_ui.xml in Resources */,
 				65B3079A38A2B93D3EB68BB0 /* output.technique.island_demo.xml in Resources */,
 				ECCEB21611C2BDF840802CA4 /* material.ss.output.island_demo.xml in Resources */,
+				E253D5EEA4D14E239F55D82E /* material.ss.island_ui.xml in Resources */,
 				0109609772010CE31A67E91A /* material.ss.ocean_compose.xml in Resources */,
 				C62D43E99917A7953E395BE7 /* material.ocean_prop.xml in Resources */,
 				D8EA00B17ECC9C3A8E2A2F58 /* material.ocean.xml in Resources */,
@@ -7479,6 +7596,7 @@
 				927A6E52221D59F90023243F /* car_1_wheel_l.xml in Resources */,
 				F36DF2C01E953C5600EAE49B /* ws.technique.base.xml in Resources */,
 				05E23649A0463AE63FDA5F65 /* ws.technique.island_demo.xml in Resources */,
+				DAA76D3F61B746B8B1025BE6 /* ws.technique.island_ui.xml in Resources */,
 				92BF4F5C2200583900E95AD7 /* material.sidewalks_shared.base.xml in Resources */,
 				92E23FD222B0F6F7005DDD5D /* material.car_5_wheel_r.base.xml in Resources */,
 				92C2C78D22FB6F1A00A1703B /* level_56.xml in Resources */,

@@ -136,7 +136,11 @@ void main(){
  color*=.97+.06*field_noise(p.xz*.039);
 
  float depth_difference=scene.w>0.0?max(scene.w-depth,0.0):1000.0;
- float width,influence;vec4 layers=world_foam(p,width,influence);vec4 field=interaction_sample(p.xz);
+ // Base-water foam values affect only these diagnostic views; visible foam has its own pass.
+ float width=0.0,influence=0.0;vec4 layers=vec4(0),field=vec4(0);
+ if(extra.x==1.0||extra.x==7.0||extra.x==8.0||extra.x==18.0||extra.x==19.0||extra.x==20.0)
+  layers=world_foam(p,width,influence);
+ if(extra.x==15.0||extra.x==16.0||extra.x==17.0)field=interaction_sample(p.xz);
  if(extra.x==1.0)color=vec3(layers.w);if(extra.x==4.0)color=vec3(clamp(thickness/16.0,0.0,1.0));
  if(extra.x==6.0)color=vec3(clamp(depth_difference/foam_bands.y,0.0,1.0));
  if(extra.x==7.0)color=vec3(layers.x);if(extra.x==8.0)color=vec3(layers.z);

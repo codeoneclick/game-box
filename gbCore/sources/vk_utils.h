@@ -18,7 +18,7 @@ namespace gb
 		static VkCommandBuffer create_command_buffer(VkCommandBufferLevel level, bool begin = false);
 		static void flush_command_buffer(VkCommandBuffer command_buffer, VkQueue queue, bool free = true);
 
-		static void copy_buffers(const std::shared_ptr<vk_buffer>& buffer_src, const std::shared_ptr<vk_buffer>& buffer_dst);
+		static void copy_buffers(const std::shared_ptr<vk_buffer>& buffer_src, const std::shared_ptr<vk_buffer>& buffer_dst, VkDeviceSize size = VK_WHOLE_SIZE);
 	};
 
 #define VK_CHECK(f) \

@@ -20,7 +20,9 @@ namespace gb
         
         ui32 m_num_bones;
         std::set<bone_3d_shared_ptr> m_root_bones;
+        std::vector<bone_3d_shared_ptr> m_bones_by_id;
         glm::mat4* m_bones_transformations;
+        std::vector<glm::mat4> m_bones_storage;
         
     public:
         
@@ -36,7 +38,7 @@ namespace gb
         bone_3d_shared_ptr get_bone(const std::string& name) const;
         
         i32 get_num_bones() const;
-        const std::set<bone_3d_shared_ptr> get_root_bones() const;
+        const std::set<bone_3d_shared_ptr>& get_root_bones() const;
         glm::mat4* get_bones_transformations() const;
     };
 };

@@ -12,6 +12,7 @@
 #include "main_headers.h"
 #include "declarations.h"
 #include "resource_types.h"
+#include <atomic>
 
 namespace gb
 {
@@ -59,7 +60,7 @@ namespace gb
         
     protected:
         
-        ui8 m_status;
+        std::atomic<ui8> m_status;
         e_resource_type m_type;
         std::set<resource_loading_interface_shared_ptr> m_listeners;
         std::set<std::shared_ptr<f_resource_loading_callback>> m_callbacks;

@@ -49,6 +49,9 @@ namespace gb
                                                            e_graphic_context_api api);
         
         static graphics_context_shared_ptr get_current_context();
+
+        // Release only this owner's global registration, before static destruction.
+        static void release_current_context(const graphics_context_shared_ptr& context);
         
 #if defined(__IOS__)
       

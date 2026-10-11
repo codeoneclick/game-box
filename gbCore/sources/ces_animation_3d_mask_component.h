@@ -36,6 +36,7 @@ namespace gb
     protected:
         
         std::vector<bone_3d_mask_shared_ptr> m_bones_mask;
+        std::unordered_map<std::string,f32> m_weights_by_name;
         
     public:
         

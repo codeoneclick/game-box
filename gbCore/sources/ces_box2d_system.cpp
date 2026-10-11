@@ -73,7 +73,7 @@ namespace gb
                     box2d_body_definition->type = std::get<1>(deferred_box2d_component_setup);
                     
                     std::vector<std::shared_ptr<b2Shape>> box2d_shapes;
-                    const auto box2d_shapes_parameters = box2d_body_component->get_shapes_parameters();
+                    const auto& box2d_shapes_parameters = box2d_body_component->get_shapes_parameters();
                     for (const auto& shape_parameters_it : box2d_shapes_parameters)
                     {
                         ces_box2d_body_component::e_shape shape = shape_parameters_it.m_shape;
@@ -97,7 +97,7 @@ namespace gb
                             case ces_box2d_body_component::custom_geometry:
                             {
                                 std::shared_ptr<b2PolygonShape> shape = std::make_shared<b2PolygonShape>();
-                                std::vector<b2Vec2> points = shape_parameters_it.m_custom_vertices;
+                                const auto& points = shape_parameters_it.m_custom_vertices;
                                 shape->Set(points.data(), static_cast<i32>(points.size()));
                                 box2d_shapes.push_back(shape);
                             }
@@ -115,7 +115,7 @@ namespace gb
                             case ces_box2d_body_component::chain:
                             {
                                 std::shared_ptr<b2ChainShape> shape = std::make_shared<b2ChainShape>();
-                                const auto vertices = shape_parameters_it.m_custom_vertices;
+                                const auto& vertices = shape_parameters_it.m_custom_vertices;
                                 shape->CreateChain(&vertices[0], static_cast<i32>(vertices.size()));
                                 box2d_shapes.push_back(shape);
                             }

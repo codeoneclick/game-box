@@ -64,6 +64,8 @@ namespace gb
 
 		void construct(VkInstance vk_instance, const std::shared_ptr<window_impl>& window);
 		void connect(VkInstance vk_instance);
+		// Framebuffers/command buffers must already be released on an idle device.
+		void destroy();
 
 		VkSwapchainKHR get() const;
 

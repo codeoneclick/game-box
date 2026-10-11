@@ -136,11 +136,12 @@ namespace gb
 		}
 	}
 
-	void vk_utils::copy_buffers(const std::shared_ptr<vk_buffer>& buffer_src, const std::shared_ptr<vk_buffer>& buffer_dst)
+	void vk_utils::copy_buffers(const std::shared_ptr<vk_buffer>& buffer_src, const std::shared_ptr<vk_buffer>& buffer_dst, VkDeviceSize size)
 	{
 		VkCommandBuffer copy_cmd = vk_utils::create_command_buffer(VK_COMMAND_BUFFER_LEVEL_PRIMARY, true);
 		VkBufferCopy copy_region{};
-		copy_region.size = buffer_src->get_size();
+		copy_region.size = size == VK_WHOLE_SIZE ? buffer_src->get_size() : size;
+		assert(copy_region.size > 0 && copy_region.size <= buffer_src->get_size() && copy_region.size <= buffer_dst->get_size());
 		VkBuffer src_handler = buffer_src->get_handler();
 		VkBuffer dst_handler = buffer_dst->get_handler();
 		vkCmdCopyBuffer(copy_cmd, src_handler, dst_handler, 1, &copy_region);

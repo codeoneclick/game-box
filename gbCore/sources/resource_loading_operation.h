@@ -11,6 +11,7 @@
 
 #include "main_headers.h"
 #include "declarations.h"
+#include <atomic>
 
 namespace gb
 {
@@ -35,7 +36,7 @@ namespace gb
         resource_transfering_data_shared_ptr m_transfering_data;
         
         std::string m_guid;
-        e_resource_loading_operation_status m_status;
+        std::atomic<e_resource_loading_operation_status> m_status;
         
     public:
         

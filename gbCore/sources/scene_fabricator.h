@@ -10,6 +10,8 @@
 
 #include "main_headers.h"
 #include "declarations.h"
+#include <map>
+#include <tuple>
 
 namespace gb
 {
@@ -21,6 +23,12 @@ namespace gb
         
         configuration_accessor_shared_ptr m_configuration_accessor;
         resource_accessor_shared_ptr m_resource_accessor;
+        // Imported assets are immutable after commit. Strong resource identity
+        // in the key prevents same-GUID replacement/pointer reuse from serving
+        // a prepared clip for a different source or target rig.
+        using prepared_animation_key = std::tuple<mesh_3d_shared_ptr, animation_3d_sequence_shared_ptr,
+                                                  i32, i32, std::string>;
+        std::map<prepared_animation_key, animation_3d_sequence_shared_ptr> m_prepared_animation_sequences;
         
     public:
         

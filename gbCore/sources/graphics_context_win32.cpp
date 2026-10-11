@@ -9,6 +9,9 @@
 #include "vk_initializers.h"
 #include "vk_surface.h"
 #include "vk_swap_chain.h"
+#include "ces_font_component.h"
+#include "material.h"
+#include "mesh_constructor.h"
 
 #endif
 
@@ -115,15 +118,26 @@ namespace gb
 		std::vector<VkLayerProperties> layers(layers_count);
 		vkEnumerateInstanceLayerProperties(&layers_count, layers.data());
 
+		// Validation is diagnostic work, not part of the Release render path.
+#if defined(_DEBUG)
+		bool enable_validation = true;
+#else
+		bool enable_validation = false;
+#endif
+		if (const char* setting = std::getenv("GB_VULKAN_VALIDATION"))
+		{
+			enable_validation = strcmp(setting, "1") == 0;
+		}
 		std::cout << "available vk layers:" << std::endl;
 		for (const auto& layer : layers)
 		{
 			std::cout << layer.layerName << std::endl;
-			if (strcmp(layer.layerName, "VK_LAYER_KHRONOS_validation") == 0)
+			if (enable_validation && strcmp(layer.layerName, "VK_LAYER_KHRONOS_validation") == 0)
 			{
 				m_layers.push_back("VK_LAYER_KHRONOS_validation");
 			}
 		}
+		std::cout << "Vulkan validation: " << (m_layers.empty() ? "off" : "on") << std::endl;
 
 		VkApplicationInfo app_info = {};
 		app_info.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
@@ -206,6 +220,11 @@ namespace gb
 
 #if USED_GRAPHICS_API == VULKAN_API
 		vkDeviceWaitIdle(vk_device::get_instance()->get_logical_device());
+		// Static renderer caches otherwise outlive this device and call Vulkan at exit.
+		material::clear_cached_resources();
+		ces_font_component::clear_atlas_cache();
+		mesh_constructor::clear_shared_meshes();
+		vk_device::get_instance()->destroy_frame_resources();
 		for (ui32 i = 0; i < m_vk_in_flight_fences.size(); ++i)
 		{
 			vkDestroySemaphore(vk_device::get_instance()->get_logical_device(), m_vk_image_available_semaphores[i], nullptr);
@@ -213,20 +232,20 @@ namespace gb
 			vkDestroyFence(vk_device::get_instance()->get_logical_device(), m_vk_in_flight_fences[i], nullptr);
 		}
 
-		auto DestroyDebugReportCallbackEXT = (PFN_vkDestroyDebugReportCallbackEXT)vkGetInstanceProcAddr(m_vk_instance, "vkDestroyDebugReportCallbackEXT");
-		if (DestroyDebugReportCallbackEXT != nullptr)
-		{
-			DestroyDebugReportCallbackEXT(m_vk_instance, m_vk_debug_callback, nullptr);
-		}
-
 		for (auto image_view : m_vk_swap_chain_image_views)
 		{
 			vkDestroyImageView(vk_device::get_instance()->get_logical_device(), image_view, nullptr);
 		}
 
-		vkDestroySwapchainKHR(vk_device::get_instance()->get_logical_device(), vk_swap_chain::get_instance()->get(), nullptr);
-		vkDestroyDevice(vk_device::get_instance()->get_logical_device(), nullptr);
+		vk_swap_chain::get_instance()->destroy();
+		vk_device::get_instance()->destroy();
 		vkDestroySurfaceKHR(m_vk_instance, vk_surface::get_instance()->get(), nullptr);
+		// Keep validation alive through device destruction so leaked children are visible.
+		auto DestroyDebugReportCallbackEXT = (PFN_vkDestroyDebugReportCallbackEXT)vkGetInstanceProcAddr(m_vk_instance, "vkDestroyDebugReportCallbackEXT");
+		if (DestroyDebugReportCallbackEXT != nullptr && m_vk_debug_callback != VK_NULL_HANDLE)
+		{
+			DestroyDebugReportCallbackEXT(m_vk_instance, m_vk_debug_callback, nullptr);
+		}
 		vkDestroyInstance(m_vk_instance, nullptr);
 
 #endif

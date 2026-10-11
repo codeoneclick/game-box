@@ -97,9 +97,13 @@ namespace gb
                 *status = e_serializer_status_failure;
                 return nullptr;
             }
-            std::vector<ui8> data(static_cast<size_t>(size));
-            filestream->read(reinterpret_cast<char*>(data.data()), static_cast<std::streamsize>(size));
-            resource_serializer::close_stream(filestream);
+            ufbx_stream stream = {};
+            stream.user = filestream.get();
+            stream.read_fn = [](void* user, void* data, size_t bytes) -> size_t {
+                auto& input = *static_cast<std::istream*>(user);
+                input.read(static_cast<char*>(data), static_cast<std::streamsize>(bytes));
+                return input.bad() ? SIZE_MAX : static_cast<size_t>(input.gcount());
+            };
 
             ufbx_load_opts options = {};
             options.target_axes.right = UFBX_COORDINATE_AXIS_POSITIVE_X;
@@ -110,7 +114,8 @@ namespace gb
             options.geometry_transform_handling = UFBX_GEOMETRY_TRANSFORM_HANDLING_MODIFY_GEOMETRY;
 
             ufbx_error error = {};
-            const auto scene = ufbx_load_memory(data.data(), data.size(), &options, &error);
+            const auto scene = ufbx_load_stream(&stream, &options, &error);
+            resource_serializer::close_stream(filestream);
             if(!scene)
             {
                 std::cerr<<"unable to load fbx animation: "<<filename<<". "<<std::string(error.description.data, error.description.length)<<std::endl;
@@ -153,7 +158,8 @@ namespace gb
             return;
         }
         const auto bones = get_bones(scene);
-        if(bones.empty() || bones.size() > k_max_bones)
+        // CPU source clips may exceed the target GPU palette (Mixamo: 65).
+        if(bones.empty() || bones.size() > 1024)
         {
             std::cerr<<"invalid bones count in fbx animation: "<<filename<<std::endl;
             ufbx_free_scene(scene);
@@ -197,9 +203,28 @@ namespace gb
         }
         const auto time_begin = animation_stack ? animation_stack->time_begin : 0.0;
         const auto time_end = animation_stack ? animation_stack->time_end : 0.0;
-        const auto animation_fps = std::max(1, static_cast<i32>(round(scene->settings.frames_per_second > 0.0 ? scene->settings.frames_per_second : 30.0)));
         const auto animation_duration = std::max(0.0, time_end - time_begin);
+        if(!std::isfinite(time_begin) || !std::isfinite(time_end) || !std::isfinite(scene->settings.frames_per_second) ||
+           time_end < time_begin || animation_duration > 3600.0 || scene->settings.frames_per_second > 240.0)
+        {
+            ufbx_free_scene(scene);m_status=e_serializer_status_failure;return;
+        }
+        const auto animation_fps = std::max(1, static_cast<i32>(round(scene->settings.frames_per_second > 0.0 ? scene->settings.frames_per_second : 30.0)));
         const auto num_frames = std::max(1, static_cast<i32>(floor(animation_duration * animation_fps + .5)) + 1);
+        auto rig=std::make_shared<animation_3d_rig>();
+        std::unordered_map<const ufbx_node*,int> indices;
+        for(size_t i=0;i<bones.size();++i)indices[bones[i]]=static_cast<int>(i);
+        std::unordered_map<const ufbx_node*,ufbx_matrix> reference_matrices;
+        for(const auto mesh:scene->meshes)for(const auto skin:mesh->skin_deformers)
+            for(const auto cluster:skin->clusters)reference_matrices.emplace(cluster->bone_node,cluster->bind_to_world);
+        for(const auto bone:bones)
+        {
+            auto parent=indices.find(bone->parent);
+            const auto reference=reference_matrices.find(bone);
+            const auto rest=ufbx_matrix_to_transform(reference==reference_matrices.end()?&bone->node_to_world:&reference->second);
+            const auto transform=glm::translate(glm::mat4(1.f),to_vec3(rest.translation))*glm::mat4_cast(to_quat(rest.rotation))*glm::scale(glm::mat4(1.f),to_vec3(rest.scale));
+            rig->bones.push_back({std::string(bone->name.data,bone->name.length),parent==indices.end()?-1:parent->second,transform,get_node_path(bone,scene->root_node)});
+        }
 
         std::vector<frame_3d_data_shared_ptr> frames;
         frames.reserve(num_frames);
@@ -215,21 +240,17 @@ namespace gb
                 m_status = e_serializer_status_failure;
                 return;
             }
-            std::vector<glm::quat> rotations;
-            std::vector<glm::vec3> positions;
-            std::vector<glm::vec3> scales;
-            rotations.reserve(bones.size());
-            positions.reserve(bones.size());
-            scales.reserve(bones.size());
-            for(const auto bone : bones)
+            const auto frame = std::make_shared<frame_3d_data>(static_cast<i32>(bones.size()));
+            for(size_t bone_index = 0; bone_index < bones.size(); ++bone_index)
             {
+                const auto bone = bones[bone_index];
                 const auto evaluated_bone = evaluated_scene->nodes.data[bone->typed_id];
                 const auto transform = ufbx_matrix_to_transform(&evaluated_bone->node_to_world);
-                positions.push_back(to_vec3(transform.translation));
-                rotations.push_back(to_quat(transform.rotation));
-                scales.push_back(to_vec3(transform.scale));
+                frame->update_position(static_cast<ui32>(bone_index), to_vec3(transform.translation));
+                frame->update_rotation(static_cast<ui32>(bone_index), to_quat(transform.rotation));
+                frame->update_scale(static_cast<ui32>(bone_index), to_vec3(transform.scale));
             }
-            frames.push_back(std::make_shared<frame_3d_data>(rotations, positions, scales));
+            frames.push_back(frame);
             ufbx_free_scene(evaluated_scene);
         }
 
@@ -239,7 +260,7 @@ namespace gb
         }
         const auto sequence_transfering_data = std::make_shared<sequence_3d_transfering_data>(animation_name,
                                                                                               animation_fps,
-                                                                                              frames);
+                                                                                              frames, rig);
         resource_serializer::on_transfering_data_serialized(sequence_transfering_data);
         ufbx_free_scene(scene);
         m_status = e_serializer_status_success;

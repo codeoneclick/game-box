@@ -587,4 +587,19 @@
     <None Include="..\gbBundle\Shaders\shader_water_seed.frag"></None>
     <None Include="..\gbBundle\Shaders\shader_water_seed.vert"></None>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\gbBundle\Shaders\shader_ss_ssao.vert" />
+    <None Include="..\gbBundle\Shaders\shader_ss_ssao.frag" />
+    <None Include="..\gbBundle\Shaders\shader_ss_ssao_blur.vert" />
+    <None Include="..\gbBundle\Shaders\shader_ss_ssao_blur.frag" />
+    <None Include="..\gbBundle\Configurations\techniques\material\material.ss.ao.xml" />
+    <None Include="..\gbBundle\Configurations\techniques\material\material.ss.ao_blur.xml" />
+    <None Include="..\gbBundle\Configurations\techniques\ss_techniques\ss.technique.ao.xml" />
+    <None Include="..\gbBundle\Configurations\techniques\ss_techniques\ss.technique.ao_blur.xml" />
+    <None Include="..\gbBundle\Textures\ssao_random.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\gbResources\character_idle.fbx" />
+    <None Include="..\gbResources\character_walking.fbx" />
+  </ItemGroup>
 </Project>

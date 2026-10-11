@@ -105,7 +105,7 @@ namespace gb
             resource_serializer::close_stream(filestream);
         }
         
-        png_bytep *rowpointers = new png_bytep[height * sizeof(png_bytep)];
+        png_bytep *rowpointers = new png_bytep[height];
         if (rowpointers == nullptr)
         {
             std::cout<<"error: could not allocate memory for PNG row pointers."<<std::endl;

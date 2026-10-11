@@ -9,6 +9,7 @@
 #include "ces_animation_3d_mixer_component.h"
 #include "mesh_3d.h"
 #include "animation_3d_sequence.h"
+#include <stdexcept>
 
 namespace gb
 {
@@ -131,7 +132,8 @@ namespace gb
                                                  const sequence_3d_transfering_data_shared_ptr& sequence_transfering_data)
     {
         m_num_bones_transformations = skeleton_transfering_data->get_num_bones();
-        m_bones_transformations = new glm::mat4[m_num_bones_transformations];
+        m_bones_storage.resize(m_num_bones_transformations);
+        m_bones_transformations = m_bones_storage.data();
         animation_3d_sequence_shared_ptr sequence = animation_3d_sequence::construct(k_bindpose_animation_name,
                                                                                      sequence_transfering_data);
         m_blending_frame = std::make_shared<frame_3d_data>(m_num_bones_transformations);
@@ -511,6 +513,11 @@ namespace gb
     
     void ces_animation_3d_mixer_component::add_animation_sequence(const animation_3d_sequence_shared_ptr& sequence)
     {
+        if(!sequence || sequence->get_num_frames()<1 || sequence->get_animation_fps()<1)
+            throw std::runtime_error("Invalid animation sequence");
+        for(i32 frame=0;frame<sequence->get_num_frames();++frame)
+            if(!sequence->get_frame(frame) || sequence->get_frame(frame)->get_num_bones()!=m_num_bones_transformations)
+                throw std::runtime_error("Animation bone count does not match target skeleton");
         std::string animation_name = sequence->get_animation_name();
         m_animations_sequences.insert(std::make_pair(animation_name, sequence));
     }

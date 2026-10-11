@@ -12,6 +12,7 @@
 #include "main_headers.h"
 #include "declarations.h"
 #include "thread_operation.h"
+#include <condition_variable>
 
 namespace gb
 {
@@ -27,13 +28,16 @@ namespace gb
         
         std::array<std::array<std::queue<thread_operation_shared_ptr>, thread_operation::e_thread_operation_queue_max>, k_max_threads_pet_queue> m_operations;
         
-        ui8 m_is_running;
+        bool m_is_running;
+        // A root dependency chain belongs to only one executor at a time.
+        std::array<std::array<bool, thread_operation::e_thread_operation_queue_max>, k_max_threads_pet_queue> m_claimed = {};
+        std::condition_variable m_work_available;
+        size_t m_work_generation = 0;
         std::array<std::thread, k_max_threads_pet_queue> m_threads;
         std::mutex m_mutex;
         
-        thread_operation_shared_ptr next_operation(ui32 thread_id, thread_operation::e_thread_operation_queue operation_queue);
-        void pop_operation(ui32 thread_id, thread_operation::e_thread_operation_queue operation_queue);
-        bool is_queue_empty(ui32 thread_id, thread_operation::e_thread_operation_queue operation_queue);
+        bool process_operation(ui32 thread_id, thread_operation::e_thread_operation_queue operation_queue,
+                               thread_operation::e_thread_operation_queue executor_queue);
         
         void update_thread(ui32 thread_id);
         

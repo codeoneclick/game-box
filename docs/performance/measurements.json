@@ -1,0 +1,2865 @@
+{
+  "captures": {
+    "perf-core-audit-1920x1080-200": {
+      "cpu": {
+        "acquire_fences": {
+          "mean_calls": 1.0,
+          "mean_ms": 5.656872
+        },
+        "acquire_image": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.0034779999999999998
+        },
+        "descriptors": {
+          "mean_calls": 258.0,
+          "mean_ms": 0.3413571999999999
+        },
+        "output": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.01114832
+        },
+        "queue_present": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.17825280000000002
+        },
+        "queue_submit": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.06000784
+        },
+        "ss:ss.ao": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.010673020000000002
+        },
+        "ss:ss.ao.blur": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.006996666
+        },
+        "ss:ss.island_ui": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.007744834000000001
+        },
+        "ss:ss.ocean_compose": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.009024167999999999
+        },
+        "submit_present": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.2429898
+        },
+        "upload_flush": {
+          "mean_calls": 0.04999998,
+          "mean_ms": 0.47977179999999997
+        },
+        "wait_frame_fence": {
+          "mean_calls": 1.0,
+          "mean_ms": 5.643904000000001
+        },
+        "wait_image_fence": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.004094
+        },
+        "ws:ws.base": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.9873024000000001
+        },
+        "ws:ws.ocean": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.15874859999999996
+        },
+        "ws:ws.ocean.foam": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.1263236
+        },
+        "ws:ws.ui": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.030116160000000003
+        },
+        "ws:ws.water.distance": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.01845714
+        },
+        "ws:ws.water.jfa0": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.02046216
+        },
+        "ws:ws.water.jfa1": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.01806584
+        },
+        "ws:ws.water.jfa10": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.018403
+        },
+        "ws:ws.water.jfa11": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.01754818
+        },
+        "ws:ws.water.jfa2": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.01800852
+        },
+        "ws:ws.water.jfa3": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.01826034
+        },
+        "ws:ws.water.jfa4": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.019219999999999998
+        },
+        "ws:ws.water.jfa5": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.01771302
+        },
+        "ws:ws.water.jfa6": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.018303820000000002
+        },
+        "ws:ws.water.jfa7": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.018128320000000003
+        },
+        "ws:ws.water.jfa8": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.017524320000000003
+        },
+        "ws:ws.water.jfa9": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.0179405
+        },
+        "ws:ws.water.mask": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.2159272
+        },
+        "ws:ws.water.seed": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.028463500000000003
+        }
+      },
+      "details": {
+        "draw_calls": {
+          "count": 622,
+          "maximum": 258.0,
+          "mean": 258.0,
+          "p50": 258.0,
+          "p95": 258.0,
+          "p99": 258.0
+        },
+        "frame_ms": {
+          "count": 622,
+          "maximum": 41.1462,
+          "mean": 9.954641639871372,
+          "p50": 9.748349999999999,
+          "p95": 13.244114999999997,
+          "p99": 29.874214
+        },
+        "gpu_frame_ms": {
+          "count": 619,
+          "maximum": 11.3219,
+          "mean": 9.845487189014538,
+          "p50": 9.82918,
+          "p95": 10.503619999999998,
+          "p99": 10.814596000000002
+        },
+        "triangles": {
+          "count": 622,
+          "maximum": 883416.0,
+          "mean": 883415.575562701,
+          "p50": 883416.0,
+          "p95": 883416.0,
+          "p99": 883416.0
+        }
+      },
+      "gpu": {
+        "frame": {
+          "mean_calls": 120.0,
+          "mean_ms": 9.845388
+        },
+        "output": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.0349696
+        },
+        "ss:ss.ao": {
+          "mean_calls": 120.0,
+          "mean_ms": 1.1406679999999998
+        },
+        "ss:ss.ao.blur": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.8036438
+        },
+        "ss:ss.island_ui": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.02973696
+        },
+        "ss:ss.ocean_compose": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.04582912
+        },
+        "ws:ws.base": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.6140057999999999
+        },
+        "ws:ws.ocean": {
+          "mean_calls": 120.0,
+          "mean_ms": 2.1807360000000005
+        },
+        "ws:ws.ocean.foam": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.5556838
+        },
+        "ws:ws.ui": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.00905046
+        },
+        "ws:ws.water.distance": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.1253358
+        },
+        "ws:ws.water.jfa0": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.14328480000000002
+        },
+        "ws:ws.water.jfa1": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.3429546
+        },
+        "ws:ws.water.jfa10": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.33643340000000005
+        },
+        "ws:ws.water.jfa11": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.322391
+        },
+        "ws:ws.water.jfa2": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.6131046
+        },
+        "ws:ws.water.jfa3": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.3955902
+        },
+        "ws:ws.water.jfa4": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.3306276
+        },
+        "ws:ws.water.jfa5": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.33307980000000004
+        },
+        "ws:ws.water.jfa6": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.335466
+        },
+        "ws:ws.water.jfa7": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.3280316
+        },
+        "ws:ws.water.jfa8": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.3400006
+        },
+        "ws:ws.water.jfa9": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.34425859999999997
+        },
+        "ws:ws.water.mask": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.05061286
+        },
+        "ws:ws.water.seed": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.07417856
+        }
+      },
+      "summary": {
+        "configuration": "release",
+        "elapsed_seconds": 14.9426782,
+        "feeder_ms": 9.957968000000001,
+        "first_report_seconds": 10.1758319,
+        "private_bytes": 1070129152,
+        "process_cpu_seconds": 21.625,
+        "residents": 200,
+        "samples": 5,
+        "steady_cpu_core_equivalents": 0.3729087746957725,
+        "threads": 25,
+        "wall_ms": 9.959748,
+        "working_set_bytes": 413433856
+      },
+      "system_mean_ms": {
+        "class game::ces_island_resident_system/feed": 0.3006522,
+        "class game::ces_island_resident_system/start": 0.33276859999999997,
+        "class game::ces_ocean_system/feed": 0.1565346,
+        "class gb::ces_actions_system/feed": 0.4847056,
+        "class gb::ces_animation_3d_system/feed": 0.7217281999999999,
+        "class gb::ces_render_system/end": 2.161878,
+        "class gb::ces_render_system/start": 5.765441999999999
+      }
+    },
+    "perf-core-audit-640x360-200": {
+      "cpu": {
+        "acquire_fences": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.008274
+        },
+        "acquire_image": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.0016203300000000001
+        },
+        "descriptors": {
+          "mean_calls": 258.0,
+          "mean_ms": 0.2985526
+        },
+        "output": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.0092755
+        },
+        "queue_present": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.14654499999999998
+        },
+        "queue_submit": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.054890499999999995
+        },
+        "ss:ss.ao": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.00947134
+        },
+        "ss:ss.ao.blur": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.006424167999999999
+        },
+        "ss:ss.island_ui": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.006409002
+        },
+        "ss:ss.ocean_compose": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.008006665999999999
+        },
+        "submit_present": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.20558360000000003
+        },
+        "upload_flush": {
+          "mean_calls": 0.02083335,
+          "mean_ms": 0.0131729075
+        },
+        "wait_frame_fence": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.0044045
+        },
+        "wait_image_fence": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.0005315000000000001
+        },
+        "ws:ws.base": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.8313126000000001
+        },
+        "ws:ws.ocean": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.1336052
+        },
+        "ws:ws.ocean.foam": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.11308860000000001
+        },
+        "ws:ws.ui": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.02666132
+        },
+        "ws:ws.water.distance": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.01621618
+        },
+        "ws:ws.water.jfa0": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.017643360000000004
+        },
+        "ws:ws.water.jfa1": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.016215
+        },
+        "ws:ws.water.jfa10": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.01565434
+        },
+        "ws:ws.water.jfa11": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.015193519999999999
+        },
+        "ws:ws.water.jfa2": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.01597016
+        },
+        "ws:ws.water.jfa3": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.015804000000000002
+        },
+        "ws:ws.water.jfa4": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.016336999999999997
+        },
+        "ws:ws.water.jfa5": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.0166295
+        },
+        "ws:ws.water.jfa6": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.01620366
+        },
+        "ws:ws.water.jfa7": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.01584552
+        },
+        "ws:ws.water.jfa8": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.01584914
+        },
+        "ws:ws.water.jfa9": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.01631302
+        },
+        "ws:ws.water.mask": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.15897700000000003
+        },
+        "ws:ws.water.seed": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.02257832
+        }
+      },
+      "details": {
+        "draw_calls": {
+          "count": 655,
+          "maximum": 258.0,
+          "mean": 258.0,
+          "p50": 258.0,
+          "p95": 258.0,
+          "p99": 258.0
+        },
+        "frame_ms": {
+          "count": 656,
+          "maximum": 10.8118,
+          "mean": 3.122185975609757,
+          "p50": 2.80545,
+          "p95": 4.794475,
+          "p99": 6.924280000000028
+        },
+        "gpu_frame_ms": {
+          "count": 653,
+          "maximum": 2.84122,
+          "mean": 1.5269360336906581,
+          "p50": 1.45027,
+          "p95": 1.9951939999999997,
+          "p99": 2.3760504000000005
+        },
+        "triangles": {
+          "count": 655,
+          "maximum": 883416.0,
+          "mean": 883415.5236641221,
+          "p50": 883416.0,
+          "p95": 883416.0,
+          "p99": 883416.0
+        }
+      },
+      "gpu": {
+        "frame": {
+          "mean_calls": 120.0,
+          "mean_ms": 1.528256
+        },
+        "output": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.005599576
+        },
+        "ss:ss.ao": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.14278659999999999
+        },
+        "ss:ss.ao.blur": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.10020864
+        },
+        "ss:ss.island_ui": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.005889706
+        },
+        "ss:ss.ocean_compose": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.008343896
+        },
+        "ws:ws.base": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.1751058
+        },
+        "ws:ws.ocean": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.44195320000000005
+        },
+        "ws:ws.ocean.foam": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.14335320000000001
+        },
+        "ws:ws.ui": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.007639042
+        },
+        "ws:ws.water.distance": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.015115960000000001
+        },
+        "ws:ws.water.jfa0": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.013559480000000002
+        },
+        "ws:ws.water.jfa1": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.0139537
+        },
+        "ws:ws.water.jfa10": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.05136728
+        },
+        "ws:ws.water.jfa11": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.05914621999999999
+        },
+        "ws:ws.water.jfa2": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.01948502
+        },
+        "ws:ws.water.jfa3": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.0312303
+        },
+        "ws:ws.water.jfa4": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.035759799999999994
+        },
+        "ws:ws.water.jfa5": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.038761819999999995
+        },
+        "ws:ws.water.jfa6": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.04121598
+        },
+        "ws:ws.water.jfa7": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.04299946
+        },
+        "ws:ws.water.jfa8": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.04450988
+        },
+        "ws:ws.water.jfa9": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.04545366
+        },
+        "ws:ws.water.mask": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.01887066
+        },
+        "ws:ws.water.seed": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.01039872
+        }
+      },
+      "summary": {
+        "configuration": "release",
+        "elapsed_seconds": 10.6856397,
+        "feeder_ms": 2.971002,
+        "first_report_seconds": 9.0377539,
+        "private_bytes": 479522816,
+        "process_cpu_seconds": 21.75,
+        "residents": 200,
+        "samples": 5,
+        "steady_cpu_core_equivalents": 0.9331714981448181,
+        "threads": 25,
+        "wall_ms": 2.9713819999999997,
+        "working_set_bytes": 413659136
+      },
+      "system_mean_ms": {
+        "class game::ces_island_resident_system/feed": 0.2210092,
+        "class game::ces_island_resident_system/start": 0.1822646,
+        "class game::ces_ocean_system/feed": 0.1081678,
+        "class gb::ces_animation_3d_system/feed": 0.6055409999999999,
+        "class gb::ces_render_system/end": 1.7764900000000001,
+        "class gb::ces_render_system/start": 0.0100665
+      }
+    },
+    "perf-core-audit-clean-long-200": {
+      "cpu": {
+        "acquire_fences": {
+          "mean_calls": 1.0,
+          "mean_ms": 1.3871958148148151
+        },
+        "acquire_image": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.002392500185185185
+        },
+        "descriptors": {
+          "mean_calls": 258.0,
+          "mean_ms": 0.2993345740740741
+        },
+        "output": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.009637979074074076
+        },
+        "queue_present": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.15051062962962966
+        },
+        "queue_submit": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.05308258888888887
+        },
+        "ss:ss.ao": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.009763951851851856
+        },
+        "ss:ss.ao.blur": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.0065735338888888864
+        },
+        "ss:ss.island_ui": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.00668344037037037
+        },
+        "ss:ss.ocean_compose": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.008191790370370369
+        },
+        "submit_present": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.2076262407407408
+        },
+        "upload_flush": {
+          "mean_calls": 0.019135825925925935,
+          "mean_ms": 0.08000284944444441
+        },
+        "wait_frame_fence": {
+          "mean_calls": 1.0,
+          "mean_ms": 1.3793337962962962
+        },
+        "wait_image_fence": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.002177252962962963
+        },
+        "ws:ws.base": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.8551045740740739
+        },
+        "ws:ws.ocean": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.13529264814814812
+        },
+        "ws:ws.ocean.foam": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.1139674074074074
+        },
+        "ws:ws.ui": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.02730351851851852
+        },
+        "ws:ws.water.distance": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.01634201851851852
+        },
+        "ws:ws.water.jfa0": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.017975890740740744
+        },
+        "ws:ws.water.jfa1": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.016241079629629635
+        },
+        "ws:ws.water.jfa10": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.01589338333333333
+        },
+        "ws:ws.water.jfa11": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.01534259444444445
+        },
+        "ws:ws.water.jfa2": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.01603394814814815
+        },
+        "ws:ws.water.jfa3": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.016327720370370374
+        },
+        "ws:ws.water.jfa4": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.01619526666666667
+        },
+        "ws:ws.water.jfa5": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.015867192592592592
+        },
+        "ws:ws.water.jfa6": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.015950909259259256
+        },
+        "ws:ws.water.jfa7": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.015424292592592596
+        },
+        "ws:ws.water.jfa8": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.01579024814814815
+        },
+        "ws:ws.water.jfa9": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.015641296296296296
+        },
+        "ws:ws.water.mask": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.17401351851851857
+        },
+        "ws:ws.water.seed": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.023765966666666662
+        }
+      },
+      "details": {
+        "draw_calls": {
+          "count": 6501,
+          "maximum": 258.0,
+          "mean": 258.0,
+          "p50": 258.0,
+          "p95": 258.0,
+          "p99": 258.0
+        },
+        "frame_ms": {
+          "count": 6502,
+          "maximum": 48.6604,
+          "mean": 4.757204367886818,
+          "p50": 4.566,
+          "p95": 6.176434999999998,
+          "p99": 10.715438999999975
+        },
+        "frames_after_upload_ms": {
+          "count": 62,
+          "maximum": 17.2885,
+          "mean": 13.43978870967742,
+          "p50": 14.1738,
+          "p95": 15.50242,
+          "p99": 16.900357
+        },
+        "frames_without_upload_ms": {
+          "count": 6440,
+          "maximum": 48.6604,
+          "mean": 4.673614270186349,
+          "p50": 4.5593,
+          "p95": 6.02326,
+          "p99": 7.340057999999997
+        },
+        "gpu_frame_ms": {
+          "count": 6498,
+          "maximum": 6.24602,
+          "mean": 4.6572669636811295,
+          "p50": 4.4581599999999995,
+          "p95": 5.468483,
+          "p99": 5.696401300000001
+        },
+        "triangles": {
+          "count": 6501,
+          "maximum": 883416.0,
+          "mean": 883415.9643131826,
+          "p50": 883416.0,
+          "p95": 883416.0,
+          "p99": 883416.0
+        },
+        "upload_call_ms": {
+          "count": 124,
+          "maximum": 10.0646,
+          "mean": 4.180794354838711,
+          "p50": 0.57515,
+          "p95": 9.88833,
+          "p99": 9.991157000000001
+        },
+        "upload_frame_ms": {
+          "count": 62,
+          "maximum": 10.1606,
+          "mean": 8.361588709677422,
+          "p50": 9.03875,
+          "p95": 10.069949999999999,
+          "p99": 10.12156
+        }
+      },
+      "gpu": {
+        "frame": {
+          "mean_calls": 120.0,
+          "mean_ms": 4.657171481481483
+        },
+        "output": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.0158245925925926
+        },
+        "ss:ss.ao": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.5034318333333334
+        },
+        "ss:ss.ao.blur": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.35990964814814824
+        },
+        "ss:ss.island_ui": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.015797094444444444
+        },
+        "ss:ss.ocean_compose": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.022861905555555558
+        },
+        "ws:ws.base": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.3609454444444445
+        },
+        "ws:ws.ocean": {
+          "mean_calls": 120.0,
+          "mean_ms": 1.1229255555555555
+        },
+        "ws:ws.ocean.foam": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.3248250000000001
+        },
+        "ws:ws.ui": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.00725712648148148
+        },
+        "ws:ws.water.distance": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.05624224814814815
+        },
+        "ws:ws.water.jfa0": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.052757648148148165
+        },
+        "ws:ws.water.jfa1": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.08819279074074074
+        },
+        "ws:ws.water.jfa10": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.1587635740740741
+        },
+        "ws:ws.water.jfa11": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.1574151851851852
+        },
+        "ws:ws.water.jfa2": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.2276446111111111
+        },
+        "ws:ws.water.jfa3": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.16543794444444443
+        },
+        "ws:ws.water.jfa4": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.1445159814814815
+        },
+        "ws:ws.water.jfa5": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.1521673518518519
+        },
+        "ws:ws.water.jfa6": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.15239850000000002
+        },
+        "ws:ws.water.jfa7": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.15398009259259263
+        },
+        "ws:ws.water.jfa8": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.16437962962962963
+        },
+        "ws:ws.water.jfa9": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.16476012962962963
+        },
+        "ws:ws.water.mask": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.03451924259259259
+        },
+        "ws:ws.water.seed": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.034432940740740735
+        }
+      },
+      "summary": {
+        "configuration": "release",
+        "elapsed_seconds": 39.823653,
+        "feeder_ms": 4.750727407407407,
+        "first_report_seconds": 9.5570832,
+        "private_bytes": 699994112,
+        "process_cpu_seconds": 41.25,
+        "residents": 200,
+        "samples": 54,
+        "steady_cpu_core_equivalents": 0.6841708876151008,
+        "threads": 22,
+        "wall_ms": 4.757499444444445,
+        "working_set_bytes": 410583040
+      },
+      "system_mean_ms": {
+        "class game::ces_island_resident_system/feed": 0.24123609259259268,
+        "class game::ces_island_resident_system/start": 0.3821738888888888,
+        "class game::ces_ocean_system/feed": 0.11380777777777774,
+        "class gb::ces_actions_system/feed": 0.08252156296296295,
+        "class gb::ces_animation_3d_system/feed": 0.6481501296296298,
+        "class gb::ces_render_system/end": 1.820828148148148,
+        "class gb::ces_render_system/start": 1.4309562592592588
+      }
+    },
+    "perf-core-audit-debug-200": {
+      "cpu": {},
+      "details": {
+        "draw_calls": null,
+        "frame_ms": null,
+        "gpu_frame_ms": null,
+        "triangles": null
+      },
+      "gpu": {},
+      "summary": {
+        "feeder_ms": 42.40376,
+        "residents": 200,
+        "samples": 5,
+        "wall_ms": 42.41418
+      },
+      "system_mean_ms": {
+        "class game::ces_island_resident_system/feed": 6.004698000000001,
+        "class game::ces_island_resident_system/start": 3.222974,
+        "class game::ces_ocean_system/feed": 1.2512520000000003,
+        "class gb::ces_actions_system/feed": 0.7031816,
+        "class gb::ces_animation_3d_system/feed": 9.056338,
+        "class gb::ces_render_system/end": 21.807300000000005,
+        "class gb::ces_render_system/start": 0.1928224
+      }
+    },
+    "perf-core-audit-hud-freeze-200": {
+      "cpu": {
+        "acquire_fences": {
+          "mean_calls": 1.0,
+          "mean_ms": 1.491165636363636
+        },
+        "acquire_image": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.0024327120000000005
+        },
+        "descriptors": {
+          "mean_calls": 258.0,
+          "mean_ms": 0.2935882181818182
+        },
+        "output": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.009059120545454546
+        },
+        "queue_present": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.14505972727272726
+        },
+        "queue_submit": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.05016066181818183
+        },
+        "ss:ss.ao": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.008996832
+        },
+        "ss:ss.ao.blur": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.006862970727272725
+        },
+        "ss:ss.island_ui": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.006173046000000002
+        },
+        "ss:ss.ocean_compose": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.00780747
+        },
+        "submit_present": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.1990766363636364
+        },
+        "wait_frame_fence": {
+          "mean_calls": 1.0,
+          "mean_ms": 1.4826744727272727
+        },
+        "wait_image_fence": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.0022412270909090907
+        },
+        "ws:ws.base": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.822263727272727
+        },
+        "ws:ws.ocean": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.13019796363636366
+        },
+        "ws:ws.ocean.foam": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.11013976181818182
+        },
+        "ws:ws.ui": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.026266909090909094
+        },
+        "ws:ws.water.distance": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.016499354545454547
+        },
+        "ws:ws.water.jfa0": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.017969394545454542
+        },
+        "ws:ws.water.jfa1": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.016165396363636363
+        },
+        "ws:ws.water.jfa10": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.015744349090909094
+        },
+        "ws:ws.water.jfa11": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.01515654363636364
+        },
+        "ws:ws.water.jfa2": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.01595427818181818
+        },
+        "ws:ws.water.jfa3": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.015584774545454545
+        },
+        "ws:ws.water.jfa4": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.016093016363636362
+        },
+        "ws:ws.water.jfa5": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.016047759999999998
+        },
+        "ws:ws.water.jfa6": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.015915067272727273
+        },
+        "ws:ws.water.jfa7": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.015579940000000004
+        },
+        "ws:ws.water.jfa8": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.015551652727272732
+        },
+        "ws:ws.water.jfa9": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.015805889090909093
+        },
+        "ws:ws.water.mask": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.16528194545454547
+        },
+        "ws:ws.water.seed": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.02259763636363636
+        }
+      },
+      "details": {
+        "draw_calls": {
+          "count": 6654,
+          "maximum": 258.0,
+          "mean": 258.0,
+          "p50": 258.0,
+          "p95": 258.0,
+          "p99": 258.0
+        },
+        "frame_ms": {
+          "count": 6655,
+          "maximum": 39.6777,
+          "mean": 4.66030939143501,
+          "p50": 4.4577,
+          "p95": 6.3065999999999995,
+          "p99": 8.05477
+        },
+        "frames_after_upload_ms": null,
+        "frames_without_upload_ms": {
+          "count": 6655,
+          "maximum": 39.6777,
+          "mean": 4.66030939143501,
+          "p50": 4.4577,
+          "p95": 6.3065999999999995,
+          "p99": 8.05477
+        },
+        "gpu_frame_ms": {
+          "count": 6651,
+          "maximum": 5.93872,
+          "mean": 4.592166803488191,
+          "p50": 4.45917,
+          "p95": 5.233245,
+          "p99": 5.345485
+        },
+        "triangles": {
+          "count": 6654,
+          "maximum": 883398.0,
+          "mean": 883398.0,
+          "p50": 883398.0,
+          "p95": 883398.0,
+          "p99": 883398.0
+        },
+        "upload_call_ms": null,
+        "upload_frame_ms": null
+      },
+      "gpu": {
+        "frame": {
+          "mean_calls": 120.0,
+          "mean_ms": 4.591968727272727
+        },
+        "output": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.01602761636363637
+        },
+        "ss:ss.ao": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.4937770363636364
+        },
+        "ss:ss.ao.blur": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.35905890909090893
+        },
+        "ss:ss.island_ui": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.015958265454545453
+        },
+        "ss:ss.ocean_compose": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.022268123636363636
+        },
+        "ws:ws.base": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.3545573818181819
+        },
+        "ws:ws.ocean": {
+          "mean_calls": 120.0,
+          "mean_ms": 1.1042967272727273
+        },
+        "ws:ws.ocean.foam": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.3239690545454545
+        },
+        "ws:ws.ui": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.007455961272727274
+        },
+        "ws:ws.water.distance": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.05627174363636364
+        },
+        "ws:ws.water.jfa0": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.05330323090909091
+        },
+        "ws:ws.water.jfa1": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.08824396909090908
+        },
+        "ws:ws.water.jfa10": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.15677030909090903
+        },
+        "ws:ws.water.jfa11": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.15578994545454547
+        },
+        "ws:ws.water.jfa2": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.2215780545454545
+        },
+        "ws:ws.water.jfa3": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.16399174545454545
+        },
+        "ws:ws.water.jfa4": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.14270149090909093
+        },
+        "ws:ws.water.jfa5": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.14845952727272724
+        },
+        "ws:ws.water.jfa6": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.14954063636363635
+        },
+        "ws:ws.water.jfa7": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.15120036363636366
+        },
+        "ws:ws.water.jfa8": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.16196889090909095
+        },
+        "ws:ws.water.jfa9": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.16285519999999998
+        },
+        "ws:ws.water.mask": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.030924501818181807
+        },
+        "ws:ws.water.seed": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.035211481818181824
+        }
+      },
+      "summary": {
+        "configuration": "release",
+        "elapsed_seconds": 39.266416899999996,
+        "feeder_ms": 4.650266545454545,
+        "first_report_seconds": 9.0144375,
+        "private_bytes": 701796352,
+        "process_cpu_seconds": 40.65625,
+        "residents": 200,
+        "samples": 55,
+        "steady_cpu_core_equivalents": 0.6741952065123064,
+        "threads": 22,
+        "wall_ms": 4.656446727272728,
+        "working_set_bytes": 409686016
+      },
+      "system_mean_ms": {
+        "class game::ces_island_resident_system/feed": 0.22065461818181822,
+        "class game::ces_island_resident_system/start": 0.3700935454545455,
+        "class game::ces_ocean_system/feed": 0.11000776181818185,
+        "class gb::ces_animation_3d_system/feed": 0.6341262545454547,
+        "class gb::ces_render_system/end": 1.7547881818181816,
+        "class gb::ces_render_system/start": 1.5321314909090908
+      }
+    },
+    "perf-core-audit-no-validation-0": {
+      "cpu": {
+        "acquire_fences": {
+          "mean_calls": 1.0,
+          "mean_ms": 3.2022640000000004
+        },
+        "acquire_image": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.0033144999999999993
+        },
+        "descriptors": {
+          "mean_calls": 58.0,
+          "mean_ms": 0.09747214000000001
+        },
+        "output": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.009851666
+        },
+        "queue_present": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.16381759999999998
+        },
+        "queue_submit": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.047605159999999994
+        },
+        "ss:ss.ao": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.010183994
+        },
+        "ss:ss.ao.blur": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.006728667999999998
+        },
+        "ss:ss.island_ui": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.006418999999999999
+        },
+        "ss:ss.ocean_compose": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.008135334
+        },
+        "submit_present": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.2152568
+        },
+        "upload_flush": {
+          "mean_calls": 0.029166650000000002,
+          "mean_ms": 0.13561505000000001
+        },
+        "wait_frame_fence": {
+          "mean_calls": 1.0,
+          "mean_ms": 3.187392
+        },
+        "wait_image_fence": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.003783164
+        },
+        "ws:ws.base": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.1251368
+        },
+        "ws:ws.ocean": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.12587500000000001
+        },
+        "ws:ws.ocean.foam": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.11015106
+        },
+        "ws:ws.ui": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.0214865
+        },
+        "ws:ws.water.distance": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.011482007999999998
+        },
+        "ws:ws.water.jfa0": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.011594654
+        },
+        "ws:ws.water.jfa1": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.010151832
+        },
+        "ws:ws.water.jfa10": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.010248008
+        },
+        "ws:ws.water.jfa11": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.009680994
+        },
+        "ws:ws.water.jfa2": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.010543999999999998
+        },
+        "ws:ws.water.jfa3": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.0102775
+        },
+        "ws:ws.water.jfa4": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.01044782
+        },
+        "ws:ws.water.jfa5": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.009703668
+        },
+        "ws:ws.water.jfa6": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.0099385
+        },
+        "ws:ws.water.jfa7": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.01000116
+        },
+        "ws:ws.water.jfa8": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.010594668
+        },
+        "ws:ws.water.jfa9": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.00997034
+        },
+        "ws:ws.water.mask": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.1722526
+        },
+        "ws:ws.water.seed": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.01754548
+        }
+      },
+      "details": {
+        "draw_calls": {
+          "count": 622,
+          "maximum": 58.0,
+          "mean": 58.0,
+          "p50": 58.0,
+          "p95": 58.0,
+          "p99": 58.0
+        },
+        "frame_ms": {
+          "count": 622,
+          "maximum": 15.7615,
+          "mean": 4.514240353697746,
+          "p50": 4.36955,
+          "p95": 5.509729999999999,
+          "p99": 13.053263999999992
+        },
+        "gpu_frame_ms": {
+          "count": 619,
+          "maximum": 5.57664,
+          "mean": 4.48944907915994,
+          "p50": 4.2903,
+          "p95": 5.198714,
+          "p99": 5.475278000000002
+        },
+        "triangles": {
+          "count": 622,
+          "maximum": 571414.0,
+          "mean": 571413.6398713826,
+          "p50": 571414.0,
+          "p95": 571414.0,
+          "p99": 571414.0
+        }
+      },
+      "gpu": {
+        "frame": {
+          "mean_calls": 120.0,
+          "mean_ms": 4.48853
+        },
+        "output": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.016068259999999997
+        },
+        "ss:ss.ao": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.49155420000000005
+        },
+        "ss:ss.ao.blur": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.35272380000000003
+        },
+        "ss:ss.island_ui": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.0162799
+        },
+        "ss:ss.ocean_compose": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.02283348
+        },
+        "ws:ws.base": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.2476236
+        },
+        "ws:ws.ocean": {
+          "mean_calls": 120.0,
+          "mean_ms": 1.10301
+        },
+        "ws:ws.ocean.foam": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.32287079999999996
+        },
+        "ws:ws.ui": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.007545165999999999
+        },
+        "ws:ws.water.distance": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.055806299999999996
+        },
+        "ws:ws.water.jfa0": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.05422248
+        },
+        "ws:ws.water.jfa1": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.0876817
+        },
+        "ws:ws.water.jfa10": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.1577744
+        },
+        "ws:ws.water.jfa11": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.155387
+        },
+        "ws:ws.water.jfa2": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.2255036
+        },
+        "ws:ws.water.jfa3": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.17036120000000002
+        },
+        "ws:ws.water.jfa4": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.1410284
+        },
+        "ws:ws.water.jfa5": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.1490586
+        },
+        "ws:ws.water.jfa6": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.14965420000000001
+        },
+        "ws:ws.water.jfa7": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.15182840000000003
+        },
+        "ws:ws.water.jfa8": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.1610888
+        },
+        "ws:ws.water.jfa9": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.1666184
+        },
+        "ws:ws.water.mask": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.033089820000000006
+        },
+        "ws:ws.water.seed": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.033283419999999994
+        }
+      },
+      "summary": {
+        "configuration": "release",
+        "elapsed_seconds": 11.4193959,
+        "feeder_ms": 4.510254,
+        "first_report_seconds": 9.2635329,
+        "private_bytes": 675766272,
+        "process_cpu_seconds": 19.453125,
+        "residents": 0,
+        "samples": 5,
+        "steady_cpu_core_equivalents": 0.2742089942212676,
+        "threads": 25,
+        "wall_ms": 4.513374,
+        "working_set_bytes": 388935680
+      },
+      "system_mean_ms": {
+        "class game::ces_ocean_system/feed": 0.12353240000000001,
+        "class gb::ces_actions_system/feed": 0.11121766000000002,
+        "class gb::ces_render_system/end": 0.9950004000000001,
+        "class gb::ces_render_system/start": 3.2500340000000003
+      }
+    },
+    "perf-core-audit-no-validation-200": {
+      "cpu": {
+        "acquire_fences": {
+          "mean_calls": 1.0,
+          "mean_ms": 1.4800928
+        },
+        "acquire_image": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.002272332
+        },
+        "descriptors": {
+          "mean_calls": 258.0,
+          "mean_ms": 0.30205380000000004
+        },
+        "output": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.010578006
+        },
+        "queue_present": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.160826
+        },
+        "queue_submit": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.05175799999999999
+        },
+        "ss:ss.ao": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.010140007999999999
+        },
+        "ss:ss.ao.blur": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.007154502
+        },
+        "ss:ss.island_ui": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.007032498000000001
+        },
+        "ss:ss.ocean_compose": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.008484676
+        },
+        "submit_present": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.21656979999999998
+        },
+        "upload_flush": {
+          "mean_calls": 0.02333334,
+          "mean_ms": 0.10893786000000001
+        },
+        "wait_frame_fence": {
+          "mean_calls": 1.0,
+          "mean_ms": 1.4723894
+        },
+        "wait_image_fence": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.002168666
+        },
+        "ws:ws.base": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.8529218000000001
+        },
+        "ws:ws.ocean": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.1437136
+        },
+        "ws:ws.ocean.foam": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.11587779999999999
+        },
+        "ws:ws.ui": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.027785320000000002
+        },
+        "ws:ws.water.distance": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.017084679999999998
+        },
+        "ws:ws.water.jfa0": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.019647340000000003
+        },
+        "ws:ws.water.jfa1": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.017169
+        },
+        "ws:ws.water.jfa10": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.016570839999999996
+        },
+        "ws:ws.water.jfa11": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.016884
+        },
+        "ws:ws.water.jfa2": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.01719048
+        },
+        "ws:ws.water.jfa3": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.01670432
+        },
+        "ws:ws.water.jfa4": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.017730160000000002
+        },
+        "ws:ws.water.jfa5": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.01698068
+        },
+        "ws:ws.water.jfa6": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.01637434
+        },
+        "ws:ws.water.jfa7": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.01633282
+        },
+        "ws:ws.water.jfa8": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.016256
+        },
+        "ws:ws.water.jfa9": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.01601832
+        },
+        "ws:ws.water.mask": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.1772872
+        },
+        "ws:ws.water.seed": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.025959319999999998
+        }
+      },
+      "details": {
+        "draw_calls": {
+          "count": 655,
+          "maximum": 258.0,
+          "mean": 258.0,
+          "p50": 258.0,
+          "p95": 258.0,
+          "p99": 258.0
+        },
+        "frame_ms": {
+          "count": 656,
+          "maximum": 15.1669,
+          "mean": 4.704220731707317,
+          "p50": 4.56545,
+          "p95": 6.0679,
+          "p99": 13.60155500000003
+        },
+        "gpu_frame_ms": {
+          "count": 653,
+          "maximum": 6.17139,
+          "mean": 4.635718223583457,
+          "p50": 4.41632,
+          "p95": 5.377800000000001,
+          "p99": 5.63729
+        },
+        "triangles": {
+          "count": 655,
+          "maximum": 883416.0,
+          "mean": 883415.73129771,
+          "p50": 883416.0,
+          "p95": 883416.0,
+          "p99": 883416.0
+        }
+      },
+      "gpu": {
+        "frame": {
+          "mean_calls": 120.0,
+          "mean_ms": 4.635440000000001
+        },
+        "output": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.015615980000000002
+        },
+        "ss:ss.ao": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.504412
+        },
+        "ss:ss.ao.blur": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.35665420000000003
+        },
+        "ss:ss.island_ui": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.015097179999999998
+        },
+        "ss:ss.ocean_compose": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.02215082
+        },
+        "ws:ws.base": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.3605196
+        },
+        "ws:ws.ocean": {
+          "mean_calls": 120.0,
+          "mean_ms": 1.1183519999999998
+        },
+        "ws:ws.ocean.foam": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.3215122
+        },
+        "ws:ws.ui": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.007031468000000001
+        },
+        "ws:ws.water.distance": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.055811420000000014
+        },
+        "ws:ws.water.jfa0": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.051773440000000004
+        },
+        "ws:ws.water.jfa1": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.08866304
+        },
+        "ws:ws.water.jfa10": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.1582182
+        },
+        "ws:ws.water.jfa11": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.1539994
+        },
+        "ws:ws.water.jfa2": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.2281012
+        },
+        "ws:ws.water.jfa3": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.16948400000000002
+        },
+        "ws:ws.water.jfa4": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.1438482
+        },
+        "ws:ws.water.jfa5": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.14992900000000003
+        },
+        "ws:ws.water.jfa6": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.14871900000000002
+        },
+        "ws:ws.water.jfa7": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.15348900000000001
+        },
+        "ws:ws.water.jfa8": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.1589676
+        },
+        "ws:ws.water.jfa9": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.16651619999999998
+        },
+        "ws:ws.water.mask": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.03517552
+        },
+        "ws:ws.water.seed": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.03554816
+        }
+      },
+      "summary": {
+        "configuration": "release",
+        "elapsed_seconds": 11.7169141,
+        "feeder_ms": 4.703044,
+        "first_report_seconds": 9.3090785,
+        "private_bytes": 701505536,
+        "process_cpu_seconds": 21.65625,
+        "residents": 200,
+        "samples": 5,
+        "steady_cpu_core_equivalents": 0.6589286496140552,
+        "threads": 25,
+        "wall_ms": 4.710512,
+        "working_set_bytes": 412573696
+      },
+      "system_mean_ms": {
+        "class game::ces_island_resident_system/feed": 0.2387434,
+        "class game::ces_island_resident_system/start": 0.21078800000000003,
+        "class game::ces_ocean_system/feed": 0.1157818,
+        "class gb::ces_actions_system/feed": 0.11166285999999999,
+        "class gb::ces_animation_3d_system/feed": 0.6190682,
+        "class gb::ces_render_system/end": 1.8590399999999998,
+        "class gb::ces_render_system/start": 1.5215859999999999
+      }
+    },
+    "perf-core-audit-no-validation-50": {
+      "cpu": {
+        "acquire_fences": {
+          "mean_calls": 1.0,
+          "mean_ms": 2.7245920000000003
+        },
+        "acquire_image": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.003025502
+        },
+        "descriptors": {
+          "mean_calls": 108.0,
+          "mean_ms": 0.154115
+        },
+        "output": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.009707508
+        },
+        "queue_present": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.1636144
+        },
+        "queue_submit": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.04874184
+        },
+        "ss:ss.ao": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.010043834000000001
+        },
+        "ss:ss.ao.blur": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.0069169999999999995
+        },
+        "ss:ss.island_ui": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.007073333999999999
+        },
+        "ss:ss.ocean_compose": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.008929006
+        },
+        "submit_present": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.2161096
+        },
+        "upload_flush": {
+          "mean_calls": 0.02333334,
+          "mean_ms": 0.1043406
+        },
+        "wait_frame_fence": {
+          "mean_calls": 1.0,
+          "mean_ms": 2.7141080000000004
+        },
+        "wait_image_fence": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.003275666
+        },
+        "ws:ws.base": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.3217836
+        },
+        "ws:ws.ocean": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.127262
+        },
+        "ws:ws.ocean.foam": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.11630340000000002
+        },
+        "ws:ws.ui": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.022080839999999997
+        },
+        "ws:ws.water.distance": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.013178
+        },
+        "ws:ws.water.jfa0": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.012721340000000001
+        },
+        "ws:ws.water.jfa1": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.01164684
+        },
+        "ws:ws.water.jfa10": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.011517
+        },
+        "ws:ws.water.jfa11": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.011144506
+        },
+        "ws:ws.water.jfa2": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.0116135
+        },
+        "ws:ws.water.jfa3": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.01122834
+        },
+        "ws:ws.water.jfa4": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.011491480000000002
+        },
+        "ws:ws.water.jfa5": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.011474840000000002
+        },
+        "ws:ws.water.jfa6": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.01095834
+        },
+        "ws:ws.water.jfa7": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.01087266
+        },
+        "ws:ws.water.jfa8": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.01093
+        },
+        "ws:ws.water.jfa9": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.01138882
+        },
+        "ws:ws.water.mask": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.1705834
+        },
+        "ws:ws.water.seed": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.01825698
+        }
+      },
+      "details": {
+        "draw_calls": {
+          "count": 622,
+          "maximum": 108.0,
+          "mean": 108.0,
+          "p50": 108.0,
+          "p95": 108.0,
+          "p99": 108.0
+        },
+        "frame_ms": {
+          "count": 622,
+          "maximum": 15.7947,
+          "mean": 4.547839871382637,
+          "p50": 4.3858,
+          "p95": 5.960315,
+          "p99": 13.275190999999989
+        },
+        "gpu_frame_ms": {
+          "count": 619,
+          "maximum": 5.97011,
+          "mean": 4.514575702746366,
+          "p50": 4.31181,
+          "p95": 5.247153,
+          "p99": 5.511245800000001
+        },
+        "triangles": {
+          "count": 622,
+          "maximum": 649416.0,
+          "mean": 649415.9549839229,
+          "p50": 649416.0,
+          "p95": 649416.0,
+          "p99": 649416.0
+        }
+      },
+      "gpu": {
+        "frame": {
+          "mean_calls": 120.0,
+          "mean_ms": 4.516042
+        },
+        "output": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.016232120000000003
+        },
+        "ss:ss.ao": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.49840999999999996
+        },
+        "ss:ss.ao.blur": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.3572768
+        },
+        "ss:ss.island_ui": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.01558016
+        },
+        "ss:ss.ocean_compose": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.02136574
+        },
+        "ws:ws.base": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.26933759999999995
+        },
+        "ws:ws.ocean": {
+          "mean_calls": 120.0,
+          "mean_ms": 1.100796
+        },
+        "ws:ws.ocean.foam": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.3207662
+        },
+        "ws:ws.ui": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.007555413999999999
+        },
+        "ws:ws.water.distance": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.05474818
+        },
+        "ws:ws.water.jfa0": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.052790619999999996
+        },
+        "ws:ws.water.jfa1": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.08819884
+        },
+        "ws:ws.water.jfa10": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.1551326
+        },
+        "ws:ws.water.jfa11": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.158034
+        },
+        "ws:ws.water.jfa2": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.23163040000000001
+        },
+        "ws:ws.water.jfa3": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.16438599999999998
+        },
+        "ws:ws.water.jfa4": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.14298280000000002
+        },
+        "ws:ws.water.jfa5": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.148096
+        },
+        "ws:ws.water.jfa6": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.1535026
+        },
+        "ws:ws.water.jfa7": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.1536562
+        },
+        "ws:ws.water.jfa8": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.16109060000000003
+        },
+        "ws:ws.water.jfa9": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.1617032
+        },
+        "ws:ws.water.mask": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.0330986
+        },
+        "ws:ws.water.seed": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.033949
+        }
+      },
+      "summary": {
+        "configuration": "release",
+        "elapsed_seconds": 11.3994398,
+        "feeder_ms": 4.546201999999999,
+        "first_report_seconds": 9.2525057,
+        "private_bytes": 689737728,
+        "process_cpu_seconds": 20.46875,
+        "residents": 50,
+        "samples": 5,
+        "steady_cpu_core_equivalents": 0.3695327584906864,
+        "threads": 25,
+        "wall_ms": 4.549875999999999,
+        "working_set_bytes": 405401600
+      },
+      "system_mean_ms": {
+        "class game::ces_island_resident_system/feed": 0.0674605,
+        "class game::ces_island_resident_system/start": 0.06712865999999999,
+        "class game::ces_ocean_system/feed": 0.12179720000000001,
+        "class gb::ces_actions_system/feed": 0.10696821999999999,
+        "class gb::ces_animation_3d_system/feed": 0.16922500000000001,
+        "class gb::ces_render_system/end": 1.217082,
+        "class gb::ces_render_system/start": 2.770402
+      }
+    },
+    "perf-core-audit-probe-validation-200": {
+      "cpu": {
+        "acquire_fences": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.10622780000000001
+        },
+        "acquire_image": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.01096184
+        },
+        "descriptors": {
+          "mean_calls": 258.0,
+          "mean_ms": 7.083386
+        },
+        "output": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.0638735
+        },
+        "queue_present": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.2019466
+        },
+        "queue_submit": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.17018219999999998
+        },
+        "ss:ss.ao": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.07141084
+        },
+        "ss:ss.ao.blur": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.06169486
+        },
+        "ss:ss.island_ui": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.062502
+        },
+        "ss:ss.ocean_compose": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.06794166
+        },
+        "submit_present": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.3832616
+        },
+        "upload_flush": {
+          "mean_calls": 0.056666680000000004,
+          "mean_ms": 0.12751220000000002
+        },
+        "wait_frame_fence": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.0875702
+        },
+        "wait_image_fence": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.004363334
+        },
+        "ws:ws.base": {
+          "mean_calls": 1.0,
+          "mean_ms": 8.535785999999998
+        },
+        "ws:ws.ocean": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.6100494
+        },
+        "ws:ws.ocean.foam": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.5549598
+        },
+        "ws:ws.ui": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.1793054
+        },
+        "ws:ws.water.distance": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.072583
+        },
+        "ws:ws.water.jfa0": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.08627431999999999
+        },
+        "ws:ws.water.jfa1": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.0832435
+        },
+        "ws:ws.water.jfa10": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.07170586
+        },
+        "ws:ws.water.jfa11": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.07073518
+        },
+        "ws:ws.water.jfa2": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.07792198
+        },
+        "ws:ws.water.jfa3": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.07401231999999999
+        },
+        "ws:ws.water.jfa4": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.07888408
+        },
+        "ws:ws.water.jfa5": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.07255016
+        },
+        "ws:ws.water.jfa6": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.07401617999999999
+        },
+        "ws:ws.water.jfa7": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.07237432
+        },
+        "ws:ws.water.jfa8": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.07150434000000001
+        },
+        "ws:ws.water.jfa9": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.070657
+        },
+        "ws:ws.water.mask": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.6619092
+        },
+        "ws:ws.water.seed": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.10944466
+        }
+      },
+      "details": {
+        "draw_calls": {
+          "count": 621,
+          "maximum": 258.0,
+          "mean": 258.0,
+          "p50": 258.0,
+          "p95": 258.0,
+          "p99": 258.0
+        },
+        "frame_ms": {
+          "count": 622,
+          "maximum": 51.7828,
+          "mean": 14.358749517684894,
+          "p50": 12.950800000000001,
+          "p95": 21.644189999999966,
+          "p99": 31.18702799999999
+        },
+        "gpu_frame_ms": {
+          "count": 619,
+          "maximum": 6.15059,
+          "mean": 4.709222116316637,
+          "p50": 4.58534,
+          "p95": 5.44775,
+          "p99": 5.693101600000001
+        },
+        "triangles": {
+          "count": 621,
+          "maximum": 883414.0,
+          "mean": 883414.0,
+          "p50": 883414.0,
+          "p95": 883414.0,
+          "p99": 883414.0
+        }
+      },
+      "gpu": {
+        "frame": {
+          "mean_calls": 120.0,
+          "mean_ms": 4.7049199999999995
+        },
+        "output": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.0165188
+        },
+        "ss:ss.ao": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.5093938
+        },
+        "ss:ss.ao.blur": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.36948480000000006
+        },
+        "ss:ss.island_ui": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.0158191
+        },
+        "ss:ss.ocean_compose": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.02336426
+        },
+        "ws:ws.base": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.36057079999999997
+        },
+        "ws:ws.ocean": {
+          "mean_calls": 120.0,
+          "mean_ms": 1.138746
+        },
+        "ws:ws.ocean.foam": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.3313528
+        },
+        "ws:ws.ui": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.007113388
+        },
+        "ws:ws.water.distance": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.054359040000000004
+        },
+        "ws:ws.water.jfa0": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.05229398
+        },
+        "ws:ws.water.jfa1": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.08649042
+        },
+        "ws:ws.water.jfa10": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.1557744
+        },
+        "ws:ws.water.jfa11": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.1727418
+        },
+        "ws:ws.water.jfa2": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.2371668
+        },
+        "ws:ws.water.jfa3": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.1589248
+        },
+        "ws:ws.water.jfa4": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.1403152
+        },
+        "ws:ws.water.jfa5": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.1667344
+        },
+        "ws:ws.water.jfa6": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.14647799999999997
+        },
+        "ws:ws.water.jfa7": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.1497482
+        },
+        "ws:ws.water.jfa8": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.1733412
+        },
+        "ws:ws.water.jfa9": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.15888019999999997
+        },
+        "ws:ws.water.mask": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.02964794
+        },
+        "ws:ws.water.seed": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.033704960000000006
+        }
+      },
+      "summary": {
+        "configuration": "release",
+        "elapsed_seconds": 18.0028765,
+        "feeder_ms": 14.391380000000002,
+        "first_report_seconds": 11.131654399999999,
+        "private_bytes": 739577856,
+        "process_cpu_seconds": 29.15625,
+        "residents": 200,
+        "samples": 5,
+        "steady_cpu_core_equivalents": 0.976338651658557,
+        "threads": 26,
+        "wall_ms": 14.399359999999998,
+        "working_set_bytes": 435658752
+      },
+      "system_mean_ms": {
+        "class game::ces_island_resident_system/feed": 0.2977674,
+        "class game::ces_island_resident_system/start": 0.3782666,
+        "class game::ces_ocean_system/feed": 0.15413939999999998,
+        "class gb::ces_actions_system/feed": 0.132979,
+        "class gb::ces_animation_3d_system/feed": 0.6582426000000001,
+        "class gb::ces_render_system/end": 12.4585,
+        "class gb::ces_render_system/start": 0.2774952
+      }
+    },
+    "perf-core-audit-release-0": {
+      "cpu": {},
+      "details": {
+        "draw_calls": null,
+        "frame_ms": null,
+        "gpu_frame_ms": null,
+        "triangles": null
+      },
+      "gpu": {},
+      "summary": {
+        "configuration": "release",
+        "elapsed_seconds": 10.844036,
+        "feeder_ms": 4.608248000000001,
+        "first_report_seconds": 8.7454135,
+        "private_bytes": 709795840,
+        "process_cpu_seconds": 20.5,
+        "residents": 0,
+        "samples": 5,
+        "steady_cpu_core_equivalents": 0.7411974677184191,
+        "threads": 26,
+        "wall_ms": 4.645275999999999,
+        "working_set_bytes": 406081536
+      },
+      "system_mean_ms": {
+        "class game::ces_ocean_system/feed": 0.10586029999999999,
+        "class gb::ces_actions_system/feed": 0.08955270000000001,
+        "class gb::ces_render_system/end": 3.226464,
+        "class gb::ces_render_system/start": 1.154478
+      }
+    },
+    "perf-core-audit-release-200": {
+      "cpu": {},
+      "details": {
+        "draw_calls": null,
+        "frame_ms": null,
+        "gpu_frame_ms": null,
+        "triangles": null
+      },
+      "gpu": {},
+      "summary": {
+        "configuration": "release",
+        "elapsed_seconds": 17.6434145,
+        "feeder_ms": 13.32894,
+        "first_report_seconds": 11.118281999999999,
+        "private_bytes": 736722944,
+        "process_cpu_seconds": 28.59375,
+        "residents": 200,
+        "samples": 5,
+        "steady_cpu_core_equivalents": 0.9612872392537538,
+        "threads": 26,
+        "wall_ms": 13.36906,
+        "working_set_bytes": 436776960
+      },
+      "system_mean_ms": {
+        "class game::ces_island_resident_system/feed": 0.2816656,
+        "class game::ces_island_resident_system/start": 0.369965,
+        "class game::ces_ocean_system/feed": 0.1524914,
+        "class gb::ces_actions_system/feed": 0.1204672,
+        "class gb::ces_animation_3d_system/feed": 0.6396138,
+        "class gb::ces_render_system/end": 11.51536,
+        "class gb::ces_render_system/start": 0.217381
+      }
+    },
+    "perf-core-audit-release-50": {
+      "cpu": {},
+      "details": {
+        "draw_calls": null,
+        "frame_ms": null,
+        "gpu_frame_ms": null,
+        "triangles": null
+      },
+      "gpu": {},
+      "summary": {
+        "configuration": "release",
+        "elapsed_seconds": 12.0916882,
+        "feeder_ms": 5.610826,
+        "first_report_seconds": 9.2162325,
+        "private_bytes": 726999040,
+        "process_cpu_seconds": 23.109375,
+        "residents": 50,
+        "samples": 5,
+        "steady_cpu_core_equivalents": 0.9475993295493242,
+        "threads": 26,
+        "wall_ms": 5.659874,
+        "working_set_bytes": 421236736
+      },
+      "system_mean_ms": {
+        "class game::ces_island_resident_system/feed": 0.0568415,
+        "class game::ces_island_resident_system/start": 0.06824416,
+        "class game::ces_ocean_system/feed": 0.1055029,
+        "class gb::ces_actions_system/feed": 0.0320365,
+        "class gb::ces_animation_3d_system/feed": 0.1552004,
+        "class gb::ces_render_system/end": 5.038545999999999,
+        "class gb::ces_render_system/start": 0.10518933999999999
+      }
+    },
+    "perf-core-audit-restored-200": {
+      "cpu": {},
+      "details": {
+        "draw_calls": null,
+        "frame_ms": null,
+        "frames_after_upload_ms": null,
+        "frames_without_upload_ms": null,
+        "gpu_frame_ms": null,
+        "triangles": null,
+        "upload_call_ms": null,
+        "upload_frame_ms": null
+      },
+      "gpu": {},
+      "summary": {
+        "configuration": "release",
+        "elapsed_seconds": 14.051678899999999,
+        "feeder_ms": 13.672633333333332,
+        "first_report_seconds": 10.8307126,
+        "private_bytes": 742027264,
+        "process_cpu_seconds": 24.71875,
+        "residents": 200,
+        "samples": 3,
+        "steady_cpu_core_equivalents": 0.9721205198224988,
+        "threads": 26,
+        "wall_ms": 13.697000000000001,
+        "working_set_bytes": 436588544
+      },
+      "system_mean_ms": {
+        "class game::ces_island_resident_system/feed": 0.2849176666666667,
+        "class game::ces_island_resident_system/start": 0.332638,
+        "class game::ces_ocean_system/feed": 0.14967666666666668,
+        "class gb::ces_actions_system/feed": 0.12541223333333332,
+        "class gb::ces_animation_3d_system/feed": 0.6379893333333334,
+        "class gb::ces_render_system/end": 11.897733333333335,
+        "class gb::ces_render_system/start": 0.21074799999999996
+      }
+    },
+    "perf-core-audit-spikes-200": {
+      "cpu": {
+        "acquire_fences": {
+          "mean_calls": 1.0,
+          "mean_ms": 1.483007
+        },
+        "acquire_image": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.0023172425454545454
+        },
+        "descriptors": {
+          "mean_calls": 258.0,
+          "mean_ms": 0.29262505454545457
+        },
+        "output": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.00921073909090909
+        },
+        "queue_present": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.13949569090909084
+        },
+        "queue_submit": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.04867725818181817
+        },
+        "ss:ss.ao": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.009212531636363637
+        },
+        "ss:ss.ao.blur": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.006467166727272727
+        },
+        "ss:ss.island_ui": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.006142833272727271
+        },
+        "ss:ss.ocean_compose": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.007990044363636364
+        },
+        "submit_present": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.19211489090909095
+        },
+        "wait_frame_fence": {
+          "mean_calls": 1.0,
+          "mean_ms": 1.4752037090909094
+        },
+        "wait_image_fence": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.0021243638181818185
+        },
+        "ws:ws.base": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.8161642727272728
+        },
+        "ws:ws.ocean": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.12953369090909092
+        },
+        "ws:ws.ocean.foam": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.1109696690909091
+        },
+        "ws:ws.ui": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.02581088181818181
+        },
+        "ws:ws.water.distance": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.015943752727272723
+        },
+        "ws:ws.water.jfa0": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.017700712727272725
+        },
+        "ws:ws.water.jfa1": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.016100150909090914
+        },
+        "ws:ws.water.jfa10": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.015233687272727272
+        },
+        "ws:ws.water.jfa11": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.015000970909090913
+        },
+        "ws:ws.water.jfa2": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.015989278181818178
+        },
+        "ws:ws.water.jfa3": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.015789590909090913
+        },
+        "ws:ws.water.jfa4": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.016036314545454542
+        },
+        "ws:ws.water.jfa5": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.015774649090909094
+        },
+        "ws:ws.water.jfa6": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.015690685454545453
+        },
+        "ws:ws.water.jfa7": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.015193067272727265
+        },
+        "ws:ws.water.jfa8": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.01556064909090909
+        },
+        "ws:ws.water.jfa9": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.015209652727272722
+        },
+        "ws:ws.water.mask": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.16309412727272724
+        },
+        "ws:ws.water.seed": {
+          "mean_calls": 1.0,
+          "mean_ms": 0.022636429090909092
+        }
+      },
+      "details": {
+        "draw_calls": {
+          "count": 6654,
+          "maximum": 258.0,
+          "mean": 258.0,
+          "p50": 258.0,
+          "p95": 258.0,
+          "p99": 258.0
+        },
+        "frame_ms": {
+          "count": 6655,
+          "maximum": 21.7089,
+          "mean": 4.626537490608573,
+          "p50": 4.4661,
+          "p95": 6.139349999999999,
+          "p99": 7.439134000000003
+        },
+        "frames_after_upload_ms": null,
+        "frames_without_upload_ms": {
+          "count": 6655,
+          "maximum": 21.7089,
+          "mean": 4.626537490608573,
+          "p50": 4.4661,
+          "p95": 6.139349999999999,
+          "p99": 7.439134000000003
+        },
+        "gpu_frame_ms": {
+          "count": 6651,
+          "maximum": 5.44413,
+          "mean": 4.582079500826946,
+          "p50": 4.47306,
+          "p95": 5.12579,
+          "p99": 5.33584
+        },
+        "triangles": {
+          "count": 6654,
+          "maximum": 883398.0,
+          "mean": 883398.0,
+          "p50": 883398.0,
+          "p95": 883398.0,
+          "p99": 883398.0
+        },
+        "upload_call_ms": null,
+        "upload_frame_ms": null
+      },
+      "gpu": {
+        "frame": {
+          "mean_calls": 120.0,
+          "mean_ms": 4.581790000000002
+        },
+        "output": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.01623132545454545
+        },
+        "ss:ss.ao": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.4908414181818183
+        },
+        "ss:ss.ao.blur": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.3586218363636364
+        },
+        "ss:ss.island_ui": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.015678676363636363
+        },
+        "ss:ss.ocean_compose": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.02210521636363636
+        },
+        "ws:ws.base": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.3558201454545456
+        },
+        "ws:ws.ocean": {
+          "mean_calls": 120.0,
+          "mean_ms": 1.1044307272727276
+        },
+        "ws:ws.ocean.foam": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.3233565454545455
+        },
+        "ws:ws.ui": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.007388160363636362
+        },
+        "ws:ws.water.distance": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.05590016181818181
+        },
+        "ws:ws.water.jfa0": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.05280147818181818
+        },
+        "ws:ws.water.jfa1": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.08807020727272728
+        },
+        "ws:ws.water.jfa10": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.15743503636363637
+        },
+        "ws:ws.water.jfa11": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.153397
+        },
+        "ws:ws.water.jfa2": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.22115299999999993
+        },
+        "ws:ws.water.jfa3": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.16405612727272728
+        },
+        "ws:ws.water.jfa4": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.1424841636363636
+        },
+        "ws:ws.water.jfa5": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.14809340000000001
+        },
+        "ws:ws.water.jfa6": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.14855214545454545
+        },
+        "ws:ws.water.jfa7": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.15201014545454541
+        },
+        "ws:ws.water.jfa8": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.16107516363636357
+        },
+        "ws:ws.water.jfa9": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.1615577454545454
+        },
+        "ws:ws.water.mask": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.03023680727272727
+        },
+        "ws:ws.water.seed": {
+          "mean_calls": 120.0,
+          "mean_ms": 0.03467248545454546
+        }
+      },
+      "summary": {
+        "configuration": "release",
+        "elapsed_seconds": 39.2096824,
+        "feeder_ms": 4.620390727272724,
+        "first_report_seconds": 9.009993399999999,
+        "private_bytes": 699355136,
+        "process_cpu_seconds": 40.0625,
+        "residents": 200,
+        "samples": 55,
+        "steady_cpu_core_equivalents": 0.6464244999500849,
+        "threads": 22,
+        "wall_ms": 4.626397272727272,
+        "working_set_bytes": 409059328
+      },
+      "system_mean_ms": {
+        "class game::ces_island_resident_system/feed": 0.22345947272727273,
+        "class game::ces_island_resident_system/start": 0.3588941636363635,
+        "class game::ces_ocean_system/feed": 0.10863519636363636,
+        "class gb::ces_animation_3d_system/feed": 0.6399585454545454,
+        "class gb::ces_render_system/end": 1.7343496363636368,
+        "class gb::ces_render_system/start": 1.5222603818181815
+      }
+    }
+  },
+  "date": "2026-10-10",
+  "hardware": {
+    "cpu": "Intel Core i3-12100F",
+    "driver": "591.86",
+    "gpu": "NVIDIA RTX 3060 Ti 8 GiB"
+  },
+  "head": "ad4ba71623ed7e3521e54313550755216c636dde",
+  "system_mean_note": "Existing system log filters block means <=0.05 ms; missing blocks counted as zero, so partly omitted categories have lower-bound means."
+}

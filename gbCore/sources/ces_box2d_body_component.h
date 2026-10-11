@@ -91,13 +91,13 @@ namespace gb
         std::property_rw<ui32> body_entity_guid;
         
         void add_shape_parameters(const box2d_shape_parameters& parameters);
-        std::vector<box2d_shape_parameters> get_shapes_parameters() const;
+        const std::vector<box2d_shape_parameters>& get_shapes_parameters() const;
         
         std::property_rw<bool> is_applied;
         std::property_rw<bool> enabled;
         
         void add_to_contact_ignore_list(const ces_entity_shared_ptr& entity);
-        std::list<ces_entity_weak_ptr> get_contact_ignore_list() const;
+        const std::list<ces_entity_weak_ptr>& get_contact_ignore_list() const;
         
         void set_deferred_box2d_component_setup(const ces_entity_shared_ptr& entity,
                                                 b2BodyType body = b2BodyType::b2_dynamicBody,

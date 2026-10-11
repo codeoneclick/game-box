@@ -120,9 +120,13 @@ namespace gb
                 *status = e_serializer_status_failure;
                 return nullptr;
             }
-            std::vector<ui8> data(static_cast<size_t>(size));
-            filestream->read(reinterpret_cast<char*>(data.data()), static_cast<std::streamsize>(size));
-            resource_serializer::close_stream(filestream);
+            ufbx_stream stream = {};
+            stream.user = filestream.get();
+            stream.read_fn = [](void* user, void* data, size_t bytes) -> size_t {
+                auto& input = *static_cast<std::istream*>(user);
+                input.read(static_cast<char*>(data), static_cast<std::streamsize>(bytes));
+                return input.bad() ? SIZE_MAX : static_cast<size_t>(input.gcount());
+            };
 
             ufbx_load_opts options = {};
             options.generate_missing_normals = true;
@@ -137,7 +141,8 @@ namespace gb
             options.geometry_transform_handling = UFBX_GEOMETRY_TRANSFORM_HANDLING_MODIFY_GEOMETRY;
 
             ufbx_error error = {};
-            const auto scene = ufbx_load_memory(data.data(), data.size(), &options, &error);
+            const auto scene = ufbx_load_stream(&stream, &options, &error);
+            resource_serializer::close_stream(filestream);
             if(!scene)
             {
                 std::cerr<<"unable to load fbx resource: "<<filename<<". "<<std::string(error.description.data, error.description.length)<<std::endl;

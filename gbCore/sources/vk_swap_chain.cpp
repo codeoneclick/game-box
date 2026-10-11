@@ -16,6 +16,24 @@ namespace gb
 
 	}
 
+	void vk_swap_chain::destroy()
+	{
+		const auto device = vk_device::get_instance()->get_logical_device();
+		if (device == VK_NULL_HANDLE) return;
+		if (m_pipeline_layout) vkDestroyPipelineLayout(device, m_pipeline_layout, nullptr);
+		if (m_render_pass) vkDestroyRenderPass(device, m_render_pass, nullptr);
+		for (const auto& buffer : m_buffers)
+		{
+			if (buffer.m_view) vkDestroyImageView(device, buffer.m_view, nullptr);
+		}
+		if (m_swap_chain) vkDestroySwapchainKHR(device, m_swap_chain, nullptr);
+		m_pipeline_layout = VK_NULL_HANDLE;
+		m_render_pass = VK_NULL_HANDLE;
+		m_swap_chain = VK_NULL_HANDLE;
+		m_buffers.clear();
+		m_images.clear();
+	}
+
 	std::shared_ptr<vk_swap_chain> vk_swap_chain::get_instance()
 	{
 		if (!m_instance)

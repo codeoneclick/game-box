@@ -14,6 +14,7 @@
 #if USED_GRAPHICS_API == VULKAN_API
 
 #include <regex>
+#include <mutex>
 
 #endif
 
@@ -21,9 +22,61 @@ namespace gb
 {
 #if USED_GRAPHICS_API == VULKAN_API
 
+    namespace
+    {
+        struct converted_shader
+        {
+            std::string source;
+            std::vector<shader_custom_uniform_desc> uniforms;
+        };
+        std::mutex g_conversion_mutex;
+        std::map<std::pair<ui32, std::string>, converted_shader> g_converted_shaders;
+        size_t g_conversion_bytes = 0;
+        const size_t k_shader_cache_bytes = 16 * 1024 * 1024;
+
+        std::shared_ptr<const std::vector<ui32>> compile_spirv(const std::string& source, ui32 shader_type, std::string* message)
+        {
+            static std::mutex mutex;
+            static std::map<std::pair<ui32, std::string>, std::shared_ptr<const std::vector<ui32>>> cache;
+            static size_t bytes = 0;
+            const auto key = std::make_pair(shader_type, source);
+            std::lock_guard<std::mutex> guard(mutex);
+            const auto found = cache.find(key);
+            if(found != cache.end()) return found->second;
+            // Full assembled source and stage avoid hash collisions/stale binaries.
+            thread_local shaderc::Compiler compiler;
+            const auto module = compiler.CompileGlslToSpv(source.c_str(), source.length(),
+                shader_type == gl::constant::vertex_shader ? shaderc_glsl_vertex_shader : shaderc_glsl_fragment_shader, "shader");
+            if(module.GetCompilationStatus() != shaderc_compilation_status_success)
+            {
+                if(message) *message = module.GetErrorMessage();
+                return nullptr;
+            }
+            const auto result = std::make_shared<const std::vector<ui32>>(module.cbegin(), module.cend());
+            const auto size = source.size() + result->size() * sizeof(ui32);
+            if(size <= k_shader_cache_bytes)
+            {
+                if(bytes + size > k_shader_cache_bytes) { cache.clear(); bytes = 0; }
+                cache.emplace(key, result);
+                bytes += size;
+            }
+            return result;
+        }
+    }
+
 	std::string shader_compiler_glsl::convert_to_vulkan_source(const std::string& source_code, ui32 binding, std::vector<shader_custom_uniform_desc>* uniforms)
 	{
-		const std::regex uniform_expression("(?:^|\\r?\\n)[ \\t]*uniform[ \\t]+(mat4|mat3|vec4|vec3|vec2|float|int)[ \\t]+([A-Za-z_][A-Za-z0-9_]*)(?:[ \\t]*\\[[ \\t]*(\\d+)[ \\t]*\\])?[ \\t]*;[ \\t]*(?=\\r?\\n|$)");
+        const auto key = std::make_pair(binding, source_code);
+        {
+            std::lock_guard<std::mutex> guard(g_conversion_mutex);
+            const auto cached = g_converted_shaders.find(key);
+            if(cached != g_converted_shaders.end())
+            {
+                if(uniforms) *uniforms = cached->second.uniforms;
+                return cached->second.source;
+            }
+        }
+		static const std::regex uniform_expression("(?:^|\\r?\\n)[ \\t]*uniform[ \\t]+(mat4|mat3|vec4|vec3|vec2|float|int)[ \\t]+([A-Za-z_][A-Za-z0-9_]*)(?:[ \\t]*\\[[ \\t]*(\\d+)[ \\t]*\\])?[ \\t]*;[ \\t]*(?=\\r?\\n|$)");
 		std::vector<shader_custom_uniform_desc> descriptions;
 		std::string uniform_block;
 		ui32 offset = 0;
@@ -83,16 +136,34 @@ namespace gb
 		{
 			*uniforms = descriptions;
 		}
-		if(descriptions.empty())
-		{
-			return source_code;
-		}
-
-		std::string result = std::regex_replace(source_code, uniform_expression, "");
+		std::string result = descriptions.empty() ? source_code : std::regex_replace(source_code, uniform_expression, "");
 		std::string block = "layout(std140, binding = ";
 		block.append(std::to_string(binding)).append(") uniform gb_custom_uniforms\n{\n").append(uniform_block).append("};\n");
-		return block.append(result);
+        if(!descriptions.empty()) result = block.append(result);
+        const auto bytes = source_code.size() + result.size() + descriptions.size() * sizeof(shader_custom_uniform_desc);
+        if(bytes <= k_shader_cache_bytes)
+        {
+            std::lock_guard<std::mutex> guard(g_conversion_mutex);
+            if(g_conversion_bytes + bytes > k_shader_cache_bytes) { g_converted_shaders.clear(); g_conversion_bytes = 0; }
+            if(g_converted_shaders.emplace(key, converted_shader{result, descriptions}).second) g_conversion_bytes += bytes;
+        }
+        return result;
 	}
+
+    std::string shader_compiler_glsl::make_vulkan_source(const std::string& source_code, ui32 shader_type)
+    {
+        std::string source = "#version 450\n";
+        if(source_code.find("GB_SAMPLER_02_CUBE") != std::string::npos) source.append("#define GB_SAMPLER_02_CUBE\n");
+        source.append("#define VULKAN_API\n#define USE_LAYOUTS\n#define USE_BINDINGS\n");
+        source.append(shader_type == gl::constant::vertex_shader ? m_vs_shader_header : m_fs_shader_header);
+        source.append(convert_to_vulkan_source(source_code, shader_type == gl::constant::vertex_shader ? 11 : 12));
+        return source;
+    }
+
+    bool shader_compiler_glsl::precompile(const std::string& source_code, ui32 shader_type, std::string* out_message)
+    {
+        return compile_spirv(make_vulkan_source(source_code, shader_type), shader_type, out_message) != nullptr;
+    }
 
 #endif
 
@@ -403,27 +474,20 @@ return get_mat_mvp() * vec4(a_position, 1.0); \n\
 		std::string source_code_spv = define;
 		source_code_spv.append(shader_compiler_glsl::convert_to_vulkan_source(source_code, shader_type == gl::constant::vertex_shader ? 11 : 12));
 
-		shaderc::Compiler compiler;
-		shaderc::SpvCompilationResult module = compiler.CompileGlslToSpv(source_code_spv.c_str(), source_code_spv.length(), shader_type == gl::constant::vertex_shader ? shaderc_glsl_vertex_shader : shaderc_glsl_fragment_shader, "shader");
-		if (module.GetCompilationStatus() != shaderc_compilation_status_success)
+        const auto spirv = compile_spirv(source_code_spv, shader_type, out_message);
+		if (!spirv)
 		{
 			if (out_success)
 			{
 				*out_success = false;
 			}
-			if (out_message)
-			{
-				*out_message = module.GetErrorMessage();
-			}
 		}
 		else
 		{
-			std::vector<ui32> spirv = { module.cbegin(), module.cend() };
-
 			VkShaderModuleCreateInfo create_info = {};
 			create_info.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
-			create_info.codeSize = spirv.size() * 4;
-			create_info.pCode = (ui32*)spirv.data();
+			create_info.codeSize = spirv->size() * 4;
+			create_info.pCode = spirv->data();
 
 			VkDevice device = vk_device::get_instance()->get_logical_device();
 			VkShaderModule shader_module;

@@ -16,6 +16,11 @@ namespace gb
         
     }
     
+    const std::unordered_map<std::string, std::shared_ptr<shader_uniform>>& ces_render_technique_uniforms_component::shader_uniforms::get_uniforms_ref() const
+    {
+        return m_uniforms;
+    }
+
     std::unordered_map<std::string, std::shared_ptr<shader_uniform>> ces_render_technique_uniforms_component::shader_uniforms::get_uniforms() const
     {
         return m_uniforms;

@@ -24,6 +24,40 @@
                 "cwd": "${workspaceFolder}"
             },
             "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "Build gbDemo (Release x64)",
+            "type": "process",
+            "command": "powershell.exe",
+            "args": [
+                "-NoProfile",
+                "-ExecutionPolicy",
+                "Bypass",
+                "-File",
+                "${workspaceFolder}\\gbScripts\\build-gbDemo.ps1",
+                "-Configuration",
+                "release-client",
+                "-Platform",
+                "x64"
+            ],
+            "group": "build",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "Build and Run gbDemo (Release x64)",
+            "type": "process",
+            "command": "${workspaceFolder}\\gbDemo\\output\\release\\x64\\gb_demo.exe",
+            "dependsOn": "Build gbDemo (Release x64)",
+            "options": {
+                "cwd": "${workspaceFolder}\\gbDemo"
+            },
+            "presentation": {
+                "panel": "dedicated"
+            },
+            "problemMatcher": []
         }
     ]
 }

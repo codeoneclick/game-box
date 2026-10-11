@@ -35,6 +35,9 @@ namespace gb
         
         static std::string m_vs_shader_header;
         static std::string m_fs_shader_header;
+#if USED_GRAPHICS_API == VULKAN_API
+        static std::string make_vulkan_source(const std::string& source_code, ui32 shader_type);
+#endif
         
     public:
         
@@ -45,6 +48,8 @@ namespace gb
 
 		static VkPipelineShaderStageCreateInfo compile(const std::string& source_code, ui32 shader_type, std::string* out_message = nullptr, bool* out_success = nullptr);
 		static std::string convert_to_vulkan_source(const std::string& source_code, ui32 binding, std::vector<shader_custom_uniform_desc>* uniforms = nullptr);
+        // CPU-only preparation. Native modules are created during commit.
+        static bool precompile(const std::string& source_code, ui32 shader_type, std::string* out_message = nullptr);
 
 #else
 

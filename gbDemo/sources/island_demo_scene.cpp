@@ -3,6 +3,7 @@
 #include "terrain_mesh_builder.h"
 #include "ocean_mesh_builder.h"
 #include "ocean_shader_uniforms.h"
+#include "ss_render_technique_custom_uniforms.h"
 #include "ces_ocean_system.h"
 #include "ces_transformation_3d_component.h"
 #include "ocean_demo_props.h"
@@ -10,6 +11,12 @@
 #include "island_resident_demo.h"
 #include "ces_island_resident_system.h"
 #include "camera_2d.h"
+#include "label.h"
+#include "ces_action_component.h"
+#include "ces_transformation_2d_component.h"
+#include "render_statistics.h"
+#include <sstream>
+#include <iomanip>
 #include "camera_3d.h"
 #include "ces_geometry_3d_component.h"
 #include "configuration_accessor.h"
@@ -42,7 +49,8 @@ namespace game
             float m_yaw = 45.f;
             float m_pitch = 55.f;
             float m_radius = 245.f;
-            float m_min_radius = 35.f;
+            float m_min_radius = 15.f;
+            float m_max_radius = 700.f;
             glm::vec3 m_target = glm::vec3(-24.f, 6.f, 24.f);
 
             bool cursor_ray(const glm::ivec2& point, glm::ray& ray)
@@ -174,7 +182,7 @@ namespace game
             void on_gr_scrolled(const glm::ivec2& point, const glm::ivec2&, f32 delta) override
             {
                 if (!std::isfinite(delta) || delta==0.f) return;
-                m_radius=glm::clamp(m_radius*std::exp(-delta*.12f),m_min_radius,700.f);
+                m_radius=glm::clamp(m_radius*std::exp(-delta*.12f), m_min_radius, m_max_radius);
                 update_camera();
                 // Rebase an active grab after zoom so the next drag cannot jump.
                 if(m_is_panning) {
@@ -235,8 +243,16 @@ namespace game
     void island_demo_scene::create()
     {
         gb::scene_graph::create();
-        auto field_debug=add_component<gb::ces_render_technique_uniforms_component>()->construct_uniforms<ocean_field_debug_uniforms>(gb::ces_render_technique_uniforms_component::e_shader_uniform_type_fragment,"compose");
-        if(const char* value=std::getenv("GB_OCEAN_FIELD_VIEW"))field_debug->set(glm::vec4(std::atoi(value),0,0,0),"field_debug");
+        auto technique_uniforms=add_component<gb::ces_render_technique_uniforms_component>();
+        auto field_debug=technique_uniforms->construct_uniforms<ocean_field_debug_uniforms>(gb::ces_render_technique_uniforms_component::e_shader_uniform_type_fragment,"compose");
+        glm::vec4 ss_debug(0.f);
+        if(const char* value=std::getenv("GB_OCEAN_FIELD_VIEW"))ss_debug.x=static_cast<float>(std::atoi(value));
+        if(const char* value=std::getenv("GB_SSAO_DEBUG"))ss_debug.y=static_cast<float>(std::atoi(value));
+        field_debug->set(ss_debug,"field_debug");
+        auto ao=technique_uniforms->construct_uniforms<ssao_shader_uniforms>(gb::ces_render_technique_uniforms_component::e_shader_uniform_type_fragment,"ss.ao");
+        float ao_strength=1.2f;
+        if(const char* value=std::getenv("GB_SSAO"))if(std::atoi(value)==0)ao_strength=0.f;
+        ao->set(glm::vec4(3.f,.06f,ao_strength,1.f),"ao_params");
         terrain_config config;
         const char* debug=std::getenv("GB_ISLAND_LAYER_COLORS");
         config.debug_layer_colors=debug && std::string(debug)=="1";
@@ -300,15 +316,50 @@ namespace game
 
         glm::vec3 resident_focus(-62.f,1.45f,74.f);
         try {
-            auto resident=create_island_resident_demo(get_fabricator(),terrain_mesh,config.shore_height);
-            resident_focus=resident.focus;add_child(resident.shape);get_transition()->add_system(resident.system);
+            auto resident=create_island_resident_demo(get_fabricator(),terrain_mesh,config);
+            resident_focus=resident.focus;for(const auto& shape:resident.shapes)add_child(shape);
+            get_transition()->add_system(resident.system);
             m_resident_listener=resident.input;
         } catch(const std::exception& error){std::cerr<<"Resident setup failed: "<<error.what()<<std::endl;}
         const glm::ivec2 resolution=get_transition()->get_window()->get_resolution_size_in_points();
         set_camera_2d(std::make_shared<gb::camera_2d>(resolution.x,resolution.y));
-        // A distant overview needs a suitably distant near plane for depth precision.
+        // Native engine labels: screen-space HUD, updated at 4 Hz to avoid
+        // rebuilding the dynamic font meshes every frame.
+        auto hud=gb::ces_entity::construct<gb::ces_entity>();
+        hud->tag="island.statistics";
+        std::array<gb::label_shared_ptr,3> labels;
+        const std::array<std::string,3> initial={"FPS: --", "Polygons/frame: --", "Draw calls/frame: --"};
+        for(size_t i=0;i<labels.size();++i){
+            labels[i]=get_fabricator()->create_label_2d("button_label.xml");
+            labels[i]->font_name="boogie_nights.TTF";
+            labels[i]->font_size=18.f;
+            labels[i]->font_color=glm::u8vec4(255);
+            labels[i]->text=initial[i];
+            // The renderer keys 2D entities by their local z order. Keep each
+            // label unique and inside the camera's depth range.
+            labels[i]->get_component<gb::ces_transformation_2d_component>()->set_z_order(-.5f+i*.001f);
+            labels[i]->get_component<gb::ces_transformation_2d_component>()->set_is_in_camera_space(false);
+            labels[i]->position=glm::vec2(resolution.x-18.f-labels[i]->get_content_size().x,18.f+i*25.f);
+            hud->add_child(labels[i]);
+        }
+        auto action=hud->add_component<gb::ces_action_component>();
+        action->set_update_callback([labels,resolution,elapsed=0.f](const gb::ces_entity_shared_ptr&,float dt) mutable {
+            elapsed+=dt;
+            if(elapsed<.25f)return;
+            elapsed=0.f;
+            const auto stats=gb::render_statistics::last_frame();
+            std::ostringstream fps;fps<<"FPS: "<<std::fixed<<std::setprecision(1)<<stats.fps;
+            const std::array<std::string,3> lines={fps.str(),"Polygons/frame: "+std::to_string(stats.triangles),"Draw calls/frame: "+std::to_string(stats.draw_calls)};
+            for(size_t i=0;i<labels.size();++i){
+                if(static_cast<std::string>(labels[i]->text)!=lines[i])labels[i]->text=lines[i];
+                labels[i]->position=glm::vec2(resolution.x-18.f-labels[i]->get_content_size().x,18.f+i*25.f);
+            }
+            if(std::getenv("GB_HUD_DEBUG"))std::cout<<"HUD fps="<<stats.fps<<" triangles="<<stats.triangles<<" draws="<<stats.draw_calls<<std::endl;
+        });
+        add_child(hud);
+        // Keep foreground terrain visible at minimum orbit radius and low pitch.
         const bool resident_inspect=std::getenv("GB_RESIDENT_INSPECT")&&std::string(std::getenv("GB_RESIDENT_INSPECT"))=="1";
-        auto camera=std::make_shared<gb::camera_3d>(60.f,resident_inspect?.1f:10.f,1200.f,glm::ivec4(0,0,resolution.x,resolution.y),true);
+        auto camera=std::make_shared<gb::camera_3d>(60.f,resident_inspect?.1f:.5f,1200.f,glm::ivec4(0,0,resolution.x,resolution.y),true);
         set_camera_3d(camera);
         m_orbit_listener = std::make_shared<orbit_camera_input>(camera, terrain_mesh, config.water_y,resident_focus);
         const auto input_context = get_transition()->get_input_context();

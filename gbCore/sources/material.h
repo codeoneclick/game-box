@@ -243,6 +243,9 @@ namespace gb
         static material_shared_ptr construct(const std::shared_ptr<material_configuration>& configuration);
         
         static std::shared_ptr<material_cached_parameters> get_cached_parameters();
+
+        // Drop cached GPU references before context teardown; keep state storage valid.
+        static void clear_cached_resources();
         
         static void set_shader(const material_shared_ptr& material,
                                const std::shared_ptr<material_configuration>& configuration,

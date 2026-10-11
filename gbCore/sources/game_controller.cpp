@@ -15,6 +15,9 @@
 #include "input_context.h"
 #include "configuration_accessor.h"
 #include "resource_accessor.h"
+#if USED_GRAPHICS_API == VULKAN_API
+#include "vk_device.h"
+#endif
 
 namespace gb
 {
@@ -64,7 +67,25 @@ namespace gb
     
     game_controller::~game_controller(void)
     {
+#if USED_GRAPHICS_API == VULKAN_API
+        // Teardown may release assets referenced by the last submitted frame.
+        // This wait is once per controller shutdown, never on the frame path.
+        const auto device = vk_device::get_instance()->get_logical_device();
+        if(device != VK_NULL_HANDLE) vkDeviceWaitIdle(device);
+#endif
+        if(m_current_transition) m_current_transition->on_deactivated();
+        m_current_transition.reset();
         m_transitions.clear();
+        remove_listener_from_game_loop(m_resource_accessor);
+        // Release GPU resources while this controller still owns its context.
+        m_resource_accessor.reset();
+        m_configuration_accessor.reset();
+#if USED_GRAPHICS_API == VULKAN_API
+        // The global current-context registration must not defer native/cache
+        // cleanup until cross-translation-unit static destruction.
+        graphics_context::release_current_context(m_graphics_context);
+        m_graphics_context.reset();
+#endif
     }
     
     void game_controller::add_transition(const std::shared_ptr<game_transition>& transition)

@@ -9,6 +9,8 @@ namespace game {
         std::vector<uint8_t> walkable;
         std::vector<std::array<resident_point,3>> triangles;
         std::vector<std::vector<size_t>> cell_triangles;
+        // Certified interior cells. Empty keeps the exact triangle-query path.
+        std::vector<uint8_t> solid_cells;
         bool surface_supports(resident_point) const;
         bool is_safe(resident_point) const;
         bool segment_is_safe(resident_point,resident_point) const;

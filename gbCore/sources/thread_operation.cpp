@@ -32,11 +32,13 @@ namespace gb
     
     void thread_operation::set_execution_callback(std::function<void()> callback)
     {
+        std::lock_guard<std::recursive_mutex> guard(m_mutex);
         m_execution_callback = callback;
     }
     
     void thread_operation::set_cancel_callback(std::function<void()> callback)
     {
+        std::lock_guard<std::recursive_mutex> guard(m_mutex);
         m_cancel_callback = callback;
     }
     
@@ -59,31 +61,43 @@ namespace gb
     
     bool thread_operation::pop_operation()
     {
+        return pop_operation(next_operation());
+    }
+
+    bool thread_operation::pop_operation(const thread_operation_shared_ptr& expected)
+    {
         std::lock_guard<std::recursive_mutex> guard(m_mutex);
         if(!thread_operation::is_queue_empty())
         {
             thread_operation_shared_ptr operation = m_dependecies.front();
-            if(operation->pop_operation())
+            if(operation->pop_operation(expected))
             {
                 m_dependecies.pop_front();
             }
         }
         else
         {
-            return true;
+            // Another root can have consumed a shared leaf already. Never
+            // remove the new front dependency using a stale completed leaf.
+            return shared_from_this() == expected;
         }
         return false;
     }
     
     void thread_operation::execute()
     {
-        assert(m_execution_callback);
-        if(m_execution_callback)
+        std::function<void()> callback;
         {
-            m_status |= e_thread_operation_status_executed;
-            m_execution_callback();
-            m_status |= e_thread_operation_status_completed;
+            std::lock_guard<std::recursive_mutex> guard(m_mutex);
+            const auto status = m_status.load();
+            if(status & (e_thread_operation_status_executed | e_thread_operation_status_canceled)) return;
+            assert(m_execution_callback);
+            callback = m_execution_callback;
+            m_status.fetch_or(e_thread_operation_status_executed);
         }
+        try { if(callback) callback(); }
+        catch(...) { m_status.fetch_or(e_thread_operation_status_completed); throw; }
+        m_status.fetch_or(e_thread_operation_status_completed);
     }
     
     void thread_operation::add_to_execution_queue()
@@ -93,34 +107,33 @@ namespace gb
     
     void thread_operation::cancel()
     {
-        for(const auto& operation : m_dependecies)
+        std::deque<thread_operation_shared_ptr> dependencies;
+        std::function<void()> callback;
         {
-            operation->cancel();
+            std::lock_guard<std::recursive_mutex> guard(m_mutex);
+            if(m_status.load() & e_thread_operation_status_canceled) return;
+            m_status.fetch_or(e_thread_operation_status_canceled);
+            dependencies = m_dependecies;
+            callback = m_cancel_callback;
+            if(!is_executed()) m_status.fetch_or(e_thread_operation_status_completed);
         }
-        if(m_cancel_callback)
-        {
-            m_cancel_callback();
-        }
-        if(!thread_operation::is_executed())
-        {
-            m_status |= e_thread_operation_status_completed;
-        }
-        m_status |= e_thread_operation_status_canceled;
+        for(const auto& operation : dependencies) operation->cancel();
+        if(callback) callback();
     }
     
     bool thread_operation::is_executed() const
     {
-        return m_status & e_thread_operation_status_executed;
+        return m_status.load() & e_thread_operation_status_executed;
     }
     
     bool thread_operation::is_canceled() const
     {
-        return m_status & e_thread_operation_status_canceled;
+        return m_status.load() & e_thread_operation_status_canceled;
     }
     
     bool thread_operation::is_completed() const
     {
-        return m_status & e_thread_operation_status_completed;
+        return m_status.load() & e_thread_operation_status_completed;
     }
     
     bool thread_operation::is_queue_empty() const

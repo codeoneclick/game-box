@@ -19,6 +19,10 @@
 #include "glyph_configuration.h"
 #include "shape_3d_configuration.h"
 #include "animation_3d_sequence_configuration.h"
+#include "animation_3d_retargeter.h"
+#include "bone_3d.h"
+#include "vbo.h"
+#include <stdexcept>
 #include "omni_deferred_light_source_3d_configuration.h"
 #include "custom_mesh_deferred_light_source_3d_configuration.h"
 #include "particle_emitter_configuration.h"
@@ -66,6 +70,7 @@ namespace gb
     
     void scene_fabricator::set_resource_accessor(const resource_accessor_shared_ptr& resource_accessor)
     {
+        if(m_resource_accessor != resource_accessor) m_prepared_animation_sequences.clear();
         m_resource_accessor = resource_accessor;
     }
     
@@ -145,11 +150,21 @@ namespace gb
             
             i32 animation_start_index = animation_3d_sequence_configuration->get_start_index();
             i32 animation_end_index = animation_3d_sequence_configuration->get_end_index();
-            if (animation_sequence->get_num_frames() > animation_start_index &&
+            const auto clip_name = animation_3d_sequence_configuration->get_animation_name();
+            const prepared_animation_key prepared_key(mesh, animation_sequence, animation_start_index, animation_end_index, clip_name);
+            const auto prepared = m_prepared_animation_sequences.find(prepared_key);
+            if(prepared != m_prepared_animation_sequences.end())
+            {
+                // Reuse before frame slicing, target rig construction/comparison,
+                // sole extraction and retarget preparation for another entity.
+                animation_sequence = prepared->second;
+            }
+            else if (animation_start_index >= 0 && animation_sequence->get_num_frames() > animation_start_index &&
                 animation_sequence->get_num_frames() > animation_end_index &&
                 animation_start_index <= animation_end_index)
             {
                 std::vector<frame_3d_data_shared_ptr> frames;
+                frames.reserve(static_cast<size_t>(animation_end_index - animation_start_index + 1));
                 for (i32 i = animation_start_index; i <= animation_end_index; ++i)
                 {
                     frames.push_back(animation_sequence->get_frame(i));
@@ -157,13 +172,73 @@ namespace gb
                 std::stringstream string_stream_guid;
                 string_stream_guid<<animation_sequence->get_guid()<<"_"<<animation_3d_sequence_configuration->get_start_index()<<"_"<<animation_3d_sequence_configuration->get_end_index();
                 
-                const auto sequence_data = std::make_shared<sequence_3d_transfering_data>(animation_3d_sequence_configuration->get_animation_name(), animation_sequence->get_animation_fps(), frames);
-                animation_sequence = animation_3d_sequence::construct(string_stream_guid.str(), sequence_data);
-                
+                auto rig=animation_sequence->get_rig();
+                auto target=std::make_shared<animation_3d_rig>();
+                const auto& bones=mesh->get_skeleton_data()->get_bones_raw_data();
+                const auto bindpose=mesh->get_bindpose_data()->get_frame(0);
+                target->bones.resize(bones.size());
+                for(const auto& bone:bones) {
+                    int i=bone->get_bone_id();
+                    if(i<0||i>=static_cast<int>(bones.size()))throw std::runtime_error("Invalid target bone ID");
+                    target->bones[i]={bone->get_bone_name(),bone->get_bone_parent_id(),
+                        glm::translate(glm::mat4(1.f),bindpose->get_position(i))*glm::mat4_cast(bindpose->get_rotation(i))*glm::scale(glm::mat4(1.f),bindpose->get_scale(i))};
+                }
+                bool same=rig && rig->bones.size()==target->bones.size();
+                if(same)for(size_t i=0;i<rig->bones.size();++i) {
+                    if(rig->bones[i].name!=target->bones[i].name || rig->bones[i].parent!=target->bones[i].parent){same=false;break;}
+                    for(int c=0;c<4;++c)for(int row=0;row<4;++row)
+                        if(std::abs(rig->bones[i].rest[c][row]-target->bones[i].rest[c][row])>.0001f)same=false;
+                }
+                if(rig && !same) {
+                    const std::string key=mesh->get_guid()+"|"+string_stream_guid.str()+"|"+clip_name+"|humanoid.inplace.v1";
+                        auto target_profile=make_humanoid_profile(*target);
+                        std::vector<std::pair<int,glm::vec3>> soles;
+                        // Commit releases raw transfer data; the vertex declaration
+                        // keeps the CPU PT4B copy used by the skinned mesh.
+                        const auto buffer=mesh->get_vbo();
+                        const auto vertices=buffer->lock<vbo::vertex_attribute_PT4B>();
+                        for(ui32 i=0;i<buffer->get_used_size();++i) {
+                            const auto& v=vertices[i];
+                            // A pitched boot can contact the ground above its
+                            // rest-pose sole; include its complete rigid foot skin.
+                            for(int j=0;j<4;++j) {
+                                const int bone=v.m_bone_ids[j];
+                                if((bone==target_profile.indices[12]||bone==target_profile.indices[15])&&v.m_bone_weights[j]==255)
+                                    soles.emplace_back(bone,v.m_position);
+                            }
+                        }
+                        animation_3d_retargeter transfer(*rig,*target,make_humanoid_profile(*rig),target_profile,soles);
+                        std::vector<frame_3d_data_shared_ptr> converted;
+                        converted.reserve(frames.size());
+                        for(const auto& frame:frames) {
+                            if(frame->get_num_bones()!=rig->bones.size())throw std::runtime_error("FBX pose/rig mismatch");
+                            std::vector<glm::mat4> input;
+                            input.reserve(frame->get_num_bones());
+                            for(ui32 i=0;i<frame->get_num_bones();++i)
+                                input.push_back(glm::translate(glm::mat4(1.f),frame->get_position(i))*glm::mat4_cast(frame->get_rotation(i))*glm::scale(glm::mat4(1.f),frame->get_scale(i)));
+                            auto result=transfer.retarget(input);
+                            auto output=std::make_shared<frame_3d_data>(static_cast<i32>(target->bones.size()));
+                            for(ui32 i=0;i<result.size();++i) {
+                                glm::mat3 basis;glm::vec3 s;
+                                for(int c=0;c<3;++c){s[c]=glm::length(glm::vec3(result[i][c]));basis[c]=glm::vec3(result[i][c])/s[c];}
+                                output->update_position(i,glm::vec3(result[i][3]));
+                                output->update_rotation(i,glm::normalize(glm::quat_cast(basis)));
+                                output->update_scale(i,s);
+                            }
+                            converted.push_back(output);
+                        }
+                        auto data=std::make_shared<sequence_3d_transfering_data>(clip_name,animation_sequence->get_animation_fps(),converted,target);
+                        animation_sequence=animation_3d_sequence::construct(key,data);
+                        std::cout<<"Animation retargeted: "<<clip_name<<" source_bones="<<rig->bones.size()<<" target_bones="<<target->bones.size()<<" frames="<<converted.size()<<" in_place=1"<<std::endl;
+                } else {
+                    const auto sequence_data=std::make_shared<sequence_3d_transfering_data>(clip_name,animation_sequence->get_animation_fps(),frames,rig);
+                    animation_sequence=animation_3d_sequence::construct(string_stream_guid.str(),sequence_data);
+                }
+                m_prepared_animation_sequences.emplace(prepared_key, animation_sequence);
             }
             else
             {
-                assert(false && "wrong start or end index in animation");
+                throw std::runtime_error("Wrong start or end index in animation: "+animation_3d_sequence_configuration->get_animation_filename());
             }
 
             animation_3d_mixer_compoment->add_animation_sequence(animation_sequence);

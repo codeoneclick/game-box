@@ -15,17 +15,25 @@
 
 namespace gb
 {
-    std::once_flag g_screen_quad_created;
     std::once_flag g_shape_quad_created;
     
     mesh_3d_shared_ptr mesh_constructor::m_shared_box_mesh = nullptr;
     mesh_3d_shared_ptr mesh_constructor::m_shared_sphere_mesh = nullptr;
     mesh_2d_shared_ptr mesh_constructor::m_shared_screen_quad_mesh = nullptr;
+
+    void mesh_constructor::clear_shared_meshes()
+    {
+        m_shared_screen_quad_mesh.reset();
+        m_shared_box_mesh.reset();
+        m_shared_sphere_mesh.reset();
+    }
     
     mesh_2d_shared_ptr mesh_constructor::create_screen_quad()
     {
-        static mesh_2d_shared_ptr mesh = nullptr;
-        std::call_once(g_screen_quad_created, [] {
+        auto& mesh = m_shared_screen_quad_mesh;
+        // GPU creation runs on the context thread, as for shared box/sphere.
+        if (!mesh)
+        {
             
             std::shared_ptr<vbo::vertex_declaration_PTC> vertex_declaration = std::make_shared<vbo::vertex_declaration_PTC>(4);
 			vbo_shared_ptr vbo = std::make_shared<gb::vbo>(vertex_declaration, gl::constant::static_draw);
@@ -54,7 +62,7 @@ namespace gb
             ibo->unlock();
             
             mesh = std::make_shared<gb::mesh_2d>(vbo, ibo);
-        });
+        }
         return mesh;
     }
     

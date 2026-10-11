@@ -2,7 +2,7 @@
 
 Open `C:\Hobby\game-box` in VS Code and press **F5** with `Run gbDemo (Debug x64)`.
 The pre-launch task builds dependencies and stages canonical assets from
-`gbBundle`. Microsoft C/C++ (`ms-vscode.cpptools`) provides the debugger.
+`gbBundle` and `gbResources`. Microsoft C/C++ (`ms-vscode.cpptools`) provides the debugger.
 Stop the previous session with **Shift+F5** before rebuilding.
 
 Hold **LMB** and drag to orbit; elevation is clamped to 10-80 degrees.
@@ -13,27 +13,53 @@ the drag. Sea dragging uses the mean water level to avoid wave-induced jumps.
 Wheel up zooms in; wheel down zooms out around the current look-at point.
 The orbit radius is limited to 35-700 m; fractional wheel input is supported.
 Initial yaw/elevation/radius are 45/55 degrees and 245 m.
+The island camera clips at 0.5-1200 m; resident close inspection uses 0.1 m
+for the near plane. The near plane stays small when zooming toward terrain.
 
 ## Male island resident
 
-F5 also spawns one original low-poly male resident on the foreground dry shore.
-He alternates idle breathing/weight shifts and in-place walk animation while
-moving at 1.2 m/s. Stops last 2-5 seconds. Navigation is built from the rendered
-lowest dry terrace at Y=0.5 m, with a 1.2 m sampled footprint/margin. He does
-not enter water or climb the higher 2 m terrace walls. Routes use four-neighbor
-grid paths and validate every movement segment against the actual shore mesh.
+F5 spawns 200 residents using the final `gbResources/woodsman.bbmodel` mesh.
+Its 130 authored cubes, texture and UVs are preserved: 1040 source corners,
+780 quad faces / 1560 imported triangles. The older concept mesh's 500-triangle
+budget does not apply to this final mesh. The new armature uses 18 canonical
+named bones (19 including the imported parent), with a height of 1.9 m.
+The source Blockbench side labels are remapped to anatomical/Mixamo sides;
+the +Z-facing character's left bones are on +X. This prevents a 180-degree
+limb-motion inversion while the visible face keeps its correct orientation.
+The source arms-down neutral pose is preserved; the embedded Blockbench walk
+is removed. Runtime idle/walk still come from the separate Mixamo files.
+There are 25 residents on each of the eight dry terraces at Y=0.5, 2, 4, 6,
+8, 10, 12 and 14 m. Each alternates idle breathing/weight shifts and in-place
+walk animation while moving at 1.2 m/s. Stops last 2-5 seconds. Each terrace
+has a separate shared navigation map built from its actual rendered horizontal
+triangles, with a 1.2 m sampled footprint/margin. A resident keeps its assigned
+map and height, so routes cannot enter water or cross into another terrace.
+Four-neighbor grid routes validate every segment against that terrace's mesh.
+Characters face actual movement, including route corners, and keep their last
+heading while idle. Deterministic shuffled spawns have at least 2.4 m initial
+spacing; independent seeds and idle timers vary walks. Movement does not include
+collision avoidance between residents.
 
-Press **C** to cycle blue, green, red and ochre. Shirt and trousers change
-together; boots, skin and hair keep their own colors. Holding C does not cycle
-repeatedly. Missing/corrupt FBX or short/mismatched clips are checked before
+Runtime clips come from `gbResources/character_idle.fbx` and
+`gbResources/character_walking.fbx`. The engine reads their 65-bone source rig
+and bakes target-sized clips during loading. Humanoid mapping, reference-pose
+calibration and target limb lengths support different rig proportions and
+T/A poses. Horizontal root motion is removed; navigation owns world movement.
+Rigid foot skin markers correct height, including boot edges that become
+lowest when pitched; this does not provide foot-locking IK. Derived clips are
+cached by mesh, source clip, range and profile version; source data is unchanged.
+
+Woodsman recoloring is temporarily disabled: **C** and `GB_RESIDENT_COLOR`
+leave the original texture unchanged. Missing/corrupt FBX or short/mismatched clips are checked before
 the legacy asserting loader; a failure skips the resident and logs its cause.
 
 Source, regeneration and FBX unit conventions are described in
-`gbResources/island_resident/README.md`. The editable `.blend`, model, idle/walk
-FBX files, palette, mask and material/shader configurations are checked in.
+`gbResources/woodsman/README.md`. The previous concept asset and its generation
+checks remain as an archive under `gbResources/island_resident`.
 
 ```powershell
-./gbScripts/check-island-resident.ps1
+./gbScripts/check-woodsman.ps1
+./gbScripts/check-mixamo-retarget.ps1
 ./gbScripts/check-island-resident-runtime.ps1 -Pose idle
 ./gbScripts/check-island-resident-runtime.ps1 -Pose walk -Time 0.2
 ./gbScripts/check-island-resident-runtime.ps1 -ColorCycle
@@ -44,25 +70,54 @@ FBX files, palette, mask and material/shader configurations are checked in.
 
 The runtime checks require the Vulkan screenshot layer and write PPM captures
 and logs under `gbDemo/output/island-check/resident-*`. Color checks compare
-shirt/trouser pixels and unchanged boot/skin pixels after real C key messages.
+the fixed character image before and after real C key messages, excluding the FPS HUD.
 For a close manual view, set `$env:GB_RESIDENT_INSPECT='1'` before launching
 the executable from `gbDemo`. `GB_RESIDENT_POSE=idle|walk` freezes navigation;
-`GB_RESIDENT_TIME` fixes clip time; `GB_RESIDENT_COLOR=0..3` chooses a palette
-entry; `GB_RESIDENT_DEBUG=1` logs safe positions and CPU skin bounds. Clear these
+`GB_RESIDENT_TIME` fixes clip time; `GB_RESIDENT_COLOR` is temporarily ignored;
+`GB_RESIDENT_DEBUG=1` logs safe positions and CPU skin bounds. Clear these
 environment variables to return to normal autonomous F5 behavior.
 
-Windows Vulkan build, close idle/walk captures, C debounce/shared coloring,
+The previous concept asset's Windows Vulkan build, close idle/walk captures, C debounce/shared coloring,
 corrupt-FBX fallback and camera orbit/pan/wheel flows were exercised. CPU smoke
 checks include 3,000 simulated seconds/144 stops, invalid/stalled dt, bounded
-turning across multiple waypoints, terrain seeds 1337/42/2026, narrow/disconnected
+facing actual movement across multiple waypoints, terrain seeds 1337/42/2026, narrow/disconnected
 areas and routes around an impassable interior. This is a focused smoke harness,
 not an engine unit-test suite. Metal PT4B vertex descriptor/shader/source
 membership are supplied, but Metal/Xcode and OpenGL execution remain UNKNOWN.
 An 80 s Vulkan run observed three walks/two idle stops, with safe positions.
+With the concept mesh and Mixamo clips, a fresh 65 s Vulkan run observed two
+walks and one idle stop, safe positions and zero movement-facing mismatches.
+CPU retarget checks exercise 31 phases per clip, immutable source poses, target
+lengths/scales, T/A-pose calibration, in-place hips, sole grounding and invalid
+rig/pose rejection. Runtime interpolation's observed lowest vertex was -1.1 mm
+(the smoke threshold is -3 mm); grounding does not claim exact foot locking.
 A temporary action callback exercised resident detach, destruction (old weak
 reference expired) and fresh construction using the existing navigation system;
 the fresh listener completed exactly one C palette cycle. The probe was removed
 before the final build. Full transition recreation remains UNKNOWN.
+
+For the final Woodsman asset, the Windows debug-client x64 build, exact source
+and UV-corner FBX check, both Mixamo retarget probes, Vulkan walk at 0.25 s,
+idle at 0.5 s with C input, and autonomous 200-resident run were exercised.
+The source walk is absent and C leaves the fixed character image unchanged.
+The opposite-facing source/target rig regression verifies that body alignment
+yaws around Y without flipping the character vertically. The full skin probe
+checks every vertex at 31 phases per clip; runtime skin bounds allow up to
+3 mm of interpolation/packed-weight error. Elbow/knee bend signs are compared
+to the source animation relative to each body's facing direction.
+Existing command-pool validation
+messages at Vulkan shutdown remain. OpenGL/Metal runtime remains UNKNOWN.
+The final pose upload also grounds shared rigid-foot contact points after
+interpolation and idle/walk blending; the mixer's source pose and navigation
+height remain unchanged. This avoids boot penetration during clip transitions.
+
+Crowd CPU checks simulate all 200 residents for 60 seconds and require every
+resident to move, with all steps remaining safe on their assigned terrace.
+The default seed produced 635 walks. Shared FBX assets and derived clips are
+loaded once; each resident owns its skeleton pose, mixer, material, route and
+timer. One ECS system updates the crowd with eight navigation maps. Runtime
+debug reports verify 25 residents per terrace, fixed heights and safe positions;
+the capture harness also rejects population or terrace changes.
 
 ## Build and checks
 
@@ -261,3 +316,93 @@ warnings remain. Native Metal/OpenGL verification is unavailable.
 The coarser low-poly appearance refinement was reverted at the user's request.
 The original 384-cell mesh and unquantized facet lighting are restored; locally
 excited chaotic waves and all contact-foam corrections remain.
+
+
+## Performance HUD
+
+The top-right HUD uses the engine's existing `gb::label` UI entities and
+`shader_ss_compose_ui`. It shows FPS averaged over at least half a second,
+submitted triangles (`Polygons/frame`), and draw calls for the last completed
+frame. Text refreshes four times per second. Counts include every geometry
+pass, UI, fullscreen effects and output; they are not unique scene polygons
+or pixels surviving depth testing. Draw counters reset at the pipeline frame
+boundary and are recorded beside actual OpenGL/Vulkan/Metal draw submission.
+`GB_HUD_DEBUG=1` also prints the HUD values to stdout for diagnostics.
+
+```powershell
+./gbScripts/check-render-statistics.ps1
+```
+
+Windows debug-client x64 build, Vulkan capture and resident crowd runtime
+were verified. OpenGL and Metal compilation/runtime remain unverified.
+
+## Resident crowd performance
+
+The 200-resident scene uses conservative cached terrain coverage: cells fully
+inside a terrace avoid triangle searches, while boundary cells retain the exact
+footprint and segment checks. Animation accesses bones by ID, composes affine
+TRS matrices directly, and caches inverse bind matrices until rebinding. Rendering
+reads uniform maps by reference; the original copying getter remains available.
+
+Measured on the same machine with Windows debug-client x64, Vulkan validation
+enabled, 1280x720, 200 residents and three 120-frame samples: feeder CPU time
+fell from 76.7 ms to 36.9 ms (about 2.1x). Terrace navigation fell from roughly
+24 ms to 3 ms and animation from 25 ms to 8 ms. Rendering remains the largest
+cost at roughly 21 ms. These figures are machine-specific, not an FPS guarantee.
+The final steady-clock frame average was 36.9 ms (about 27 FPS); the original
+76.3 ms game-loop average rounded each frame to integer milliseconds.
+
+Repeat the benchmark without screenshot capture:
+
+```powershell
+./gbScripts/check-island-performance.ps1 -Residents 200 -Samples 3 -Label crowd
+./gbScripts/check-island-performance.ps1 -Residents 0 -Samples 3 -Label empty
+```
+
+Reports and `summary.json` are written under `gbDemo/output/island-check/perf-*`.
+`GB_PROFILE_SYSTEMS=1` enables per-system/phase CPU timings after 60 warmup
+frames, averaged over 120 frames. `GB_RESIDENT_COUNT` overrides the default 200
+for diagnostics (range 0 through 200). Profiling is disabled during normal F5
+execution. Run one benchmark at a time without background compilation.
+The shared animation/render changes are verified on Windows Vulkan; OpenGL
+and Metal remain unverified.
+
+## Screen-space ambient occlusion
+
+SSAO is enabled by default in the F5 island scene. The existing `ss.ao`
+material and GLSL/Metal shaders now use valid G-buffer world positions and
+normals, a camera-projected 3 m radius, an angular bias of 0.06, and 32 samples.
+Island normals are decoded from [0,1]; the legacy raw-normal mode remains
+available through the shared uniforms wrapper. View/projection uniforms follow
+camera changes every frame, including orbit, pan and zoom.
+
+The `ss.ao.blur` pass uses a 5x5 depth/normal bilateral filter. The resulting
+visibility modulates opaque scene color before water and premultiplied foam
+composition, keeping the ocean appearance intact. Water reflection/refraction
+still sample the original opaque scene buffer. This is screen-space contact
+shading: offscreen or hidden geometry cannot contribute. GL 2 keeps the raw AO
+mask because its shader path has no `textureSize`; that backend is unverified.
+
+Diagnostic environment variables can be set in `.vscode/launch.json`:
+
+- `GB_SSAO=0`: neutral AO for comparison (the passes remain allocated).
+- `GB_SSAO_DEBUG=1`: show the filtered AO mask; white means unoccluded.
+- Existing `GB_OCEAN_FIELD_VIEW` takes precedence over the AO mask view.
+
+Build and repeat the fixed-time Vulkan capture comparison:
+
+```powershell
+./gbScripts/build-gbDemo.ps1 -Configuration debug-client -Platform x64
+./gbScripts/check-ssao-runtime.ps1
+```
+
+The image check requires Python with Pillow. Captures are saved under
+`gbDemo/output/island-check/ssao-on`, `ssao-off` and `ssao-mask`. It checks visible
+terrace contact darkening, a white background, unchanged open-water pixels,
+no AO brightening, and identical fixed-scene frames 80 and 160.
+
+Windows debug-client x64 compilation and Vulkan rendering were verified at the
+default, ocean inspection and resident inspection camera distances, including
+orbit and mouse-wheel zoom changes. Metal source and all three Xcode resource targets were updated;
+native Metal and OpenGL builds/runtime remain UNKNOWN. The existing Vulkan
+command-pool destruction validation messages still occur during shutdown.

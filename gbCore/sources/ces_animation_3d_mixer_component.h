@@ -80,6 +80,7 @@ namespace gb
         
         std::map<std::string, animation_3d_sequence_shared_ptr> m_animations_sequences;
         glm::mat4* m_bones_transformations;
+        std::vector<glm::mat4> m_bones_storage;
         i32 m_num_bones_transformations;
         bool m_is_binded;
         

@@ -130,6 +130,11 @@ namespace gb
     {
         return m_current_context;
     }
+
+    void graphics_context::release_current_context(const graphics_context_shared_ptr& context)
+    {
+        if (m_current_context == context) m_current_context.reset();
+    }
 }
 
 #endif

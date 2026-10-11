@@ -73,6 +73,7 @@ namespace gb
     
     void ces_transformation_component::update_absolute_transformation(const glm::mat4& parent_mat_m)
     {
+        if (m_parent_matrix_m == parent_mat_m) return;
         m_parent_matrix_m = parent_mat_m;
         m_is_absolute_matrix_m_computed = false;
     }
@@ -88,6 +89,17 @@ namespace gb
         return m_absolute_matrix_m;
     }
     
+    const glm::mat4& ces_transformation_component::get_normal_transformation()
+    {
+        const auto matrix = get_absolute_transformation();
+        if (m_normal_matrix_version != m_absolute_matrix_version)
+        {
+            m_normal_matrix = glm::transpose(glm::inverse(matrix));
+            m_normal_matrix_version = m_absolute_matrix_version;
+        }
+        return m_normal_matrix;
+    }
+
     void ces_transformation_component::set_is_in_camera_space(bool value)
     {
         m_is_in_camera_space = value;

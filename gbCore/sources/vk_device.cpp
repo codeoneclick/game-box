@@ -7,6 +7,7 @@
 #include "vk_buffer.h"
 #include "vk_swap_chain.h"
 #include "window_impl.h"
+#include "vk_utils.h"
 
 namespace gb
 {
@@ -23,10 +24,43 @@ namespace gb
 
 	vk_device::~vk_device()
 	{
-		if (m_command_pool)
-		{
-			vkDestroyCommandPool(m_logical_device, m_command_pool, nullptr);
-		}
+		destroy();
+	}
+
+	void vk_device::destroy_frame_resources()
+	{
+		if (m_logical_device == VK_NULL_HANDLE) return;
+		destroy_pipeline_cache();
+		if (m_command_pool) vkDestroyCommandPool(m_logical_device, m_command_pool, nullptr);
+		m_command_pool = VK_NULL_HANDLE;
+		m_draw_cmd_buffers.clear();
+		for (auto framebuffer : m_frame_buffers) vkDestroyFramebuffer(m_logical_device, framebuffer, nullptr);
+		m_frame_buffers.clear();
+		if (m_vk_depth_stencil_view) vkDestroyImageView(m_logical_device, m_vk_depth_stencil_view, nullptr);
+		if (m_vk_depth_stencil_image) vkDestroyImage(m_logical_device, m_vk_depth_stencil_image, nullptr);
+		if (m_vk_depth_stencil_memory) vkFreeMemory(m_logical_device, m_vk_depth_stencil_memory, nullptr);
+		m_vk_depth_stencil_view = VK_NULL_HANDLE;
+		m_vk_depth_stencil_image = VK_NULL_HANDLE;
+		m_vk_depth_stencil_memory = VK_NULL_HANDLE;
+		for (auto fence : m_wait_fences) vkDestroyFence(m_logical_device, fence, nullptr);
+		m_wait_fences.clear();
+		if (m_present_complete_semaphore) vkDestroySemaphore(m_logical_device, m_present_complete_semaphore, nullptr);
+		if (m_render_complete_semaphore) vkDestroySemaphore(m_logical_device, m_render_complete_semaphore, nullptr);
+		if (m_overlay_complete_semaphore) vkDestroySemaphore(m_logical_device, m_overlay_complete_semaphore, nullptr);
+		m_present_complete_semaphore = VK_NULL_HANDLE;
+		m_render_complete_semaphore = VK_NULL_HANDLE;
+		m_overlay_complete_semaphore = VK_NULL_HANDLE;
+	}
+
+	void vk_device::destroy()
+	{
+		if (m_logical_device == VK_NULL_HANDLE) return;
+		vkDeviceWaitIdle(m_logical_device);
+		destroy_frame_resources();
+		vkDestroyDevice(m_logical_device, nullptr);
+		m_logical_device = VK_NULL_HANDLE;
+		m_graphics_queue = VK_NULL_HANDLE;
+		m_present_queue = VK_NULL_HANDLE;
 	}
 
 	void vk_device::construct(VkInstance vk_instance)
@@ -85,6 +119,9 @@ namespace gb
 
 		if (result == VK_SUCCESS)
 		{
+			VkPipelineCacheCreateInfo pipeline_cache_info = {};
+			pipeline_cache_info.sType = VK_STRUCTURE_TYPE_PIPELINE_CACHE_CREATE_INFO;
+			VK_CHECK(vkCreatePipelineCache(m_logical_device, &pipeline_cache_info, nullptr, &m_pipeline_cache));
 			VkCommandPoolCreateFlags create_flags = VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT;
 			VkCommandPoolCreateInfo cmd_pool_info = {};
 			cmd_pool_info.sType = VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO;
@@ -387,6 +424,35 @@ namespace gb
 		subresource_range.levelCount = 1;
 		subresource_range.layerCount = 1;
 		set_image_layout(cmd_buffer, image, old_image_layout, new_image_layout, subresource_range, src_stage_mask, dst_stage_mask);
+	}
+
+	VkPipelineCache vk_device::get_pipeline_cache() const
+	{
+		return m_pipeline_cache;
+	}
+
+	void vk_device::destroy_pipeline_cache()
+	{
+		for (const auto& entry : m_graphics_pipelines)
+		{
+			vkDestroyPipeline(m_logical_device, entry.second, nullptr);
+		}
+		m_graphics_pipelines.clear();
+		if (m_pipeline_cache)
+		{
+			vkDestroyPipelineCache(m_logical_device, m_pipeline_cache, nullptr);
+			m_pipeline_cache = VK_NULL_HANDLE;
+		}
+	}
+
+	VkPipeline vk_device::get_or_create_graphics_pipeline(const std::string& key, const VkGraphicsPipelineCreateInfo& info)
+	{
+		const auto found = m_graphics_pipelines.find(key);
+		if (found != m_graphics_pipelines.end()) return found->second;
+		VkPipeline pipeline = VK_NULL_HANDLE;
+		VK_CHECK(vkCreateGraphicsPipelines(m_logical_device, m_pipeline_cache, 1, &info, nullptr, &pipeline));
+		m_graphics_pipelines.emplace(key, pipeline);
+		return pipeline;
 	}
 
 	VkCommandPool vk_device::get_command_pool() const
