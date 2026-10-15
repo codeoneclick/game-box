@@ -60,7 +60,7 @@ vertex common_v_output_t vertex_shader_ss_ssao_blur(common_v_input_t in [[stage_
     return out;
 }
 fragment half4 fragment_shader_ss_ssao_blur(common_v_output_t in [[stage_in]],
-    texture2d<float> ao [[texture(0)]],texture2d<float> positions [[texture(1)]],texture2d<float> normals [[texture(2)]])
+    texture2d<float> ao [[texture(0)]],texture2d<float> positions [[texture(1)]],texture2d<float> normals [[texture(2)]],texture2d<float> blobs [[texture(3)]])
 {
     float4 p = positions.sample(ssao_nearest,in.texcoord);
     float4 ns = normals.sample(ssao_nearest,in.texcoord);
@@ -80,5 +80,6 @@ fragment half4 fragment_shader_ss_ssao_blur(common_v_output_t in [[stage_in]],
         total += ao.sample(ssao_nearest,uv).r*weight;
         weights += weight;
     }
-    return half4(float4(float3(total/max(weights,0.0001)),1.0));
+    float blob=1.0-clamp(blobs.sample(ssao_nearest,in.texcoord).r,0.0,.6);
+    return half4(float4(float3(total/max(weights,0.0001)*blob),1.0));
 }

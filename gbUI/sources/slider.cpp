@@ -141,7 +141,10 @@ namespace gb
             {
                 glm::vec2 point = glm::vec2(touch_point.x - bound.x,
                                             touch_point.y - bound.y);
-                f32 offset = point.x / size.x;
+                // Touch coordinates are in world space, including parent scale.
+                const f32 width = max_bound.x - min_bound.x;
+                if (width <= 0.f) return;
+                f32 offset = glm::clamp(point.x / width, 0.f, 1.f);
                 set_offset(offset);
                 if (m_callback)
                 {

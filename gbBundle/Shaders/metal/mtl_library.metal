@@ -13,25 +13,159 @@ using namespace metal;
 #include "mtl_ocean.h"
 #include "mtl_water_interaction.h"
 #include "mtl_island_resident.h"
+#include "mtl_sun_shadow.h"
+vertex common_v_output_t vertex_shader_blob_shadow(common_v_input_t in [[stage_in]],constant common_u_input_t& u [[buffer(1)]]){
+ common_v_output_t out={};out.position=get_mat_mvp(u)*float4(in.position,1);
+ out.view_space_position=get_mat_m(u)*float4(in.position,1);out.texcoord=in.texcoord;out.color=in.color;return out;
+}
+fragment half4 fragment_shader_blob_shadow(common_v_output_t in [[stage_in]],texture2d<float> positions [[texture(0)]]){
+ // All WS attachments use the same runtime window pixel dimensions.
+ float2 uv=in.position.xy/float2(positions.get_width(),positions.get_height());
+ float4 receiver=positions.sample(ocean_nearest,uv);
+ if(receiver.w<=0.0||abs(receiver.y-in.view_space_position.y)>.08)discard_fragment();
+ float shadow=(1.0-smoothstep(.1,1.0,length(float2(in.texcoord))))*in.color.a;
+ return half4(shadow,0,0,0);
+}
+vertex common_v_output_t vertex_shader_editor_brush(common_v_input_t in [[stage_in]],constant common_u_input_t& u [[buffer(1)]]){
+ common_v_output_t out={};float4x4 model=get_mat_m(u);
+ out.position=float4(in.position.x,in.position.z,0,1);
+ out.view_space_position=model*float4(0,0,0,1);
+ out.texcoord=float2(length(model[0].xyz),0);return out;
+}
+fragment half4 fragment_shader_editor_brush(common_v_output_t in [[stage_in]],texture2d<float> positions [[texture(0)]]){
+ float2 uv=in.position.xy/float2(positions.get_width(),positions.get_height());
+ float4 p=positions.sample(ocean_nearest,uv);if(p.w<=0.0||in.texcoord.x<=.0001)discard_fragment();
+ float distance_from_center=length(p.xz-in.view_space_position.xz)/in.texcoord.x;
+ float a=(1.0-smoothstep(.015,.055,abs(distance_from_center-.94)))*.8;
+ if(a<=0.0)discard_fragment();
+ return half4(half3(float3(.03,.7,1)*a),half(a));
+}
+
+
+float2 grass_wind(float2 p,float t,float phase){
+ float gust=.3+.25*(.5+.5*sin(dot(p,float2(.063,.041))-t*.71))
+                 +.2*(.5+.5*sin(dot(p,float2(-.037,.079))+t*.43));
+ float2 broad=float2(sin(t*.83+dot(p,float2(.091,-.053))),cos(t*.67+dot(p,float2(.047,.083))));
+ float2 local=float2(sin(t*(1.61+.17*sin(phase))+phase),cos(t*(1.37+.19*cos(phase))+phase*1.73));
+ float2 wind=(broad*.72+local*.28)*gust;
+ return wind*min(1.0,.7/max(length(wind),.0001));
+}
 
 vertex common_v_output_t vertex_shader_island_terrain(common_v_input_t in [[stage_in]],
-                                                       constant common_u_input_t& uniforms [[buffer(1)]])
+                                                       constant common_u_input_t& uniforms [[buffer(1)]],
+                                                       constant ocean_uniforms& u [[buffer(2)]],
+                                                       texture2d<float> grass_field [[texture(0)]])
 {
     common_v_output_t out;
     float4 position = float4(in.position, 1.0);
+    float3 normal=in.normal.xyz;
+    if(in.tangent.z>.5){
+        float weight=in.tangent.x*in.tangent.x;
+        float2 wind=grass_wind(float2(in.texcoord),u.time_level.x,in.tangent.y*91.7);
+        int layer=clamp(int(floor((position.y-in.tangent.x*in.tangent.y)/2.0+.5)),1,4)-1;
+        float2 tile=float2(layer%2,layer/2);
+        float2 uv=clamp((float2(in.texcoord)-u.interaction.xy)/u.interaction.z,float2(.001),float2(.999));
+        float2 push=grass_field.sample(linear_sampler,(tile+uv)*.5,level(0)).xy;
+        float force=length(push);push*=min(1.0,.85/max(force,.0001));
+        wind=mix(wind,wind*.2+push,smoothstep(0.0,.4,force));
+        wind*=min(1.0,1.0/max(length(wind),.0001));
+        wind*=in.tangent.y*.8;
+        position.xz+=wind*weight;
+        position.y-=dot(wind,wind)*.18*weight;
+        normal=normalize(normal-float3(wind.x,0,wind.y)*weight*.45);
+    }
+    else if(in.tangent.w>.5){
+        float weight=in.tangent.x*in.tangent.x;
+        float2 wind=grass_wind(float2(in.texcoord),u.time_level.x*.4,in.tangent.y*91.7)*.4;
+        wind+=.02*float2(sin(u.time_level.x*1.37+in.tangent.y*31.0+in.texcoord.x*.17),cos(u.time_level.x*1.12+in.tangent.y*47.0+in.texcoord.y*.19));
+        position.xz+=wind*weight;
+        normal=normalize(normal-float3(wind.x,0,wind.y)*weight*.12);
+    }
     out.position = get_mat_mvp(uniforms) * position;
     out.view_space_position = get_mat_m(uniforms) * position;
-    out.normal = normalize((get_mat_n(uniforms) * float4(in.normal.xyz, 0.0)).xyz);
+    out.normal = normalize((get_mat_n(uniforms) * float4(normal, 0.0)).xyz);
     out.color = in.color;
+    float outline_id=floor(in.color.a*255.0+.5)*16384.0+floor(in.normal.w*127.0+.5)*128.0+floor(-in.tangent.z*127.0+.5);
+    out.color.a = in.tangent.z>.5 ? .5 : (in.normal.w>0.0||in.tangent.z<0.0||in.color.a<.9999?outline_id:1.0);
     out.texcoord = in.texcoord;
-    out.tangent = float3(1.0, 0.0, 0.0);
+    if(in.tangent.z>.5){
+        out.texcoord=float2(in.color.a,in.tangent.x);
+    }
+    if(in.tangent.w>.5){
+        float3 rest=in.position;rest.xz-=in.texcoord;
+        out.texcoord=abs(in.normal.y)>.5?rest.xz:(abs(in.normal.x)>abs(in.normal.z)?rest.zy:rest.xy);
+    }
+    out.tangent = float3(in.tangent.w<-.5?1.0:0.0, in.tangent.w>.5?1.0:0.0, fract(sin(dot(float2(in.texcoord),float2(127.1,311.7)))*43758.5453));
     out.bitangent = cross(out.normal, out.tangent);
     return out;
 }
 
-fragment g_buffer_output_t fragment_shader_island_terrain(common_v_output_t in [[stage_in]],constant ocean_uniforms& u [[buffer(0)]])
+// Keep material selection tied to the constant logical terrace/outline ID.
+float terrain_material(float terrace){
+    if(terrace<=0.0)return 0.0;
+    if(terrace<1.5)return 1.0;
+    if(terrace<2.5)return 2.0;
+    return 3.0;
+}
+float3 terrain_texel(texture2d<float> atlas,float material,float side,float2 uv,float lod){
+    float resolution=32.0*exp2(-lod);
+    float2 pixel=float2(material*36.0+2.0,lod*80.0+side*40.0+1.0)
+                +min(floor(uv*resolution),float2(resolution-1.0));
+    float2 atlas_uv=(pixel+.5)/float2(256.0,480.0);
+    atlas_uv.y=1.0-atlas_uv.y; // The common PNG serializer reverses rows.
+    float3 c=atlas.sample(linear_sampler,atlas_uv,level(0)).rgb;
+    return mix(c/12.92,pow((c+.055)/1.055,float3(2.4)),step(float3(.04045),c));
+}
+float3 terrain_texture(texture2d<float> atlas,float3 p,float3 n,float terrace,float material,float layer_height,float shore_height){
+    layer_height=max(layer_height,.001);
+    float top_y=terrace==1.0?shore_height:(terrace>=2.0?(terrace-1.0)*layer_height:terrace*layer_height);
+    float2 top_q=p.xz*2.0;
+    float2 side_q=float2((abs(n.x)>abs(n.z)?p.z:p.x)*2.0,(top_y-p.y)/layer_height*4.0);
+    // World pixels choose independent palette entries; no repeated block seams.
+    float2 top_footprint=fwidth(top_q),side_footprint=fwidth(side_q);
+    float side=n.y>.5?0.0:1.0;
+    float2 footprint=mix(top_footprint,side_footprint,side);
+    float2 cell=floor(top_q),seed=cell+float2(material*37.0,material*71.0);
+    float a=fract(sin(dot(seed,float2(127.1,311.7)))*43758.5453);
+    float b=fract(sin(dot(seed+float2(19.1,83.7),float2(127.1,311.7)))*43758.5453);
+    float2 uv=(floor(float2(a,b)*4.0)+.5)/4.0;
+    if(side>.5){
+        float column=floor(fract(sin(dot(float2(floor(side_q.x),material+17.0),float2(127.1,311.7)))*43758.5453)*4.0);
+        uv=float2((column+.5)/4.0,clamp(side_q.y/4.0,0.0,1.0));
+    }
+    float visible=1.0-smoothstep(.5,2.0,max(footprint.x,footprint.y));
+    return mix(terrain_texel(atlas,material,side,uv,5.0),terrain_texel(atlas,material,side,uv,0.0),visible);
+}
+
+float tree_pixel_hash(float2 p){return fract(sin(dot(p,float2(127.1,311.7)))*43758.5453);}
+float3 tree_pixel_color(float3 base,float2 uv){
+ float2 pixel=uv*6.0,footprint=abs(dfdx(pixel))+abs(dfdy(pixel));
+ float visible=1.0-smoothstep(.5,2.0,max(footprint.x,footprint.y));
+ float grain=floor(tree_pixel_hash(floor(pixel))*4.0)/3.0;
+ float leaves=base.g>max(base.r,base.b)?1.0:0.0;
+ float stripes=floor(tree_pixel_hash(float2(floor(uv.x*4.0),floor(uv.y*2.0)))*4.0)/3.0;
+ float detail=mix(.7+.3*stripes+.3*grain,.6+.8*grain,leaves);
+ return base*mix(1.0,detail,visible);
+}
+float3 grass_pixel_color(float3 base,float2 uv){
+ float2 pixel=uv*float2(4.0,8.0),footprint=abs(dfdx(pixel))+abs(dfdy(pixel));
+ float visible=1.0-smoothstep(.5,2.0,max(footprint.x,footprint.y));
+ float dx=dfdx(uv.y),dy=dfdy(uv.y);
+ float3 slope=(dfdx(base)*dx+dfdy(base)*dy)/max(dx*dx+dy*dy,.00000001);
+ float center=(floor(pixel.y)+.5)/8.0;
+ float3 stepped=max(base+slope*(center-uv.y),float3(0));
+ float tone=.8+.2*floor(tree_pixel_hash(floor(pixel))*3.0);
+ return mix(base,stepped*tone,visible);
+}
+fragment g_buffer_output_t fragment_shader_island_terrain(common_v_output_t in [[stage_in]],constant ocean_uniforms& u [[buffer(0)]],texture2d<float> terrain_atlas [[texture(2)]])
 {
     g_buffer_output_t out;
+    if(in.color.a>.49&&in.color.a<.51){
+        float x=in.tangent.z>.5?1.0-in.texcoord.x:in.texcoord.x;
+        float row=floor(clamp(in.texcoord.y,0.0,.9999)*8.0);
+        float column=floor(clamp(x,0.0,.9999)*4.0),left=floor(row*.5);
+        if(column<left||column>=min(left+2.0,4.0))discard_fragment();
+    }
     float3 normal = normalize(in.normal);
     float diffuse = max(dot(normal, normalize(u.sun.xyz)), 0.0);
     float3 p=in.view_space_position.xyz;
@@ -41,17 +175,57 @@ fragment g_buffer_output_t fragment_shader_island_terrain(common_v_output_t in [
     float crest_level=u.time_level.y+1.1*(u.wave0.w+u.wave1.w+u.wave2.w+u.wave3.w);
     float reachable=1.0-smoothstep(crest_level-.05,crest_level,p.y);
     float wet=max(u.extra.y*(1.0-smoothstep(0.0,1.5,p.y-u.time_level.y)),reachable*(1.0-smoothstep(0.0,.65,p.y-water)));
-    float3 color=in.color.rgb*(0.5+0.5*diffuse)*mix(1.0,.64,wet);
+    bool terrain=in.tangent.x>.5;
+    float terrace=floor(in.color.a+.5)-11.0,material=terrain_material(terrace);
+    float3 base_color=terrain?terrain_texture(terrain_atlas,p,normal,terrace,material,u.extra.z,u.extra.w):float3(in.color.rgb);
+    if(in.tangent.y>.5)base_color=tree_pixel_color(base_color,in.texcoord);
+    if(in.color.a>.49&&in.color.a<.51)base_color=grass_pixel_color(base_color,in.texcoord);
+    float3 l=normalize(u.sun.xyz),v=normalize(u.camera.xyz-p);
+    float grass=in.color.a>.49&&in.color.a<.51?1.0:0.0,leaves=in.tangent.y>.5&&base_color.g>max(base_color.r,base_color.b)?1.0:0.0;
+    float strength=base_color.r>base_color.b*1.25&&base_color.r>base_color.g*1.1?u.light_material0.y:u.light_material0.z;
+    strength=mix(strength,u.light_material0.x,grass);strength=mix(strength,u.light_material0.w,leaves);
+    float vegetation=max(grass,leaves);
+    if(terrain){
+        float grassy_top=normal.y>.5&&material>=2.0&&material<=5.0?1.0:0.0;
+        strength=mix(u.light_material0.z,u.light_material0.x,grassy_top);vegetation=grassy_top;
+    }
+    float3 color=u.light_shape.z<.5?base_color*mix(float3(.32,.38,.50),cel_light(dot(normal,l)),u.light_options.w):island_soft_light(base_color,normal,l,v,strength,vegetation,u.light_sun,u.light_ambient,u.light_shape,u.light_options,u.light_material1);
+    color*=mix(1.0,.64,wet);
     if(submerged>0.0){float caustics=ocean_caustic_pattern(p.xz*u.caustic_params.x,u)*max(normal.y,.12)+ocean_caustic_pattern(float2(p.x+p.z,p.y)*u.caustic_params.x,u)*(1.0-abs(normal.y))*.4;color+=float3(.36,.54,.39)*caustics*u.caustic_params.z*exp(-submerged*u.caustic_params.w);}
-    float3 v=normalize(u.camera.xyz-p),h=normalize(v+normalize(u.sun.xyz));color+=wet*.2*pow(max(dot(normal,h),0.0),64.0);
+    float3 half_direction=v+l,h=half_direction/max(length(half_direction),.0001);
+    if(u.light_shape.z<.5)color+=wet*.2*u.light_options.w*smoothstep(.94,.955,max(dot(normal,h),0.0))*float3(1,.94,.82);
+    else color+=wet*.2*pow(max(dot(normal,h),0.0),u.light_material1.z)*max(dot(normal,l),0.0)*u.light_sun.rgb*u.light_sun.a*u.light_shape.w*u.light_options.y;
     out.color = half4(half3(color),1);
-    out.normal = half4(half3(normal*.5+.5), 1.0);
+    out.normal = float4(normal*.5+.5, in.color.a>=2.0?floor(in.color.a+.5):in.color.a);
     out.position = in.view_space_position;
     out.position.w = max(-(u.view*float4(p,1)).z,.001);
     return out;
 }
 
 //
+
+vertex common_v_output_t vertex_shader_grass_interaction(common_v_input_t in [[stage_in]]){
+ common_v_output_t out;
+ out.position=float4(in.position.xy,0,1);out.texcoord=in.texcoord;
+ out.color=in.color;out.normal=in.normal.xyz;return out;
+}
+fragment half4 fragment_shader_grass_interaction(common_v_output_t in [[stage_in]]){
+ float2 q=float2(in.texcoord);float r=length(q);
+ float fade=1.0-smoothstep(.15,1.0,r);float2 radial=q/max(r,.18);
+ return half4(half2((radial*.75+in.normal.xz*.3)*fade*in.color.a),0,0);
+}
+
+vertex common_v_output_t vertex_shader_island_sky(common_v_input_t in [[stage_in]],constant ocean_uniforms& u [[buffer(2)]]){
+ common_v_output_t out;out.position=float4(in.position.xy,1,1);
+ float3 ray=float3((in.position.xy+float2(u.projection[2][0],u.projection[2][1]))/float2(u.projection[0][0],u.projection[1][1]),-1);
+ float3x3 rotation=float3x3(u.view[0].xyz,u.view[1].xyz,u.view[2].xyz);
+ out.normal=transpose(rotation)*ray;return out;
+}
+fragment g_buffer_output_t fragment_shader_island_sky(common_v_output_t in [[stage_in]],constant ocean_uniforms& u [[buffer(0)]],texturecube<float> sky [[texture(1)]]){
+ g_buffer_output_t out;float3 c=sky.sample(linear_sampler,normalize(in.normal)).rgb;
+ c=mix(c/12.92,pow((c+.055)/1.055,float3(2.4)),step(float3(.04045),c));
+ out.color=half4(half3(island_sky_color(in.normal,normalize(u.sun.xyz))+c*.001),1);out.normal=half4(0);out.position=float4(0);return out;
+}
 
 half4 blur_texture(texture2d<half> texture,
                    float2 texcoord, float2 direction)

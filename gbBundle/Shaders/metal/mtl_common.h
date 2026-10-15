@@ -52,7 +52,7 @@ typedef struct
 typedef struct
 {
     half4  color [[color(0)]];
-    half4  normal [[color(1)]];
+    float4 normal [[color(1)]];
     float4 position [[color(2)]];
 } g_buffer_output_t;
 

@@ -1,0 +1,30 @@
+uniform vec4 wave0;
+uniform vec4 wave1;
+uniform vec4 wave2;
+uniform vec4 wave3;
+uniform vec4 motion0;
+uniform vec4 motion1;
+uniform vec4 motion2;
+uniform vec4 motion3;
+uniform vec4 time_level;
+uniform vec4 camera;
+uniform vec4 deep;
+uniform vec4 shallow;
+uniform vec4 foam;
+uniform vec4 params;
+uniform vec4 sun;
+uniform vec4 extra;
+uniform vec4 foam_bands;
+uniform vec4 foam_detail;
+uniform vec4 foam_shadow;
+uniform vec4 optics;
+uniform vec4 caustic_params;
+uniform vec4 interaction;
+uniform vec4 foam_shape;
+uniform mat4 view;
+uniform mat4 projection;
+void main(){
+ gl_Position=vec4(a_position.xy,1,1);
+ vec3 ray=vec3((a_position.xy+vec2(projection[2][0],projection[2][1]))/vec2(projection[0][0],projection[1][1]),-1);
+ v_normal=transpose(mat3(view))*ray;
+}

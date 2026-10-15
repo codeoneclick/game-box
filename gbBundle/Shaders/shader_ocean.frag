@@ -59,16 +59,35 @@ float caustic_pattern(vec2 p) {
 vec2 screen_uv(vec3 p){vec4 clip=projection*view*vec4(p,1);return vec2(.5+.5*clip.x/clip.w,.5-.5*clip.y/clip.w);}
 bool valid_uv(vec2 uv){return all(greaterThan(uv,vec2(.002)))&&all(lessThan(uv,vec2(.998)));}
 vec4 interaction_sample(vec2 xz){vec2 uv=(xz-interaction.xy)/interaction.z;if(any(lessThan(uv,vec2(0)))||any(greaterThan(uv,vec2(1))))return vec4(320,0,0,0);return texture2D(sampler_04,uv);}
-// Summed moving kernels: the isocontour merges/splits rather than scrolling a texture.
+// Gradient Perlin noise perturbs the contours without adding texture samples.
+vec2 foam_gradient(vec2 cell){
+ float angle=6.2831853*field_hash(cell+vec2(101,47));
+ return vec2(cos(angle),sin(angle));
+}
+float foam_perlin(vec2 p){
+ vec2 cell=floor(p),f=fract(p);
+ vec2 fade=f*f*f*(f*(f*6.0-15.0)+10.0);
+ float a=dot(foam_gradient(cell),f);
+ float b=dot(foam_gradient(cell+vec2(1,0)),f-vec2(1,0));
+ float c=dot(foam_gradient(cell+vec2(0,1)),f-vec2(0,1));
+ float d=dot(foam_gradient(cell+vec2(1,1)),f-vec2(1,1));
+ return mix(mix(a,b,fade.x),mix(c,d,fade.x),fade.y);
+}
+// Independent births: large kernels shrink and dissolve, still merging/splitting.
 float foam_metaballs(vec2 p,float t){
  vec2 cell=floor(p/3.0);float density=0.0;
+ float contour=1.0+.22*foam_perlin(p*1.15+vec2(t*.13,-t*.09));
  for(int y=-1;y<=1;y++)for(int x=-1;x<=1;x++){
   vec2 id=cell+vec2(x,y);
   float phase=6.2831853*field_hash(id+vec2(41,73));
   float rate=mix(.65,1.25,field_hash(id+vec2(19,11)));
   vec2 center=(id+.5)*3.0+vec2(sin(t*rate+phase),cos(t*rate*.83+phase*1.7))*.95;
-  float radius=mix(.65,1.05,field_hash(id+vec2(97,23)));
-  vec2 delta=p-center;density+=radius*radius/(dot(delta,delta)+.35)*(1.0-smoothstep(2.5,3.4,length(delta)));
+  float lifetime=mix(3.6,6.2,field_hash(id+vec2(67,53)));
+  float age=fract(t/lifetime+field_hash(id+vec2(13,89)));
+  float shrink=1.0-smoothstep(.04,.92,age);
+  float opacity=smoothstep(0.0,.035,age)*(1.0-smoothstep(.70,.98,age));
+  float radius=mix(.83125,1.1305,field_hash(id+vec2(97,23)))*shrink*contour;
+  vec2 delta=p-center;density+=opacity*radius*radius/(dot(delta,delta)+.35)*(1.0-smoothstep(2.5,3.4,length(delta)));
  }
  return density;
 }
@@ -94,8 +113,29 @@ vec4 world_foam(vec3 p,out float width,out float influence){
  float outer=smoothstep(width*.7,width+.7,d)*(1.0-smoothstep(width+1.2,width+4.2,outer_d))*islands*influence;
  return vec4(inner,mid,outer,smoothstep(.18,.34,clamp(inner+mid*foam_detail.y+outer,0.0,1.0)))*(1.0-smoothstep(.25,.75,f.w));
 }
+// Sun-driven atmosphere shared by the visible sky and water reflection fallback.
+float island_sky_hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
+float island_sky_noise(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.0-2.0*f);
+ return mix(mix(island_sky_hash(i),island_sky_hash(i+vec2(1,0)),f.x),mix(island_sky_hash(i+vec2(0,1)),island_sky_hash(i+vec2(1,1)),f.x),f.y);}
+vec3 island_sky_color(vec3 direction,vec3 light){
+ vec3 d=normalize(direction);float height=clamp(d.y,0.0,1.0);
+ float daylight=smoothstep(-.12,.12,light.y),sunset=1.0-smoothstep(.12,.65,light.y);
+ vec3 horizon=mix(vec3(.38,.64,.78),vec3(.72,.18,.055),sunset);
+ vec3 zenith=mix(vec3(.12,.32,.58),vec3(.19,.13,.29),sunset);
+ vec3 color=mix(horizon,zenith,pow(height,.55));
+ vec2 q=d.xz/max(d.y+.22,.18)*1.7;
+ float clouds=island_sky_noise(q)+.35*island_sky_noise(q*2.3+vec2(17,31));
+ float mask=smoothstep(.62,.86,clouds)*smoothstep(.01,.12,height)*(1.0-smoothstep(.65,.95,height));
+ vec3 cloud_color=mix(vec3(.72,.79,.84),vec3(.24,.10,.19),sunset);
+ cloud_color+=vec3(.85,.36,.08)*pow(max(dot(d,light),0.0),6.0);
+ color=mix(color,cloud_color,mask*.85);
+ float mu=max(dot(d,light),0.0);
+ color+=vec3(1.0,.52,.16)*pow(mu,24.0)*sunset*.45;
+ color+=vec3(4.0,2.5,.8)*smoothstep(.99955,.99975,mu)*smoothstep(-.03,.02,light.y);
+ return mix(vec3(.008,.014,.035)+vec3(.012,.018,.025)*(1.0-height),color,daylight);
+}
 vec3 reflection_color(vec3 p,vec3 direction){
- vec3 sky=mix(vec3(.075,.2,.42),vec3(.32,.64,.8),clamp(direction.y,0.0,1.0));float previous=.2;
+ vec3 sky=island_sky_color(direction,normalize(sun.xyz));float previous=.2;
  for(int i=0;i<32;i++){
   float distance=.7+float(i)*1.1+float(i*i)*.09;
   vec3 q=p+direction*distance;vec4 clip=projection*view*vec4(q,1);if(clip.w<=0.0)break;
@@ -119,6 +159,7 @@ void main(){
  if(extra.x==5.0){attachment_01=vec4(vec3((p.y-time_level.y+.6)/1.2),1);return;}
  float thickness=scene.w>0.0?max(p.y-scene.y,0.0):25.0;
  vec3 n=normalize(cross(dFdx(p),dFdy(p)));if(n.y<0.0)n=-n;
+ n=normalize(mix(n,vec3(0,1,0),smoothstep(384.0,720.0,max(abs(p.x),abs(p.z)))));
  vec3 v=normalize(camera.xyz-p),light=normalize(sun.xyz);
  vec2 distortion=n.xz*params.z*smoothstep(0.0,optics.y,thickness)/max(.35,abs(v.y)),refract_uv=clamp(uv+distortion,vec2(.002),vec2(.998));
  vec4 refracted_scene=texture2D(sampler_02,refract_uv);
@@ -126,9 +167,21 @@ void main(){
  if(refracted_scene.w<=depth||refracted_scene.w<=0.0||refracted_scene.y>ocean_height(refracted_scene.xz))refract_uv=uv;
  vec3 bottom=texture2D(sampler_01,refract_uv).rgb;float transmission=scene.w>0.0?exp(-thickness*params.y):0.0;
  vec3 body=mix(deep.rgb,shallow.rgb,exp(-thickness/optics.x)),color=mix(body,bottom*vec3(.5,.85,.93),transmission*.6);
- color*=clamp(1.0+(dot(n,light)-light.y)*foam_shadow.w,.58,1.3);
+ float water_light=(dot(n,light)-light.y)*foam_shadow.w;
+ float band_width=.015;
+ vec3 water_tone=mix(vec3(.65,.75,.90),vec3(.88,.94,1.0),smoothstep(-.12-band_width,-.12+band_width,water_light));
+ water_tone=mix(water_tone,vec3(1.06,1.02,.94),smoothstep(.12-band_width,.12+band_width,water_light));
+ color*=water_tone;
  float fresnel=.025+optics.w*pow(1.0-max(dot(n,v),0.0),optics.z);
  if(extra.x!=3.0)color=mix(color,reflection_color(p+n*.05,reflect(-v,n)),fresnel);
+ // Compact cel-style sun glints, independent of wave crest foam.
+ vec3 half_light=normalize(v+light);
+ vec3 sun_tint=mix(vec3(1,.94,.78),vec3(1,.55,.16),1.0-smoothstep(.12,.65,light.y));
+ float specular=dot(n,half_light),spec_width=.003;
+ if(extra.x==0.0){
+  color+=sun_tint*pow(max(specular,0.0),96.0)*params.w*.7;
+  color+=sun_tint*3.0*smoothstep(.9985,.9995,specular)*params.w;
+ }
  if(extra.x==2.0)color=body;
  float plane=clamp((dot(n,light)-light.y)*3.0+.5,0.0,1.0);plane=floor(plane*6.0)/6.0;
  float crest_highlight=smoothstep(.25,.7,(p.y-time_level.y)/max(wave0.w+wave1.w+wave2.w+wave3.w,.001));

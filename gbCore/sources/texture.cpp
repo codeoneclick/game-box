@@ -162,9 +162,9 @@ namespace gb
 		assert(result == VK_SUCCESS);
 
 		VkSamplerCreateInfo sampler_info = vk_initializers::sampler_create_info();
-		sampler_info.magFilter = VK_FILTER_LINEAR;
-		sampler_info.minFilter = VK_FILTER_LINEAR;
-		sampler_info.mipmapMode = VK_SAMPLER_MIPMAP_MODE_LINEAR;
+		sampler_info.magFilter = VK_FILTER_NEAREST;
+		sampler_info.minFilter = VK_FILTER_NEAREST;
+		sampler_info.mipmapMode = VK_SAMPLER_MIPMAP_MODE_NEAREST;
 		sampler_info.addressModeU = VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE;
 		sampler_info.addressModeV = VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE;
 		sampler_info.addressModeW = VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE;
@@ -262,7 +262,6 @@ namespace gb
 		}
         
         textures_count--;
-        // std::cout<<"textures count: "<<textures_count<<std::endl;
     }
     
     void texture::on_transfering_data_serialized(const std::shared_ptr<resource_transfering_data> &data)

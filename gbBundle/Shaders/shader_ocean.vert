@@ -57,7 +57,8 @@ float caustic_pattern(vec2 p) {
 void main(){
  vec2 rest=(get_mat_m()*vec4(a_position,1)).xz;
  vec3 p=vec3(rest.x,time_level.y,rest.y),tx=vec3(1,0,0),tz=vec3(0,0,1);
- p.y=ocean_height(rest);
+ float extent=max(abs(rest.x),abs(rest.y));
+ if(extent<720.0)p.y=mix(time_level.y,ocean_height(rest),1.0-smoothstep(384.0,720.0,extent));
  gl_Position=get_mat_p()*get_mat_v()*vec4(p,1);
  v_position=gl_Position;v_screen_position=vec4(p,1);v_normal=normalize(cross(tz,tx));v_color=vec4(1);
 }

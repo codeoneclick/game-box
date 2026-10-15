@@ -7,6 +7,7 @@ namespace game {
             m_uniforms[key]=std::make_shared<gb::shader_uniform>(gb::e_uniform_type_vec4);
         m_uniforms["view"]=std::make_shared<gb::shader_uniform>(gb::e_uniform_type_mat4);
         m_uniforms["projection"]=std::make_shared<gb::shader_uniform>(gb::e_uniform_type_mat4);
+        for(const auto& key:lighting_uniform_names())m_uniforms[key]=std::make_shared<gb::shader_uniform>(gb::e_uniform_type_vec4);
     }
     void ocean_shader_uniforms::update(const ocean_settings& s,float t,const glm::vec3& camera,const glm::mat4& v,const glm::mat4& p,float wetness,int debug)
     {
@@ -19,7 +20,7 @@ namespace game {
         set(glm::vec4(s.deep_color[0],s.deep_color[1],s.deep_color[2],1),"deep");
         set(glm::vec4(s.shallow_color[0],s.shallow_color[1],s.shallow_color[2],1),"shallow");
         set(glm::vec4(s.foam_color[0],s.foam_color[1],s.foam_color[2],1),"foam");
-        set(glm::vec4(s.foam_width,s.absorption,s.refraction_strength,s.highlight_strength),"params");
+        set(glm::vec4(s.foam_width,s.absorption,s.refraction_strength,s.highlight_strength*stylized_lighting_settings().daylight()),"params");
         set(glm::vec4(s.foam_inner_distance,s.foam_width,s.foam_noise_scale,s.foam_noise_speed),"foam_bands");
         set(glm::vec4(s.foam_sharpness,s.foam_outer_strength,s.crest_foam_strength,0),"foam_detail");
         set(glm::vec4(s.foam_shadow_color[0],s.foam_shadow_color[1],s.foam_shadow_color[2],s.facet_strength),"foam_shadow");
@@ -27,8 +28,10 @@ namespace game {
         set(glm::vec4(s.caustic_scale,s.caustic_speed,s.caustic_strength,s.caustic_depth_falloff),"caustic_params");
         set(glm::vec4(-160,-160,320,1.f/1024),"interaction");
         set(glm::vec4(s.foam_mid_min_width,s.foam_mid_max_width,s.foam_warp_strength,s.foam_height_offset),"foam_shape");
-        set(glm::vec4(s.sun_direction.x,s.sun_direction.y,s.sun_direction.z,0),"sun");
-        set(glm::vec4(debug,wetness,0,0),"extra");set(v,"view");set(p,"projection");
+        const auto direction=stylized_lighting_settings().sun_direction();
+        set(glm::vec4(direction[0],direction[1],direction[2],0),"sun");
+        set(glm::vec4(debug,wetness,s.terrain_layer_height,s.terrain_shore_height),"extra");set(v,"view");set(p,"projection");
+        m_values.lighting=make_lighting_uniforms(camera);set_lighting_uniforms(*this,m_values.lighting);
     }
     void* ocean_shader_uniforms::get_values()
     {
@@ -41,9 +44,15 @@ namespace game {
         m_values.interaction=m_uniforms["interaction"]->get_vec4();m_values.foam_shape=m_uniforms["foam_shape"]->get_vec4();
         m_values.view=m_uniforms["view"]->get_mat4();m_values.projection=m_uniforms["projection"]->get_mat4();return &m_values;
     }
-    ui32 ocean_shader_uniforms::get_values_size() {static_assert(sizeof(values)==496,"Ocean uniform layout");return sizeof(values);}
+    ui32 ocean_shader_uniforms::get_values_size() {static_assert(sizeof(values)==608,"Ocean uniform layout");return sizeof(values);}
     ocean_field_debug_uniforms::ocean_field_debug_uniforms(gb::ces_render_technique_uniforms_component::e_shader_uniform_type type):shader_uniforms(type){
         m_uniforms["field_debug"]=std::make_shared<gb::shader_uniform>(gb::e_uniform_type_vec4);set(glm::vec4(0),"field_debug");
+        for(auto name:{"camera","time_level","sun"}){m_uniforms[name]=std::make_shared<gb::shader_uniform>(gb::e_uniform_type_vec4);set(glm::vec4(0),name);}
+        for(auto name:{"view","projection"}){m_uniforms[name]=std::make_shared<gb::shader_uniform>(gb::e_uniform_type_mat4);set(glm::mat4(1),name);}
     }
-    void* ocean_field_debug_uniforms::get_values(){m_value=m_uniforms["field_debug"]->get_vec4();return &m_value;}
+    void* ocean_field_debug_uniforms::get_values(){
+        m_values.debug=m_uniforms["field_debug"]->get_vec4();
+        m_values.view=m_uniforms["view"]->get_mat4();m_values.projection=m_uniforms["projection"]->get_mat4();
+        m_values.camera=m_uniforms["camera"]->get_vec4();m_values.time_level=m_uniforms["time_level"]->get_vec4();m_values.sun=m_uniforms["sun"]->get_vec4();return &m_values;
+    }
 }

@@ -36,6 +36,7 @@ namespace gb
         e_input_source_mouse_left,
         e_input_source_mouse_right,
         e_input_source_keyboard,
+        e_input_source_mouse_middle,
         e_input_source_max
     };
     

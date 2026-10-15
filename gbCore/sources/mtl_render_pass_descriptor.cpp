@@ -143,6 +143,22 @@ namespace gb
         render_pass_descriptor->m_frame_height = configuration->get_frame_height();
         
         id<MTLTexture> mtl_depth_stencil_attachment = (__bridge id<MTLTexture>)gb::mtl_device::get_instance()->get_mtl_raw_depth_stencil_attachment_ptr();
+        // Fixed-size WS targets (for example light-space maps) cannot attach
+        // the viewport-sized shared depth texture. The pass descriptor retains
+        // this private attachment; ordinary viewport passes still share depth.
+        if (mtl_depth_stencil_attachment.width != configuration->get_frame_width() ||
+            mtl_depth_stencil_attachment.height != configuration->get_frame_height())
+        {
+            MTLTextureDescriptor* depth_descriptor = [MTLTextureDescriptor
+                texture2DDescriptorWithPixelFormat:mtl_depth_stencil_attachment.pixelFormat
+                width:configuration->get_frame_width() height:configuration->get_frame_height() mipmapped:NO];
+            depth_descriptor.storageMode = MTLStorageModePrivate;
+            depth_descriptor.usage = MTLTextureUsageRenderTarget;
+            depth_descriptor.sampleCount = mtl_depth_stencil_attachment.sampleCount;
+            if (depth_descriptor.sampleCount > 1) depth_descriptor.textureType = MTLTextureType2DMultisample;
+            id<MTLDevice> device = (__bridge id<MTLDevice>)gb::mtl_device::get_instance()->get_mtl_raw_device_ptr();
+            mtl_depth_stencil_attachment = [device newTextureWithDescriptor:depth_descriptor];
+        }
         
         const auto attachments_configurations = configuration->get_attachments_configurations();
         assert(attachments_configurations.size() != 0);

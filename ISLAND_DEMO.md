@@ -13,7 +13,7 @@ the drag. Sea dragging uses the mean water level to avoid wave-induced jumps.
 Wheel up zooms in; wheel down zooms out around the current look-at point.
 The orbit radius is limited to 35-700 m; fractional wheel input is supported.
 Initial yaw/elevation/radius are 45/55 degrees and 245 m.
-The island camera clips at 0.5-1200 m; resident close inspection uses 0.1 m
+The island camera clips at 0.5-6000 m; resident close inspection uses 0.1 m
 for the near plane. The near plane stays small when zooming toward terrain.
 
 ## Male island resident
@@ -179,6 +179,14 @@ outer patches sample this field. Wave crests and boundary direction influence
 width. A shared water-mesh foam pass sits 0.04 m above water; scene position/depth
 occludes it and composition blends its premultiplied color. No object colliders,
 per-object foam geometry or active hardware depth sampling are used.
+
+Metaball patches start with radii of 0.83125-1.1305 world units, then shrink and fade
+over independently phased cycles. At the default foam animation speed (.65),
+cycles take about 5.5-9.5 seconds. The final part of each cycle contributes zero
+density before rebirth. A small animated gradient Perlin perturbation roughens
+the contours; its strength is `.22` in `foam_metaballs`. The continuous contact
+core and existing center motion remain. GLSL water/foam and Metal share these
+formulas; Metal runtime has not been verified on Windows.
 
 Separate opaque color/normal/world-position attachments still support absorption,
 refraction, screen-space reflection, caustics and wetness. Reflection falls back
@@ -406,3 +414,325 @@ default, ocean inspection and resident inspection camera distances, including
 orbit and mouse-wheel zoom changes. Metal source and all three Xcode resource targets were updated;
 native Metal and OpenGL builds/runtime remain UNKNOWN. The existing Vulkan
 command-pool destruction validation messages still occur during shutdown.
+
+## Stylized terrace grass (2026-10-12)
+
+Grass covers dry terraces 4–7, numbered from the summit (1) toward the shore (8):
+Y=8, 6, 4 and 2 m. `terrain_mesh_builder::build_grass()` samples the actual
+smoothed horizontal terrain triangles with the island seed. Blades have pointed,
+slightly bent silhouettes, randomized orientation/height and a dark-root to
+bright-tip green gradient. Height is 0.55–1.0 m and density is 7 blades/m².
+
+The default island has 135,478 blades, 406,434 triangles and twelve static mesh
+batches, adding twelve `ws.base` draws. Each blade uses five vertices and three
+opaque, two-sided triangles. Meshes are generated/uploaded only during scene
+creation; the existing terrain material supplies lighting and SSAO. Grass is
+an ocean uniform receiver but does not participate in water interaction masks.
+The terrain vertex shader recognizes grass through tangent.z=1; tangent.xy
+store bend weight and blade height. Weight is zero at the roots, 0.58 in the
+middle and one at the tip. UV holds one shared world-XZ root for all five
+vertices. GPU wind combines spatial gusts, two changing broad directions and
+independent blade phases/frequencies. Squared weights pin the roots and bend
+the tips more strongly. Normals move with the blades; horizontal displacement
+is limited to 0.7 m, with a small downward arc. Mesh bounds include wind motion.
+Animation uses the existing ocean clock (`GB_OCEAN_FIXED_TIME` also freezes wind)
+and requires no CPU vertex rebuild/upload or extra draw pass. Matching GLSL and
+Metal implementations live in the existing terrain shaders. There is currently
+no distance LOD; batches split at 60,000 vertices rather than by spatial tile.
+
+Diagnostic environment variables: `GB_ISLAND_GRASS=0` disables grass for an
+otherwise identical performance comparison; `GB_GRASS_INSPECT=1` starts the
+camera close to a grass-covered terrace. Both are unset during ordinary F5 runs.
+
+Verification: `check-island-terrain.ps1` checks deterministic geometry, selected
+levels, blade heights, colour gradients, bend metadata and 16-bit batch/index
+bounds. Debug and Release builds and close Vulkan multiframe captures passed.
+At fixed times 0 and 3 s, 408,492 grass-coloured pixels changed in the inspection
+ROI; at the same fixed time, frames 80 and 160 matched exactly in that ROI.
+The default-camera Release run with 200 residents and Vulkan validation off
+averaged 5.439 ms/frame over 22 steady-state 120-frame reports (first two
+reports excluded). This local result includes the larger covered terrace area;
+it does not isolate the cost of wind from the additional grass geometry.
+Normal Debug shutdown with Vulkan validation also passed.
+Metal/OpenGL were not built or exercised for this change.
+
+## Grass interaction with residents
+
+Residents push grass radially away from their body, with an additional bias in
+their movement direction. Radius is 1.6 m. Roots remain fixed, upper vertices
+bend more strongly, and normals follow the bend. Combined wind/contact
+displacement is capped at 1 m; mesh bounds allow 1.05 m of horizontal movement.
+
+One additive `ws.grass.interaction` pass rasterizes current contacts and a
+bounded 8 Hz trail into a 1024×1024 RGBA16F atlas. Its four 512×512 tiles isolate
+dry heights 2, 4, 6 and 8 m. Each covers the same 320 m world-XZ domain as the
+ocean interaction field. Historical contributions fade smoothly over 1.5 s.
+The terrain vertex shader samples only its terrace tile at the shared blade
+root. There is no per-vertex loop over the resident population, no grass mesh
+rebuild and no synchronous texture upload. A separate small dynamic quad VBO
+uses the engine's existing per-frame storage; 3,000 quads cover the current
+population and history. The extra pass precedes `ws.base`; ocean/UI relative
+ordering and render quality settings are retained.
+
+Resident transforms update during `on_feed_start`; the interaction action runs
+in the action system's feed phase before render, independently of camera
+visibility. Vulkan sampler 01 now permits vertex reads, and render-pass
+dependencies cover those reads. Metal binds texture slot 0 to vertex and
+fragment stages. OpenGL sampling flips the final atlas V coordinate to account
+for its framebuffer origin. No native Apple/OpenGL runtime was available.
+
+Diagnostics: `GB_GRASS_INTERACTION=0` disables contact while retaining wind;
+`GB_GRASS_INTERACTION_INSPECT=1` places the camera near a resident on a grassy
+terrace. Use `GB_RESIDENT_POSE=idle`, `GB_RESIDENT_TIME=0` and
+`GB_OCEAN_FIXED_TIME=3` for comparison captures. Ordinary F5 runs need none of
+these variables. `check-island-terrain.ps1` also verifies history capacity,
+expiration, recovery weights and identical root coordinates across each blade.
+Debug/Release compilation, Vulkan captures with the walking crowd and a close
+contact on/off comparison passed; 63,512 grass-coloured pixels changed in the
+close comparison ROI. Normal Debug shutdown passed with validation enabled.
+
+## Island skybox
+
+The scene uses `gbResources/sky_01.png` through `sky_06.png` as a cubemap:
+`sky_01` +Z, `sky_02` −Z, `sky_03` +X, `sky_04` −X, `sky_05` +Y, `sky_06` −Y.
+The explicit mapping is in `sky.island.cubemap.xml`; original PNGs are unchanged.
+All six faces are 1024×1024, 8-bit RGB. The cubemap serializer supports explicit
+XML face manifests in addition to legacy `<prefix>_px/nx/py/ny/pz/nz.png` names,
+normalizes RGB to RGBA, validates equal square dimensions and decoded byte
+counts, and restores native top-down cube rows for manifests. Legacy prefix
+orientation is retained. Manifest `flip_vertical="1"` retains bottom-up rows.
+
+`island_sky.xml` draws a fullscreen quad in `ws.base`: far depth 1, LEQUAL test,
+no depth writes and no culling. Camera projection and view rotation reconstruct
+the cube lookup ray, excluding camera translation. It remains behind opaque
+geometry independently of entity submission order, and needs no extra pass.
+Zero normal/position-depth attachments keep it out of SSAO and geometry depth
+queries. UNORM cubemap samples are converted from sRGB to linear before the
+normal output gamma path. The sky adds two triangles and one draw call.
+
+It is easiest to see when orbiting toward the horizon; the default elevated
+camera mostly sees the island and ocean. `GB_GRASS_INSPECT=1` provides a low
+camera for a capture. Windows Debug/Release builds, default and low-camera
+Vulkan multiframe captures and normal shutdown were checked. Sky shaders,
+manifest/material XML and the six source PNGs are registered in all three
+existing Apple resource targets; matching Metal functions use the existing
+library. Native Metal/OpenGL builds/runtime remain unverified.
+
+## Distant ocean and atmospheric horizon
+
+The old horizon skirt connected 384 m and 2048 m extents with a single radial
+row: wave heights were interpolated across 1,664 m triangles, producing long
+streaks. The 1200 m camera far plane also cut the ocean into a visible straight
+edge against the sky. The skirt now has 40 quadratic radial rows, starting at
+the central grid's 2 m spacing. Default topology is 63,140 vertices and 122,880
+triangles, within 16-bit vertex/index addressing. Row count adapts for larger
+segment counts; narrow skirts retain monotonic rings. Triangle winding, first
+row spacing and index limits are covered by `check-ocean.ps1`.
+
+The central 768 m grid and its wave field remain intact. From world-XZ extent
+384 to 720 m, only distant rendering fades displacement and faceted normals
+toward the mean plane. Beyond that, unresolved small waves are not evaluated.
+The horizon has no foam material: it lies outside the ±160 m interaction field
+and could only submit zero-coverage foam. This avoids a redundant horizon draw
+and its wave/noise work. Camera far clip is 6000 m so atmospheric extinction,
+instead of camera clipping, conceals the outer water boundary.
+
+The existing ocean compose shader applies one common atmospheric treatment to
+water, sky, terrain and residents. It reconstructs camera rays, uses stored
+opaque world positions and a mean-water-plane intersection for water distance,
+then integrates eight samples from 450 m to at most 6000 m. Density decays with
+a 120 m height scale and varies smoothly in three dimensions with the ocean
+clock. Beer–Lambert transmittance, blue scattering and a forward-scattering sun
+term produce the horizon haze. This is a stylized single-scattering volume;
+it does not simulate multiple scattering or shadowed cloud lighting. No new
+render target/pass or temporal history is required. The HUD remains unfogged.
+
+`GB_ATMOSPHERE=0` disables scattering for comparison. `GB_HORIZON_INSPECT=1`
+reproduces the former streak/clip view; `GB_HORIZON_INSPECT=low` views the sky
+above the atmospheric band. Existing diagnostic water/field/AO views bypass
+the effect. Shader constants in `shader_ocean_compose.frag` and matching Metal
+code control onset distance, height, extinction, tint and sun anisotropy.
+
+Windows Debug/Release compilation, CPU ocean/buoyancy checks and Vulkan
+multiframe captures passed at default and horizon camera angles. With no
+residents and fixed time 3 s, the near ROI `(0,420)-(1280,720)` was pixel-identical
+with scattering on/off. Local Release runs with 200 residents averaged 5.096
+ms with scattering and 5.031 ms without it, excluding the first two 120-frame
+reports (23/24 reports). These short measurements do not establish a universal
+performance bound. GLSL/Metal calculations and the 192-byte compose buffer
+layout match by inspection; native Metal/OpenGL remain unverified.
+
+## Procedural trees
+
+`terrain_mesh_builder::build_trees()` generates seeded low-poly trees directly
+from the horizontal triangles of the rendered island. Terraces are numbered
+from the summit. Each selected terrace requests 10–20 trees; placement keeps
+roots 1.8 m inside the surface and trunks at least 6 m apart. Canopies may
+naturally overhang cliffs. Default seed 1337 produces:
+
+| Terrace | Ground height | Trees | Conifers | Deciduous |
+| --- | --- | --- | --- | --- |
+| 3 | 10 m | 18 | 15 | 3 |
+| 4 | 8 m | 14 | 11 | 3 |
+| 5 | 6 m | 12 | 6 | 6 |
+| 6 | 4 m | 15 | 4 | 11 |
+| 7 | 2 m | 13 | 2 | 11 |
+
+Conifers use 4–5 overlapping polygonal cone tiers and tapered trunks; deciduous
+trees use fork branches and 5–7 irregular icosahedral crown lobes. Heights,
+silhouette, lean and green shades vary per tree. Nominal heights are 6–9 m for
+conifers and 5.5–8 m for deciduous trees. Faceted normals and vertex colours
+use the existing terrain lighting, SSAO and atmospheric composition.
+
+The 72 trees contain 11,762 triangles and are combined into five static terrace
+meshes/draws. Tree bend weight and random phase use tangent.xy, with tangent.w=1
+separating trees from grass (tangent.z=1). UV stores a shared root. GLSL/Metal
+reuse the wind field at a slower rate with a small branch flutter. Quadratic
+height weights keep roots fixed; maximum horizontal sway is approximately
+0.309 m and bounds allow 0.4 m. Geometry is not rebuilt/uploaded per frame, and
+trees do not enter water masks or the grass contact field. These are decorative
+trees; resident navigation and trunk collision remain unchanged.
+
+`GB_ISLAND_TREES=0` disables generation for comparison. `GB_TREES_INSPECT=1`
+focuses a deciduous tree; `GB_TREES_INSPECT=pine` focuses a conifer. Nearby trees
+can obscure the selected tree; ordinary orbit/pan controls remain available.
+`check-island-terrain.ps1` checks deterministic geometry/placement, population,
+type distribution, spacing, finite positions, pinned roots, bend metadata and
+indices. Debug/Release builds and Vulkan default/close/animated captures passed.
+Fixed-time 0 versus 4 s changed 35,602 canopy-coloured pixels in the close ROI.
+Debug normal shutdown passed with validation. A short Release run with 200
+residents averaged 4.925 ms/frame (24 steady 120-frame reports); a separate run
+without trees averaged 5.243 ms (23 reports). Run variance prevents attributing
+the difference to tree rendering. Native Metal/OpenGL remain unverified.
+
+## Scene edge detection
+
+The existing ocean composition pass outlines opaque geometry using four adjacent
+world-position/linear-depth and encoded-normal samples. A relative plane-distance
+threshold avoids outlining continuous slopes; normal discontinuities accent
+low-poly facets. Outline width is about one pixel on either side of a geometry
+edge. Trees, props and terraces share this effect; grass and residents are excluded.
+
+Full-strength nearby edges display RGB (64, 64, 64). Windows uses
+pow(64/255, 2.2) before its output gamma conversion; Metal uses sRGB-linear
+0.05126946. Soft edge coverage blends this gray with the scene; distant edges
+receive the existing atmosphere. Water and sky are excluded, as is the UI composed
+later. There are no additional render targets or draw calls. Eight neighboring
+texture reads are restricted to visible opaque geometry.
+
+Set GB_EDGE_DETECT=0 before launching to disable the effect. Default is enabled.
+Verification: Debug and Release builds, Vulkan validation captures of default and
+close tree views, frame-color checks (30,254 gray outline pixels versus zero before,
+unchanged ocean comparison region), and normal shutdown checks passed. Metal and
+OpenGL were not built or exercised on Windows.
+
+Grass and residents write normal-attachment alpha 0.5; outlined opaque geometry
+writes 1, background 0. SSAO still accepts both positive values. Edge detection
+excludes marked center pixels and ignores marked neighbors, preventing outlines
+around them from leaking onto adjacent terrain. Vulkan close captures confirmed
+grass and resident exclusion and 5,668 RGB64 outline pixels on the tree close view.
+The island shading/SSAO comparison region with outlines disabled was unchanged.
+Debug/Release builds and a validation-enabled Debug normal shutdown passed.
+
+## Cartoon / cel lighting
+
+Opaque terrain, trees, grass, props and residents now use three diffuse tones:
+cool shadow (0.32,0.38,0.50), midtone (0.62,0.66,0.72), warm sunlight
+(1.02,0.96,0.83). Thresholds are N dot L = 0.22 and 0.65 with a narrow 0.01
+transition. This modifies lighting only; textures, skinning, wave physics,
+vegetation movement and outline exclusions remain intact. Wet surfaces have
+compact warm highlights. Existing SSAO still supplies contact shading.
+
+Water uses three colored lighting bands around its existing facet-lighting value
+and a compact sunlight specular patch, retaining SSR, refraction, foam, caustics
+and atmospheric composition. Fixed narrow transitions avoid nested derivatives
+of the derivative-based water and resident normals. No new shadow-map pass,
+cast shadows, render targets, uniform fields or draw calls were introduced.
+
+Debug/Release builds and Vulkan validation captures of tree/grass close view,
+resident close view, ocean props and default view passed. Both configurations
+passed normal shutdown validation. Metal counterparts were updated; Apple and
+OpenGL targets remain unverified.
+
+## Terrace biome palette
+
+Terraces are numbered from summit to coast: terrace 8 is yellow sand, 7 through 4
+progress from yellow-green to dense green grass, 3 through 1 progress through
+three neutral rock grays. Both top faces and vertical walls use these colors.
+Wall vertex colors interpolate by height between adjacent terrace tones; the
+first rock wall remains gray throughout. Grass blade colors follow the same
+four-level vegetation progression. Underwater terrain and debug layer colors
+retain their previous palettes. Topology, bounds, tree placement and navigation
+are unchanged; colors are baked once when procedural meshes are generated.
+
+CPU terrain/grass/tree checks and Release build passed. Vulkan default and oblique
+captures verified sand/grass/rock tops and walls. Debug build was initially blocked
+by gb_demo.pdb locked by the user's active Debug application.
+
+The latest palette adjustment uses coast-first numbering (1 is sand): level 4
+(Y=6) blends radially from its green outer rim to dark-brown soil at the inner
+rim; level 5 (Y=8) is dark brown; level 6 (Y=10) blends from brown to the previous
+rock gray. Levels 7/8 retain their gray tones. Wall endpoints match the upper
+outer rim and the lower terrace's inner rim, preserving continuous colors across
+steps. Grass on the transitional/soil terrace follows the sampled ground color
+into dry brown tones; counts, mesh topology and movement stay unchanged.
+
+## Blob contact shadows
+
+Trees and residents share one dynamically updated quad batch in ws.blob.shadow,
+after opaque geometry and before water. Tree radius is height*0.32 and peak
+strength0.36; residents use radius0.75m and peak strength0.32. Each is a soft
+ellipse with Z radius0.8 times X radius. Resident roots are read after their
+movement update; static tree roots remain fixed. Geometry adds two triangles per
+caster (544 for72 trees+200 residents) and one draw call, not one per object.
+
+The screen mask samples the visible opaque world-position attachment and rejects
+background or receiver heights farther than0.08m from the quad plane. Quads sit
+0.02m above their terrace, preventing depth fighting and shadows hanging over
+terrace edges. Grass and character pixels above this narrow contact band occlude
+the ground shadow. The mask does not write normals/depth or produce outlines.
+Overlaps are capped at60% darkness. Existing island AO blur multiplies the mask
+into opaque visibility, retaining the current composition sampler count. One
+window-sized attachment and one mask read per AO-blur pixel are added.
+
+GB_BLOB_SHADOWS=0 disables the contribution for comparison. Debug/Release builds,
+Vulkan default/tree/resident captures, on/off image checks (37,914 tree-view and
+12,269 resident-contact-region differing pixels), and normal shutdown validation
+in both configurations passed. Five new assets are registered in all three
+Apple resource targets. Metal source is updated; Metal/OpenGL execution remains
+unverified on Windows.
+
+## Spring wheel zoom
+
+The wheel now modifies a target orbit radius; the displayed radius follows an
+exact critically damped spring (frequency14/s), giving a gentle start and stop
+without changing the wheel sensitivity or existing15�700m limits. Inspection
+cameras retain their2.5m lower limit and initialize without an animated jump.
+Rapid wheel events accumulate on the target radius instead of the intermediate
+radius. The update runs through an action (order2), before ocean uniforms and
+rendering; yaw and pitch input remain direct. Active RMB grabs are rebased after
+each zoom update so subsequent dragging cannot jump.
+
+The pure orbit_zoom helper is registered in MSVC and the Apple source group.
+CPU checks cover smooth start,30/60/120/144Hz equivalence, bounds, large/invalid
+deltas and diagnostic-camera initialization. Debug and Release builds passed.
+A real wheel message to the running Release game produced82 successive radius
+updates245 ->244.609 ->217.296, with Vulkan validation and normal exit0. Debug
+normal shutdown validation also passed. GB_ZOOM_DEBUG=1 logs radius updates.
+Apple/OpenGL builds remain unverified.
+
+## Terrain editor
+
+The demo includes Dig, Raise, Grass, Trees and Climate tools using existing engine
+UI. LMB edits, Shift+LMB erases foliage, Alt+LMB orbits, RMB pans and the wheel
+retains spring zoom. Ctrl+Z/Y undo/redo; Ctrl+S/O and toolbar buttons open native
+Windows Save/Load dialogs for binary .level files.
+
+UI talks only to TerrainEditorState and commands. Logical data drives affected
+16-cell chunks, grouped GPU batches, water masks, vegetation, shadows and resident
+navigation. Files contain logical data and reconstruction policies, with CRC/range
+validation and atomic replacement. Foundation levels -6/-7/-8 stay locked;
+editable levels span -5 through +16.
+
+See [the editor implementation report](docs/terrain-editor.md) for files,
+architecture, individual tools, serialization, checks and current limitations.

@@ -59,16 +59,35 @@ float caustic_pattern(vec2 p) {
 vec2 screen_uv(vec3 p){vec4 clip=projection*view*vec4(p,1);return vec2(.5+.5*clip.x/clip.w,.5-.5*clip.y/clip.w);}
 bool valid_uv(vec2 uv){return all(greaterThan(uv,vec2(.002)))&&all(lessThan(uv,vec2(.998)));}
 vec4 interaction_sample(vec2 xz){vec2 uv=(xz-interaction.xy)/interaction.z;if(any(lessThan(uv,vec2(0)))||any(greaterThan(uv,vec2(1))))return vec4(320,0,0,0);return texture2D(sampler_04,uv);}
-// Summed moving kernels: the isocontour merges/splits rather than scrolling a texture.
+// Gradient Perlin noise perturbs the contours without adding texture samples.
+vec2 foam_gradient(vec2 cell){
+ float angle=6.2831853*field_hash(cell+vec2(101,47));
+ return vec2(cos(angle),sin(angle));
+}
+float foam_perlin(vec2 p){
+ vec2 cell=floor(p),f=fract(p);
+ vec2 fade=f*f*f*(f*(f*6.0-15.0)+10.0);
+ float a=dot(foam_gradient(cell),f);
+ float b=dot(foam_gradient(cell+vec2(1,0)),f-vec2(1,0));
+ float c=dot(foam_gradient(cell+vec2(0,1)),f-vec2(0,1));
+ float d=dot(foam_gradient(cell+vec2(1,1)),f-vec2(1,1));
+ return mix(mix(a,b,fade.x),mix(c,d,fade.x),fade.y);
+}
+// Independent births: large kernels shrink and dissolve, still merging/splitting.
 float foam_metaballs(vec2 p,float t){
  vec2 cell=floor(p/3.0);float density=0.0;
+ float contour=1.0+.22*foam_perlin(p*1.15+vec2(t*.13,-t*.09));
  for(int y=-1;y<=1;y++)for(int x=-1;x<=1;x++){
   vec2 id=cell+vec2(x,y);
   float phase=6.2831853*field_hash(id+vec2(41,73));
   float rate=mix(.65,1.25,field_hash(id+vec2(19,11)));
   vec2 center=(id+.5)*3.0+vec2(sin(t*rate+phase),cos(t*rate*.83+phase*1.7))*.95;
-  float radius=mix(.65,1.05,field_hash(id+vec2(97,23)));
-  vec2 delta=p-center;density+=radius*radius/(dot(delta,delta)+.35)*(1.0-smoothstep(2.5,3.4,length(delta)));
+  float lifetime=mix(3.6,6.2,field_hash(id+vec2(67,53)));
+  float age=fract(t/lifetime+field_hash(id+vec2(13,89)));
+  float shrink=1.0-smoothstep(.04,.92,age);
+  float opacity=smoothstep(0.0,.035,age)*(1.0-smoothstep(.70,.98,age));
+  float radius=mix(.83125,1.1305,field_hash(id+vec2(97,23)))*shrink*contour;
+  vec2 delta=p-center;density+=opacity*radius*radius/(dot(delta,delta)+.35)*(1.0-smoothstep(2.5,3.4,length(delta)));
  }
  return density;
 }
@@ -102,6 +121,6 @@ void main(){
  vec3 n=normalize(cross(dFdx(p),dFdy(p)));if(n.y<0.0)n=-n;
  float width,influence;vec4 layers=world_foam(p-vec3(0,foam_shape.w,0),width,influence);
  float shade=floor(max(dot(n,normalize(sun.xyz)),0.0)*5.0)/5.0;
- vec3 color=mix(foam_shadow.rgb,foam.rgb,.8+.2*shade);float coverage=layers.w;
+ vec3 color=mix(foam_shadow.rgb,foam.rgb,.8+.2*shade)*1.24;float coverage=layers.w;
  attachment_01=vec4(color*coverage,coverage);
 }

@@ -65,7 +65,12 @@ namespace game
                 const float radius = layer < 0 ? coast + (-layer)*config.underwater_terrace_width
                     * (1.f + .1f*std::sin(4.f*angle+p3)) : coast * (1.f - .82f*t)
                     + config.island_size * .012f * t * std::sin(4.f*angle+p2+layer*.65f);
-                if (distance <= radius) data.layers[static_cast<size_t>(z)*config.resolution+x] = static_cast<int8_t>(layer);
+                // Shift upper plateaus gently: varying widths, while keeping each
+                // terrace nested and its logical walking/building height flat.
+                const float shift_x=config.island_size*.005f*t*std::sin(p1+layer*.55f);
+                const float shift_z=config.island_size*.005f*t*std::cos(p2+layer*.55f);
+                const float terrace_distance=layer<0?distance:std::sqrt((px-shift_x)*(px-shift_x)+(pz-shift_z)*(pz-shift_z));
+                if (terrace_distance <= radius) data.layers[static_cast<size_t>(z)*config.resolution+x] = static_cast<int8_t>(layer);
             }
         }
         return data;

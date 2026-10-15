@@ -12,6 +12,9 @@
 #include "frustum_3d.h"
 #include "vbo.h"
 #include <cstdlib>
+#include <algorithm>
+#include <cmath>
+#include <stdexcept>
 namespace game {
 ces_island_resident_system::ces_island_resident_system(std::vector<resident_navigation> nav):m_navigations(std::move(nav)){
     set_order(6);
@@ -23,14 +26,81 @@ ces_island_resident_system::ces_island_resident_system(std::vector<resident_navi
     if(const auto value=std::getenv("GB_RESIDENT_TIME"))m_fixed_time=std::strtof(value,nullptr);
     m_debug=std::getenv("GB_RESIDENT_DEBUG")!=nullptr;
 }
+void ces_island_resident_system::refresh_navigation(const std::vector<terrain_mesh_data>& parts,const std::vector<float>& heights,const std::vector<float>& terrace_heights){
+    if(!terrace_heights.empty()&&(terrace_heights.size()!=m_navigations.size()||
+       std::any_of(terrace_heights.begin(),terrace_heights.end(),[](float y){return !std::isfinite(y);})))
+        throw std::invalid_argument("Invalid resident terrace height replacement");
+    std::vector<uint8_t> changed(m_navigations.size(),0);
+    // Preserve terrace indices and each terrace's physical height. Parts carry
+    // separate local index buffers and are never concatenated into 16-bit indices.
+    for(size_t i=0;i<m_navigations.size();++i){
+        const auto& old=m_navigations[i];
+        const float target_y=terrace_heights.empty()?old.shore_y:terrace_heights[i];
+        bool affected=heights.empty()||std::abs(target_y-old.shore_y)>=.001f||std::any_of(heights.begin(),heights.end(),[&](float y){return std::isfinite(y)&&std::abs(y-old.shore_y)<.001f;});
+        if(!affected)continue;
+        m_navigations[i]=build_resident_navigation(parts,target_y,old.cell_size);
+        changed[i]=1;
+    }
+    refresh_residents(changed);
+}
+void ces_island_resident_system::apply_navigation(std::vector<resident_navigation> replacement){
+    if(replacement.size()!=m_navigations.size())throw std::invalid_argument("Resident navigation replacement changes terrace assignments");
+    for(const auto& nav:replacement){
+        if(!std::isfinite(nav.shore_y)||!std::isfinite(nav.cell_size)||nav.cell_size<.25f||nav.cell_size>4.f||
+           nav.width<0||nav.height<0||nav.walkable.size()!=static_cast<size_t>(nav.width)*nav.height||
+           nav.cell_triangles.size()!=nav.walkable.size()||(!nav.solid_cells.empty()&&nav.solid_cells.size()!=nav.walkable.size()))
+            throw std::invalid_argument("Invalid worker-built resident navigation");
+    }
+    m_navigations=std::move(replacement);
+    refresh_residents(std::vector<uint8_t>(m_navigations.size(),1));
+}
+void ces_island_resident_system::refresh_residents(const std::vector<uint8_t>& changed){
+    using region_ptr=std::shared_ptr<const std::vector<resident_point>>;
+    std::vector<std::vector<region_ptr>> regions(m_navigations.size());
+    for(size_t i=0;i<changed.size();++i)if(changed[i])regions[i].resize(m_navigations[i].walkable.size());
+    enumerate_entities_with_components(m_mask,[&](const gb::ces_entity_shared_ptr& entity){
+        auto resident=entity->get_component<ces_island_resident_component>();
+        size_t index=resident->terrace_index;
+        if(index>=changed.size()||!changed[index])return;
+        auto& state=resident->state;const auto& nav=m_navigations[index];
+        state.route.clear();state.route_index=0;state.reachable.clear();state.shared_reachable.reset();
+        state.walking=false;state.idle_remaining=2.f;
+        state.available=nav.is_safe(state.position);
+        if(!state.available){
+            float nearest=std::numeric_limits<float>::max();
+            const auto previous=state.position;
+            for(size_t cell=0;cell<nav.walkable.size();++cell){
+                if(!nav.walkable[cell])continue;
+                auto candidate=nav.center(static_cast<int>(cell));
+                float dx=candidate.x-previous.x,dz=candidate.z-previous.z;
+                float distance=dx*dx+dz*dz;
+                if(distance>=nearest||!nav.is_safe(candidate))continue;
+                nearest=distance;state.position=candidate;state.available=true;
+            }
+        }
+        entity->visible=state.available;
+        if(!state.available)return;
+        int at=nav.cell_at(state.position);
+        if(!regions[index][at]){
+            auto points=std::make_shared<const std::vector<resident_point>>(nav.reachable_points(state.position));
+            for(const auto& p:*points){int cell=nav.cell_at(p);if(cell>=0)regions[index][cell]=points;}
+            regions[index][at]=std::move(points);
+        }
+        state.shared_reachable=regions[index][at];
+        auto transform=entity->get_component<gb::ces_transformation_3d_component>();
+        transform->set_position(glm::vec3(state.position.x,nav.shore_y,state.position.z));
+    });
+}
 void ces_island_resident_system::on_feed_start(f32 dt){
     enumerate_entities_with_components(m_mask,[&](const gb::ces_entity_shared_ptr& entity){
         auto resident=entity->get_component<ces_island_resident_component>();auto& state=resident->state;
-        if(resident->terrace_index>=m_navigations.size()){state.available=false;state.walking=false;std::cout<<"RESIDENT TERRACE INVALID"<<std::endl;return;}
+        if(resident->terrace_index>=m_navigations.size()){state.available=false;state.walking=false;entity->visible=false;return;}
         const auto& navigation=m_navigations[resident->terrace_index];
         const auto previous=state.position;
+        if(!state.available){entity->visible=false;return;}
         if(m_fixed_pose.empty())step_resident(navigation,dt,state);
-        else state.walking=m_fixed_pose=="walk";
+        else {state.available=navigation.is_safe(state.position);state.walking=state.available&&m_fixed_pose=="walk";}
+        entity->visible=state.available;
         if(!state.available)return;
         auto transform=entity->get_component<gb::ces_transformation_3d_component>();
         const glm::vec3 position(state.position.x,navigation.shore_y,state.position.z);
@@ -63,6 +133,7 @@ void ces_island_resident_system::on_feed(const gb::ces_entity_shared_ptr&,f32 dt
     enumerate_entities_with_components(m_mask,[&](const gb::ces_entity_shared_ptr& entity){
         auto resident=entity->get_component<ces_island_resident_component>();
         if(resident->terrace_index>=m_navigations.size())return;
+        if(!resident->state.available)return;
         const auto& navigation=m_navigations[resident->terrace_index];
         if(report){++counts[resident->terrace_index];walkers+=resident->state.walking?1:0;
             auto transform=entity->get_component<gb::ces_transformation_3d_component>();
@@ -83,7 +154,7 @@ void ces_island_resident_system::on_feed(const gb::ces_entity_shared_ptr&,f32 dt
         // Both legacy bulk setters skip arrays; the individual material setter
         // supports them. Keep this adapter local rather than changing bulk semantics.
         entity->get_component<gb::ces_material_component>()->get_material("ws.base")->set_custom_shader_uniform(static_cast<glm::mat4*>(bones->get_values()),64,"u_bones");
-        std::static_pointer_cast<resident_color_uniforms>(uniforms->get_uniforms(gb::ces_shader_uniforms_component::e_shader_uniform_mode::e_fragment,"resident.color",0))->update(view,resident->clothing_color);
+        std::static_pointer_cast<resident_color_uniforms>(uniforms->get_uniforms(gb::ces_shader_uniforms_component::e_shader_uniform_mode::e_fragment,"resident.color",0))->update(view,resident->clothing_color,camera->get_position());
         if(m_debug&&m_elapsed>=m_next_report){
             const auto& s=resident->state;std::cout<<"Resident position="<<s.position.x<<","<<navigation.shore_y<<","<<s.position.z<<" safe="<<navigation.is_safe(s.position)<<" bones="<<mixer->get_transformation_size()<<std::endl;
             m_next_report=m_elapsed+1;
@@ -106,6 +177,7 @@ void ces_island_resident_system::on_feed(const gb::ces_entity_shared_ptr&,f32 dt
         }
     });
     if(report){
+        m_next_report=m_elapsed+1;
         std::cout<<"Resident crowd report: walkers="<<walkers<<" unsafe="<<unsafe<<" counts=";
         for(auto count:counts)std::cout<<count<<",";
         std::cout<<std::endl;

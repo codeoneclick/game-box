@@ -16,10 +16,10 @@ namespace game {
     }
     void ces_ocean_system::add_surface(const gb::ces_entity_shared_ptr& entity) {add_receiver(entity);}
     void ces_ocean_system::add_interaction(const gb::ces_entity_shared_ptr& source,const gb::ces_entity_shared_ptr& mask) {
-        m_interactions.emplace_back(source,mask);add_receiver(mask);
         auto mesh=source->get_component<gb::ces_geometry_3d_component>()->get_mesh();
-        if(mesh)m_interaction_meshes.push_back(mesh->as_3d());
+        m_interactions.push_back({source,mask,mesh?mesh->as_3d():nullptr});add_receiver(mask);
     }
+    void ces_ocean_system::set_mean_level(float level){auto settings=m_settings;settings.mean_level=level;settings.validate();m_settings=settings;}
     void ces_ocean_system::add_receiver(const gb::ces_entity_shared_ptr& entity) {
         auto uniforms=entity->add_component<gb::ces_shader_uniforms_component>();
         uniforms->construct_uniforms_buffer<ocean_shader_uniforms>(gb::ces_shader_uniforms_component::e_shader_uniform_mode::e_vertex,"ocean",2);
@@ -27,6 +27,8 @@ namespace game {
         m_receivers.push_back(entity);
     }
     void ces_ocean_system::on_feed(const gb::ces_entity_shared_ptr& root,f32 dt) {
+        for(auto& retired:m_retired_interaction_meshes)--retired.first;
+        while(!m_retired_interaction_meshes.empty()&&m_retired_interaction_meshes.front().first<=0)m_retired_interaction_meshes.pop_front();
         const float accepted_dt=std::isfinite(dt)?glm::clamp(dt,0.f,.25f):0.f;
         const double previous_time=m_time;
         m_time+=accepted_dt;
@@ -41,23 +43,35 @@ namespace game {
             transform->set_rotation(glm::vec3(s.pitch,s.yaw,s.roll));
         });
         for(auto it=m_interactions.begin();it!=m_interactions.end();) {
-            auto source=it->first.lock(),mask=it->second.lock();
-            if(!source||!mask){it=m_interactions.erase(it);continue;}
+            auto source=it->source.lock(),mask=it->mask.lock();
+            if(!source||!mask){
+                if(it->mesh)m_retired_interaction_meshes.push_back({12,it->mesh});
+                if(mask){mask->visible=false;mask->visible_in_next_frame=false;auto geometry=mask->get_component<gb::ces_geometry_3d_component>();if(auto old=geometry->get_mesh())if(old->as_3d()!=it->mesh)m_retired_interaction_meshes.push_back({12,old->as_3d()});geometry->set_mesh(nullptr);}
+                it=m_interactions.erase(it);continue;
+            }
             mask->visible=source->get_is_visible();mask->visible_in_next_frame=source->get_is_visible_in_next_frame();
             mask->get_component<gb::ces_transformation_3d_component>()->update_absolute_transformation(source->get_component<gb::ces_transformation_3d_component>()->get_absolute_transformation());
             auto source_mesh=source->get_component<gb::ces_geometry_3d_component>()->get_mesh();
             auto mask_geometry=mask->get_component<gb::ces_geometry_3d_component>();
             if(mask_geometry->get_mesh()!=source_mesh) {
-                // Only a replacement needs retention; transforms/visibility still update every frame.
-                if(source_mesh&&std::find(m_interaction_meshes.begin(),m_interaction_meshes.end(),source_mesh->as_3d())==m_interaction_meshes.end())
-                    m_interaction_meshes.push_back(source_mesh->as_3d());
+                if(auto old=mask_geometry->get_mesh())m_retired_interaction_meshes.push_back({12,old->as_3d()});
                 mask_geometry->set_mesh(source_mesh?source_mesh->as_3d():nullptr);
             }
+            it->mesh=source_mesh?source_mesh->as_3d():nullptr;
             ++it;
         }
         auto camera=get_current_camera_3d();if(!camera)return;
         const auto view=camera->get_mat_v(),projection=camera->get_mat_p();
         if(auto techniques=root->get_component<gb::ces_render_technique_uniforms_component>()) {
+            if(auto atmosphere=techniques->get_uniforms("compose")){
+                atmosphere->set(view,"view");atmosphere->set(projection,"projection");
+                atmosphere->set(glm::vec4(camera->get_position(),1),"camera");
+                const char* enabled=std::getenv("GB_ATMOSPHERE");
+                atmosphere->set(glm::vec4(time,m_settings.mean_level,enabled&&std::string(enabled)=="0"?0.f:1.f,static_cast<float>(m_debug_mode)),"time_level");
+                const char* edges=std::getenv("GB_EDGE_DETECT");
+                const auto d=stylized_lighting_settings().sun_direction();
+                atmosphere->set(glm::vec4(d[0],d[1],d[2],edges&&std::string(edges)=="0"?0.f:1.f),"sun");
+            }
             if(auto ao=techniques->get_uniforms("ss.ao")) {
                 ao->set(view,"mat_v");
                 ao->set(projection,"mat_p");

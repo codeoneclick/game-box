@@ -97,6 +97,7 @@
 		02F2497C1E33AFF50071568F /* crc32.c in Sources */ = {isa = PBXBuildFile; fileRef = 21B404B11B7A0A87003382AB /* crc32.c */; };
 		02F2497D1E33AFF50071568F /* uncompr.c in Sources */ = {isa = PBXBuildFile; fileRef = 21B404C41B7A0A87003382AB /* uncompr.c */; };
 		02F2497E1E33AFF50071568F /* resource_loading_operation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DE304B1B8B12600046EDF8 /* resource_loading_operation.cpp */; };
+		403980A466CD44EA93E24D97 /* file_dialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9012ACC64605487CBD627F6B /* file_dialog.cpp */; };
 		02F2497F1E33AFF50071568F /* shader_loading_operation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DE304F1B8B15240046EDF8 /* shader_loading_operation.cpp */; };
 		02F249801E33AFF50071568F /* shader_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21B405D71B7B3F6D003382AB /* shader_configuration.cpp */; };
 		02F249811E33AFF50071568F /* input_context_osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21D78C3B1B9453D900665BB6 /* input_context_osx.cpp */; };
@@ -506,7 +507,9 @@
 		21DE30491B8B0FAF0046EDF8 /* texture_serializer_png.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DE30471B8B0FAF0046EDF8 /* texture_serializer_png.cpp */; };
 		21DE304A1B8B0FAF0046EDF8 /* texture_serializer_png.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DE30471B8B0FAF0046EDF8 /* texture_serializer_png.cpp */; };
 		21DE304D1B8B12600046EDF8 /* resource_loading_operation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DE304B1B8B12600046EDF8 /* resource_loading_operation.cpp */; };
+		C28330F47D314B1FA1BF9B43 /* file_dialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9012ACC64605487CBD627F6B /* file_dialog.cpp */; };
 		21DE304E1B8B12600046EDF8 /* resource_loading_operation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DE304B1B8B12600046EDF8 /* resource_loading_operation.cpp */; };
+		4AD0AF11432B422FB32283FB /* file_dialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9012ACC64605487CBD627F6B /* file_dialog.cpp */; };
 		21DE30511B8B15240046EDF8 /* shader_loading_operation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DE304F1B8B15240046EDF8 /* shader_loading_operation.cpp */; };
 		21DE30521B8B15240046EDF8 /* shader_loading_operation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DE304F1B8B15240046EDF8 /* shader_loading_operation.cpp */; };
 		21DE30551B8B16C50046EDF8 /* texture_loading_operation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DE30531B8B16C50046EDF8 /* texture_loading_operation.cpp */; };
@@ -1194,6 +1197,7 @@
 		F36DF1451E953B3C00EAE49B /* crc32.c in Sources */ = {isa = PBXBuildFile; fileRef = 21B404B11B7A0A87003382AB /* crc32.c */; };
 		F36DF1461E953B3C00EAE49B /* uncompr.c in Sources */ = {isa = PBXBuildFile; fileRef = 21B404C41B7A0A87003382AB /* uncompr.c */; };
 		F36DF1471E953B3C00EAE49B /* resource_loading_operation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DE304B1B8B12600046EDF8 /* resource_loading_operation.cpp */; };
+		8815176013F84D28ABEA645E /* file_dialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9012ACC64605487CBD627F6B /* file_dialog.cpp */; };
 		F36DF1481E953B3C00EAE49B /* shader_loading_operation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DE304F1B8B15240046EDF8 /* shader_loading_operation.cpp */; };
 		F36DF1491E953B3C00EAE49B /* shader_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21B405D71B7B3F6D003382AB /* shader_configuration.cpp */; };
 		F36DF14B1E953B3C00EAE49B /* b2MouseJoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21B403A01B7A0A87003382AB /* b2MouseJoint.cpp */; };
@@ -2624,7 +2628,9 @@
 		21DE30471B8B0FAF0046EDF8 /* texture_serializer_png.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = texture_serializer_png.cpp; path = sources/texture_serializer_png.cpp; sourceTree = "<group>"; };
 		21DE30481B8B0FAF0046EDF8 /* texture_serializer_png.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = texture_serializer_png.h; path = sources/texture_serializer_png.h; sourceTree = "<group>"; };
 		21DE304B1B8B12600046EDF8 /* resource_loading_operation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = resource_loading_operation.cpp; path = sources/resource_loading_operation.cpp; sourceTree = "<group>"; };
+		9012ACC64605487CBD627F6B /* file_dialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = file_dialog.cpp; path = sources/file_dialog.cpp; sourceTree = "<group>"; };
 		21DE304C1B8B12600046EDF8 /* resource_loading_operation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = resource_loading_operation.h; path = sources/resource_loading_operation.h; sourceTree = "<group>"; };
+		5B9396DA5B63495BAE46B090 /* file_dialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = file_dialog.h; path = sources/file_dialog.h; sourceTree = "<group>"; };
 		21DE304F1B8B15240046EDF8 /* shader_loading_operation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = shader_loading_operation.cpp; path = sources/shader_loading_operation.cpp; sourceTree = "<group>"; };
 		21DE30501B8B15240046EDF8 /* shader_loading_operation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = shader_loading_operation.h; path = sources/shader_loading_operation.h; sourceTree = "<group>"; };
 		21DE30531B8B16C50046EDF8 /* texture_loading_operation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = texture_loading_operation.cpp; path = sources/texture_loading_operation.cpp; sourceTree = "<group>"; };
@@ -3424,7 +3430,9 @@
 				2102EB2C1B7BDD0B00F20197 /* commiters */,
 				2102EB2B1B7BDD0200F20197 /* serializers */,
 				21DE304C1B8B12600046EDF8 /* resource_loading_operation.h */,
+				5B9396DA5B63495BAE46B090 /* file_dialog.h */,
 				21DE304B1B8B12600046EDF8 /* resource_loading_operation.cpp */,
+				9012ACC64605487CBD627F6B /* file_dialog.cpp */,
 				21DE30501B8B15240046EDF8 /* shader_loading_operation.h */,
 				21DE304F1B8B15240046EDF8 /* shader_loading_operation.cpp */,
 				21DE30541B8B16C50046EDF8 /* texture_loading_operation.h */,
@@ -5818,6 +5826,7 @@
 				921BBA342268B27700482139 /* MemberFuncTrap.cpp in Sources */,
 				02F2497D1E33AFF50071568F /* uncompr.c in Sources */,
 				02F2497E1E33AFF50071568F /* resource_loading_operation.cpp in Sources */,
+				403980A466CD44EA93E24D97 /* file_dialog.cpp in Sources */,
 				F3FA53AC1F348DF2003FE616 /* cidobjs.c in Sources */,
 				02F2497F1E33AFF50071568F /* shader_loading_operation.cpp in Sources */,
 				92FAAEF02243B78E00D243C0 /* ces_particle_emitter_system.cpp in Sources */,
@@ -6314,6 +6323,7 @@
 				F3FA55A61F348DF2003FE616 /* t1gload.c in Sources */,
 				F3FA532A1F348DF1003FE616 /* ftsystem.c in Sources */,
 				21DE304D1B8B12600046EDF8 /* resource_loading_operation.cpp in Sources */,
+				C28330F47D314B1FA1BF9B43 /* file_dialog.cpp in Sources */,
 				92A75E12223671F50094DC33 /* mtl_render_encoder.cpp in Sources */,
 				F3FA538E1F348DF2003FE616 /* cffload.c in Sources */,
 				F3DA3CB01F541D35001A4127 /* heightmap_configuration.cpp in Sources */,
@@ -6851,6 +6861,7 @@
 				F3FA540B1F348DF2003FE616 /* gxvmorx4.c in Sources */,
 				F3FA53B31F348DF2003FE616 /* cidriver.c in Sources */,
 				21DE304E1B8B12600046EDF8 /* resource_loading_operation.cpp in Sources */,
+				4AD0AF11432B422FB32283FB /* file_dialog.cpp in Sources */,
 				2130DFCB1D2121BA002B6F61 /* pngtrans.c in Sources */,
 				21DE30521B8B15240046EDF8 /* shader_loading_operation.cpp in Sources */,
 				21B4054E1B7A0AFA003382AB /* gzclose.c in Sources */,
@@ -7339,6 +7350,7 @@
 				F36DF1461E953B3C00EAE49B /* uncompr.c in Sources */,
 				F3FA55991F348DF2003FE616 /* ttpload.c in Sources */,
 				F36DF1471E953B3C00EAE49B /* resource_loading_operation.cpp in Sources */,
+				8815176013F84D28ABEA645E /* file_dialog.cpp in Sources */,
 				F3FA55EE1F34928E003FE616 /* utf8-utils.c in Sources */,
 				F3FA54191F348DF2003FE616 /* gxvprop.c in Sources */,
 				F3FA53491F348DF1003FE616 /* bdf.c in Sources */,

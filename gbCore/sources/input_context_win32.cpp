@@ -18,6 +18,7 @@ namespace gb
 
         bool m_is_left_tapped;
         bool m_is_right_tapped;
+        bool m_is_middle_tapped;
 
 	public:
 
@@ -27,7 +28,8 @@ namespace gb
 
 	input_context_win32::input_context_win32(const std::shared_ptr<window_impl>& window) :
         m_is_left_tapped(false),
-        m_is_right_tapped(false)
+        m_is_right_tapped(false),
+        m_is_middle_tapped(false)
 	{
 
 	}
@@ -51,8 +53,11 @@ namespace gb
                 input_context->gr_released(point, input_context->get_touch_area_size(), e_input_source_mouse_left, 0);
             if (input_context->m_is_right_tapped)
                 input_context->gr_released(point, input_context->get_touch_area_size(), e_input_source_mouse_right, 0);
+            if (input_context->m_is_middle_tapped)
+                input_context->gr_released(point, input_context->get_touch_area_size(), e_input_source_mouse_middle, 0);
             input_context->m_is_left_tapped = false;
             input_context->m_is_right_tapped = false;
+            input_context->m_is_middle_tapped = false;
         };
 
 		switch (message)
@@ -79,12 +84,14 @@ namespace gb
 			return 0;
 		}
 
+		case WM_SYSKEYDOWN:
 		case WM_KEYDOWN:
 		{
 			input_context->key_down(param_w);
 			return 0;
 		}
 
+		case WM_SYSKEYUP:
 		case WM_KEYUP:
 		{
 			input_context->key_up(param_w);
@@ -117,7 +124,7 @@ namespace gb
             input_context->m_is_right_tapped = true;
             input_context->gr_pressed(current_touch_point, input_context->get_touch_area_size(), e_input_source_mouse_right, 0);
             input_context->set_previous_touch_point(current_touch_point);
-            SetCapture(hwnd);
+            if (GetCapture() != hwnd) SetCapture(hwnd);
             return 0;
 		}
         case WM_RBUTTONUP:
@@ -125,16 +132,32 @@ namespace gb
             input_context->m_is_right_tapped = false;
             input_context->gr_released(current_touch_point, input_context->get_touch_area_size(), e_input_source_mouse_right, 0);
             input_context->set_previous_touch_point(current_touch_point);
-            if (!input_context->m_is_left_tapped && GetCapture() == hwnd) ReleaseCapture();
+            if (!input_context->m_is_left_tapped && !input_context->m_is_middle_tapped && GetCapture() == hwnd) ReleaseCapture();
             return 0;
 		}
 
+        case WM_MBUTTONDOWN:
+        {
+            input_context->m_is_middle_tapped = true;
+            input_context->gr_pressed(current_touch_point, input_context->get_touch_area_size(), e_input_source_mouse_middle, 0);
+            input_context->set_previous_touch_point(current_touch_point);
+            if (GetCapture() != hwnd) SetCapture(hwnd);
+            return 0;
+        }
+        case WM_MBUTTONUP:
+        {
+            input_context->m_is_middle_tapped = false;
+            input_context->gr_released(current_touch_point, input_context->get_touch_area_size(), e_input_source_mouse_middle, 0);
+            input_context->set_previous_touch_point(current_touch_point);
+            if (!input_context->m_is_left_tapped && !input_context->m_is_right_tapped && GetCapture() == hwnd) ReleaseCapture();
+            return 0;
+        }
 		case WM_LBUTTONDOWN:
 		{
 			input_context->gr_pressed(current_touch_point, input_context->get_touch_area_size(), gb::e_input_source_mouse_left, 0);
 			input_context->set_previous_touch_point(current_touch_point);
             input_context->m_is_left_tapped = true;
-            SetCapture(hwnd);
+            if (GetCapture() != hwnd) SetCapture(hwnd);
 			return 0;
 		}
 		case WM_LBUTTONUP:
@@ -142,7 +165,7 @@ namespace gb
 			input_context->gr_released(current_touch_point, input_context->get_touch_area_size(), gb::e_input_source_mouse_left, 0);
 			input_context->set_previous_touch_point(current_touch_point);
             input_context->m_is_left_tapped = false;
-            if (!input_context->m_is_right_tapped && GetCapture() == hwnd) ReleaseCapture();
+            if (!input_context->m_is_right_tapped && !input_context->m_is_middle_tapped && GetCapture() == hwnd) ReleaseCapture();
             return 0;
         }
         case WM_CAPTURECHANGED:
@@ -150,6 +173,7 @@ namespace gb
         case WM_KILLFOCUS:
         {
             cancel_drag();
+            if(message==WM_KILLFOCUS){input_context->key_up(VK_SHIFT);input_context->key_up(VK_CONTROL);input_context->key_up(VK_MENU);}
             if (message != WM_CAPTURECHANGED && GetCapture() == hwnd) ReleaseCapture();
             return 0;
         }
@@ -169,6 +193,10 @@ namespace gb
                 input_context->gr_dragged(current_touch_point, input_context->get_touch_area_size(), delta, e_input_source_mouse_left, 0);
             if (input_context->m_is_right_tapped)
                 input_context->gr_dragged(current_touch_point, input_context->get_touch_area_size(), delta, e_input_source_mouse_right, 0);
+            if (input_context->m_is_middle_tapped)
+                input_context->gr_dragged(current_touch_point, input_context->get_touch_area_size(), delta, e_input_source_mouse_middle, 0);
+            if (!input_context->m_is_left_tapped && !input_context->m_is_right_tapped && !input_context->m_is_middle_tapped)
+                input_context->gr_moved(current_touch_point,input_context->get_touch_area_size(),delta,0);
             input_context->set_previous_touch_point(current_touch_point);
             break;
         }

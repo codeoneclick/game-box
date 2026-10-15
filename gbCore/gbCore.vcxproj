@@ -653,6 +653,7 @@
     <ClInclude Include="sources\resource_accessor.h" />
     <ClInclude Include="sources\resource_commiter.h" />
     <ClInclude Include="sources\resource_loading_operation.h" />
+    <ClInclude Include="sources\file_dialog.h" />
     <ClInclude Include="sources\resource_serializer.h" />
     <ClInclude Include="sources\resource_status.h" />
     <ClInclude Include="sources\resource_types.h" />
@@ -1161,6 +1162,7 @@
     <ClCompile Include="sources\resource_accessor.cpp" />
     <ClCompile Include="sources\resource_commiter.cpp" />
     <ClCompile Include="sources\resource_loading_operation.cpp" />
+    <ClCompile Include="sources\file_dialog.cpp" />
     <ClCompile Include="sources\resource_serializer.cpp" />
     <ClCompile Include="sources\scene_fabricator.cpp" />
     <ClCompile Include="sources\scene_graph.cpp" />

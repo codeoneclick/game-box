@@ -41,16 +41,25 @@ namespace game {
         if(!std::isfinite(inner_size)||!std::isfinite(outer_size)||inner_size<=0||outer_size<=inner_size||segments<1||segments>1024)
             throw std::invalid_argument("Invalid ocean horizon");
         terrain_mesh_data mesh;
-        mesh.vertices.reserve(static_cast<size_t>(segments+1)*8);
-        mesh.indices.reserve(static_cast<size_t>(segments)*24);
+        const int rings=std::min(40,65535/(4*(segments+1))-1);
+        const float span=(outer_size-inner_size)*.5f;
+        const float first=std::min(inner_size/segments,span/rings);
+        const float curve=rings>1?(span-first*rings)/(rings*(rings-1)):0.f;
+        mesh.vertices.reserve(static_cast<size_t>(segments+1)*(rings+1)*4);
+        mesh.indices.reserve(static_cast<size_t>(segments)*rings*24);
         for(int side=0;side<4;++side){
             const uint16_t base=static_cast<uint16_t>(mesh.vertices.size());
-            for(int i=0;i<=segments;++i)for(float size:{inner_size,outer_size}){
+            for(int ring=0;ring<=rings;++ring)for(int i=0;i<=segments;++i){
+                const float distance=ring==rings?span:first*ring+curve*ring*(ring-1);
+                const float size=inner_size+distance*2.f;
                 float x=-size*.5f+i*size/segments,z=-size*.5f;
                 for(int rotation=0;rotation<side;++rotation){float old=x;x=-z;z=old;}
                 mesh.vertices.push_back({{{x,0,z}},{{0,1,0}},{{255,255,255,255}}});
             }
-            for(int i=0;i<segments;++i){uint16_t a=base+i*2,b=a+1,c=a+2,d=a+3;for(auto index:{a,c,b,b,c,d})mesh.indices.push_back(index);}
+            for(int ring=0;ring<rings;++ring)for(int i=0;i<segments;++i){
+                const uint16_t a=base+ring*(segments+1)+i,b=a+1,c=a+segments+1,d=c+1;
+                for(auto index:{a,b,c,b,d,c})mesh.indices.push_back(index);
+            }
         }
         return mesh;
     }

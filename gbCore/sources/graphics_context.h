@@ -67,6 +67,8 @@ namespace gb
         
         ui32 get_width() const;
         ui32 get_height() const;
+        // True when the presentation target performs the linear -> sRGB encode.
+        bool is_output_srgb() const;
         
         virtual void* get_context() const = 0;
         

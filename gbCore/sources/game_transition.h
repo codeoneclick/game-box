@@ -34,6 +34,13 @@ namespace gb
         
         virtual void create_scene() = 0;
         virtual void destroy_scene() = 0;
+        // Default keeps legacy SS passes at viewport size. Derived applications
+        // can select smaller buffers for specific downsample/blur passes.
+        virtual glm::ivec2 get_ss_technique_size(const std::string& guid,
+                                               const glm::ivec2& viewport) const;
+        // Defaults to the viewport; applications may use fixed light-space maps.
+        virtual glm::ivec2 get_ws_technique_size(const std::string& guid,
+                                               const glm::ivec2& viewport) const;
         
         scene_graph_shared_ptr m_scene;
         

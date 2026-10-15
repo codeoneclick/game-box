@@ -33,6 +33,9 @@
 
 namespace gb
 {
+    glm::ivec2 game_transition::get_ss_technique_size(const std::string&, const glm::ivec2& viewport) const { return viewport; }
+    glm::ivec2 game_transition::get_ws_technique_size(const std::string&, const glm::ivec2& viewport) const { return viewport; }
+
     game_transition::game_transition(const std::string& guid, const window_impl_shared_ptr& window, bool is_offscreen) :
     m_guid(guid),
     m_window(window),
@@ -84,8 +87,9 @@ namespace gb
         {
             std::shared_ptr<ws_technique_configuration> ws_technique_configuration = std::static_pointer_cast<gb::ws_technique_configuration>(iterator);
             
-            ws_technique_configuration->set_frame_width(resolution_size_in_pixels.x);
-            ws_technique_configuration->set_frame_height(resolution_size_in_pixels.y);
+            const auto ws_size=get_ws_technique_size(ws_technique_configuration->get_guid(),resolution_size_in_pixels);
+            ws_technique_configuration->set_frame_width(std::max(1,ws_size.x));
+            ws_technique_configuration->set_frame_height(std::max(1,ws_size.y));
             
             std::shared_ptr<render_technique_ws> render_technique_ws = render_technique_ws::construct(ws_technique_configuration);
             render_pipeline->add_ws_render_technique(ws_technique_configuration->get_guid(), ws_technique_configuration->get_order(), render_technique_ws);
@@ -111,8 +115,9 @@ namespace gb
             std::shared_ptr<ss_technique_configuration> ss_technique_configuration = std::static_pointer_cast<gb::ss_technique_configuration>(iterator);
             assert(ss_technique_configuration != nullptr);
             
-            ss_technique_configuration->set_frame_width(resolution_size_in_pixels.x);
-            ss_technique_configuration->set_frame_height(resolution_size_in_pixels.y);
+            const auto pass_size = get_ss_technique_size(ss_technique_configuration->get_guid(), resolution_size_in_pixels);
+            ss_technique_configuration->set_frame_width(std::max(1, pass_size.x));
+            ss_technique_configuration->set_frame_height(std::max(1, pass_size.y));
             
             std::shared_ptr<material_configuration> material_configuration = ss_technique_configuration->get_material_configuration();
             assert(material_configuration);

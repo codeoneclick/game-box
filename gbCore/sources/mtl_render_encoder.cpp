@@ -124,6 +124,7 @@ namespace gb
             gb::mtl_device::get_instance()->generate_mipmaps(texture);
         }
         [m_render_encoder setFragmentTexture:mtl_raw_texture atIndex:index];
+        if(index==0)[m_render_encoder setVertexTexture:mtl_raw_texture atIndex:index];
     }
     
     void mtl_render_encoder_impl::set_vertex_buffer(const mtl_buffer_shared_ptr& buffer, ui32 index)

@@ -2,7 +2,7 @@ void main()
 {
 #if !defined(USE_LAYOUTS)
     // The legacy GL 2 path has no textureSize; keep the raw AO mask.
-    gl_FragColor = texture2D(sampler_01,v_texcoord);
+    gl_FragColor = texture2D(sampler_01,v_texcoord)*(1.0-clamp(texture2D(sampler_04,v_texcoord).r,0.0,.6));
 #else
     vec4 p = texture2D(sampler_02,v_texcoord);
     vec4 ns = texture2D(sampler_03,v_texcoord);
@@ -22,6 +22,7 @@ void main()
         total += texture2D(sampler_01,uv).r*weight;
         weights += weight;
     }
-    gl_FragColor = vec4(vec3(total/max(weights,0.0001)),1.0);
+    float blob=1.0-clamp(texture2D(sampler_04,v_texcoord).r,0.0,.6);
+    gl_FragColor = vec4(vec3(total/max(weights,0.0001)*blob),1.0);
 #endif
 }

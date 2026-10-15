@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="debug-client|Win32">
@@ -94,6 +94,15 @@
     <ClCompile Include="sources\main.cpp" />
     <ClCompile Include="sources\main_game_controller.cpp" />
     <ClCompile Include="sources\terrain_generator.cpp" />
+    <ClCompile Include="sources\terrain_editor_state.cpp"><ExceptionHandling>Sync</ExceptionHandling></ClCompile>
+    <ClCompile Include="sources\voxel_tree_builder.cpp"><ExceptionHandling>Sync</ExceptionHandling></ClCompile>
+    <ClCompile Include="sources\ces_sun_shadow_system.cpp"><ExceptionHandling>Sync</ExceptionHandling></ClCompile>
+    <ClCompile Include="sources\terrain_editor_mesh.cpp"><ExceptionHandling>Sync</ExceptionHandling></ClCompile>
+    <ClCompile Include="sources\terrain_editor_render_cache.cpp"><ExceptionHandling>Sync</ExceptionHandling></ClCompile>
+    <ClCompile Include="sources\terrain_editor_ui.cpp"><ExceptionHandling>Sync</ExceptionHandling></ClCompile>
+    <ClCompile Include="sources\terrain_editor_input.cpp"><ExceptionHandling>Sync</ExceptionHandling></ClCompile>
+    <ClCompile Include="sources\building_placement.cpp"><ExceptionHandling>Sync</ExceptionHandling></ClCompile>
+    <ClCompile Include="sources\editor_building_renderer.cpp"><ExceptionHandling>Sync</ExceptionHandling></ClCompile>
     <ClCompile Include="sources\terrain_mesh_builder.cpp" />
     <ClCompile Include="sources\island_demo_scene.cpp"><ExceptionHandling>Sync</ExceptionHandling></ClCompile>
     <ClCompile Include="sources\island_demo_transition.cpp" />
@@ -162,8 +171,22 @@
     <ClInclude Include="sources\game_objects_custom_uniforms.h" />
     <ClInclude Include="sources\main_game_controller.h" />
     <ClInclude Include="sources\terrain_data.h" />
+    <ClInclude Include="sources\terrain_editor_state.h" />
+    <ClInclude Include="sources\ces_sun_shadow_system.h" />
+    <ClInclude Include="sources\sun_shadow_math.h" />
+    <ClInclude Include="sources\terrain_editor_mesh.h" />
+    <ClInclude Include="sources\voxel_tree_builder.h" />
+    <ClInclude Include="sources\terrain_editor_render_cache.h" />
+    <ClInclude Include="sources\terrain_editor_ui.h" />
+    <ClInclude Include="sources\terrain_editor_input.h" />
+    <ClInclude Include="sources\building_catalog.h" />
+    <ClInclude Include="sources\outline_ids.h" />
+    <ClInclude Include="sources\building_placement.h" />
+    <ClInclude Include="sources\editor_building_renderer.h" />
     <ClInclude Include="sources\terrain_generator.h" />
     <ClInclude Include="sources\terrain_mesh_builder.h" />
+    <ClInclude Include="sources\grass_interaction.h" />
+    <ClInclude Include="sources\orbit_zoom.h" />
     <ClInclude Include="sources\island_demo_scene.h" />
     <ClInclude Include="sources\island_demo_transition.h" />
     <ClInclude Include="sources\ns_ui_commands.h" />
@@ -472,6 +495,11 @@
     <ClInclude Include="sources\ocean_mesh_builder.h"></ClInclude>
     <ClCompile Include="sources\ocean_mesh_builder.cpp"></ClCompile>
     <ClInclude Include="sources\ocean_shader_uniforms.h"></ClInclude>
+    <ClInclude Include="sources\stylized_post_process.h" />
+    <ClInclude Include="sources\stylized_lighting_settings.h" />
+    <ClInclude Include="sources\stylized_lighting_uniforms.h" />
+    <ClInclude Include="sources\stylized_post_process_uniforms.h" />
+    <ClCompile Include="sources\stylized_post_process_uniforms.cpp" />
     <ClCompile Include="sources\ocean_shader_uniforms.cpp"></ClCompile>
     <ClInclude Include="sources\ces_ocean_system.h"></ClInclude>
     <ClCompile Include="sources\ces_ocean_system.cpp"></ClCompile>

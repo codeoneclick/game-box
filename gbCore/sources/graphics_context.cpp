@@ -11,6 +11,9 @@
 #if USED_GRAPHICS_API != NO_GRAPHICS_API
 
 #include "window_impl.h"
+#if USED_GRAPHICS_API == VULKAN_API
+#include "vk_swap_chain.h"
+#endif
 
 namespace gb
 {
@@ -129,6 +132,19 @@ namespace gb
     graphics_context_shared_ptr graphics_context::get_current_context()
     {
         return m_current_context;
+    }
+
+    bool graphics_context::is_output_srgb() const
+    {
+#if USED_GRAPHICS_API == VULKAN_API
+        const auto format = vk_swap_chain::get_instance()->get_swap_chain_image_format();
+        return format == VK_FORMAT_B8G8R8A8_SRGB || format == VK_FORMAT_R8G8B8A8_SRGB;
+#elif USED_GRAPHICS_API == METAL_API
+        return true;
+#else
+        // Legacy GL presentation does not enable GL_FRAMEBUFFER_SRGB.
+        return false;
+#endif
     }
 
     void graphics_context::release_current_context(const graphics_context_shared_ptr& context)

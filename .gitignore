@@ -82,3 +82,8 @@ x64/
 gbWin32SharedResources/
 /gbWin32SharedResources
 /gbDemo/output/island-check/
+/gbDemo/output/editor-check/
+/gbDemo/output/editor-mesh-check/
+
+# Standalone presentation settings compile checks
+gbDemo/output/post-settings-check/

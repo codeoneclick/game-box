@@ -2,6 +2,7 @@
 #include "island_demo_scene.h"
 #include "scene_fabricator.h"
 
+
 namespace game
 {
     island_demo_transition::island_demo_transition(const std::string& guid, const gb::window_impl_shared_ptr& window, bool is_offscreen)
@@ -14,4 +15,7 @@ namespace game
     }
 
     void island_demo_transition::destroy_scene() { m_scene=nullptr; }
+    glm::ivec2 island_demo_transition::get_ws_technique_size(const std::string& guid,const glm::ivec2& viewport) const {
+        return guid=="ws.sun.near"||guid=="ws.sun.far"?glm::ivec2(2048):viewport;
+    }
 }

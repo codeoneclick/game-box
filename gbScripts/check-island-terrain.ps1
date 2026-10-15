@@ -11,7 +11,7 @@ New-Item -ItemType Directory -Path $checkOutput -Force | Out-Null
 Push-Location $checkOutput
 try {
     $compileCommand = '@call "{0}" >nul' -f $vcvars
-    $compileCommand += "`r`n" + ('@cl /nologo /EHsc /std:c++14 /I"{0}\gbDemo\sources" "{0}\gbScripts\check_island_terrain.cpp" "{0}\gbDemo\sources\terrain_generator.cpp" "{0}\gbDemo\sources\terrain_mesh_builder.cpp" /Fe:island_check.exe' -f $repoRoot)
+    $compileCommand += "`r`n" + ('@cl /nologo /EHsc /std:c++14 /I"{0}\gbDemo\sources" "{0}\gbScripts\check_island_terrain.cpp" "{0}\gbDemo\sources\terrain_generator.cpp" "{0}\gbDemo\sources\terrain_mesh_builder.cpp" "{0}\gbDemo\sources\voxel_tree_builder.cpp" /Fe:island_check.exe' -f $repoRoot)
     Set-Content -LiteralPath .\compile-check.cmd -Value $compileCommand -Encoding ASCII
     & cmd /c .\compile-check.cmd
     if ($LASTEXITCODE -ne 0) { throw 'Island CPU check compilation failed.' }

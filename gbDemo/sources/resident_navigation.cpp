@@ -63,6 +63,13 @@ resident_point resident_navigation::center(int i)const{return {origin_x+(i%width
 bool resident_navigation::surface_supports(resident_point p)const{
     if(!std::isfinite(p.x)||!std::isfinite(p.z))return false;
     int cell=cell_at(p);if(cell<0)return false;
+    // An obstacle can occupy an otherwise certified terrain interior cell.
+    for(const auto& obstacle:obstacles){
+        const float dx=p.x-obstacle.center.x,dz=p.z-obstacle.center.z;
+        const float x=obstacle.cosine*dx-obstacle.sine*dz;
+        const float z=obstacle.sine*dx+obstacle.cosine*dz;
+        if(std::abs(x)<=obstacle.half_width&&std::abs(z)<=obstacle.half_depth)return false;
+    }
     if(!solid_cells.empty()&&solid_cells[cell])return true;
     for(auto index:cell_triangles[cell]){const auto& t=triangles[index];
         if(p.x<std::min({t[0].x,t[1].x,t[2].x})||p.x>std::max({t[0].x,t[1].x,t[2].x})||
@@ -87,11 +94,13 @@ std::vector<resident_point> resident_navigation::find_path(resident_point a,resi
     route.push_back(center(start));route.push_back(a);std::reverse(route.begin(),route.end());
     for(size_t i=1;i<route.size();++i)if(!segment_is_safe(route[i-1],route[i]))return {};return route;
 }
-resident_navigation build_resident_navigation(const terrain_mesh_data& mesh,float y,float cell){
+namespace {
+resident_navigation build_navigation_parts(const std::vector<const terrain_mesh_data*>& parts,float y,float cell){
     if(!std::isfinite(y)||!std::isfinite(cell)||cell<.25f||cell>4.f)throw std::invalid_argument("Invalid resident navigation parameters");
     resident_navigation n;n.shore_y=y;n.cell_size=cell;
-    if(mesh.indices.size()%3)throw std::invalid_argument("Malformed terrain indices");
     float minx=1e9f,minz=1e9f,maxx=-1e9f,maxz=-1e9f;
+    for(const auto* part:parts){const auto& mesh=*part;
+    if(mesh.indices.size()%3)throw std::invalid_argument("Malformed terrain indices");
     for(size_t i=0;i<mesh.indices.size();i+=3){std::array<resident_point,3> t;bool shore=true;
         for(int j=0;j<3;++j){if(mesh.indices[i+j]>=mesh.vertices.size())throw std::invalid_argument("Terrain index out of range");
             const auto& v=mesh.vertices[mesh.indices[i+j]];shore&=v.normal[1]>.99f&&std::abs(v.position[1]-y)<.001f;
@@ -99,6 +108,7 @@ resident_navigation build_resident_navigation(const terrain_mesh_data& mesh,floa
             if(!std::isfinite(t[j].x)||!std::isfinite(t[j].z))throw std::invalid_argument("Nonfinite terrain");
         }if(!shore)continue;n.triangles.push_back(t);
         for(auto p:t){minx=std::min(minx,p.x);maxx=std::max(maxx,p.x);minz=std::min(minz,p.z);maxz=std::max(maxz,p.z);}
+    }
     }
     if(n.triangles.empty())return n;
     if(maxx-minx>4096||maxz-minz>4096)throw std::invalid_argument("Resident navigation domain too large");
@@ -138,5 +148,14 @@ resident_navigation build_resident_navigation(const terrain_mesh_data& mesh,floa
     n.solid_cells.resize(n.walkable.size());
     for(size_t i=0;i<n.walkable.size();++i)n.solid_cells[i]=n.walkable[i]&&!boundary[i];
     return n;
+}
+}
+resident_navigation build_resident_navigation(const terrain_mesh_data& mesh,float y,float cell){
+    return build_navigation_parts({&mesh},y,cell);
+}
+resident_navigation build_resident_navigation(const std::vector<terrain_mesh_data>& parts,float y,float cell){
+    std::vector<const terrain_mesh_data*> references;references.reserve(parts.size());
+    for(const auto& part:parts)references.push_back(&part);
+    return build_navigation_parts(references,y,cell);
 }
 }

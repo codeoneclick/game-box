@@ -79,6 +79,34 @@ int main()
         assert(patches[row*3+col].vertices[128*129+x].position==patches[(row+1)*3+col].vertices[x].position);
     const auto horizon=game::ocean_mesh_builder::build_horizon(768,4096,384);
     assert(horizon.vertices.size()<65535);for(auto index:horizon.indices)assert(index<horizon.vertices.size());
+    // A displaced wave mesh must not span the entire skirt in one triangle.
+    // The first radial row should resolve waves at the central grid spacing.
+    float nearest_edge=1.e9f;
+    for(size_t i=0;i<horizon.indices.size();i+=3){
+        for(size_t edge=0;edge<3;++edge){
+            const auto& a=horizon.vertices[horizon.indices[i+edge]].position;
+            const auto& b=horizon.vertices[horizon.indices[i+(edge+1)%3]].position;
+            const float ra=std::max(std::abs(a[0]),std::abs(a[2]));
+            const float rb=std::max(std::abs(b[0]),std::abs(b[2]));
+            if(std::abs(ra-384.f)<.001f && rb>ra+.001f)nearest_edge=std::min(nearest_edge,rb-ra);
+        }
+    }
+    assert(nearest_edge<=2.01f);
+    for(size_t i=0;i<horizon.indices.size();i+=3){
+        const auto& a=horizon.vertices[horizon.indices[i]].position;
+        const auto& b=horizon.vertices[horizon.indices[i+1]].position;
+        const auto& c=horizon.vertices[horizon.indices[i+2]].position;
+        assert((b[2]-a[2])*(c[0]-a[0])-(b[0]-a[0])*(c[2]-a[2])>0);
+    }
+    for(int segments:{1,64,1024}){
+        const auto narrow=game::ocean_mesh_builder::build_horizon(768,800,segments);
+        assert(narrow.vertices.size()<=65535);
+        for(auto index:narrow.indices)assert(index<narrow.vertices.size());
+        for(const auto& vertex:narrow.vertices){
+            const float extent=std::max(std::abs(vertex.position[0]),std::abs(vertex.position[2]));
+            assert(extent>=384.f-.001f&&extent<=400.f+.001f);
+        }
+    }
     std::cout<<"Ocean CPU smoke checks passed\n";
     const std::vector<game::buoyancy_probe> probes={{{-1,-.5f,-2},1},{{1,-.5f,-2},1},{{-1,-.5f,2},1},{{1,-.5f,2},1}};
     game::buoyancy_settings buoyancy;

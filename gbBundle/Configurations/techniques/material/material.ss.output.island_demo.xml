@@ -23,7 +23,7 @@
     stencil_mask_write="0"
     is_debugging="0"
     is_batching="0">
-    <shader filename="shader_ss_output"/>
+    <shader filename="shader_stylized_output"/>
     <textures>
         <texture
             filename=""

@@ -24,7 +24,7 @@
     is_batching="0"
     z_order="1">
     <shader filename="shader_island_terrain"/>
-    <textures/>
+    <textures><texture filename="" mag_filter="GL_LINEAR" min_filter="GL_LINEAR" render_operation_name="ws.grass.interaction.attachment_01" sampler_index="0" wrap_mode="GL_CLAMP_TO_EDGE"/><texture filename="editor_climate_palette.png" sampler_index="1" wrap_mode="GL_CLAMP_TO_EDGE" mag_filter="GL_LINEAR" min_filter="GL_LINEAR"/><texture filename="terrain_voxel_atlas.png" sampler_index="2" wrap_mode="GL_CLAMP_TO_EDGE" mag_filter="GL_NEAREST" min_filter="GL_NEAREST"/></textures>
     <blendings>
         <blending is_enabled="0" attachment_index="0" blending_function_source="GL_ZERO"
                   blending_function_destination="GL_ZERO" blending_equation="GL_FUNC_ADD"/>

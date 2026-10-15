@@ -99,7 +99,8 @@ resident_demo_handles create_island_resident_demo(const gb::scene_fabricator_sha
         shape->get_component<gb::ces_transformation_3d_component>()->set_position(glm::vec3(p.x,y,p.z));
         auto uniforms=shape->add_component<gb::ces_shader_uniforms_component>();
         uniforms->construct_uniforms_buffer<resident_bone_uniforms>(gb::ces_shader_uniforms_component::e_shader_uniform_mode::e_vertex,"resident.bones",2);
-        uniforms->construct_uniforms_buffer<resident_color_uniforms>(gb::ces_shader_uniforms_component::e_shader_uniform_mode::e_fragment,"resident.color",0);
+        auto color_uniforms=uniforms->construct_uniforms_buffer<resident_color_uniforms>(gb::ces_shader_uniforms_component::e_shader_uniform_mode::e_fragment,"resident.color",0);
+        color_uniforms->set_outline_id(8000000.f+static_cast<float>(result.shapes.size()));
         shape->play_animation("idle",true);resident->animation="idle";
         if(result.shapes.empty())std::cout<<"Resident initialized: height="<<height<<" bones="<<mixer->get_transformation_size()<<" clothing="<<resident->color_index<<" spawn="<<p.x<<","<<p.z<<std::endl;
         result.shapes.push_back(shape);

@@ -37,6 +37,20 @@ int main(){
         }
     };
     compare_support(wide_nav);compare_support(ring_nav);
+    // Buildings must override certified interior cells as well as triangles.
+    auto occupied=wide_nav;
+    game::resident_obstacle house;house.center={0,0};house.cosine=std::cos(.37f);house.sine=std::sin(.37f);house.half_width=2;house.half_depth=1;
+    occupied.obstacles.push_back(house);
+    assert(occupied.solid_cells[occupied.cell_at({0,0})]);
+    assert(!occupied.surface_supports({0,0}));
+    assert(!occupied.surface_supports({house.cosine*1.9f,-house.sine*1.9f}));
+    assert(occupied.surface_supports({house.sine*1.1f,house.cosine*1.1f}));
+    assert(!occupied.is_safe({0,0}));
+    assert(!occupied.segment_is_safe({-7,0},{7,0}));
+    compare_support(occupied);
+    for(size_t i=0;i<occupied.walkable.size();++i)if(occupied.walkable[i]&&!occupied.is_safe(occupied.center(int(i))))occupied.walkable[i]=0;
+    auto detour=occupied.find_path({-7,0},{7,0});assert(!detour.empty());
+    for(size_t i=1;i<detour.size();++i)assert(occupied.segment_is_safe(detour[i-1],detour[i]));
     auto corner=game::create_resident_state(wide_nav,1);corner.position={0,0};corner.yaw=-1;corner.walking=true;
     corner.route={{0,0},{0,.03f},{.03f,.03f},{1,1}};corner.route_index=1;
     game::step_resident(wide_nav,.1f,corner);
@@ -77,7 +91,7 @@ int main(){
     auto route=nav.find_path(state.position,points.back());assert(!route.empty());
     for(auto p:route)assert(nav.is_safe(p));
     for(size_t i=1;i<route.size();++i)assert(nav.segment_is_safe(route[i-1],route[i]));
-    auto empty=game::build_resident_navigation({},config.shore_height);
+    auto empty=game::build_resident_navigation(game::terrain_mesh_data{},config.shore_height);
     assert(!game::create_resident_state(empty,1).available);
     for(auto seed:{42u,2026u}){
         auto variant=config;variant.seed=seed;variant.resolution=seed==42?256:512;

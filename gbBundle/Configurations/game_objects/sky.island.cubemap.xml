@@ -1,0 +1,3 @@
+<cubemap positive_x="sky_03.png" negative_x="sky_04.png"
+         positive_y="sky_05.png" negative_y="sky_06.png"
+         positive_z="sky_01.png" negative_z="sky_02.png" flip_vertical="0"/>
