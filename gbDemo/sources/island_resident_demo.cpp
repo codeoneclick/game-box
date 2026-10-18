@@ -55,6 +55,9 @@ resident_demo_handles create_island_resident_demo(const gb::scene_fabricator_sha
         navigations.push_back(build_resident_navigation(terrain,y));
         populations.push_back(create_resident_population(navigations.back(),total/levels+(level<total%levels?1:0),config.seed+static_cast<uint32_t>(level)));
     }
+    // Higher editor terraces start empty, but remain reachable through stairs.
+    for(size_t level=levels;level<16;++level)
+        navigations.push_back(build_resident_navigation(terrain,level*config.layer_height));
     std::array<std::string,3> files={"woodsman.fbx","character_idle.fbx","character_walking.fbx"};
     for(auto& filename:files){std::ifstream direct(filename,std::ios::binary);if(!direct)filename=bundlepath()+filename;}
     validate_resident_fbx_files(files,true);

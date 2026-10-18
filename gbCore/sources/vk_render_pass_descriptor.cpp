@@ -397,6 +397,8 @@ namespace gb
                 return VK_FORMAT_R8G8B8A8_SRGB;
             case 72:
                 return VK_FORMAT_R8G8B8A8_SNORM;
+            case 105:
+                return VK_FORMAT_R32G32_SFLOAT;
 			case 115:
 				return VK_FORMAT_R16G16B16A16_SFLOAT;
             case 125:

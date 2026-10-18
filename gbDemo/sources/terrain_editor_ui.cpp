@@ -1,5 +1,11 @@
+#include "terrain_editor_layout.h"
+#include <chrono>
+#include "terrain_lod_settings.h"
 #include "terrain_editor_ui.h"
 #include "terrain_editor_state.h"
+#include "render_debug_state.h"
+#include "game_object_2d.h"
+#include "ces_shader_uniforms_component.h"
 #include "building_catalog.h"
 #include "stylized_post_process.h"
 #include "stylized_lighting_settings.h"
@@ -13,6 +19,7 @@
 #include "label.h"
 #include "sprite.h"
 #include "ces_bound_touch_component.h"
+#include "ces_bound_touch_2d_component.h"
 #include "ces_transformation_2d_component.h"
 #include "ces_transformation_extension.h"
 #include "glm_extensions.h"
@@ -28,6 +35,17 @@
 
 namespace game {
 namespace {
+class render_preview_uniforms final : public gb::ces_shader_uniforms_component::shader_uniforms {
+    glm::vec4 values = glm::vec4(0);
+public:
+    render_preview_uniforms(gb::ces_shader_uniforms_component::e_shader_uniform_mode mode, const std::string& name)
+        : shader_uniforms(mode, name) {
+        m_uniforms["preview_params"] = std::make_shared<gb::shader_uniform>(gb::e_uniform_type_vec4);
+        set(glm::vec4(0), "preview_params");
+    }
+    void* get_values() override { values = m_uniforms["preview_params"]->get_vec4(); return &values; }
+    ui32 get_values_size() override { static_assert(sizeof(glm::vec4) == 16, "Preview uniform layout"); return 16; }
+};
 using control_state = gb::ui::e_control_state;
 const glm::u8vec4 panel_color(5, 36, 53, 250);
 const glm::u8vec4 header_color(22, 57, 66, 235);
@@ -38,10 +56,12 @@ const glm::u8vec4 cyan(100, 237, 240, 255);
 const glm::u8vec4 text_color(247, 244, 229, 255);
 const glm::u8vec4 muted(98, 121, 127, 220);
 const glm::u8vec4 disabled_color(12, 30, 45, 245);
-const std::array<const char*, 4> tool_names = {"Terrain", "Grass", "Trees", "Buildings"};
-// Tool value 3 belongs to the retired Climate tool in legacy level files.
-const std::array<TerrainEditorTool, 4> tool_types = {
-    TerrainEditorTool::Terrain, TerrainEditorTool::Grass, TerrainEditorTool::Trees, TerrainEditorTool::Buildings};
+const std::array<const char*, 5> tool_names = {"Terrain", "Stairs", "Grass", "Trees", "Buildings"};
+const std::array<TerrainEditorTool, 5> tool_types = {
+    TerrainEditorTool::Terrain, TerrainEditorTool::Stairs, TerrainEditorTool::Grass,
+    TerrainEditorTool::Trees, TerrainEditorTool::Buildings};
+// Keep the tree palette's atlas slots stable; Stairs reuses retired Climate tile 7.
+const std::array<int, 5> tool_icon_tiles = {4, 7, 5, 6, -1};
 const std::array<BuildingType, 3> building_types = {
     BuildingType::Forester, BuildingType::Stonecutter, BuildingType::Woodcutter};
 const std::array<const char*, 3> building_preview_configs = {
@@ -158,11 +178,21 @@ struct TerrainEditorUI::implementation : std::enable_shared_from_this<implementa
     std::vector<gb::sprite_shared_ptr> hidden_decorations;
     glm::ivec2 resolution;
     gb::ui::panel_shared_ptr top, daytime, tools, settings, trees, buildings, status;
-    gb::ui::slider_shared_ptr daytime_slider;
-    gb::label_shared_ptr daytime_value;
+    gb::ui::slider_shared_ptr daytime_slider, skybox_slider;
+    gb::label_shared_ptr daytime_value, skybox_value;
+    std::shared_ptr<TerrainLodSettings> terrain_lod=std::make_shared<TerrainLodSettings>();
+    std::array<gb::ui::slider_shared_ptr,2> lod_sliders;
+    gb::ui::button_shared_ptr wireframe_toggle;
+    gb::label_shared_ptr terrain_triangle_label;
+    std::chrono::steady_clock::time_point terrain_triangle_label_update;
+    int last_wireframe=-1,last_wireframe_available=-1,last_lod_disabled=-1;
+    std::array<gb::label_shared_ptr,2> lod_values;
     float last_daytime = std::numeric_limits<float>::quiet_NaN();
+    float last_skybox = std::numeric_limits<float>::quiet_NaN();
     std::shared_ptr<StylizedPostProcessSettings> post_settings;
     gb::ui::panel_shared_ptr post_panel;
+    std::function<bool()> graphics_save_callback;
+    gb::label_shared_ptr graphics_save_status;
     std::array<gb::ui::button_shared_ptr, 4> post_toggle_buttons;
     std::array<gb::ui::slider_shared_ptr, 5> post_sliders;
     std::array<gb::label_shared_ptr, 5> post_values;
@@ -174,8 +204,29 @@ struct TerrainEditorUI::implementation : std::enable_shared_from_this<implementa
     int last_lighting_mode = -1, last_post_view = -1;
     gb::ui::button_shared_ptr post_view_button, lighting_mode_button, specular_button, backlight_button;
     bool post_visible = false;
+    std::shared_ptr<RenderDebugState> render_debug;
+    size_t selected_pass = 0, selected_attachment = 0;
+    int list_scroll = 0, detail_scroll = 0, detail_extent = 0;
+    std::vector<gb::ui::button_shared_ptr> pass_buttons;
+    gb::label_shared_ptr pass_title, pass_triangles, attachment_info;
+    std::array<gb::label_shared_ptr,6> terrain_info;
+    std::array<gb::ui::slider_shared_ptr,3> error_sliders;
+    std::array<gb::label_shared_ptr,3> error_values;
+    gb::ui::button_shared_ptr lod_debug_button;
+    std::array<gb::ui::button_shared_ptr,3> water_buttons;
+    std::array<gb::ui::slider_shared_ptr,3> water_sliders;
+    std::array<gb::label_shared_ptr,3> water_values;
+    gb::ui::button_shared_ptr pass_enabled, attachment_button;
+    gb::sprite_shared_ptr preview, list_thumb, detail_thumb;
+    gb::game_object_2d_shared_ptr preview_group;
+    std::shared_ptr<render_preview_uniforms> preview_uniforms;
+    struct debug_row { gb::game_object_2d_shared_ptr node; std::string pass; float y, height; };
+    std::vector<debug_row> debug_rows;
+    static constexpr int list_page = 14;
+    static constexpr float detail_height = 470.f;
+
     std::array<gb::ui::button_shared_ptr, 4> actions;
-    std::array<gb::ui::button_shared_ptr, 4> tool_buttons;
+    std::array<gb::ui::button_shared_ptr, 5> tool_buttons;
     std::array<gb::ui::button_shared_ptr, 3> grass_buttons;
     std::array<gb::ui::button_shared_ptr, 5> tree_buttons;
     std::array<gb::ui::button_shared_ptr, 3> building_buttons;
@@ -277,9 +328,11 @@ struct TerrainEditorUI::implementation : std::enable_shared_from_this<implementa
     void slider_fill(const gb::ui::slider_shared_ptr& slider, float offset) {
         const auto fill = slider->get_element_as<gb::sprite>(slider->k_foreground_element_name);
         const glm::vec2 size = slider->size;
-        fill->size = glm::vec2(std::max(4.f, (size.x - 4.f) * offset), size.y - 4.f);
-        fill->position = glm::vec2(2.f);
-        fill->visible = offset > .001f;
+        const glm::vec2 target(std::max(4.f, (size.x - 4.f) * offset), size.y - 4.f);
+        const glm::vec2 current_size=fill->size,current_position=fill->position;
+        if(current_size!=target)fill->size=target;
+        if(current_position!=glm::vec2(2.f))fill->position=glm::vec2(2.f);
+        if(fill->get_is_visible()!=(offset>.001f))fill->visible=offset>.001f;
     }
 
     gb::ui::panel_shared_ptr make_panel(glm::vec2 position, glm::vec2 size, const std::string& title) {
@@ -334,15 +387,262 @@ struct TerrainEditorUI::implementation : std::enable_shared_from_this<implementa
         return button;
     }
 
+    void graphics_changed() {
+        if(graphics_save_status) graphics_save_status->text = "";
+    }
+
+    void remap_debug_tree() {
+        std::function<void(const gb::ces_entity_shared_ptr&)> visit = [&](const gb::ces_entity_shared_ptr& node) {
+            if(const auto materials = node->get_component<gb::ces_material_component>()) {
+                const int index = gb::ces_material_component::get_technique_name_index("ws.ui");
+                if(index >= 0 && size_t(index) < materials->get_materials().size()) {
+                    if(const auto material = materials->get_material(index)) {
+                        materials->add_material("ws.debug", material);
+                        materials->remove_material("ws.ui");
+                    }
+                }
+            }
+            node->enumerate_children(visit);
+        };
+        visit(post_panel);
+    }
+
+    gb::sprite_shared_ptr debug_bar(glm::vec2 position, glm::vec2 size, glm::u8vec4 color) {
+        auto bar = fabricator->create_sprite("editor_ui.xml");
+        bar->position = position; bar->size = size; bar->color = color;
+        post_panel->add_child(bar); return bar;
+    }
+
+    void bind_debug_scrollbar(const gb::sprite_shared_ptr& track, bool detail) {
+        const glm::vec2 size=track->size;
+        auto touch=track->add_component<gb::ces_bound_touch_2d_component>();
+        touch->set_bounds(glm::vec4(-5,0,size.x+5,size.y));
+        const std::weak_ptr<implementation> weak=shared_from_this();
+        const auto scroll=[weak,detail](const gb::ces_entity_shared_ptr&,const glm::vec2& point,gb::e_input_source,gb::e_input_state) {
+            const auto view=weak.lock();if(!view || !view->post_visible)return;
+            const glm::vec2 origin=view->post_panel->position,scale=view->post_panel->scale;
+            const float y=(point.y-origin.y)/scale.y;
+            const float fraction=glm::clamp((y-(detail?151.f:116.f))/(detail?402.f:420.f),0.f,1.f);
+            if(detail)view->detail_scroll=int(std::round(fraction*std::max(0,view->detail_extent-int(detail_height))));
+            else if(view->render_debug)view->list_scroll=int(std::round(fraction*std::max(0,int(view->render_debug->passes.size())-list_page)));
+            view->refresh_post_panel();
+        };
+        for(const auto state:{gb::e_input_state_pressed,gb::e_input_state_dragged,gb::e_input_state_released}) {
+            touch->enable(state,gb::e_input_source_mouse_left,true);touch->add_callback(state,scroll);
+        }
+    }
+
+    void build_debug_contents() {
+        // Rehouse existing native controls, preserving their callbacks and settings.
+        // Snapshot before detach: add_child is not an implicit reparent operation.
+        const std::vector<gb::ces_entity_shared_ptr> children = post_panel->children;
+        for(const auto& child : children) {
+            const auto item = std::dynamic_pointer_cast<gb::game_object_2d>(child);
+            if(!item) continue;
+            const glm::vec2 position = item->position;
+            std::string pass; float y=0, height=42, local_x=0;
+            if(position.y>=590) {
+                if(child==graphics_save_status) item->position=glm::vec2(568,594);
+                else if(position.x==16) { post_panel->remove_child(child); }
+                continue;
+            }
+            if(position.y<45)continue; // panel decorations, title, Save, Close
+            if(position.x>=378) {
+                pass="ws.base";local_x=position.x-378;
+                if(position.y<90)y=226;
+                else if(position.y<130)y=268;
+                else { const int row=int(std::round((position.y-150.f)/36.f));y=312.f+row*42.f; }
+            } else if(child==specular_button) { pass="ws.base";y=822; }
+            else if(child==backlight_button) { pass="ws.base";y=864; }
+            else if(child==post_view_button) { pass="ss.stylized_final";y=542; }
+            else if(position.y<150) {
+                int toggle=-1;for(int i=0;i<4;++i)if(child==post_toggle_buttons[i])toggle=i;
+                if(toggle<0)continue;
+                pass=toggle==0?"ss.ao":"ss.stylized_final";
+                y=toggle==0?226.f:226.f+(toggle-1)*40.f;
+            } else {
+                const int row=int(std::round((position.y-264.f)/42.f));
+                if(row<0 || row>=5)continue;
+                pass=row==4?"ss.ao":"ss.stylized_final";
+                y=row==4?270.f:354.f+row*46.f;local_x=position.x-16;
+            }
+            auto group=gb::ces_entity::construct<gb::game_object_2d>();
+            post_panel->remove_child(child);group->add_child(child);post_panel->add_child(group);
+            item->position=glm::vec2(local_x,4);
+            debug_rows.push_back({group,pass,y,height});
+        }
+        make_label(post_panel,glm::vec2(16,56),"Render passes",15);
+        pass_title=make_label(post_panel,glm::vec2(266,54),"Select a pass",14);
+        pass_triangles=make_label(post_panel,glm::vec2(458,58),"Triangles: 0",12);
+        pass_enabled=make_button(post_panel,glm::vec2(624,50),glm::vec2(72,32),"On",[](implementation& view) {
+            if(!view.post_visible || !view.render_debug || view.selected_pass>=view.render_debug->passes.size())return;
+            auto& pass=view.render_debug->passes[view.selected_pass];
+            const bool enabled=!pass.enabled;const std::string id=pass.id;
+            pass.enabled=enabled;
+            if(view.render_debug->set_enabled)view.render_debug->set_enabled(id,enabled);
+            view.graphics_changed();
+        });
+        attachment_button=make_button(post_panel,glm::vec2(266,87),glm::vec2(430,30),"Attachment",[](implementation& view) {
+            if(!view.render_debug || view.selected_pass>=view.render_debug->passes.size())return;
+            const auto& attachments=view.render_debug->passes[view.selected_pass].attachments;
+            if(!attachments.empty())view.selected_attachment=(view.selected_attachment+1)%attachments.size();
+        });
+        for(int i=0;i<list_page;++i)pass_buttons.push_back(make_button(post_panel,glm::vec2(16,88.f+i*34.f),glm::vec2(216,30),"",[i](implementation& view) {
+            if(!view.post_visible || !view.render_debug)return;
+            const size_t index=size_t(view.list_scroll+i);
+            if(index<view.render_debug->passes.size()){view.selected_pass=index;view.selected_attachment=0;view.detail_scroll=0;}
+        }));
+        for(const auto& button:pass_buttons)button->set_font_size(12.f);
+        bind_debug_scrollbar(debug_bar(glm::vec2(240,116),glm::vec2(8,420),control_color),false);list_thumb=debug_bar(glm::vec2(240,116),glm::vec2(8,60),selected_color);
+        bind_debug_scrollbar(debug_bar(glm::vec2(710,151),glm::vec2(8,402),control_color),true);detail_thumb=debug_bar(glm::vec2(710,151),glm::vec2(8,60),selected_color);
+        for(int side=0;side<2;++side) {
+            const float x=side?704.f:234.f;
+            make_button(post_panel,glm::vec2(x,side?122.f:88.f),glm::vec2(20,24),"^",[side](implementation& view){if(side)view.detail_scroll-=42;else --view.list_scroll;});
+            make_button(post_panel,glm::vec2(x,side?558.f:540.f),glm::vec2(20,24),"v",[side](implementation& view){if(side)view.detail_scroll+=42;else ++view.list_scroll;});
+        }
+        auto group=gb::ces_entity::construct<gb::game_object_2d>();post_panel->add_child(group);
+        preview_group=group;
+        debug_rows.push_back({group,"",0,214});
+        preview=fabricator->create_sprite("render_debug_preview.xml");preview->size=glm::vec2(430,188);preview->color=glm::u8vec4(255);group->add_child(preview);
+        preview_uniforms=preview->add_component<gb::ces_shader_uniforms_component>()->construct_uniforms_buffer<render_preview_uniforms>(
+            gb::ces_shader_uniforms_component::e_shader_uniform_mode::e_fragment,"render.preview",0);
+        attachment_info=make_label(group,glm::vec2(0,194),"Live GPU attachment",12);
+        const char* water_names[]={"Reflection","Refraction","Caustics"};
+        for(int i=0;i<3;++i){
+            auto row=gb::ces_entity::construct<gb::game_object_2d>();post_panel->add_child(row);debug_rows.push_back({row,"ws.ocean",230.f+i*52.f,48});
+            make_label(row,glm::vec2(0,4),water_names[i],13);
+            water_values[i]=make_label(row,glm::vec2(288,4),"",12);
+            water_sliders[i]=controls.create_slider(glm::vec2(160,18));water_sliders[i]->position=glm::vec2(120,4);theme_slider(water_sliders[i]);row->add_child(water_sliders[i]);
+            water_sliders[i]->set_callback([weak=std::weak_ptr<implementation>(shared_from_this()),i](float offset){if(auto v=weak.lock()){
+                if(!v->post_visible||!v->post_settings)return;
+                float* values[]={&v->post_settings->waterReflectionIntensity,&v->post_settings->waterRefractionIntensity,&v->post_settings->waterCausticsIntensity};
+                *values[i]=glm::clamp(offset,0.f,1.f)*3.f;v->graphics_changed();
+            }});
+            water_buttons[i]=make_button(row,glm::vec2(342,0),glm::vec2(80,32),"On",[i](implementation& v){
+                if(!v.post_visible||!v.post_settings)return;
+                bool* enabled[]={&v.post_settings->enableWaterReflection,&v.post_settings->enableWaterRefraction,&v.post_settings->enableWaterCaustics};
+                *enabled[i]=!*enabled[i];v.graphics_changed();
+            });
+        }
+        auto note=gb::ces_entity::construct<gb::game_object_2d>();post_panel->add_child(note);debug_rows.push_back({note,"ws.ocean",398,46});
+        make_label(note,glm::vec2(0,0),"Strength: 0 - 3x | Save stores all water settings",11);
+        make_label(note,glm::vec2(0,22),"Caustics light the bottom in ws.base",11);
+        float terrain_y=230;for(const auto& row:debug_rows)if(row.pass=="ws.base")terrain_y=std::max(terrain_y,row.y+row.height+12);
+        auto terrain_group=gb::ces_entity::construct<gb::game_object_2d>();post_panel->add_child(terrain_group);debug_rows.push_back({terrain_group,"ws.base",terrain_y,134});
+        for(size_t i=0;i<terrain_info.size();++i)terrain_info[i]=make_label(terrain_group,glm::vec2(0,22.f*i),"",11);
+        const char* error_names[]={"Near error px","Normal error px","Far error px"};
+        for(int i=0;i<3;++i){
+            auto row=gb::ces_entity::construct<gb::game_object_2d>();post_panel->add_child(row);debug_rows.push_back({row,"ws.base",terrain_y+144+i*44.f,42});
+            make_label(row,glm::vec2(0,4),error_names[i],12);
+            error_values[i]=make_label(row,glm::vec2(366,4),"",12);
+            error_sliders[i]=controls.create_slider(glm::vec2(180,18));error_sliders[i]->position=glm::vec2(166,4);theme_slider(error_sliders[i]);row->add_child(error_sliders[i]);
+            error_sliders[i]->set_callback([weak=std::weak_ptr<implementation>(shared_from_this()),i](float offset){if(auto v=weak.lock()){
+                if(!v->terrain_lod)return;auto& s=*v->terrain_lod;float value=.05f+glm::clamp(offset,0.f,1.f)*5.95f;
+                if(i==0)s.nearErrorPx=std::min(value,s.normalErrorPx);else if(i==1)s.normalErrorPx=std::max(s.nearErrorPx,std::min(value,s.farErrorPx));else s.farErrorPx=std::max(value,s.normalErrorPx);
+                v->graphics_changed();
+            }});
+        }
+        auto debug_group=gb::ces_entity::construct<gb::game_object_2d>();post_panel->add_child(debug_group);debug_rows.push_back({debug_group,"ws.base",terrain_y+280,38});
+        lod_debug_button=make_button(debug_group,glm::vec2(0,0),glm::vec2(420,32),"Terrain debug: Off",[](implementation& v){if(v.terrain_lod){v.terrain_lod->debugMode=(v.terrain_lod->debugMode+1)%6;v.graphics_changed();}});
+        make_label(post_panel,glm::vec2(16,594),"F8: Show / Hide | Wheel: scroll hovered column",11)->font_color=muted;
+    }
+
+    void layout_debug() {
+        remap_debug_tree(); // Also covers children created by native controls after binding.
+        const size_t count=render_debug?render_debug->passes.size():0;
+        list_scroll=std::max(0,std::min(list_scroll,std::max(0,int(count)-list_page)));
+        if(count)selected_pass=std::min(selected_pass,count-1);
+        const RenderDebugPass* pass=count?&render_debug->passes[selected_pass]:nullptr;
+        for(int i=0;i<list_page;++i) {
+            auto button=pass_buttons[i];const size_t index=size_t(list_scroll+i);button->visible=index<count;
+            if(index<count) {
+                const auto& item=render_debug->passes[index];const std::string text=(item.enabled?"+ ":"- ")+ascii_message(item.id,24);
+                if(button->get_text()!=text)button->set_text(text);style_button(button,true,index==selected_pass);
+            }
+        }
+        set_text(pass_title,pass?ascii_message(pass->label.empty()?pass->id:pass->label,22):"No render passes");
+        set_text(pass_triangles,"Triangles: "+std::to_string(pass?pass->triangles:0));
+        std::istringstream terrain_lines(render_debug?render_debug->terrain_diagnostics:std::string());for(auto label:terrain_info){std::string line;std::getline(terrain_lines,line);set_text(label,line);}
+        if(terrain_lod){
+            const float values[]={terrain_lod->nearErrorPx,terrain_lod->normalErrorPx,terrain_lod->farErrorPx};
+            for(int i=0;i<3;++i){const float offset=(values[i]-.05f)/5.95f;if(std::abs(error_sliders[i]->get_offset()-offset)>.0001f)error_sliders[i]->set_offset(offset);set_text(error_values[i],decimal(values[i]));}
+            const char* modes[]={"Terrain debug: Off","Terrain debug: actual reduction","Terrain debug: contour wireframe","Terrain debug: screen error / budget","Terrain debug: collapse targets","Terrain debug: active contour vertices"};
+            if(lod_debug_button->get_text()!=modes[terrain_lod->debugMode])lod_debug_button->set_text(modes[terrain_lod->debugMode]);
+        }
+        const std::string enabled_text=pass&&pass->enabled?"On":"Off";
+        if(post_settings){
+            const bool enabled[]={post_settings->enableWaterReflection,post_settings->enableWaterRefraction,post_settings->enableWaterCaustics};
+            const float intensity[]={post_settings->waterReflectionIntensity,post_settings->waterRefractionIntensity,post_settings->waterCausticsIntensity};
+            for(int i=0;i<3;++i){
+                const std::string text=enabled[i]?"On":"Off";if(water_buttons[i]->get_text()!=text)water_buttons[i]->set_text(text);style_button(water_buttons[i],true,enabled[i]);
+                const float offset=intensity[i]/3.f;if(std::abs(water_sliders[i]->get_offset()-offset)>.0001f)water_sliders[i]->set_offset(offset);
+                set_text(water_values[i],decimal(intensity[i])+"x");
+            }
+        }
+        if(pass_enabled->get_text()!=enabled_text)pass_enabled->set_text(enabled_text);
+        style_button(pass_enabled,pass!=nullptr,pass&&pass->enabled);
+        const RenderDebugAttachment* attachment=nullptr;
+        if(pass && !pass->attachments.empty()) {selected_attachment=std::min(selected_attachment,pass->attachments.size()-1);attachment=&pass->attachments[selected_attachment];}
+        const std::string text=attachment?"Attachment "+std::to_string(selected_attachment+1)+"/"+std::to_string(pass->attachments.size())+": "+ascii_message(attachment->name,30):"No color attachments";
+        if(attachment_button->get_text()!=text)attachment_button->set_text(text);
+        attachment_button->disable(!attachment || pass->attachments.size()<2);
+        detail_extent=0;
+        for(const auto& row:debug_rows)if(row.pass.empty() || (pass && row.pass==pass->id))detail_extent=std::max(detail_extent,int(row.y+row.height));
+        detail_scroll=std::max(0,std::min(detail_scroll,std::max(0,detail_extent-int(detail_height))));
+        for(const auto& row:debug_rows) {
+            const float y=row.y-float(detail_scroll);row.node->position=glm::vec2(266,122+y);
+            // Clip complete rows, including all native input descendants.
+            row.node->visible=(row.pass.empty() || (pass && row.pass==pass->id)) && y>=0 && y+row.height<=detail_height;
+        }
+        preview->visible=preview_group->get_is_visible() && attachment && attachment->texture;
+        if(attachment && attachment->texture) {
+            preview->get_component<gb::ces_material_component>()->set_texture(attachment->texture,gb::e_shader_sampler_01,"ws.debug");
+            preview_uniforms->set(glm::vec4(float(attachment->mode),0,0,0),"preview_params");
+            const float aspect=attachment->height?float(attachment->width)/float(attachment->height):1.f;
+            const float width=std::min(430.f,188.f*aspect),height=width/std::max(.001f,aspect);
+            preview->size=glm::vec2(width,height);preview->position=glm::vec2((430-width)*.5f,(188-height)*.5f);
+        }
+        set_text(attachment_info,attachment?std::to_string(attachment->width)+" x "+std::to_string(attachment->height)+" | Live GPU texture":"This pass exposes no color texture");
+        const float list_fraction=count?std::min(1.f,float(list_page)/float(count)):1.f;
+        list_thumb->size=glm::vec2(8,420*list_fraction);list_thumb->position=glm::vec2(240,116+(420-420*list_fraction)*(count>size_t(list_page)?float(list_scroll)/float(count-list_page):0.f));
+        const float fraction=std::min(1.f,detail_height/std::max(float(detail_height),float(detail_extent)));
+        detail_thumb->size=glm::vec2(8,402*fraction);detail_thumb->position=glm::vec2(710,151+(402-402*fraction)*(detail_extent>int(detail_height)?float(detail_scroll)/float(detail_extent-int(detail_height)):0.f));
+        for(const auto& decoration:hidden_decorations)if(decoration->get_is_visible())decoration->visible=false;
+        for(const auto& slider:post_sliders){const bool visible=slider->get_is_visible();slider_fill(slider,slider->get_offset());if(!visible)slider->get_element_as<gb::sprite>(slider->k_foreground_element_name)->visible=false;}
+        for(const auto& slider:lighting_sliders){const bool visible=slider->get_is_visible();slider_fill(slider,slider->get_offset());if(!visible)slider->get_element_as<gb::sprite>(slider->k_foreground_element_name)->visible=false;}
+        for(const auto& slider:error_sliders){const bool visible=slider->get_is_visible();slider_fill(slider,slider->get_offset());if(!visible)slider->get_element_as<gb::sprite>(slider->k_foreground_element_name)->visible=false;}
+        for(const auto& slider:water_sliders){const bool visible=slider->get_is_visible();slider_fill(slider,slider->get_offset());if(!visible)slider->get_element_as<gb::sprite>(slider->k_foreground_element_name)->visible=false;}
+    }
+
+    bool scroll_debug(glm::ivec2 point,float delta) {
+        if(!post_panel || !post_visible || !post_panel->get_is_visible())return false;
+        const glm::vec2 origin=post_panel->position,scale=post_panel->scale;
+        const glm::vec2 local=(glm::vec2(point)-origin)/scale;
+        if(local.x<0 || local.y<0 || local.x>=740 || local.y>=620)return false;
+        if(local.y>=82 && local.y<592) {
+            if(local.x<256)list_scroll+=delta>0?-3:delta<0?3:0;
+            else detail_scroll+=delta>0?-84:delta<0?84:0;
+            refresh_post_panel();
+        }
+        return true;
+    }
+
     void build_post_panel() {
         if(post_panel || !post_settings) return;
         const float scale = std::min(1.f, std::min(
             std::max(1.f, static_cast<float>(resolution.x) - 40.f) / 740.f,
             std::max(1.f, static_cast<float>(resolution.y) - 40.f) / 620.f));
         const glm::vec2 size(740, 620);
-        post_panel = make_panel((glm::vec2(resolution) - size * scale) * .5f, size, "Lighting & Post Processing");
+        post_panel = make_panel((glm::vec2(resolution) - size * scale) * .5f, size, "Render Inspector");
         post_panel->scale = glm::vec2(scale);
         post_panel->set_background_color(glm::u8vec4(5, 36, 53, 238));
+        make_button(post_panel, glm::vec2(568, 12), glm::vec2(110, 28), "Save", [](implementation& view) {
+            if(!view.post_visible) return;
+            view.refresh_post_panel();
+            const bool saved=view.graphics_save_callback && view.graphics_save_callback();
+            view.graphics_save_status->text=saved?"Saved":"Save failed";
+            view.graphics_save_status->font_color=saved?glm::u8vec4(145,235,160,255):glm::u8vec4(255,120,100,255);
+        });
         make_button(post_panel, glm::vec2(688, 12), glm::vec2(36, 28), "X", [](implementation& view) {
             view.post_visible = false;
         });
@@ -353,6 +653,7 @@ struct TerrainEditorUI::implementation : std::enable_shared_from_this<implementa
                     if(!view.post_settings || !view.post_visible) return;
                     auto& enabled = view.post_settings.get()->*post_toggle_fields[i];
                     enabled = !enabled;
+                    view.graphics_changed();
                 });
         post_view_button = make_button(post_panel, glm::vec2(16, 202), glm::vec2(348, 36), "View: Final",
             [](implementation& view) {
@@ -362,6 +663,7 @@ struct TerrainEditorUI::implementation : std::enable_shared_from_this<implementa
                 const size_t next = current == post_view_values.end() ? 0 :
                     (size_t(current - post_view_values.begin()) + 1) % post_view_values.size();
                 view.post_settings->debugView = post_view_values[next];
+                view.graphics_changed();
             });
         const std::weak_ptr<implementation> weak = shared_from_this();
         last_post_values.fill(std::numeric_limits<float>::quiet_NaN());
@@ -378,10 +680,11 @@ struct TerrainEditorUI::implementation : std::enable_shared_from_this<implementa
             post_panel->add_child(post_sliders[i]);
             post_sliders[i]->set_callback([weak, i](float offset) {
                 const auto view = weak.lock();
-                if(!view || !view->post_settings || !view->post_visible) return;
+                if(!view || !view->post_settings || !view->post_visible || !view->post_sliders[i]->get_is_visible()) return;
                 view->post_settings.get()->*post_slider_fields[i] = post_slider_min[i] +
                     glm::clamp(offset, 0.f, 1.f) * (post_slider_max[i] - post_slider_min[i]);
                 view->post_settings->sanitize();
+                view->graphics_changed();
                 view->refresh_post_panel();
             });
         }
@@ -390,13 +693,24 @@ struct TerrainEditorUI::implementation : std::enable_shared_from_this<implementa
                 if(view.post_visible) {
                     auto& lighting = stylized_lighting_settings();
                     lighting.mode = lighting.mode == 0 ? 1 : 0;
+                    view.graphics_changed();
                 }
             });
         make_button(post_panel, glm::vec2(378, 96), glm::vec2(168, 32), "Preset: Soft", [](implementation& view) {
-            if(view.post_visible) stylized_lighting_settings() = StylizedLightingSettings::soft();
+            if(view.post_visible) {
+                const float rotation=stylized_lighting_settings().skyboxRotation;
+                stylized_lighting_settings()=StylizedLightingSettings::soft();
+                stylized_lighting_settings().skyboxRotation=rotation;
+            }
+            view.graphics_changed();
         });
         make_button(post_panel, glm::vec2(556, 96), glm::vec2(168, 32), "Preset: Sunset", [](implementation& view) {
-            if(view.post_visible) stylized_lighting_settings() = StylizedLightingSettings::sunset();
+            if(view.post_visible) {
+                const float rotation=stylized_lighting_settings().skyboxRotation;
+                stylized_lighting_settings()=StylizedLightingSettings::sunset();
+                stylized_lighting_settings().skyboxRotation=rotation;
+            }
+            view.graphics_changed();
         });
         for(size_t i = 0; i < lighting_sliders.size(); ++i) {
             const float y = 150.f + i * 36.f;
@@ -410,11 +724,12 @@ struct TerrainEditorUI::implementation : std::enable_shared_from_this<implementa
             post_panel->add_child(lighting_sliders[i]);
             lighting_sliders[i]->set_callback([weak, i](float offset) {
                 const auto view = weak.lock();
-                if(!view || !view->post_visible) return;
+                if(!view || !view->post_visible || !view->lighting_sliders[i]->get_is_visible()) return;
                 auto& lighting = stylized_lighting_settings();
                 lighting_slider_value(lighting, i) = lighting_slider_min[i] +
                     glm::clamp(offset, 0.f, 1.f) * (lighting_slider_max[i] - lighting_slider_min[i]);
                 lighting.sanitize();
+                view->graphics_changed();
                 view->refresh_post_panel();
             });
         }
@@ -423,6 +738,7 @@ struct TerrainEditorUI::implementation : std::enable_shared_from_this<implementa
                 if(view.post_visible) {
                     auto& lighting = stylized_lighting_settings();
                     lighting.enableStylizedSpecular = !lighting.enableStylizedSpecular;
+                    view.graphics_changed();
                 }
             });
         backlight_button = make_button(post_panel, glm::vec2(16, 534), glm::vec2(348, 32), "Vegetation backlight: On",
@@ -430,9 +746,12 @@ struct TerrainEditorUI::implementation : std::enable_shared_from_this<implementa
                 if(view.post_visible) {
                     auto& lighting = stylized_lighting_settings();
                     lighting.enableVegetationBacklight = !lighting.enableVegetationBacklight;
+                    view.graphics_changed();
                 }
             });
-        make_label(post_panel, glm::vec2(16, 592), "F8: Show / Hide    |    RGB colors use linear values", 12.f)->font_color = muted;
+        make_label(post_panel, glm::vec2(16, 592), "F8: Show / Hide | Linear RGB", 12.f)->font_color = muted;
+        graphics_save_status=make_label(post_panel, glm::vec2(378, 592), "", 12.f);
+        build_debug_contents();
         // The overlay follows the native UI's ascending depth convention.
         float depth = -.5f;
         std::function<void(const gb::ces_entity_shared_ptr&)> prepare = [&](const gb::ces_entity_shared_ptr& node) {
@@ -445,6 +764,7 @@ struct TerrainEditorUI::implementation : std::enable_shared_from_this<implementa
             node->enumerate_children(prepare);
         };
         prepare(post_panel);
+        remap_debug_tree();
         post_panel->visible = false;
     }
 
@@ -506,13 +826,13 @@ struct TerrainEditorUI::implementation : std::enable_shared_from_this<implementa
                 last_lighting_values[i] = value;
             }
         }
+        layout_debug();
     }
 
     void build() {
         top = make_panel(glm::vec2(18, 18), glm::vec2(380, 76), "");
         // Keep the top row clear of the statistics HUD on narrower windows.
-        const float toolbar_scale = std::min(1.f, std::max(1.f,
-            static_cast<float>(resolution.x) - 318.f) / 740.f);
+        const float toolbar_scale = terrain_editor_toolbar_scale(float(resolution.x),float(resolution.y));
         top->scale = glm::vec2(toolbar_scale);
         const auto toolbar_background = top->get_element_as<gb::sprite>(gb::ui::control::k_background_element_name);
         toolbar_background->visible = false;
@@ -531,7 +851,7 @@ struct TerrainEditorUI::implementation : std::enable_shared_from_this<implementa
             icon_button(actions[i], int(i), 42.f);
         }
         daytime = make_panel(glm::vec2(18.f + 400.f * toolbar_scale, 18.f),
-            glm::vec2(250, 76), "");
+            glm::vec2(500, 152), "");
         daytime->scale = glm::vec2(toolbar_scale);
         make_label(daytime, glm::vec2(18, 10), "Time of day", 14.f);
         daytime_value = make_label(daytime, glm::vec2(188, 10), "10.0 h", 13.f);
@@ -562,9 +882,59 @@ struct TerrainEditorUI::implementation : std::enable_shared_from_this<implementa
         };
         daytime_touch->add_callback(gb::e_input_state_dragged,drag_daytime);
         daytime_touch->add_callback(gb::e_input_state_released,drag_daytime);
-        dirty_label = make_label(top, glm::vec2(666, 55), "Saved", 13.f);
+        make_label(daytime, glm::vec2(18, 86), "Skybox rotation", 14.f);
+        skybox_value=make_label(daytime, glm::vec2(188, 86), "0 deg", 13.f);
+        skybox_value->font_color=cyan;
+        skybox_slider=controls.create_slider(glm::vec2(180, 18));
+        skybox_slider->position=glm::vec2(18, 112);
+        theme_slider(skybox_slider);
+        skybox_slider->set_foreground_color(glm::u8vec4(0, 171, 217, 255));
+        daytime->add_child(skybox_slider);
+        make_label(daytime, glm::vec2(18, 134), "0", 10.f)->font_color=muted;
+        make_label(daytime, glm::vec2(175, 134), "360", 10.f)->font_color=muted;
+        skybox_slider->set_callback([daytime_weak](float offset) {
+            const auto view=daytime_weak.lock();
+            if(view && view->entity->get_is_visible()) view->set_skybox_offset(offset);
+        });
+        const auto skybox_touch=skybox_slider->get_component<gb::ces_bound_touch_component>();
+        const auto drag_skybox=[daytime_weak](const gb::ces_entity_shared_ptr&,const glm::vec2& point,gb::e_input_source,gb::e_input_state){
+            const auto view=daytime_weak.lock();if(!view||!view->entity->get_is_visible())return;
+            const auto matrix=gb::ces_transformation_extension::get_absolute_transformation_in_ws(view->skybox_slider);
+            const auto left=glm::transform(glm::vec2(0),matrix);
+            const glm::vec2 size=view->skybox_slider->size;
+            const auto right=glm::transform(size,matrix);
+            if(right.x>left.x)view->set_skybox_offset((point.x-left.x)/(right.x-left.x));
+        };
+        skybox_touch->add_callback(gb::e_input_state_dragged,drag_skybox);
+        skybox_touch->add_callback(gb::e_input_state_released,drag_skybox);
+        const char* lod_names[2]={"Terrain LODs","Contour simplification"};
+        for(size_t i=0;i<2;++i){
+            const float y=10.f+76.f*i;
+            make_label(daytime,glm::vec2(268,y),lod_names[i],14.f);
+            lod_values[i]=make_label(daytime,glm::vec2(i==0?374:456,y),i==0?"5":"0%",13.f);lod_values[i]->font_color=cyan;
+            lod_sliders[i]=controls.create_slider(glm::vec2(i==0?100:180,18));lod_sliders[i]->position=glm::vec2(268,y+26);theme_slider(lod_sliders[i]);daytime->add_child(lod_sliders[i]);
+            make_label(daytime,glm::vec2(268,y+48),i==0?"1":"0%",10.f)->font_color=muted;
+            make_label(daytime,glm::vec2(i==0?350:425,y+48),i==0?"8":"90%",10.f)->font_color=muted;
+            lod_sliders[i]->set_callback([daytime_weak,i](float offset){if(auto view=daytime_weak.lock())view->set_lod_offset(i,offset);});
+            const auto drag_lod=[daytime_weak,i](const gb::ces_entity_shared_ptr&,const glm::vec2& point,gb::e_input_source,gb::e_input_state){
+                auto view=daytime_weak.lock();if(!view||!view->entity->get_is_visible())return;
+                const auto matrix=gb::ces_transformation_extension::get_absolute_transformation_in_ws(view->lod_sliders[i]);
+                const glm::vec2 size=view->lod_sliders[i]->size;
+                const auto left=glm::transform(glm::vec2(0),matrix),right=glm::transform(size,matrix);
+                if(right.x>left.x)view->set_lod_offset(i,(point.x-left.x)/(right.x-left.x));
+            };
+            const auto touch=lod_sliders[i]->get_component<gb::ces_bound_touch_component>();touch->add_callback(gb::e_input_state_dragged,drag_lod);touch->add_callback(gb::e_input_state_released,drag_lod);
+        }
+        make_label(daytime,glm::vec2(398,10),"Wireframe",12.f);
+        wireframe_toggle=make_button(daytime,glm::vec2(398,32),glm::vec2(84,26),"Off",[](implementation& view){
+            if(!view.terrain_lod||!view.terrain_lod->wireframe_available)return;
+            view.terrain_lod->wireframe=!view.terrain_lod->wireframe;
+            view.graphics_changed();view.refresh_lod();
+        });
+        terrain_triangle_label=make_label(daytime,glm::vec2(398,64),"Tris: --",10.f);
+        dirty_label = make_label(top, glm::vec2(282, 82), "Saved", 13.f);
 
-        tools = make_panel(glm::vec2(18, 114), glm::vec2(108, 420), "");
+        tools = make_panel(glm::vec2(18, 114), glm::vec2(108, 522), "");
         for(size_t i = 0; i < tool_buttons.size(); ++i) {
             tool_buttons[i] = make_button(tools, glm::vec2(10, 10.f + i * 102.f), glm::vec2(88, 94), tool_names[i],
                 [i](implementation& view) { view.state->select_tool(tool_types[i]); });
@@ -572,7 +942,7 @@ struct TerrainEditorUI::implementation : std::enable_shared_from_this<implementa
                 tool_buttons[i]->set_font_size(13.f);
                 tool_buttons[i]->set_text(tool_names[i]);
                 building_icon_button(tool_buttons[i], 0, 64.f);
-            } else icon_button(tool_buttons[i], 4 + int(i), 64.f);
+            } else icon_button(tool_buttons[i], tool_icon_tiles[i], 64.f);
         }
 
         // Fit the two right-hand panels without overlap at the demo's 720px
@@ -808,12 +1178,49 @@ struct TerrainEditorUI::implementation : std::enable_shared_from_this<implementa
         offset=glm::clamp(offset,0.f,1.f);
         if(offset<.01f)offset=0.f;else if(offset>.99f)offset=1.f;
         auto& lighting=stylized_lighting_settings();lighting.timeOfDay=offset*24.f;
+        graphics_changed();
         lighting.sanitize();refresh_daytime();
     }
 
+    void set_skybox_offset(float offset) {
+        offset=glm::clamp(offset,0.f,1.f);
+        if(offset<.01f)offset=0.f;else if(offset>.99f)offset=1.f;
+        stylized_lighting_settings().skyboxRotation=offset*360.f;
+        graphics_changed();refresh_daytime();
+    }
+
+    void set_lod_offset(size_t i,float offset){
+        if(!entity->get_is_visible()||!terrain_lod||(i==1&&terrain_lod->lodCount==1))return;
+        offset=glm::clamp(offset,0.f,1.f);
+        bool changed=i==0?terrain_lod->set_lod_count(int(std::round(1+offset*7))):terrain_lod->set_contour_percent(std::round(offset*90));
+        if(changed)graphics_changed();refresh_lod();
+    }
+    void refresh_lod(){
+        if(!terrain_lod||!lod_sliders[0])return;
+        // Text/color setters recreate the font mesh and its GPU resources.
+        // Reapply native feedback only when the persistent state changes.
+        if(wireframe_toggle&&(last_wireframe!=int(terrain_lod->wireframe)||last_wireframe_available!=int(terrain_lod->wireframe_available))){
+            wireframe_toggle->set_text(terrain_lod->wireframe_available?(terrain_lod->wireframe?"On":"Off"):"N/A");
+            style_button(wireframe_toggle,terrain_lod->wireframe_available,terrain_lod->wireframe);
+            last_wireframe=int(terrain_lod->wireframe);last_wireframe_available=int(terrain_lod->wireframe_available);
+        }
+        set_text(lod_values[0],std::to_string(terrain_lod->lodCount));set_text(lod_values[1],std::to_string(int(terrain_lod->contourSimplificationPercent))+"%");
+        const float values[2]={(terrain_lod->lodCount-1)/7.f,terrain_lod->contourSimplificationPercent/90.f};
+        for(size_t i=0;i<2;++i){if(std::abs(lod_sliders[i]->get_offset()-values[i])>.0001f)lod_sliders[i]->set_offset(values[i]);slider_fill(lod_sliders[i],values[i]);}
+        const int disabled=terrain_lod->lodCount==1;
+        if(last_lod_disabled!=disabled){lod_sliders[1]->disable(disabled);last_lod_disabled=disabled;}
+    }
     void refresh_daytime() {
+        refresh_lod();
         auto lighting = stylized_lighting_settings();
         lighting.sanitize();
+        const float rotation=lighting.skyboxRotation,sky_offset=rotation/360.f;
+        if(std::abs(skybox_slider->get_offset()-sky_offset)>.0001f) skybox_slider->set_offset(sky_offset);
+        const auto sky_fill=skybox_slider->get_element_as<gb::sprite>(skybox_slider->k_foreground_element_name);
+        const glm::vec2 sky_fill_size=sky_fill->size;
+        if(first_update||std::abs(sky_fill_size.x-std::max(4.f,176.f*sky_offset))>.0001f) slider_fill(skybox_slider,sky_offset);
+        if(sky_fill->get_is_visible()!=(sky_offset>.001f))sky_fill->visible=sky_offset>.001f;
+        if(last_skybox!=rotation){set_text(skybox_value,std::to_string(static_cast<int>(std::round(rotation)))+" deg");last_skybox=rotation;}
         const float value = lighting.timeOfDay;
         const float offset = value / 24.f;
         if(std::abs(daytime_slider->get_offset() - offset) > .0001f)
@@ -839,6 +1246,7 @@ struct TerrainEditorUI::implementation : std::enable_shared_from_this<implementa
         const auto& config = terrain_tool_ui_config(state->current_tool);
         const int tool = static_cast<int>(state->current_tool);
         const bool is_building_tool = state->current_tool == TerrainEditorTool::Buildings;
+        const bool is_stairs_tool = state->current_tool == TerrainEditorTool::Stairs;
         const bool tool_changed = last_tool != tool;
         if(!is_building_tool) {
             if(rotation_focused) rotation_field->get_component<gb::ui::ces_textedit_component>()->focus = false;
@@ -934,7 +1342,8 @@ struct TerrainEditorUI::implementation : std::enable_shared_from_this<implementa
             line = "LMB Place  |  Mode: Buildings  |  Building: " + std::string(building_definition(state->selected_building).name);
             line += "  |  Rotation: " + decimal(degrees) + " deg";
             line += "  |  Snap: " + (state->building_rotation_snap == 0 ? std::string("Off") : std::to_string(state->building_rotation_snap) + " deg");
-        } else if(config.trees) line = "LMB Place  |  Mode: Trees  |  Tree: " + std::string(tree_names.at(static_cast<size_t>(state->selected_tree)));
+        } else if(is_stairs_tool) line = "LMB Place  |  Shift+LMB Remove  |  Mode: Stairs";
+        else if(config.trees) line = "LMB Place  |  Mode: Trees  |  Tree: " + std::string(tree_names.at(static_cast<size_t>(state->selected_tree)));
         else {
             line = state->current_tool == TerrainEditorTool::Grass ? "LMB Paint" : "LMB Sculpt";
             const auto type = std::find(tool_types.begin(), tool_types.end(), state->current_tool);
@@ -945,6 +1354,7 @@ struct TerrainEditorUI::implementation : std::enable_shared_from_this<implementa
         line += "  |  World: " + decimal(state->level.terrain.config.world_size) + " x " + decimal(state->level.terrain.config.world_size) + " m";
         set_text(status_label, line);
         const char* hint = is_building_tool ? "Q/E Rotate  |  R Quarter Turn  |  Shift+LMB Remove  |  MMB Orbit  |  Ctrl+Z Undo" :
+            is_stairs_tool ? "Snaps between adjacent terraces  |  MMB Orbit  |  Ctrl+Z Undo  |  Ctrl+Y Redo" :
             "MMB Orbit  |  Ctrl+Z Undo  |  Ctrl+Y Redo";
         set_text(error_label, state->error.empty() ? hint : "Error: " + ascii_message(state->error));
         // Updating only on actual error-state changes avoids rebuilding the font
@@ -997,11 +1407,18 @@ TerrainEditorUI::TerrainEditorUI(const gb::scene_fabricator_shared_ptr& fabricat
 TerrainEditorUI::~TerrainEditorUI() = default;
 gb::ces_entity_shared_ptr TerrainEditorUI::root() const { return m_impl->entity; }
 void TerrainEditorUI::update() { m_impl->refresh(); }
+void TerrainEditorUI::set_terrain_triangle_count(size_t triangles) {
+    const auto now=std::chrono::steady_clock::now();
+    if(m_impl->terrain_triangle_label&&now-m_impl->terrain_triangle_label_update>=std::chrono::milliseconds(250)){
+        set_text(m_impl->terrain_triangle_label,"Tris: "+std::to_string(triangles));m_impl->terrain_triangle_label_update=now;
+    }
+}
 bool TerrainEditorUI::contains(glm::ivec2 point) const { return m_impl->hit(point); }
 bool TerrainEditorUI::keyboard_captured() const {
     return m_impl->rotation_focused && m_impl->entity->get_is_visible() && m_impl->buildings->get_is_visible();
 }
 void TerrainEditorUI::set_save_callback(std::function<void()> callback) { m_impl->save_callback = std::move(callback); }
+void TerrainEditorUI::set_graphics_save_callback(std::function<bool()> callback) { m_impl->graphics_save_callback = std::move(callback); }
 void TerrainEditorUI::set_load_callback(std::function<void()> callback) { m_impl->load_callback = std::move(callback); }
 void TerrainEditorUI::bind_post_settings(std::shared_ptr<StylizedPostProcessSettings> settings) {
     m_impl->post_settings = std::move(settings);
@@ -1011,6 +1428,12 @@ void TerrainEditorUI::bind_post_settings(std::shared_ptr<StylizedPostProcessSett
     } else m_impl->post_visible = false;
     m_impl->refresh();
 }
+void TerrainEditorUI::bind_terrain_lod_settings(std::shared_ptr<TerrainLodSettings> settings){m_impl->terrain_lod=std::move(settings);m_impl->refresh_lod();}
+void TerrainEditorUI::bind_render_debug(std::shared_ptr<RenderDebugState> state) {
+    m_impl->render_debug=std::move(state);m_impl->selected_pass=0;m_impl->selected_attachment=0;
+    m_impl->list_scroll=0;m_impl->detail_scroll=0;m_impl->refresh();
+}
+bool TerrainEditorUI::scroll_render_debug(glm::ivec2 point,float delta) { return m_impl->scroll_debug(point,delta); }
 void TerrainEditorUI::toggle_post_panel() {
     if(!m_impl->post_settings) return;
     m_impl->post_visible = !m_impl->post_visible;

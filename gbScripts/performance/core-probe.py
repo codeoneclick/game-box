@@ -41,7 +41,10 @@ files = {
   ('        render_statistics::end_frame();','        render_statistics::end_frame();\n        gb_probe::frame_end();')],
  'ces_render_system.cpp': [
   ('            technique->bind();','            gb_probe::scope probe("ws:"+technique_name);\n            gb_probe::mark("ws:"+technique_name);\n            technique->bind();'),
-  ('            technique->unbind();','            technique->unbind();\n            gb_probe::mark("end");')],
+  ('            technique->unbind();\n            render_statistics::end_pass();','            technique->unbind();\n            gb_probe::mark("end");\n            render_statistics::end_pass();'),
+  ('                technique->unbind();\n                render_statistics::end_pass();','                technique->unbind();\n                gb_probe::mark("end");\n                render_statistics::end_pass();'),
+  ('                                draw_3d_entity_func(technique_name,','                                const std::string probe_tag=entity->tag;\n                                const bool probe_terrain=gb_probe::enabled() && technique_name=="ws.base" && (probe_tag.find("island.terrain.lod.main.")==0 || probe_tag.find("0_")==0);\n                                if(probe_terrain)gb_probe::mark("terrain");\n                                draw_3d_entity_func(technique_name,'),
+  ('                                                    entity->get_component_raw<ces_shader_uniforms_component>());','                                                    entity->get_component_raw<ces_shader_uniforms_component>());\n                                if(probe_terrain)gb_probe::mark("end");')],
  'shader.cpp': [ ('VkDescriptorSet shader::construct_descriptor_set()\n\t{','VkDescriptorSet shader::construct_descriptor_set()\n\t{\n        gb_probe::scope probe("descriptors");')],
  'vk_utils.cpp': [('void vk_utils::flush_command_buffer(VkCommandBuffer command_buffer, VkQueue queue, bool free)\n\t{','void vk_utils::flush_command_buffer(VkCommandBuffer command_buffer, VkQueue queue, bool free)\n\t{\n        gb_probe::scope probe("upload_flush");')],
  'vk_device.cpp': [('\t\tm_graphics_pipelines.emplace(key, pipeline);','\t\tm_graphics_pipelines.emplace(key, pipeline);\n        if(gb_probe::enabled())std::cout<<"PROBE_PIPELINE created="<<m_graphics_pipelines.size()<<"\\n";')],

@@ -38,8 +38,12 @@ fragment g_buffer_output_t fragment_shader_editor_building(building_vertex in [[
  g_buffer_output_t out;out.color=half4(half3(color),1);out.normal=float4(n*.5+.5,u.sun.w);out.position=float4(in.world.xyz,max(-(u.view*in.world).z,.001));return out;
 }
 vertex building_vertex vertex_shader_building_aura(common_v_input_t in [[stage_in]],constant common_u_input_t& u [[buffer(1)]]){
- building_vertex out;out.world=u.mat_m*float4(in.position.x,0,in.position.y,1);out.position=u.mat_p*u.mat_v*out.world;out.uv=in.texcoord;return out;
+ building_vertex out;out.position=float4(in.position.xy*2.0,0,1);out.uv=float2(in.texcoord.x,1.0-in.texcoord.y);return out;
 }
-fragment half4 fragment_shader_building_aura(building_vertex in [[stage_in]],constant building_values& u [[buffer(0)]]){
- float2 p=abs(in.uv-.5)*2;float d=max(p.x,p.y);float alpha=(exp(-abs(d-.88)*30)*.8+(1-smoothstep(.7,1.,d))*.16)*(1-smoothstep(.94,1.,d));return half4(half3(u.tint.rgb*alpha),half(alpha));
+fragment half4 fragment_shader_building_aura(building_vertex in [[stage_in]],constant building_values& u [[buffer(0)]],texture2d<float> positions [[texture(0)]]){
+ constexpr sampler nearest_pixel(coord::normalized,address::clamp_to_edge,filter::nearest);
+ float4 world=positions.sample(nearest_pixel,in.uv);if(world.w<=0.0)discard_fragment();
+ float2 p=abs((u.view*float4(world.xyz,1)).xz)*2;float d=max(p.x,p.y);
+ float alpha=(exp(-abs(d-.88)*30)*.8+(1-smoothstep(.7,1.,d))*.16)*(1-smoothstep(.94,1.,d));
+ if(alpha<.001)discard_fragment();return half4(half3(u.tint.rgb*alpha),half(alpha));
 }

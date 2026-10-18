@@ -11,7 +11,7 @@ New-Item -ItemType Directory -Path $checkOutput -Force | Out-Null
 Push-Location $checkOutput
 try {
     $command = '@call "{0}" >nul' -f $vcvars
-    $command += "`r`n" + ('@cl /nologo /EHsc /std:c++14 /I"{0}\gbDemo\sources" "{0}\gbScripts\check_ocean.cpp" "{0}\gbDemo\sources\ocean_wave_model.cpp" "{0}\gbDemo\sources\ocean_mesh_builder.cpp" "{0}\gbDemo\sources\buoyancy_simulation.cpp" "{0}\gbDemo\sources\ocean_demo_props.cpp" /Fe:ocean_check.exe' -f $repoRoot)
+    $command += "`r`n" + ('@cl /nologo /EHsc /std:c++14 /I"{0}\gbDemo\sources" "{0}\gbScripts\check_ocean.cpp" "{0}\gbDemo\sources\ocean_wave_model.cpp" "{0}\gbDemo\sources\ocean_mesh_builder.cpp" "{0}\gbDemo\sources\buoyancy_simulation.cpp" "{0}\gbDemo\sources\ocean_demo_props.cpp" "{0}\gbDemo\sources\terrain_generator.cpp" /Fe:ocean_check.exe' -f $repoRoot)
     Set-Content -LiteralPath .\compile-ocean.cmd -Value $command -Encoding ASCII
     & cmd /c .\compile-ocean.cmd
     if ($LASTEXITCODE -ne 0) { throw 'Ocean CPU compilation failed.' }

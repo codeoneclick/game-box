@@ -43,6 +43,13 @@ int main()
     assert(game::grass_interaction::strength(.3f)>game::grass_interaction::strength(1.f));
     assert(game::grass_interaction::strength(1.5f)==0.f);
     game::terrain_config config;
+    // Keep this allocation-heavy deterministic grass comparison on its
+    // original small fixture. check-island-capacity.ps1 covers production
+    // dimensions without allocating two complete islands of grass cards.
+    config.world_size = 512.f;
+    config.island_size = 256.f;
+    config.resolution = 512;
+    config.water_size = 768.f;
     const auto data = game::terrain_generator::generate(config);
     assert(data.layers == game::terrain_generator::generate(config).layers);
     auto other = config;
@@ -131,7 +138,7 @@ int main()
             assert(std::abs(y-layer*config.layer_height) < .01f);
             grass_levels[layer] = true;
             const float height = patch.vertices[i+3].position[1]-y;
-            assert(height >= .25f && height <= .6f);
+            assert(height >= .28f*1.33f-.00001f && height <= .55f*1.33f+.00001f);
             assert(patch.vertices[i+3].color[1] > patch.vertices[i].color[1]);
             assert(patch.vertices[i].grass_bend[0] == 0.f && patch.vertices[i+1].grass_bend[0] == 0.f);
             for(size_t vertex=0;vertex<4;++vertex)

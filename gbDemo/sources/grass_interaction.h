@@ -28,7 +28,8 @@ public:
         if(age<=0.f)return 1.f;
         // Smooth recovery without a discontinuity when the trail expires.
         const float t=std::max(0.f,1.f-age/1.5f);
-        return .18f*t*t*(3.f-2.f*t);
+        // Keep the freshly stepped-on blades down before the smooth recovery.
+        return .65f*t*t*(3.f-2.f*t);
     }
 };
 }

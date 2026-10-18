@@ -11,4 +11,5 @@ namespace game {
         std::vector<buoyancy_probe> probes;
     };
     std::vector<ocean_demo_prop> build_ocean_demo_props(const ocean_settings&);
+    terrain_mesh_data build_ocean_reefs(const terrain_config&);
 }

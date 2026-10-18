@@ -166,8 +166,24 @@ namespace gb
         return m_material;
     }
     
+    material_shared_ptr render_technique_ss::get_active_material() const
+    {
+        return m_is_enabled ? m_material : m_bypass_material;
+    }
+
+    void render_technique_ss::set_enabled(bool value)
+    {
+        if (m_is_enabled != value)
+        {
+            // Render immediately after a toggle, even for passes that skip frames.
+            m_current_skipped_frames_count = m_skip_frames_count;
+        }
+        render_technique_base::set_enabled(value);
+    }
+
     void render_technique_ss::bind()
     {
+        const auto active_material = get_active_material();
         
 #if USED_GRAPHICS_API == METAL_API || USED_GRAPHICS_API == VULKAN_API
         
@@ -188,35 +204,36 @@ namespace gb
         gl::command::clear_color(m_clear_color.r, m_clear_color.g, m_clear_color.b, m_clear_color.a);
         gl::command::clear(gl::constant::color_buffer_bit | gl::constant::depth_buffer_bit);
 
-        if(m_material->get_shader()->is_loaded() &&
-           m_material->get_shader()->is_commited())
+        if(active_material && active_material->get_shader()->is_loaded() &&
+           active_material->get_shader()->is_commited())
         {
 
 #if USED_GRAPHICS_API == VULKAN_API
 
-			m_material->bind(m_quad->get_vbo()->get_vertex_input_state());
+			active_material->bind(m_quad->get_vbo()->get_vertex_input_state());
 
 #elif USED_GRAPHICS_API == METAL_API
             
-            m_material->bind(m_quad->get_vbo()->get_mtl_vertex_descriptor());
+            active_material->bind(m_quad->get_vbo()->get_mtl_vertex_descriptor());
             
 #else
             
-			m_material->bind();
+			active_material->bind();
 
 #endif
 
-            m_quad->bind(m_material->get_shader()->get_guid(), m_material->get_shader()->get_attributes());
+            m_quad->bind(active_material->get_shader()->get_guid(), active_material->get_shader()->get_attributes());
         }
     }
     
     void render_technique_ss::unbind()
     {
-        if(m_material->get_shader()->is_loaded() &&
-           m_material->get_shader()->is_commited())
+        const auto active_material = get_active_material();
+        if(active_material && active_material->get_shader()->is_loaded() &&
+           active_material->get_shader()->is_commited())
         {
-            m_quad->unbind(m_material->get_shader()->get_guid(), m_material->get_shader()->get_attributes());
-            m_material->unbind();
+            m_quad->unbind(active_material->get_shader()->get_guid(), active_material->get_shader()->get_attributes());
+            active_material->unbind();
         }
 
 #if USED_GRAPHICS_API == METAL_API || USED_GRAPHICS_API == VULKAN_API
@@ -229,24 +246,26 @@ namespace gb
     
     void render_technique_ss::draw()
     {
-        if(m_material->get_shader()->is_loaded() &&
-           m_material->get_shader()->is_commited())
+        const auto active_material = get_active_material();
+        if (!active_material || !active_material->get_shader()->is_loaded() ||
+            !active_material->get_shader()->is_commited())
         {
-            m_quad->draw();
+            return;
         }
+        m_quad->draw();
         
 #if USED_GRAPHICS_API == METAL_API
         
         const auto vbo_mtl_buffer_id = m_quad->get_vbo()->get_mtl_buffer_id();
         const auto ibo_mtl_buffer_id = m_quad->get_ibo()->get_mtl_buffer_id();
-        const auto render_encoder = m_material->get_render_encoder();
+        const auto render_encoder = active_material->get_render_encoder();
         render_encoder->set_vertex_buffer(vbo_mtl_buffer_id, 0);
         
         if (m_uniforms[ces_render_technique_uniforms_component::e_shader_uniform_type_vertex])
         {
             void* uniforms_value = m_uniforms[ces_render_technique_uniforms_component::e_shader_uniform_type_vertex]->get_values();
             ui32 uniforms_size = m_uniforms[ces_render_technique_uniforms_component::e_shader_uniform_type_vertex]->get_values_size();
-            const auto uniforms_buffer_id = m_material->get_custom_uniform_buffer(uniforms_size);
+            const auto uniforms_buffer_id = active_material->get_custom_uniform_buffer(uniforms_size);
             uniforms_buffer_id->update(uniforms_value, uniforms_size);
             render_encoder->set_vertex_uniforms(uniforms_buffer_id, 1);
         }
@@ -255,7 +274,7 @@ namespace gb
         {
             void* uniforms_value = m_uniforms[ces_render_technique_uniforms_component::e_shader_uniform_type_fragment]->get_values();
             ui32 uniforms_size = m_uniforms[ces_render_technique_uniforms_component::e_shader_uniform_type_fragment]->get_values_size();
-            const auto uniforms_buffer_id = m_material->get_custom_uniform_buffer(uniforms_size);
+            const auto uniforms_buffer_id = active_material->get_custom_uniform_buffer(uniforms_size);
             uniforms_buffer_id->update(uniforms_value, uniforms_size);
             render_encoder->set_fragment_uniforms(uniforms_buffer_id, 1);
         }

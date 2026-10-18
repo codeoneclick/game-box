@@ -7,6 +7,7 @@
 //
 
 #include "ces_render_system.h"
+#include "render_statistics.h"
 
 #if USED_GRAPHICS_API != NO_GRAPHICS_API
 
@@ -151,6 +152,7 @@ namespace gb
                 {
                     const auto& uniforms = uniforms_wrapper->get_uniforms_ref();
                     ss_technique_it->get_material()->set_custom_shader_uniforms(uniforms);
+                    if(const auto bypass=ss_technique_it->get_bypass_material())bypass->set_custom_shader_uniforms(uniforms);
                     ss_technique_it->set_uniforms(uniforms_wrapper);
                 }
             }
@@ -164,6 +166,7 @@ namespace gb
             {
                 const auto& uniforms = uniforms_wrapper->get_uniforms_ref();
                 main_technique->get_material()->set_custom_shader_uniforms(uniforms);
+                if(const auto bypass=main_technique->get_bypass_material())bypass->set_custom_shader_uniforms(uniforms);
                 main_technique->set_uniforms(uniforms_wrapper);
             }
         }
@@ -592,10 +595,19 @@ namespace gb
         });
         for(const auto& technique : ws_techniques)
         {
+            render_statistics::begin_pass(technique->get_name());
             std::size_t name_position = technique->get_name().find("_") + 1;
             assert(name_position < technique->get_name().size());
             std::string technique_name = technique->get_name().substr(name_position);
             technique->bind();
+
+            if (!technique->get_is_enabled())
+            {
+                // Keep attachments fresh for consumers, while submitting no geometry.
+                technique->unbind();
+                render_statistics::end_pass();
+                continue;
+            }
             
             ces_render_system::grab_visible_entities(technique_name, std::bind(&ces_render_system::draw_3d_entity, this,
                                                                                std::placeholders::_1,
@@ -614,6 +626,7 @@ namespace gb
 #endif
             
             technique->unbind();
+            render_statistics::end_pass();
         }
         
         ces_base_system::enumerate_entities_with_components(m_render_target_components_mask, [this](const ces_entity_shared_ptr& entity) {

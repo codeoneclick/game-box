@@ -1,4 +1,13 @@
+#include "terrain_lod_renderer.h"
+#include "terrain_lod.h"
+#include <cstring>
 #include "island_demo_scene.h"
+#include "graphics_settings.h"
+#include "render_debug_controller.h"
+#include "ces_render_system.h"
+#include "render_pipeline.h"
+#include "render_technique_ws.h"
+#include "texture.h"
 #include "ces_sun_shadow_system.h"
 #include "terrain_generator.h"
 #include "terrain_mesh_builder.h"
@@ -27,6 +36,7 @@
 #include <map>
 #include <future>
 #include <thread>
+#include <atomic>
 #include "ces_material_component.h"
 #include "material.h"
 #include "material_configuration.h"
@@ -58,6 +68,8 @@ namespace game
 {
     namespace
     {
+        // Shared edge tessellation keeps the detailed surface and horizon watertight.
+        constexpr int ocean_grid_cells=256;
         // Keep the native text editor, but dispatch keys only to an active
         // field. The legacy system otherwise retains unfocused key events.
         class editor_textedit_system final : public gb::ui::ces_textedit_system {
@@ -82,7 +94,7 @@ namespace game
         std::string editor_batch_guid(const EditorRenderBatch& batch){
             return (batch.kind==EditorRenderBatch::Grass?"island.grass.editor.":batch.kind==EditorRenderBatch::Trees?"island.trees.editor.":"island.editor.terrain.")+batch.key;
         }
-        prepared_editor_mesh prepare_editor_mesh(const terrain_mesh_data& data,const std::string& guid,float water_level=0.f){
+        prepared_editor_mesh prepare_editor_mesh(const terrain_mesh_data& data,const std::string& guid,float water_level=0.f,const TerrainLodVariant* lod=nullptr){
             prepared_editor_mesh result;result.vertices.resize(data.vertices.size());
             for(size_t i=0;i<data.vertices.size();++i){
                 const auto& source=data.vertices[i];auto& vertex=result.vertices[i];vertex={};
@@ -92,6 +104,7 @@ namespace game
                 if(source.grass_bend[1]>0.f)vertex.m_tangent=glm::packSnorm4x8(glm::vec4(source.grass_bend[0],source.grass_bend[1],1.f,0.f));
                 else if(source.tree_bend[1]>0.f)vertex.m_tangent=glm::packSnorm4x8(glm::vec4(source.tree_bend[0],source.tree_bend[1],0.f,1.f));
                 vertex.m_texcoord=glm::packHalf2x16(glm::vec2(source.texcoord[0],source.texcoord[1]));
+                if(source.stone_texture)vertex.m_tangent=glm::packSnorm4x8(glm::vec4(1.f,0.f,0.f,.25f));
                 if(source.editor_palette[0]>=0.f){vertex.m_tangent=glm::packSnorm4x8(glm::vec4(0,0,0,-1));vertex.m_texcoord=glm::packHalf2x16(glm::vec2(source.editor_palette[0],source.editor_palette[1]));}
                 vertex.m_color=glm::u8vec4(source.color[0],source.color[1],source.color[2],source.color[3]);
                 if(source.outline_id){
@@ -101,6 +114,13 @@ namespace game
                     auto tangent=glm::unpackSnorm4x8(vertex.m_tangent);tangent.z=-float(id&127u)/127.f;
                     vertex.m_tangent=glm::packSnorm4x8(tangent);vertex.m_color.a=static_cast<uint8_t>(id>>14);
                 }
+                if(lod&&i<lod->morph_delta_xz.size()){
+                    const auto delta=lod->morph_delta_xz[i];
+                    if(!std::isfinite(delta[0])||!std::isfinite(delta[1])||std::abs(delta[0])>60000||std::abs(delta[1])>60000)throw std::invalid_argument("Invalid terrain morph delta");
+                    auto tangent=glm::unpackSnorm4x8(vertex.m_tangent);tangent.x=lod->morph_normal_xz[i][0];tangent.y=lod->morph_normal_xz[i][1];vertex.m_tangent=glm::packSnorm4x8(tangent);
+                    vertex.m_texcoord=glm::packHalf2x16(glm::vec2(delta[0],delta[1]));
+                    result.minimum=glm::min(result.minimum,vertex.m_position+glm::vec3(delta[0],0,delta[1]));result.maximum=glm::max(result.maximum,vertex.m_position+glm::vec3(delta[0],0,delta[1]));
+                }
                 result.minimum=glm::min(result.minimum,vertex.m_position);result.maximum=glm::max(result.maximum,vertex.m_position);
             }
             if(guid.find("island.water")==0){result.minimum.y=water_level-1.f;result.maximum.y=water_level+1.f;}
@@ -109,6 +129,7 @@ namespace game
             return result;
         }
         struct editor_pending_mesh {EditorRenderBatch batch;prepared_editor_mesh prepared;};
+        struct editor_detail_source {std::shared_ptr<const terrain_mesh_data> mesh;uint64_t revision=0;};
         struct editor_rebuild_result {
             std::vector<editor_pending_mesh> batches;
             std::vector<resident_navigation> navigation;
@@ -117,9 +138,16 @@ namespace game
             uint64_t support_revision=0;
             uint64_t generation=0,revision=0,terrain_revision=0;
             double mesh_ms=0,navigation_ms=0;
+            TerrainLodVersion version;
+            std::map<std::string,editor_detail_source> detail_sources;
+            std::shared_ptr<const std::vector<terrain_mesh_data>> terrain_parts;
+            std::chrono::steady_clock::time_point requested;
+            bool cancelled=false;
+            uint64_t detail_epoch=0;
         };
         struct editor_rebuild_jobs {
             std::future<editor_rebuild_result> worker;
+            std::future<editor_rebuild_result> detail_worker;
             TerrainEditorDirty pending;
             std::vector<TerrainEditorDirty> regions;
             std::map<std::string,editor_pending_mesh> uploads;
@@ -128,6 +156,17 @@ namespace game
             bool needs_navigation=false;
             std::shared_ptr<const BuildingSurfaceSupport> support;
             uint64_t support_revision=0;
+            std::map<std::string,editor_detail_source> detail_sources;
+            std::shared_ptr<const std::vector<terrain_mesh_data>> detail_parts;
+            uint64_t detail_parts_revision=0;
+            std::shared_ptr<std::atomic<uint64_t>> detail_epoch=std::make_shared<std::atomic<uint64_t>>(0);
+            TerrainLodVersion visual_version;
+            std::chrono::steady_clock::time_point pending_requested,visual_requested;
+            float idle_seconds=0;
+            bool visual_is_refinement=false;
+            std::map<std::string,editor_detail_source> detail_inflight;
+            uint64_t detail_job_generation=0,detail_job_epoch=0,failed_detail_epoch=std::numeric_limits<uint64_t>::max();
+            ~editor_rebuild_jobs(){++*detail_epoch;}
         };
         void merge_editor_dirty(TerrainEditorDirty& destination,const TerrainEditorDirty& source){
             if(source.empty())return;
@@ -136,7 +175,7 @@ namespace game
                 destination.x0=std::min(destination.x0,source.x0);destination.z0=std::min(destination.z0,source.z0);
                 destination.x1=std::max(destination.x1,source.x1);destination.z1=std::max(destination.z1,source.z1);
                 destination.terrain|=source.terrain;destination.grass|=source.grass;
-                destination.trees|=source.trees;destination.climate|=source.climate;destination.buildings|=source.buildings;
+                destination.trees|=source.trees;destination.climate|=source.climate;destination.buildings|=source.buildings;destination.stairs|=source.stairs;destination.lod|=source.lod;destination.lod_all|=source.lod_all;
             }
         }
         class orbit_camera_input final : public gb::input_context_listener
@@ -234,11 +273,33 @@ namespace game
             std::function<bool()> rotation_allowed;
             std::function<bool(glm::ivec2,glm::vec3&)> surface_picker;
             orbit_camera_input(const std::shared_ptr<gb::camera_3d>& camera,
-                               const terrain_mesh_data& surface, float water_y, const glm::vec3& resident_focus,const glm::vec3& tree_focus) :
+                               const terrain_mesh_data& surface, float water_y, const glm::vec3& resident_focus,const glm::vec3& tree_focus,const terrain_config& config) :
                 m_camera(camera), m_surface(std::make_shared<terrain_mesh_data>(surface)), m_water_y(water_y)
             {
+                const float scale=config.island_size/256.f;
+                m_radius*=scale;m_max_radius=std::max(700.f,config.world_size*1.5f);
                 if(const char* inspect=std::getenv("GB_OCEAN_INSPECT")){
                     if(std::string(inspect)=="1"){m_target=glm::vec3(-85.f,0.f,100.f);m_radius=85.f;m_pitch=35.f;}
+                    if(std::string(inspect)=="coast"){
+                        for(size_t i=0;i+2<surface.indices.size();i+=3){
+                            const auto& a=surface.vertices[surface.indices[i]];
+                            if(a.normal[1]>.99f&&std::abs(a.position[1]+config.layer_height)<.01f){
+                                m_target=glm::vec3(0);
+                                for(int j=0;j<3;++j){const auto& p=surface.vertices[surface.indices[i+j]].position;m_target+=glm::vec3(p[0],p[1],p[2])/3.f;}
+                                m_radius=45.f;m_pitch=50.f;break;
+                            }
+                        }
+                    }
+                    if(std::string(inspect)=="reef"){
+                        const auto reef_mesh=build_ocean_reefs(config);
+                        if(!reef_mesh.vertices.empty()){
+                            m_target=glm::vec3(0);
+                            const size_t count=std::min(size_t(144),reef_mesh.vertices.size());
+                            for(size_t i=0;i<count;++i){const auto& p=reef_mesh.vertices[i].position;m_target+=glm::vec3(p[0],p[1],p[2]);}
+                            m_target/=float(count);m_target.y=config.water_y+.5f;
+                            m_radius=55.f;m_pitch=45.f;
+                        }
+                    }
                 }
                 if(const char* inspect=std::getenv("GB_RESIDENT_INSPECT")){
                     if(std::string(inspect)=="1"){m_target=resident_focus;m_radius=3.5f;m_min_radius=2.5f;m_pitch=12.f;m_yaw=90.f;}
@@ -349,9 +410,9 @@ namespace game
             void on_virtual_keyboard_hidden() override {}
         };
 
-        gb::mesh_3d_shared_ptr upload_mesh(const terrain_mesh_data& data, const std::string& guid,float water_level=0.f,bool streaming=false,const prepared_editor_mesh* supplied=nullptr)
+        gb::mesh_3d_shared_ptr upload_mesh(const terrain_mesh_data& data, const std::string& guid,float water_level=0.f,bool streaming=false,const prepared_editor_mesh* supplied=nullptr,const TerrainLodVariant* lod=nullptr)
         {
-            prepared_editor_mesh local;if(!supplied){local=prepare_editor_mesh(data,guid,water_level);supplied=&local;}
+            prepared_editor_mesh local;if(!supplied){local=prepare_editor_mesh(data,guid,water_level,lod);supplied=&local;}
             auto declaration = std::make_shared<gb::vbo::vertex_declaration_PTNTC>(static_cast<ui32>(supplied->vertices.size()));
             const auto mode=streaming?gb::gl::constant::dynamic_draw:gb::gl::constant::static_draw;
             auto vertices_buffer = std::make_shared<gb::vbo>(declaration, mode);
@@ -363,6 +424,29 @@ namespace game
             indices_buffer->unlock();
             // Explicit PTNTC bounds include animated foliage/water margins.
             return gb::mesh_3d::construct(guid,vertices_buffer,indices_buffer,supplied->maximum,supplied->minimum);
+        }
+        using editor_lod_cache=std::map<std::string,std::shared_ptr<const TerrainLodGeneration>>;
+        void prepare_editor_lod(EditorRenderBatch& batch,const TerrainEditorState& state,const TerrainLodSettings& settings,editor_lod_cache& cache){
+            if(batch.kind!=EditorRenderBatch::Terrain)return;
+            if(batch.mesh.indices.empty()){cache.erase(batch.key);auto empty=std::make_shared<TerrainLodGeneration>();empty->version.load_generation=state.load_generation;empty->version.terrain_revision=state.terrain_revision;empty->version.settings_revision=settings.revision;batch.lod=empty;return;}
+            const auto& config=state.level.terrain.config;const float cell=config.world_size/config.resolution;
+            int kind=0,group=0,part=0;std::string key=batch.key;std::replace(key.begin(),key.end(),'_',' ');std::istringstream(key)>>kind>>group>>part;
+            const int groups=(config.resolution+63)/64,gx=group%groups,gz=group/groups;const float half=config.world_size*.5f;
+            TerrainContourConstraints constraints;constraints.bounds={{gx*64*cell-half,gz*64*cell-half,std::min(config.resolution,(gx+1)*64)*cell-half,std::min(config.resolution,(gz+1)*64)*cell-half}};
+            const auto protect=[&](float x,float z,float r){const auto& b=constraints.bounds;if(x+r>=b[0]&&z+r>=b[1]&&x-r<=b[2]&&z-r<=b[3])constraints.protected_disks.push_back({{x,z,r,0}});};
+            if(settings.contourSimplificationPercent>0){
+                for(const auto& building:state.level.buildings){const auto& d=building_definition(building.type);protect(building.position[0],building.position[2],std::sqrt(d.half_width*d.half_width+d.half_depth*d.half_depth)+building_clearance+cell*2);}
+                for(const auto& tree:state.level.trees)protect(tree.position[0],tree.position[2],4.f*tree.scale+cell);
+                for(const auto& stairs:state.level.stairs)protect(stairs.position[0],stairs.position[2],std::sqrt(stairs_width*stairs_width+stairs_run*stairs_run)*.5f+cell);
+            }
+            uint64_t hash=1469598103934665603ull;const auto word=[&](uint32_t v){hash^=v;hash*=1099511628211ull;};const auto scalar=[&](float f){uint32_t v;std::memcpy(&v,&f,4);word(v);};
+            word(settings.lodCount);scalar(settings.contourSimplificationPercent);scalar(cell);for(auto x:constraints.bounds)scalar(x);for(auto d:constraints.protected_disks)for(float f:d)scalar(f);
+            for(auto& v:batch.mesh.vertices){for(float x:v.position)scalar(x);for(float x:v.normal)scalar(x);for(auto x:v.color)word(x);for(float x:v.editor_palette)scalar(x);word(v.outline_id);}for(auto x:batch.mesh.indices)word(x);
+            TerrainLodVersion version;version.load_generation=state.load_generation;version.terrain_revision=state.terrain_revision;version.settings_revision=settings.revision;
+            auto found=cache.find(batch.key);
+            if(found!=cache.end()&&found->second->signature==hash){auto copy=std::make_shared<TerrainLodGeneration>(*found->second);copy->version=version;batch.lod=copy;}
+            else {auto generation=std::make_shared<TerrainLodGeneration>(build_terrain_lod_generation(batch.mesh,settings,constraints,cell,version));generation->signature=hash;batch.lod=generation;}
+            cache[batch.key]=batch.lod;
         }
         terrain_mesh_data editor_palette_mesh(terrain_mesh_data mesh){
             // Preserve the old smooth contour geometry, replacing RGB with lookup coordinates.
@@ -398,11 +482,29 @@ namespace game
     void island_demo_scene::create()
     {
         gb::scene_graph::create();
+        auto lod_settings=std::make_shared<TerrainLodSettings>();
+        lod_settings->wireframe_available=gb::material::supports_wireframe();
+        const auto graphics_path=graphics_settings_path();
+        auto saved_post=stylized_post_settings_from_environment();
+        auto saved_lighting=lighting_settings_from_environment();
+        std::string graphics_error;
+        if(load_graphics_settings(graphics_path,saved_post,saved_lighting,*lod_settings,graphics_error))
+            std::cout<<"Graphics settings loaded: "<<graphics_path<<std::endl;
+        else std::cerr<<"Graphics settings defaults: "<<graphics_path<<": "<<graphics_error<<std::endl;
+        stylized_lighting_settings()=lighting_settings_from_environment(&saved_lighting);
         auto technique_uniforms=add_component<gb::ces_render_technique_uniforms_component>();
-        auto sun_shadow_system=std::make_shared<ces_sun_shadow_system>(get_fabricator());
+        std::array<glm::ivec2,2> shadow_map_sizes={{glm::ivec2(0),glm::ivec2(0)}};
+        for(const auto& technique:get_transition()->get_system<gb::ces_render_system>()->get_render_pipeline()->get_ws_techniques()){
+            const auto texture=technique->get_color_attachment_texture();
+            if(!texture)continue;
+            for(int i=0;i<2;++i)if(texture->get_guid()==std::string(i==0?"ws.sun.near":"ws.sun.far")+".attachment_01")
+                shadow_map_sizes[i]=glm::ivec2(texture->get_width(),texture->get_height());
+        }
+        auto sun_shadow_system=std::make_shared<ces_sun_shadow_system>(get_fabricator(),shadow_map_sizes);
         sun_shadow_system->initialize(shared_from_this());
         get_transition()->add_system(sun_shadow_system);
-        auto post_settings=std::make_shared<StylizedPostProcessSettings>(stylized_post_settings_from_environment());
+        auto post_settings=std::make_shared<StylizedPostProcessSettings>(stylized_post_settings_from_environment(&saved_post));
+        auto render_debug=std::make_shared<RenderDebugController>(get_fabricator(),get_transition()->get_system<gb::ces_render_system>()->get_render_pipeline(),post_settings);
         auto post_final=technique_uniforms->construct_uniforms<stylized_post_process_uniforms>(gb::ces_render_technique_uniforms_component::e_shader_uniform_type_fragment,"final");
         auto post_output=technique_uniforms->construct_uniforms<stylized_post_process_uniforms>(gb::ces_render_technique_uniforms_component::e_shader_uniform_type_fragment,"demo");
         auto field_debug=technique_uniforms->construct_uniforms<ocean_field_debug_uniforms>(gb::ces_render_technique_uniforms_component::e_shader_uniform_type_fragment,"compose");
@@ -430,8 +532,16 @@ namespace game
             get_transition()->get_configuration_accessor()->get_shape_3d_configuration("island_terrain.xml"));
         ocean_settings ocean;
         ocean.mean_level=config.water_y;
+        for(const auto& technique:get_transition()->get_system<gb::ces_render_system>()->get_render_pipeline()->get_ws_techniques()){
+            if(technique->get_name().find("ws.water.distance")!=std::string::npos){
+                const auto texture=technique->get_color_attachment_texture();
+                if(texture)ocean.interaction_resolution=float(texture->get_width());
+            }
+        }
         auto ocean_system=std::make_shared<ces_ocean_system>(ocean);
         ocean_system->set_terrain_dimensions(config.layer_height,config.shore_height);
+        ocean_system->set_world_dimensions(config.world_size,config.water_size);
+        sun_shadow_system->set_world_dimensions(config.world_size);
         get_transition()->add_system(ocean_system);
         const auto water_configuration=std::static_pointer_cast<gb::shape_3d_configuration>(
             get_transition()->get_configuration_accessor()->get_shape_3d_configuration("ocean.xml"));
@@ -444,16 +554,25 @@ namespace game
             const auto material_configuration=water?water_configuration:
                 (guid.find("ocean.prop.")==0?prop_configuration:configuration);
             auto materials=material_configuration->get_materials_configurations();
-            if(guid=="island.water.horizon"){
-                // Horizon starts at |XZ|=384; the interaction field ends at
-                // 160. It cannot contain contact foam, so avoid its empty pass.
+            if(water){
+                // Foam uses its own compacted index list, sharing the water VBO.
                 materials.erase(std::remove_if(materials.begin(),materials.end(),[](const std::shared_ptr<gb::configuration>& c){
                     return std::static_pointer_cast<gb::material_configuration>(c)->get_technique_name()=="ws.ocean.foam";
                 }),materials.end());
             }
             get_fabricator()->add_materials(shape,materials);
             add_child(shape);
-            if(water)ocean_system->add_surface(shape);else {
+            if(water){
+                gb::ces_entity_shared_ptr foam;
+                if(guid!="island.water.horizon"){
+                    foam=gb::ces_entity::construct<gb::shape_3d>();foam->tag=guid+".foam";
+                    std::vector<std::shared_ptr<gb::configuration>> foam_materials;
+                    for(const auto& item:water_configuration->get_materials_configurations())
+                        if(std::static_pointer_cast<gb::material_configuration>(item)->get_technique_name()=="ws.ocean.foam")foam_materials.push_back(item);
+                    get_fabricator()->add_materials(foam,foam_materials);add_child(foam);
+                }
+                ocean_system->add_surface(shape,foam,data,guid=="island.water.horizon");
+            }else {
                 ocean_system->add_receiver(shape);
                 auto mask=gb::ces_entity::construct<gb::shape_3d>();
                 auto mg=mask->get_component<gb::ces_geometry_3d_component>();mg->set_mesh(shape->get_component<gb::ces_geometry_3d_component>()->get_mesh()->as_3d());mg->bounding_mode=gb::ces_geometry_component::e_none;
@@ -476,6 +595,7 @@ namespace game
             geometry->set_mesh(upload_mesh(field_quad,std::string("field.")+name));geometry->bounding_mode=gb::ces_geometry_component::e_none;
             auto c=std::static_pointer_cast<gb::shape_3d_configuration>(get_transition()->get_configuration_accessor()->get_shape_3d_configuration(std::string(name)+".xml"));
             get_fabricator()->add_materials(quad,c->get_materials_configurations());add_child(quad);
+            if(std::string(name)=="water_distance")ocean_system->add_receiver(quad);
         }
         editor_legacy_entities.push_back(add_shape(editor_palette_mesh(terrain_mesh),"island.terrain"));
         // Grass receives ordinary lighting/SSAO but must not become a water
@@ -483,25 +603,13 @@ namespace game
         const char* grass_enabled=std::getenv("GB_ISLAND_GRASS");
         if (!grass_enabled || std::string(grass_enabled)!="0")
         {
-            const auto grass=terrain_mesh_builder::build_grass(terrain_mesh,config);
-            editor_legacy_grass=grass;
+            editor_legacy_grass=terrain_mesh_builder::build_grass(terrain_mesh,config);
             size_t triangles=0;
-            for (size_t i=0; i<grass.size(); ++i)
-            {
-                auto shape=gb::ces_entity::construct<gb::shape_3d>();
-                const auto guid="island.grass."+std::to_string(i);
-                shape->tag=guid;
-                shape->get_component<gb::ces_geometry_3d_component>()->set_mesh(upload_mesh(grass[i],guid));
-                get_fabricator()->add_materials(shape,configuration->get_materials_configurations());
-                add_child(shape);
-                editor_legacy_entities.push_back(shape);
-                ocean_system->add_receiver(shape);
-                triangles+=grass[i].indices.size()/3;
-            }
-            std::cout<<"Island grass: terraces=4-7 (summit first), batches="<<grass.size()<<" triangles="<<triangles<<std::endl;
+            for(const auto& batch:editor_legacy_grass)triangles+=batch.indices.size()/3;
+            // Only the editor chunks are rendered; avoid uploading a second, hidden meadow.
+            std::cout<<"Island grass: terraces=4-7 (summit first), batches="<<editor_legacy_grass.size()<<" triangles="<<triangles<<std::endl;
         }
         glm::vec3 tree_focus(-24,10,24);
-        std::vector<glm::vec4> tree_shadows;
         const char* trees_enabled=std::getenv("GB_ISLAND_TREES");
         if(!trees_enabled||std::string(trees_enabled)!="0"){
             const auto trees=terrain_mesh_builder::build_trees(terrain_mesh,config);
@@ -520,7 +628,6 @@ namespace game
                 for(const auto& tree:trees)if(tree.terrace==terrace){
                     EditorTree logical;logical.id=editor_state->level.next_tree_id++;logical.type=static_cast<TreeType>(tree.species);
                     logical.position=tree.position;logical.scale=tree.height/7.f;logical.yaw=tree.yaw;editor_state->level.trees.push_back(logical);
-                    tree_shadows.emplace_back(tree.position[0],tree.position[1],tree.position[2],tree.height*.32f);
                     const char* inspect=std::getenv("GB_TREES_INSPECT");
                     const std::string species=inspect?inspect:"";
                     const std::array<const char*,5> names={{"pine","oak","birch","palm","thuja"}};
@@ -540,28 +647,35 @@ namespace game
             std::cout<<"Forest initialized: trees="<<trees.size()<<" batches="<<batches<<" triangles="<<total_triangles<<std::endl;
         }
         auto seabed=add_shape(terrain_mesh_builder::build_seabed(config),"island.seabed");
-        const auto water_patches=ocean_mesh_builder::build(config.water_size,384);
+        const auto water_patches=ocean_mesh_builder::build(config.water_size,ocean_grid_cells);
         auto water_entities=std::make_shared<std::vector<gb::shape_3d_shared_ptr>>();
         for(size_t i=0;i<water_patches.size();++i)water_entities->push_back(add_shape(water_patches[i],"island.water."+std::to_string(i),true));
-        auto horizon=add_shape(ocean_mesh_builder::build_horizon(config.water_size,4096.f,384),"island.water.horizon",true);
+        auto horizon=add_shape(ocean_mesh_builder::build_horizon(config.water_size,200000.f,ocean_grid_cells),"island.water.horizon",true);
+        // Closed rocks use water_mask (not the terrain-only projection), so the
+        // existing wave field creates foam at their actual moving waterline.
+        auto reefs=add_shape(build_ocean_reefs(config),"ocean.prop.reefs");
         const auto props=build_ocean_demo_props(ocean);
         for(size_t i=0;i<props.size();++i){
-            const auto& p=props[i];auto shape=add_shape(p.mesh,"ocean.prop."+std::to_string(i));
+            auto p=props[i];const float radius=std::hypot(p.position.x,p.position.z);
+            if(radius>.001f){
+                const float angle=std::atan2(p.position.z,p.position.x),coast=terrain_generator::coast_radius(config,angle);
+                const float old_coast=coast*256.f/config.island_size;
+                const float relocated=std::max(0.f,radius+coast-old_coast);p.position.x*=relocated/radius;p.position.z*=relocated/radius;
+            }
+            auto shape=add_shape(p.mesh,"ocean.prop."+std::to_string(i));
             auto geometry=shape->get_component<gb::ces_geometry_3d_component>();
             geometry->bounding_mode=gb::ces_geometry_component::e_radius;
-            float radius=0;for(const auto& vertex:p.mesh.vertices)radius=std::max(radius,glm::length(glm::vec3(vertex.position[0],vertex.position[1],vertex.position[2])));
-            geometry->set_bounding_radius(radius);
+            float bound_radius=0;for(const auto& vertex:p.mesh.vertices)bound_radius=std::max(bound_radius,glm::length(glm::vec3(vertex.position[0],vertex.position[1],vertex.position[2])));
+            geometry->set_bounding_radius(bound_radius);
             auto transform=shape->get_component<gb::ces_transformation_3d_component>();
             transform->set_position(glm::vec3(p.position.x,p.position.y,p.position.z));transform->set_rotation(glm::vec3(0,p.yaw,0));
             if(p.floating){auto buoyancy=shape->add_component<ces_buoyancy_component>();buoyancy->settings=p.buoyancy;buoyancy->probes=p.probes;buoyancy->state.position=p.position;buoyancy->state.yaw=p.yaw;}
         }
 
         glm::vec3 resident_focus(-62.f,1.45f,74.f);
-        std::vector<gb::ces_entity_weak_ptr> shadow_people;
         try {
             auto resident=create_island_resident_demo(get_fabricator(),terrain_mesh,config);
             resident_focus=resident.focus;for(const auto& shape:resident.shapes)add_child(shape);
-            for(const auto& shape:resident.shapes)shadow_people.push_back(shape);
             if(std::getenv("GB_GRASS_INTERACTION_INSPECT"))for(auto shape:resident.shapes){
                 auto person=shape->get_component<ces_island_resident_component>();
                 if(person&&person->terrace_index==3){resident_focus=shape->get_component<gb::ces_transformation_3d_component>()->get_position()+glm::vec3(0,.8f,0);break;}
@@ -588,7 +702,7 @@ namespace game
             auto action=field->add_component<gb::ces_action_component>();
             // Resident positions change in on_feed_start; actions run in feed
             // before rendering, including residents outside the camera frustum.
-            action->set_update_callback([buffer,people,history,max_quads,previous=std::vector<glm::vec3>(people.size(),glm::vec3(0)),initialized=false](const gb::ces_entity_shared_ptr&,float dt) mutable {
+            action->set_update_callback([buffer,people,history,max_quads,editor_state,previous=std::vector<glm::vec3>(people.size(),glm::vec3(0)),initialized=false](const gb::ces_entity_shared_ptr&,float dt) mutable {
                 std::vector<grass_impulse> current;current.reserve(people.size());
                 const bool enabled=!std::getenv("GB_GRASS_INTERACTION") || std::string(std::getenv("GB_GRASS_INTERACTION"))!="0";
                 for(size_t i=0;i<people.size();++i)if(auto person=people[i].lock()){
@@ -610,7 +724,8 @@ namespace game
                     constexpr float radius=1.6f;
                     for(ui32 k=0;k<4;++k){
                         const float dx=(k%2)?1.f:-1.f,dz=(k/2)?1.f:-1.f;
-                        const glm::vec2 uv=(glm::vec2(p.x+dx*radius,p.z+dz*radius)+160.f)/320.f;
+                        const float span=editor_state->level.terrain.config.world_size;
+                        const glm::vec2 uv=(glm::vec2(p.x+dx*radius,p.z+dz*radius)+span*.5f)/span;
                         const glm::vec2 atlas=(glm::vec2(layer%2,layer/2)+uv)*.5f;
                         auto& v=vertices[count*4+k];v={};v.m_position=glm::vec3(atlas.x*2.f-1.f,1.f-atlas.y*2.f,0);
                         v.m_texcoord=glm::packHalf2x16(glm::vec2(dx,dz));
@@ -628,48 +743,6 @@ namespace game
             });
             m_resident_listener=resident.input;
         } catch(const std::exception& error){std::cerr<<"Resident setup failed: "<<error.what()<<std::endl;}
-        // A single dynamic quad batch projects all blobs onto visible terrace tops.
-        const ui32 shadow_count=static_cast<ui32>(tree_shadows.size()+shadow_people.size());
-        if(shadow_count){
-            if(shadow_count>16383)throw std::runtime_error("Blob shadow batch exceeds 16-bit vertices");
-            constexpr ui32 shadow_capacity=4096;
-            auto declaration=std::make_shared<gb::vbo::vertex_declaration_PTNTC>(shadow_capacity*4);
-            auto buffer=std::make_shared<gb::vbo>(declaration,gb::gl::constant::dynamic_draw);
-            auto vertices=buffer->lock<gb::vbo::vertex_attribute_PTNTC>();
-            for(ui32 i=0;i<shadow_capacity*4;++i)vertices[i]={};buffer->unlock();
-            auto indices=std::make_shared<gb::ibo>(shadow_capacity*6,gb::gl::constant::static_draw);
-            auto data=indices->lock();
-            for(ui32 i=0;i<shadow_capacity;++i){const ui16 pattern[]={0,1,2,1,3,2};for(ui32 k=0;k<6;++k)data[i*6+k]=static_cast<ui16>(i*4+pattern[k]);}
-            indices->unlock();
-            auto shadows=gb::ces_entity::construct<gb::shape_3d>();shadows->tag="island.blob.shadows";
-            auto geometry=shadows->get_component<gb::ces_geometry_3d_component>();geometry->bounding_mode=gb::ces_geometry_component::e_none;
-            geometry->set_mesh(gb::mesh_3d::construct("island.blob.shadows",buffer,indices,glm::vec3(1),glm::vec3(-1)));
-            auto shadow_config=std::static_pointer_cast<gb::shape_3d_configuration>(get_transition()->get_configuration_accessor()->get_shape_3d_configuration("blob_shadow.xml"));
-            get_fabricator()->add_materials(shadows,shadow_config->get_materials_configurations());add_child(shadows);
-            auto action=shadows->add_component<gb::ces_action_component>();
-            action->set_update_callback([buffer,indices,editor_state,shadow_people,shadow_capacity](const gb::ces_entity_shared_ptr& entity,float){
-                auto vertices=buffer->lock<gb::vbo::vertex_attribute_PTNTC>();ui32 count=0;
-                const bool enabled=!std::getenv("GB_BLOB_SHADOWS")||std::string(std::getenv("GB_BLOB_SHADOWS"))!="0";
-                const auto emit=[&](glm::vec4 p,float strength){
-                    if(count>=shadow_capacity)return;
-                    for(ui32 k=0;k<4;++k){
-                        const float x=(k%2)?1.f:-1.f,z=(k/2)?1.f:-1.f;
-                        auto& v=vertices[count*4+k];v={};
-                        v.m_position=glm::vec3(p.x+x*p.w,p.y+.02f,p.z+z*p.w*.8f);
-                        v.m_texcoord=glm::packHalf2x16(glm::vec2(x,z));
-                        v.m_color=glm::u8vec4(255,255,255,static_cast<ui8>(enabled?strength*255.f:0.f));
-                    }++count;
-                };
-                for(const auto& tree:editor_state->level.trees)emit(glm::vec4(tree.position[0],tree.position[1],tree.position[2],tree.scale*2.3f),.36f);
-                for(const auto& weak:shadow_people)if(auto person=weak.lock()){
-                    const auto p=person->get_component<gb::ces_transformation_3d_component>()->get_position();
-                    emit(glm::vec4(p,.75f),.32f);
-                }
-                for(ui32 i=count*4;i<shadow_capacity*4;++i)vertices[i]={};buffer->unlock();indices->unlock(count*6,false);
-                entity->visible=count>0;entity->visible_in_next_frame=count>0;
-            });
-            std::cout<<"Blob shadows: trees="<<tree_shadows.size()<<" residents="<<shadow_people.size()<<" draws=1"<<std::endl;
-        }
         const glm::ivec2 resolution=get_transition()->get_window()->get_resolution_size_in_points();
         set_camera_2d(std::make_shared<gb::camera_2d>(resolution.x,resolution.y));
         // Native engine labels: screen-space HUD, updated at 4 Hz to avoid
@@ -712,15 +785,20 @@ namespace game
         set_camera_3d(camera);
         const bool manual_gamma=!gb::graphics_context::get_current_context()->is_output_srgb();
         std::cout<<"Island presentation sRGB="<<!manual_gamma<<std::endl;
-        auto update_post=[post_settings,post_output,post_final,ao,camera,editor_state,manual_gamma](const gb::ces_entity_shared_ptr&,float){
+        auto update_post=[render_debug,post_settings,post_output,post_final,ao,camera,editor_state,manual_gamma,ocean_system](const gb::ces_entity_shared_ptr&,float){
             post_settings->sanitize();
+            ocean_system->set_optics_intensity(glm::vec3(
+                post_settings->enableWaterReflection?post_settings->waterReflectionIntensity:0.f,
+                post_settings->enableWaterRefraction?post_settings->waterRefractionIntensity:0.f,
+                post_settings->enableWaterCaustics?post_settings->waterCausticsIntensity:0.f));
+            render_debug->update();
             stylized_lighting_settings().sanitize();
             ao->set(glm::vec4(3.f,.06f,post_settings->enableSSAO?post_settings->ssaoIntensity:0.f,1.f),"ao_params");
             post_final->update(*post_settings,camera->get_position(),camera->get_look_at(),camera->get_mat_v(),camera->get_mat_p(),editor_state->level.terrain.config.water_y,manual_gamma);
             post_output->update(*post_settings,camera->get_position(),camera->get_look_at(),camera->get_mat_v(),camera->get_mat_p(),editor_state->level.terrain.config.water_y,manual_gamma);
         };
 
-        auto orbit=std::make_shared<orbit_camera_input>(camera, terrain_mesh, config.water_y,resident_focus,tree_focus);
+        auto orbit=std::make_shared<orbit_camera_input>(camera, terrain_mesh, config.water_y,resident_focus,tree_focus,config);
         update_post(nullptr,0);
         m_orbit_listener=orbit;
         auto zoom_update=gb::ces_entity::construct<gb::ces_entity>();
@@ -739,6 +817,17 @@ namespace game
         if(m_resident_listener)input_context->add_listener(m_resident_listener);
         auto editor_ui=std::make_shared<TerrainEditorUI>(get_fabricator(),editor_state,resolution);
         editor_ui->bind_post_settings(post_settings);
+        editor_ui->bind_terrain_lod_settings(lod_settings);
+        editor_ui->bind_render_debug(render_debug->state());
+        editor_ui->set_graphics_save_callback([post_settings,graphics_path,lod_settings] {
+            std::string error;
+            if(!save_graphics_settings(graphics_path,*post_settings,stylized_lighting_settings(),*lod_settings,error)) {
+                std::cerr<<"Graphics settings save failed: "<<graphics_path<<": "<<error<<std::endl;
+                return false;
+            }
+            std::cout<<"Graphics settings saved: "<<graphics_path<<std::endl;
+            return true;
+        });
         if(std::getenv("GB_POST_DEBUG_PANEL"))editor_ui->toggle_post_panel();
         add_child(editor_ui->root());
         auto editor_input=std::make_shared<TerrainEditorInput>(editor_state,editor_ui,camera);
@@ -761,13 +850,29 @@ namespace game
             seed.first=editor_palette_mesh(std::move(surface));return seed;
         });
         cache->initialize(editor_palette_mesh(terrain_mesh),editor_legacy_grass);
+        std::vector<terrain_mesh_data>().swap(editor_legacy_grass);
         editor_state->consume_dirty();
         auto batch_entities=std::make_shared<std::map<std::string,gb::shape_3d_shared_ptr>>();
         auto retired=std::make_shared<std::deque<std::pair<int,gb::mesh_3d_shared_ptr>>>();
-        const auto publish=[this,ocean_system,configuration,batch_entities,retired](const std::vector<EditorRenderBatch>& batches,bool streaming=true,const std::vector<prepared_editor_mesh>* prepared=nullptr){
+        const bool lod_enabled=!std::getenv("GB_TERRAIN_LOD")||std::string(std::getenv("GB_TERRAIN_LOD"))!="0";
+        auto lod_cache=std::make_shared<editor_lod_cache>();
+        auto lod_renderer=std::make_shared<TerrainLodRenderer>(
+            [](const TerrainLodVariant& variant,const std::string& name){return upload_mesh(variant.mesh,name,0.f,false,nullptr,&variant);},
+            [this,ocean_system,configuration](const std::string& tag,int kind){
+                auto shape=gb::ces_entity::construct<gb::shape_3d>();shape->tag=tag;
+                if(kind==0){get_fabricator()->add_materials(shape,configuration->get_materials_configurations());ocean_system->add_receiver(shape);shape->visible=false;shape->visible_in_next_frame=false;}
+                if(kind==2){auto c=std::static_pointer_cast<gb::shape_3d_configuration>(get_transition()->get_configuration_accessor()->get_shape_3d_configuration("water_land.xml"));get_fabricator()->add_materials(shape,c->get_materials_configurations());shape->get_component<gb::ces_geometry_3d_component>()->bounding_mode=gb::ces_geometry_component::e_none;}
+                add_child(shape);return shape;
+            },
+            [this,retired](const gb::shape_3d_shared_ptr& shape){if(!shape)return;shape->visible=false;shape->visible_in_next_frame=false;auto geometry=shape->get_component<gb::ces_geometry_3d_component>();if(auto mesh=geometry->get_mesh())retired->push_back({12,mesh->as_3d()});geometry->set_mesh(nullptr);remove_child(shape);},
+            [ocean_system](const gb::shape_3d_shared_ptr& source,const gb::shape_3d_shared_ptr& mask){ocean_system->add_interaction(source,mask);},
+            [retired](const gb::mesh_3d_shared_ptr& mesh){if(mesh)retired->push_back({12,mesh});},
+            [sun_shadow_system](const std::vector<TerrainShadowCaster>& casters){sun_shadow_system->set_terrain_casters(casters);});
+        const auto publish=[this,ocean_system,configuration,batch_entities,retired,lod_renderer,lod_enabled](const std::vector<EditorRenderBatch>& batches,bool streaming=true,const std::vector<prepared_editor_mesh>* prepared=nullptr){
             size_t index=0;
             for(const auto& batch:batches){
                 const auto supplied=prepared?&prepared->at(index):nullptr;++index;
+                if(lod_enabled&&batch.kind==EditorRenderBatch::Terrain){lod_renderer->stage(batch.key,batch.lod);continue;}
                 auto found=batch_entities->find(batch.key);
                 if(batch.mesh.indices.empty()){
                     if(found!=batch_entities->end()){
@@ -797,7 +902,10 @@ namespace game
             }
         };
         // Initial batches clip the existing smooth surfaces rather than regenerating them.
-        publish(cache->rebuild(TerrainEditorDirty()),false);
+        auto initial_batches=cache->rebuild(TerrainEditorDirty());
+        if(lod_enabled){const auto settings=*lod_settings;auto initial_job=std::async(std::launch::async,[&initial_batches,editor_state,lod_cache,settings](){for(auto& batch:initial_batches)prepare_editor_lod(batch,*editor_state,settings,*lod_cache);});initial_job.get();}
+        publish(initial_batches,false);
+        if(lod_enabled){TerrainLodVersion v;v.load_generation=editor_state->load_generation;v.terrain_revision=editor_state->terrain_revision;v.settings_revision=lod_settings->revision;lod_renderer->publish_ready(v);}
         editor_state->building_surface=std::make_shared<const BuildingSurfaceSupport>(cache->terrain_parts());
         // Populate only the newly generated demo. Loading a level replaces this
         // state normally; authored/user levels are never injected with buildings.
@@ -809,10 +917,13 @@ namespace game
                 editor_state->selected_building=house==0?BuildingType::Forester:BuildingType::Woodcutter;
                 editor_state->building_yaw=glm::radians(135.f);
                 editor_state->building_surface_revision=editor_state->terrain_revision;
-                const float desired_x=house==0?48.f:-8.f,desired_z=house==0?40.f:-5.f;
+                const float scale=config.island_size/256.f;
+                const float desired_x=(house==0?48.f:-8.f)*scale,desired_z=(house==0?40.f:-5.f)*scale;
                 float best=std::numeric_limits<float>::max(),chosen_x=0,chosen_z=0;
                 for(int dz=-24;dz<=24;dz+=2)for(int dx=-24;dx<=24;dx+=2){
-                    const float x=desired_x+dx,z=desired_z+dz;
+                    // Search the same relative neighborhood after resizing the
+                    // island, while keeping each house on its intended terrace.
+                    const float x=desired_x+dx*scale,z=desired_z+dz*scale;
                     const float score=float(dx*dx+dz*dz);
                     if(score>=best||editor_state->level_at(x,z)!=(house==0?4:8))continue;
                     if(editor_state->can_place_building(x,z)){best=score;chosen_x=x;chosen_z=z;}
@@ -824,6 +935,14 @@ namespace game
         }
         editor_state->building_surface_revision=editor_state->terrain_revision;
         auto buildings=std::make_shared<EditorBuildingRenderer>(get_fabricator(),editor_state);add_child(buildings->root());
+        auto stairs_preview=gb::ces_entity::construct<gb::shape_3d>();stairs_preview->tag="editor.stairs.preview";
+        get_fabricator()->add_materials(stairs_preview,configuration->get_materials_configurations());
+        // One local mesh; cursor movement only updates its transform, never GPU buffers.
+        EditorStairs preview_stairs;preview_stairs.id=1;preview_stairs.lower_terrace=2;
+        stairs_preview->get_component<gb::ces_geometry_3d_component>()->set_mesh(upload_mesh(build_stairs_mesh(preview_stairs,terrain_config()),"editor.stairs.preview"));
+        stairs_preview->get_component<gb::ces_geometry_3d_component>()->bounding_mode=gb::ces_geometry_component::e_none;
+        ocean_system->add_receiver(stairs_preview);buildings->set_stairs_preview(stairs_preview);
+
         for(const auto& entity:editor_legacy_entities){entity->visible=false;entity->visible_in_next_frame=false;}
         terrain_mesh_data brush_quad;
         for(int i=0;i<4;++i){terrain_vertex v;v.position={{(i%2)?1.f:-1.f,0,(i/2)?1.f:-1.f}};v.normal={{0,1,0}};v.color={{255,255,255,255}};v.texcoord={{v.position[0],v.position[2]}};brush_quad.vertices.push_back(v);}
@@ -850,22 +969,30 @@ namespace game
         editor_input->set_save_callback(save_level);editor_input->set_load_callback(load_level);
         auto jobs=std::make_shared<editor_rebuild_jobs>();
         auto editor_update=gb::ces_entity::construct<gb::ces_entity>();editor_update->tag="island.terrain_editor.update";
-        editor_update->add_component<gb::ces_action_component>()->set_update_callback([editor_input,editor_ui,editor_state,cache,jobs,publish,retired,brush,buildings,camera,editor_resident_system,ocean_system,water_entities,horizon,seabed,loaded_generation=uint64_t(0),loaded_config=config](const gb::ces_entity_shared_ptr&,float dt) mutable {
+        editor_update->add_component<gb::ces_action_component>()->set_update_callback([editor_input,editor_ui,editor_state,cache,jobs,publish,retired,brush,buildings,camera,lod_settings,lod_renderer,lod_cache,lod_enabled,render_debug,lod_seen=lod_settings->revision,lod_applied=lod_settings->revision,lod_elapsed=0.f,editor_resident_system,ocean_system,sun_shadow_system,water_entities,horizon,reefs,seabed,loaded_generation=uint64_t(0),stairs_revision=std::numeric_limits<uint64_t>::max(),loaded_config=config](const gb::ces_entity_shared_ptr&,float dt) mutable {
+            const auto profile_begin=std::chrono::steady_clock::now();
             editor_input->update(dt);
+            const auto profile_input_end=std::chrono::steady_clock::now();
             const bool loaded=loaded_generation!=editor_state->load_generation;
             if(loaded){
                 const auto& current=editor_state->level.terrain.config;
                 ocean_system->set_mean_level(current.water_y);
                 ocean_system->set_terrain_dimensions(current.layer_height,current.shore_height);
+                ocean_system->set_world_dimensions(current.world_size,current.water_size);
+                sun_shadow_system->set_world_dimensions(current.world_size);
                 const auto replace=[&](const gb::shape_3d_shared_ptr& shape,const terrain_mesh_data& data,const std::string& guid){
                     auto geometry=shape->get_component<gb::ces_geometry_3d_component>();
                     if(auto old=geometry->get_mesh())retired->push_back({12,old->as_3d()});
                     geometry->set_mesh(upload_mesh(data,guid,current.water_y));
                 };
                 if(current.water_size!=loaded_config.water_size||current.water_y!=loaded_config.water_y){
-                    const auto patches=ocean_mesh_builder::build(current.water_size,384);
-                    for(size_t i=0;i<patches.size();++i)replace(water_entities->at(i),patches[i],"island.water."+std::to_string(i));
-                    replace(horizon,ocean_mesh_builder::build_horizon(current.water_size,std::max(4096.f,current.water_size*2.f),384),"island.water.horizon");
+                    const auto patches=ocean_mesh_builder::build(current.water_size,ocean_grid_cells);
+                    for(size_t i=0;i<patches.size();++i){
+                        replace(water_entities->at(i),patches[i],"island.water."+std::to_string(i));
+                        ocean_system->reset_surface(water_entities->at(i),patches[i]);
+                    }
+                    const auto horizon_data=ocean_mesh_builder::build_horizon(current.water_size,std::max(200000.f,current.water_size*2.f),ocean_grid_cells);
+                    replace(horizon,horizon_data,"island.water.horizon");ocean_system->reset_surface(horizon,horizon_data);
                 }
                 if(current.layer_height!=loaded_config.layer_height||current.water_size!=loaded_config.water_size){
                     terrain_mesh_data bottom;const float s=current.water_size*.5f,y=-(current.underwater_layers_count+1)*current.layer_height;
@@ -874,13 +1001,28 @@ namespace game
                     }
                     bottom.indices={0,1,2,2,1,3};replace(seabed,bottom,"island.seabed");
                 }
+                replace(reefs,build_ocean_reefs(current),"ocean.prop.reefs");
                 loaded_config=current;loaded_generation=editor_state->load_generation;
             }
             auto dirty=editor_state->consume_dirty();
+            // Bind immediately on authored stair changes so deletion cancels an
+            // active traversal while regional mesh/navigation work is pending.
+            if(editor_resident_system&&(loaded||stairs_revision==std::numeric_limits<uint64_t>::max()||
+               (stairs_revision!=editor_state->revision&&(dirty.stairs||dirty.terrain)))){
+                editor_resident_system->apply_stairs(editor_state->level.stairs,editor_state->level.terrain.config);
+            }
+            stairs_revision=editor_state->revision;
             if(std::getenv("GB_EDITOR_PROFILE")&&(!dirty.empty()||jobs->worker.valid()||!jobs->uploads.empty()))
                 std::cout<<"Editor frame_ms="<<dt*1000.f<<std::endl;
-            if(loaded){jobs->pending=TerrainEditorDirty();jobs->regions.clear();jobs->uploads.clear();jobs->navigation.clear();jobs->generation=editor_state->load_generation;jobs->support.reset();}
+            if(loaded){jobs->pending=TerrainEditorDirty();jobs->regions.clear();jobs->uploads.clear();jobs->navigation.clear();jobs->generation=editor_state->load_generation;jobs->support.reset();jobs->detail_sources.clear();jobs->detail_parts.reset();++*jobs->detail_epoch;}
             if(dirty.terrain||dirty.buildings){++jobs->terrain_revision;jobs->needs_navigation|=editor_resident_system!=nullptr;}
+            if(lod_enabled){
+                if(lod_seen!=lod_settings->revision){lod_seen=lod_settings->revision;lod_elapsed=0;}else lod_elapsed+=dt;
+                if(lod_applied!=lod_settings->revision&&lod_elapsed>=.15f){if(dirty.empty()){dirty.x0=dirty.z0=0;dirty.x1=dirty.z1=editor_state->level.terrain.config.resolution-1;}dirty.lod=dirty.lod_all=true;lod_applied=lod_settings->revision;}
+                if(dirty.terrain||dirty.buildings||dirty.stairs||dirty.trees)dirty.lod=true;
+            }
+            jobs->idle_seconds+=dt;
+            if(!dirty.empty()){jobs->idle_seconds=0;++*jobs->detail_epoch;if(jobs->pending.empty())jobs->pending_requested=std::chrono::steady_clock::now();}
             merge_editor_dirty(jobs->pending,dirty);
             if(!dirty.empty()){
                 auto region=dirty;
@@ -890,67 +1032,131 @@ namespace game
                 }
                 jobs->regions.push_back(region);
             }
-            if(jobs->worker.valid()&&jobs->worker.wait_for(std::chrono::seconds(0))==std::future_status::ready){
+            const auto terrain_uploads_pending=[&](){for(const auto& entry:jobs->uploads)if(entry.second.batch.kind==EditorRenderBatch::Terrain)return true;return false;};
+            if(!terrain_uploads_pending()&&jobs->worker.valid()&&jobs->worker.wait_for(std::chrono::seconds(0))==std::future_status::ready){
                 try{
                     auto ready=jobs->worker.get();
                     if(ready.generation==editor_state->load_generation){
-                        if(ready.support){jobs->support=std::move(ready.support);jobs->support_revision=ready.support_revision;}
-                        for(auto& item:ready.batches)jobs->uploads[item.batch.key]=std::move(item);
-                        if(!ready.navigation.empty()){jobs->navigation=std::move(ready.navigation);jobs->navigation_revision=ready.terrain_revision;}
+                        jobs->visual_version=ready.version;jobs->visual_requested=ready.requested;jobs->visual_is_refinement=false;
+                        for(auto& source:ready.detail_sources)jobs->detail_sources[source.first]=std::move(source.second);
+                        if(ready.terrain_parts){jobs->detail_parts=std::move(ready.terrain_parts);jobs->detail_parts_revision=ready.terrain_revision;}
+                        for(auto& item:ready.batches){
+                            jobs->uploads[item.batch.key]=std::move(item);
+                        }
                         std::cout<<"Editor rebuilt region="<<ready.dirty.x0<<","<<ready.dirty.z0<<".."<<ready.dirty.x1<<","<<ready.dirty.z1<<" revision="<<ready.revision
                             <<" flags="<<ready.dirty.terrain<<ready.dirty.grass<<ready.dirty.trees<<ready.dirty.climate
                             <<" worker_mesh_ms="<<ready.mesh_ms<<" worker_navigation_ms="<<ready.navigation_ms<<" queued="<<jobs->uploads.size()<<std::endl;
                     }
                 }catch(const std::exception& e){editor_state->error=e.what();}
             }
-            if(!jobs->worker.valid()&&(!jobs->pending.empty()||(jobs->needs_navigation&&!editor_state->stroke_active()))){
+            const bool needs_parts=jobs->needs_navigation&&!editor_state->stroke_active()&&(!jobs->detail_parts||jobs->detail_parts_revision!=jobs->terrain_revision);
+            if(!jobs->worker.valid()&&(!jobs->pending.empty()||needs_parts)){
                 auto snapshot=std::make_shared<TerrainEditorState>();snapshot->level=editor_state->level;
                 snapshot->load_generation=editor_state->load_generation;snapshot->revision=editor_state->revision;snapshot->terrain_revision=editor_state->terrain_revision;
-                const auto region=jobs->pending;const uint64_t terrain_revision=jobs->terrain_revision;
+                const auto region=jobs->pending;const uint64_t terrain_revision=jobs->terrain_revision;const auto settings=*lod_settings;
                 const bool navigation=editor_resident_system&&jobs->needs_navigation&&!editor_state->stroke_active();
-                if(navigation)jobs->needs_navigation=false;
+                const auto requested=jobs->pending.empty()?std::chrono::steady_clock::now():jobs->pending_requested;
                 auto regions=std::move(jobs->regions);jobs->regions.clear();jobs->pending=TerrainEditorDirty();
-                jobs->worker=std::async(std::launch::async,[cache,snapshot,region,regions,terrain_revision,navigation](){
+                jobs->worker=std::async(std::launch::async,[cache,snapshot,region,regions,terrain_revision,navigation,lod_enabled,settings,requested](){
                     editor_rebuild_result result;result.dirty=region;result.revision=snapshot->revision;result.generation=snapshot->load_generation;result.terrain_revision=terrain_revision;
+                    result.version={snapshot->load_generation,snapshot->terrain_revision,settings.revision};result.requested=requested;
                     const auto start=std::chrono::steady_clock::now();cache->set_state(snapshot);
                     std::map<std::string,EditorRenderBatch> batches;
-                    for(const auto& area:regions)for(auto& batch:cache->rebuild(area))batches[batch.key]=std::move(batch);
+                    for(const auto& area:regions)for(auto& batch:cache->rebuild(area,!lod_enabled))batches[batch.key]=std::move(batch);
                     for(auto& entry:batches){auto& batch=entry.second;
-                        editor_pending_mesh item;item.prepared=prepare_editor_mesh(batch.mesh,editor_batch_guid(batch));
+                        if(lod_enabled&&batch.kind==EditorRenderBatch::Terrain){
+                            batch.lod=std::make_shared<const TerrainLodGeneration>(build_terrain_lod_preview(std::move(batch.mesh),snapshot->level.terrain.config.world_size/snapshot->level.terrain.config.resolution,result.version));
+                            result.detail_sources[batch.key]={batch.lod->source,snapshot->terrain_revision};
+                        }
+                        editor_pending_mesh item;if(batch.kind!=EditorRenderBatch::Terrain||!lod_enabled)item.prepared=prepare_editor_mesh(batch.mesh,editor_batch_guid(batch));
                         std::vector<terrain_vertex>().swap(batch.mesh.vertices);item.batch=std::move(batch);result.batches.push_back(std::move(item));
                     }
-                    if(region.terrain){result.support=std::make_shared<const BuildingSurfaceSupport>(cache->terrain_parts());result.support_revision=snapshot->terrain_revision;}
+                    if(navigation)result.terrain_parts=std::make_shared<const std::vector<terrain_mesh_data>>(cache->terrain_parts());
                     const auto built=std::chrono::steady_clock::now();result.mesh_ms=std::chrono::duration<double,std::milli>(built-start).count();
-                    if(navigation){
-                        const auto parts=std::make_shared<const std::vector<terrain_mesh_data>>(cache->terrain_parts());
-                        result.navigation.resize(8);std::vector<std::future<void>> workers;
-                        const unsigned count=std::min(4u,std::max(1u,std::thread::hardware_concurrency()>1?std::thread::hardware_concurrency()-1:1));
-                        for(unsigned thread=0;thread<count;++thread)workers.push_back(std::async(std::launch::async,[&,thread,count](){
-                            for(unsigned i=thread;i<8;i+=count){
-                                auto& nav=result.navigation[i];nav=build_resident_navigation(*parts,editor_level_height(snapshot->level.terrain.config,static_cast<int>(i)+1),1.f);
-                                for(const auto& b:snapshot->level.buildings)if(b.terrace==static_cast<int>(i)+1){
-                                    const auto& d=building_definition(b.type);resident_obstacle obstacle;
-                                    obstacle.center={b.position[0],b.position[2]};obstacle.cosine=std::cos(b.yaw);obstacle.sine=std::sin(b.yaw);
-                                    obstacle.half_width=d.half_width+building_clearance;obstacle.half_depth=d.half_depth+building_clearance;nav.obstacles.push_back(obstacle);
-                                }
-                                for(size_t cell=0;cell<nav.walkable.size();++cell)if(nav.walkable[cell]&&!nav.is_safe(nav.center(static_cast<int>(cell))))nav.walkable[cell]=0;
-                            }
-                        }));
-                        for(auto& worker:workers)worker.get();
+                    return result;
+                });
+            }
+            if(!terrain_uploads_pending()&&!jobs->worker.valid()&&jobs->pending.empty()&&jobs->detail_worker.valid()&&jobs->detail_worker.wait_for(std::chrono::seconds(0))==std::future_status::ready){
+                try{
+                    auto ready=jobs->detail_worker.get();
+                    if(ready.generation==editor_state->load_generation){
+                        const bool current=!ready.cancelled&&ready.detail_epoch==jobs->detail_epoch->load()&&ready.version.terrain_revision==editor_state->terrain_revision&&ready.version.settings_revision==lod_settings->revision;
+                        if(current){
+                            jobs->visual_version=ready.version;jobs->visual_requested=ready.requested;jobs->visual_is_refinement=true;
+                            for(auto& item:ready.batches)jobs->uploads[item.batch.key]=std::move(item);
+                            if(ready.support){jobs->support=std::move(ready.support);jobs->support_revision=ready.support_revision;}
+                            if(!ready.navigation.empty()){jobs->navigation=std::move(ready.navigation);jobs->navigation_revision=ready.terrain_revision;}
+                            if(std::getenv("GB_EDITOR_PROFILE"))std::cout<<"Editor refined lod_ms="<<ready.mesh_ms<<" navigation_ms="<<ready.navigation_ms<<std::endl;
+                        }else{
+                            for(auto& source:ready.detail_sources){auto found=jobs->detail_sources.find(source.first);if(found==jobs->detail_sources.end()||found->second.revision<source.second.revision)jobs->detail_sources[source.first]=std::move(source.second);}
+                            if(ready.terrain_parts)jobs->needs_navigation=true;
+                        }
                     }
-                    result.navigation_ms=std::chrono::duration<double,std::milli>(std::chrono::steady_clock::now()-built).count();return result;
+                    jobs->detail_inflight.clear();
+                }catch(const std::exception& e){
+                    editor_state->error=e.what();std::cerr<<"Editor refinement failed: "<<e.what()<<std::endl;
+                    if(jobs->detail_job_generation==editor_state->load_generation){
+                        for(auto& source:jobs->detail_inflight){auto found=jobs->detail_sources.find(source.first);if(found==jobs->detail_sources.end()||found->second.revision<source.second.revision)jobs->detail_sources[source.first]=std::move(source.second);}
+                        jobs->needs_navigation=true;
+                    }
+                    jobs->detail_inflight.clear();jobs->failed_detail_epoch=jobs->detail_job_epoch;
+                }
+            }
+            if(!jobs->detail_worker.valid()&&!jobs->worker.valid()&&jobs->pending.empty()&&!terrain_uploads_pending()&&!editor_state->stroke_active()&&jobs->idle_seconds>=.1f&&jobs->failed_detail_epoch!=jobs->detail_epoch->load()&&
+               (!jobs->detail_sources.empty()||(jobs->needs_navigation&&jobs->detail_parts&&jobs->detail_parts_revision==jobs->terrain_revision))){
+                auto snapshot=std::make_shared<TerrainEditorState>();snapshot->level=editor_state->level;snapshot->load_generation=editor_state->load_generation;snapshot->terrain_revision=editor_state->terrain_revision;
+                auto sources=std::move(jobs->detail_sources);jobs->detail_sources.clear();const auto settings=*lod_settings;
+                const bool navigation=jobs->needs_navigation&&jobs->detail_parts&&jobs->detail_parts_revision==jobs->terrain_revision;
+                const auto parts=navigation?jobs->detail_parts:std::shared_ptr<const std::vector<terrain_mesh_data>>();if(navigation)jobs->needs_navigation=false;
+                const uint64_t terrain_revision=jobs->terrain_revision,epoch=jobs->detail_epoch->load();auto cancellation=jobs->detail_epoch;
+                jobs->detail_inflight=sources;jobs->detail_job_generation=snapshot->load_generation;jobs->detail_job_epoch=epoch;
+                jobs->detail_worker=std::async(std::launch::async,[snapshot,sources,parts,navigation,terrain_revision,lod_cache,settings,cancellation,epoch](){
+                    editor_rebuild_result result;result.generation=snapshot->load_generation;result.terrain_revision=terrain_revision;result.version={snapshot->load_generation,snapshot->terrain_revision,settings.revision};
+                    result.detail_sources=sources;result.terrain_parts=parts;result.requested=std::chrono::steady_clock::now();const auto start=result.requested;
+                    result.detail_epoch=epoch;
+                    for(const auto& source:sources){
+                        if(cancellation->load()!=epoch){result.cancelled=true;return result;}
+                        editor_pending_mesh item;item.batch.kind=EditorRenderBatch::Terrain;item.batch.key=source.first;if(source.second.mesh)item.batch.mesh=*source.second.mesh;
+                        prepare_editor_lod(item.batch,*snapshot,settings,*lod_cache);std::vector<terrain_vertex>().swap(item.batch.mesh.vertices);result.batches.push_back(std::move(item));
+                    }
+                    auto built=std::chrono::steady_clock::now();result.mesh_ms=std::chrono::duration<double,std::milli>(built-start).count();
+                    if(navigation&&cancellation->load()==epoch){
+                        result.support=std::make_shared<const BuildingSurfaceSupport>(*parts);result.support_revision=snapshot->terrain_revision;
+                        result.navigation.resize(16);std::vector<std::future<void>> workers;
+                        const unsigned count=std::min(2u,std::max(1u,std::thread::hardware_concurrency()>1?std::thread::hardware_concurrency()-1:1));
+                        for(unsigned thread=0;thread<count;++thread)workers.push_back(std::async(std::launch::async,[&,thread,count](){
+                            for(unsigned i=thread;i<result.navigation.size()&&cancellation->load()==epoch;i+=count){
+                                auto& nav=result.navigation[i];nav=build_resident_navigation(*parts,editor_level_height(snapshot->level.terrain.config,int(i)+1),1.f);
+                                for(const auto& b:snapshot->level.buildings)if(b.terrace==int(i)+1){const auto& d=building_definition(b.type);resident_obstacle obstacle;
+                                    obstacle.center={b.position[0],b.position[2]};obstacle.cosine=std::cos(b.yaw);obstacle.sine=std::sin(b.yaw);obstacle.half_width=d.half_width+building_clearance;obstacle.half_depth=d.half_depth+building_clearance;nav.obstacles.push_back(obstacle);}
+                                for(size_t cell=0;cell<nav.walkable.size();++cell)if(nav.walkable[cell]&&!nav.is_safe(nav.center(int(cell))))nav.walkable[cell]=0;
+                            }
+                        }));for(auto& worker:workers)worker.get();
+                    }
+                    result.cancelled=cancellation->load()!=epoch;result.navigation_ms=std::chrono::duration<double,std::milli>(std::chrono::steady_clock::now()-built).count();return result;
                 });
             }
             // Coalesce repeated updates to each batch; upload at most one changed
             // batch per frame using existing fence-safe dynamic buffers.
-            if(!jobs->uploads.empty()){
+            const auto upload_budget_start=std::chrono::steady_clock::now();
+            while(!jobs->uploads.empty()&&std::chrono::duration<double,std::milli>(std::chrono::steady_clock::now()-upload_budget_start).count()<2.){
                 const auto started=std::chrono::steady_clock::now();
                 auto first=jobs->uploads.begin();std::vector<EditorRenderBatch> batch;std::vector<prepared_editor_mesh> prepared;
                 batch.push_back(std::move(first->second.batch));prepared.push_back(std::move(first->second.prepared));jobs->uploads.erase(first);publish(batch,true,&prepared);
                 if(std::getenv("GB_EDITOR_PROFILE"))std::cout<<"Editor upload_ms="<<std::chrono::duration<double,std::milli>(std::chrono::steady_clock::now()-started).count()<<std::endl;
             }
+            if(lod_enabled){
+                TerrainLodVersion version;version.load_generation=editor_state->load_generation;version.terrain_revision=editor_state->terrain_revision;version.settings_revision=lod_settings->revision;
+                if(!terrain_uploads_pending()&&lod_renderer->publish_ready(jobs->visual_version)&&std::getenv("GB_EDITOR_PROFILE"))
+                    std::cout<<(jobs->visual_is_refinement?"Editor detail_latency_ms=":"Editor visual_latency_ms=")<<std::chrono::duration<double,std::milli>(std::chrono::steady_clock::now()-jobs->visual_requested).count()<<" revision="<<jobs->visual_version.terrain_revision<<std::endl;
+                TerrainLodView view;const auto matrix=camera->get_mat_p()*camera->get_mat_v();for(int c=0;c<4;++c)for(int r=0;r<4;++r)view.view_projection[c*4+r]=matrix[c][r];const auto position=camera->get_position();view.camera={{position.x,position.y,position.z}};view.projection_scale=std::abs(camera->get_mat_p()[1][1])*camera->get_viewport().w*.5f;
+                view.near_error_px=lod_settings->nearErrorPx;view.normal_error_px=lod_settings->normalErrorPx;view.far_error_px=lod_settings->farErrorPx;lod_renderer->update_main(view,lod_settings->wireframe,lod_settings->debugMode);render_debug->state()->terrain_diagnostics=lod_renderer->diagnostics();
+                editor_ui->set_terrain_triangle_count(lod_renderer->selected_triangles());
+                if(std::getenv("GB_TERRAIN_LOD_DEBUG"))std::cout<<"Terrain CLOD "<<lod_renderer->diagnostics()<<std::endl;
+            }
             if(!jobs->navigation.empty()&&jobs->navigation_revision==jobs->terrain_revision&&jobs->uploads.empty()&&!jobs->worker.valid()&&jobs->pending.empty()&&!editor_state->stroke_active()&&editor_resident_system){
                 const auto started=std::chrono::steady_clock::now();editor_resident_system->apply_navigation(std::move(jobs->navigation));jobs->navigation.clear();
+                editor_resident_system->apply_stairs(editor_state->level.stairs,editor_state->level.terrain.config);
                 if(std::getenv("GB_EDITOR_PROFILE"))std::cout<<"Editor apply_navigation_ms="<<std::chrono::duration<double,std::milli>(std::chrono::steady_clock::now()-started).count()<<std::endl;
             }
             if(jobs->support&&jobs->support_revision==editor_state->terrain_revision&&jobs->uploads.empty()&&!jobs->worker.valid()&&jobs->pending.empty()){
@@ -961,7 +1167,16 @@ namespace game
             while(!retired->empty()&&retired->front().first<=0)retired->pop_front();
             const bool show=editor_input->brush_visible();brush->visible=show;brush->visible_in_next_frame=show;
             if(show){auto t=brush->get_component<gb::ces_transformation_3d_component>();t->set_position(editor_input->brush_position()+glm::vec3(0,.025f,0));t->set_scale(glm::vec3(editor_state->brush_size*.5f,1,editor_state->brush_size*.5f));}
+            const auto profile_ui_begin=std::chrono::steady_clock::now();
             editor_ui->update();
+            if(std::getenv("GB_PROFILE_SYSTEMS")){
+                static unsigned count=0;static double input_ms=0,editor_ms=0,ui_ms=0;
+                const auto now=std::chrono::steady_clock::now();
+                input_ms+=std::chrono::duration<double,std::milli>(profile_input_end-profile_begin).count();
+                editor_ms+=std::chrono::duration<double,std::milli>(profile_ui_begin-profile_input_end).count();
+                ui_ms+=std::chrono::duration<double,std::milli>(now-profile_ui_begin).count();
+                if(++count==120){std::cout<<"PROFILE editor input_ms="<<input_ms/count<<" work_ms="<<editor_ms/count<<" ui_ms="<<ui_ms/count<<std::endl;count=0;input_ms=editor_ms=ui_ms=0;}
+            }
         });add_child(editor_update);
         std::cout << "Island seed=" << config.seed << " layers=" << config.layers_count
                   << " vertices=" << terrain_mesh.vertices.size() << " triangles=" << terrain_mesh.indices.size()/3

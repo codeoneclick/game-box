@@ -263,7 +263,7 @@ namespace game
             return (value & 0xffffffu)/16777216.f;
         };
         constexpr size_t batch_vertices = 60000;
-        constexpr float density = 2.5f; // Low clumps leave the terrace material visible.
+        constexpr float density = 8.3f; // Roots per square metre before patch thinning; doubled from 4.15.
         for (size_t i = 0; i+2 < surface.indices.size(); i += 3)
         {
             const auto& a = surface.vertices.at(surface.indices[i]);
@@ -290,7 +290,7 @@ namespace game
                 const float y=a.position[1]+.002f;
                 const float angle=random()*6.283185307f;
                 const float dx=std::cos(angle), dz=std::sin(angle);
-                const float height=.28f+random()*.27f;
+                const float height=(.28f+random()*.27f)*1.33f;
                 const float width=.12f+random()*.12f;
                 const float lean=(random()-.5f)*height*.65f;
                 const float brightness=.85f+random()*.3f;

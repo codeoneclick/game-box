@@ -1,0 +1,2 @@
+@call "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars64.bat" >nul
+@cl /nologo /O2 /EHsc /std:c++14 /I"C:\Hobby\game-box\gbDemo\sources" "C:\Hobby\game-box\gbScripts\check_island_capacity.cpp" "C:\Hobby\game-box\gbDemo\sources\terrain_generator.cpp" "C:\Hobby\game-box\gbDemo\sources\terrain_mesh_builder.cpp" "C:\Hobby\game-box\gbDemo\sources\voxel_tree_builder.cpp" "C:\Hobby\game-box\gbDemo\sources\building_placement.cpp" /Fe:island_capacity_check.exe

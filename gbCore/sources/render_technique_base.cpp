@@ -85,6 +85,26 @@ namespace gb
     {
         m_clear_color = color;
     }
+
+    void render_technique_base::set_enabled(bool value)
+    {
+        m_is_enabled = value;
+    }
+
+    bool render_technique_base::get_is_enabled() const
+    {
+        return m_is_enabled;
+    }
+
+    void render_technique_base::set_bypass_material(const material_shared_ptr& material)
+    {
+        m_bypass_material = material;
+    }
+
+    material_shared_ptr render_technique_base::get_bypass_material() const
+    {
+        return m_bypass_material;
+    }
     
     void render_technique_base::set_uniforms(const std::shared_ptr<ces_render_technique_uniforms_component::shader_uniforms>& uniforms)
     {

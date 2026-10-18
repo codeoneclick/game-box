@@ -30,6 +30,12 @@ float scene_edge(ivec2 pixel,vec2 fraction,vec2 footprint,vec4 p){
  }
  return edge*(object_id<=27.0?.18:object_id>=8000000.0?.55:.35);
 }
+// Low-frequency airlight only: never reveal cubemap objects through distant water.
+vec3 island_horizon_color(vec3 ray,vec3 light){
+ float day=smoothstep(-.12,.12,light.y);
+ vec3 air=mix(vec3(.018,.035,.075),vec3(.12,.36,.58),day);
+ return air+vec3(.09,.18,.24)*day*exp(-abs(ray.y)/.004);
+}
 // Sun-driven atmosphere shared by the visible sky and water reflection fallback.
 float island_sky_hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
 float island_sky_noise(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.0-2.0*f);
@@ -84,18 +90,18 @@ float island_sun_shadow(vec4 geometry,vec2 uv,float water_alpha){
 }
 vec3 atmosphere_scatter(vec3 color,vec3 ray,float distance){
  // Horizon scattering is independent of the optional post-process distance fog.
- if(time_level.z<.5||time_level.w!=0.0||distance<=450.0)return color;
- float end=min(distance,6000.0),step_length=(end-450.0)/8.0;
+ if(time_level.z<.5||time_level.w!=0.0||distance<=1800.0)return color;
+ float end=min(distance,12000.0),step_length=(end-1800.0)/8.0;
  float mu=dot(ray,normalize(sun.xyz)),g=.65;
  float forward=(1.0-g*g)/pow(max(1.0+g*g-2.0*g*mu,.08),1.5);
- vec3 light=island_sky_color(ray,normalize(sun.xyz));
+ vec3 light=island_horizon_color(ray,normalize(sun.xyz));
  vec3 scatter=vec3(0);float transmission=1.0;
  for(int i=0;i<8;i++){
-  vec3 p=camera.xyz+ray*(450.0+(float(i)+.5)*step_length);
+  vec3 p=camera.xyz+ray*(1800.0+(float(i)+.5)*step_length);
   float clouds=.65+.25*sin(p.x*.008+sin(p.z*.006+time_level.x*.025))*cos(p.y*.017-p.z*.003)
                   +.1*sin(dot(p,vec3(-.005,.013,.009))-time_level.x*.018);
-  float density=exp(-max(p.y-time_level.y,0.0)/120.0)*clouds;
-  float opacity=1.0-exp(-density*.0065*step_length);
+  float density=exp(-max(p.y-time_level.y,0.0)/240.0)*clouds;
+  float opacity=1.0-exp(-density*.00018*step_length);
   scatter+=transmission*opacity*light*(.95+.1*clouds);
   transmission*=1.0-opacity;
  }
@@ -114,6 +120,7 @@ void main()
     color=color*(1.0-foam.a)+foam.rgb;
     vec2 ndc=vec2(v_texcoord.x*2.0-1.0,1.0-v_texcoord.y*2.0);
     vec3 ray=normalize(transpose(mat3(view))*vec3((ndc+vec2(projection[2][0],projection[2][1]))/vec2(projection[0][0],projection[1][1]),-1));
+    float horizon_pixel=max(fwidth(ray.y),.0001),horizon_elevation=ray.y;
     ivec2 outline_size=textureSize(sampler_08,0);
     vec2 outline_texel=v_texcoord*vec2(outline_size);
     // Derivatives precede per-fragment visibility branches.
@@ -127,5 +134,15 @@ void main()
     float distance=0.0; // Sky already contains its own atmospheric gradient.
     if(water.a>.5&&ray.y<-.00001)distance=max(0.0,(time_level.y-camera.y)/ray.y);
     else if(geometry.w>0.0){distance=length(geometry.xyz-camera.xyz);ray=normalize(geometry.xyz-camera.xyz);}
-    attachment_01=vec4(atmosphere_scatter(color,ray,distance),edge);
+    color=atmosphere_scatter(color,ray,distance);
+    if(time_level.z>.5&&time_level.w==0.0&&(water.a>.5||geometry.w<=0.0)){
+     float day=smoothstep(-.12,.12,sun.y);
+     float core=exp(-pow(horizon_elevation/(horizon_pixel*1.25),2.0));
+     float halo=exp(-pow(horizon_elevation/.012,2.0));
+     float shoulder=exp(-pow(horizon_elevation/.035,2.0));
+     vec3 air=mix(vec3(.018,.035,.075),vec3(.16,.42,.66),day);
+     color=mix(color,air,.35*halo+.10*shoulder);
+     color+=day*(vec3(1.0,1.8,2.4)*core+vec3(.04,.10,.16)*halo);
+    }
+    attachment_01=vec4(color,edge);
 }

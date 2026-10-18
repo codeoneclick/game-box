@@ -6,6 +6,8 @@
 #include <cmath>
 #include <cstdio>
 #include <cstring>
+#include <cstdlib>
+#include <iostream>
 #include <limits>
 #include <set>
 #include <stdexcept>
@@ -31,6 +33,7 @@ void unite(TerrainEditorDirty &a, const TerrainEditorDirty &b) {
   a.trees |= b.trees;
   a.climate |= b.climate;
   a.buildings |= b.buildings;
+  a.stairs |= b.stairs;
 }
 EditorCellValue cell(const TerrainEditorLevel &l, size_t i) {
   EditorCellValue v;
@@ -115,6 +118,14 @@ void valid_config(const terrain_config &c) {
               c.underwater_terrace_width > 0,
           "Invalid water configuration");
 }
+TerrainEditorDirty stairs_dirty(const EditorStairs& stairs,const terrain_config& config){
+ TerrainEditorDirty d;const float cell=config.world_size/config.resolution;
+ const float radius=(stairs_width+stairs_run)*.5f+cell*terrain_editor_rebuild_halo;
+ auto index=[&](float v){return std::max(0,std::min(config.resolution-1,int(std::floor((v/config.world_size+.5f)*config.resolution))));};
+ d.x0=index(stairs.position[0]-radius);d.x1=index(stairs.position[0]+radius);
+ d.z0=index(stairs.position[2]-radius);d.z1=index(stairs.position[2]+radius);
+ d.stairs=d.grass=true;return d;
+}
 void valid_level(const TerrainEditorLevel &l) {
   valid_config(l.terrain.config);
   size_t n = size_t(l.terrain.config.resolution) * l.terrain.config.resolution;
@@ -166,6 +177,20 @@ void valid_level(const TerrainEditorLevel &l) {
                          editor_level_height(l.terrain.config, b.terrace)) <
                     .0001f,
             "Invalid building transform");
+  }
+  require(l.stairs.size()<=100000 && l.next_stairs_id>0,"Invalid stair count");
+  ids.clear();
+  std::map<std::pair<int,int>,std::vector<const EditorStairs*>> occupied_stairs;
+  for(const auto& stair:l.stairs){
+    require(stair.id>0&&stair.id<l.next_stairs_id&&ids.insert(stair.id).second,"Invalid stair identity");
+    for(float v:stair.position)require(std::isfinite(v)&&std::abs(v)<=1000000,"Invalid stair position");
+    require(stair.lower_terrace>=1&&stair.lower_terrace<16&&std::isfinite(stair.yaw)&&stair.yaw>=0&&stair.yaw<6.283185307179586f&&
+      std::abs(stair.position[0])<=l.terrain.config.world_size*.5f&&std::abs(stair.position[2])<=l.terrain.config.world_size*.5f&&
+      std::abs(stair.position[1]-editor_level_height(l.terrain.config,stair.lower_terrace))<.0001f,"Invalid stair transform");
+    int sx=int(std::floor(stair.position[0]/8)),sz=int(std::floor(stair.position[2]/8));
+    for(int z=sz-1;z<=sz+1;++z)for(int x=sx-1;x<=sx+1;++x){auto found=occupied_stairs.find({x,z});if(found!=occupied_stairs.end())
+      for(const auto* other:found->second)require(!stairs_overlap(stair,*other),"Overlapping stairs");}
+    occupied_stairs[{sx,sz}].push_back(&stair);
   }
 }
 FILE *open_file(const std::string &path, bool write) {
@@ -273,6 +298,8 @@ const TerrainToolUIConfig &terrain_tool_ui_config(TerrainEditorTool tool) {
   int i = int(tool);
   static const TerrainToolUIConfig buildings = {
       false, false, false, false, false, false, 0, "Buildings"};
+  static const TerrainToolUIConfig stairs = {false,false,false,false,false,false,0,"Stairs"};
+  if(tool==TerrainEditorTool::Stairs)return stairs;
   return tool == TerrainEditorTool::Buildings ? buildings
                                               : table[i >= 0 && i < 3 ? i : 0];
 }
@@ -470,6 +497,19 @@ bool TerrainEditorState::paint(float x, float z, bool erase) {
       changed = true;
     }
   if (changed && current_tool == TerrainEditorTool::Terrain) {
+    const auto& config=level.terrain.config;const float cell=config.world_size/config.resolution;
+    for(auto it=level.stairs.begin();it!=level.stairs.end();){
+      bool affected=false;
+      for(const auto& change:stroke_.cells)if(change.before.level!=change.after.level){
+        float x=(change.index%config.resolution+.5f)*cell-config.world_size*.5f;
+        float z=(change.index/config.resolution+.5f)*cell-config.world_size*.5f;
+        if(point_inside_stairs(*it,x,z,cell*(terrain_editor_rebuild_halo+1))){affected=true;break;}
+      }
+      if(affected){TerrainEditCommand::StairsChange change;change.had_before=true;change.before=*it;stroke_.stairs.push_back(change);
+        const auto d=stairs_dirty(*it,config);unite(stroke_.dirty,d);unite(pending_,d);it=level.stairs.erase(it);
+      }else ++it;
+    }
+
     for (auto &tree : level.trees) {
       int i = cell_at(tree.position[0], tree.position[2]);
       if (i < 0 || !stroke_cells_.count(uint32_t(i)))
@@ -511,6 +551,9 @@ bool TerrainEditorState::place_tree(float x, float z, bool erase) {
     for (const auto &b : level.buildings)
       if (point_inside_building(b, x, z))
         return false;
+  if (!erase)
+    for (const auto &stairs : level.stairs)
+      if (point_inside_stairs(stairs, x, z, .4f)) return false;
   bool automatic = !stroking_;
   begin_stroke();
   EditorTreeChange c;
@@ -564,6 +607,33 @@ bool TerrainEditorState::place_tree(float x, float z, bool erase) {
     end_stroke();
   return true;
 }
+bool TerrainEditorState::stairs_preview(float x,float z,EditorStairs& candidate) const {
+ candidate=EditorStairs();candidate.position={{x,editor_level_height(level.terrain.config,std::max(1,level_at(x,z))),z}};
+ if(!building_surface||building_surface_revision!=terrain_revision)return false;
+ if(!find_stairs_site(*building_surface,level.terrain.config,x,z,candidate))return false;
+ for(const auto& stairs:level.stairs)if(stairs_overlap(candidate,stairs))return false;
+ for(const auto& building:level.buildings)if(stairs_building_overlap(candidate,building))return false;
+ for(const auto& tree:level.trees)if(point_inside_stairs(candidate,tree.position[0],tree.position[2],.35f))return false;
+ return true;
+}
+bool TerrainEditorState::place_stairs(float x,float z,bool erase){
+ TerrainEditCommand::StairsChange change;
+ if(erase){
+  auto found=std::find_if(level.stairs.begin(),level.stairs.end(),[&](const EditorStairs& stairs){return point_inside_stairs(stairs,x,z,.2f);});
+  if(found==level.stairs.end())return false;change.had_before=true;change.before=*found;
+ }else{
+  if(level.next_stairs_id==std::numeric_limits<uint32_t>::max()||!stairs_preview(x,z,change.after))return false;
+  change.has_after=true;change.after.id=level.next_stairs_id;
+ }
+ end_stroke();begin_stroke();
+ const auto stairs=erase?change.before:change.after;
+ if(erase)level.stairs.erase(std::remove_if(level.stairs.begin(),level.stairs.end(),[&](const EditorStairs& value){return value.id==stairs.id;}),level.stairs.end());
+ else{level.stairs.push_back(stairs);++level.next_stairs_id;}
+ stroke_.stairs.push_back(change);const auto d=stairs_dirty(stairs,level.terrain.config);unite(stroke_.dirty,d);unite(pending_,d);
+ ++revision;is_dirty=true;error.clear();end_stroke();
+ if(std::getenv("GB_EDITOR_PROFILE"))std::cout<<"Editor stairs "<<(erase?"removed":"placed")<<" id="<<stairs.id<<" lower="<<stairs.lower_terrace<<" x="<<stairs.position[0]<<" z="<<stairs.position[2]<<std::endl;
+ return true;
+}
 bool TerrainEditorState::can_place_building(float x, float z) const {
   if (!building_surface || building_surface_revision != terrain_revision ||
       int(selected_building) < 0 || int(selected_building) >= 3 ||
@@ -577,6 +647,7 @@ bool TerrainEditorState::can_place_building(float x, float z) const {
   b.position = {{x, editor_level_height(level.terrain.config, terrace), z}};
   b.yaw = building_yaw;
   b.terrace = terrace;
+  for(const auto& stairs:level.stairs)if(stairs_building_overlap(stairs,b))return false;
   for (const auto &other : level.buildings)
     if (buildings_overlap(b, other))
       return false;
@@ -721,7 +792,7 @@ void TerrainEditorState::end_stroke() {
                                        return same(c.before, c.after);
                                      }),
                       stroke_.cells.end());
-  if (!stroke_.cells.empty() || !stroke_.trees.empty() ||
+  if (!stroke_.stairs.empty() || !stroke_.cells.empty() || !stroke_.trees.empty() ||
       !stroke_.buildings.empty()) {
     // Unique history identities distinguish a new branch from an old saved
     // command even when both happen to occupy the same undo-stack depth.
@@ -780,6 +851,13 @@ void TerrainEditorState::apply_command(const TerrainEditCommand &c,
   else
     for (auto b = c.buildings.rbegin(); b != c.buildings.rend(); ++b)
       building(*b);
+  auto stair=[&](const TerrainEditCommand::StairsChange& v){
+    const auto* remove=forward?(v.had_before?&v.before:nullptr):(v.has_after?&v.after:nullptr);
+    const auto* add=forward?(v.has_after?&v.after:nullptr):(v.had_before?&v.before:nullptr);
+    if(remove)level.stairs.erase(std::remove_if(level.stairs.begin(),level.stairs.end(),[&](const EditorStairs& s){return s.id==remove->id;}),level.stairs.end());
+    if(add)level.stairs.push_back(*add);
+  };
+  if(forward)for(const auto& v:c.stairs)stair(v);else for(auto i=c.stairs.rbegin();i!=c.stairs.rend();++i)stair(*i);
   unite(pending_, c.dirty);
   if (c.dirty.terrain)
     ++terrain_revision;
@@ -821,7 +899,7 @@ TerrainEditorDirty TerrainEditorState::consume_dirty() {
 void TerrainEditorState::invalidate_all() {
   TerrainEditorDirty d;
   d.x1 = d.z1 = level.terrain.config.resolution - 1;
-  d.terrain = d.grass = d.trees = d.climate = d.buildings = true;
+  d.terrain = d.grass = d.trees = d.climate = d.buildings = d.stairs = true;
   unite(pending_, d);
   ++revision;
 }
@@ -832,8 +910,7 @@ bool TerrainEditorState::save(const std::string &input) {
   try {
     require(!input.empty(), "Empty level path");
     valid_level(level);
-    require((int(current_tool) >= 0 && int(current_tool) < 3 ||
-             current_tool == TerrainEditorTool::Buildings) &&
+    require((int(current_tool) >= 0 && int(current_tool) <= 4) &&
                 int(selected_building) >= 0 && int(selected_building) < 3 &&
                 std::isfinite(building_yaw) && building_yaw >= 0 &&
                 building_yaw < 6.283185307179586f && target_terrace >= -5 &&
@@ -854,7 +931,7 @@ bool TerrainEditorState::save(const std::string &input) {
       path += ".level";
     Writer w;
     w.u(0x564c4247);
-    w.u(3);
+    w.u(4);
     const auto &c = level.terrain.config;
     w.f(c.world_size);
     w.f(c.island_size);
@@ -907,6 +984,8 @@ bool TerrainEditorState::save(const std::string &input) {
       w.f(b.yaw);
       w.u(uint32_t(b.terrace));
     }
+    w.u(level.next_stairs_id);w.u(static_cast<uint32_t>(level.stairs.size()));
+    for(const auto& stairs:level.stairs){w.u(stairs.id);for(float v:stairs.position)w.f(v);w.f(stairs.yaw);w.u(uint32_t(stairs.lower_terrace));}
     w.u(crc(w.b, w.b.size()));
     temporary =
         path + ".tmp-" +
@@ -957,7 +1036,7 @@ bool TerrainEditorState::load(const std::string &path) {
     Reader r{bytes};
     require(r.u() == 0x564c4247, "Invalid level magic");
     const auto version = r.u();
-    require(version >= 1 && version <= 3, "Unsupported level version");
+    require(version >= 1 && version <= 4, "Unsupported level version");
     TerrainEditorLevel temp;
     auto &c = temp.terrain.config;
     c.world_size = r.f();
@@ -1022,7 +1101,7 @@ bool TerrainEditorState::load(const std::string &path) {
             "Invalid editor settings");
     uint32_t building_type = 0;
     float yaw = 0;
-    if (version == 3) {
+    if (version >= 3) {
       building_type = r.u();
       yaw = r.f();
       require(building_type < 3 && std::isfinite(yaw) && yaw >= 0 &&
@@ -1044,12 +1123,18 @@ bool TerrainEditorState::load(const std::string &path) {
         temp.buildings.push_back(b);
       }
     }
+    if(version>=4){
+      temp.next_stairs_id=r.u();const auto count=r.u();
+      require(count<=100000&&count<=(bytes.size()-r.p)/24,"Invalid stair count");
+      temp.stairs.reserve(count);
+      for(uint32_t i=0;i<count;++i){EditorStairs stairs;stairs.id=r.u();for(float& v:stairs.position)v=r.f();stairs.yaw=r.f();stairs.lower_terrace=int(r.u());temp.stairs.push_back(stairs);}
+    }
     require(r.p == bytes.size() - 4, "Unexpected level payload");
     valid_level(temp);
     level = std::move(temp);
     // Retired Climate selections in existing files fall back to Terrain.
     const auto migrated_tool = version == 1 ? (tool <= 1 ? 0 : tool - 1) : tool;
-    current_tool = (migrated_tool < 3 || version == 3 && migrated_tool == 4)
+    current_tool = (migrated_tool < 3 || version >= 3 && migrated_tool == 4 || version >= 4 && migrated_tool == 3)
                        ? TerrainEditorTool(migrated_tool)
                        : TerrainEditorTool::Terrain;
     selected_building = BuildingType(building_type);

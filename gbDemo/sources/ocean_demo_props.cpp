@@ -1,4 +1,6 @@
 #include "ocean_demo_props.h"
+#include "terrain_generator.h"
+#include <algorithm>
 #include <cmath>
 namespace game {
     namespace {
@@ -58,5 +60,63 @@ namespace game {
         ocean_demo_prop post;post.position={-92.f,ocean.mean_level,111.f};
         box(post.mesh,0,.6f,0,.3f,1.5f,.3f,{{104,66,34,255}});result.push_back(post);
         return result;
+    }
+    terrain_mesh_data build_ocean_reefs(const terrain_config& config) {
+        config.validate();
+        terrain_mesh_data mesh;
+        const auto random=[&](uint32_t key){
+            uint32_t h=config.seed^key*0x9e3779b9u;
+            h^=h>>16;h*=0x7feb352du;h^=h>>15;h*=0x846ca68bu;h^=h>>16;
+            return float(h&65535u)/65535.f;
+        };
+        const float scale=std::max(.35f,std::min(1.f,config.island_size/(1792.f*.67f)));
+        for(int group=0;group<12;++group){
+            const uint32_t key=1000+group*100;
+            float angle=(group+.2f+.6f*random(key))*6.283185307f/12.f;
+            // Leave the existing floating props' approach to the beach open.
+            if(angle>2.f&&angle<2.5f)angle+=.45f;
+            const float dx=std::cos(angle),dz=std::sin(angle);
+            const float coast=terrain_generator::coast_radius(config,angle);
+            const float edge=(config.world_size*.5f-28.f*scale)/std::max(std::abs(dx),std::abs(dz));
+            const float radius=std::min(coast+(45.f+80.f*random(key+1))*scale,edge);
+            if(radius<coast+30.f*scale)continue;
+            const float center_x=dx*radius,center_z=dz*radius;
+            const int count=4+int(random(key+2)*2.99f);
+            for(int rock=0;rock<count;++rock){
+                const uint32_t rk=key+3+rock*11;
+                const float offset=rock*2.39996323f+random(rk);
+                const float spread=rock==0?0.f:(6.f+10.f*random(rk+1))*scale;
+                const float x=center_x+std::cos(offset)*spread,z=center_z+std::sin(offset)*spread;
+                const float r=(rock==0?9.f+4.f*random(rk+2):3.5f+5.f*random(rk+2))*scale;
+                const float height=(rock%4==3?.25f+random(rk+3)*.55f:2.f+random(rk+3)*4.5f)*scale;
+                std::array<point,8> bottom,waterline,crown;
+                for(int side=0;side<8;++side){
+                    const float a=side*6.283185307f/8.f+.1f*random(rk+4);
+                    const float rough=.8f+.25f*random(rk+side+13);
+                    const float ux=std::cos(a)*r*rough,uz=std::sin(a)*r*rough;
+                    bottom[side]={{x+ux*.75f,config.water_y-4.5f*scale,z+uz*.75f}};
+                    waterline[side]={{x+ux,config.water_y-.65f*scale,z+uz}};
+                    crown[side]={{x+ux*.65f+r*.13f,config.water_y+height*.55f,z+uz*.65f-r*.1f}};
+                }
+                const point tip={{x+r*.19f,config.water_y+height,z-r*.16f}};
+                const point foot={{x,config.water_y-6.f*scale,z}};
+                for(int side=0;side<8;++side){
+                    const int next=(side+1)%8;
+                    const uint8_t gray=uint8_t(125.f+35.f*random(rk+side+31));
+                    const tint dry={{gray,uint8_t(gray+6),uint8_t(gray-3),255}};
+                    const tint wet={{uint8_t(gray*.70f),uint8_t(gray*.76f),uint8_t(gray*.73f),255}};
+                    quad(mesh,bottom[side],waterline[side],bottom[next],waterline[next],wet);
+                    quad(mesh,waterline[side],crown[side],waterline[next],crown[next],dry);
+                    triangle(mesh,crown[side],tip,crown[next],dry);
+                    triangle(mesh,bottom[side],bottom[next],foot,wet);
+                }
+            }
+        }
+        for(auto& vertex:mesh.vertices){
+            vertex.stone_texture=true;
+            // Match the existing pixel stone projection used by stairs.
+            vertex.texcoord={{std::abs(vertex.normal[0])>std::abs(vertex.normal[2])?vertex.position[2]:vertex.position[0],vertex.position[1]}};
+        }
+        return mesh;
     }
 }

@@ -33,7 +33,7 @@ inline void mark(const std::string& label) {
  if(!enabled())return;
  auto& s=state(); if(s.slots.empty())return;
  auto d=gb::vk_device::get_instance(); auto& slot=s.slots[d->get_current_image_index()];
- if(slot.labels.size()>=128)return;
+ if(slot.labels.size()>=4096)return;
  vkCmdWriteTimestamp(d->get_draw_cmd_buffer(d->get_current_image_index()),VK_PIPELINE_STAGE_BOTTOM_OF_PIPE_BIT,slot.pool,(uint32_t)slot.labels.size());
  slot.labels.push_back(label);
 }
@@ -48,7 +48,7 @@ inline void gpu_begin() {
   if(!bits){std::cout<<"PROBE unsupported_timestamps"<<std::endl;return;}
   s.mask=bits==64?~uint64_t(0):((uint64_t(1)<<bits)-1);
   s.slots.resize(d->get_draw_cmd_buffers().size());
-  for(auto& v:s.slots){VkQueryPoolCreateInfo ci={};ci.sType=VK_STRUCTURE_TYPE_QUERY_POOL_CREATE_INFO;ci.queryType=VK_QUERY_TYPE_TIMESTAMP;ci.queryCount=128;
+  for(auto& v:s.slots){VkQueryPoolCreateInfo ci={};ci.sType=VK_STRUCTURE_TYPE_QUERY_POOL_CREATE_INFO;ci.queryType=VK_QUERY_TYPE_TIMESTAMP;ci.queryCount=4096;
    if(vkCreateQueryPool(d->get_logical_device(),&ci,nullptr,&v.pool)!=VK_SUCCESS)std::abort();}
   std::cout<<"PROBE timestamp_period_ns="<<s.period<<" valid_bits="<<bits<<" swapchain_images="<<s.slots.size()<<std::endl;
  }
@@ -59,13 +59,17 @@ inline void gpu_begin() {
   if(r==VK_SUCCESS && v.frame>=60) {
    auto elapsed=[&](size_t a,size_t b){return double((values[b]-values[a])&s.mask)*s.period/1e6;};
    double total=elapsed(0,values.size()-1);s.gpu["frame"].ms+=total;++s.gpu["frame"].calls;
-   for(size_t i=1;i+1<values.size()-1;i+=2){auto& a=s.gpu[v.labels[i]];a.ms+=elapsed(i,i+1);++a.calls;}
+   std::vector<size_t> stack;
+   for(size_t i=1;i+1<values.size();++i){if(v.labels[i]=="end"){
+    if(stack.empty())continue;const auto begin=stack.back();stack.pop_back();
+    auto& a=s.gpu[v.labels[begin]];a.ms+=elapsed(begin,i);++a.calls;
+   }else stack.push_back(i);}
    std::cout<<"PROBE_GPU frame="<<v.frame<<" total_ms="<<total<<"\n";
    if(++s.gpu_frames%120==0){for(const auto& a:s.gpu)std::cout<<"PROBE_GPU_AVG name="<<a.first<<" ms="<<a.second.ms/a.second.calls<<" calls="<<a.second.calls<<"\n";s.gpu.clear();}
   }
  }
  v.labels.clear();v.frame=s.frame;
- vkCmdResetQueryPool(d->get_draw_cmd_buffer(d->get_current_image_index()),v.pool,0,128);
+ vkCmdResetQueryPool(d->get_draw_cmd_buffer(d->get_current_image_index()),v.pool,0,4096);
  mark("frame_begin");
 }
 inline void frame_begin() {

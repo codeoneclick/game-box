@@ -1848,6 +1848,10 @@
 		47538F6A6E315EB4AA5CE87D /* terrain_generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4DEFED68A5B412947862B94C /* terrain_generator.cpp */; };
 		4CD32EB5203847E08143D7B4 /* terrain_editor_input.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66C70768584848F3B918F38E /* terrain_editor_input.cpp */; };
 		412E1A24EEE14508AC2D772E /* terrain_editor_ui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3B816DFE216B4DB491E703D2 /* terrain_editor_ui.cpp */; };
+		796670BA5A37E16E2A2942B7 /* terrain_mesh_optimizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96682956C6BB277E82714658 /* terrain_mesh_optimizer.cpp */; };
+		04A761273C8AE9F59898A66B /* terrain_contour_lod.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 227EAACBABA8673C5B5A194B /* terrain_contour_lod.cpp */; };
+		B0C72B50B4D933D28572D57E /* terrain_lod.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9FBAE6514B7072C095C928B /* terrain_lod.cpp */; };
+		4BC8BDC38B5D3ACF3E4286C5 /* terrain_lod_renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B5D1A2A9F796728A50413DC4 /* terrain_lod_renderer.cpp */; };
 		78BA756396364411BA4D8BDD /* terrain_editor_render_cache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D6866DD22B8343E9AD7F5F60 /* terrain_editor_render_cache.cpp */; };
 		568DB1D7F53249DD8D4A0195 /* terrain_editor_mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7BB8D52756D54DB8B19DDBA6 /* terrain_editor_mesh.cpp */; };
 		39BA01A8EE4C4B54BA4E1C68 /* terrain_editor_state.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B63B241D02AE4F93BEACF5A2 /* terrain_editor_state.cpp */; };
@@ -1857,6 +1861,10 @@
 		19D176F7048677D90CDE2A0F /* terrain_generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4DEFED68A5B412947862B94C /* terrain_generator.cpp */; };
 		90572C1B95BD497FB86F70F1 /* terrain_editor_input.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66C70768584848F3B918F38E /* terrain_editor_input.cpp */; };
 		6B3C34CD3AE44D32B2372F13 /* terrain_editor_ui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3B816DFE216B4DB491E703D2 /* terrain_editor_ui.cpp */; };
+		C733EA9AF7DBCD856A95C32E /* terrain_mesh_optimizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96682956C6BB277E82714658 /* terrain_mesh_optimizer.cpp */; };
+		1ABE98FD71E31E52261A2395 /* terrain_contour_lod.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 227EAACBABA8673C5B5A194B /* terrain_contour_lod.cpp */; };
+		9D12D618FA4DC76AF50CA897 /* terrain_lod.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9FBAE6514B7072C095C928B /* terrain_lod.cpp */; };
+		D547059F65E250CA3BA10211 /* terrain_lod_renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B5D1A2A9F796728A50413DC4 /* terrain_lod_renderer.cpp */; };
 		907741A79A024764A3F932A9 /* terrain_editor_render_cache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D6866DD22B8343E9AD7F5F60 /* terrain_editor_render_cache.cpp */; };
 		65CAF535B77B42B49B71282E /* terrain_editor_mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7BB8D52756D54DB8B19DDBA6 /* terrain_editor_mesh.cpp */; };
 		63917B0CD3F444CA8F3ED584 /* terrain_editor_state.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B63B241D02AE4F93BEACF5A2 /* terrain_editor_state.cpp */; };
@@ -1931,6 +1939,10 @@
 		6BB61FCC0D07167ECB446AA0 /* terrain_generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4DEFED68A5B412947862B94C /* terrain_generator.cpp */; };
 		D86B731CA3A0464B832D48E6 /* terrain_editor_input.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66C70768584848F3B918F38E /* terrain_editor_input.cpp */; };
 		219173A80B2F415EAA69D07E /* terrain_editor_ui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3B816DFE216B4DB491E703D2 /* terrain_editor_ui.cpp */; };
+		EF010863257B34EFC808058B /* terrain_mesh_optimizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96682956C6BB277E82714658 /* terrain_mesh_optimizer.cpp */; };
+		3699DCB2AC182FF8769CD2E3 /* terrain_contour_lod.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 227EAACBABA8673C5B5A194B /* terrain_contour_lod.cpp */; };
+		563752C8139BBA342A9E2718 /* terrain_lod.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9FBAE6514B7072C095C928B /* terrain_lod.cpp */; };
+		FCC7E2025ABFF56C2F1D51F5 /* terrain_lod_renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B5D1A2A9F796728A50413DC4 /* terrain_lod_renderer.cpp */; };
 		9309F6E53A3D47FC928CFD01 /* terrain_editor_render_cache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D6866DD22B8343E9AD7F5F60 /* terrain_editor_render_cache.cpp */; };
 		0CAF93AC241C44B8957DA6C9 /* terrain_editor_mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7BB8D52756D54DB8B19DDBA6 /* terrain_editor_mesh.cpp */; };
 		CE5A5B84531849BBA64455E2 /* terrain_editor_state.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B63B241D02AE4F93BEACF5A2 /* terrain_editor_state.cpp */; };
@@ -2707,6 +2719,42 @@
 		6255F3122A809627B3B4D106 /* material.sun_shadow.skin.near.xml in Resources */ = {isa = PBXBuildFile; fileRef = D1D3ED1EF5C0D3AD9693AA65 /* material.sun_shadow.skin.near.xml */; };
 		2CF81CEF1FDC1989610CC3B0 /* material.sun_shadow.skin.near.xml in Resources */ = {isa = PBXBuildFile; fileRef = D1D3ED1EF5C0D3AD9693AA65 /* material.sun_shadow.skin.near.xml */; };
 		87F5371BA475636C718E0017 /* material.sun_shadow.skin.near.xml in Resources */ = {isa = PBXBuildFile; fileRef = D1D3ED1EF5C0D3AD9693AA65 /* material.sun_shadow.skin.near.xml */; };
+		C209B16D81874DFE8BBFB8B3 /* graphics_settings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DFBEDF632A824B7EAB9F618A /* graphics_settings.cpp */; };
+		7AFC207F4EB443A6B1D2F6CB /* graphics_settings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DFBEDF632A824B7EAB9F618A /* graphics_settings.cpp */; };
+		7CE1CE3D38FC4CBFB2BB21CC /* graphics_settings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DFBEDF632A824B7EAB9F618A /* graphics_settings.cpp */; };
+		65E030B970414FC2A9C20D7F /* GraphicsSettings.json in Resources */ = {isa = PBXBuildFile; fileRef = 4A854EE14CA64A18A81F131A /* GraphicsSettings.json */; };
+		804B7F40AD2541FA9AC8B640 /* GraphicsSettings.json in Resources */ = {isa = PBXBuildFile; fileRef = 4A854EE14CA64A18A81F131A /* GraphicsSettings.json */; };
+		AB1554A700CA44B8AEBD09BF /* GraphicsSettings.json in Resources */ = {isa = PBXBuildFile; fileRef = 4A854EE14CA64A18A81F131A /* GraphicsSettings.json */; };
+		77DB300C30F045F6B84CC93A /* stairs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B57850155B214F95AB9EA51D /* stairs.cpp */; };
+		495BCC21D55942889101217D /* stairs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B57850155B214F95AB9EA51D /* stairs.cpp */; };
+		8883BD4286CB4DAF884AE100 /* stairs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B57850155B214F95AB9EA51D /* stairs.cpp */; };
+		E90C550854E42C2615020886 /* render_debug_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8DAE31195010544E24A0550B /* render_debug_controller.cpp */; };
+		5D2CFE919A8AFA910442E101 /* render_debug_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8DAE31195010544E24A0550B /* render_debug_controller.cpp */; };
+		BA8833420AC3E1BF732874F6 /* render_debug_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8DAE31195010544E24A0550B /* render_debug_controller.cpp */; };
+		4A0AF839C345EEBF39DC0E2B /* ws.technique.render_debug.xml in Resources */ = {isa = PBXBuildFile; fileRef = 280563F60B7DE5EFC0EE3DF2 /* ws.technique.render_debug.xml */; };
+		CA70E154437CEF0DEE7BA371 /* render_debug_preview.xml in Resources */ = {isa = PBXBuildFile; fileRef = 0F25DE3DD77B6EC68AB39020 /* render_debug_preview.xml */; };
+		0A444EFD867280C7BE506B89 /* material.render_debug_preview.xml in Resources */ = {isa = PBXBuildFile; fileRef = D3C99A5532D7416E172F39C9 /* material.render_debug_preview.xml */; };
+		54B9D2E0CC88B153A3B65F20 /* material.render_debug_blit.xml in Resources */ = {isa = PBXBuildFile; fileRef = 6A22B3D91F0E79BDF11452CE /* material.render_debug_blit.xml */; };
+		1269016D788E82B85C0AEE4F /* shader_render_debug_blit.vert in Resources */ = {isa = PBXBuildFile; fileRef = 4783066DBC026FC799552573 /* shader_render_debug_blit.vert */; };
+		D9552082DC63F65A8BD3F78D /* shader_render_debug_blit.frag in Resources */ = {isa = PBXBuildFile; fileRef = E7A2591BD517DC6120434BDE /* shader_render_debug_blit.frag */; };
+		EA54DB1DEF063207C1687287 /* shader_render_debug_preview.vert in Resources */ = {isa = PBXBuildFile; fileRef = 6630BE685C62D978FC904A1A /* shader_render_debug_preview.vert */; };
+		4FB8BA0AA5C076CB284A9D6C /* shader_render_debug_preview.frag in Resources */ = {isa = PBXBuildFile; fileRef = 134D1415412FA20C6293FBFF /* shader_render_debug_preview.frag */; };
+		0E325BA2169180EF6EC4DB19 /* ws.technique.render_debug.xml in Resources */ = {isa = PBXBuildFile; fileRef = 280563F60B7DE5EFC0EE3DF2 /* ws.technique.render_debug.xml */; };
+		7C5F24823EF82E59A32F82DB /* render_debug_preview.xml in Resources */ = {isa = PBXBuildFile; fileRef = 0F25DE3DD77B6EC68AB39020 /* render_debug_preview.xml */; };
+		502F0DAEC2F28426111DD83D /* material.render_debug_preview.xml in Resources */ = {isa = PBXBuildFile; fileRef = D3C99A5532D7416E172F39C9 /* material.render_debug_preview.xml */; };
+		0520A1D6B641783B6E56DB15 /* material.render_debug_blit.xml in Resources */ = {isa = PBXBuildFile; fileRef = 6A22B3D91F0E79BDF11452CE /* material.render_debug_blit.xml */; };
+		FC66748C822AFA86AD2170B1 /* shader_render_debug_blit.vert in Resources */ = {isa = PBXBuildFile; fileRef = 4783066DBC026FC799552573 /* shader_render_debug_blit.vert */; };
+		56BA0A41DE0E9D317A195EFD /* shader_render_debug_blit.frag in Resources */ = {isa = PBXBuildFile; fileRef = E7A2591BD517DC6120434BDE /* shader_render_debug_blit.frag */; };
+		424CD3026A00162038D1B53E /* shader_render_debug_preview.vert in Resources */ = {isa = PBXBuildFile; fileRef = 6630BE685C62D978FC904A1A /* shader_render_debug_preview.vert */; };
+		6059E8D6035F332C7187B259 /* shader_render_debug_preview.frag in Resources */ = {isa = PBXBuildFile; fileRef = 134D1415412FA20C6293FBFF /* shader_render_debug_preview.frag */; };
+		2D90DBE9E53D91147921BB60 /* ws.technique.render_debug.xml in Resources */ = {isa = PBXBuildFile; fileRef = 280563F60B7DE5EFC0EE3DF2 /* ws.technique.render_debug.xml */; };
+		EECA98C5787314F4371891C3 /* render_debug_preview.xml in Resources */ = {isa = PBXBuildFile; fileRef = 0F25DE3DD77B6EC68AB39020 /* render_debug_preview.xml */; };
+		F26E729F4F8907F174AB2AEB /* material.render_debug_preview.xml in Resources */ = {isa = PBXBuildFile; fileRef = D3C99A5532D7416E172F39C9 /* material.render_debug_preview.xml */; };
+		A109345693533B816DCAF83C /* material.render_debug_blit.xml in Resources */ = {isa = PBXBuildFile; fileRef = 6A22B3D91F0E79BDF11452CE /* material.render_debug_blit.xml */; };
+		75BA029B6E69563C248A8A20 /* shader_render_debug_blit.vert in Resources */ = {isa = PBXBuildFile; fileRef = 4783066DBC026FC799552573 /* shader_render_debug_blit.vert */; };
+		4D1D4467D8191FBEF4343EBE /* shader_render_debug_blit.frag in Resources */ = {isa = PBXBuildFile; fileRef = E7A2591BD517DC6120434BDE /* shader_render_debug_blit.frag */; };
+		8F2075243E5CC22D101D8DCE /* shader_render_debug_preview.vert in Resources */ = {isa = PBXBuildFile; fileRef = 6630BE685C62D978FC904A1A /* shader_render_debug_preview.vert */; };
+		156F32CAEABB5835F094378A /* shader_render_debug_preview.frag in Resources */ = {isa = PBXBuildFile; fileRef = 134D1415412FA20C6293FBFF /* shader_render_debug_preview.frag */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -3730,6 +3778,10 @@
 		4DEFED68A5B412947862B94C /* terrain_generator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = terrain_generator.cpp; path = sources/terrain_generator.cpp; sourceTree = "<group>"; };
 		66C70768584848F3B918F38E /* terrain_editor_input.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = terrain_editor_input.cpp; path = sources/terrain_editor_input.cpp; sourceTree = "<group>"; };
 		3B816DFE216B4DB491E703D2 /* terrain_editor_ui.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = terrain_editor_ui.cpp; path = sources/terrain_editor_ui.cpp; sourceTree = "<group>"; };
+		96682956C6BB277E82714658 /* terrain_mesh_optimizer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = terrain_mesh_optimizer.cpp; path = sources/terrain_mesh_optimizer.cpp; sourceTree = "<group>"; };
+		227EAACBABA8673C5B5A194B /* terrain_contour_lod.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = terrain_contour_lod.cpp; path = sources/terrain_contour_lod.cpp; sourceTree = "<group>"; };
+		F9FBAE6514B7072C095C928B /* terrain_lod.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = terrain_lod.cpp; path = sources/terrain_lod.cpp; sourceTree = "<group>"; };
+		B5D1A2A9F796728A50413DC4 /* terrain_lod_renderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = terrain_lod_renderer.cpp; path = sources/terrain_lod_renderer.cpp; sourceTree = "<group>"; };
 		D6866DD22B8343E9AD7F5F60 /* terrain_editor_render_cache.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = terrain_editor_render_cache.cpp; path = sources/terrain_editor_render_cache.cpp; sourceTree = "<group>"; };
 		7BB8D52756D54DB8B19DDBA6 /* terrain_editor_mesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = terrain_editor_mesh.cpp; path = sources/terrain_editor_mesh.cpp; sourceTree = "<group>"; };
 		B63B241D02AE4F93BEACF5A2 /* terrain_editor_state.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = terrain_editor_state.cpp; path = sources/terrain_editor_state.cpp; sourceTree = "<group>"; };
@@ -3742,6 +3794,12 @@
 		51A2FDDB6F21B07A34B423AD /* terrain_data.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = terrain_data.h; path = sources/terrain_data.h; sourceTree = "<group>"; };
 		54AA29B02F6544B8B8E5F78A /* terrain_editor_input.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = terrain_editor_input.h; path = sources/terrain_editor_input.h; sourceTree = "<group>"; };
 		194ADFBF28824D7EB00B7FA1 /* terrain_editor_ui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = terrain_editor_ui.h; path = sources/terrain_editor_ui.h; sourceTree = "<group>"; };
+		176C0543360837604D649707 /* terrain_lod_settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = terrain_lod_settings.h; path = sources/terrain_lod_settings.h; sourceTree = "<group>"; };
+		176C0543360837604D649708 /* terrain_editor_layout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = terrain_editor_layout.h; path = sources/terrain_editor_layout.h; sourceTree = "<group>"; };
+		18738553C5AF0DDF9131F634 /* terrain_mesh_optimizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = terrain_mesh_optimizer.h; path = sources/terrain_mesh_optimizer.h; sourceTree = "<group>"; };
+		AE9D9D018AC229AF5CC2F0EF /* terrain_contour_lod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = terrain_contour_lod.h; path = sources/terrain_contour_lod.h; sourceTree = "<group>"; };
+		CE78B350B83E30757BFA1DA8 /* terrain_lod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = terrain_lod.h; path = sources/terrain_lod.h; sourceTree = "<group>"; };
+		FF06CF6F8931008E736E5E06 /* terrain_lod_renderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = terrain_lod_renderer.h; path = sources/terrain_lod_renderer.h; sourceTree = "<group>"; };
 		6ED0A78063344624B235EFAD /* terrain_editor_render_cache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = terrain_editor_render_cache.h; path = sources/terrain_editor_render_cache.h; sourceTree = "<group>"; };
 		B68A816577B44A29B2E85956 /* terrain_editor_mesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = terrain_editor_mesh.h; path = sources/terrain_editor_mesh.h; sourceTree = "<group>"; };
 		D58EFA2717A64446B05E0958 /* terrain_editor_state.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = terrain_editor_state.h; path = sources/terrain_editor_state.h; sourceTree = "<group>"; };
@@ -4067,6 +4125,22 @@
 		50D2FF7F59D71A1F7F847133 /* material.sun_shadow.skin.far.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = material.sun_shadow.skin.far.xml; path = ../gbBundle/Configurations/game_objects/materials/material.sun_shadow.skin.far.xml; sourceTree = "SOURCE_ROOT"; };
 		D1D3ED1EF5C0D3AD9693AA65 /* material.sun_shadow.skin.near.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = material.sun_shadow.skin.near.xml; path = ../gbBundle/Configurations/game_objects/materials/material.sun_shadow.skin.near.xml; sourceTree = "SOURCE_ROOT"; };
 		D9ADD9046C1A6D9405833642 /* mtl_sun_shadow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = mtl_sun_shadow.h; path = ../gbBundle/Shaders/metal/mtl_sun_shadow.h; sourceTree = "SOURCE_ROOT"; };
+		DFBEDF632A824B7EAB9F618A /* graphics_settings.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = graphics_settings.cpp; path = sources/graphics_settings.cpp; sourceTree = "<group>"; };
+		F60638032C434D479764FF68 /* graphics_settings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = graphics_settings.h; path = sources/graphics_settings.h; sourceTree = "<group>"; };
+		4A854EE14CA64A18A81F131A /* GraphicsSettings.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = GraphicsSettings.json; path = ../gbResources/GraphicsSettings.json; sourceTree = "<group>"; };
+		B57850155B214F95AB9EA51D /* stairs.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = sources/stairs.cpp; sourceTree = "<group>"; };
+		D0184EFE6E69486586A9A509 /* stairs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sources/stairs.h; sourceTree = "<group>"; };
+		8DAE31195010544E24A0550B /* render_debug_controller.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = render_debug_controller.cpp; path = sources/render_debug_controller.cpp; sourceTree = "<group>"; };
+		ACB3BE900116FA14EDB48820 /* render_debug_controller.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = render_debug_controller.h; path = sources/render_debug_controller.h; sourceTree = "<group>"; };
+		83EDF0C3E83DB4B883A70E43 /* render_debug_state.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = render_debug_state.h; path = sources/render_debug_state.h; sourceTree = "<group>"; };
+		280563F60B7DE5EFC0EE3DF2 /* ws.technique.render_debug.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = ws.technique.render_debug.xml; path = ../gbBundle/Configurations/techniques/ws_techniques/ws.technique.render_debug.xml; sourceTree = SOURCE_ROOT; };
+		0F25DE3DD77B6EC68AB39020 /* render_debug_preview.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = render_debug_preview.xml; path = ../gbBundle/Configurations/ui_elements/render_debug_preview.xml; sourceTree = SOURCE_ROOT; };
+		D3C99A5532D7416E172F39C9 /* material.render_debug_preview.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = material.render_debug_preview.xml; path = ../gbBundle/Configurations/ui_elements/materials/material.render_debug_preview.xml; sourceTree = SOURCE_ROOT; };
+		6A22B3D91F0E79BDF11452CE /* material.render_debug_blit.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = material.render_debug_blit.xml; path = ../gbBundle/Configurations/techniques/material/material.render_debug_blit.xml; sourceTree = SOURCE_ROOT; };
+		4783066DBC026FC799552573 /* shader_render_debug_blit.vert */ = {isa = PBXFileReference; lastKnownFileType = text; name = shader_render_debug_blit.vert; path = ../gbBundle/Shaders/shader_render_debug_blit.vert; sourceTree = SOURCE_ROOT; };
+		E7A2591BD517DC6120434BDE /* shader_render_debug_blit.frag */ = {isa = PBXFileReference; lastKnownFileType = text; name = shader_render_debug_blit.frag; path = ../gbBundle/Shaders/shader_render_debug_blit.frag; sourceTree = SOURCE_ROOT; };
+		6630BE685C62D978FC904A1A /* shader_render_debug_preview.vert */ = {isa = PBXFileReference; lastKnownFileType = text; name = shader_render_debug_preview.vert; path = ../gbBundle/Shaders/shader_render_debug_preview.vert; sourceTree = SOURCE_ROOT; };
+		134D1415412FA20C6293FBFF /* shader_render_debug_preview.frag */ = {isa = PBXFileReference; lastKnownFileType = text; name = shader_render_debug_preview.frag; path = ../gbBundle/Shaders/shader_render_debug_preview.frag; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -4795,6 +4869,7 @@
 			children = (
 				926F26E1226DF4DD004659CC /* roads_shared.xml */,
 				B03BBCAEAF0EADAC4962DAA0 /* island_terrain.xml */,
+				4A854EE14CA64A18A81F131A /* GraphicsSettings.json */,
 				C243D3CD6E24459BB9085876 /* sky.island.cubemap.xml */,
 				882034754D674A9D95ACCF42 /* island_sky.xml */,
 				30C9129D41F64D179DA8B002 /* grass_interaction.xml */,
@@ -5535,10 +5610,25 @@
 				0FC98979F031C0BB676A1DB3 /* ocean_shader_uniforms.h */,
 				39273456D00144F1B1330B5D /* stylized_post_process_uniforms.h */,
 				6C937CE0FC8D48998E1B8CD0 /* stylized_post_process.h */,
+				F60638032C434D479764FF68 /* graphics_settings.h */,
 				A20A10100000000000000001 /* stylized_lighting_settings.h */,
 				A20A10100000000000000002 /* stylized_lighting_uniforms.h */,
 				164EDCA7782B63BFAD30B2AE /* ocean_shader_uniforms.cpp */,
 				CD0E19063E574E82B4B8833D /* stylized_post_process_uniforms.cpp */,
+				DFBEDF632A824B7EAB9F618A /* graphics_settings.cpp */,
+				8DAE31195010544E24A0550B /* render_debug_controller.cpp */,
+				ACB3BE900116FA14EDB48820 /* render_debug_controller.h */,
+				83EDF0C3E83DB4B883A70E43 /* render_debug_state.h */,
+				280563F60B7DE5EFC0EE3DF2 /* ws.technique.render_debug.xml */,
+				0F25DE3DD77B6EC68AB39020 /* render_debug_preview.xml */,
+				D3C99A5532D7416E172F39C9 /* material.render_debug_preview.xml */,
+				6A22B3D91F0E79BDF11452CE /* material.render_debug_blit.xml */,
+				4783066DBC026FC799552573 /* shader_render_debug_blit.vert */,
+				E7A2591BD517DC6120434BDE /* shader_render_debug_blit.frag */,
+				6630BE685C62D978FC904A1A /* shader_render_debug_preview.vert */,
+				134D1415412FA20C6293FBFF /* shader_render_debug_preview.frag */,
+				B57850155B214F95AB9EA51D /* stairs.cpp */,
+				D0184EFE6E69486586A9A509 /* stairs.h */,
 				FFF0E56B047111F900A3E2ED /* ces_ocean_system.h */,
 				40E2BF897BEC1A7ACD0CCB47 /* ces_ocean_system.cpp */,
 				9D0CFF01317E40D5E638EE1F /* ocean.xml */,
@@ -5559,6 +5649,12 @@
 				51A2FDDB6F21B07A34B423AD /* terrain_data.h */,
 				54AA29B02F6544B8B8E5F78A /* terrain_editor_input.h */,
 				194ADFBF28824D7EB00B7FA1 /* terrain_editor_ui.h */,
+				176C0543360837604D649707 /* terrain_lod_settings.h */,
+				176C0543360837604D649708 /* terrain_editor_layout.h */,
+				18738553C5AF0DDF9131F634 /* terrain_mesh_optimizer.h */,
+				AE9D9D018AC229AF5CC2F0EF /* terrain_contour_lod.h */,
+				CE78B350B83E30757BFA1DA8 /* terrain_lod.h */,
+				FF06CF6F8931008E736E5E06 /* terrain_lod_renderer.h */,
 				6ED0A78063344624B235EFAD /* terrain_editor_render_cache.h */,
 				B68A816577B44A29B2E85956 /* terrain_editor_mesh.h */,
 				C30C30300000000000000001 /* voxel_tree_builder.cpp */,
@@ -5570,6 +5666,10 @@
 				4DEFED68A5B412947862B94C /* terrain_generator.cpp */,
 				66C70768584848F3B918F38E /* terrain_editor_input.cpp */,
 				3B816DFE216B4DB491E703D2 /* terrain_editor_ui.cpp */,
+				96682956C6BB277E82714658 /* terrain_mesh_optimizer.cpp */,
+				227EAACBABA8673C5B5A194B /* terrain_contour_lod.cpp */,
+				F9FBAE6514B7072C095C928B /* terrain_lod.cpp */,
+				B5D1A2A9F796728A50413DC4 /* terrain_lod_renderer.cpp */,
 				D6866DD22B8343E9AD7F5F60 /* terrain_editor_render_cache.cpp */,
 				7BB8D52756D54DB8B19DDBA6 /* terrain_editor_mesh.cpp */,
 				B63B241D02AE4F93BEACF5A2 /* terrain_editor_state.cpp */,
@@ -6282,6 +6382,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4A0AF839C345EEBF39DC0E2B /* ws.technique.render_debug.xml in Resources */,
+				CA70E154437CEF0DEE7BA371 /* render_debug_preview.xml in Resources */,
+				0A444EFD867280C7BE506B89 /* material.render_debug_preview.xml in Resources */,
+				54B9D2E0CC88B153A3B65F20 /* material.render_debug_blit.xml in Resources */,
+				1269016D788E82B85C0AEE4F /* shader_render_debug_blit.vert in Resources */,
+				D9552082DC63F65A8BD3F78D /* shader_render_debug_blit.frag in Resources */,
+				EA54DB1DEF063207C1687287 /* shader_render_debug_preview.vert in Resources */,
+				4FB8BA0AA5C076CB284A9D6C /* shader_render_debug_preview.frag in Resources */,
 				8DE8A52E44346F81C4E80C23 /* shader_sun_shadow_resolve.frag in Resources */,
 				A3BF5A5AAFC3FFBB89A83AF5 /* shader_sun_shadow_resolve.vert in Resources */,
 				27E37CD011E854B06F3C8587 /* shader_sun_shadow_rigid.frag in Resources */,
@@ -6464,6 +6572,7 @@
 				FA202609210000000000000E /* ss.technique.basic_demo.xml in Resources */,
 				FA2026092100000000000012 /* material.ss.basic_demo.xml in Resources */,
 				5D5CA43DD412DDEEF1E9D4D8 /* island_terrain.xml in Resources */,
+				65E030B970414FC2A9C20D7F /* GraphicsSettings.json in Resources */,
 				811844F0FF0C444788CF330D /* sky.island.cubemap.xml in Resources */,
 				D128960F4B2E4730A0D52ACD /* island_sky.xml in Resources */,
 				47730ED7CB114787A22DB0B1 /* grass_interaction.xml in Resources */,
@@ -7060,6 +7169,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E325BA2169180EF6EC4DB19 /* ws.technique.render_debug.xml in Resources */,
+				7C5F24823EF82E59A32F82DB /* render_debug_preview.xml in Resources */,
+				502F0DAEC2F28426111DD83D /* material.render_debug_preview.xml in Resources */,
+				0520A1D6B641783B6E56DB15 /* material.render_debug_blit.xml in Resources */,
+				FC66748C822AFA86AD2170B1 /* shader_render_debug_blit.vert in Resources */,
+				56BA0A41DE0E9D317A195EFD /* shader_render_debug_blit.frag in Resources */,
+				424CD3026A00162038D1B53E /* shader_render_debug_preview.vert in Resources */,
+				6059E8D6035F332C7187B259 /* shader_render_debug_preview.frag in Resources */,
 				C69BF31C67BF6C3FA766F7AB /* shader_sun_shadow_resolve.frag in Resources */,
 				CBB7D218104D1C82E1E714FE /* shader_sun_shadow_resolve.vert in Resources */,
 				A56F4CF2D26843998796FD26 /* shader_sun_shadow_rigid.frag in Resources */,
@@ -7242,6 +7359,7 @@
 				FA202609210000000000000F /* ss.technique.basic_demo.xml in Resources */,
 				FA2026092100000000000013 /* material.ss.basic_demo.xml in Resources */,
 				5B3D06B0F005F0501B8D6216 /* island_terrain.xml in Resources */,
+				804B7F40AD2541FA9AC8B640 /* GraphicsSettings.json in Resources */,
 				4103E36FB3E546E2B653A8B9 /* sky.island.cubemap.xml in Resources */,
 				8C699CDBD90048ABB6EBC3E2 /* island_sky.xml in Resources */,
 				DDD1823051984764868E6448 /* grass_interaction.xml in Resources */,
@@ -7841,6 +7959,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2D90DBE9E53D91147921BB60 /* ws.technique.render_debug.xml in Resources */,
+				EECA98C5787314F4371891C3 /* render_debug_preview.xml in Resources */,
+				F26E729F4F8907F174AB2AEB /* material.render_debug_preview.xml in Resources */,
+				A109345693533B816DCAF83C /* material.render_debug_blit.xml in Resources */,
+				75BA029B6E69563C248A8A20 /* shader_render_debug_blit.vert in Resources */,
+				4D1D4467D8191FBEF4343EBE /* shader_render_debug_blit.frag in Resources */,
+				8F2075243E5CC22D101D8DCE /* shader_render_debug_preview.vert in Resources */,
+				156F32CAEABB5835F094378A /* shader_render_debug_preview.frag in Resources */,
 				EDAC4DFF5F47FBAF0EA69154 /* shader_sun_shadow_resolve.frag in Resources */,
 				77CA81F1D29AA0F836DDFA9C /* shader_sun_shadow_resolve.vert in Resources */,
 				1A9D2BFC2E9D40F0991EBFEC /* shader_sun_shadow_rigid.frag in Resources */,
@@ -8023,6 +8149,7 @@
 				FA2026092100000000000010 /* ss.technique.basic_demo.xml in Resources */,
 				FA2026092100000000000014 /* material.ss.basic_demo.xml in Resources */,
 				7797B99E12487F962EA127DE /* island_terrain.xml in Resources */,
+				AB1554A700CA44B8AEBD09BF /* GraphicsSettings.json in Resources */,
 				1E8E523C795E455180F795C3 /* sky.island.cubemap.xml in Resources */,
 				57C0B357E3FD4FBDB9CC6F87 /* island_sky.xml in Resources */,
 				619C7BA5E20A4BB3A135FD26 /* grass_interaction.xml in Resources */,
@@ -8745,6 +8872,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E90C550854E42C2615020886 /* render_debug_controller.cpp in Sources */,
 				1AD58613DF321607CADA5FFF /* ces_sun_shadow_system.cpp in Sources */,
 
 				F7211A1B29ADD11D1374FEB3 /* building_placement.cpp in Sources */,
@@ -8763,6 +8891,8 @@
 				0014F2E7FEA718BC62A7964D /* ces_ocean_system.cpp in Sources */,
 				F56635D6914C986F0399A47E /* ocean_shader_uniforms.cpp in Sources */,
 				BFCE19819C4E45DE95C7D43D /* stylized_post_process_uniforms.cpp in Sources */,
+				C209B16D81874DFE8BBFB8B3 /* graphics_settings.cpp in Sources */,
+				77DB300C30F045F6B84CC93A /* stairs.cpp in Sources */,
 				F3C5A2D86AB2D8E1EAE21D5E /* ocean_mesh_builder.cpp in Sources */,
 				418480B276EC58910FBA2FF4 /* ocean_wave_model.cpp in Sources */,
 				F38069131F2609C500AE1D67 /* ces_car_parts_component.cpp in Sources */,
@@ -8835,6 +8965,10 @@
 				47538F6A6E315EB4AA5CE87D /* terrain_generator.cpp in Sources */,
 				4CD32EB5203847E08143D7B4 /* terrain_editor_input.cpp in Sources */,
 				412E1A24EEE14508AC2D772E /* terrain_editor_ui.cpp in Sources */,
+				796670BA5A37E16E2A2942B7 /* terrain_mesh_optimizer.cpp in Sources */,
+				04A761273C8AE9F59898A66B /* terrain_contour_lod.cpp in Sources */,
+				B0C72B50B4D933D28572D57E /* terrain_lod.cpp in Sources */,
+				4BC8BDC38B5D3ACF3E4286C5 /* terrain_lod_renderer.cpp in Sources */,
 				78BA756396364411BA4D8BDD /* terrain_editor_render_cache.cpp in Sources */,
 				568DB1D7F53249DD8D4A0195 /* terrain_editor_mesh.cpp in Sources */,
 				C30C30300000000000000003 /* voxel_tree_builder.cpp in Sources */,
@@ -8870,6 +9004,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5D2CFE919A8AFA910442E101 /* render_debug_controller.cpp in Sources */,
 				78074ACD7E5F5075D1F99AD1 /* ces_sun_shadow_system.cpp in Sources */,
 
 				4D2B1030BF24BAB8562E0613 /* building_placement.cpp in Sources */,
@@ -8888,6 +9023,8 @@
 				46AE2F349EB9AF8F0FF0E2ED /* ces_ocean_system.cpp in Sources */,
 				C9ED3209F1EB3A0525D594F1 /* ocean_shader_uniforms.cpp in Sources */,
 				EB15CFBC1F844AC4AE5DED62 /* stylized_post_process_uniforms.cpp in Sources */,
+				7AFC207F4EB443A6B1D2F6CB /* graphics_settings.cpp in Sources */,
+				495BCC21D55942889101217D /* stairs.cpp in Sources */,
 				1045F032889453055CD6589B /* ocean_mesh_builder.cpp in Sources */,
 				1E536954A38549772F582ACE /* ocean_wave_model.cpp in Sources */,
 				F3ED655C1F21E6E30047F89D /* gameplay_fabricator.cpp in Sources */,
@@ -8924,6 +9061,10 @@
 				19D176F7048677D90CDE2A0F /* terrain_generator.cpp in Sources */,
 				90572C1B95BD497FB86F70F1 /* terrain_editor_input.cpp in Sources */,
 				6B3C34CD3AE44D32B2372F13 /* terrain_editor_ui.cpp in Sources */,
+				C733EA9AF7DBCD856A95C32E /* terrain_mesh_optimizer.cpp in Sources */,
+				1ABE98FD71E31E52261A2395 /* terrain_contour_lod.cpp in Sources */,
+				9D12D618FA4DC76AF50CA897 /* terrain_lod.cpp in Sources */,
+				D547059F65E250CA3BA10211 /* terrain_lod_renderer.cpp in Sources */,
 				907741A79A024764A3F932A9 /* terrain_editor_render_cache.cpp in Sources */,
 				65CAF535B77B42B49B71282E /* terrain_editor_mesh.cpp in Sources */,
 				C30C30300000000000000004 /* voxel_tree_builder.cpp in Sources */,
@@ -8995,6 +9136,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA8833420AC3E1BF732874F6 /* render_debug_controller.cpp in Sources */,
 				1076C2DF374CDE75845466EC /* ces_sun_shadow_system.cpp in Sources */,
 
 				2A969DCD499C7CE196BDDE88 /* building_placement.cpp in Sources */,
@@ -9013,6 +9155,8 @@
 				DA4BA0B0FC15ABA94EF24D36 /* ces_ocean_system.cpp in Sources */,
 				E383A0B1ECC275A85DFF9C4B /* ocean_shader_uniforms.cpp in Sources */,
 				B5CCF0A80E1B46E099ADEF17 /* stylized_post_process_uniforms.cpp in Sources */,
+				7CE1CE3D38FC4CBFB2BB21CC /* graphics_settings.cpp in Sources */,
+				8883BD4286CB4DAF884AE100 /* stairs.cpp in Sources */,
 				360149EB8CA0D9557A19BDC3 /* ocean_mesh_builder.cpp in Sources */,
 				7B50DCCD90EEB12D3D3D000D /* ocean_wave_model.cpp in Sources */,
 				F3ED655D1F21E6E30047F89D /* gameplay_fabricator.cpp in Sources */,
@@ -9088,6 +9232,10 @@
 				6BB61FCC0D07167ECB446AA0 /* terrain_generator.cpp in Sources */,
 				D86B731CA3A0464B832D48E6 /* terrain_editor_input.cpp in Sources */,
 				219173A80B2F415EAA69D07E /* terrain_editor_ui.cpp in Sources */,
+				EF010863257B34EFC808058B /* terrain_mesh_optimizer.cpp in Sources */,
+				3699DCB2AC182FF8769CD2E3 /* terrain_contour_lod.cpp in Sources */,
+				563752C8139BBA342A9E2718 /* terrain_lod.cpp in Sources */,
+				FCC7E2025ABFF56C2F1D51F5 /* terrain_lod_renderer.cpp in Sources */,
 				9309F6E53A3D47FC928CFD01 /* terrain_editor_render_cache.cpp in Sources */,
 				0CAF93AC241C44B8957DA6C9 /* terrain_editor_mesh.cpp in Sources */,
 				C30C30300000000000000005 /* voxel_tree_builder.cpp in Sources */,

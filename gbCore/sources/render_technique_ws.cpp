@@ -38,6 +38,11 @@ namespace gb
                 *internal_format = GL_RGBA8;
                 *pixel_type = GL_UNSIGNED_BYTE;
                 break;
+            case 105:
+                *internal_format = GL_RG32F;
+                *pixel_format = GL_RG;
+                *pixel_type = GL_FLOAT;
+                break;
             case 115:
                 *internal_format = GL_RGBA16F;
                 *pixel_type = GL_HALF_FLOAT;

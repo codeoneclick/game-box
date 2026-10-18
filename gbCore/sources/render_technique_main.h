@@ -23,6 +23,8 @@ namespace gb
         material_shared_ptr m_material;
         mesh_2d_shared_ptr m_quad;
         ui32 m_render_buffer;
+
+        material_shared_ptr get_active_material() const;
         
     public:
         

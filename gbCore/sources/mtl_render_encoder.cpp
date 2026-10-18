@@ -54,6 +54,7 @@ namespace gb
         void set_fragment_uniforms(const mtl_buffer_shared_ptr& buffer, ui32 index) override;
         void set_cull_mode(ui32 cull_mode) override;
         void set_cull_mode_none() override;
+        void set_wireframe(bool enabled) override;
         void set_stencil_value(ui8 value) override;
         
         void draw(const std::string& technique_name) override;
@@ -237,6 +238,16 @@ namespace gb
         impl_as<mtl_render_encoder_impl>()->set_cull_mode(cull_mode);
     }
     
+    void mtl_render_encoder_impl::set_wireframe(bool enabled)
+    {
+        [m_render_encoder setTriangleFillMode:enabled ? MTLTriangleFillModeLines : MTLTriangleFillModeFill];
+    }
+
+    void mtl_render_encoder::set_wireframe(bool enabled)
+    {
+        impl_as<mtl_render_encoder_impl>()->set_wireframe(enabled);
+    }
+
     void mtl_render_encoder::set_cull_mode_none()
     {
         impl_as<mtl_render_encoder_impl>()->set_cull_mode_none();

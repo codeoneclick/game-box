@@ -159,7 +159,7 @@ int main() {
   const auto valid_bytes = bytes;
   // Version 1 files retain logical data; both old sculpt tools map to Terrain.
   for(uint32_t old_tool=0;old_tool<5;++old_tool){
-    auto legacy=valid_bytes;legacy.erase(legacy.size()-20,16);legacy.erase(legacy.size()-8,4);
+    auto legacy=valid_bytes;legacy.erase(legacy.size()-12,8);legacy.erase(legacy.size()-20,16);legacy.erase(legacy.size()-8,4);
     legacy[4]=1;legacy[5]=legacy[6]=legacy[7]=0;
     const size_t tool_offset=legacy.size()-32;
     for(int b=0;b<4;++b)legacy[tool_offset+b]=char(old_tool>>(b*8));
@@ -205,8 +205,8 @@ int main() {
            loaded.level.trees.size() == trees);
   };
   reject_field(0, 0);           // magic
-  reject_field(4, 4);           // unsupported version
-  reject_field(valid_bytes.size()-24,17); // target terrace out of range
+  reject_field(4, 5);           // unsupported version
+  reject_field(valid_bytes.size()-32,17); // target terrace out of range
   reject_field(8, 0x7fc00000);  // non-finite world size
   reject_field(16, 4096);       // resolution exceeds bounded allocations
   reject_field(56, 0xffffffff); // impossible map size

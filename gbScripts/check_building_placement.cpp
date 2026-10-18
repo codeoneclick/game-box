@@ -169,7 +169,7 @@ int main() {
     for (int j = 0; j < 4; ++j)
       b[b.size() - 4 + j] = char(c >> (j * 8));
   };
-  const auto count_offset = bytes.size() - 36;
+  const auto count_offset = bytes.size() - 44;
   for (auto field : std::array<std::pair<size_t, uint32_t>, 6>{
            {{count_offset, 0xffffffffu},
             {count_offset - 4, 0},
@@ -191,6 +191,7 @@ int main() {
   }
   // V2 Climate value 3 must migrate to Terrain, with no building data.
   auto legacy = bytes;
+  legacy.erase(legacy.size()-12,8);
   legacy.erase(legacy.size() - 48, 44);
   legacy[4] = 2;
   const size_t tool_offset = legacy.size() - 36;

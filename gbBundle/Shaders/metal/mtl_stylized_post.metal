@@ -18,8 +18,9 @@ struct stylized_post_uniforms {
 vertex common_v_output_t vertex_shader_stylized_output(common_v_input_t in [[stage_in]],constant common_u_input_t& u [[buffer(1)]]){
  common_v_output_t out={};out.position=float4(in.position,1);out.texcoord=in.texcoord;return out;
 }
-fragment half4 fragment_shader_stylized_output(common_v_output_t in [[stage_in]],constant stylized_post_uniforms& u [[buffer(1)]],texture2d<float> color [[texture(0)]]){
- return half4(float4(color.sample(linear_sampler,in.texcoord).rgb,1));
+fragment half4 fragment_shader_stylized_output(common_v_output_t in [[stage_in]],constant stylized_post_uniforms& u [[buffer(1)]],texture2d<float> color [[texture(0)]],texture2d<float> debug_ui [[texture(1)]]){
+ float4 scene=color.sample(linear_sampler,in.texcoord),overlay=debug_ui.sample(linear_sampler,in.texcoord);
+ return half4(float4(mix(scene.rgb,overlay.rgb,overlay.a),1));
 }
 
 float3 stylized_tone(float3 c,constant stylized_post_uniforms& u){
@@ -94,3 +95,23 @@ float3 stylized_blur(float2 uv,float2 direction,texture2d<float> scene){
 }
 fragment half4 fragment_shader_stylized_blur_h(common_v_output_t in [[stage_in]],constant stylized_post_uniforms& u [[buffer(1)]],texture2d<float> scene [[texture(0)]]){if(u.post_flags.w<.5)return half4(0);return half4(float4(stylized_blur(in.texcoord,float2(1,0),scene),0));}
 fragment half4 fragment_shader_stylized_blur_v(common_v_output_t in [[stage_in]],constant stylized_post_uniforms& u [[buffer(1)]],texture2d<float> scene [[texture(0)]]){if(u.post_flags.w<.5)return half4(0);return half4(float4(stylized_blur(in.texcoord,float2(0,1),scene),0));}
+
+vertex common_v_output_t vertex_shader_render_debug_blit(common_v_input_t in [[stage_in]],constant common_u_input_t& u [[buffer(1)]]){
+ common_v_output_t out={};out.position=float4(in.position,1);out.texcoord=in.texcoord;return out;
+}
+fragment half4 fragment_shader_render_debug_blit(common_v_output_t in [[stage_in]],texture2d<float> source [[texture(0)]]){
+ return half4(source.sample(linear_sampler,in.texcoord));
+}
+vertex common_v_output_t vertex_shader_render_debug_preview(common_v_input_t in [[stage_in]],constant common_u_input_t& u [[buffer(1)]]){
+ common_v_output_t out={};out.position=get_mat_mvp(u)*float4(in.position,1);out.texcoord=in.texcoord;out.color=in.color;return out;
+}
+struct render_debug_preview_values {float4 preview_params;};
+fragment half4 fragment_shader_render_debug_preview(common_v_output_t in [[stage_in]],constant render_debug_preview_values& u [[buffer(0)]],texture2d<float> source [[texture(0)]]){
+ float4 data=source.sample(linear_sampler,in.texcoord);float3 color=data.rgb;
+ if(u.preview_params.x<.5)color=max(color,float3(0))/(1.0+max(color,float3(0)));
+ else if(u.preview_params.x<1.5)color=clamp(color,0.0,1.0);
+ else if(u.preview_params.x<2.5)color=float3(data.w>0.0?1.0-exp(-data.w*.01):0.0);
+ else if(u.preview_params.x<3.5)color=float3(clamp(data.x/32.0,0.0,1.0),clamp(data.y*.5+.5,0.0,1.0),clamp(data.z*.5+.5,0.0,1.0));
+ else color=float3(clamp(data.r,0.0,1.0));
+ return half4(float4(color,1)*in.color);
+}

@@ -163,4 +163,56 @@ bool BuildingSurfaceSupport::covers(float x, float z, float yaw, float w,
   double wanted = 4. * w * d;
   return std::abs(covered - wanted) <= std::max(1e-7, wanted * 1e-7);
 }
+bool BuildingSurfaceSupport::height_at(float x, float z, float &height) const {
+  if (!std::isfinite(x) || !std::isfinite(z)) return false;
+  auto bucket = buckets_.find({int(std::floor(x / bucket_size_)),
+                              int(std::floor(z / bucket_size_))});
+  if (bucket == buckets_.end()) return false;
+  bool found = false;
+  for (auto id : bucket->second) {
+    const auto &t = triangles_[id];
+    double signs[3];
+    for (int i = 0; i < 3; ++i) {
+      const auto &a = t.p[i], &b = t.p[(i + 1) % 3];
+      signs[i] = double(b[0] - a[0]) * (z - a[1]) -
+                 double(b[1] - a[1]) * (x - a[0]);
+    }
+    const double twice_area =
+        double(t.p[1][0]-t.p[0][0])*(t.p[2][1]-t.p[0][1])-
+        double(t.p[1][1]-t.p[0][1])*(t.p[2][0]-t.p[0][0]);
+    if (std::abs(twice_area) < 1e-12) continue;
+    if ((*std::min_element(signs, signs + 3) >= -1e-7 ||
+         *std::max_element(signs, signs + 3) <= 1e-7)) {
+      if (!found || t.height > height) height = t.height;
+      found = true;
+    }
+  }
+  return found;
+}
+std::vector<BuildingSurfaceSupport::SurfaceEdge>
+BuildingSurfaceSupport::nearby_edges(float x, float z, float radius) const {
+  std::vector<SurfaceEdge> result;
+  if (!std::isfinite(x) || !std::isfinite(z) || !std::isfinite(radius) || radius < 0)
+    return result;
+  std::set<size_t> ids;
+  for (int bz=int(std::floor((z-radius)/bucket_size_));
+       bz<=int(std::floor((z+radius)/bucket_size_)); ++bz)
+    for (int bx=int(std::floor((x-radius)/bucket_size_));
+         bx<=int(std::floor((x+radius)/bucket_size_)); ++bx) {
+      auto it=buckets_.find({bx,bz});
+      if(it!=buckets_.end()) ids.insert(it->second.begin(),it->second.end());
+    }
+  for(auto id:ids) {
+    const auto &t=triangles_[id];
+    for(int i=0;i<3;++i) {
+      const auto &a=t.p[i], &b=t.p[(i+1)%3];
+      const float dx=b[0]-a[0], dz=b[1]-a[1], length2=dx*dx+dz*dz;
+      if(length2<1e-10f) continue;
+      const float u=std::max(0.f,std::min(1.f,((x-a[0])*dx+(z-a[1])*dz)/length2));
+      const float ex=a[0]+u*dx-x, ez=a[1]+u*dz-z;
+      if(ex*ex+ez*ez<=radius*radius) result.push_back({a,b,t.height});
+    }
+  }
+  return result;
+}
 } // namespace game

@@ -31,8 +31,15 @@ class BuildingSurfaceSupport {
   float bucket_size_;
 
 public:
+  struct SurfaceEdge {
+    std::array<float, 2> a, b;
+    float height;
+  };
   explicit BuildingSurfaceSupport(const std::vector<terrain_mesh_data> &parts,
                                   float bucket_size = 16.f);
+  // Queries use the same actual top triangles as covers, including contours.
+  bool height_at(float x, float z, float &height) const;
+  std::vector<SurfaceEdge> nearby_edges(float x, float z, float radius) const;
   bool covers(float x, float z, float yaw, float half_width, float half_depth,
               float height) const;
 };

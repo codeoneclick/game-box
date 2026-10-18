@@ -44,11 +44,12 @@ float sun_shadow_pcf(int cascade,float3 world,float3 normal,constant sun_resolve
  if(any(uv<float2(.002))||any(uv>float2(.998))||abs(p.z)>=1.0)return 0.0;
  float bias=(.012+texel*.5*(1.0-max(dot(normal,u.shadow_sun.xyz),0.0)))/u.shadow_params.z;
  float depth=p.z*.5+.5-bias;
- int2 size=int2(near_tex.get_width(),near_tex.get_height());
+ int2 size=cascade==0?int2(near_tex.get_width(),near_tex.get_height()):int2(far_tex.get_width(),far_tex.get_height());
  float3 right=normalize(float3(matrix[0][0],matrix[1][0],matrix[2][0]));
  float3 up=normalize(float3(matrix[0][1],matrix[1][1],matrix[2][1]));
  float facing=dot(normal,u.shadow_sun.xyz);if(facing<=.025)return 0.0;
- float2 slope=float2(dot(normal,right),-dot(normal,up))*(texel*float(size.x))/(facing*u.shadow_params.z);
+ float world_width=2.0/length(float3(matrix[0][0],matrix[1][0],matrix[2][0]));
+ float2 slope=float2(dot(normal,right),-dot(normal,up))*world_width/(facing*u.shadow_params.z);
  float2 coord=uv*float2(size)-.5,f=fract(coord);int2 base=int2(floor(coord));float result=0.0;
  for(int y=-1;y<=2;++y)for(int x=-1;x<=2;++x){
   int2 at=clamp(base+int2(x,y),int2(0),size-int2(1));
@@ -63,7 +64,11 @@ fragment half4 fragment_shader_sun_shadow_resolve(common_v_output_t in [[stage_i
  float water=water_tex.sample(ocean_nearest,in.texcoord).a;
  if(u.shadow_params.w==2.0||u.shadow_params.w==3.0){float3 d=u.shadow_params.w==2.0?near_tex.sample(ocean_nearest,in.texcoord).rgb:far_tex.sample(ocean_nearest,in.texcoord).rgb;return half4(half3(sun_shadow_depth(d)),0);}
  if(u.shadow_sun.w<.5||geometry.w<=0.0||normal.w<=0.0||water>.99)return half4(color);
- float3 n=normalize(normal.xyz*2.0-1.0),near_clip=(u.shadow_near*float4(geometry.xyz,1)).xyz;
+ // Match GLSL: derive the receiver plane before the low-sun slope correction.
+ float3 n=normalize(normal.xyz*2.0-1.0),plane=cross(dfdx(geometry.xyz),dfdy(geometry.xyz));
+ float plane_length=length(plane);
+ if(plane_length>1.e-8){plane/=plane_length;plane*=dot(plane,n)<0.0?-1.0:1.0;if(dot(plane,n)>.9)n=plane;}
+ float3 near_clip=(u.shadow_near*float4(geometry.xyz,1)).xyz;
  float blend=smoothstep(.72,.94,max(abs(near_clip.x),abs(near_clip.y)));
  float shade=blend<1.0?sun_shadow_pcf(0,geometry.xyz,n,u,near_tex,far_tex):0.0;
  if(blend>0.0)shade=mix(shade,sun_shadow_pcf(1,geometry.xyz,n,u,near_tex,far_tex),blend);

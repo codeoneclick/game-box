@@ -26,6 +26,8 @@ namespace gb
         mesh_2d_shared_ptr m_quad;
         ui32 m_skip_frames_count = 0;
         ui32 m_current_skipped_frames_count = 0;
+
+        material_shared_ptr get_active_material() const;
         
     public:
         
@@ -37,6 +39,8 @@ namespace gb
         
         texture_shared_ptr get_color_attachment_texture() const;
         material_shared_ptr get_material() const;
+
+        void set_enabled(bool value) override;
         
         void bind();
         void unbind();

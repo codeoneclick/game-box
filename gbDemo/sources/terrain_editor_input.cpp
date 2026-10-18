@@ -5,6 +5,7 @@
 #include "ces_entity.h"
 #include <algorithm>
 #include <cmath>
+#include <limits>
 #include <stdexcept>
 
 namespace game {
@@ -23,6 +24,10 @@ bool TerrainEditorInput::pick(glm::vec3& hit) const {
 }
 bool TerrainEditorInput::building_preview_visible() const {
     return state_->current_tool==TerrainEditorTool::Buildings && has_hit_ &&
+        !alt_ && !right_ && !middle_ && ui_->root()->get_is_visible() && !pointer_over_ui(pointer_);
+}
+bool TerrainEditorInput::stairs_preview_visible() const {
+    return state_->current_tool==TerrainEditorTool::Stairs && has_hit_ && !shift_ &&
         !alt_ && !right_ && !middle_ && ui_->root()->get_is_visible() && !pointer_over_ui(pointer_);
 }
 bool TerrainEditorInput::pick_surface(glm::ivec2 point, glm::vec3& hit) const {
@@ -50,6 +55,19 @@ bool TerrainEditorInput::pick_surface(glm::ivec2 point, glm::vec3& hit) const {
         begin = std::max(begin, a); end = std::min(end, b);
     }
     if(begin > end || end <= 0) return false;
+    // Raised stone treads must remain pickable for Shift+LMB removal. Limit
+    // terrain marching to the nearest flight so terrain in front still wins.
+    float stairs_distance = std::numeric_limits<float>::infinity();
+    if(state_->current_tool == TerrainEditorTool::Stairs) {
+        for(const auto& stairs : state_->level.stairs) {
+            float distance = 0.f;
+            if(stairs_ray_hit(stairs, config, {{origin.x, origin.y, origin.z}},
+                              {{ray.x, ray.y, ray.z}}, distance) &&
+               distance >= begin && distance <= end)
+                stairs_distance = std::min(stairs_distance, distance);
+        }
+        end = std::min(end, stairs_distance);
+    }
     const float step = std::max(.025f, config.world_size / config.resolution * .25f);
     for(float distance = std::max(0.f, begin) + .0001f; distance <= end; distance += step) {
         const glm::vec3 point = origin + ray * distance;
@@ -57,6 +75,10 @@ bool TerrainEditorInput::pick_surface(glm::ivec2 point, glm::vec3& hit) const {
         if(level == terrain_data::empty_layer) continue;
         const float height = editor_level_height(config, level);
         if(point.y <= height) { hit = glm::vec3(point.x, height, point.z); return true; }
+    }
+    if(std::isfinite(stairs_distance)) {
+        hit = origin + ray * stairs_distance;
+        return true;
     }
     // Empty logical cells still have a stable water-plane hover position.
     if(std::abs(ray.y) < .000001f) return false;
@@ -84,6 +106,10 @@ void TerrainEditorInput::stamp(bool initial) {
     }
     if(tool == TerrainEditorTool::Buildings) {
         if(initial) state_->place_building(brush_.x,brush_.z,shift_);
+        return;
+    }
+    if(tool == TerrainEditorTool::Stairs) {
+        if(initial) state_->place_stairs(brush_.x, brush_.z, shift_);
         return;
     }
     // Grass density has no effect on the target-height Terrain brush.
@@ -121,7 +147,8 @@ void TerrainEditorInput::on_gr_released(const glm::ivec2& point, const glm::ivec
     move(point);
     if(source == gb::e_input_source_mouse_left) {
         // Preserve the tail of a fast drag even when its timed stamp was not due.
-        if(state_->current_tool != TerrainEditorTool::Trees && state_->current_tool != TerrainEditorTool::Buildings) stamp(true);
+        if(state_->current_tool != TerrainEditorTool::Trees && state_->current_tool != TerrainEditorTool::Buildings &&
+           state_->current_tool != TerrainEditorTool::Stairs) stamp(true);
         finish_stroke();
     }
     if(source == gb::e_input_source_mouse_right) right_ = false;
@@ -132,6 +159,7 @@ void TerrainEditorInput::on_gr_dragged(const glm::ivec2& point, const glm::ivec2
     if(index != 0) return;
     move(point); if(source == gb::e_input_source_mouse_left) stamp(false);
 }
+void TerrainEditorInput::on_gr_scrolled(const glm::ivec2& point,const glm::ivec2&,f32 delta){ui_->scroll_render_debug(point,delta);}
 void TerrainEditorInput::on_key_down(i32 key) {
     if(key == 0x10) shift_ = true;
     if(key == 0x11) ctrl_ = true;

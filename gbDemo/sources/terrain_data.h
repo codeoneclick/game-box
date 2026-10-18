@@ -8,17 +8,17 @@ namespace game
 {
     struct terrain_config
     {
-        float world_size = 512.f;
-        float island_size = 256.f;
-        int resolution = 512;
+        float world_size = 2048.f;
+        float island_size = 1792.f * .67f;
+        int resolution = 1024;
         int layers_count = 8;
         int underwater_layers_count = 8;
-        float underwater_terrace_width = 6.f;
+        float underwater_terrace_width = 6.f * .67f;
         float layer_height = 2.f;
         float shore_height = .5f;
         uint32_t seed = 1337;
         float water_y = -.3f;
-        float water_size = 768.f;
+        float water_size = 2048.f;
         bool debug_layer_colors = false;
 
         void validate() const;
@@ -51,6 +51,7 @@ namespace game
         std::array<float, 2> editor_palette = {{-1.f,-1.f}};
         // Per-face/per-object silhouette identity; grass keeps the zero default.
         uint32_t outline_id = 0;
+        bool stone_texture = false; // Pixel stone on static slabs; no vegetation bending.
 
         terrain_vertex() = default;
         // Some Apple demo targets still use C++11, where default member

@@ -63,14 +63,15 @@ void grass_triangle(EditorChunkMesh&result,const TerrainEditorLevel&level,Point 
  const int resolution=level.terrain.config.resolution;const float size=level.terrain.config.world_size;
  float area=std::abs((b[0]-a[0])*(c[2]-a[2])-(b[2]-a[2])*(c[0]-a[0]))*.5f;
  // Sample a fixed maximum density, then thin at each actual root using its map cell.
- int count=static_cast<int>(std::floor(area*2.5f+random(state)));
+ int count=static_cast<int>(std::floor(area*8.3f+random(state)));
  for(int i=0;i<count;++i){float r=std::sqrt(random(state)),s=random(state),wb=.97f*r*(1-s)+.01f,wc=.97f*r*s+.01f;
   float x=a[0]+wb*(b[0]-a[0])+wc*(c[0]-a[0]),z=a[2]+wb*(b[2]-a[2])+wc*(c[2]-a[2]);
+  bool under_stairs=false;for(const auto&stairs:level.stairs)if(point_inside_stairs(stairs,x,z,.2f)){under_stairs=true;break;}if(under_stairs)continue;
   int cx=std::max(0,std::min(resolution-1,static_cast<int>((x/size+.5f)*resolution))),cz=std::max(0,std::min(resolution-1,static_cast<int>((z/size+.5f)*resolution)));size_t cell=static_cast<size_t>(cz)*resolution+cx;
   const uint8_t density=map_value(level.grass_density,cell);if(density==0||random(state)>=density/255.f)continue;
   const float patch=.5f+.5f*std::sin(x*.24f+std::sin(z*.13f))*std::cos(z*.21f);
   if(random(state)>.12f+.88f*patch*patch)continue;
-  uint8_t type=map_value(level.grass_type,cell);float height=.28f+random(state)*.27f,width=.12f+random(state)*.12f,angle=random(state)*6.283185307f,dx=std::cos(angle),dz=std::sin(angle),lean=(random(state)-.5f)*height*.65f,y=a[1]+.002f;
+  uint8_t type=map_value(level.grass_type,cell);float height=(.28f+random(state)*.27f)*1.33f,width=.12f+random(state)*.12f,angle=random(state)*6.283185307f,dx=std::cos(angle),dz=std::sin(angle),lean=(random(state)-.5f)*height*.65f,y=a[1]+.002f;
   Color root={{35,58,7,255}},tip={{107,139,21,255}};
   if(type==1){root={{36,20,6,255}};tip={{146,111,43,255}};}
   if(type==2){root={{92,116,111,255}};tip={{216,230,225,255}};}
@@ -128,6 +129,84 @@ EditorChunkMesh build_editor_chunk(const TerrainEditorLevel&level,int chunk_x,in
  }return result;
 }
 
+EditorChunkMesh build_editor_seed_chunk(const TerrainEditorLevel&level,int chunk_x,int chunk_z,const std::vector<EditorSeedTriangle>& domain,const terrain_data& seed){
+ EditorChunkMesh result;const auto& config=level.terrain.config;const int n=config.resolution;
+ if(seed.layers.size()!=level.terrain.layers.size())throw std::invalid_argument("Seed terrain field size mismatch");
+ const float cell=config.world_size/n,half=config.world_size*.5f;TerrainWriter writer{result.terrain,{},level};writer.vertices.reserve(4096);
+ std::array<float,17*17> current{},original{};std::array<std::array<float,17*17>,26> occupancy_change{};const int weights[5]={1,4,6,4,1};
+ auto filtered=[&](const terrain_data& data,int gx,int gz){
+  auto raw=[&](int x,int z){return int(data.layers[size_t(std::max(0,std::min(n-1,z)))*n+std::max(0,std::min(n-1,x))]);};
+  const int center=raw(gx,gz);if(center==terrain_data::empty_layer)return float(center);float sum=0,weight=0;
+  for(int dz=-2;dz<=2;++dz)for(int dx=-2;dx<=2;++dx){const int value=raw(gx+dx,gz+dz);if(value==terrain_data::empty_layer)continue;float w=float(weights[dx+2]*weights[dz+2]);sum+=w*value;weight+=w;}
+  return weight>0?sum/weight:float(center);
+ };
+ for(int z=0;z<17;++z)for(int x=0;x<17;++x){int gx=chunk_x*16+x,gz=chunk_z*16+z;current[z*17+x]=filtered(level.terrain,gx,gz);original[z*17+x]=filtered(seed,gx,gz);
+  for(int dz=-2;dz<=2;++dz)for(int dx=-2;dx<=2;++dx){size_t i=size_t(std::max(0,std::min(n-1,gz+dz)))*n+std::max(0,std::min(n-1,gx+dx));int a=seed.layers[i],b=level.terrain.layers[i];if(a==b)continue;
+   for(int l=std::max(-8,std::min(a,b)+1);l<=std::min(17,std::max(a,b));++l)occupancy_change[l+8][z*17+x]+=float(weights[dx+2]*weights[dz+2])/256.f;
+  }
+ }
+ auto field=[&](const std::array<float,17*17>& values,float x,float z){
+  float fx=std::max(0.f,std::min(16.f,(x+half)/cell-chunk_x*16)),fz=std::max(0.f,std::min(16.f,(z+half)/cell-chunk_z*16));
+  int ix=std::min(15,int(fx)),iz=std::min(15,int(fz));fx-=ix;fz-=iz;
+  return (values[iz*17+ix]*(1-fx)+values[iz*17+ix+1]*fx)*(1-fz)+(values[(iz+1)*17+ix]*(1-fx)+values[(iz+1)*17+ix+1]*fx)*fz;
+ };
+ // The original coast has no zero shelf. Preserve its submerged floor and
+ // introduce an authored zero shelf continuously, using the same world-space
+ // field on both sides of every source triangle and chunk edge.
+ auto zero_height=[&](float x,float z){float t=std::min(1.f,std::max(field(occupancy_change[8],x,z),field(occupancy_change[9],x,z))*4.f);t=t*t*(3-2*t);return editor_level_height(config,-1)+(editor_level_height(config,0)-editor_level_height(config,-1))*t;};
+ auto cut=[](const Polygon& source,int axis,float limit,bool greater){Polygon out;if(source.empty())return out;auto a=source.back();auto coordinate=[&](const Sample& p){return axis==0?p.x:p.z;};bool ia=greater?coordinate(a)>=limit:coordinate(a)<=limit;
+  for(auto b:source){bool ib=greater?coordinate(b)>=limit:coordinate(b)<=limit;if(ia!=ib){float t=(limit-coordinate(a))/(coordinate(b)-coordinate(a));Sample p={a.x+(b.x-a.x)*t,a.z+(b.z-a.z)*t,a.value+(b.value-a.value)*t};if(axis==0)p.x=limit;else p.z=limit;out.push_back(p);}if(ib)out.push_back(b);a=b;ia=ib;}return out;};
+ for(const auto& triangle:domain){
+  const float minx=std::min({triangle[0].x,triangle[1].x,triangle[2].x}),maxx=std::max({triangle[0].x,triangle[1].x,triangle[2].x});
+  const float minz=std::min({triangle[0].z,triangle[1].z,triangle[2].z}),maxz=std::max({triangle[0].z,triangle[1].z,triangle[2].z});
+  const int x0=std::max(chunk_x*16,int(std::floor((minx+half)/cell))),x1=std::min(std::min(n,chunk_x*16+16)-1,int(std::floor((maxx+half)/cell)));
+  const int z0=std::max(chunk_z*16,int(std::floor((minz+half)/cell))),z1=std::min(std::min(n,chunk_z*16+16)-1,int(std::floor((maxz+half)/cell)));
+  for(int z=z0;z<=z1;++z)for(int x=x0;x<=x1;++x){
+   Polygon polygon;for(const auto& p:triangle)polygon.push_back({p.x,p.z,p.value});
+   polygon=cut(cut(cut(cut(polygon,0,x*cell-half,true),0,(x+1)*cell-half,false),2,z*cell-half,true),2,(z+1)*cell-half,false);
+   if(polygon.size()<3)continue;
+   for(auto& p:polygon){float now=field(current,p.x,p.z),before=field(original,p.x,p.z),t=std::min(1.f,std::abs(now-before)*2.f);t=t*t*(3-2*t);const float baseline=p.value;
+    float value=now+(baseline-before)*(1-t);
+    // Scalar height smoothing must not spill a tall edit across another
+    // terrace boundary whose binary occupancy the command never changed.
+    if(value>baseline)for(int l=std::max(-8,int(std::ceil(baseline+.5f-1e-5f)));l<=std::min(17,int(std::floor(value+.5f)));++l){
+     float influence=std::min(1.f,field(occupancy_change[l+8],p.x,p.z)*4.f);if(influence>=1)continue;influence=influence*influence*(3-2*influence);float threshold=l-.5f;
+     const float protected_value=std::abs(baseline-threshold)<1e-5f?threshold:std::min(value,threshold-std::min(.001f,threshold-baseline));
+     value=protected_value+(value-protected_value)*influence;
+    }
+    else if(value<baseline)for(int l=std::min(17,int(std::floor(baseline+.5f+1e-5f)));l>=std::max(-8,int(std::ceil(value+.5f)));--l){
+     float influence=std::min(1.f,field(occupancy_change[l+8],p.x,p.z)*4.f);if(influence>=1)continue;influence=influence*influence*(3-2*influence);float threshold=l-.5f;
+     const float protected_value=std::abs(baseline-threshold)<1e-5f?threshold:std::max(value,threshold+std::min(.001f,baseline-threshold));
+     value=protected_value+(value-protected_value)*influence;
+    }
+    p.value=value;
+   }
+   for(size_t fan=1;fan+1<polygon.size();++fan){Polygon source={polygon[0],polygon[fan],polygon[fan+1]};
+    const float low=std::min({source[0].value,source[1].value,source[2].value}),high=std::max({source[0].value,source[1].value,source[2].value});
+    const int climate=std::min(6,int(map_value(level.climate,size_t(z)*n+x)));
+    for(int layer=std::max(-8,int(std::floor(low+.5f)));layer<=std::min(16,int(std::floor(high+.5f)));++layer){
+     Polygon band=clip(clip(source,layer-.5f,true),layer+.5f,false);
+     const float y=editor_level_height(config,layer);
+     auto at_height=[&](const Sample& p){return Point{{p.x,layer==0?zero_height(p.x,p.z):y,p.z}};};
+     for(size_t i=1;i+1<band.size();++i){auto a=at_height(band[0]),b=at_height(band[i]),c=at_height(band[i+1]);const int rendered_layer=layer==0&&a[1]==editor_level_height(config,-1)&&b[1]==a[1]&&c[1]==a[1]?-1:layer;
+      writer.triangle(a,b,c,layer==0?unit(cross(sub(b,a),sub(c,a))):Point{{0,1,0}},surface_material_level(rendered_layer,band[0].value),surface_material_level(rendered_layer,band[i].value),surface_material_level(rendered_layer,band[i+1].value),climate,rendered_layer);
+     }
+     const float threshold=layer-.5f;if(low>threshold+1e-6f||high<=threshold+1e-6f)continue;
+     auto upper=clip(source,threshold,true);
+     for(size_t i=0;i<upper.size();++i){auto a=upper[i],b=upper[(i+1)%upper.size()];if(std::abs(a.value-threshold)>1e-5f||std::abs(b.value-threshold)>1e-5f)continue;
+      float lower_a=layer==1?zero_height(a.x,a.z):editor_level_height(config,layer-1),lower_b=layer==1?zero_height(b.x,b.z):editor_level_height(config,layer-1);
+      if(layer==1&&config.underwater_layers_count==0){lower_a=lower_b=std::min(config.water_y-config.layer_height,config.shore_height-config.layer_height);}
+      Point at=at_height(a),bt=at_height(b),ab={{a.x,lower_a,a.z}},bb={{b.x,lower_b,b.z}},normal=unit({{-(b.z-a.z),0,b.x-a.x}});
+      const float top=material_level(layer),bottom=material_level(layer== -8?-8:layer-1,true);
+      writer.triangle(at,ab,bt,normal,top,bottom,top,climate,layer);writer.triangle(bt,ab,bb,normal,top,bottom,bottom,climate,layer);
+     }
+    }
+   }
+  }
+ }
+ return result;
+}
+
 std::vector<terrain_mesh_data> build_editor_grass(const TerrainEditorLevel&level,const terrain_mesh_data&surface){
  EditorChunkMesh result;
  for(size_t i=0;i+2<surface.indices.size();i+=3){const auto&a=surface.vertices.at(surface.indices[i]);const auto&b=surface.vertices.at(surface.indices[i+1]);const auto&c=surface.vertices.at(surface.indices[i+2]);if(a.normal[1]<.99f||b.normal[1]<.99f||c.normal[1]<.99f||a.position[1]<=level.terrain.config.water_y)continue;
@@ -169,6 +248,7 @@ terrain_mesh_data build_editor_rocks(const TerrainEditorLevel&level,float x0,flo
   for(int cz=cz0;cz<=cz1&&flat;++cz)for(int cx=cx0;cx<=cx1;++cx)if(level.terrain.layer_at(cx,cz)!=terrace){flat=false;break;}
   if(!flat)continue;
   bool occupied=false;for(const auto&building:level.buildings)occupied|=point_inside_building(building,x,z,2.f);
+  for(const auto&stairs:level.stairs)occupied|=point_inside_stairs(stairs,x,z,2.f);
   if(occupied)continue;
   if(mesh.vertices.size()+108>60000)throw std::length_error("Rock decoration region exceeds mesh index capacity");
   const float y=editor_level_height(config,terrace)+.002f;

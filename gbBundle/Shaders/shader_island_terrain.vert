@@ -23,6 +23,15 @@ uniform vec4 interaction;
 uniform vec4 foam_shape;
 uniform mat4 view;
 uniform mat4 projection;
+uniform vec4 light_sun;
+uniform vec4 light_ambient;
+uniform vec4 light_shape;
+uniform vec4 light_options;
+uniform vec4 light_material0;
+uniform vec4 light_material1;
+uniform vec4 light_camera;
+uniform vec4 sky_rotation;
+uniform vec4 terrain_lod;
 #if defined(VULKAN_API)
 layout(binding=3) uniform sampler2D sampler_01;
 #else
@@ -39,6 +48,10 @@ vec2 grass_wind(vec2 p,float t,float phase){
 }
 void main(){
  vec3 position=a_position,normal=a_normal.xyz;
+ if(a_tangent.w<-.5&&terrain_lod.y>.5){
+  position.xz+=a_texcoord*terrain_lod.x;
+  if(abs(normal.y)<.01)normal=normalize(mix(normal,vec3(a_tangent.x,0,a_tangent.y),terrain_lod.x));
+ }
  if(a_tangent.z>.5){
   float weight=a_tangent.x*a_tangent.x;
   vec2 wind=grass_wind(a_texcoord,time_level.x,a_tangent.y*91.7);
@@ -61,6 +74,20 @@ void main(){
   position.xz+=wind*weight;
   position.y-=dot(wind,wind)*.18*weight;
   normal=normalize(normal-vec3(wind.x,0,wind.y)*weight*.45);
+  // A fixed 75-degree contact pose, blended by pressure, keeps the root planted.
+  // Preserve the blade width while replacing its rest lean with the push direction.
+  float contact=smoothstep(.04,.35,force)*weight;
+  vec2 direction=push/max(length(push),.0001);
+  vec2 side=normalize(vec2(a_normal.z,-a_normal.x));
+  vec2 width_offset=side*dot(a_position.xz-a_texcoord,side);
+  float height=a_tangent.y,root_y=a_position.y-a_tangent.x*height;
+  const float angle=1.308996939; // 75 degrees from vertical.
+  position.xz=mix(position.xz,a_texcoord+width_offset+direction*height*sin(angle),contact);
+  position.y=mix(position.y,root_y+height*cos(angle),contact);
+  vec3 axis=vec3(direction.y,0,-direction.x);
+  vec3 contact_normal=a_normal.xyz*cos(angle)+cross(axis,a_normal.xyz)*sin(angle)
+                     +axis*dot(axis,a_normal.xyz)*(1.0-cos(angle));
+  normal=normalize(mix(normal,contact_normal,contact));
  }
  else if(a_tangent.w>.5){
   float weight=a_tangent.x*a_tangent.x;
@@ -89,5 +116,5 @@ void main(){
   vec3 rest=a_position;rest.xz-=a_texcoord;
   v_texcoord=abs(a_normal.y)>.5?rest.xz:(abs(a_normal.x)>abs(a_normal.z)?rest.zy:rest.xy);
  }
- v_tangent=vec3(a_tangent.w<-.5?1.0:0.0,a_tangent.w>.5?1.0:0.0,fract(sin(dot(a_texcoord,vec2(127.1,311.7)))*43758.5453));
+ v_tangent=vec3(a_tangent.w<-.5?1.0:0.0,a_tangent.w>.5?1.0:(a_tangent.w>.1?2.0:0.0),fract(sin(dot(a_texcoord,vec2(127.1,311.7)))*43758.5453));
 }

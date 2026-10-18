@@ -15,7 +15,4 @@ namespace game
     }
 
     void island_demo_transition::destroy_scene() { m_scene=nullptr; }
-    glm::ivec2 island_demo_transition::get_ws_technique_size(const std::string& guid,const glm::ivec2& viewport) const {
-        return guid=="ws.sun.near"||guid=="ws.sun.far"?glm::ivec2(2048):viewport;
-    }
 }

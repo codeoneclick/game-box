@@ -16,6 +16,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <cstring>
+#include <stdexcept>
 namespace game { namespace {
 using Mode=gb::ces_shader_uniforms_component::e_shader_uniform_mode;
 class caster_uniforms final:public gb::ces_shader_uniforms_component::shader_uniforms {
@@ -39,7 +40,7 @@ public:
   for(auto key:{"shadow_near","shadow_far"})m_uniforms[key]=std::make_shared<gb::shader_uniform>(gb::e_uniform_type_mat4);
   for(auto key:{"shadow_sun","shadow_params"})m_uniforms[key]=std::make_shared<gb::shader_uniform>(gb::e_uniform_type_vec4);
  }
- void update(const std::array<glm::mat4,2>& m,glm::vec3 sun,bool enabled,int debug){data_={m[0],m[1],glm::vec4(sun,enabled?1.f:0.f),glm::vec4(96.f/2048,800.f/2048,1600.f,float(debug))};set(m[0],"shadow_near");set(m[1],"shadow_far");set(data_.sun,"shadow_sun");set(data_.params,"shadow_params");}
+ void update(const std::array<glm::mat4,2>& m,glm::vec3 sun,bool enabled,int debug,float far_width,float depth_half_extent,const std::array<glm::ivec2,2>& sizes){data_={m[0],m[1],glm::vec4(sun,enabled?1.f:0.f),glm::vec4(96.f/std::min(sizes[0].x,sizes[0].y),far_width/std::min(sizes[1].x,sizes[1].y),depth_half_extent*2.f,float(debug))};set(m[0],"shadow_near");set(m[1],"shadow_far");set(data_.sun,"shadow_sun");set(data_.params,"shadow_params");}
  void* get_values()override{return &data_;}ui32 get_values_size()override{return sizeof(data_);}
 };
 }
@@ -47,26 +48,37 @@ struct ces_sun_shadow_system::implementation {
  struct entry {gb::ces_entity_weak_ptr source;std::array<gb::shape_3d_shared_ptr,2> proxy;std::array<std::shared_ptr<caster_uniforms>,2> uniforms;bool seen=false;};
  gb::scene_fabricator_shared_ptr fabricator;
  std::map<const gb::ces_entity*,entry> entries;
+ std::map<std::string,entry> terrain_entries;
+ std::vector<TerrainShadowCaster> terrain_sources;
  std::shared_ptr<resolve_uniforms> resolve;
  std::array<glm::mat4,2> matrices;
+ std::array<glm::ivec2,2> map_sizes;
  bool enabled=false;
+ float far_width=800.f,depth_half_extent=800.f;
  std::deque<std::pair<int,gb::mesh_3d_shared_ptr>> retired;
  explicit implementation(const gb::scene_fabricator_shared_ptr& f):fabricator(f){}
  void retire(const gb::shape_3d_shared_ptr& p){auto g=p->get_component<gb::ces_geometry_3d_component>();if(auto mesh=g->get_mesh())retired.push_back({12,mesh->as_3d()});g->set_mesh(nullptr);}
 };
-ces_sun_shadow_system::ces_sun_shadow_system(const gb::scene_fabricator_shared_ptr& f):impl_(std::make_shared<implementation>(f)){
+ces_sun_shadow_system::ces_sun_shadow_system(const gb::scene_fabricator_shared_ptr& f,const std::array<glm::ivec2,2>& sizes):impl_(std::make_shared<implementation>(f)){
+ for(const auto& size:sizes)if(size.x<=0||size.y<=0)throw std::invalid_argument("Missing sun shadow map texture");
+ impl_->map_sizes=sizes;
  set_order(6); // All simulation feeds finish before this phase; render ends at 7.
  add_required_component_guid(mask_,gb::ces_transformation_component::class_guid());
  add_required_component_guid(mask_,gb::ces_geometry_component::class_guid());
  add_required_component_guid(mask_,gb::ces_material_component::class_guid());add_required_components_mask(mask_);
 }
 ces_sun_shadow_system::~ces_sun_shadow_system()=default;
+void ces_sun_shadow_system::set_terrain_casters(const std::vector<TerrainShadowCaster>& sources){impl_->terrain_sources=sources;}
+void ces_sun_shadow_system::set_world_dimensions(float world_size){
+ if(!std::isfinite(world_size)||world_size<=0||!std::isfinite(world_size*2.f))throw std::invalid_argument("Invalid shadow world size");
+ impl_->far_width=world_size;impl_->depth_half_extent=std::max(800.f,world_size);
+}
 void ces_sun_shadow_system::initialize(const gb::ces_entity_shared_ptr& root){
  root_=root;
  impl_->resolve=root->get_component<gb::ces_render_technique_uniforms_component>()->construct_uniforms<resolve_uniforms>(gb::ces_render_technique_uniforms_component::e_shader_uniform_type_fragment,"ss.sunshadow");
  const auto d=stylized_lighting_settings().sun_direction();glm::vec3 sun(d[0],d[1],d[2]);
- const std::array<glm::mat4,2> m={{make_sun_shadow_matrix(sun,glm::vec3(0,6,0),96,2048),make_sun_shadow_matrix(sun,glm::vec3(0,8,0),800,2048)}};
- impl_->resolve->update(m,sun,false,0);
+ const std::array<glm::mat4,2> m={{make_sun_shadow_matrix(sun,glm::vec3(0,6,0),96,impl_->map_sizes[0],impl_->depth_half_extent),make_sun_shadow_matrix(sun,glm::vec3(0,8,0),impl_->far_width,impl_->map_sizes[1],impl_->depth_half_extent)}};
+ impl_->resolve->update(m,sun,false,0,impl_->far_width,impl_->depth_half_extent,impl_->map_sizes);
 }
 void ces_sun_shadow_system::on_feed(const gb::ces_entity_shared_ptr& root,f32){
  root_=root;auto camera=get_current_camera_3d();if(!camera)return;
@@ -74,21 +86,37 @@ void ces_sun_shadow_system::on_feed(const gb::ces_entity_shared_ptr& root,f32){
  if(!s.resolve)initialize(root);
  const auto d=stylized_lighting_settings().sun_direction();const glm::vec3 sun(d[0],d[1],d[2]);
  const char* setting=std::getenv("GB_SUN_SHADOWS");bool enabled=(!setting||std::string(setting)!="0")&&sun.y>.015f;
- s.matrices={{make_sun_shadow_matrix(sun,camera->get_look_at(),96,2048),make_sun_shadow_matrix(sun,glm::vec3(0,8,0),800,2048)}};s.enabled=enabled;
+ s.matrices={{make_sun_shadow_matrix(sun,camera->get_look_at(),96,s.map_sizes[0],impl_->depth_half_extent),make_sun_shadow_matrix(sun,glm::vec3(0,8,0),impl_->far_width,s.map_sizes[1],impl_->depth_half_extent)}};s.enabled=enabled;
  int debug=std::getenv("GB_SUN_SHADOW_DEBUG")?std::atoi(std::getenv("GB_SUN_SHADOW_DEBUG")):0;
  // The renderer COPIES scalar/matrix SS uniforms during its feed at order 7.
  // Publish here, not in end: maps and receivers must use this same-frame matrix.
- s.resolve->update(s.matrices,sun,enabled,debug);
+ s.resolve->update(s.matrices,sun,enabled,debug,s.far_width,s.depth_half_extent,s.map_sizes);
 }
 void ces_sun_shadow_system::on_feed_end(f32){
  auto root=root_.lock();if(!root)return;auto& s=*impl_;
  const auto& matrices=s.matrices;const bool enabled=s.enabled;
  for(auto& r:s.retired)--r.first;while(!s.retired.empty()&&s.retired.front().first<=0)s.retired.pop_front();
  for(auto& item:s.entries)item.second.seen=false;
+ for(auto& item:s.terrain_entries)item.second.seen=false;
+ for(const auto& source:s.terrain_sources){
+  if(source.levels.empty())continue;auto found=s.terrain_entries.find(source.id);
+  if(found==s.terrain_entries.end()){
+   implementation::entry entry;for(int i=0;i<2;++i){auto proxy=s.fabricator->create_shape_3d(i==0?"sun_shadow.rigid.near.xml":"sun_shadow.rigid.far.xml","plane");proxy->tag="sun.terrain.caster";proxy->get_component<gb::ces_geometry_3d_component>()->bounding_mode=gb::ces_geometry_component::e_none;
+    entry.uniforms[i]=proxy->add_component<gb::ces_shader_uniforms_component>()->construct_uniforms_buffer<caster_uniforms>(Mode::e_vertex,"sun.caster",3);entry.proxy[i]=proxy;root->add_child(proxy);}
+   found=s.terrain_entries.emplace(source.id,std::move(entry)).first;
+  }
+  auto& entry=found->second;entry.seen=true;
+  for(int i=0;i<2;++i){const float texel=(i==0?96.f:s.far_width)/std::max(s.map_sizes[i].x,s.map_sizes[i].y);size_t level=0;for(size_t j=0;j<source.levels.size();++j)if(source.levels[j].second<=texel)level=j;
+   auto mesh=source.levels[level].first;auto proxy=entry.proxy[i];auto geometry=proxy->get_component<gb::ces_geometry_3d_component>();if(geometry->get_mesh()!=mesh){s.retire(proxy);geometry->set_mesh(mesh);}
+   entry.uniforms[i]->update(matrices[i],0,0);const bool draw=enabled&&mesh&&sun_shadow_bounds_visible(matrices[i],glm::mat4(1),mesh->get_min_bound(),mesh->get_max_bound());proxy->visible=draw;proxy->visible_in_next_frame=draw;
+  }
+ }
+ for(auto it=s.terrain_entries.begin();it!=s.terrain_entries.end();)if(!it->second.seen){for(auto p:it->second.proxy){s.retire(p);root->remove_child(p);}it=s.terrain_entries.erase(it);}else ++it;
  // Collect first: attaching proxies must not mutate the feeder query being iterated.
  std::vector<gb::ces_entity_shared_ptr> sources;
  enumerate_entities_with_components(mask_,[&](const gb::ces_entity_shared_ptr& e){if(e->get_component<gb::ces_material_component>()->get_material("ws.base"))sources.push_back(e);});
  for(auto& source:sources){
+  const std::string managed_tag=source->tag;if(managed_tag.find("island.terrain.lod.main.")==0)continue;
   auto material=source->get_component<gb::ces_material_component>()->get_material("ws.base");auto shader=material->get_shader();if(!shader)continue;
   const auto guid=shader->get_guid();const bool skin=guid.find("shader_island_resident")!=std::string::npos;
   const bool building=guid.find("shader_editor_building")!=std::string::npos;

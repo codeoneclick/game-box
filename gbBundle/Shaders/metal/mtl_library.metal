@@ -59,6 +59,10 @@ vertex common_v_output_t vertex_shader_island_terrain(common_v_input_t in [[stag
     common_v_output_t out;
     float4 position = float4(in.position, 1.0);
     float3 normal=in.normal.xyz;
+    if(in.tangent.w<-.5&&u.terrain_lod.y>.5){
+        position.xz+=float2(in.texcoord)*u.terrain_lod.x;
+        if(abs(normal.y)<.01)normal=normalize(mix(normal,float3(in.tangent.x,0,in.tangent.y),u.terrain_lod.x));
+    }
     if(in.tangent.z>.5){
         float weight=in.tangent.x*in.tangent.x;
         float2 wind=grass_wind(float2(in.texcoord),u.time_level.x,in.tangent.y*91.7);
@@ -73,6 +77,19 @@ vertex common_v_output_t vertex_shader_island_terrain(common_v_input_t in [[stag
         position.xz+=wind*weight;
         position.y-=dot(wind,wind)*.18*weight;
         normal=normalize(normal-float3(wind.x,0,wind.y)*weight*.45);
+        // Match GLSL: a planted root and a 75-degree pose under strong contact.
+        float contact=smoothstep(.04,.35,force)*weight;
+        float2 direction=push/max(length(push),.0001);
+        float2 side=normalize(float2(in.normal.z,-in.normal.x));
+        float2 width_offset=side*dot(float2(in.position.xz)-float2(in.texcoord),side);
+        float height=in.tangent.y,root_y=in.position.y-in.tangent.x*height;
+        const float angle=1.308996939;
+        position.xz=mix(position.xz,float2(in.texcoord)+width_offset+direction*height*sin(angle),contact);
+        position.y=mix(position.y,root_y+height*cos(angle),contact);
+        float3 axis=float3(direction.y,0,-direction.x);
+        float3 contact_normal=in.normal.xyz*cos(angle)+cross(axis,in.normal.xyz)*sin(angle)
+                             +axis*dot(axis,in.normal.xyz)*(1.0-cos(angle));
+        normal=normalize(mix(normal,contact_normal,contact));
     }
     else if(in.tangent.w>.5){
         float weight=in.tangent.x*in.tangent.x;
@@ -95,7 +112,7 @@ vertex common_v_output_t vertex_shader_island_terrain(common_v_input_t in [[stag
         float3 rest=in.position;rest.xz-=in.texcoord;
         out.texcoord=abs(in.normal.y)>.5?rest.xz:(abs(in.normal.x)>abs(in.normal.z)?rest.zy:rest.xy);
     }
-    out.tangent = float3(in.tangent.w<-.5?1.0:0.0, in.tangent.w>.5?1.0:0.0, fract(sin(dot(float2(in.texcoord),float2(127.1,311.7)))*43758.5453));
+    out.tangent = float3(in.tangent.w<-.5?1.0:0.0, in.tangent.w>.5?1.0:(in.tangent.w>.1?2.0:0.0), fract(sin(dot(float2(in.texcoord),float2(127.1,311.7)))*43758.5453));
     out.bitangent = cross(out.normal, out.tangent);
     return out;
 }
@@ -178,11 +195,18 @@ fragment g_buffer_output_t fragment_shader_island_terrain(common_v_output_t in [
     bool terrain=in.tangent.x>.5;
     float terrace=floor(in.color.a+.5)-11.0,material=terrain_material(terrace);
     float3 base_color=terrain?terrain_texture(terrain_atlas,p,normal,terrace,material,u.extra.z,u.extra.w):float3(in.color.rgb);
-    if(in.tangent.y>.5)base_color=tree_pixel_color(base_color,in.texcoord);
+    if(in.tangent.y>1.5){
+        float2 pixels=in.texcoord*5.0,footprint=abs(dfdx(pixels))+abs(dfdy(pixels));
+        float2 uv=(fmod(fmod(floor(pixels),float2(8.0))+8.0,float2(8.0))+.5)/8.0;
+        float3 stone=terrain_texel(terrain_atlas,0.0,0.0,uv,0.0);
+        float grain=clamp(dot(stone,float3(.2126,.7152,.0722))/.6,.65,1.2);
+        base_color*=mix(grain,.9,smoothstep(.5,2.0,max(footprint.x,footprint.y)));
+    }else if(in.tangent.y>.5)base_color=tree_pixel_color(base_color,in.texcoord);
     if(in.color.a>.49&&in.color.a<.51)base_color=grass_pixel_color(base_color,in.texcoord);
     float3 l=normalize(u.sun.xyz),v=normalize(u.camera.xyz-p);
     float grass=in.color.a>.49&&in.color.a<.51?1.0:0.0,leaves=in.tangent.y>.5&&base_color.g>max(base_color.r,base_color.b)?1.0:0.0;
     float strength=base_color.r>base_color.b*1.25&&base_color.r>base_color.g*1.1?u.light_material0.y:u.light_material0.z;
+    if(in.tangent.y>1.5)strength=u.light_material0.z;
     strength=mix(strength,u.light_material0.x,grass);strength=mix(strength,u.light_material0.w,leaves);
     float vegetation=max(grass,leaves);
     if(terrain){
@@ -191,10 +215,15 @@ fragment g_buffer_output_t fragment_shader_island_terrain(common_v_output_t in [
     }
     float3 color=u.light_shape.z<.5?base_color*mix(float3(.32,.38,.50),cel_light(dot(normal,l)),u.light_options.w):island_soft_light(base_color,normal,l,v,strength,vegetation,u.light_sun,u.light_ambient,u.light_shape,u.light_options,u.light_material1);
     color*=mix(1.0,.64,wet);
-    if(submerged>0.0){float caustics=ocean_caustic_pattern(p.xz*u.caustic_params.x,u)*max(normal.y,.12)+ocean_caustic_pattern(float2(p.x+p.z,p.y)*u.caustic_params.x,u)*(1.0-abs(normal.y))*.4;color+=float3(.36,.54,.39)*caustics*u.caustic_params.z*exp(-submerged*u.caustic_params.w);}
+    if(submerged>0.0&&u.caustic_params.z>0.0){float caustics=ocean_caustic_pattern(p.xz*u.caustic_params.x,u)*max(normal.y,.12)+ocean_caustic_pattern(float2(p.x+p.z,p.y)*u.caustic_params.x,u)*(1.0-abs(normal.y))*.4;color+=float3(.36,.54,.39)*caustics*u.caustic_params.z*exp(-submerged*u.caustic_params.w);}
     float3 half_direction=v+l,h=half_direction/max(length(half_direction),.0001);
     if(u.light_shape.z<.5)color+=wet*.2*u.light_options.w*smoothstep(.94,.955,max(dot(normal,h),0.0))*float3(1,.94,.82);
     else color+=wet*.2*pow(max(dot(normal,h),0.0),u.light_material1.z)*max(dot(normal,l),0.0)*u.light_sun.rgb*u.light_sun.a*u.light_shape.w*u.light_options.y;
+    if(terrain&&u.terrain_lod.z>.5){
+        float r=clamp(u.terrain_lod.w,0.0,1.0);
+        color=r<.5?mix(float3(.05,.85,.12),float3(1,.85,.05),r*2):mix(float3(1,.85,.05),float3(1,.08,.03),(r-.5)*2);
+        if(u.terrain_lod.z>3.5)color=float3(.12,.18,.2);else if(u.terrain_lod.z>2.5)color=float3(r,.2,1-r);
+    }
     out.color = half4(half3(color),1);
     out.normal = float4(normal*.5+.5, in.color.a>=2.0?floor(in.color.a+.5):in.color.a);
     out.position = in.view_space_position;
@@ -222,9 +251,11 @@ vertex common_v_output_t vertex_shader_island_sky(common_v_input_t in [[stage_in
  out.normal=transpose(rotation)*ray;return out;
 }
 fragment g_buffer_output_t fragment_shader_island_sky(common_v_output_t in [[stage_in]],constant ocean_uniforms& u [[buffer(0)]],texturecube<float> sky [[texture(1)]]){
- g_buffer_output_t out;float3 c=sky.sample(linear_sampler,normalize(in.normal)).rgb;
+ g_buffer_output_t out;float3 lookup=normalize(in.normal);
+ lookup.xz=float2(u.sky_rotation.x*lookup.x-u.sky_rotation.y*lookup.z,u.sky_rotation.y*lookup.x+u.sky_rotation.x*lookup.z);
+ float3 c=sky.sample(linear_sampler,lookup).rgb;
  c=mix(c/12.92,pow((c+.055)/1.055,float3(2.4)),step(float3(.04045),c));
- out.color=half4(half3(island_sky_color(in.normal,normalize(u.sun.xyz))+c*.001),1);out.normal=half4(0);out.position=float4(0);return out;
+ out.color=half4(half3(c),1);out.normal=half4(0);out.position=float4(0);return out;
 }
 
 half4 blur_texture(texture2d<half> texture,

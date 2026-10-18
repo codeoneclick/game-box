@@ -200,6 +200,7 @@ namespace gb
         std::shared_ptr<material_cached_parameters> m_parameters;
         
         std::string m_guid;
+        bool m_wireframe = false;
         
         static std::shared_ptr<material_cached_parameters> m_cached_parameters;
         
@@ -256,6 +257,10 @@ namespace gb
                                  const resource_accessor_shared_ptr& resource_accessor, bool force = false);
         
         std::string get_technique_name() const;
+        // Runtime debug rasterization; does not alter shadow/depth materials.
+        static bool supports_wireframe();
+        void set_wireframe(bool enabled);
+
         
         bool is_culling() const;
         ui32 get_culling_mode() const;

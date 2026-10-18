@@ -10,6 +10,7 @@ namespace game {
 // or resource ownership lives here. Materials share one sun and ambient fill.
 struct StylizedLightingSettings {
     int mode = 1; // 0: legacy Cel comparison, 1: StylizedSoft.
+    float skyboxRotation=0.f; // Degrees around world Y; independent of solar time.
     float timeOfDay=10.f; // Manual solar time; 0h and 24h are the same position.
     std::array<float,3> sunColor = {{1.f,.94f,.84f}};
     std::array<float,3> ambientColor = {{.55f,.68f,.82f}};
@@ -37,6 +38,7 @@ struct StylizedLightingSettings {
         auto range=[](float& value,float lo,float hi,float fallback){value=std::isfinite(value)?std::max(lo,std::min(hi,value)):fallback;};
         mode=mode==0?0:1;
         range(timeOfDay,0,24,d.timeOfDay);
+        range(skyboxRotation,0,360,d.skyboxRotation);
         for(size_t i=0;i<3;++i){range(sunColor[i],0,2,d.sunColor[i]);range(ambientColor[i],0,2,d.ambientColor[i]);}
         range(sunIntensity,0,3,d.sunIntensity);range(ambientStrength,0,1,d.ambientStrength);
         range(wrapAmount,.2f,.5f,d.wrapAmount);range(diffusePower,.4f,2,d.diffusePower);
@@ -48,11 +50,12 @@ struct StylizedLightingSettings {
         range(specularPower,16,32,d.specularPower);
     }
 };
-inline StylizedLightingSettings lighting_settings_from_environment(){
+inline StylizedLightingSettings lighting_settings_from_environment(const StylizedLightingSettings* saved=nullptr){
     auto s=StylizedLightingSettings::sunset(); // Reference island presentation.
 #if defined(__IOS__) || defined(__TVOS__)
     s=StylizedLightingSettings::mobile();
 #endif
+    if(saved)s=*saved;
     if(const char* p=std::getenv("GB_LIGHTING_PRESET")){
         const std::string preset(p);
         if(preset=="StylizedSunsetIsland"||preset=="sunset")s=StylizedLightingSettings::sunset();

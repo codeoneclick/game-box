@@ -30,6 +30,8 @@ namespace gb
         std::string m_name;
         ui32 m_order;
         std::vector<texture_shared_ptr> m_color_attachments_texture;
+        bool m_is_enabled = true;
+        material_shared_ptr m_bypass_material;
 
 #if USED_GRAPHICS_API == VULKAN_API
 
@@ -58,6 +60,11 @@ namespace gb
         ui32 get_frame_height() const;
         
         std::string get_name() const;
+
+        virtual void set_enabled(bool value);
+        bool get_is_enabled() const;
+        void set_bypass_material(const material_shared_ptr& material);
+        material_shared_ptr get_bypass_material() const;
         
         void set_clear_color(const glm::vec4& color);
         

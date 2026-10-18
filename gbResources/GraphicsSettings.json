@@ -1,0 +1,46 @@
+{
+   "lighting" : {
+      "ambientColor" : [ 0.62000000476837158, 0.6600000262260437, 0.85000002384185791 ],
+      "ambientStrength" : 0.47999998927116394,
+      "diffusePower" : 1.0523077249526978,
+      "enableStylizedSpecular" : true,
+      "enableVegetationBacklight" : true,
+      "globalSpecularMultiplier" : 1,
+      "mode" : 1,
+      "skyboxRotation" : 184.00001525878906,
+      "sunColor" : [ 1, 0.70999997854232788, 0.43000000715255737 ],
+      "sunIntensity" : 1.25,
+      "timeOfDay" : 17.19999885559082,
+      "vegetationBacklightStrength" : 0.079999998211860657,
+      "wrapAmount" : 0.40000000596046448
+   },
+   "postProcess" : {
+      "contrast" : 1.0499999523162842,
+      "debugView" : 0,
+      "enableColorGrading" : true,
+      "enableFog" : false,
+      "enableSSAO" : true,
+      "enableToneMapping" : true,
+      "enableWaterReflection" : true,
+      "enableWaterRefraction" : true,
+      "enableWaterCaustics" : true,
+      "waterReflectionIntensity" : 1,
+      "waterRefractionIntensity" : 1,
+      "waterCausticsIntensity" : 1,
+      "exposure" : 0.15000000596046448,
+      "fogStrength" : 0.079999998211860657,
+      "saturation" : 0.95999997854232788,
+      "ssaoIntensity" : 2.2874999046325684
+   },
+   "renderPasses" : {},
+   "terrainLOD" : {
+      "contourSimplificationPercent" : 90,
+      "debugMode" : 0,
+      "farErrorPx" : 5,
+      "lodCount" : 6,
+      "nearErrorPx" : 0.5,
+      "normalErrorPx" : 1.5,
+      "wireframe" : false
+   },
+   "version" : 1
+}

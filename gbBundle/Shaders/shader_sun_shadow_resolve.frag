@@ -14,12 +14,13 @@ float sun_pcf(int cascade,vec3 world,vec3 normal){
  if(any(lessThan(uv,vec2(.002)))||any(greaterThan(uv,vec2(.998)))||abs(p.z)>=1.0)return 0.0;
  float bias=(.012+texel*.5*(1.0-max(dot(normal,shadow_sun.xyz),0.0)))/shadow_params.z;
  float depth=p.z*.5+.5-bias;
- ivec2 size=textureSize(sampler_04,0);
+ ivec2 size=cascade==0?textureSize(sampler_04,0):textureSize(sampler_05,0);
  vec3 right=normalize(vec3(matrix[0][0],matrix[1][0],matrix[2][0]));
  vec3 up=normalize(vec3(matrix[0][1],matrix[1][1],matrix[2][1]));
  float facing=dot(normal,shadow_sun.xyz);
  if(facing<=.025)return 0.0;
- vec2 slope=vec2(dot(normal,right),-dot(normal,up))*(texel*float(size.x))/(facing*shadow_params.z);
+ float world_width=2.0/length(vec3(matrix[0][0],matrix[1][0],matrix[2][0]));
+ vec2 slope=vec2(dot(normal,right),-dot(normal,up))*world_width/(facing*shadow_params.z);
 #if !defined(VULKAN_API)
  slope.y=-slope.y;
 #endif
@@ -42,6 +43,14 @@ void main(){
  if(shadow_params.w==2.0||shadow_params.w==3.0){vec3 d=shadow_params.w==2.0?texture2D(sampler_04,v_texcoord).rgb:texture2D(sampler_05,v_texcoord).rgb;attachment_01=vec4(vec3(shadow_depth(d)),0);return;}
  if(shadow_sun.w<.5||geometry.w<=0.0||normal.w<=0.0||water>.99){attachment_01=color;return;}
  vec3 n=normalize(normal.xyz*2.0-1.0);
+ // Receiver-plane depth needs the geometric plane. The SNORM8 shading normal
+ // tilts an axis-aligned top by ~0.6 degrees, amplifying PCF error at low sun.
+ vec3 plane=cross(dFdx(geometry.xyz),dFdy(geometry.xyz));
+ float plane_length=length(plane);
+ if(plane_length>1.e-8){
+  plane/=plane_length;plane*=dot(plane,n)<0.0?-1.0:1.0;
+  if(dot(plane,n)>.9)n=plane; // Keep shading normals at silhouettes/discontinuities.
+ }
  vec3 near_clip=(shadow_near*vec4(geometry.xyz,1)).xyz;
  float edge=max(abs(near_clip.x),abs(near_clip.y));
  float blend=smoothstep(.72,.94,edge);

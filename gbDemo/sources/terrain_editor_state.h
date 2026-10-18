@@ -1,5 +1,6 @@
 #pragma once
 #include "building_placement.h"
+#include "stairs.h"
 #include "terrain_data.h"
 #include <functional>
 #include <map>
@@ -12,6 +13,7 @@ enum class TerrainEditorTool {
   Terrain = 0,
   Grass = 1,
   Trees = 2,
+  Stairs = 3,
   Buildings = 4
 };
 enum class GrassType { Green, Dry, Snow };
@@ -46,13 +48,17 @@ struct TerrainEditorLevel {
   std::vector<uint8_t> terrain_remeshed, grass_remeshed;
   std::vector<EditorTree> trees;
   std::vector<EditorBuilding> buildings;
+  std::vector<EditorStairs> stairs;
+  uint32_t next_stairs_id = 1;
   uint32_t next_building_id = 1;
   uint32_t next_tree_id = 1;
 };
 struct TerrainEditorDirty {
   int x0 = 0, z0 = 0, x1 = -1, z1 = -1;
   bool terrain = false, grass = false, trees = false, climate = false,
-       buildings = false;
+       buildings = false, stairs = false;
+  bool lod = false; // Derived render publication only; never edits logical cells.
+  bool lod_all = false; // Settings changes invalidate all render groups only.
   bool empty() const { return x1 < x0 || z1 < z0; }
 };
 struct EditorCellValue {
@@ -72,6 +78,8 @@ struct EditorBuildingChange {
   EditorBuilding before, after;
 };
 struct TerrainEditCommand {
+  struct StairsChange {bool had_before=false,has_after=false;EditorStairs before,after;};
+  std::vector<StairsChange> stairs;
   std::vector<EditorBuildingChange> buildings;
   std::vector<EditorCellChange> cells;
   std::vector<EditorTreeChange> trees;
@@ -120,6 +128,8 @@ public:
   bool place_tree(float x, float z, bool erase = false);
   bool can_place_building(float x, float z) const;
   bool place_building(float x, float z, bool erase = false);
+  bool stairs_preview(float x,float z,EditorStairs& candidate) const;
+  bool place_stairs(float x,float z,bool erase=false);
   void rotate_building(float delta_radians);
   void set_building_rotation_degrees(float degrees);
   void set_building_rotation_snap(int degrees);

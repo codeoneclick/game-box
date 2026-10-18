@@ -40,6 +40,11 @@ namespace game
         }
     }
 
+    float terrain_generator::coast_radius(const terrain_config& config,float angle)
+    {
+        const float p1=phase(config.seed,1),p2=phase(config.seed,2),p3=phase(config.seed,3);
+        return config.island_size*(.405f+.047f*std::sin(3.f*angle+p1)+.025f*std::sin(5.f*angle+p2)+.022f*std::cos(2.f*angle+p3));
+    }
     terrain_data terrain_generator::generate(const terrain_config& config)
     {
         config.validate();

@@ -3,6 +3,7 @@
     <ws_techniques>
         <ws_technique filename="ws.technique.grass_interaction.xml"/>
         <ws_technique filename="ws.technique.island_ui.xml"/>
+        <ws_technique filename="ws.technique.render_debug.xml"/>
 <ws_technique filename="ws.technique.water_mask.xml"/>
 <ws_technique filename="ws.technique.water_seed.xml"/>
 <ws_technique filename="ws.technique.water_jfa0.xml"/>
@@ -20,10 +21,9 @@
 
         <ws_technique filename="ws.technique.sun.near.xml"/><ws_technique filename="ws.technique.sun.far.xml"/>
         <ws_technique filename="ws.technique.island_demo.xml"/>
-    <ws_technique filename="ws.technique.blob_shadow.xml"/><ws_technique filename="ws.technique.ocean.xml"/><ws_technique filename="ws.technique.ocean_foam.xml"/></ws_techniques>
+    <ws_technique filename="ws.technique.ocean.xml"/><ws_technique filename="ws.technique.ocean_foam.xml"/></ws_techniques>
     <ss_techniques>
         <ss_technique filename="ss.technique.ao.xml"/>
-        <ss_technique filename="ss.technique.ao_blur.xml"/>
         <ss_technique filename="ss.technique.ocean_compose.xml"/>
         <ss_technique filename="ss.technique.sun_shadow.xml"/>
         <ss_technique filename="ss.technique.stylized_final.xml"/>

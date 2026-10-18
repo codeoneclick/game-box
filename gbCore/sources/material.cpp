@@ -567,6 +567,35 @@ namespace gb
     {
         
     }
+
+    bool material::supports_wireframe()
+    {
+#if USED_GRAPHICS_API == VULKAN_API
+        // vk_device enables the supported VkPhysicalDeviceFeatures at creation.
+        static const bool supported = []() {
+            VkPhysicalDeviceFeatures features = {};
+            vkGetPhysicalDeviceFeatures(vk_device::get_instance()->get_physical_device(), &features);
+            return features.fillModeNonSolid == VK_TRUE;
+        }();
+        return supported;
+#elif USED_GRAPHICS_API == METAL_API
+        return true;
+#else
+        // The legacy GL paths include GLES, which has no polygon line mode.
+        return false;
+#endif
+    }
+
+    void material::set_wireframe(bool enabled)
+    {
+        enabled = enabled && supports_wireframe();
+        if (m_wireframe == enabled) return;
+        m_wireframe = enabled;
+#if USED_GRAPHICS_API == VULKAN_API
+        // Pipelines are owned by vk_device's cache; retain both immutable modes.
+        m_is_pipeline_constructed = false;
+#endif
+    }
     
     material_shared_ptr material::construct(const std::shared_ptr<material_configuration> &configuration)
     {
@@ -1387,6 +1416,7 @@ namespace gb
         m_render_encoder->bind(m_parameters->get_technique_name());
         m_render_encoder->set_render_pipeline_state(m_render_pipeline_state);
         m_render_encoder->set_depth_stencil_state(m_depth_stencil_state);
+        m_render_encoder->set_wireframe(m_wireframe);
         
 #endif
         
@@ -1579,7 +1609,7 @@ namespace gb
 		{
 			cull_mode = m_parameters->get_culling_mode() == gl::constant::front ? VK_CULL_MODE_FRONT_BIT : VK_CULL_MODE_BACK_BIT;
 		}
-		m_rasterization_state = vk_initializers::pipeline_rasterization_state_create_info(VK_POLYGON_MODE_FILL, cull_mode, VK_FRONT_FACE_CLOCKWISE, 0);
+		m_rasterization_state = vk_initializers::pipeline_rasterization_state_create_info(m_wireframe ? VK_POLYGON_MODE_LINE : VK_POLYGON_MODE_FILL, cull_mode, VK_FRONT_FACE_CLOCKWISE, 0);
 
 		VkColorComponentFlags color_write_mask = 0;
 		color_write_mask |= m_parameters->get_is_color_mask_r() ? VK_COLOR_COMPONENT_R_BIT : 0;

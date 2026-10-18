@@ -7,6 +7,10 @@ namespace game
 {
     void ocean_settings::validate() const
     {
+        if(!std::isfinite(interaction_size)||interaction_size<=0||
+           !std::isfinite(interaction_resolution)||interaction_resolution<1||
+           !std::isfinite(water_detail_radius)||water_detail_radius<=0||!std::isfinite(water_detail_radius*3.125f))
+            throw std::invalid_argument("Invalid ocean field dimensions");
         if(!std::isfinite(mean_level)) throw std::invalid_argument("Nonfinite ocean level");
         if(!std::isfinite(sun_direction.x)||!std::isfinite(sun_direction.y)||!std::isfinite(sun_direction.z)||
             sun_direction.x*sun_direction.x+sun_direction.y*sun_direction.y+sun_direction.z*sun_direction.z<.0001f)

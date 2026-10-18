@@ -130,11 +130,24 @@ for index in range(16):
         for pts,c in [([(13,80),(17,42),(33,59),(29,25),(49,58),(62,18),(58,60),(82,38),(72,80)],'#a8cf24'), ([(25,80),(38,50),(45,78),(51,38),(62,80)],'#c8de34')]: d.polygon(pts,fill=c)
     elif index == 6: tree(d,1)
     elif index == 7:
-        d.ellipse((17,15,55,53),fill='#ffd52b')
-        for a in range(8):
-            ang=a*math.pi/4;d.line([(36+24*math.cos(ang),34+24*math.sin(ang)),(36+31*math.cos(ang),34+31*math.sin(ang))],fill='#ffd52b',width=3)
-        for box in [(35,46,62,76),(53,38,77,69),(56,51,87,76)]:d.ellipse(box,fill='#59d2ef')
-        d.rectangle((43,60,75,76),fill='#59d2ef')
+        # Broad pale stone treads, with native isometric shaded slab faces.
+        # Reuse the retired Climate glyph without shifting any palette tiles.
+        def project(x, y, z):
+            return (48 + 5 * (x - z + 3.3),
+                    75 + 2.5 * (x + z - 3.3) - 10 * y)
+        for step in range(5, -1, -1):
+            z0, z1 = step * 1.1, (step + 1) * 1.1
+            top = (step + 1) * .65
+            a, b = project(-3, top, z0), project(3, top, z0)
+            c, e = project(3, top, z1), project(-3, top, z1)
+            bottom_a, bottom_b = project(-3, 0, z0), project(3, 0, z0)
+            bottom_c = project(3, 0, z1)
+            d.polygon([b, c, bottom_c, bottom_b], fill='#858b8d')
+            d.polygon([a, b, bottom_b, bottom_a], fill='#afb4b4')
+            d.polygon([a, b, c, e], fill='#e1e3df')
+            d.line([a, b, c], fill='#f3f3ed', width=1)
+            d.line([project(0, top, z0), project(0, top, z1)],
+                   fill='#bdc2c0', width=1)
     elif index < 12: voxel_tree(d,index-8)
     elif index == 12:
         # A baked soft halo stays one sprite draw in the UI.

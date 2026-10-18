@@ -55,16 +55,22 @@ void ces_island_resident_system::apply_navigation(std::vector<resident_navigatio
     refresh_residents(std::vector<uint8_t>(m_navigations.size(),1));
 }
 void ces_island_resident_system::refresh_residents(const std::vector<uint8_t>& changed){
+    m_stair_links=build_resident_stair_links(m_stairs,m_stairs_config,m_navigations);
     using region_ptr=std::shared_ptr<const std::vector<resident_point>>;
     std::vector<std::vector<region_ptr>> regions(m_navigations.size());
     for(size_t i=0;i<changed.size();++i)if(changed[i])regions[i].resize(m_navigations[i].walkable.size());
     enumerate_entities_with_components(m_mask,[&](const gb::ces_entity_shared_ptr& entity){
         auto resident=entity->get_component<ces_island_resident_component>();
         size_t index=resident->terrace_index;
+        // Navigation updates invalidate approaches. Active flights retain their
+        // continuous trajectory and retreat to a surviving landing.
+        rebind_resident_stairs(m_navigations,{},index,resident->state);
+        if(resident->state.stair_transit)return;
         if(index>=changed.size()||!changed[index])return;
         auto& state=resident->state;const auto& nav=m_navigations[index];
         state.route.clear();state.route_index=0;state.reachable.clear();state.shared_reachable.reset();
         state.walking=false;state.idle_remaining=2.f;
+        state.elevation=nav.shore_y;
         state.available=nav.is_safe(state.position);
         if(!state.available){
             float nearest=std::numeric_limits<float>::max();
@@ -91,19 +97,27 @@ void ces_island_resident_system::refresh_residents(const std::vector<uint8_t>& c
         transform->set_position(glm::vec3(state.position.x,nav.shore_y,state.position.z));
     });
 }
+void ces_island_resident_system::apply_stairs(const std::vector<EditorStairs>& stairs,const terrain_config& config){
+    m_stairs=stairs;m_stairs_config=config;
+    m_stair_links=build_resident_stair_links(m_stairs,m_stairs_config,m_navigations);
+    if(m_debug)std::cout<<"Resident stair links="<<m_stair_links.size()<<" flights="<<m_stairs.size()<<std::endl;
+    enumerate_entities_with_components(m_mask,[&](const gb::ces_entity_shared_ptr& entity){
+        auto resident=entity->get_component<ces_island_resident_component>();
+        rebind_resident_stairs(m_navigations,m_stair_links,resident->terrace_index,resident->state);
+    });
+}
 void ces_island_resident_system::on_feed_start(f32 dt){
     enumerate_entities_with_components(m_mask,[&](const gb::ces_entity_shared_ptr& entity){
         auto resident=entity->get_component<ces_island_resident_component>();auto& state=resident->state;
         if(resident->terrace_index>=m_navigations.size()){state.available=false;state.walking=false;entity->visible=false;return;}
-        const auto& navigation=m_navigations[resident->terrace_index];
         const auto previous=state.position;
         if(!state.available){entity->visible=false;return;}
-        if(m_fixed_pose.empty())step_resident(navigation,dt,state);
-        else {state.available=navigation.is_safe(state.position);state.walking=state.available&&m_fixed_pose=="walk";}
+        if(m_fixed_pose.empty())step_resident_with_stairs(m_navigations,m_stair_links,dt,resident->terrace_index,state);
+        else {const auto& navigation=m_navigations[resident->terrace_index];state.elevation=navigation.shore_y;state.available=navigation.is_safe(state.position);state.walking=state.available&&m_fixed_pose=="walk";}
         entity->visible=state.available;
         if(!state.available)return;
         auto transform=entity->get_component<gb::ces_transformation_3d_component>();
-        const glm::vec3 position(state.position.x,navigation.shore_y,state.position.z);
+        const glm::vec3 position(state.position.x,state.elevation,state.position.z);
         if (transform->get_position()!=position) transform->set_position(position);
         // Navigation uses radians; the engine's legacy GLM transform uses degrees.
         const glm::vec3 rotation(0,glm::degrees(state.yaw),0);
@@ -137,7 +151,7 @@ void ces_island_resident_system::on_feed(const gb::ces_entity_shared_ptr&,f32 dt
         const auto& navigation=m_navigations[resident->terrace_index];
         if(report){++counts[resident->terrace_index];walkers+=resident->state.walking?1:0;
             auto transform=entity->get_component<gb::ces_transformation_3d_component>();
-            if(!resident->state.available||!navigation.is_safe(resident->state.position)||std::abs(transform->get_position().y-navigation.shore_y)>.001f)++unsafe;
+            if(!resident->state.available||(!resident->state.stair_transit&&!navigation.is_safe(resident->state.position))||std::abs(transform->get_position().y-resident->state.elevation)>.001f)++unsafe;
         }
         auto mixer=entity->get_component<gb::ces_animation_3d_mixer_component>();
         auto uniforms=entity->get_component<gb::ces_shader_uniforms_component>();
@@ -156,7 +170,7 @@ void ces_island_resident_system::on_feed(const gb::ces_entity_shared_ptr&,f32 dt
         entity->get_component<gb::ces_material_component>()->get_material("ws.base")->set_custom_shader_uniform(static_cast<glm::mat4*>(bones->get_values()),64,"u_bones");
         std::static_pointer_cast<resident_color_uniforms>(uniforms->get_uniforms(gb::ces_shader_uniforms_component::e_shader_uniform_mode::e_fragment,"resident.color",0))->update(view,resident->clothing_color,camera->get_position());
         if(m_debug&&m_elapsed>=m_next_report){
-            const auto& s=resident->state;std::cout<<"Resident position="<<s.position.x<<","<<navigation.shore_y<<","<<s.position.z<<" safe="<<navigation.is_safe(s.position)<<" bones="<<mixer->get_transformation_size()<<std::endl;
+            const auto& s=resident->state;std::cout<<"Resident position="<<s.position.x<<","<<s.elevation<<","<<s.position.z<<" safe="<<(s.stair_transit||navigation.is_safe(s.position))<<" bones="<<mixer->get_transformation_size()<<std::endl;
             m_next_report=m_elapsed+1;
             auto geometry=entity->get_component<gb::ces_geometry_3d_component>();
             auto mesh=std::static_pointer_cast<gb::mesh_3d>(geometry->get_mesh());

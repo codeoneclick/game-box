@@ -11,7 +11,7 @@ New-Item -ItemType Directory -Path $checkOutput -Force | Out-Null
 Push-Location $checkOutput
 try {
     $command = '@call "{0}" >nul' -f $vcvars
-    $command += "`r`n" + ('@cl /nologo /EHsc /std:c++14 /I"{0}\gbDemo\sources" "{0}\gbScripts\check_island_resident.cpp" "{0}\gbDemo\sources\terrain_generator.cpp" "{0}\gbDemo\sources\terrain_mesh_builder.cpp" "{0}\gbDemo\sources\resident_navigation.cpp" "{0}\gbDemo\sources\resident_behavior.cpp" /Fe:resident_check.exe' -f $repoRoot)
+    $command += "`r`n" + ('@cl /nologo /EHsc /std:c++14 /I"{0}\gbDemo\sources" "{0}\gbScripts\check_island_resident.cpp" "{0}\gbDemo\sources\terrain_generator.cpp" "{0}\gbDemo\sources\terrain_mesh_builder.cpp" "{0}\gbDemo\sources\voxel_tree_builder.cpp" "{0}\gbDemo\sources\resident_navigation.cpp" "{0}\gbDemo\sources\resident_behavior.cpp" /Fe:resident_check.exe' -f $repoRoot)
     Set-Content -LiteralPath .\compile-resident.cmd -Value $command -Encoding ASCII
     & cmd /c .\compile-resident.cmd
     if ($LASTEXITCODE -ne 0) { throw 'Resident CPU compilation failed.' }

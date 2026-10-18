@@ -98,6 +98,10 @@
     <ClCompile Include="sources\voxel_tree_builder.cpp"><ExceptionHandling>Sync</ExceptionHandling></ClCompile>
     <ClCompile Include="sources\ces_sun_shadow_system.cpp"><ExceptionHandling>Sync</ExceptionHandling></ClCompile>
     <ClCompile Include="sources\terrain_editor_mesh.cpp"><ExceptionHandling>Sync</ExceptionHandling></ClCompile>
+    <ClCompile Include="sources\terrain_mesh_optimizer.cpp"><ExceptionHandling>Sync</ExceptionHandling></ClCompile>
+    <ClCompile Include="sources\terrain_contour_lod.cpp"><ExceptionHandling>Sync</ExceptionHandling></ClCompile>
+    <ClCompile Include="sources\terrain_lod.cpp"><ExceptionHandling>Sync</ExceptionHandling></ClCompile>
+    <ClCompile Include="sources\terrain_lod_renderer.cpp"><ExceptionHandling>Sync</ExceptionHandling></ClCompile>
     <ClCompile Include="sources\terrain_editor_render_cache.cpp"><ExceptionHandling>Sync</ExceptionHandling></ClCompile>
     <ClCompile Include="sources\terrain_editor_ui.cpp"><ExceptionHandling>Sync</ExceptionHandling></ClCompile>
     <ClCompile Include="sources\terrain_editor_input.cpp"><ExceptionHandling>Sync</ExceptionHandling></ClCompile>
@@ -176,6 +180,12 @@
     <ClInclude Include="sources\sun_shadow_math.h" />
     <ClInclude Include="sources\terrain_editor_mesh.h" />
     <ClInclude Include="sources\voxel_tree_builder.h" />
+    <ClInclude Include="sources\terrain_lod_settings.h" />
+    <ClInclude Include="sources\terrain_editor_layout.h" />
+    <ClInclude Include="sources\terrain_mesh_optimizer.h" />
+    <ClInclude Include="sources\terrain_contour_lod.h" />
+    <ClInclude Include="sources\terrain_lod.h" />
+    <ClInclude Include="sources\terrain_lod_renderer.h" />
     <ClInclude Include="sources\terrain_editor_render_cache.h" />
     <ClInclude Include="sources\terrain_editor_ui.h" />
     <ClInclude Include="sources\terrain_editor_input.h" />
@@ -495,6 +505,13 @@
     <ClInclude Include="sources\ocean_mesh_builder.h"></ClInclude>
     <ClCompile Include="sources\ocean_mesh_builder.cpp"></ClCompile>
     <ClInclude Include="sources\ocean_shader_uniforms.h"></ClInclude>
+    <ClCompile Include="sources\graphics_settings.cpp" />
+    <ClCompile Include="sources\render_debug_controller.cpp"><ExceptionHandling>Sync</ExceptionHandling></ClCompile>
+    <ClInclude Include="sources\render_debug_controller.h" />
+    <ClInclude Include="sources\render_debug_state.h" />
+    <ClCompile Include="sources\stairs.cpp"><ExceptionHandling>Sync</ExceptionHandling></ClCompile>
+    <ClInclude Include="sources\stairs.h" />
+    <ClInclude Include="sources\graphics_settings.h" />
     <ClInclude Include="sources\stylized_post_process.h" />
     <ClInclude Include="sources\stylized_lighting_settings.h" />
     <ClInclude Include="sources\stylized_lighting_uniforms.h" />

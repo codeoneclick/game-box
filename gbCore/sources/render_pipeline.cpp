@@ -62,21 +62,26 @@ namespace gb
     {
         for(const auto& technique_it : m_ordered_ss_render_techniques)
         {
-            if (technique_it->get_current_skipped_frames_count() == technique_it->get_skip_frames_count())
+            render_statistics::begin_pass(technique_it->get_name());
+            if (!technique_it->get_is_enabled() ||
+                technique_it->get_current_skipped_frames_count() == technique_it->get_skip_frames_count())
             {
                 technique_it->bind();
                 technique_it->draw();
                 technique_it->unbind();
             }
             technique_it->inc_current_skipped_frames_count();
+            render_statistics::end_pass();
         }
         
        
         if(m_main_render_technique && !m_offscreen)
         {
+            render_statistics::begin_pass(m_main_render_technique->get_name());
             m_main_render_technique->bind();
             m_main_render_technique->draw();
             m_main_render_technique->unbind();
+            render_statistics::end_pass();
         }
 
 #if USED_GRAPHICS_API == VULKAN_API

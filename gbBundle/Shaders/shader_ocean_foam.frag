@@ -91,27 +91,62 @@ float foam_metaballs(vec2 p,float t){
  }
  return density;
 }
+float foam_smooth_union(float a,float b,float radius){
+ float h=clamp(.5+.5*(b-a)/radius,0.0,1.0);
+ return mix(b,a,h)-radius*h*(1.0-h);
+}
 vec4 world_foam(vec3 p,out float width,out float influence){
  vec4 f=interaction_sample(p.xz);float d=f.x,t=time_level.x*foam_bands.w;
- vec2 r=vec2(p.x*.7986-p.z*.6018,p.x*.6018+p.z*.7986);
- float large=field_noise(r*.137+vec2(.21,-.17)*t),medium=field_noise(vec2(-p.z,p.x)*.263+vec2(-.19,.31)*t+vec2(17,31));
- float blobs=foam_metaballs(p.xz,t);
- float shape=smoothstep(.75,1.65,blobs);
- float width_noise=field_noise(p.xz*.18+vec2(.15,-.11)*t);
+ // Keep the outer widths unchanged; only the contact band narrows by 25%.
+ float base_width=max(.001,foam_bands.y)*1.33;
+ width=base_width*.75;influence=1.0;
+ if(d>=319.0||d>base_width*4.0+.5)return vec4(0);
+ float second_width=base_width*.66,third_width=second_width*.33;
+ vec2 shore=p.xz-f.yz*d;
+ float blobs=foam_metaballs(p.xz,t),shape=smoothstep(.75,1.65,blobs);
+ // World-anchored delays break up each front locally without a clock
+ // rate that accumulates spatial discontinuities as the session runs.
+ float delay2=field_noise(shore*.08)*2.8+field_noise(shore*.23+vec2(17,43))*.65;
+ float delay3=field_noise(shore*.071+vec2(71,29))*2.8+field_noise(shore*.19+vec2(53,11))*.65;
+ float phase2=fract(t/4.8+delay2),phase3=fract(t/5.7+delay3+.37);
+ float approach2=smoothstep(0.0,1.0,phase2),approach3=smoothstep(0.0,1.0,phase3);
+ // Fade out after absorption as well as in: wrapping either local clock
+ // must never teleport a visible ribbon back out to sea.
+ float birth2=smoothstep(0.0,.14,phase2)*(1.0-smoothstep(.84,1.0,phase2));
+ float birth3=smoothstep(0.0,.17,phase3)*(1.0-smoothstep(.82,1.0,phase3));
+ float gap=base_width*.38;
+ // Two animated Perlin scales deform the fronts and tear holes in the
+ // outer ribbons. Filter unresolved detail instead of introducing shimmer.
+ float footprint=max(length(dFdx(p.xz)),length(dFdy(p.xz)));
+ vec2 drift=vec2(t*.16,-t*.12);
+ float broad_noise=foam_perlin(p.xz*.45+drift)*(1.0-smoothstep(.5,2.0,footprint));
+ float detail_noise=foam_perlin(p.xz*1.6-drift*1.7+vec2(19,37))*(1.0-smoothstep(.18,.65,footprint));
+ float bend=base_width*.5*(broad_noise+shape-.5);
+ // Both outer fronts advance shoreward; their torn contours locally
+ // stretch into metaball necks before being absorbed by the contact band.
+ float center2=mix(base_width+gap+second_width*.5,width*.55,approach2)+bend*sin(phase2*3.14159265)+base_width*.16*detail_noise;
+ float center3=mix(base_width+gap+second_width+gap+third_width*.5,width*.55,approach3)+bend*.7*sin(phase3*3.14159265)-base_width*.22*detail_noise;
+ float inner_distance=d-width+width*(broad_noise*.16+detail_noise*.06);
+ float second_distance=abs(d-center2)-second_width*.5+smoothstep(.12,.40,broad_noise+detail_noise*.65)*second_width*1.6;
+ float third_distance=abs(d-center3)-third_width*.5+smoothstep(.03,.30,-broad_noise+detail_noise*.8)*third_width*2.2;
+ // Remove dormant ribbons from the distance union too, so another
+ // active front cannot reveal them through a shared visibility envelope.
+ second_distance+=(1.0-birth2)*base_width*6.0;
+ third_distance+=(1.0-birth3)*base_width*6.0;
  float amplitude=wave0.w+wave1.w+wave2.w+wave3.w;
  float crest=smoothstep(-.2,.65,(p.y-time_level.y)/max(amplitude,.001));
- vec2 dir=normalize(wave0.xy+wave1.xy*.35+vec2(large-.5,medium-.5)*.7);
- float facing=dot(f.yz,dir);influence=mix(.72,1.32,crest)*mix(.7,1.3,facing*.5+.5);
- width=mix(foam_shape.x,foam_shape.y,width_noise*.45+shape*.55)*influence;
- // Keep a solid contact core at raster-field precision; animate only its outer edge.
- float contact=foam_bands.x*mix(1.0,2.0,shape);
- float inner=1.0-smoothstep(.2,contact+.25,d);
- float mid=(1.0-smoothstep(contact*.5,width+contact,d))*smoothstep(.65,1.45,blobs)*(1.0-inner);
- vec2 warp=(vec2(field_noise(p.xz*.083+vec2(t*.13,-t*.09)),field_noise(r*.061+vec2(-t*.11,t*.17)+vec2(9,21)))-.5)*foam_shape.z*smoothstep(contact,width+contact,d);
- float outer_d=interaction_sample(p.xz+warp).x;
- float islands=smoothstep(.85,1.7,blobs)*smoothstep(.35,.65,large);
- float outer=smoothstep(width*.7,width+.7,d)*(1.0-smoothstep(width+1.2,width+4.2,outer_d))*islands*influence;
- return vec4(inner,mid,outer,smoothstep(.18,.34,clamp(inner+mid*foam_detail.y+outer,0.0,1.0)))*(1.0-smoothstep(.25,.75,f.w));
+ vec2 direction=normalize(wave0.xy+wave1.xy*.35);
+ float facing=dot(f.yz,direction);
+ influence=mix(.72,1.32,crest)*mix(.7,1.3,facing*.5+.5);
+ float bridge=base_width*(.18+.38*shape)*clamp(foam_shape.z,.2,1.5)*mix(.85,1.15,facing*.5+.5);
+ float joined=foam_smooth_union(foam_smooth_union(inner_distance,second_distance,bridge),third_distance,bridge*.8);
+ float aa=clamp(fwidth(d)*.6,.04,.3);
+ float inner=1.0-smoothstep(-aa,aa,inner_distance);
+ float second=1.0-smoothstep(-aa,aa,second_distance);
+ float third=1.0-smoothstep(-aa,aa,third_distance);
+ float coverage=1.0-smoothstep(-aa,aa,joined);
+ coverage=max(inner,coverage*clamp(foam_detail.y,0.0,1.0));
+ return vec4(inner,second,third,coverage)*(1.0-smoothstep(.25,.75,f.w));
 }
 void main(){
  vec3 p=v_screen_position.xyz;vec2 uv=vec2(.5+.5*v_position.x/v_position.w,.5-.5*v_position.y/v_position.w);

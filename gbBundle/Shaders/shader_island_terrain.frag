@@ -30,6 +30,8 @@ uniform vec4 light_options;
 uniform vec4 light_material0;
 uniform vec4 light_material1;
 uniform vec4 light_camera;
+uniform vec4 sky_rotation;
+uniform vec4 terrain_lod;
 
 float field_hash(vec2 p){uvec2 q=uvec2(ivec2(p));uint h=q.x*73856093u^q.y*19349663u;h^=h>>13;h*=1274126177u;return float(h&65535u)/65535.0;}
 float field_noise(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.0-2.0*f);return mix(mix(field_hash(i),field_hash(i+vec2(1,0)),f.x),mix(field_hash(i+vec2(0,1)),field_hash(i+vec2(1,1)),f.x),f.y);}
@@ -155,13 +157,20 @@ void main(){
  bool terrain=v_tangent.x>.5;
  float terrace=floor(v_color.a+.5)-11.0,material=terrain_material(terrace);
  vec3 base_color=terrain?terrain_texture(p,n,terrace,material):v_color.rgb;
- if(v_tangent.y>.5)base_color=tree_pixel_color(base_color,v_texcoord);
+ if(v_tangent.y>1.5){
+  vec2 pixels=v_texcoord*5.0,footprint=fwidth(pixels);
+  vec2 uv=(mod(floor(pixels),8.0)+.5)/8.0;
+  vec3 stone=terrain_texel(0.0,0.0,uv,0.0);
+  float grain=clamp(dot(stone,vec3(.2126,.7152,.0722))/.6,.65,1.2);
+  base_color*=mix(grain,.9,smoothstep(.5,2.0,max(footprint.x,footprint.y)));
+ }else if(v_tangent.y>.5)base_color=tree_pixel_color(base_color,v_texcoord);
  if(v_color.a>.49&&v_color.a<.51)base_color=grass_pixel_color(base_color,v_texcoord);
  vec3 l=normalize(sun.xyz),v=normalize(camera.xyz-p);
  float grass=v_color.a>.49&&v_color.a<.51?1.0:0.0;
  float leaves=v_tangent.y>.5&&base_color.g>max(base_color.r,base_color.b)?1.0:0.0;
  // Grass/tree flags are explicit; remaining brown props approximate wood, others stone.
  float strength=base_color.r>base_color.b*1.25&&base_color.r>base_color.g*1.1?light_material0.y:light_material0.z;
+ if(v_tangent.y>1.5)strength=light_material0.z; // Sandstone remains a stone material.
  strength=mix(strength,light_material0.x,grass);strength=mix(strength,light_material0.w,leaves);
  float vegetation=max(grass,leaves);
  if(terrain){
@@ -170,13 +179,18 @@ void main(){
  }
  vec3 color=light_shape.z<.5?base_color*mix(vec3(.32,.38,.50),cel_light(dot(n,l)),light_options.w):soft_light(base_color,n,l,v,strength,vegetation);
  color*=mix(1.0,.64,wet);
- if(submerged>0.0){
+ if(submerged>0.0&&caustic_params.z>0.0){
   float caustics=caustic_pattern(p.xz*caustic_params.x)*max(n.y,.12)+caustic_pattern(vec2(p.x+p.z,p.y)*caustic_params.x)*(1.0-abs(n.y))*.4;
   color+=vec3(.36,.54,.39)*caustics*exp(-submerged*caustic_params.w)*caustic_params.z;
  }
  vec3 half_direction=v+l,h=half_direction/max(length(half_direction),.0001);
  if(light_shape.z<.5)color+=wet*.2*light_options.w*smoothstep(.94,.955,max(dot(n,h),0.0))*vec3(1,.94,.82);
  else color+=wet*.2*pow(max(dot(n,h),0.0),light_material1.z)*max(dot(n,l),0.0)*light_sun.rgb*light_sun.a*light_shape.w*light_options.y;
+ if(terrain&&terrain_lod.z>.5){
+  float reduction=clamp(terrain_lod.w,0.0,1.0);
+  color=reduction<.5?mix(vec3(.05,.85,.12),vec3(1,.85,.05),reduction*2.0):mix(vec3(1,.85,.05),vec3(1,.08,.03),(reduction-.5)*2.0);
+  if(terrain_lod.z>3.5)color=vec3(.12,.18,.2);else if(terrain_lod.z>2.5)color=vec3(reduction,.2,1.0-reduction);
+ }
  float outline_id=v_color.a>=2.0?floor(v_color.a+.5):v_color.a;
  attachment_01=vec4(color,1);attachment_02=vec4(n*.5+.5,outline_id);attachment_03=vec4(p,max(-(view*vec4(p,1)).z,.001));
 }

@@ -1,6 +1,8 @@
 #include "terrain_editor_mesh.h"
 #include "terrain_editor_render_cache.h"
 #include "outline_ids.h"
+#include "terrain_generator.h"
+#include "terrain_mesh_builder.h"
 #include <cassert>
 #include <cmath>
 #include <iostream>
@@ -9,6 +11,49 @@
 #include <algorithm>
 #include <vector>
 static void same_mesh(const game::terrain_mesh_data&,const game::terrain_mesh_data&);
+static void check_seed_zero_transition(){
+ using namespace game;terrain_config config;config.resolution=128;config.world_size=256;config.island_size=128;config.water_size=256;
+ auto data=terrain_generator::generate(config);auto seed=terrain_mesh_builder::build(data);auto state=std::make_shared<TerrainEditorState>();state->initialize(data);state->consume_dirty();TerrainEditorRenderCache cache(state);cache.initialize(seed,{});cache.rebuild({},false);
+ state->brush_size=16;state->target_terrace=0;assert(state->paint(0,0));cache.rebuild(state->consume_dirty(),false);
+ std::map<std::array<int,2>,float> heights;float highest=-100;size_t checked=0;
+ for(const auto& mesh:cache.terrain_parts())for(const auto& v:mesh.vertices){if(v.normal[1]<=0||v.outline_id!=outline_terrace_id(0))continue;
+  assert(v.position[1]<=editor_level_height(config,0)+.0001f&&v.position[1]>=editor_level_height(config,-1)-.0001f);highest=std::max(highest,v.position[1]);
+  std::array<int,2> key={{int(std::round(v.position[0]*10000)),int(std::round(v.position[2]*10000))}};auto entry=heights.emplace(key,v.position[1]);if(!entry.second)assert(std::abs(entry.first->second-v.position[1])<.001f);++checked;
+ }
+ assert(checked>0&&highest>editor_level_height(config,0)-.001f);std::cout<<"Authored zero shelf remains submerged with matching shared heights: "<<checked<<" vertices\n";
+}
+static void check_seed_contour_after_local_sculpt(bool runtime=false){
+ using namespace game;terrain_config config;if(!runtime){config.resolution=128;config.world_size=256;config.island_size=128;config.water_size=256;}
+ const auto data=terrain_generator::generate(config);const auto seed=terrain_mesh_builder::build(data);
+ auto state=std::make_shared<TerrainEditorState>();state->initialize(data);state->consume_dirty();
+ TerrainEditorRenderCache cache(state);cache.set_seed_builder([seed](const terrain_config&){return std::make_pair(seed,std::vector<terrain_mesh_data>{});});cache.initialize(seed,{});cache.rebuild({});
+ auto footprint=[&](){double area=0;for(const auto& mesh:cache.terrain_parts())for(size_t i=0;i<mesh.indices.size();i+=3){const auto&a=mesh.vertices[mesh.indices[i]],&b=mesh.vertices[mesh.indices[i+1]],&c=mesh.vertices[mesh.indices[i+2]];if(a.normal[1]<.99f)continue;double cross=(double(b.position[0])-a.position[0])*(double(c.position[2])-a.position[2])-(double(b.position[2])-a.position[2])*(double(c.position[0])-a.position[0]);assert(cross<.0001);area-=cross*.5;}return area;};
+ const double original_area=footprint();
+ std::vector<std::array<float,4>> coast;float paint_x=0,paint_z=0;bool found=false;
+ const float half=config.world_size*.5f,width=16.f*config.world_size/config.resolution;
+ for(size_t i=0;i<seed.indices.size();i+=3){std::vector<std::array<float,3>> top;
+  for(int j=0;j<3;++j){const auto& v=seed.vertices[seed.indices[i+j]];if(std::abs(v.normal[1])<.01f&&std::abs(v.position[1]-config.shore_height)<.001f)top.push_back(v.position);}
+  if(top.size()!=2)continue;coast.push_back({{top[0][0],top[0][2],top[1][0],top[1][2]}});
+  const float x=(top[0][0]+top[1][0])*.5f,z=(top[0][2]+top[1][2])*.5f,r=std::sqrt(x*x+z*z),px=x*(1-5.f/r),pz=z*(1-5.f/r);
+  if(!found&&int((x+half)/width)==int((px+half)/width)&&int((z+half)/width)==int((pz+half)/width)){paint_x=px;paint_z=pz;found=true;}
+ }
+ assert(found&&!coast.empty());state->brush_size=4;state->target_terrace=8;state->begin_stroke();assert(state->paint(paint_x,paint_z));state->end_stroke();
+ const auto batches=cache.rebuild(state->consume_dirty());size_t checked=0;
+ for(const auto& batch:batches)if(batch.kind==EditorRenderBatch::Terrain)for(const auto& v:batch.mesh.vertices)assert(v.normal[1]<.99f||v.outline_id!=outline_terrace_id(0));
+ for(size_t i=0;i<data.layers.size();++i)assert((state->level.terrain.layers[i]>=1)==(data.layers[i]>=0));
+ for(const auto& batch:batches)if(batch.kind==EditorRenderBatch::Terrain)for(const auto& v:batch.mesh.vertices){
+  if(v.outline_id!=outline_terrace_id(1)||std::abs(v.normal[1])>.01f||std::abs(v.position[1]-config.shore_height)>.001f)continue;
+  float nearest=1e20f;for(const auto& edge:coast){float dx=edge[2]-edge[0],dz=edge[3]-edge[1],den=dx*dx+dz*dz;if(den<1e-10f)continue;float t=std::max(0.f,std::min(1.f,((v.position[0]-edge[0])*dx+(v.position[2]-edge[1])*dz)/den));float x=edge[0]+t*dx-v.position[0],z=edge[1]+t*dz-v.position[2];nearest=std::min(nearest,x*x+z*z);}
+  assert(nearest<.0001f);++checked;
+ }
+ assert(checked>0);assert(std::abs(footprint()-original_area)<.02);
+ assert(state->undo());cache.rebuild(state->consume_dirty());assert(std::abs(footprint()-original_area)<.02);
+ assert(state->redo());cache.rebuild(state->consume_dirty());assert(std::abs(footprint()-original_area)<.02);
+ ++state->load_generation;cache.rebuild({});assert(std::abs(footprint()-original_area)<.02);
+ state->begin_stroke();assert(!state->paint(half-10,0));state->end_stroke();cache.rebuild(state->consume_dirty());bool added=false;
+ for(const auto& mesh:cache.terrain_parts())for(const auto& v:mesh.vertices)added|=v.position[0]>half-16&&v.position[1]>config.water_y;
+ assert(!added);std::cout<<"Local sculpt preserves untouched seed coastline, winding, area, undo/reload and empty sea: "<<checked<<" vertices\n";
+}
 static void check_pine_connected(const game::terrain_mesh_data& mesh){
  using Cell=std::array<int,3>;
  std::map<std::array<int,2>,std::map<int,int>> crossings;
@@ -125,6 +170,9 @@ static double area(const game::terrain_mesh_data& mesh) {
  }return result;
 }
 int main(){
+ check_seed_contour_after_local_sculpt();
+ check_seed_contour_after_local_sculpt(true);
+ check_seed_zero_transition();
  check_voxel_trees();
  // Exercise all 22 transport bits, including IDs beyond signed 16-bit range.
  for(uint32_t id:{0u,1000u,32768u,65535u,1048576u,(1u<<22)-1}){
@@ -265,5 +313,9 @@ int main(){
  assert(round->save("mesh-roundtrip.level"));assert(round->load("mesh-roundtrip.level"));accept(rc.rebuild(round->consume_dirty()));assert(rendered.size()==expected.size());
  for(const auto&entry:expected){const auto&actual=rendered.at(entry.first);std::cout<<"Roundtrip key="<<entry.first<<" vertices="<<entry.second.vertices.size()<<"/"<<actual.vertices.size()<<" indices="<<entry.second.indices.size()<<"/"<<actual.indices.size()<<std::endl;same_mesh(entry.second,actual);}std::remove("mesh-roundtrip.level");
  std::cout<<"Exact terrain/grass/climate render roundtrip passed\n";
+ // Local LOD/protection invalidation must not republish untouched groups.
+ auto local=std::make_shared<game::TerrainEditorState>();game::terrain_data local_data;local_data.config.resolution=128;local_data.config.world_size=128;local_data.config.island_size=64;local_data.layers.assign(128*128,1);local->initialize(local_data);local->consume_dirty();
+ game::terrain_mesh_data local_seed;for(auto p:std::vector<std::array<float,3>>{{{-64,2,-64}},{{-64,2,64}},{{64,2,-64}},{{64,2,64}}}){game::terrain_vertex v(p,{{0,1,0}},{{255,255,255,255}});v.editor_palette={{0,0}};local_seed.vertices.push_back(v);}local_seed.indices={0,1,2,2,1,3};
+ game::TerrainEditorRenderCache local_cache(local);local_cache.initialize(local_seed,{});local_cache.rebuild({});game::TerrainEditorDirty local_dirty;local_dirty.x0=local_dirty.x1=10;local_dirty.z0=local_dirty.z1=10;local_dirty.lod=true;size_t local_groups=0;for(auto& batch:local_cache.rebuild(local_dirty))if(batch.kind==game::EditorRenderBatch::Terrain)++local_groups;std::cout<<"Local LOD groups="<<local_groups<<std::endl;assert(local_groups==1);assert(local_cache.last_profile().chunks==0);local_dirty.lod_all=true;size_t all_groups=0;for(auto& batch:local_cache.rebuild(local_dirty))if(batch.kind==game::EditorRenderBatch::Terrain)++all_groups;assert(all_groups==4&&local_cache.last_profile().chunks==0);
  std::cout<<"Editor mesh CPU checks passed; extreme chunk vertices="<<worst.terrain.vertices.size()<<"\n";
 }

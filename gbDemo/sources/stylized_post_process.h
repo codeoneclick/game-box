@@ -5,6 +5,7 @@
 #include <cerrno>
 #include <cmath>
 #include <cstdlib>
+#include <map>
 #include <string>
 namespace game {
 enum class StylizedPostProcessView {
@@ -18,10 +19,14 @@ enum class StylizedPostProcessView {
 // Runtime presentation preferences, independent of terrain edits and level files.
 // Retired bloom/DOF/vignette fields remain for source and uniform compatibility.
 struct StylizedPostProcessSettings {
+  // Technique GUID overrides; an absent GUID remains enabled.
+  std::map<std::string, bool> renderPasses;
   bool enableHDR = true, enableBloom = false, enableToneMapping = true;
   bool enableColorGrading = true, enableFog = true, enableDOF = false,
        enableVignette = false;
   bool enableSSAO = true;
+  bool enableWaterReflection = true, enableWaterRefraction = true, enableWaterCaustics = true;
+  float waterReflectionIntensity = 1.f, waterRefractionIntensity = 1.f, waterCausticsIntensity = 1.f;
   float ssaoIntensity = 1.2f;
   float bloomThreshold = 1.15f, bloomStrength = .12f;
   float exposure = .15f; // EV: the linear exposure multiplier is 2^exposure.
@@ -52,6 +57,9 @@ struct StylizedPostProcessSettings {
     };
     enableBloom = enableDOF = enableVignette = false;
     range(ssaoIntensity, 0, 3, defaults.ssaoIntensity);
+    range(waterReflectionIntensity, 0, 3, defaults.waterReflectionIntensity);
+    range(waterRefractionIntensity, 0, 3, defaults.waterRefractionIntensity);
+    range(waterCausticsIntensity, 0, 3, defaults.waterCausticsIntensity);
     range(bloomThreshold, 0, 64, defaults.bloomThreshold);
     range(bloomStrength, 0, 4, defaults.bloomStrength);
     range(exposure, -16, 16, defaults.exposure);
@@ -122,7 +130,7 @@ inline void integer(const char *key, int &output) {
     output = int(value);
 }
 } // namespace stylized_post_detail
-inline StylizedPostProcessSettings stylized_post_settings_from_environment() {
+inline StylizedPostProcessSettings stylized_post_settings_from_environment(const StylizedPostProcessSettings* saved = nullptr) {
   bool mobile = false;
 #if defined(__IOS__) || defined(__TVOS__)
   mobile = true;
@@ -135,6 +143,8 @@ inline StylizedPostProcessSettings stylized_post_settings_from_environment() {
     mobile = false;
   auto s = mobile ? StylizedPostProcessSettings::mobile()
                   : StylizedPostProcessSettings::desktop();
+  if (saved && preset != "mobile" && preset != "stylizedislandmobile" &&
+      preset != "desktop" && preset != "stylizedisland") s = *saved;
   using namespace stylized_post_detail;
   boolean("GB_SSAO", s.enableSSAO);
   number("GB_SSAO_INTENSITY", s.ssaoIntensity);

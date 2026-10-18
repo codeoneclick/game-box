@@ -32,6 +32,7 @@ public:
     bool pick_surface(glm::ivec2 point, glm::vec3& hit) const;
     bool brush_visible() const;
     bool building_preview_visible() const;
+    bool stairs_preview_visible() const;
     glm::vec3 brush_position() const { return brush_; }
     void set_save_callback(std::function<void()> callback) { save_ = std::move(callback); }
     void set_load_callback(std::function<void()> callback) { load_ = std::move(callback); }
@@ -40,6 +41,7 @@ public:
     void on_gr_released(const glm::ivec2&, const glm::ivec2&, gb::e_input_source, ui32) override;
     void on_gr_moved(const glm::ivec2&, const glm::ivec2&, const glm::ivec2&, ui32) override;
     void on_gr_dragged(const glm::ivec2&, const glm::ivec2&, const glm::ivec2&, gb::e_input_source, ui32) override;
+    void on_gr_scrolled(const glm::ivec2&,const glm::ivec2&,f32) override;
     void on_key_down(i32 key) override;
     void on_key_up(i32 key) override;
     void on_virtual_keyboard_input(const std::string&) override {}
