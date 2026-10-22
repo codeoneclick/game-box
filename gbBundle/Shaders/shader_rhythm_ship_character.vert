@@ -1,0 +1,1 @@
+void main(){vec4 p=get_mat_m()*vec4(a_position,1);gl_Position=get_mat_p()*get_mat_v()*p;v_screen_position=vec4(p.xyz,max(-(get_mat_v()*p).z,.001));v_normal=normalize((get_mat_n()*vec4(a_normal.xyz,0)).xyz);v_texcoord=a_texcoord;v_color=a_color;}

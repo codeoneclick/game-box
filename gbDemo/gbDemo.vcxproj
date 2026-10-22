@@ -651,4 +651,25 @@
     <None Include="..\gbResources\character_idle.fbx" />
     <None Include="..\gbResources\character_walking.fbx" />
   </ItemGroup>
+  <ItemGroup><ClCompile Include="sources\ces_dance_character_component.cpp"><ExceptionHandling>Sync</ExceptionHandling></ClCompile></ItemGroup>
+  <ItemGroup><ClInclude Include="sources\ces_dance_character_component.h" /></ItemGroup>
+  <ItemGroup><ClCompile Include="sources\ces_dance_crowd_system.cpp"><ExceptionHandling>Sync</ExceptionHandling></ClCompile></ItemGroup>
+  <ItemGroup><ClInclude Include="sources\ces_dance_crowd_system.h" /></ItemGroup>
+  <ItemGroup><ClCompile Include="sources\fake_leaderboard.cpp"><ExceptionHandling>Sync</ExceptionHandling></ClCompile></ItemGroup>
+  <ItemGroup><ClInclude Include="sources\fake_leaderboard.h" /></ItemGroup>
+  <ItemGroup><ClCompile Include="sources\rhythm_session.cpp"><ExceptionHandling>Sync</ExceptionHandling></ClCompile></ItemGroup>
+  <ItemGroup><ClInclude Include="sources\rhythm_session.h" /></ItemGroup>
+  <ItemGroup><ClCompile Include="sources\rhythm_ship_environment.cpp"><ExceptionHandling>Sync</ExceptionHandling></ClCompile></ItemGroup>
+  <ItemGroup><ClInclude Include="sources\rhythm_ship_environment.h" /></ItemGroup>
+  <ItemGroup><ClCompile Include="sources\rhythm_ship_input.cpp"><ExceptionHandling>Sync</ExceptionHandling></ClCompile></ItemGroup>
+  <ItemGroup><ClInclude Include="sources\rhythm_ship_input.h" /></ItemGroup>
+  <ItemGroup><ClCompile Include="sources\rhythm_ship_scene.cpp"><ExceptionHandling>Sync</ExceptionHandling></ClCompile></ItemGroup>
+  <ItemGroup><ClInclude Include="sources\rhythm_ship_scene.h" /></ItemGroup>
+  <ItemGroup><ClCompile Include="sources\rhythm_ship_transition.cpp"><ExceptionHandling>Sync</ExceptionHandling></ClCompile></ItemGroup>
+  <ItemGroup><ClInclude Include="sources\rhythm_ship_transition.h" /></ItemGroup>
+  <ItemGroup><ClCompile Include="sources\rhythm_ship_ui.cpp"><ExceptionHandling>Sync</ExceptionHandling></ClCompile></ItemGroup>
+  <ItemGroup><ClInclude Include="sources\rhythm_ship_ui.h" /></ItemGroup>
+  <ItemGroup><ClCompile Include="sources\rhythm_track.cpp"><ExceptionHandling>Sync</ExceptionHandling></ClCompile></ItemGroup>
+  <ItemGroup><ClInclude Include="sources\rhythm_track.h" /></ItemGroup>
+  <ItemGroup><ClInclude Include="sources\rhythm_key_action.h" /></ItemGroup>
 </Project>

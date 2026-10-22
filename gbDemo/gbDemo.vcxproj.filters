@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="libraries">
@@ -602,4 +602,25 @@
     <None Include="..\gbResources\character_idle.fbx" />
     <None Include="..\gbResources\character_walking.fbx" />
   </ItemGroup>
+  <ItemGroup><ClCompile Include="sources\ces_dance_character_component.cpp" /></ItemGroup>
+  <ItemGroup><ClInclude Include="sources\ces_dance_character_component.h" /></ItemGroup>
+  <ItemGroup><ClCompile Include="sources\ces_dance_crowd_system.cpp" /></ItemGroup>
+  <ItemGroup><ClInclude Include="sources\ces_dance_crowd_system.h" /></ItemGroup>
+  <ItemGroup><ClCompile Include="sources\fake_leaderboard.cpp" /></ItemGroup>
+  <ItemGroup><ClInclude Include="sources\fake_leaderboard.h" /></ItemGroup>
+  <ItemGroup><ClCompile Include="sources\rhythm_session.cpp" /></ItemGroup>
+  <ItemGroup><ClInclude Include="sources\rhythm_session.h" /></ItemGroup>
+  <ItemGroup><ClCompile Include="sources\rhythm_ship_environment.cpp" /></ItemGroup>
+  <ItemGroup><ClInclude Include="sources\rhythm_ship_environment.h" /></ItemGroup>
+  <ItemGroup><ClCompile Include="sources\rhythm_ship_input.cpp" /></ItemGroup>
+  <ItemGroup><ClInclude Include="sources\rhythm_ship_input.h" /></ItemGroup>
+  <ItemGroup><ClCompile Include="sources\rhythm_ship_scene.cpp" /></ItemGroup>
+  <ItemGroup><ClInclude Include="sources\rhythm_ship_scene.h" /></ItemGroup>
+  <ItemGroup><ClCompile Include="sources\rhythm_ship_transition.cpp" /></ItemGroup>
+  <ItemGroup><ClInclude Include="sources\rhythm_ship_transition.h" /></ItemGroup>
+  <ItemGroup><ClCompile Include="sources\rhythm_ship_ui.cpp" /></ItemGroup>
+  <ItemGroup><ClInclude Include="sources\rhythm_ship_ui.h" /></ItemGroup>
+  <ItemGroup><ClCompile Include="sources\rhythm_track.cpp" /></ItemGroup>
+  <ItemGroup><ClInclude Include="sources\rhythm_track.h" /></ItemGroup>
+  <ItemGroup><ClInclude Include="sources\rhythm_key_action.h" /></ItemGroup>
 </Project>

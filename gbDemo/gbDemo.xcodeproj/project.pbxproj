@@ -1844,6 +1844,16 @@
 		F30077D91F31D5AB009F2EDF /* gameplay_ui_fabricator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30077D51F31D5AB009F2EDF /* gameplay_ui_fabricator.cpp */; };
 		8638B3B979F79844E57A53E3 /* island_demo_transition.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 495B23FBF83B7F62D692ED84 /* island_demo_transition.cpp */; };
 		3BD65F14146803E94800A595 /* island_demo_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5897808789A96CB284D27F2 /* island_demo_scene.cpp */; };
+		C711EC9E2E3AB9E83D7C6565 /* rhythm_track.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 902846C6FFCC8CAE679B2492 /* rhythm_track.cpp */; settings = {COMPILER_FLAGS = "-fexceptions -frtti"; }; };
+		B04196C22F8C0CDF8BD5C68F /* rhythm_ship_ui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 75D79CEA8999B1593C9A12CA /* rhythm_ship_ui.cpp */; settings = {COMPILER_FLAGS = "-fexceptions -frtti"; }; };
+		C196825638EAA02755258AD6 /* rhythm_ship_transition.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4ED1A3B5C1650B56194DCAD /* rhythm_ship_transition.cpp */; settings = {COMPILER_FLAGS = "-fexceptions -frtti"; }; };
+		05A361A00E6D063EEC6A91C1 /* rhythm_ship_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CF355384539AD7A4F7A94CD2 /* rhythm_ship_scene.cpp */; settings = {COMPILER_FLAGS = "-fexceptions -frtti"; }; };
+		13B5D99F7F04F50B9E95CC84 /* rhythm_ship_input.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B40144CC151A1D32D02D142 /* rhythm_ship_input.cpp */; settings = {COMPILER_FLAGS = "-fexceptions -frtti"; }; };
+		E017B25F8BD6F44BBA1D9E44 /* rhythm_ship_environment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C6A911CD1D8429C72257E3E2 /* rhythm_ship_environment.cpp */; settings = {COMPILER_FLAGS = "-fexceptions -frtti"; }; };
+		8027D5559694618311FA52A8 /* rhythm_session.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7E0A33849193DBC6997C7582 /* rhythm_session.cpp */; settings = {COMPILER_FLAGS = "-fexceptions -frtti"; }; };
+		9D2098C6DE09CC7654032ABD /* fake_leaderboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 573CC8BEC6BB2EEB59AD29C2 /* fake_leaderboard.cpp */; settings = {COMPILER_FLAGS = "-fexceptions -frtti"; }; };
+		4243753D67211C4B44E1E4E1 /* ces_dance_crowd_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1159097815109213CC94AFEE /* ces_dance_crowd_system.cpp */; settings = {COMPILER_FLAGS = "-fexceptions -frtti"; }; };
+		9090A644B584E9EF44CABA78 /* ces_dance_character_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 455C04EC23BA14509E959729 /* ces_dance_character_component.cpp */; settings = {COMPILER_FLAGS = "-fexceptions -frtti"; }; };
 		99AE9B2E817848C8D2A7CEC3 /* terrain_mesh_builder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5C471F769DF17A12B263574 /* terrain_mesh_builder.cpp */; };
 		47538F6A6E315EB4AA5CE87D /* terrain_generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4DEFED68A5B412947862B94C /* terrain_generator.cpp */; };
 		4CD32EB5203847E08143D7B4 /* terrain_editor_input.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66C70768584848F3B918F38E /* terrain_editor_input.cpp */; };
@@ -1858,6 +1868,16 @@
 		39BA01A8EE4C4B54BA4E1C68 /* terrain_editor_state.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B63B241D02AE4F93BEACF5A2 /* terrain_editor_state.cpp */; };
 		9F323B2BF9A326883CB952F5 /* island_demo_transition.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 495B23FBF83B7F62D692ED84 /* island_demo_transition.cpp */; };
 		DB3AEB3B8BEEA676FBD158B8 /* island_demo_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5897808789A96CB284D27F2 /* island_demo_scene.cpp */; };
+		2EB72E7867F12263F245D4CC /* rhythm_track.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 902846C6FFCC8CAE679B2492 /* rhythm_track.cpp */; settings = {COMPILER_FLAGS = "-fexceptions -frtti"; }; };
+		7ACCBD1F743F322439120EF4 /* rhythm_ship_ui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 75D79CEA8999B1593C9A12CA /* rhythm_ship_ui.cpp */; settings = {COMPILER_FLAGS = "-fexceptions -frtti"; }; };
+		FCF785188130FB90D417D3EE /* rhythm_ship_transition.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4ED1A3B5C1650B56194DCAD /* rhythm_ship_transition.cpp */; settings = {COMPILER_FLAGS = "-fexceptions -frtti"; }; };
+		AD647E03FA37DB7C6DE8DF6D /* rhythm_ship_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CF355384539AD7A4F7A94CD2 /* rhythm_ship_scene.cpp */; settings = {COMPILER_FLAGS = "-fexceptions -frtti"; }; };
+		FECC04512E63B029103F3FDC /* rhythm_ship_input.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B40144CC151A1D32D02D142 /* rhythm_ship_input.cpp */; settings = {COMPILER_FLAGS = "-fexceptions -frtti"; }; };
+		E57356102116AB8597725C37 /* rhythm_ship_environment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C6A911CD1D8429C72257E3E2 /* rhythm_ship_environment.cpp */; settings = {COMPILER_FLAGS = "-fexceptions -frtti"; }; };
+		3909C9A3B3F8E9DCDFF14A0E /* rhythm_session.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7E0A33849193DBC6997C7582 /* rhythm_session.cpp */; settings = {COMPILER_FLAGS = "-fexceptions -frtti"; }; };
+		D9E7D6AA8864E8A6A1E2958E /* fake_leaderboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 573CC8BEC6BB2EEB59AD29C2 /* fake_leaderboard.cpp */; settings = {COMPILER_FLAGS = "-fexceptions -frtti"; }; };
+		49C27549030C7A0AF27C7B5E /* ces_dance_crowd_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1159097815109213CC94AFEE /* ces_dance_crowd_system.cpp */; settings = {COMPILER_FLAGS = "-fexceptions -frtti"; }; };
+		04F6CDA0DF1B2446325B1297 /* ces_dance_character_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 455C04EC23BA14509E959729 /* ces_dance_character_component.cpp */; settings = {COMPILER_FLAGS = "-fexceptions -frtti"; }; };
 		C2116A6F1A0ECF08DEF42171 /* terrain_mesh_builder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5C471F769DF17A12B263574 /* terrain_mesh_builder.cpp */; };
 		19D176F7048677D90CDE2A0F /* terrain_generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4DEFED68A5B412947862B94C /* terrain_generator.cpp */; };
 		90572C1B95BD497FB86F70F1 /* terrain_editor_input.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66C70768584848F3B918F38E /* terrain_editor_input.cpp */; };
@@ -1937,6 +1957,16 @@
 		F36DF2341E953C5600EAE49B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 21B4033B1B7A09FD003382AB /* main.m */; };
 		841E3E1FA27165DA0DAFD154 /* island_demo_transition.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 495B23FBF83B7F62D692ED84 /* island_demo_transition.cpp */; };
 		765A97409E0F787A56310C2B /* island_demo_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5897808789A96CB284D27F2 /* island_demo_scene.cpp */; };
+		30E2FAF1958E0A84D41E687B /* rhythm_track.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 902846C6FFCC8CAE679B2492 /* rhythm_track.cpp */; settings = {COMPILER_FLAGS = "-fexceptions -frtti"; }; };
+		17DDBAE48642426DFB0C3C42 /* rhythm_ship_ui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 75D79CEA8999B1593C9A12CA /* rhythm_ship_ui.cpp */; settings = {COMPILER_FLAGS = "-fexceptions -frtti"; }; };
+		6A5942552AB8A56EE32022CD /* rhythm_ship_transition.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4ED1A3B5C1650B56194DCAD /* rhythm_ship_transition.cpp */; settings = {COMPILER_FLAGS = "-fexceptions -frtti"; }; };
+		873A918B998A9AE2F46FCC94 /* rhythm_ship_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CF355384539AD7A4F7A94CD2 /* rhythm_ship_scene.cpp */; settings = {COMPILER_FLAGS = "-fexceptions -frtti"; }; };
+		392F3639309A1EFF52FE0EE0 /* rhythm_ship_input.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B40144CC151A1D32D02D142 /* rhythm_ship_input.cpp */; settings = {COMPILER_FLAGS = "-fexceptions -frtti"; }; };
+		CCD9C0B0CE3DAE808846DCD4 /* rhythm_ship_environment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C6A911CD1D8429C72257E3E2 /* rhythm_ship_environment.cpp */; settings = {COMPILER_FLAGS = "-fexceptions -frtti"; }; };
+		54D6B781EFCB6E0F561A6187 /* rhythm_session.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7E0A33849193DBC6997C7582 /* rhythm_session.cpp */; settings = {COMPILER_FLAGS = "-fexceptions -frtti"; }; };
+		0244A3AAB4DE454DB7C142D0 /* fake_leaderboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 573CC8BEC6BB2EEB59AD29C2 /* fake_leaderboard.cpp */; settings = {COMPILER_FLAGS = "-fexceptions -frtti"; }; };
+		67DF02EF75A978F08E5FD51C /* ces_dance_crowd_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1159097815109213CC94AFEE /* ces_dance_crowd_system.cpp */; settings = {COMPILER_FLAGS = "-fexceptions -frtti"; }; };
+		8F9198C912949F0BDB7C7441 /* ces_dance_character_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 455C04EC23BA14509E959729 /* ces_dance_character_component.cpp */; settings = {COMPILER_FLAGS = "-fexceptions -frtti"; }; };
 		F1099EF95894B08437FF9EAF /* terrain_mesh_builder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5C471F769DF17A12B263574 /* terrain_mesh_builder.cpp */; };
 		6BB61FCC0D07167ECB446AA0 /* terrain_generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4DEFED68A5B412947862B94C /* terrain_generator.cpp */; };
 		D86B731CA3A0464B832D48E6 /* terrain_editor_input.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66C70768584848F3B918F38E /* terrain_editor_input.cpp */; };
@@ -2076,18 +2106,42 @@
 		5D5CA43DD412DDEEF1E9D4D8 /* island_terrain.xml in Resources */ = {isa = PBXBuildFile; fileRef = B03BBCAEAF0EADAC4962DAA0 /* island_terrain.xml */; };
 		811844F0FF0C444788CF330D /* sky.island.cubemap.xml in Resources */ = {isa = PBXBuildFile; fileRef = C243D3CD6E24459BB9085876 /* sky.island.cubemap.xml */; };
 		D128960F4B2E4730A0D52ACD /* island_sky.xml in Resources */ = {isa = PBXBuildFile; fileRef = 882034754D674A9D95ACCF42 /* island_sky.xml */; };
+		C87C353F103B230B46BDA7D2 /* material.rhythm_ship_solid.xml in Resources */ = {isa = PBXBuildFile; fileRef = 81BFCBBA86C9107314431147 /* material.rhythm_ship_solid.xml */; };
+		CCF01A7280C58240E15714A7 /* material.rhythm_ship_character.xml in Resources */ = {isa = PBXBuildFile; fileRef = F12154223DE761F57A1DAC33 /* material.rhythm_ship_character.xml */; };
+		58450F54AC07A7CEA1ED62EB /* transition.rhythm_ship.xml in Resources */ = {isa = PBXBuildFile; fileRef = 73F390CEE695C1FBB3DF0AE3 /* transition.rhythm_ship.xml */; };
+		E30BDC3FCBEAF36291E12FD4 /* rhythm_ship_track.json in Resources */ = {isa = PBXBuildFile; fileRef = F32BBA3C052AB36AFABFD863 /* rhythm_ship_track.json */; };
+		C84C46021216E7EA024488FE /* rhythm_ship_solid.xml in Resources */ = {isa = PBXBuildFile; fileRef = DB23389C44321CEFC4A75F5B /* rhythm_ship_solid.xml */; };
+		BEA13A18E4F8E0836388B443 /* rhythm_ship_character.xml in Resources */ = {isa = PBXBuildFile; fileRef = 091909D7FE7A04B2C2395AFC /* rhythm_ship_character.xml */; };
+		7F9DB47110F42301AF303862 /* rhythm_ship_characters.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BFAC996D03F675D927DFED5 /* rhythm_ship_characters.png */; };
+		18574B56CE917799D9BEBDEF /* rhythm_ship_metronome.wav in Resources */ = {isa = PBXBuildFile; fileRef = F8C3AEBD01FA88A3FAE198B3 /* rhythm_ship_metronome.wav */; };
 		47730ED7CB114787A22DB0B1 /* grass_interaction.xml in Resources */ = {isa = PBXBuildFile; fileRef = 30C9129D41F64D179DA8B002 /* grass_interaction.xml */; };
 		E92AA30E67FA46FAA12BAA6A /* blob_shadow.xml in Resources */ = {isa = PBXBuildFile; fileRef = C073847474E54F2BAE2729DB /* blob_shadow.xml */; };
 		999F44B6691B49518D591A45 /* editor_brush.xml in Resources */ = {isa = PBXBuildFile; fileRef = 02679E7269A843299EE7EDC2 /* editor_brush.xml */; };
 		5B3D06B0F005F0501B8D6216 /* island_terrain.xml in Resources */ = {isa = PBXBuildFile; fileRef = B03BBCAEAF0EADAC4962DAA0 /* island_terrain.xml */; };
 		4103E36FB3E546E2B653A8B9 /* sky.island.cubemap.xml in Resources */ = {isa = PBXBuildFile; fileRef = C243D3CD6E24459BB9085876 /* sky.island.cubemap.xml */; };
 		8C699CDBD90048ABB6EBC3E2 /* island_sky.xml in Resources */ = {isa = PBXBuildFile; fileRef = 882034754D674A9D95ACCF42 /* island_sky.xml */; };
+		9E50EE970A86147B6FAE4AAB /* material.rhythm_ship_solid.xml in Resources */ = {isa = PBXBuildFile; fileRef = 81BFCBBA86C9107314431147 /* material.rhythm_ship_solid.xml */; };
+		D033C92BE30328D07774E5EB /* material.rhythm_ship_character.xml in Resources */ = {isa = PBXBuildFile; fileRef = F12154223DE761F57A1DAC33 /* material.rhythm_ship_character.xml */; };
+		3405BE2C2D903141D4FA96B9 /* transition.rhythm_ship.xml in Resources */ = {isa = PBXBuildFile; fileRef = 73F390CEE695C1FBB3DF0AE3 /* transition.rhythm_ship.xml */; };
+		F9A68B761A32CE802175CC91 /* rhythm_ship_track.json in Resources */ = {isa = PBXBuildFile; fileRef = F32BBA3C052AB36AFABFD863 /* rhythm_ship_track.json */; };
+		021EB8A2B176829AF8CF7E4E /* rhythm_ship_solid.xml in Resources */ = {isa = PBXBuildFile; fileRef = DB23389C44321CEFC4A75F5B /* rhythm_ship_solid.xml */; };
+		904C272306E9C8868BF81552 /* rhythm_ship_character.xml in Resources */ = {isa = PBXBuildFile; fileRef = 091909D7FE7A04B2C2395AFC /* rhythm_ship_character.xml */; };
+		65F1850EC7543B947883D200 /* rhythm_ship_characters.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BFAC996D03F675D927DFED5 /* rhythm_ship_characters.png */; };
+		A1A525B06731AA2DB72A4A17 /* rhythm_ship_metronome.wav in Resources */ = {isa = PBXBuildFile; fileRef = F8C3AEBD01FA88A3FAE198B3 /* rhythm_ship_metronome.wav */; };
 		DDD1823051984764868E6448 /* grass_interaction.xml in Resources */ = {isa = PBXBuildFile; fileRef = 30C9129D41F64D179DA8B002 /* grass_interaction.xml */; };
 		F0AAA0EAF175444E8F4D8E76 /* blob_shadow.xml in Resources */ = {isa = PBXBuildFile; fileRef = C073847474E54F2BAE2729DB /* blob_shadow.xml */; };
 		8A3D307EED144B5E8E82B81C /* editor_brush.xml in Resources */ = {isa = PBXBuildFile; fileRef = 02679E7269A843299EE7EDC2 /* editor_brush.xml */; };
 		7797B99E12487F962EA127DE /* island_terrain.xml in Resources */ = {isa = PBXBuildFile; fileRef = B03BBCAEAF0EADAC4962DAA0 /* island_terrain.xml */; };
 		1E8E523C795E455180F795C3 /* sky.island.cubemap.xml in Resources */ = {isa = PBXBuildFile; fileRef = C243D3CD6E24459BB9085876 /* sky.island.cubemap.xml */; };
 		57C0B357E3FD4FBDB9CC6F87 /* island_sky.xml in Resources */ = {isa = PBXBuildFile; fileRef = 882034754D674A9D95ACCF42 /* island_sky.xml */; };
+		36728D9AC2381782AF879B0A /* material.rhythm_ship_solid.xml in Resources */ = {isa = PBXBuildFile; fileRef = 81BFCBBA86C9107314431147 /* material.rhythm_ship_solid.xml */; };
+		A8819A0AB76CAD108C08B7F0 /* material.rhythm_ship_character.xml in Resources */ = {isa = PBXBuildFile; fileRef = F12154223DE761F57A1DAC33 /* material.rhythm_ship_character.xml */; };
+		FFB9B6F37B0804A05970CA53 /* transition.rhythm_ship.xml in Resources */ = {isa = PBXBuildFile; fileRef = 73F390CEE695C1FBB3DF0AE3 /* transition.rhythm_ship.xml */; };
+		0DD332D0DCBB5E8EB8534057 /* rhythm_ship_track.json in Resources */ = {isa = PBXBuildFile; fileRef = F32BBA3C052AB36AFABFD863 /* rhythm_ship_track.json */; };
+		DF1B9F7105A5B2C590E1259A /* rhythm_ship_solid.xml in Resources */ = {isa = PBXBuildFile; fileRef = DB23389C44321CEFC4A75F5B /* rhythm_ship_solid.xml */; };
+		61EA496BA846BADABF0F22FE /* rhythm_ship_character.xml in Resources */ = {isa = PBXBuildFile; fileRef = 091909D7FE7A04B2C2395AFC /* rhythm_ship_character.xml */; };
+		3A2E982FCAA162BA415FDB64 /* rhythm_ship_characters.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BFAC996D03F675D927DFED5 /* rhythm_ship_characters.png */; };
+		1CE21B46792EFCD6C8984161 /* rhythm_ship_metronome.wav in Resources */ = {isa = PBXBuildFile; fileRef = F8C3AEBD01FA88A3FAE198B3 /* rhythm_ship_metronome.wav */; };
 		619C7BA5E20A4BB3A135FD26 /* grass_interaction.xml in Resources */ = {isa = PBXBuildFile; fileRef = 30C9129D41F64D179DA8B002 /* grass_interaction.xml */; };
 		A89A1E63820843619196A8D9 /* blob_shadow.xml in Resources */ = {isa = PBXBuildFile; fileRef = C073847474E54F2BAE2729DB /* blob_shadow.xml */; };
 		777C6ED7854E4C9684047C67 /* editor_brush.xml in Resources */ = {isa = PBXBuildFile; fileRef = 02679E7269A843299EE7EDC2 /* editor_brush.xml */; };
@@ -2502,16 +2556,28 @@
 		F0B28A56968745C7B2E29D67 /* shader_editor_brush.frag in Resources */ = {isa = PBXBuildFile; fileRef = 1EA2EEEBF47D494885FC9502 /* shader_editor_brush.frag */; };
 		EEBE90AFE1484E201736B37E /* shader_water_seed.vert in Resources */ = {isa = PBXBuildFile; fileRef = D84A6EF65DAB06263E430076 /* shader_water_seed.vert */; };
 		C245D671E8D748448AF1791A /* shader_island_sky.vert in Resources */ = {isa = PBXBuildFile; fileRef = 68C6FEA8E4D74093B95883E9 /* shader_island_sky.vert */; };
+		F6D5C57528C04525061A3394 /* shader_rhythm_ship_solid.vert in Resources */ = {isa = PBXBuildFile; fileRef = FEA0CCF8711E6FB8E416217A /* shader_rhythm_ship_solid.vert */; };
+		A599BC5CA84D9D8E391B8FC8 /* shader_rhythm_ship_solid.frag in Resources */ = {isa = PBXBuildFile; fileRef = EAD6744CBC4E0A4E731BECCF /* shader_rhythm_ship_solid.frag */; };
+		DB97FE197C25225F24FF3AF1 /* shader_rhythm_ship_character.vert in Resources */ = {isa = PBXBuildFile; fileRef = 54F1170ADA64226A9F8F03C2 /* shader_rhythm_ship_character.vert */; };
+		5A7C6F95EE9C216D3BB005C5 /* shader_rhythm_ship_character.frag in Resources */ = {isa = PBXBuildFile; fileRef = 26B8618C3C1DFF767C2FE76E /* shader_rhythm_ship_character.frag */; };
 		55408CB3C0014A5D8944E32A /* shader_grass_interaction.vert in Resources */ = {isa = PBXBuildFile; fileRef = 69BE3D083DF6433280818C2F /* shader_grass_interaction.vert */; };
 		32829D92BE4D40CA888841FE /* shader_blob_shadow.vert in Resources */ = {isa = PBXBuildFile; fileRef = DAFB8E9A085440E09B8CCBAE /* shader_blob_shadow.vert */; };
 		848D4B5A68924EB2945EF078 /* shader_editor_brush.vert in Resources */ = {isa = PBXBuildFile; fileRef = 69D6ECE4363D4CCB9BABD531 /* shader_editor_brush.vert */; };
 		CE7D59B6A6E9FA7BE2E1D3EA /* shader_water_seed.vert in Resources */ = {isa = PBXBuildFile; fileRef = D84A6EF65DAB06263E430076 /* shader_water_seed.vert */; };
 		6C8EA2DB440247BC972AF7D6 /* shader_island_sky.vert in Resources */ = {isa = PBXBuildFile; fileRef = 68C6FEA8E4D74093B95883E9 /* shader_island_sky.vert */; };
+		956886FF6A9E963055053CA7 /* shader_rhythm_ship_solid.vert in Resources */ = {isa = PBXBuildFile; fileRef = FEA0CCF8711E6FB8E416217A /* shader_rhythm_ship_solid.vert */; };
+		131018DDE41436E7707BA0FF /* shader_rhythm_ship_solid.frag in Resources */ = {isa = PBXBuildFile; fileRef = EAD6744CBC4E0A4E731BECCF /* shader_rhythm_ship_solid.frag */; };
+		6870885D6CAB2CDF40600FA3 /* shader_rhythm_ship_character.vert in Resources */ = {isa = PBXBuildFile; fileRef = 54F1170ADA64226A9F8F03C2 /* shader_rhythm_ship_character.vert */; };
+		9FF5CA1A3B73876A07D5C27D /* shader_rhythm_ship_character.frag in Resources */ = {isa = PBXBuildFile; fileRef = 26B8618C3C1DFF767C2FE76E /* shader_rhythm_ship_character.frag */; };
 		E309B5BA7C304AE082F1F52A /* shader_grass_interaction.vert in Resources */ = {isa = PBXBuildFile; fileRef = 69BE3D083DF6433280818C2F /* shader_grass_interaction.vert */; };
 		9B92E04A34384E7EA35FD43F /* shader_blob_shadow.vert in Resources */ = {isa = PBXBuildFile; fileRef = DAFB8E9A085440E09B8CCBAE /* shader_blob_shadow.vert */; };
 		3D05DB80A5D94486B1FC625D /* shader_editor_brush.vert in Resources */ = {isa = PBXBuildFile; fileRef = 69D6ECE4363D4CCB9BABD531 /* shader_editor_brush.vert */; };
 		FA5EA05122BF5AEDFBD2AF4D /* shader_water_seed.vert in Resources */ = {isa = PBXBuildFile; fileRef = D84A6EF65DAB06263E430076 /* shader_water_seed.vert */; };
 		782DD0F6671343F994D73D2A /* shader_island_sky.vert in Resources */ = {isa = PBXBuildFile; fileRef = 68C6FEA8E4D74093B95883E9 /* shader_island_sky.vert */; };
+		87EB162EA9845AF764CBB464 /* shader_rhythm_ship_solid.vert in Resources */ = {isa = PBXBuildFile; fileRef = FEA0CCF8711E6FB8E416217A /* shader_rhythm_ship_solid.vert */; };
+		07F44189B64E121459E49C9E /* shader_rhythm_ship_solid.frag in Resources */ = {isa = PBXBuildFile; fileRef = EAD6744CBC4E0A4E731BECCF /* shader_rhythm_ship_solid.frag */; };
+		5C20F8B021D21E5AA98F84AE /* shader_rhythm_ship_character.vert in Resources */ = {isa = PBXBuildFile; fileRef = 54F1170ADA64226A9F8F03C2 /* shader_rhythm_ship_character.vert */; };
+		7816C017AA2B84B765DD983F /* shader_rhythm_ship_character.frag in Resources */ = {isa = PBXBuildFile; fileRef = 26B8618C3C1DFF767C2FE76E /* shader_rhythm_ship_character.frag */; };
 		0E0A2E113DCE40E9BF2462D8 /* shader_grass_interaction.vert in Resources */ = {isa = PBXBuildFile; fileRef = 69BE3D083DF6433280818C2F /* shader_grass_interaction.vert */; };
 		47C9273E467A4086B4728B7D /* shader_blob_shadow.vert in Resources */ = {isa = PBXBuildFile; fileRef = DAFB8E9A085440E09B8CCBAE /* shader_blob_shadow.vert */; };
 		9BC6AC841AC74E499DB6B970 /* shader_editor_brush.vert in Resources */ = {isa = PBXBuildFile; fileRef = 69D6ECE4363D4CCB9BABD531 /* shader_editor_brush.vert */; };
@@ -2654,10 +2720,13 @@
 		501911D170AE40C4A4E69BF4 /* shader_building_aura.frag in Resources */ = {isa = PBXBuildFile; fileRef = 4726815B7F904B5F0CB5B350 /* shader_building_aura.frag */; };
 		618C13D9C3FD7C647D3724BC /* shader_building_aura.frag in Resources */ = {isa = PBXBuildFile; fileRef = 4726815B7F904B5F0CB5B350 /* shader_building_aura.frag */; };
 		10960D68424C36C2B486DE13 /* mtl_editor_building.metal in Sources */ = {isa = PBXBuildFile; fileRef = 6A8A0ED4F4759153988C84FA /* mtl_editor_building.metal */; };
+		964DF754DFEE434B4DD79550 /* mtl_rhythm_ship.metal in Sources */ = {isa = PBXBuildFile; fileRef = B6B43E50023B487355D96D0C /* mtl_rhythm_ship.metal */; };
 		14017F4480034C67ACFBB9CF /* mtl_stylized_post.metal in Sources */ = {isa = PBXBuildFile; fileRef = 32A4C1C7AED14903829557C7 /* mtl_stylized_post.metal */; };
 		29B1964EF8A5DC9E4B993A16 /* mtl_editor_building.metal in Sources */ = {isa = PBXBuildFile; fileRef = 6A8A0ED4F4759153988C84FA /* mtl_editor_building.metal */; };
+		FB83837C742461A9FC13D2EF /* mtl_rhythm_ship.metal in Sources */ = {isa = PBXBuildFile; fileRef = B6B43E50023B487355D96D0C /* mtl_rhythm_ship.metal */; };
 		29804A3D61594E1AB07952A6 /* mtl_stylized_post.metal in Sources */ = {isa = PBXBuildFile; fileRef = 32A4C1C7AED14903829557C7 /* mtl_stylized_post.metal */; };
 		776DD428FB450801BD1824FB /* mtl_editor_building.metal in Sources */ = {isa = PBXBuildFile; fileRef = 6A8A0ED4F4759153988C84FA /* mtl_editor_building.metal */; };
+		B24D5720E59A6144D47CB66A /* mtl_rhythm_ship.metal in Sources */ = {isa = PBXBuildFile; fileRef = B6B43E50023B487355D96D0C /* mtl_rhythm_ship.metal */; };
 		A85A7FA3B40C4DB2A8B12DB9 /* mtl_stylized_post.metal in Sources */ = {isa = PBXBuildFile; fileRef = 32A4C1C7AED14903829557C7 /* mtl_stylized_post.metal */; };
 		B20B20200000000000000002 /* terrain_voxel_atlas.png in Resources */ = {isa = PBXBuildFile; fileRef = B20B20200000000000000001 /* terrain_voxel_atlas.png */; };
 		B20B20200000000000000003 /* terrain_voxel_atlas.png in Resources */ = {isa = PBXBuildFile; fileRef = B20B20200000000000000001 /* terrain_voxel_atlas.png */; };
@@ -3777,6 +3846,16 @@
 		F30077D61F31D5AB009F2EDF /* gameplay_ui_fabricator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = gameplay_ui_fabricator.h; path = sources/gameplay_ui_fabricator.h; sourceTree = "<group>"; };
 		495B23FBF83B7F62D692ED84 /* island_demo_transition.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = island_demo_transition.cpp; path = sources/island_demo_transition.cpp; sourceTree = "<group>"; };
 		C5897808789A96CB284D27F2 /* island_demo_scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = island_demo_scene.cpp; path = sources/island_demo_scene.cpp; sourceTree = "<group>"; };
+		902846C6FFCC8CAE679B2492 /* rhythm_track.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = rhythm_track.cpp; path = sources/rhythm_track.cpp; sourceTree = "<group>"; };
+		75D79CEA8999B1593C9A12CA /* rhythm_ship_ui.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = rhythm_ship_ui.cpp; path = sources/rhythm_ship_ui.cpp; sourceTree = "<group>"; };
+		E4ED1A3B5C1650B56194DCAD /* rhythm_ship_transition.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = rhythm_ship_transition.cpp; path = sources/rhythm_ship_transition.cpp; sourceTree = "<group>"; };
+		CF355384539AD7A4F7A94CD2 /* rhythm_ship_scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = rhythm_ship_scene.cpp; path = sources/rhythm_ship_scene.cpp; sourceTree = "<group>"; };
+		8B40144CC151A1D32D02D142 /* rhythm_ship_input.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = rhythm_ship_input.cpp; path = sources/rhythm_ship_input.cpp; sourceTree = "<group>"; };
+		C6A911CD1D8429C72257E3E2 /* rhythm_ship_environment.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = rhythm_ship_environment.cpp; path = sources/rhythm_ship_environment.cpp; sourceTree = "<group>"; };
+		7E0A33849193DBC6997C7582 /* rhythm_session.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = rhythm_session.cpp; path = sources/rhythm_session.cpp; sourceTree = "<group>"; };
+		573CC8BEC6BB2EEB59AD29C2 /* fake_leaderboard.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = fake_leaderboard.cpp; path = sources/fake_leaderboard.cpp; sourceTree = "<group>"; };
+		1159097815109213CC94AFEE /* ces_dance_crowd_system.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_dance_crowd_system.cpp; path = sources/ces_dance_crowd_system.cpp; sourceTree = "<group>"; };
+		455C04EC23BA14509E959729 /* ces_dance_character_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_dance_character_component.cpp; path = sources/ces_dance_character_component.cpp; sourceTree = "<group>"; };
 		F5C471F769DF17A12B263574 /* terrain_mesh_builder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = terrain_mesh_builder.cpp; path = sources/terrain_mesh_builder.cpp; sourceTree = "<group>"; };
 		4DEFED68A5B412947862B94C /* terrain_generator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = terrain_generator.cpp; path = sources/terrain_generator.cpp; sourceTree = "<group>"; };
 		66C70768584848F3B918F38E /* terrain_editor_input.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = terrain_editor_input.cpp; path = sources/terrain_editor_input.cpp; sourceTree = "<group>"; };
@@ -3791,6 +3870,17 @@
 		B63B241D02AE4F93BEACF5A2 /* terrain_editor_state.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = terrain_editor_state.cpp; path = sources/terrain_editor_state.cpp; sourceTree = "<group>"; };
 		8271FCB224C8AF33F10EC176 /* island_demo_transition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = island_demo_transition.h; path = sources/island_demo_transition.h; sourceTree = "<group>"; };
 		D8378A514422E4D0C849A183 /* island_demo_scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = island_demo_scene.h; path = sources/island_demo_scene.h; sourceTree = "<group>"; };
+		DF5B104136EEF1DB114BCB38 /* rhythm_key_action.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rhythm_key_action.h; path = sources/rhythm_key_action.h; sourceTree = "<group>"; };
+		18960438471ACB9B1CDA3951 /* rhythm_track.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rhythm_track.h; path = sources/rhythm_track.h; sourceTree = "<group>"; };
+		158BF9EB2CCDCF01ED123CB4 /* rhythm_ship_ui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rhythm_ship_ui.h; path = sources/rhythm_ship_ui.h; sourceTree = "<group>"; };
+		6AE44740B0AB61D7A271DDFC /* rhythm_ship_transition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rhythm_ship_transition.h; path = sources/rhythm_ship_transition.h; sourceTree = "<group>"; };
+		DC0FBBAF7130A5BEC5886FAF /* rhythm_ship_scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rhythm_ship_scene.h; path = sources/rhythm_ship_scene.h; sourceTree = "<group>"; };
+		92321294FC4364456D454B43 /* rhythm_ship_input.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rhythm_ship_input.h; path = sources/rhythm_ship_input.h; sourceTree = "<group>"; };
+		A9EB2858EE20C8CA6B9B82FF /* rhythm_ship_environment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rhythm_ship_environment.h; path = sources/rhythm_ship_environment.h; sourceTree = "<group>"; };
+		6A03C518B1B746987DE0CBFE /* rhythm_session.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rhythm_session.h; path = sources/rhythm_session.h; sourceTree = "<group>"; };
+		B3739B4FF11F1BB96070BB5F /* fake_leaderboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = fake_leaderboard.h; path = sources/fake_leaderboard.h; sourceTree = "<group>"; };
+		9F33B607A4E2084467FCCFAB /* ces_dance_crowd_system.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_dance_crowd_system.h; path = sources/ces_dance_crowd_system.h; sourceTree = "<group>"; };
+		606D56822C369C439015A9BC /* ces_dance_character_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_dance_character_component.h; path = sources/ces_dance_character_component.h; sourceTree = "<group>"; };
 		B3EF9A06C4A2650BE6328B36 /* terrain_mesh_builder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = terrain_mesh_builder.h; path = sources/terrain_mesh_builder.h; sourceTree = "<group>"; };
 		C63967718AD74E6D8BB8C49C /* grass_interaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = grass_interaction.h; path = sources/grass_interaction.h; sourceTree = "<group>"; };
 		45447A8855B94BC4BB7E4188 /* orbit_zoom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = orbit_zoom.h; path = sources/orbit_zoom.h; sourceTree = "<group>"; };
@@ -3892,6 +3982,14 @@
 		B03BBCAEAF0EADAC4962DAA0 /* island_terrain.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = island_terrain.xml; path = ../gbBundle/Configurations/game_objects/island_terrain.xml; sourceTree = "<group>"; };
 		C243D3CD6E24459BB9085876 /* sky.island.cubemap.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = sky.island.cubemap.xml; path = ../gbBundle/Configurations/game_objects/sky.island.cubemap.xml; sourceTree = "<group>"; };
 		882034754D674A9D95ACCF42 /* island_sky.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = island_sky.xml; path = ../gbBundle/Configurations/game_objects/island_sky.xml; sourceTree = "<group>"; };
+		81BFCBBA86C9107314431147 /* material.rhythm_ship_solid.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.rhythm_ship_solid.xml; path = ../gbBundle/Configurations/game_objects/materials/material.rhythm_ship_solid.xml; sourceTree = "<group>"; };
+		F12154223DE761F57A1DAC33 /* material.rhythm_ship_character.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.rhythm_ship_character.xml; path = ../gbBundle/Configurations/game_objects/materials/material.rhythm_ship_character.xml; sourceTree = "<group>"; };
+		73F390CEE695C1FBB3DF0AE3 /* transition.rhythm_ship.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = transition.rhythm_ship.xml; path = ../gbBundle/Configurations/transitions/transition.rhythm_ship.xml; sourceTree = "<group>"; };
+		F32BBA3C052AB36AFABFD863 /* rhythm_ship_track.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = rhythm_ship_track.json; path = ../gbBundle/Configurations/rhythm_ship/rhythm_ship_track.json; sourceTree = "<group>"; };
+		DB23389C44321CEFC4A75F5B /* rhythm_ship_solid.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = rhythm_ship_solid.xml; path = ../gbBundle/Configurations/game_objects/rhythm_ship_solid.xml; sourceTree = "<group>"; };
+		091909D7FE7A04B2C2395AFC /* rhythm_ship_character.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = rhythm_ship_character.xml; path = ../gbBundle/Configurations/game_objects/rhythm_ship_character.xml; sourceTree = "<group>"; };
+		9BFAC996D03F675D927DFED5 /* rhythm_ship_characters.png */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = image.png; name = rhythm_ship_characters.png; path = ../gbBundle/Textures/rhythm_ship_characters.png; sourceTree = "<group>"; };
+		F8C3AEBD01FA88A3FAE198B3 /* rhythm_ship_metronome.wav */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = audio.wav; name = rhythm_ship_metronome.wav; path = ../gbBundle/Sounds/rhythm_ship_metronome.wav; sourceTree = "<group>"; };
 		30C9129D41F64D179DA8B002 /* grass_interaction.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = grass_interaction.xml; path = ../gbBundle/Configurations/game_objects/grass_interaction.xml; sourceTree = "<group>"; };
 		C073847474E54F2BAE2729DB /* blob_shadow.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = blob_shadow.xml; path = ../gbBundle/Configurations/game_objects/blob_shadow.xml; sourceTree = "<group>"; };
 		02679E7269A843299EE7EDC2 /* editor_brush.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = editor_brush.xml; path = ../gbBundle/Configurations/game_objects/editor_brush.xml; sourceTree = "<group>"; };
@@ -4050,6 +4148,10 @@
 		1EA2EEEBF47D494885FC9502 /* shader_editor_brush.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_editor_brush.frag; path = ../gbBundle/Shaders/shader_editor_brush.frag; sourceTree = "<group>"; };
 		D84A6EF65DAB06263E430076 /* shader_water_seed.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_water_seed.vert; path = ../gbBundle/Shaders/shader_water_seed.vert; sourceTree = "<group>"; };
 		68C6FEA8E4D74093B95883E9 /* shader_island_sky.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_island_sky.vert; path = ../gbBundle/Shaders/shader_island_sky.vert; sourceTree = "<group>"; };
+		FEA0CCF8711E6FB8E416217A /* shader_rhythm_ship_solid.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_rhythm_ship_solid.vert; path = ../gbBundle/Shaders/shader_rhythm_ship_solid.vert; sourceTree = "<group>"; };
+		EAD6744CBC4E0A4E731BECCF /* shader_rhythm_ship_solid.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_rhythm_ship_solid.frag; path = ../gbBundle/Shaders/shader_rhythm_ship_solid.frag; sourceTree = "<group>"; };
+		54F1170ADA64226A9F8F03C2 /* shader_rhythm_ship_character.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_rhythm_ship_character.vert; path = ../gbBundle/Shaders/shader_rhythm_ship_character.vert; sourceTree = "<group>"; };
+		26B8618C3C1DFF767C2FE76E /* shader_rhythm_ship_character.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_rhythm_ship_character.frag; path = ../gbBundle/Shaders/shader_rhythm_ship_character.frag; sourceTree = "<group>"; };
 		69BE3D083DF6433280818C2F /* shader_grass_interaction.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_grass_interaction.vert; path = ../gbBundle/Shaders/shader_grass_interaction.vert; sourceTree = "<group>"; };
 		DAFB8E9A085440E09B8CCBAE /* shader_blob_shadow.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_blob_shadow.vert; path = ../gbBundle/Shaders/shader_blob_shadow.vert; sourceTree = "<group>"; };
 		69D6ECE4363D4CCB9BABD531 /* shader_editor_brush.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_editor_brush.vert; path = ../gbBundle/Shaders/shader_editor_brush.vert; sourceTree = "<group>"; };
@@ -4103,6 +4205,7 @@
 		DC3346497ED5C0567897BC5E /* shader_building_aura.vert */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = shader_building_aura.vert; path = ../gbBundle/Shaders/shader_building_aura.vert; sourceTree = SOURCE_ROOT; };
 		4726815B7F904B5F0CB5B350 /* shader_building_aura.frag */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = shader_building_aura.frag; path = ../gbBundle/Shaders/shader_building_aura.frag; sourceTree = SOURCE_ROOT; };
 		6A8A0ED4F4759153988C84FA /* mtl_editor_building.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; name = mtl_editor_building.metal; path = ../gbBundle/Shaders/metal/mtl_editor_building.metal; sourceTree = SOURCE_ROOT; };
+		B6B43E50023B487355D96D0C /* mtl_rhythm_ship.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; name = mtl_rhythm_ship.metal; path = ../gbBundle/Shaders/metal/mtl_rhythm_ship.metal; sourceTree = SOURCE_ROOT; };
 		32A4C1C7AED14903829557C7 /* mtl_stylized_post.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; name = mtl_stylized_post.metal; path = ../gbBundle/Shaders/metal/mtl_stylized_post.metal; sourceTree = SOURCE_ROOT; };
 		D9ACAFE95B0ABCF78643B0FD /* outline_ids.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = outline_ids.h; path = sources/outline_ids.h; sourceTree = SOURCE_ROOT; };
 		A20A10100000000000000001 /* stylized_lighting_settings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sources/stylized_lighting_settings.h; sourceTree = "<group>"; };
@@ -4879,6 +4982,14 @@
 				4A854EE14CA64A18A81F131A /* GraphicsSettings.json */,
 				C243D3CD6E24459BB9085876 /* sky.island.cubemap.xml */,
 				882034754D674A9D95ACCF42 /* island_sky.xml */,
+				81BFCBBA86C9107314431147 /* material.rhythm_ship_solid.xml */,
+				F12154223DE761F57A1DAC33 /* material.rhythm_ship_character.xml */,
+				73F390CEE695C1FBB3DF0AE3 /* transition.rhythm_ship.xml */,
+				F32BBA3C052AB36AFABFD863 /* rhythm_ship_track.json */,
+				DB23389C44321CEFC4A75F5B /* rhythm_ship_solid.xml */,
+				091909D7FE7A04B2C2395AFC /* rhythm_ship_character.xml */,
+				9BFAC996D03F675D927DFED5 /* rhythm_ship_characters.png */,
+				F8C3AEBD01FA88A3FAE198B3 /* rhythm_ship_metronome.wav */,
 				30C9129D41F64D179DA8B002 /* grass_interaction.xml */,
 				C073847474E54F2BAE2729DB /* blob_shadow.xml */,
 				02679E7269A843299EE7EDC2 /* editor_brush.xml */,
@@ -5573,6 +5684,17 @@
 				92B5852F21539B15008AA8BB /* ui_editor_scene.h */,
 				8271FCB224C8AF33F10EC176 /* island_demo_transition.h */,
 				D8378A514422E4D0C849A183 /* island_demo_scene.h */,
+				DF5B104136EEF1DB114BCB38 /* rhythm_key_action.h */,
+				18960438471ACB9B1CDA3951 /* rhythm_track.h */,
+				158BF9EB2CCDCF01ED123CB4 /* rhythm_ship_ui.h */,
+				6AE44740B0AB61D7A271DDFC /* rhythm_ship_transition.h */,
+				DC0FBBAF7130A5BEC5886FAF /* rhythm_ship_scene.h */,
+				92321294FC4364456D454B43 /* rhythm_ship_input.h */,
+				A9EB2858EE20C8CA6B9B82FF /* rhythm_ship_environment.h */,
+				6A03C518B1B746987DE0CBFE /* rhythm_session.h */,
+				B3739B4FF11F1BB96070BB5F /* fake_leaderboard.h */,
+				9F33B607A4E2084467FCCFAB /* ces_dance_crowd_system.h */,
+				606D56822C369C439015A9BC /* ces_dance_character_component.h */,
 				B3EF9A06C4A2650BE6328B36 /* terrain_mesh_builder.h */,
 				C63967718AD74E6D8BB8C49C /* grass_interaction.h */,
 				45447A8855B94BC4BB7E4188 /* orbit_zoom.h */,
@@ -5672,6 +5794,16 @@
 				D58EFA2717A64446B05E0958 /* terrain_editor_state.h */,
 				495B23FBF83B7F62D692ED84 /* island_demo_transition.cpp */,
 				C5897808789A96CB284D27F2 /* island_demo_scene.cpp */,
+				902846C6FFCC8CAE679B2492 /* rhythm_track.cpp */,
+				75D79CEA8999B1593C9A12CA /* rhythm_ship_ui.cpp */,
+				E4ED1A3B5C1650B56194DCAD /* rhythm_ship_transition.cpp */,
+				CF355384539AD7A4F7A94CD2 /* rhythm_ship_scene.cpp */,
+				8B40144CC151A1D32D02D142 /* rhythm_ship_input.cpp */,
+				C6A911CD1D8429C72257E3E2 /* rhythm_ship_environment.cpp */,
+				7E0A33849193DBC6997C7582 /* rhythm_session.cpp */,
+				573CC8BEC6BB2EEB59AD29C2 /* fake_leaderboard.cpp */,
+				1159097815109213CC94AFEE /* ces_dance_crowd_system.cpp */,
+				455C04EC23BA14509E959729 /* ces_dance_character_component.cpp */,
 				F5C471F769DF17A12B263574 /* terrain_mesh_builder.cpp */,
 				4DEFED68A5B412947862B94C /* terrain_generator.cpp */,
 				66C70768584848F3B918F38E /* terrain_editor_input.cpp */,
@@ -6036,6 +6168,10 @@
 				1EA2EEEBF47D494885FC9502 /* shader_editor_brush.frag */,
 				D84A6EF65DAB06263E430076 /* shader_water_seed.vert */,
 				68C6FEA8E4D74093B95883E9 /* shader_island_sky.vert */,
+				FEA0CCF8711E6FB8E416217A /* shader_rhythm_ship_solid.vert */,
+				EAD6744CBC4E0A4E731BECCF /* shader_rhythm_ship_solid.frag */,
+				54F1170ADA64226A9F8F03C2 /* shader_rhythm_ship_character.vert */,
+				26B8618C3C1DFF767C2FE76E /* shader_rhythm_ship_character.frag */,
 				69BE3D083DF6433280818C2F /* shader_grass_interaction.vert */,
 				DAFB8E9A085440E09B8CCBAE /* shader_blob_shadow.vert */,
 				69D6ECE4363D4CCB9BABD531 /* shader_editor_brush.vert */,
@@ -6088,6 +6224,7 @@
 				DC3346497ED5C0567897BC5E /* shader_building_aura.vert */,
 				4726815B7F904B5F0CB5B350 /* shader_building_aura.frag */,
 				6A8A0ED4F4759153988C84FA /* mtl_editor_building.metal */,
+				B6B43E50023B487355D96D0C /* mtl_rhythm_ship.metal */,
 				32A4C1C7AED14903829557C7 /* mtl_stylized_post.metal */,
 			);
 			name = "Building Placement";
@@ -6544,6 +6681,10 @@
 				9A399437D8DB4E56B2BB409D /* shader_editor_brush.frag in Resources */,
 				EEBE90AFE1484E201736B37E /* shader_water_seed.vert in Resources */,
 				C245D671E8D748448AF1791A /* shader_island_sky.vert in Resources */,
+				F6D5C57528C04525061A3394 /* shader_rhythm_ship_solid.vert in Resources */,
+				A599BC5CA84D9D8E391B8FC8 /* shader_rhythm_ship_solid.frag in Resources */,
+				DB97FE197C25225F24FF3AF1 /* shader_rhythm_ship_character.vert in Resources */,
+				5A7C6F95EE9C216D3BB005C5 /* shader_rhythm_ship_character.frag in Resources */,
 				55408CB3C0014A5D8944E32A /* shader_grass_interaction.vert in Resources */,
 				32829D92BE4D40CA888841FE /* shader_blob_shadow.vert in Resources */,
 				848D4B5A68924EB2945EF078 /* shader_editor_brush.vert in Resources */,
@@ -6586,6 +6727,14 @@
 				65E030B970414FC2A9C20D7F /* GraphicsSettings.json in Resources */,
 				811844F0FF0C444788CF330D /* sky.island.cubemap.xml in Resources */,
 				D128960F4B2E4730A0D52ACD /* island_sky.xml in Resources */,
+				C87C353F103B230B46BDA7D2 /* material.rhythm_ship_solid.xml in Resources */,
+				CCF01A7280C58240E15714A7 /* material.rhythm_ship_character.xml in Resources */,
+				58450F54AC07A7CEA1ED62EB /* transition.rhythm_ship.xml in Resources */,
+				E30BDC3FCBEAF36291E12FD4 /* rhythm_ship_track.json in Resources */,
+				C84C46021216E7EA024488FE /* rhythm_ship_solid.xml in Resources */,
+				BEA13A18E4F8E0836388B443 /* rhythm_ship_character.xml in Resources */,
+				7F9DB47110F42301AF303862 /* rhythm_ship_characters.png in Resources */,
+				18574B56CE917799D9BEBDEF /* rhythm_ship_metronome.wav in Resources */,
 				47730ED7CB114787A22DB0B1 /* grass_interaction.xml in Resources */,
 				E92AA30E67FA46FAA12BAA6A /* blob_shadow.xml in Resources */,
 				999F44B6691B49518D591A45 /* editor_brush.xml in Resources */,
@@ -7331,6 +7480,10 @@
 				D036EB616A6B4707A430CE4A /* shader_editor_brush.frag in Resources */,
 				CE7D59B6A6E9FA7BE2E1D3EA /* shader_water_seed.vert in Resources */,
 				6C8EA2DB440247BC972AF7D6 /* shader_island_sky.vert in Resources */,
+				956886FF6A9E963055053CA7 /* shader_rhythm_ship_solid.vert in Resources */,
+				131018DDE41436E7707BA0FF /* shader_rhythm_ship_solid.frag in Resources */,
+				6870885D6CAB2CDF40600FA3 /* shader_rhythm_ship_character.vert in Resources */,
+				9FF5CA1A3B73876A07D5C27D /* shader_rhythm_ship_character.frag in Resources */,
 				E309B5BA7C304AE082F1F52A /* shader_grass_interaction.vert in Resources */,
 				9B92E04A34384E7EA35FD43F /* shader_blob_shadow.vert in Resources */,
 				3D05DB80A5D94486B1FC625D /* shader_editor_brush.vert in Resources */,
@@ -7373,6 +7526,14 @@
 				804B7F40AD2541FA9AC8B640 /* GraphicsSettings.json in Resources */,
 				4103E36FB3E546E2B653A8B9 /* sky.island.cubemap.xml in Resources */,
 				8C699CDBD90048ABB6EBC3E2 /* island_sky.xml in Resources */,
+				9E50EE970A86147B6FAE4AAB /* material.rhythm_ship_solid.xml in Resources */,
+				D033C92BE30328D07774E5EB /* material.rhythm_ship_character.xml in Resources */,
+				3405BE2C2D903141D4FA96B9 /* transition.rhythm_ship.xml in Resources */,
+				F9A68B761A32CE802175CC91 /* rhythm_ship_track.json in Resources */,
+				021EB8A2B176829AF8CF7E4E /* rhythm_ship_solid.xml in Resources */,
+				904C272306E9C8868BF81552 /* rhythm_ship_character.xml in Resources */,
+				65F1850EC7543B947883D200 /* rhythm_ship_characters.png in Resources */,
+				A1A525B06731AA2DB72A4A17 /* rhythm_ship_metronome.wav in Resources */,
 				DDD1823051984764868E6448 /* grass_interaction.xml in Resources */,
 				F0AAA0EAF175444E8F4D8E76 /* blob_shadow.xml in Resources */,
 				8A3D307EED144B5E8E82B81C /* editor_brush.xml in Resources */,
@@ -8121,6 +8282,10 @@
 				F0B28A56968745C7B2E29D67 /* shader_editor_brush.frag in Resources */,
 				FA5EA05122BF5AEDFBD2AF4D /* shader_water_seed.vert in Resources */,
 				782DD0F6671343F994D73D2A /* shader_island_sky.vert in Resources */,
+				87EB162EA9845AF764CBB464 /* shader_rhythm_ship_solid.vert in Resources */,
+				07F44189B64E121459E49C9E /* shader_rhythm_ship_solid.frag in Resources */,
+				5C20F8B021D21E5AA98F84AE /* shader_rhythm_ship_character.vert in Resources */,
+				7816C017AA2B84B765DD983F /* shader_rhythm_ship_character.frag in Resources */,
 				0E0A2E113DCE40E9BF2462D8 /* shader_grass_interaction.vert in Resources */,
 				47C9273E467A4086B4728B7D /* shader_blob_shadow.vert in Resources */,
 				9BC6AC841AC74E499DB6B970 /* shader_editor_brush.vert in Resources */,
@@ -8163,6 +8328,14 @@
 				AB1554A700CA44B8AEBD09BF /* GraphicsSettings.json in Resources */,
 				1E8E523C795E455180F795C3 /* sky.island.cubemap.xml in Resources */,
 				57C0B357E3FD4FBDB9CC6F87 /* island_sky.xml in Resources */,
+				36728D9AC2381782AF879B0A /* material.rhythm_ship_solid.xml in Resources */,
+				A8819A0AB76CAD108C08B7F0 /* material.rhythm_ship_character.xml in Resources */,
+				FFB9B6F37B0804A05970CA53 /* transition.rhythm_ship.xml in Resources */,
+				0DD332D0DCBB5E8EB8534057 /* rhythm_ship_track.json in Resources */,
+				DF1B9F7105A5B2C590E1259A /* rhythm_ship_solid.xml in Resources */,
+				61EA496BA846BADABF0F22FE /* rhythm_ship_character.xml in Resources */,
+				3A2E982FCAA162BA415FDB64 /* rhythm_ship_characters.png in Resources */,
+				1CE21B46792EFCD6C8984161 /* rhythm_ship_metronome.wav in Resources */,
 				619C7BA5E20A4BB3A135FD26 /* grass_interaction.xml in Resources */,
 				A89A1E63820843619196A8D9 /* blob_shadow.xml in Resources */,
 				777C6ED7854E4C9684047C67 /* editor_brush.xml in Resources */,
@@ -8889,6 +9062,7 @@
 				F7211A1B29ADD11D1374FEB3 /* building_placement.cpp in Sources */,
 				015D44062820BD76CD069038 /* editor_building_renderer.cpp in Sources */,
 				10960D68424C36C2B486DE13 /* mtl_editor_building.metal in Sources */,
+				964DF754DFEE434B4DD79550 /* mtl_rhythm_ship.metal in Sources */,
 				14017F4480034C67ACFBB9CF /* mtl_stylized_post.metal in Sources */,
 				639A6DDCC0A0E8F6CA6D87A2 /* island_resident_demo.cpp in Sources */,
 				28D14315CA1D1B3A878AEDBA /* ces_island_resident_system.cpp in Sources */,
@@ -8972,6 +9146,16 @@
 				F3ED657F1F22264C0047F89D /* ces_scene_state_automat_component.cpp in Sources */,
 				8638B3B979F79844E57A53E3 /* island_demo_transition.cpp in Sources */,
 				3BD65F14146803E94800A595 /* island_demo_scene.cpp in Sources */,
+				C711EC9E2E3AB9E83D7C6565 /* rhythm_track.cpp in Sources */,
+				B04196C22F8C0CDF8BD5C68F /* rhythm_ship_ui.cpp in Sources */,
+				C196825638EAA02755258AD6 /* rhythm_ship_transition.cpp in Sources */,
+				05A361A00E6D063EEC6A91C1 /* rhythm_ship_scene.cpp in Sources */,
+				13B5D99F7F04F50B9E95CC84 /* rhythm_ship_input.cpp in Sources */,
+				E017B25F8BD6F44BBA1D9E44 /* rhythm_ship_environment.cpp in Sources */,
+				8027D5559694618311FA52A8 /* rhythm_session.cpp in Sources */,
+				9D2098C6DE09CC7654032ABD /* fake_leaderboard.cpp in Sources */,
+				4243753D67211C4B44E1E4E1 /* ces_dance_crowd_system.cpp in Sources */,
+				9090A644B584E9EF44CABA78 /* ces_dance_character_component.cpp in Sources */,
 				99AE9B2E817848C8D2A7CEC3 /* terrain_mesh_builder.cpp in Sources */,
 				47538F6A6E315EB4AA5CE87D /* terrain_generator.cpp in Sources */,
 				4CD32EB5203847E08143D7B4 /* terrain_editor_input.cpp in Sources */,
@@ -9022,6 +9206,7 @@
 				4D2B1030BF24BAB8562E0613 /* building_placement.cpp in Sources */,
 				3869C607661A61DE1FF3561E /* editor_building_renderer.cpp in Sources */,
 				29B1964EF8A5DC9E4B993A16 /* mtl_editor_building.metal in Sources */,
+				FB83837C742461A9FC13D2EF /* mtl_rhythm_ship.metal in Sources */,
 				29804A3D61594E1AB07952A6 /* mtl_stylized_post.metal in Sources */,
 				F05AE9296606C5E2D16DEE2C /* island_resident_demo.cpp in Sources */,
 				96B5C910AE7A3A2D5965210E /* ces_island_resident_system.cpp in Sources */,
@@ -9069,6 +9254,16 @@
 				2102EB481B7D2D9000F20197 /* main_game_controller.cpp in Sources */,
 				9F323B2BF9A326883CB952F5 /* island_demo_transition.cpp in Sources */,
 				DB3AEB3B8BEEA676FBD158B8 /* island_demo_scene.cpp in Sources */,
+				2EB72E7867F12263F245D4CC /* rhythm_track.cpp in Sources */,
+				7ACCBD1F743F322439120EF4 /* rhythm_ship_ui.cpp in Sources */,
+				FCF785188130FB90D417D3EE /* rhythm_ship_transition.cpp in Sources */,
+				AD647E03FA37DB7C6DE8DF6D /* rhythm_ship_scene.cpp in Sources */,
+				FECC04512E63B029103F3FDC /* rhythm_ship_input.cpp in Sources */,
+				E57356102116AB8597725C37 /* rhythm_ship_environment.cpp in Sources */,
+				3909C9A3B3F8E9DCDFF14A0E /* rhythm_session.cpp in Sources */,
+				D9E7D6AA8864E8A6A1E2958E /* fake_leaderboard.cpp in Sources */,
+				49C27549030C7A0AF27C7B5E /* ces_dance_crowd_system.cpp in Sources */,
+				04F6CDA0DF1B2446325B1297 /* ces_dance_character_component.cpp in Sources */,
 				C2116A6F1A0ECF08DEF42171 /* terrain_mesh_builder.cpp in Sources */,
 				19D176F7048677D90CDE2A0F /* terrain_generator.cpp in Sources */,
 				90572C1B95BD497FB86F70F1 /* terrain_editor_input.cpp in Sources */,
@@ -9155,6 +9350,7 @@
 				2A969DCD499C7CE196BDDE88 /* building_placement.cpp in Sources */,
 				8F3E848A0E3BCD4B451117A1 /* editor_building_renderer.cpp in Sources */,
 				776DD428FB450801BD1824FB /* mtl_editor_building.metal in Sources */,
+				B24D5720E59A6144D47CB66A /* mtl_rhythm_ship.metal in Sources */,
 				A85A7FA3B40C4DB2A8B12DB9 /* mtl_stylized_post.metal in Sources */,
 				E8EC6D0E7EC7C58184AE52ED /* island_resident_demo.cpp in Sources */,
 				FA6291FC0BCAC44565DE11C9 /* ces_island_resident_system.cpp in Sources */,
@@ -9241,6 +9437,16 @@
 				92E7370322BCFCC200EC0C5E /* gameplay_constants_helper.cpp in Sources */,
 				841E3E1FA27165DA0DAFD154 /* island_demo_transition.cpp in Sources */,
 				765A97409E0F787A56310C2B /* island_demo_scene.cpp in Sources */,
+				30E2FAF1958E0A84D41E687B /* rhythm_track.cpp in Sources */,
+				17DDBAE48642426DFB0C3C42 /* rhythm_ship_ui.cpp in Sources */,
+				6A5942552AB8A56EE32022CD /* rhythm_ship_transition.cpp in Sources */,
+				873A918B998A9AE2F46FCC94 /* rhythm_ship_scene.cpp in Sources */,
+				392F3639309A1EFF52FE0EE0 /* rhythm_ship_input.cpp in Sources */,
+				CCD9C0B0CE3DAE808846DCD4 /* rhythm_ship_environment.cpp in Sources */,
+				54D6B781EFCB6E0F561A6187 /* rhythm_session.cpp in Sources */,
+				0244A3AAB4DE454DB7C142D0 /* fake_leaderboard.cpp in Sources */,
+				67DF02EF75A978F08E5FD51C /* ces_dance_crowd_system.cpp in Sources */,
+				8F9198C912949F0BDB7C7441 /* ces_dance_character_component.cpp in Sources */,
 				F1099EF95894B08437FF9EAF /* terrain_mesh_builder.cpp in Sources */,
 				6BB61FCC0D07167ECB446AA0 /* terrain_generator.cpp in Sources */,
 				D86B731CA3A0464B832D48E6 /* terrain_editor_input.cpp in Sources */,

@@ -1,0 +1,32 @@
+<transition guid="transition.rhythm_ship">
+    <output_technique filename="output.technique.island_demo.xml"/>
+    <ws_techniques>
+        <ws_technique filename="ws.technique.grass_interaction.xml"/>
+        <ws_technique filename="ws.technique.island_ui.xml"/>
+        <ws_technique filename="ws.technique.render_debug.xml"/>
+<ws_technique filename="ws.technique.water_mask.xml"/>
+<ws_technique filename="ws.technique.water_seed.xml"/>
+<ws_technique filename="ws.technique.water_jfa0.xml"/>
+<ws_technique filename="ws.technique.water_jfa1.xml"/>
+<ws_technique filename="ws.technique.water_jfa2.xml"/>
+<ws_technique filename="ws.technique.water_jfa3.xml"/>
+<ws_technique filename="ws.technique.water_jfa4.xml"/>
+<ws_technique filename="ws.technique.water_jfa5.xml"/>
+<ws_technique filename="ws.technique.water_jfa6.xml"/>
+<ws_technique filename="ws.technique.water_jfa7.xml"/>
+<ws_technique filename="ws.technique.water_jfa8.xml"/>
+<ws_technique filename="ws.technique.water_jfa9.xml"/>
+<ws_technique filename="ws.technique.water_jfa10.xml"/><ws_technique filename="ws.technique.water_jfa11.xml"/>
+<ws_technique filename="ws.technique.water_distance.xml"/>
+
+        <ws_technique filename="ws.technique.sun.near.xml"/><ws_technique filename="ws.technique.sun.far.xml"/>
+        <ws_technique filename="ws.technique.island_demo.xml"/>
+    <ws_technique filename="ws.technique.ocean.xml"/><ws_technique filename="ws.technique.ocean_foam.xml"/></ws_techniques>
+    <ss_techniques>
+        <ss_technique filename="ss.technique.ao.xml"/>
+        <ss_technique filename="ss.technique.ocean_compose.xml"/>
+        <ss_technique filename="ss.technique.sun_shadow.xml"/>
+        <ss_technique filename="ss.technique.stylized_final.xml"/>
+        <ss_technique filename="ss.technique.island_ui.xml"/>
+    </ss_techniques>
+</transition>

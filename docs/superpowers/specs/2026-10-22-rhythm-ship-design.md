@@ -2,9 +2,9 @@
 
 Date: 2026-10-22
 
-Status: proposed written design, awaiting user review. The user approved the
-in-chat direction: replace the active island demo with Rhythm Ship, preserve
-the existing skybox and ocean, and retain the old demo sources.
+Status: written design approved by the user on 2026-10-22. Replace the active
+island demo with Rhythm Ship, preserve the existing skybox and ocean, and retain
+the old demo sources. Implementation plan requires review before execution.
 
 ## Intent and scope
 
@@ -152,8 +152,8 @@ using Windows audio output and its played-sample position for generated PCM
 metronome playback. Keep generated audio buffers alive until playback has stopped
 and the device has released them. Generate clicks from the resolved beat timeline
 (including explicit beats when present); changing BPM or offset restarts the
-session. Handle playback
-position rollover and loop boundaries without time moving backward.
+session. Handle playback position rollover and loop boundaries without time
+moving backward.
 
 On Apple, use existing `audio_engine` playback/position queries for a bundled
 generated metronome WAV. Observe initialization before starting the session and
