@@ -87,3 +87,6 @@ gbWin32SharedResources/
 
 # Standalone presentation settings compile checks
 gbDemo/output/post-settings-check/
+
+gbDemo/output/hand-cursor/
+gbDemo/output/woodcutting/

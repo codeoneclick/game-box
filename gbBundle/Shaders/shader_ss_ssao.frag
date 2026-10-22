@@ -9,7 +9,8 @@ void main()
     vec3 n = ao_params.w > 0.5 ? ns.xyz * 2.0 - 1.0 : ns.xyz;
     vec3 vp = (mat_v * vec4(p.xyz, 1.0)).xyz;
     float depth = -vp.z;
-    if (p.w <= 0.0 || ns.w <= 0.0 || dot(n,n) < 0.01 || depth <= 0.001 || ao_params.z <= 0.0)
+    // Object ID 9000000 is the editor hand: neither receives nor contributes AO.
+    if (p.w <= 0.0 || ns.w <= 0.0 || ns.w == 9000000.0 || dot(n,n) < 0.01 || depth <= 0.001 || ao_params.z <= 0.0)
     {
         gl_FragColor = vec4(1.0);
         return;
@@ -30,7 +31,7 @@ void main()
             vec2 uv = v_texcoord + direction_vector*uv_radius*fraction;
             if (any(lessThan(uv,vec2(0.0))) || any(greaterThan(uv,vec2(1.0)))) continue;
             vec4 q = texture2D(sampler_02,uv);
-            if (q.w <= 0.0) continue;
+            if (q.w <= 0.0 || texture2D(sampler_01,uv).w == 9000000.0) continue;
             vec3 delta = (mat_v * vec4(q.xyz,1.0)).xyz - vp;
             float distance_value = length(delta);
             if (distance_value < 0.03 || distance_value >= radius) continue;

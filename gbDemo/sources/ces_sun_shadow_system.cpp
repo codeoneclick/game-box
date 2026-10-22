@@ -116,7 +116,7 @@ void ces_sun_shadow_system::on_feed_end(f32){
  std::vector<gb::ces_entity_shared_ptr> sources;
  enumerate_entities_with_components(mask_,[&](const gb::ces_entity_shared_ptr& e){if(e->get_component<gb::ces_material_component>()->get_material("ws.base"))sources.push_back(e);});
  for(auto& source:sources){
-  const std::string managed_tag=source->tag;if(managed_tag.find("island.terrain.lod.main.")==0)continue;
+  const std::string managed_tag=source->tag;if(managed_tag=="editor.hand_cursor"||managed_tag.find("island.terrain.lod.main.")==0)continue;
   auto material=source->get_component<gb::ces_material_component>()->get_material("ws.base");auto shader=material->get_shader();if(!shader)continue;
   const auto guid=shader->get_guid();const bool skin=guid.find("shader_island_resident")!=std::string::npos;
   const bool building=guid.find("shader_editor_building")!=std::string::npos;

@@ -30,6 +30,7 @@ public:
     bool camera_rotation_allowed() const { return alt_; }
     bool pointer_over_ui(glm::ivec2 point) const;
     bool pick_surface(glm::ivec2 point, glm::vec3& hit) const;
+    bool cursor_surface(glm::vec3& hit) const;
     bool brush_visible() const;
     bool building_preview_visible() const;
     bool stairs_preview_visible() const;

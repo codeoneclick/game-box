@@ -104,6 +104,7 @@
     <ClCompile Include="sources\terrain_lod_renderer.cpp"><ExceptionHandling>Sync</ExceptionHandling></ClCompile>
     <ClCompile Include="sources\terrain_editor_render_cache.cpp"><ExceptionHandling>Sync</ExceptionHandling></ClCompile>
     <ClCompile Include="sources\terrain_editor_ui.cpp"><ExceptionHandling>Sync</ExceptionHandling></ClCompile>
+    <ClCompile Include="sources\editor_hand_cursor.cpp"><ExceptionHandling>Sync</ExceptionHandling></ClCompile>
     <ClCompile Include="sources\terrain_editor_input.cpp"><ExceptionHandling>Sync</ExceptionHandling></ClCompile>
     <ClCompile Include="sources\building_placement.cpp"><ExceptionHandling>Sync</ExceptionHandling></ClCompile>
     <ClCompile Include="sources\editor_building_renderer.cpp"><ExceptionHandling>Sync</ExceptionHandling></ClCompile>
@@ -189,6 +190,9 @@
     <ClInclude Include="sources\terrain_editor_render_cache.h" />
     <ClInclude Include="sources\terrain_editor_ui.h" />
     <ClInclude Include="sources\terrain_editor_input.h" />
+    <ClInclude Include="sources\editor_hand_cursor.h" />
+    <ClInclude Include="sources\hand_cursor_math.h" />
+    <ClInclude Include="sources\hand_surface_query.h" />
     <ClInclude Include="sources\building_catalog.h" />
     <ClInclude Include="sources\outline_ids.h" />
     <ClInclude Include="sources\building_placement.h" />

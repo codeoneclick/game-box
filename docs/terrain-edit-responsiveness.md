@@ -63,3 +63,38 @@ sculpt updates.
 
 OpenGL and Metal builds/runtime remain unverified on this Windows machine. The
 changed meshing/worker code is backend-independent; this task changes no shaders.
+
+## Level Load follow-up
+
+The native Load flow also waited for full-island seed grass and decoration
+preparation before returning any terrain. Loading the current `Main.level`
+without subsequent input took 3.95–4.98 seconds in the baseline Release checks.
+
+Load now publishes terrain through a CPU promise before seed grass generation and
+decoration packing. The same worker retains exclusive ownership of the cache.
+Immutable seed chunks/domains are reused only when every terrain configuration
+field matches; saved edits, climate, trees and reconstruction policies are still
+reapplied. A larger upload budget applies only until the loaded terrain is shown.
+Load generations reject old results, including pending renderer publications.
+
+The CPU check compares final streamed terrain/decorations with ordinary reload,
+asserts terrain arrives before seed grass starts, and verifies seed reuse and
+invalidation on a changed generation seed. It passed with the full editor checks.
+Both Windows Release and Debug builds passed. Native Release Load via the file
+dialog took **595 ms** without further input; disabling CLOD took **715 ms**.
+Debug terrain publication took
+**2.91–3.57 seconds** with validation disabled. The larger load-only upload budget
+avoids stretching the 67 terrain batches across one batch per slow Debug frame;
+the ordinary editing budget remains 2 ms.
+Two consecutive loads while background processing was active passed with Vulkan
+validation, XML attachment-size checks and water-field checks. Validation overhead
+is excluded from the ordinary timing above. A final single-load validation smoke
+with the final upload budget passed at 787 ms. Scene decoration generation/upload and
+CLOD refinement intentionally finish after terrain becomes visible.
+
+Debug verification limitation: the native check displayed the loaded terrain and
+captured frame 420, but process teardown exceeded the 30-second close timeout;
+the helper terminated its own process and restored settings. Clean Debug shutdown
+after a full-level load is not verified. Release load, repeated-load validation,
+and sculpt/Undo/Redo checks exited normally. The final sculpt regression measured
+24.23 ms median and 34.06 ms maximum visible update latency.

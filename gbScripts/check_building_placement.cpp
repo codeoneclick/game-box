@@ -73,6 +73,20 @@ int main() {
   assert(!flat.covers(0, 0, 0, 4, 3, 6));
   assert(flat.covers(0, 0, 1.57079632679f, 4, 3, 4));
   assert(!flat.covers(0, 0, 0, 21, 3, 4)); // Narrow terrace.
+  // Float-generated chunk seams can overlap by one coordinate ULP.
+  // This remains a flat supported platform at rotated/non-origin positions.
+  auto seam_mesh=tiles();
+  for(size_t i=0;i<seam_mesh.vertices.size();i+=4){
+    const bool left=seam_mesh.vertices[i].position[0]<0;
+    for(size_t j=i;j<i+4;j++){auto& p=seam_mesh.vertices[j].position;const bool seam=left&&p[0]==0;p[0]+=512;p[2]+=256;if(seam)p[0]=std::nextafter(p[0],INFINITY);}
+  }
+  BuildingSurfaceSupport seam({seam_mesh});
+  for(float yaw:{0.f,.37f,1.f,1.57079632679f})assert(seam.covers(512,256,yaw,4,3,4));
+  assert(!seam.covers(531,256,0,4,3,4));
+  auto real_hole=tiles(true);for(auto& v:real_hole.vertices){v.position[0]+=512;v.position[2]+=256;}
+  assert(!BuildingSurfaceSupport({real_hole}).covers(512,256,.37f,4,3,4));
+  auto real_gap=seam_mesh;for(auto& v:real_gap.vertices)if(v.position[0]>512&&v.position[0]<512.001f)v.position[0]=511.98f;
+  assert(!BuildingSurfaceSupport({real_gap}).covers(512,256,.37f,4,3,4));
   EditorBuilding a, b;
   a.position = {{0, 4, 0}};
   b.position = {{0, 4, 0}};

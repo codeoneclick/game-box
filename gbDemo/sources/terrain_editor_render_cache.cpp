@@ -9,6 +9,9 @@
 #include <cstdlib>
 
 namespace game {namespace {
+bool same_seed(const terrain_config& a,const terrain_config& b){
+ return a.world_size==b.world_size&&a.island_size==b.island_size&&a.resolution==b.resolution&&a.layers_count==b.layers_count&&a.underwater_layers_count==b.underwater_layers_count&&a.underwater_terrace_width==b.underwater_terrace_width&&a.layer_height==b.layer_height&&a.shore_height==b.shore_height&&a.seed==b.seed&&a.water_y==b.water_y&&a.water_size==b.water_size&&a.debug_layer_colors==b.debug_layer_colors;
+}
 terrain_vertex interpolate(const terrain_vertex&a,const terrain_vertex&b,float t){
  terrain_vertex v=a;for(int i=0;i<3;++i){v.position[i]+=t*(b.position[i]-a.position[i]);v.normal[i]+=t*(b.normal[i]-a.normal[i]);}
  for(int i=0;i<4;++i)v.color[i]=static_cast<uint8_t>(a.color[i]+t*(b.color[i]-a.color[i]));
@@ -77,7 +80,7 @@ void TerrainEditorRenderCache::preserve_seed_palette(terrain_mesh_data& mesh,int
 void TerrainEditorRenderCache::initialize(const terrain_mesh_data&terrain,const std::vector<terrain_mesh_data>&grass){
  if(!state_)throw std::invalid_argument("Missing editor state");chunks_.clear();canonical_.clear();skirts_.clear();part_counts_.clear();initial_flush_=true;load_generation_=state_->load_generation;
  const auto&config=state_->level.terrain.config;const int count=chunk_count();const float width=16.f*config.world_size/config.resolution,half=config.world_size*.5f;
- seed_terrain_=terrain;seed_top_triangles_.clear();seed_domain_.clear();
+ seed_terrain_=terrain;seed_config_=config;seed_chunks_.clear();seed_top_triangles_.clear();seed_domain_.clear();
  using Column=std::array<int64_t,2>;auto column=[](const terrain_vertex& v){return Column{{int64_t(std::llround(v.position[0]*100000)),int64_t(std::llround(v.position[2]*100000))}};};
  auto terrace=[&](float y){return std::abs(y-config.shore_height)<.001f?1:y>0?int(std::round(y/config.layer_height))+1:int(std::round(y/config.layer_height));};
  std::map<Column,int> thresholds;std::vector<std::array<terrain_vertex,2>> outer;
@@ -117,15 +120,28 @@ void TerrainEditorRenderCache::initialize(const terrain_mesh_data&terrain,const 
    for(size_t j=1;j+1<pieces.size();++j){EditorSeedTriangle triangle;int k=0;for(size_t index:{size_t(0),j,j+1}){const auto& v=pieces[index];triangle[k++]={v.position[0],v.position[2],float(terrain_data::empty_layer)};}seed_domain_[z*count+x].push_back(triangle);}
   }
  }
- // Existing pixel grass cards are four consecutive vertices and six indices.
- for(const auto&source:grass){for(size_t base=0;base+3<source.vertices.size();base+=4){const auto&root=source.vertices[base].texcoord;bool under_stairs=false;for(const auto&stairs:state_->level.stairs)if(point_inside_stairs(stairs,root[0],root[1],.2f)){under_stairs=true;break;}if(under_stairs)continue;int x=coordinate(root[0]),z=coordinate(root[1]);auto&batches=chunks_[z*count+x].grass;if(batches.empty()||batches.back().vertices.size()+4>60000)batches.emplace_back();auto&mesh=batches.back();uint16_t target=static_cast<uint16_t>(mesh.vertices.size());for(size_t j=0;j<4;++j)mesh.vertices.push_back(source.vertices[base+j]);for(uint16_t j:{0,1,2,1,3,2})mesh.indices.push_back(static_cast<uint16_t>(target+j));}}
+ for(const auto& entry:chunks_)if(!entry.second.terrain.indices.empty())seed_chunks_[entry.first]=entry.second.terrain;
+ initialize_grass(grass,false);
 }
-std::vector<EditorRenderBatch> TerrainEditorRenderCache::rebuild(TerrainEditorDirty dirty,bool optimize){
+void TerrainEditorRenderCache::initialize_grass(const std::vector<terrain_mesh_data>& grass,bool preserve_authored){
+ const auto&config=state_->level.terrain.config;const int count=chunk_count();const float width=16.f*config.world_size/config.resolution,half=config.world_size*.5f;
+ auto coordinate=[&](float p){return std::max(0,std::min(count-1,static_cast<int>(std::floor((p+half)/width))));};
+ // Existing pixel grass cards are four consecutive vertices and six indices.
+ for(const auto&source:grass){for(size_t base=0;base+3<source.vertices.size();base+=4){const auto&root=source.vertices[base].texcoord;bool under_stairs=false;for(const auto&stairs:state_->level.stairs)if(point_inside_stairs(stairs,root[0],root[1],.2f)){under_stairs=true;break;}if(under_stairs)continue;int x=coordinate(root[0]),z=coordinate(root[1]);const int id=z*count+x;if(preserve_authored&&(canonical_.count(id)||(size_t(id)<state_->level.grass_remeshed.size()&&state_->level.grass_remeshed[id])))continue;auto&batches=chunks_[id].grass;if(batches.empty()||batches.back().vertices.size()+4>60000)batches.emplace_back();auto&mesh=batches.back();uint16_t target=static_cast<uint16_t>(mesh.vertices.size());for(size_t j=0;j<4;++j)mesh.vertices.push_back(source.vertices[base+j]);for(uint16_t j:{0,1,2,1,3,2})mesh.indices.push_back(static_cast<uint16_t>(target+j));}}
+}
+std::vector<EditorRenderBatch> TerrainEditorRenderCache::rebuild(TerrainEditorDirty dirty,bool optimize,const std::function<void(std::vector<EditorRenderBatch>)>& terrain_ready){
  using Clock=std::chrono::steady_clock;auto start=Clock::now();profile_={};std::vector<EditorRenderBatch> result;if(!state_)return result;bool fallback=false;
- const bool reloaded=load_generation_!=state_->load_generation;
+ const bool reloaded=load_generation_!=state_->load_generation;std::vector<int> deferred_grass;
  if(reloaded){
   for(const auto&entry:part_counts_)for(size_t i=0;i<entry.second;++i){EditorRenderBatch batch;batch.kind=static_cast<EditorRenderBatch::Kind>(entry.first.first);batch.key=std::to_string(entry.first.first)+"_"+std::to_string(entry.first.second)+"_"+std::to_string(i);result.push_back(std::move(batch));}
-  std::pair<terrain_mesh_data,std::vector<terrain_mesh_data>> seed;if(seed_builder_)seed=seed_builder_(state_->level.terrain.config);fallback=seed.first.indices.empty();initialize(seed.first,seed.second);dirty.x0=dirty.z0=0;dirty.x1=dirty.z1=state_->level.terrain.config.resolution-1;dirty.terrain=dirty.grass=dirty.trees=dirty.climate=true;
+  if(seed_grass_builder_&&!seed_domain_.empty()&&same_seed(seed_config_,state_->level.terrain.config)){
+   chunks_.clear();for(const auto& entry:seed_chunks_)chunks_[entry.first].terrain=entry.second;
+   canonical_.clear();skirts_.clear();part_counts_.clear();initial_flush_=true;load_generation_=state_->load_generation;
+   if(!terrain_ready)initialize_grass(seed_grass_builder_(seed_terrain_,state_->level.terrain.config),false);
+  }else{
+   std::pair<terrain_mesh_data,std::vector<terrain_mesh_data>> seed;if(seed_builder_)seed=seed_builder_(state_->level.terrain.config);fallback=seed.first.indices.empty();if(seed_grass_builder_&&!terrain_ready)seed.second=seed_grass_builder_(seed.first,state_->level.terrain.config);initialize(seed.first,seed.second);
+  }
+  dirty.x0=dirty.z0=0;dirty.x1=dirty.z1=state_->level.terrain.config.resolution-1;dirty.terrain=dirty.grass=dirty.trees=dirty.climate=true;
  }
  auto mesh_start=Clock::now();profile_.seed_ms=std::chrono::duration<double,std::milli>(mesh_start-start).count();
  const int count=chunk_count(),groups=(count+3)/4;std::set<int> terrain_groups,grass_groups,tree_groups;
@@ -151,7 +167,7 @@ std::vector<EditorRenderBatch> TerrainEditorRenderCache::rebuild(TerrainEditorDi
     auto&old=chunks_[z*count+x];
     if(terrain_now){++profile_.chunks;auto domain=seed_domain_.find(z*count+x);old.terrain=domain!=seed_domain_.end()?build_editor_seed_chunk(state_->level,x,z,domain->second,seed_field_).terrain:build_editor_chunk(state_->level,x,z,false).terrain;preserve_seed_palette(old.terrain,z*count+x);canonical_.insert(z*count+x);terrain_groups.insert(group);}
     if(dirty.climate||terrain_now){const auto&config=state_->level.terrain.config;for(auto&v:old.terrain.vertices){int cx=std::max(0,std::min(n-1,static_cast<int>((v.position[0]/config.world_size+.5f)*n))),cz=std::max(0,std::min(n-1,static_cast<int>((v.position[2]/config.world_size+.5f)*n)));size_t cell=static_cast<size_t>(cz)*n+cx;uint8_t climate=cell<state_->level.climate.size()?state_->level.climate[cell]:0;v.editor_palette[1]=(std::min(6,static_cast<int>(climate))+.5f)/7.f;}terrain_groups.insert(group);}
-    if(grass_now||terrain_now){if(!terrain_now)++profile_.chunks;old.grass=build_editor_grass(state_->level,old.terrain);grass_groups.insert(group);}
+    if(grass_now||terrain_now){if(!terrain_now)++profile_.chunks;if(reloaded&&terrain_ready)deferred_grass.push_back(z*count+x);else old.grass=build_editor_grass(state_->level,old.terrain);grass_groups.insert(group);}
    }
    if(dirty.trees||dirty.terrain||dirty.buildings||dirty.stairs)tree_groups.insert(group);
   }
@@ -174,6 +190,9 @@ std::vector<EditorRenderBatch> TerrainEditorRenderCache::rebuild(TerrainEditorDi
   for(size_t i=0;i<total;++i){EditorRenderBatch batch;batch.kind=kind;batch.key=std::to_string(static_cast<int>(kind))+"_"+std::to_string(group)+"_"+std::to_string(i);if(i<parts.size())batch.mesh=std::move(parts[i]);result.push_back(std::move(batch));}
  };
  for(int group:terrain_groups){std::vector<const terrain_mesh_data*>sources;int gx=group%groups,gz=group/groups;for(int z=gz*4;z<std::min(count,gz*4+4);++z)for(int x=gx*4;x<std::min(count,gx*4+4);++x){auto found=chunks_.find(z*count+x);if(found!=chunks_.end())sources.push_back(&found->second.terrain);}for(const auto&entry:skirts_){int a=entry.first.first;if(((a/count)/4)*groups+(a%count)/4==group)sources.push_back(&entry.second);}publish(EditorRenderBatch::Terrain,group,sources);}
+ if(terrain_ready){std::vector<EditorRenderBatch> terrain;for(auto it=result.begin();it!=result.end();)if(it->kind==EditorRenderBatch::Terrain){terrain.push_back(std::move(*it));it=result.erase(it);}else ++it;terrain_ready(std::move(terrain));}
+ if(reloaded&&terrain_ready&&seed_grass_builder_)initialize_grass(seed_grass_builder_(seed_terrain_,state_->level.terrain.config),true);
+ for(int id:deferred_grass)chunks_[id].grass=build_editor_grass(state_->level,chunks_[id].terrain);
  for(int group:grass_groups){std::vector<const terrain_mesh_data*>sources;int gx=group%groups,gz=group/groups;for(int z=gz*4;z<std::min(count,gz*4+4);++z)for(int x=gx*4;x<std::min(count,gx*4+4);++x){auto found=chunks_.find(z*count+x);if(found!=chunks_.end())for(auto&mesh:found->second.grass)sources.push_back(&mesh);}publish(EditorRenderBatch::Grass,group,sources);}
  const auto&config=state_->level.terrain.config;float group_width=64.f*config.world_size/config.resolution;
  for(int group:tree_groups){std::vector<terrain_mesh_data>trees;const float x0=(group%groups)*group_width-config.world_size*.5f,z0=(group/groups)*group_width-config.world_size*.5f;trees.push_back(build_editor_rocks(state_->level,x0,z0,x0+group_width,z0+group_width));for(const auto&tree:state_->level.trees){int gx=std::max(0,std::min(groups-1,static_cast<int>((tree.position[0]+config.world_size*.5f)/group_width))),gz=std::max(0,std::min(groups-1,static_cast<int>((tree.position[2]+config.world_size*.5f)/group_width)));if(gz*groups+gx==group)trees.push_back(build_editor_tree(tree,config.seed));}

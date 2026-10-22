@@ -24,6 +24,9 @@ struct resident_state {
     bool stair_pending=false,stair_transit=false,stair_returning=false,stair_up=true;
     float stair_progress=0,elevation=0;
 };
+struct woodcut_target {uint32_t id=0;resident_point position;float distance=1.5f;};
+struct woodcutter_state {uint32_t tree_id=0;bool chopping=false;float retry=0;};
+void step_woodcutter(const resident_navigation&,float dt,resident_state&,woodcutter_state&,const std::vector<woodcut_target>&);
 resident_state create_resident_state(const resident_navigation&,uint32_t seed);
 std::vector<resident_state> create_resident_population(const resident_navigation&,size_t count,uint32_t seed);
 void step_resident(const resident_navigation&,float dt,resident_state&);

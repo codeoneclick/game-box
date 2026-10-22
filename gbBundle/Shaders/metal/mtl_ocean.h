@@ -129,7 +129,7 @@ float island_sun_shadow(float4 geometry,float2 uv,float water_alpha,constant oce
   float delta=-(u.view*float4(q,1)).z-scene.w;
   // Depth alone treats unrelated foreground as an occluder. Also require a
   // nearby world-space surface above the receiver's tangent plane.
-  if(scene.w>0.0&&id>=1.0&&delta>.005&&delta<.09&&
+  if(scene.w>0.0&&id>=1.0&&id!=9000000.0&&delta>.005&&delta<.09&&
      length(scene.xyz-q)<.12&&dot(scene.xyz-geometry.xyz,normal)>.04){
    float border=smoothstep(0.0,.04,min(min(sample_uv.x,sample_uv.y),min(1.0-sample_uv.x,1.0-sample_uv.y)));
    float contact=(1.0-smoothstep(.8,1.5,step_distance))*(1.0-smoothstep(.04,.09,delta));
@@ -164,11 +164,12 @@ float3 atmosphere_scatter(float3 color,float3 ray,float distance,constant ocean_
 }
 fragment half4 fragment_shader_ocean_compose(common_v_output_t in [[stage_in]],texture2d<float> scene [[texture(0)]],texture2d<float> water [[texture(1)]],texture2d<float> foam_tex [[texture(2)]],texture2d<float> field_tex [[texture(3)]],texture2d<float> mask_tex [[texture(4)]],texture2d<float> ao_tex [[texture(5)]],constant ocean_field_debug& debug [[buffer(1)]],texture2d<float> position_tex [[texture(6)]],texture2d<float> normal_tex [[texture(7)]]){
  if(debug.field_debug.x>0.0){float4 field=field_tex.sample(ocean_nearest,in.texcoord);float3 c=float3(clamp(field.x/8.0,0.0,1.0));if(debug.field_debug.x==15.0){float2 sides=mask_tex.sample(ocean_nearest,in.texcoord).rg;c=float3(min(sides.r,sides.g));}if(debug.field_debug.x==17.0)c=float3(field.yz*.5+.5,0);return half4(half3(c),0);}
- float ao=ao_tex.sample(linear_sampler,in.texcoord).r;
+ bool hand=normal_tex.sample(ocean_nearest,in.texcoord).w==9000000.0;
+ float ao=hand?1.0:ao_tex.sample(linear_sampler,in.texcoord).r;
  if(debug.field_debug.y>0.0)return half4(half3(ao),0);
  float4 w=water.sample(linear_sampler,in.texcoord),f=foam_tex.sample(linear_sampler,in.texcoord);
  float4 geometry=position_tex.sample(ocean_nearest,in.texcoord);
- float shade=island_sun_shadow(geometry,in.texcoord,w.a,debug,position_tex,normal_tex);
+ float shade=hand?0.0:island_sun_shadow(geometry,in.texcoord,w.a,debug,position_tex,normal_tex);
  float3 opaque=scene.sample(linear_sampler,in.texcoord).rgb*ao*mix(float3(1),float3(.55,.64,.78),shade*.9);
  float3 color=mix(opaque,w.rgb,w.a)*(1.0-f.a)+f.rgb;
  float2 ndc=float2(in.texcoord.x*2.0-1.0,1.0-in.texcoord.y*2.0);

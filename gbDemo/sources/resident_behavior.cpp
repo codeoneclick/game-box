@@ -186,3 +186,29 @@ void step_resident_with_stairs(const std::vector<resident_navigation>& nav,const
     }
 }
 }
+
+namespace game {
+void step_woodcutter(const resident_navigation& nav,float dt,resident_state& state,woodcutter_state& job,const std::vector<woodcut_target>& trees){
+ if(!state.available||!std::isfinite(dt)||dt<=0)return;dt=std::min(dt,.1f);state.elevation=nav.shore_y;
+ const auto distance=[](resident_point a,resident_point b){const float x=a.x-b.x,z=a.z-b.z;return std::sqrt(x*x+z*z);};
+ const auto target=std::find_if(trees.begin(),trees.end(),[&](const woodcut_target& t){return t.id==job.tree_id;});
+ if(job.tree_id&&target==trees.end()){job={};state.route.clear();state.walking=false;}
+ if(job.tree_id){
+  if(job.chopping){state.walking=false;state.yaw=std::atan2(target->position.x-state.position.x,target->position.z-state.position.z);return;}
+  if(!state.route.empty()&&state.walking)step_resident(nav,dt,state);
+  if(!state.walking){
+   if(distance(state.position,target->position)<=target->distance+.15f&&nav.is_safe(state.position)){job.chopping=true;state.yaw=std::atan2(target->position.x-state.position.x,target->position.z-state.position.z);return;}
+   job.tree_id=0;
+  }else return;
+ }
+ job.retry-=dt;if(job.retry>0)return;job.retry=1;state.walking=false;
+ std::vector<const woodcut_target*> sorted;for(const auto& tree:trees)sorted.push_back(&tree);
+ std::sort(sorted.begin(),sorted.end(),[&](const woodcut_target* a,const woodcut_target* b){return distance(state.position,a->position)<distance(state.position,b->position);});
+ for(size_t i=0;i<std::min(size_t(16),sorted.size());i++){const auto& tree=*sorted[i];const float direction=std::atan2(state.position.x-tree.position.x,state.position.z-tree.position.z);
+  for(int side=0;side<8;side++){const float angle=direction+side*.7853981634f;const resident_point stand={tree.position.x+std::sin(angle)*tree.distance,tree.position.z+std::cos(angle)*tree.distance};
+   if(!nav.is_safe(stand))continue;auto path=nav.find_path(state.position,stand);if(path.empty())continue;
+   job.tree_id=tree.id;job.chopping=false;state.route=std::move(path);state.route_index=state.route.size()>1?1:0;state.walking=true;return;
+  }
+ }
+}
+}

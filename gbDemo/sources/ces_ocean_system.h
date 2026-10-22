@@ -47,6 +47,7 @@ namespace game {
         void add_receiver(const gb::ces_entity_shared_ptr&);
         void add_interaction(const gb::ces_entity_shared_ptr& source,const gb::ces_entity_shared_ptr& mask);
         void set_mean_level(float);
+        float surface_height(float x,float z)const{return sample_ocean(m_settings,x,z,m_fixed_time>=0?m_fixed_time:m_time).position.y;}
         void set_world_dimensions(float world_size,float water_size);
         void set_optics_intensity(const glm::vec3& value){m_optics_intensity=glm::clamp(value,glm::vec3(0),glm::vec3(3));}
         void set_terrain_dimensions(float height,float shore){m_settings.terrain_layer_height=height;m_settings.terrain_shore_height=shore;}

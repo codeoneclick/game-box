@@ -63,7 +63,7 @@ fragment half4 fragment_shader_sun_shadow_resolve(common_v_output_t in [[stage_i
  float4 color=scene.sample(ocean_nearest,in.texcoord),geometry=positions.sample(ocean_nearest,in.texcoord),normal=normals.sample(ocean_nearest,in.texcoord);
  float water=water_tex.sample(ocean_nearest,in.texcoord).a;
  if(u.shadow_params.w==2.0||u.shadow_params.w==3.0){float3 d=u.shadow_params.w==2.0?near_tex.sample(ocean_nearest,in.texcoord).rgb:far_tex.sample(ocean_nearest,in.texcoord).rgb;return half4(half3(sun_shadow_depth(d)),0);}
- if(u.shadow_sun.w<.5||geometry.w<=0.0||normal.w<=0.0||water>.99)return half4(color);
+ if(u.shadow_sun.w<.5||geometry.w<=0.0||normal.w<=0.0||normal.w==9000000.0||water>.99)return half4(color);
  // Match GLSL: derive the receiver plane before the low-sun slope correction.
  float3 n=normalize(normal.xyz*2.0-1.0),plane=cross(dfdx(geometry.xyz),dfdy(geometry.xyz));
  float plane_length=length(plane);

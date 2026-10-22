@@ -36,6 +36,14 @@ int main(){
             }
         }
     };
+    {game::resident_state worker;worker.available=true;worker.position={-4,0};game::woodcutter_state job;
+     std::vector<game::woodcut_target> trees={{1,{0,0},1.5f}};bool approached=false;
+     for(int i=0;i<600;i++){game::step_woodcutter(wide_nav,1.f/60,worker,job,trees);approached|=worker.walking;assert(wide_nav.is_safe(worker.position));}
+     assert(approached&&job.chopping&&!worker.walking&&job.tree_id==1);
+     assert(std::abs(std::sqrt(worker.position.x*worker.position.x+worker.position.z*worker.position.z)-1.5f)<.01f);
+     assert(std::abs(std::atan2(std::sin(worker.yaw-std::atan2(-worker.position.x,-worker.position.z)),std::cos(worker.yaw-std::atan2(-worker.position.x,-worker.position.z))))<.001f);
+     trees.clear();game::step_woodcutter(wide_nav,1.f/60,worker,job,trees);assert(!job.chopping&&job.tree_id==0&&!worker.walking);
+    }
     compare_support(wide_nav);compare_support(ring_nav);
     // Buildings must override certified interior cells as well as triangles.
     auto occupied=wide_nav;
@@ -84,6 +92,14 @@ int main(){
     assert(crowd_walks>=200);
     for(const auto& level:moved)for(auto walked:level)assert(walked);
     std::cout<<"Resident crowd smoke passed: count=200 terraces=8 walks="<<crowd_walks<<std::endl;
+    // Keep the long-cycle fixture compact: the default island can grow without
+    // turning this deterministic stroll check into a test of travel distance.
+    auto stroll_config=config;
+    stroll_config.resolution=256;
+    stroll_config.world_size=512;
+    stroll_config.island_size=256;
+    stroll_config.water_size=1024;
+    nav=game::build_resident_navigation(game::terrain_mesh_builder::build(game::terrain_generator::generate(stroll_config)),stroll_config.shore_height);
     auto state=game::create_resident_state(nav,1337);
     assert(state.available&&nav.is_safe(state.position));
     auto points=nav.reachable_points(state.position);assert(points.size()>100);

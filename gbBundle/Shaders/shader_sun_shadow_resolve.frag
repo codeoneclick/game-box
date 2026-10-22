@@ -41,7 +41,7 @@ void main(){
  vec4 color=texture2D(sampler_01,v_texcoord),geometry=texture2D(sampler_02,v_texcoord);
  vec4 normal=texture2D(sampler_03,v_texcoord);float water=texture2D(sampler_06,v_texcoord).a;
  if(shadow_params.w==2.0||shadow_params.w==3.0){vec3 d=shadow_params.w==2.0?texture2D(sampler_04,v_texcoord).rgb:texture2D(sampler_05,v_texcoord).rgb;attachment_01=vec4(vec3(shadow_depth(d)),0);return;}
- if(shadow_sun.w<.5||geometry.w<=0.0||normal.w<=0.0||water>.99){attachment_01=color;return;}
+ if(shadow_sun.w<.5||geometry.w<=0.0||normal.w<=0.0||normal.w==9000000.0||water>.99){attachment_01=color;return;}
  vec3 n=normalize(normal.xyz*2.0-1.0);
  // Receiver-plane depth needs the geometric plane. The SNORM8 shading normal
  // tilts an axis-aligned top by ~0.6 degrees, amplifying PCF error at low sun.

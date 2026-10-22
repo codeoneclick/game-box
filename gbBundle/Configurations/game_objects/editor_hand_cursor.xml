@@ -1,0 +1,6 @@
+<shape_3d mesh_filename="hand_cursor.fbx">
+ <materials><material filename="material.editor_hand_cursor.xml"/></materials>
+ <animations>
+  <animation animation_filename="hand_cursor_idle.fbx" animation_name="idle" start_index="0" end_index="84" animation_mask_filename=""/>
+ </animations>
+</shape_3d>

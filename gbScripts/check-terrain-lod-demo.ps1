@@ -8,9 +8,14 @@ param(
     [switch]$WaterFields,
     [switch]$TechniqueSizes,
     [switch]$WaterOptics,
+    [switch]$HandCursor,
+    [switch]$BuildingPlacement,
     [switch]$Sculpt,
     [switch]$SculptUndo,
     [switch]$NoValidation,
+    [string]$LoadLevel,
+    [int]$LoadDeadlineMs=1500,
+    [ValidateRange(1,3)][int]$LoadRepeats=1,
     [ValidateSet('reef','coast','1')][string]$OceanInspect,
     [ValidateRange(0,20)][int]$OceanDebug=0,
     [ValidateRange(1,5)][int]$InspectorMode=1,
@@ -34,6 +39,14 @@ public static class TerrainLodSmoke {
  [DllImport("user32.dll")] public static extern uint GetWindowThreadProcessId(IntPtr w,out uint id);
  [DllImport("user32.dll",CharSet=CharSet.Unicode)] public static extern int GetClassName(IntPtr w,StringBuilder n,int l);
  [DllImport("user32.dll")] public static extern bool PostMessage(IntPtr w,uint m,IntPtr a,IntPtr b);
+ [DllImport("user32.dll",CharSet=CharSet.Unicode)] public static extern int GetWindowText(IntPtr w,StringBuilder n,int l);
+ [DllImport("user32.dll",CharSet=CharSet.Unicode)] public static extern IntPtr SendMessage(IntPtr w,uint m,IntPtr a,string b);
+ [DllImport("user32.dll")] public static extern bool EnumChildWindows(IntPtr w,Callback c,IntPtr p);
+ [DllImport("user32.dll")] public static extern IntPtr GetParent(IntPtr w);
+ [DllImport("user32.dll")] public static extern int GetDlgCtrlID(IntPtr w);
+ [DllImport("user32.dll")] public static extern bool IsWindowVisible(IntPtr w);
+ public static IntPtr Dialog(uint pid){IntPtr r=IntPtr.Zero;EnumWindows((w,p)=>{uint id;GetWindowThreadProcessId(w,out id);var s=new StringBuilder(256);GetWindowText(w,s,256);if(id==pid&&IsWindowVisible(w)&&s.ToString()=="Load terrain level"){r=w;return false;}return true;},IntPtr.Zero);return r;}
+ public static bool OpenFile(IntPtr dialog,string path){IntPtr edit=IntPtr.Zero;EnumChildWindows(dialog,(w,p)=>{var s=new StringBuilder(256);GetClassName(w,s,256);if(s.ToString()!="Edit")return true;for(var parent=w;parent!=IntPtr.Zero&&parent!=dialog;parent=GetParent(parent)){int id=GetDlgCtrlID(parent);if(id==1148||id==1152){edit=w;return false;}}return true;},IntPtr.Zero);if(edit==IntPtr.Zero)return false;SendMessage(edit,12,IntPtr.Zero,path);PostMessage(dialog,273,new IntPtr(1),IntPtr.Zero);return true;}
  [DllImport("kernel32.dll")] public static extern bool GetExitCodeProcess(IntPtr h,out uint code);
  [StructLayout(LayoutKind.Sequential)] public struct Point { public int x,y; }
  [DllImport("user32.dll")] public static extern bool ClientToScreen(IntPtr w,ref Point p);
@@ -51,11 +64,14 @@ $overrides = @{
     GB_RENDER_DEBUG_LOG=$(if ($Profile) { $null } else { '1' })
     GB_TERRAIN_LOD_DEBUG=$(if ($Profile) { $null } else { '1' })
     GB_PROFILE_SYSTEMS=$(if ($Profile) { '1' } else { $null })
-    GB_EDITOR_PROFILE=$(if($Sculpt){'1'}else{$null})
+    GB_EDITOR_PROFILE=$(if($BuildingPlacement -or $Sculpt -or $LoadLevel){'1'}else{$null})
+    GB_REFERENCE_COMPOSITION=$(if($BuildingPlacement){'1'}elseif($LoadLevel){'0'}else{[Environment]::GetEnvironmentVariable('GB_REFERENCE_COMPOSITION')})
     GB_HUD_DEBUG=$(if ($Profile) { '1' } else { $null })
     GB_OCEAN_FIXED_TIME='1'; GB_RESIDENT_POSE='idle'; GB_RESIDENT_TIME='0'
     VK_INSTANCE_LAYERS='VK_LAYER_LUNARG_screenshot'; VK_SCREENSHOT_DIR=$output
-    VK_SCREENSHOT_FRAMES=$(if ($WaterOptics) { '60,120,180,300,420' } elseif ($Profile) { '360' } elseif ($Sculpt -or $Exercise -or $Wireframe -or $Zoom -or $Orbit -or $Inspector) { '60,180,300,420' } else { '60' })
+    GB_BUILDING_PLACEMENT_TEST=$(if($BuildingPlacement){'1'}else{$null})
+    GB_HAND_CURSOR_TEST=$(if($HandCursor){'1'}else{$null})
+    VK_SCREENSHOT_FRAMES=$(if ($HandCursor){'60,180,300,420,540,660'}elseif ($WaterOptics) { '60,120,180,300,420' } elseif ($Profile) { '360' } elseif ($BuildingPlacement -or $Sculpt -or $LoadLevel -or $Exercise -or $Wireframe -or $Zoom -or $Orbit -or $Inspector) { '60,180,300,420' } else { '60' })
     GB_OCEAN_INSPECT=$(if($WaterOptics -and !$OceanInspect){'coast'}else{$OceanInspect}); GB_OCEAN_DEBUG=[string]$OceanDebug; GB_POST_DEBUG_PANEL=$null; GB_TERRAIN_LOD=$TerrainLodMode
 }
 foreach ($key in $overrides.Keys) {
@@ -112,6 +128,67 @@ try {
     if ($Profile) { Wait-Frame 360 } else { Wait-Frame 60 }
     $script:window = [TerrainLodSmoke]::Find([uint32]$process.Id)
     if ($window -eq [IntPtr]::Zero) { throw 'Owned game window unavailable' }
+    if($BuildingPlacement){
+        Click 60 565
+        [TerrainLodSmoke]::Mouse($window,512,650,365,0)
+        Wait-Frame 180
+        Click 650 365
+        Wait-Frame 300
+        [TerrainLodSmoke]::PostMessage($window,256,[IntPtr]17,[IntPtr]::Zero)|Out-Null
+        Key 90
+        [TerrainLodSmoke]::PostMessage($window,257,[IntPtr]17,[IntPtr]::Zero)|Out-Null
+        Wait-Frame 420
+    }
+    if($HandCursor){
+        [TerrainLodSmoke]::Mouse($window,512,600,390,0)
+        [TerrainLodSmoke]::Mouse($window,516,600,390,2)
+        Wait-Frame 180
+        [TerrainLodSmoke]::Mouse($window,517,600,390,0)
+        [TerrainLodSmoke]::Mouse($window,512,1120,550,0)
+        Wait-Frame 300
+        [TerrainLodSmoke]::Mouse($window,512,60,55,0)
+        Wait-Frame 420
+        [TerrainLodSmoke]::Mouse($window,512,600,390,0)
+        [TerrainLodSmoke]::Wheel($window,5)
+        Wait-Frame 540
+        [TerrainLodSmoke]::Wheel($window,-12)
+        Wait-Frame 660
+    }
+    if($LoadLevel){
+        $loadPath=(Resolve-Path -LiteralPath $LoadLevel).Path
+        for($loadRepeat=0;$loadRepeat -lt $LoadRepeats;++$loadRepeat){
+        $loadLogStart=(Get-Content "$output/runtime.log" -Raw).Length
+        if($loadRepeat -eq 0){Click 340 55}else{
+            # Also exercise the existing Ctrl+O shortcut on repeated loads.
+            [TerrainLodSmoke]::PostMessage($window,256,[IntPtr]17,[IntPtr]::Zero) | Out-Null
+            [TerrainLodSmoke]::PostMessage($window,256,[IntPtr]79,[IntPtr]::Zero) | Out-Null
+        }
+        $loadTimer=[Diagnostics.Stopwatch]::StartNew();$dialog=[IntPtr]::Zero
+        while($dialog -eq [IntPtr]::Zero -and $loadTimer.Elapsed.TotalSeconds -lt 10){$dialog=[TerrainLodSmoke]::Dialog([uint32]$process.Id);Start-Sleep -Milliseconds 50}
+        if($dialog -eq [IntPtr]::Zero -or ![TerrainLodSmoke]::OpenFile($dialog,$loadPath)){throw 'Owned Load dialog unavailable'}
+        if($loadRepeat -gt 0){[TerrainLodSmoke]::PostMessage($window,257,[IntPtr]79,[IntPtr]::Zero) | Out-Null;[TerrainLodSmoke]::PostMessage($window,257,[IntPtr]17,[IntPtr]::Zero) | Out-Null}
+        $loadTimer.Restart();$published=$false
+        while(!$process.HasExited -and $loadTimer.Elapsed.TotalSeconds -lt 30){
+            $loadLog=Get-Content "$output/runtime.log" -Raw
+            $newLoadLog=$loadLog.Substring([Math]::Min($loadLogStart,$loadLog.Length));$loadedAt=$newLoadLog.IndexOf('Editor loaded level')
+            if($loadedAt -ge 0 -and $newLoadLog.Substring($loadedAt) -match 'Editor load_published generation='){$published=$true;break}
+            Start-Sleep -Milliseconds 100
+        }
+        if(!$published){throw "Load did not publish terrain without further input; inspect $output"}
+        if($loadTimer.ElapsedMilliseconds -gt $LoadDeadlineMs){throw "Load terrain took $($loadTimer.ElapsedMilliseconds) ms (budget $LoadDeadlineMs ms); inspect $output"}
+        Write-Output "Load published without sculpt input after $($loadTimer.ElapsedMilliseconds) ms"
+        }
+        # Terrain timing above excludes the intentionally deferred decorations.
+        # Let the cache owner finish before exercising normal process teardown.
+        $decorationTimer=[Diagnostics.Stopwatch]::StartNew();$decorationsReady=$false
+        while(!$process.HasExited -and $decorationTimer.Elapsed.TotalSeconds -lt 120){
+            $completionLog=Get-Content "$output/runtime.log" -Raw;$lastLoaded=$completionLog.LastIndexOf('Editor loaded level')
+            if($lastLoaded -ge 0 -and [regex]::Matches($completionLog.Substring($lastLoaded),'Editor rebuilt region=').Count -ge 2){$decorationsReady=$true;break}
+            Start-Sleep -Milliseconds 100
+        }
+        if(!$decorationsReady){throw "Load decorations did not finish; inspect $output"}
+        Wait-Frame 420
+    }
     if($Sculpt){
         [TerrainLodSmoke]::Mouse($window,512,450,440,0)
         [TerrainLodSmoke]::Mouse($window,513,450,440,1)
@@ -216,11 +293,50 @@ try {
         Wait-Frame 420
     }
     [TerrainLodSmoke]::PostMessage($window,16,[IntPtr]::Zero,[IntPtr]::Zero) | Out-Null
-    if (!$process.WaitForExit(10000)) { throw 'Demo did not close normally' }
+    if (!$process.WaitForExit($(if($LoadLevel){30000}else{10000}))) { throw 'Demo did not close normally' }
     $exitCode = [uint32]0
     [TerrainLodSmoke]::GetExitCodeProcess($processHandle,[ref]$exitCode) | Out-Null
     if ($exitCode -ne 0) { throw "Demo failed with exit $exitCode" }
     if (Select-String -Path "$output/errors.log","$output/runtime.log" -Pattern 'Validation Error|VUID-|Assertion failed|terrain rebuild failed|Editor refinement failed') { throw "Runtime validation failed; inspect $output" }
+    if($HandCursor){
+        $runtime=Get-Content "$output/runtime.log" -Raw
+        if($runtime -notmatch 'Hand cursor initialized: world_length_m=2 clearance_m=0.5'){throw 'Hand cursor missing'}
+        if([regex]::Matches($runtime,'Hand cursor visibility=1').Count -lt 1 -or $runtime -notmatch 'Hand cursor visibility=0'){throw 'Hand/UI visibility transitions missing'}
+        $frames=@();foreach($sample in [regex]::Matches($runtime,'Hand cursor visible surface=([^ ]+) clearance=([0-9.]+) scale=([0-9.]+) idle_frame=([0-9]+)')){
+            if([double]$sample.Groups[2].Value -lt .499){throw 'Palm below minimum 0.5m clearance'}
+            if([double]$sample.Groups[3].Value -ne 1){throw 'Hand world scale changed'}
+            $frames += [int]$sample.Groups[4].Value
+        }
+        if(@($frames|Select-Object -Unique).Count -lt 2){throw 'Hand Idle animation static'}
+        foreach($kind in @('terrain','building','tree','resident')){
+            if($runtime -notmatch "Hand surface probe kind=$kind valid=1 "){throw "Live hand surface probe failed: $kind"}
+        }
+        # RMB was held from the first terrain move through capture 180.
+        $rmbEnd=$runtime.IndexOf('Queued screeshot for frame: 180')
+        $rmb=$runtime.Substring(0,$rmbEnd)
+        if($rmb -notmatch 'Hand cursor visible' -or $rmb -match 'Hand cursor visibility=0'){throw 'Hand hidden while RMB held'}
+        $sizes=@{}
+        foreach($capture in @(540,660)){
+            $end=$runtime.IndexOf("Queued screeshot for frame: $capture")
+            $bounds=[regex]::Matches($runtime.Substring(0,$end),'pixels=([0-9.-]+),([0-9.-]+)\.\.([0-9.-]+),([0-9.-]+)')
+            if($bounds.Count -eq 0){throw "No hand bounds before capture $capture"}
+            $last=$bounds[$bounds.Count-1]
+            $sizes[$capture]=[Math]::Max(([double]$last.Groups[3].Value-[double]$last.Groups[1].Value),([double]$last.Groups[4].Value-[double]$last.Groups[2].Value))
+        }
+        if($sizes[540] -le $sizes[660]*1.05){throw 'Fixed world hand did not shrink on screen when zooming out'}
+
+        foreach($sample in [regex]::Matches($runtime,'pixels=([0-9.-]+),([0-9.-]+)\.\.([0-9.-]+),([0-9.-]+)')){
+            $width=[double]$sample.Groups[3].Value-[double]$sample.Groups[1].Value
+            $height=[double]$sample.Groups[4].Value-[double]$sample.Groups[2].Value
+            if($width -le 0 -or $height -le 0){throw 'Hand projected bounds invalid'}
+        }
+    }
+    if($BuildingPlacement){
+        $runtime=Get-Content "$output/runtime.log" -Raw
+        if($runtime -notmatch 'Building placement preview valid=1 buildings=2 ' -or $runtime -notmatch 'Building placement preview valid=0 buildings=3 '){throw 'Building placement did not change green preview to red overlap'}
+        $placed=$runtime.IndexOf('Building placement preview valid=0 buildings=3 ')
+        if($runtime.Substring($placed) -notmatch 'Building placement preview valid=1 buildings=2 '){throw 'Building undo did not restore green preview'}
+    }
     if($Sculpt){
         $samples=@();foreach($line in Get-Content "$output/runtime.log"){
             if($line -match '^Editor visual_latency_ms=([0-9.]+) revision=([0-9]+)' -and [int]$Matches[2] -gt 1){$samples += [double]$Matches[1]}
@@ -300,6 +416,7 @@ try {
         $window = [TerrainLodSmoke]::Find([uint32]$process.Id)
         [TerrainLodSmoke]::PostMessage($window,16,[IntPtr]::Zero,[IntPtr]::Zero) | Out-Null
         $process.WaitForExit(10000) | Out-Null
+        if(!$process.HasExited){Stop-Process -Id $process.Id -Force}
     }
     [IO.File]::WriteAllBytes($settings,$original)
     foreach ($key in $environmentBefore.Keys) { [Environment]::SetEnvironmentVariable($key,$environmentBefore[$key]) }

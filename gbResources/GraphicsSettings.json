@@ -21,16 +21,16 @@
       "enableFog" : false,
       "enableSSAO" : true,
       "enableToneMapping" : true,
+      "enableWaterCaustics" : true,
       "enableWaterReflection" : true,
       "enableWaterRefraction" : true,
-      "enableWaterCaustics" : true,
-      "waterReflectionIntensity" : 1,
-      "waterRefractionIntensity" : 1,
-      "waterCausticsIntensity" : 1,
       "exposure" : 0.15000000596046448,
       "fogStrength" : 0.079999998211860657,
       "saturation" : 0.95999997854232788,
-      "ssaoIntensity" : 2.2874999046325684
+      "ssaoIntensity" : 0.99375003576278687,
+      "waterCausticsIntensity" : 1,
+      "waterReflectionIntensity" : 1,
+      "waterRefractionIntensity" : 1
    },
    "renderPasses" : {},
    "terrainLOD" : {

@@ -11,6 +11,7 @@
 #include "mesh_3d.h"
 #include "frustum_3d.h"
 #include "vbo.h"
+#include "terrain_editor_state.h"
 #include <cstdlib>
 #include <algorithm>
 #include <cmath>
@@ -69,11 +70,12 @@ void ces_island_resident_system::refresh_residents(const std::vector<uint8_t>& c
         if(index>=changed.size()||!changed[index])return;
         auto& state=resident->state;const auto& nav=m_navigations[index];
         state.route.clear();state.route_index=0;state.reachable.clear();state.shared_reachable.reset();
-        state.walking=false;state.idle_remaining=2.f;
+        state.walking=false;state.idle_remaining=2.f;resident->woodcutting={};
         state.elevation=nav.shore_y;
         state.available=nav.is_safe(state.position);
         if(!state.available){
             float nearest=std::numeric_limits<float>::max();
+            if(resident->axe){resident->axe->visible=false;resident->axe->visible_in_next_frame=false;}
             const auto previous=state.position;
             for(size_t cell=0;cell<nav.walkable.size();++cell){
                 if(!nav.walkable[cell])continue;
@@ -107,15 +109,22 @@ void ces_island_resident_system::apply_stairs(const std::vector<EditorStairs>& s
     });
 }
 void ces_island_resident_system::on_feed_start(f32 dt){
+    std::vector<std::vector<woodcut_target>> trees(m_navigations.size());
+    if(m_editor_state)for(const auto& tree:m_editor_state->level.trees)for(size_t i=0;i<m_navigations.size();i++)if(std::abs(tree.position[1]-m_navigations[i].shore_y)<.01f)trees[i].push_back({tree.id,{tree.position[0],tree.position[2]},1.5f});
     enumerate_entities_with_components(m_mask,[&](const gb::ces_entity_shared_ptr& entity){
         auto resident=entity->get_component<ces_island_resident_component>();auto& state=resident->state;
+        if(resident->axe){resident->axe->visible=false;resident->axe->visible_in_next_frame=false;}
         if(resident->terrace_index>=m_navigations.size()){state.available=false;state.walking=false;entity->visible=false;return;}
         const auto previous=state.position;
         if(!state.available){entity->visible=false;return;}
-        if(m_fixed_pose.empty())step_resident_with_stairs(m_navigations,m_stair_links,dt,resident->terrace_index,state);
+        if(m_fixed_pose.empty()){
+            if(resident->woodcutter)step_woodcutter(m_navigations[resident->terrace_index],dt,state,resident->woodcutting,trees[resident->terrace_index]);
+            else step_resident_with_stairs(m_navigations,m_stair_links,dt,resident->terrace_index,state);
+        }
         else {const auto& navigation=m_navigations[resident->terrace_index];state.elevation=navigation.shore_y;state.available=navigation.is_safe(state.position);state.walking=state.available&&m_fixed_pose=="walk";}
         entity->visible=state.available;
         if(!state.available)return;
+        if(resident->axe){resident->axe->visible=true;resident->axe->visible_in_next_frame=true;}
         auto transform=entity->get_component<gb::ces_transformation_3d_component>();
         const glm::vec3 position(state.position.x,state.elevation,state.position.z);
         if (transform->get_position()!=position) transform->set_position(position);
@@ -124,14 +133,17 @@ void ces_island_resident_system::on_feed_start(f32 dt){
         if (transform->get_rotation()!=rotation) transform->set_rotation(rotation);
         if(m_debug) {
             const glm::vec2 movement(state.position.x-previous.x,state.position.z-previous.z);
-            if(glm::length(movement)>1.e-6f) {
+            // On arrival woodcutters turn toward the trunk instead of retaining
+            // their final approach direction.
+            if(glm::length(movement)>1.e-6f&&!resident->woodcutting.chopping) {
                 const auto forward=transform->get_absolute_transformation()*glm::vec4(0,0,1,0);
                 if(glm::dot(glm::normalize(movement),glm::normalize(glm::vec2(forward.x,forward.z)))<.999f)
                     std::cout<<"RESIDENT FACING MISMATCH"<<std::endl;
             }
         }
-        const std::string clip=state.walking?"walk":"idle";
+        const std::string clip=resident->woodcutter&&resident->woodcutting.chopping&&m_fixed_pose.empty()?"chop":state.walking?"walk":"idle";
         if(resident->animation!=clip){std::static_pointer_cast<gb::shape_3d>(entity)->play_animation(clip,true);resident->animation=clip;
+            if(resident->woodcutter)std::cout<<"Woodcutter mode="<<clip<<" terrace="<<resident->terrace_index+1<<" tree="<<resident->woodcutting.tree_id<<std::endl;
             if(m_debug)std::cout<<"Resident mode="<<clip<<std::endl;}
         if(m_fixed_time>=0&&std::isfinite(m_fixed_time)){
             auto mixer=entity->get_component<gb::ces_animation_3d_mixer_component>();mixer->reset_animation_time(0);
@@ -169,6 +181,50 @@ void ces_island_resident_system::on_feed(const gb::ces_entity_shared_ptr&,f32 dt
         // supports them. Keep this adapter local rather than changing bulk semantics.
         entity->get_component<gb::ces_material_component>()->get_material("ws.base")->set_custom_shader_uniform(static_cast<glm::mat4*>(bones->get_values()),64,"u_bones");
         std::static_pointer_cast<resident_color_uniforms>(uniforms->get_uniforms(gb::ces_shader_uniforms_component::e_shader_uniform_mode::e_fragment,"resident.color",0))->update(view,resident->clothing_color,camera->get_position());
+        if(resident->axe){
+            const auto body_model=entity->get_component<gb::ces_transformation_3d_component>()->get_absolute_transformation();
+            auto axe_transform=resident->axe->get_component<gb::ces_transformation_3d_component>();
+            axe_transform->update_absolute_transformation(body_model);
+            if(m_debug){const auto axe_model=axe_transform->get_absolute_transformation();for(int c=0;c<4;c++)for(int r=0;r<4;r++)if(std::abs(axe_model[c][r]-body_model[c][r])>.00001f)std::cout<<"AXE PARENT MISMATCH"<<std::endl;}
+            auto axe_uniforms=resident->axe->get_component<gb::ces_shader_uniforms_component>();
+            auto axe_bones=std::static_pointer_cast<resident_bone_uniforms>(axe_uniforms->get_uniforms(gb::ces_shader_uniforms_component::e_shader_uniform_mode::e_vertex,"resident.bones",2));
+            axe_bones->update(static_cast<glm::mat4*>(bones->get_values()),mixer->get_transformation_size());
+            if(resident->woodcutting.chopping){
+                // Fit the rigid handle through both animated palms. Correct only
+                // the tool palette; retain the supplied body animation unchanged.
+                auto palette=static_cast<glm::mat4*>(axe_bones->get_values());
+                const auto& right=resident->axe_hands[0];const auto& left=resident->axe_hands[1];
+                const glm::vec3 r=glm::vec3(palette[right.first]*glm::vec4(right.second,1));
+                const glm::vec3 l=glm::vec3(palette[left.first]*glm::vec4(left.second,1));
+                if(glm::length(l-r)>.001f){
+                    // Left palm holds the butt, right palm is nearer the head.
+                    // Do not pick this sign from the rotating right wrist: that
+                    // can reverse the tool end-for-end during the swing.
+                    const auto target=glm::normalize(r-l);
+                    // Two palms constrain only the handle axis, leaving roll
+                    // ambiguous. Fix the second axis explicitly: the cutting
+                    // edge faces the trunk (+Z in the resident's local space).
+                    auto edge=glm::vec3(0,0,1)-target*target.z;
+                    if(glm::length(edge)<.001f)edge=glm::vec3(0,-1,0)-target*(-target.y);
+                    edge=glm::normalize(edge);
+                    const glm::mat3 bind_frame(resident->axe_edge_bind,resident->axe_axis_bind,glm::cross(resident->axe_edge_bind,resident->axe_axis_bind));
+                    const glm::mat3 pose_frame(edge,target,glm::cross(edge,target));
+                    palette[right.first]=glm::translate(glm::mat4(1),(r+l)*.5f)*glm::mat4(pose_frame*glm::transpose(bind_frame))*glm::translate(glm::mat4(1),-right.second);
+                    if(m_debug&&report){
+                        const auto grip=glm::vec3(palette[right.first]*glm::vec4(right.second,1));
+                        const auto direction=glm::normalize(glm::vec3(palette[right.first]*glm::vec4(resident->axe_axis_bind,0)));
+                        const float error=std::max(glm::length(glm::cross(r-grip,direction)),glm::length(glm::cross(l-grip,direction)));
+                        std::cout<<"Woodcutter two-hand grip error="<<error<<" span="<<glm::length(l-r)<<std::endl;
+                        if(!std::isfinite(error)||error>.001f)std::cout<<"AXE GRIP MISMATCH"<<std::endl;
+                        if(glm::dot(direction,glm::normalize(r-l))<.999f)std::cout<<"AXE HEAD DIRECTION MISMATCH"<<std::endl;
+                        const auto actual_edge=glm::normalize(glm::vec3(palette[right.first]*glm::vec4(resident->axe_edge_bind,0)));
+                        if(glm::dot(actual_edge,edge)<.999f||actual_edge.z<-.001f)std::cout<<"AXE EDGE MISMATCH"<<std::endl;
+                    }
+                }
+            }
+            resident->axe->get_component<gb::ces_material_component>()->get_material("ws.base")->set_custom_shader_uniform(static_cast<glm::mat4*>(axe_bones->get_values()),64,"u_bones");
+            std::static_pointer_cast<resident_color_uniforms>(axe_uniforms->get_uniforms(gb::ces_shader_uniforms_component::e_shader_uniform_mode::e_fragment,"resident.color",0))->update(view,glm::vec4(1),camera->get_position());
+        }
         if(m_debug&&m_elapsed>=m_next_report){
             const auto& s=resident->state;std::cout<<"Resident position="<<s.position.x<<","<<s.elevation<<","<<s.position.z<<" safe="<<(s.stair_transit||navigation.is_safe(s.position))<<" bones="<<mixer->get_transformation_size()<<std::endl;
             m_next_report=m_elapsed+1;

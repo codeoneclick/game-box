@@ -30,6 +30,7 @@
 #include "terrain_editor_input.h"
 #include "terrain_editor_render_cache.h"
 #include "editor_building_renderer.h"
+#include "editor_hand_cursor.h"
 #include "ces_textedit_system.h"
 #include "file_dialog.h"
 #include <deque>
@@ -147,6 +148,8 @@ namespace game
         };
         struct editor_rebuild_jobs {
             std::future<editor_rebuild_result> worker;
+            std::future<editor_rebuild_result> load_preview;
+            bool pending_load=false,loading=false;
             std::future<editor_rebuild_result> detail_worker;
             TerrainEditorDirty pending;
             std::vector<TerrainEditorDirty> regions;
@@ -330,6 +333,7 @@ namespace game
                 if(std::getenv("GB_TREES_INSPECT")){
                     m_target=tree_focus;m_radius=11.f;m_min_radius=2.5f;m_pitch=18.f;m_yaw=60.f;
                 }
+                if(std::getenv("GB_WOODCUTTER_INSPECT")){m_target=resident_focus;m_radius=7.f;m_min_radius=2.5f;m_pitch=25.f;m_yaw=110.f;}
                 m_zoom.reset(m_radius,m_min_radius,m_max_radius);
                 update_camera();
             }
@@ -674,7 +678,7 @@ namespace game
 
         glm::vec3 resident_focus(-62.f,1.45f,74.f);
         try {
-            auto resident=create_island_resident_demo(get_fabricator(),terrain_mesh,config);
+            auto resident=create_island_resident_demo(get_fabricator(),terrain_mesh,config,editor_state);
             resident_focus=resident.focus;for(const auto& shape:resident.shapes)add_child(shape);
             if(std::getenv("GB_GRASS_INTERACTION_INSPECT"))for(auto shape:resident.shapes){
                 auto person=shape->get_component<ces_island_resident_component>();
@@ -841,14 +845,14 @@ namespace game
         orbit->surface_picker=[weak_editor](glm::ivec2 p,glm::vec3& hit){auto input=weak_editor.lock();return input&&input->pick_surface(p,hit);};
         auto cache=std::make_shared<TerrainEditorRenderCache>(editor_state);
         const bool seed_grass_enabled=!grass_enabled||std::string(grass_enabled)!="0";
-        cache->set_seed_builder([seed_grass_enabled](const terrain_config& config){
+        cache->set_seed_builder([](const terrain_config& config){
             std::pair<terrain_mesh_data,std::vector<terrain_mesh_data>> seed;
             try{config.validate();}catch(const std::exception&){return seed;}
             const auto generated=terrain_generator::generate(config);
             auto surface=terrain_mesh_builder::build(generated);
-            if(seed_grass_enabled)seed.second=terrain_mesh_builder::build_grass(surface,config);
             seed.first=editor_palette_mesh(std::move(surface));return seed;
         });
+        cache->set_seed_grass_builder([seed_grass_enabled](const terrain_mesh_data& surface,const terrain_config& config){return seed_grass_enabled?terrain_mesh_builder::build_grass(surface,config):std::vector<terrain_mesh_data>();});
         cache->initialize(editor_palette_mesh(terrain_mesh),editor_legacy_grass);
         std::vector<terrain_mesh_data>().swap(editor_legacy_grass);
         editor_state->consume_dirty();
@@ -935,6 +939,7 @@ namespace game
         }
         editor_state->building_surface_revision=editor_state->terrain_revision;
         auto buildings=std::make_shared<EditorBuildingRenderer>(get_fabricator(),editor_state);add_child(buildings->root());
+        auto hand_cursor=std::make_shared<EditorHandCursor>(get_fabricator(),camera,get_transition()->get_window(),editor_input,[ocean_system](float x,float z){return ocean_system->surface_height(x,z);});add_child(hand_cursor->root());get_transition()->add_system(hand_cursor);
         auto stairs_preview=gb::ces_entity::construct<gb::shape_3d>();stairs_preview->tag="editor.stairs.preview";
         get_fabricator()->add_materials(stairs_preview,configuration->get_materials_configurations());
         // One local mesh; cursor movement only updates its transform, never GPU buffers.
@@ -1014,7 +1019,7 @@ namespace game
             stairs_revision=editor_state->revision;
             if(std::getenv("GB_EDITOR_PROFILE")&&(!dirty.empty()||jobs->worker.valid()||!jobs->uploads.empty()))
                 std::cout<<"Editor frame_ms="<<dt*1000.f<<std::endl;
-            if(loaded){jobs->pending=TerrainEditorDirty();jobs->regions.clear();jobs->uploads.clear();jobs->navigation.clear();jobs->generation=editor_state->load_generation;jobs->support.reset();jobs->detail_sources.clear();jobs->detail_parts.reset();++*jobs->detail_epoch;}
+            if(loaded){jobs->pending=TerrainEditorDirty();jobs->regions.clear();jobs->uploads.clear();jobs->navigation.clear();jobs->generation=editor_state->load_generation;jobs->support.reset();jobs->detail_sources.clear();jobs->detail_parts.reset();jobs->load_preview={};jobs->pending_load=jobs->loading=true;++*jobs->detail_epoch;}
             if(dirty.terrain||dirty.buildings){++jobs->terrain_revision;jobs->needs_navigation|=editor_resident_system!=nullptr;}
             if(lod_enabled){
                 if(lod_seen!=lod_settings->revision){lod_seen=lod_settings->revision;lod_elapsed=0;}else lod_elapsed+=dt;
@@ -1033,9 +1038,7 @@ namespace game
                 jobs->regions.push_back(region);
             }
             const auto terrain_uploads_pending=[&](){for(const auto& entry:jobs->uploads)if(entry.second.batch.kind==EditorRenderBatch::Terrain)return true;return false;};
-            if(!terrain_uploads_pending()&&jobs->worker.valid()&&jobs->worker.wait_for(std::chrono::seconds(0))==std::future_status::ready){
-                try{
-                    auto ready=jobs->worker.get();
+            const auto receive=[&](editor_rebuild_result ready){
                     if(ready.generation==editor_state->load_generation){
                         jobs->visual_version=ready.version;jobs->visual_requested=ready.requested;jobs->visual_is_refinement=false;
                         for(auto& source:ready.detail_sources)jobs->detail_sources[source.first]=std::move(source.second);
@@ -1047,7 +1050,12 @@ namespace game
                             <<" flags="<<ready.dirty.terrain<<ready.dirty.grass<<ready.dirty.trees<<ready.dirty.climate
                             <<" worker_mesh_ms="<<ready.mesh_ms<<" worker_navigation_ms="<<ready.navigation_ms<<" queued="<<jobs->uploads.size()<<std::endl;
                     }
-                }catch(const std::exception& e){editor_state->error=e.what();}
+            };
+            if(!terrain_uploads_pending()&&jobs->load_preview.valid()&&jobs->load_preview.wait_for(std::chrono::seconds(0))==std::future_status::ready){
+                try{receive(jobs->load_preview.get());}catch(const std::exception& e){editor_state->error=e.what();}
+            }
+            if(!jobs->load_preview.valid()&&!terrain_uploads_pending()&&jobs->worker.valid()&&jobs->worker.wait_for(std::chrono::seconds(0))==std::future_status::ready){
+                try{receive(jobs->worker.get());}catch(const std::exception& e){editor_state->error=e.what();}
             }
             const bool needs_parts=jobs->needs_navigation&&!editor_state->stroke_active()&&(!jobs->detail_parts||jobs->detail_parts_revision!=jobs->terrain_revision);
             if(!jobs->worker.valid()&&(!jobs->pending.empty()||needs_parts)){
@@ -1057,12 +1065,24 @@ namespace game
                 const bool navigation=editor_resident_system&&jobs->needs_navigation&&!editor_state->stroke_active();
                 const auto requested=jobs->pending.empty()?std::chrono::steady_clock::now():jobs->pending_requested;
                 auto regions=std::move(jobs->regions);jobs->regions.clear();jobs->pending=TerrainEditorDirty();
-                jobs->worker=std::async(std::launch::async,[cache,snapshot,region,regions,terrain_revision,navigation,lod_enabled,settings,requested](){
+                std::shared_ptr<std::promise<editor_rebuild_result>> preview;
+                if(jobs->pending_load){preview=std::make_shared<std::promise<editor_rebuild_result>>();jobs->load_preview=preview->get_future();jobs->pending_load=false;}
+                jobs->worker=std::async(std::launch::async,[cache,snapshot,region,regions,terrain_revision,navigation,lod_enabled,settings,requested,preview](){
                     editor_rebuild_result result;result.dirty=region;result.revision=snapshot->revision;result.generation=snapshot->load_generation;result.terrain_revision=terrain_revision;
                     result.version={snapshot->load_generation,snapshot->terrain_revision,settings.revision};result.requested=requested;
                     const auto start=std::chrono::steady_clock::now();cache->set_state(snapshot);
+                    std::function<void(std::vector<EditorRenderBatch>)> terrain_ready;
+                    if(preview)terrain_ready=[&](std::vector<EditorRenderBatch> terrain){
+                        auto early=result;std::map<std::string,EditorRenderBatch> latest;for(auto& batch:terrain)latest[batch.key]=std::move(batch);
+                        for(auto& entry:latest){auto& batch=entry.second;if(lod_enabled){batch.lod=std::make_shared<const TerrainLodGeneration>(build_terrain_lod_preview(std::move(batch.mesh),snapshot->level.terrain.config.world_size/snapshot->level.terrain.config.resolution,early.version));early.detail_sources[batch.key]={batch.lod->source,snapshot->terrain_revision};}
+                            editor_pending_mesh item;if(!lod_enabled)item.prepared=prepare_editor_mesh(batch.mesh,editor_batch_guid(batch));std::vector<terrain_vertex>().swap(batch.mesh.vertices);item.batch=std::move(batch);early.batches.push_back(std::move(item));}
+                        early.mesh_ms=std::chrono::duration<double,std::milli>(std::chrono::steady_clock::now()-start).count();
+                        if(std::getenv("GB_EDITOR_PROFILE")){const auto& profile=cache->last_profile();std::cout<<"Editor load_terrain seed_ms="<<profile.seed_ms<<" mesh_ms="<<profile.mesh_ms<<" total_ms="<<early.mesh_ms<<std::endl;}
+                        preview->set_value(std::move(early));
+                    };
+                    try{
                     std::map<std::string,EditorRenderBatch> batches;
-                    for(const auto& area:regions)for(auto& batch:cache->rebuild(area,!lod_enabled))batches[batch.key]=std::move(batch);
+                    for(size_t i=0;i<regions.size();++i)for(auto& batch:cache->rebuild(regions[i],!lod_enabled,i==0?terrain_ready:std::function<void(std::vector<EditorRenderBatch>)>()))batches[batch.key]=std::move(batch);
                     for(auto& entry:batches){auto& batch=entry.second;
                         if(lod_enabled&&batch.kind==EditorRenderBatch::Terrain){
                             batch.lod=std::make_shared<const TerrainLodGeneration>(build_terrain_lod_preview(std::move(batch.mesh),snapshot->level.terrain.config.world_size/snapshot->level.terrain.config.resolution,result.version));
@@ -1074,6 +1094,7 @@ namespace game
                     if(navigation)result.terrain_parts=std::make_shared<const std::vector<terrain_mesh_data>>(cache->terrain_parts());
                     const auto built=std::chrono::steady_clock::now();result.mesh_ms=std::chrono::duration<double,std::milli>(built-start).count();
                     return result;
+                    }catch(...){if(preview)try{preview->set_exception(std::current_exception());}catch(const std::future_error&){}throw;}
                 });
             }
             if(!terrain_uploads_pending()&&!jobs->worker.valid()&&jobs->pending.empty()&&jobs->detail_worker.valid()&&jobs->detail_worker.wait_for(std::chrono::seconds(0))==std::future_status::ready){
@@ -1136,10 +1157,10 @@ namespace game
                     result.cancelled=cancellation->load()!=epoch;result.navigation_ms=std::chrono::duration<double,std::milli>(std::chrono::steady_clock::now()-built).count();return result;
                 });
             }
-            // Coalesce repeated updates to each batch; upload at most one changed
-            // batch per frame using existing fence-safe dynamic buffers.
+            // Editing retains its small frame budget. A whole-level load must
+            // not stretch dozens of terrain uploads across slow Debug frames.
             const auto upload_budget_start=std::chrono::steady_clock::now();
-            while(!jobs->uploads.empty()&&std::chrono::duration<double,std::milli>(std::chrono::steady_clock::now()-upload_budget_start).count()<2.){
+            while(!jobs->uploads.empty()&&std::chrono::duration<double,std::milli>(std::chrono::steady_clock::now()-upload_budget_start).count()<(jobs->loading?64.:2.)){
                 const auto started=std::chrono::steady_clock::now();
                 auto first=jobs->uploads.begin();std::vector<EditorRenderBatch> batch;std::vector<prepared_editor_mesh> prepared;
                 batch.push_back(std::move(first->second.batch));prepared.push_back(std::move(first->second.prepared));jobs->uploads.erase(first);publish(batch,true,&prepared);
@@ -1147,13 +1168,17 @@ namespace game
             }
             if(lod_enabled){
                 TerrainLodVersion version;version.load_generation=editor_state->load_generation;version.terrain_revision=editor_state->terrain_revision;version.settings_revision=lod_settings->revision;
-                if(!terrain_uploads_pending()&&lod_renderer->publish_ready(jobs->visual_version)&&std::getenv("GB_EDITOR_PROFILE"))
-                    std::cout<<(jobs->visual_is_refinement?"Editor detail_latency_ms=":"Editor visual_latency_ms=")<<std::chrono::duration<double,std::milli>(std::chrono::steady_clock::now()-jobs->visual_requested).count()<<" revision="<<jobs->visual_version.terrain_revision<<std::endl;
+                if(!terrain_uploads_pending()&&jobs->visual_version.load_generation==editor_state->load_generation&&lod_renderer->publish_ready(jobs->visual_version)){
+                    if(jobs->loading)std::cout<<"Editor load_published generation="<<jobs->visual_version.load_generation<<std::endl;
+                    jobs->loading=false;
+                    if(std::getenv("GB_EDITOR_PROFILE"))std::cout<<(jobs->visual_is_refinement?"Editor detail_latency_ms=":"Editor visual_latency_ms=")<<std::chrono::duration<double,std::milli>(std::chrono::steady_clock::now()-jobs->visual_requested).count()<<" revision="<<jobs->visual_version.terrain_revision<<std::endl;
+                }
                 TerrainLodView view;const auto matrix=camera->get_mat_p()*camera->get_mat_v();for(int c=0;c<4;++c)for(int r=0;r<4;++r)view.view_projection[c*4+r]=matrix[c][r];const auto position=camera->get_position();view.camera={{position.x,position.y,position.z}};view.projection_scale=std::abs(camera->get_mat_p()[1][1])*camera->get_viewport().w*.5f;
                 view.near_error_px=lod_settings->nearErrorPx;view.normal_error_px=lod_settings->normalErrorPx;view.far_error_px=lod_settings->farErrorPx;lod_renderer->update_main(view,lod_settings->wireframe,lod_settings->debugMode);render_debug->state()->terrain_diagnostics=lod_renderer->diagnostics();
                 editor_ui->set_terrain_triangle_count(lod_renderer->selected_triangles());
                 if(std::getenv("GB_TERRAIN_LOD_DEBUG"))std::cout<<"Terrain CLOD "<<lod_renderer->diagnostics()<<std::endl;
             }
+            if(!lod_enabled&&!terrain_uploads_pending()&&!jobs->load_preview.valid()&&!jobs->pending_load&&jobs->loading){std::cout<<"Editor load_published generation="<<jobs->visual_version.load_generation<<std::endl;jobs->loading=false;}
             if(!jobs->navigation.empty()&&jobs->navigation_revision==jobs->terrain_revision&&jobs->uploads.empty()&&!jobs->worker.valid()&&jobs->pending.empty()&&!editor_state->stroke_active()&&editor_resident_system){
                 const auto started=std::chrono::steady_clock::now();editor_resident_system->apply_navigation(std::move(jobs->navigation));jobs->navigation.clear();
                 editor_resident_system->apply_stairs(editor_state->level.stairs,editor_state->level.terrain.config);

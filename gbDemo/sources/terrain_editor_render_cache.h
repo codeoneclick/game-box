@@ -13,6 +13,8 @@ class TerrainEditorRenderCache {
  std::shared_ptr<TerrainEditorState> state_;
  std::map<int,EditorChunkMesh> chunks_;
  terrain_mesh_data seed_terrain_;
+ terrain_config seed_config_;
+ std::map<int,terrain_mesh_data> seed_chunks_;
  std::map<int,std::vector<size_t>> seed_top_triangles_;
  std::map<int,std::vector<EditorSeedTriangle>> seed_domain_;
  terrain_data seed_field_;
@@ -22,16 +24,20 @@ class TerrainEditorRenderCache {
  bool initial_flush_=true;
  uint64_t load_generation_=0;
  std::function<std::pair<terrain_mesh_data,std::vector<terrain_mesh_data>>(const terrain_config&)> seed_builder_;
+ std::function<std::vector<terrain_mesh_data>(const terrain_mesh_data&,const terrain_config&)> seed_grass_builder_;
  EditorCacheProfile profile_;
  int chunk_count() const;
  void preserve_seed_palette(terrain_mesh_data&,int chunk) const;
+ void initialize_grass(const std::vector<terrain_mesh_data>&,bool preserve_authored);
 public:
  explicit TerrainEditorRenderCache(std::shared_ptr<TerrainEditorState> state):state_(std::move(state)){}
  void set_state(std::shared_ptr<TerrainEditorState> state){state_=std::move(state);}
  void set_seed_builder(std::function<std::pair<terrain_mesh_data,std::vector<terrain_mesh_data>>(const terrain_config&)> builder){seed_builder_=std::move(builder);}
+ void set_seed_grass_builder(std::function<std::vector<terrain_mesh_data>(const terrain_mesh_data&,const terrain_config&)> builder){seed_grass_builder_=std::move(builder);}
  const EditorCacheProfile& last_profile()const{return profile_;}
  void initialize(const terrain_mesh_data&,const std::vector<terrain_mesh_data>&);
- std::vector<EditorRenderBatch> rebuild(TerrainEditorDirty,bool optimize=true);
+ // Optional CPU-only callback publishes terrain before reload decorations.
+ std::vector<EditorRenderBatch> rebuild(TerrainEditorDirty,bool optimize=true,const std::function<void(std::vector<EditorRenderBatch>)>& terrain_ready={});
  std::vector<terrain_mesh_data> terrain_parts() const;
  std::vector<std::array<float,4>> active_tree_blobs() const;
 };

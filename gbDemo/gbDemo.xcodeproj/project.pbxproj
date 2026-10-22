@@ -1847,6 +1847,7 @@
 		99AE9B2E817848C8D2A7CEC3 /* terrain_mesh_builder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5C471F769DF17A12B263574 /* terrain_mesh_builder.cpp */; };
 		47538F6A6E315EB4AA5CE87D /* terrain_generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4DEFED68A5B412947862B94C /* terrain_generator.cpp */; };
 		4CD32EB5203847E08143D7B4 /* terrain_editor_input.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66C70768584848F3B918F38E /* terrain_editor_input.cpp */; };
+		D23A35C36CCDCD4A0868A844 /* editor_hand_cursor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C65607AC244A83849408347E /* editor_hand_cursor.cpp */; };
 		412E1A24EEE14508AC2D772E /* terrain_editor_ui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3B816DFE216B4DB491E703D2 /* terrain_editor_ui.cpp */; };
 		796670BA5A37E16E2A2942B7 /* terrain_mesh_optimizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96682956C6BB277E82714658 /* terrain_mesh_optimizer.cpp */; };
 		04A761273C8AE9F59898A66B /* terrain_contour_lod.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 227EAACBABA8673C5B5A194B /* terrain_contour_lod.cpp */; };
@@ -1860,6 +1861,7 @@
 		C2116A6F1A0ECF08DEF42171 /* terrain_mesh_builder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5C471F769DF17A12B263574 /* terrain_mesh_builder.cpp */; };
 		19D176F7048677D90CDE2A0F /* terrain_generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4DEFED68A5B412947862B94C /* terrain_generator.cpp */; };
 		90572C1B95BD497FB86F70F1 /* terrain_editor_input.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66C70768584848F3B918F38E /* terrain_editor_input.cpp */; };
+		B7B70470CA5B715823F5E0CA /* editor_hand_cursor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C65607AC244A83849408347E /* editor_hand_cursor.cpp */; };
 		6B3C34CD3AE44D32B2372F13 /* terrain_editor_ui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3B816DFE216B4DB491E703D2 /* terrain_editor_ui.cpp */; };
 		C733EA9AF7DBCD856A95C32E /* terrain_mesh_optimizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96682956C6BB277E82714658 /* terrain_mesh_optimizer.cpp */; };
 		1ABE98FD71E31E52261A2395 /* terrain_contour_lod.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 227EAACBABA8673C5B5A194B /* terrain_contour_lod.cpp */; };
@@ -1938,6 +1940,7 @@
 		F1099EF95894B08437FF9EAF /* terrain_mesh_builder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5C471F769DF17A12B263574 /* terrain_mesh_builder.cpp */; };
 		6BB61FCC0D07167ECB446AA0 /* terrain_generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4DEFED68A5B412947862B94C /* terrain_generator.cpp */; };
 		D86B731CA3A0464B832D48E6 /* terrain_editor_input.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66C70768584848F3B918F38E /* terrain_editor_input.cpp */; };
+		F3CCAF07B5D39E2DB28F90AE /* editor_hand_cursor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C65607AC244A83849408347E /* editor_hand_cursor.cpp */; };
 		219173A80B2F415EAA69D07E /* terrain_editor_ui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3B816DFE216B4DB491E703D2 /* terrain_editor_ui.cpp */; };
 		EF010863257B34EFC808058B /* terrain_mesh_optimizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96682956C6BB277E82714658 /* terrain_mesh_optimizer.cpp */; };
 		3699DCB2AC182FF8769CD2E3 /* terrain_contour_lod.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 227EAACBABA8673C5B5A194B /* terrain_contour_lod.cpp */; };
@@ -3777,6 +3780,7 @@
 		F5C471F769DF17A12B263574 /* terrain_mesh_builder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = terrain_mesh_builder.cpp; path = sources/terrain_mesh_builder.cpp; sourceTree = "<group>"; };
 		4DEFED68A5B412947862B94C /* terrain_generator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = terrain_generator.cpp; path = sources/terrain_generator.cpp; sourceTree = "<group>"; };
 		66C70768584848F3B918F38E /* terrain_editor_input.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = terrain_editor_input.cpp; path = sources/terrain_editor_input.cpp; sourceTree = "<group>"; };
+		C65607AC244A83849408347E /* editor_hand_cursor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = editor_hand_cursor.cpp; path = sources/editor_hand_cursor.cpp; sourceTree = "<group>"; };
 		3B816DFE216B4DB491E703D2 /* terrain_editor_ui.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = terrain_editor_ui.cpp; path = sources/terrain_editor_ui.cpp; sourceTree = "<group>"; };
 		96682956C6BB277E82714658 /* terrain_mesh_optimizer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = terrain_mesh_optimizer.cpp; path = sources/terrain_mesh_optimizer.cpp; sourceTree = "<group>"; };
 		227EAACBABA8673C5B5A194B /* terrain_contour_lod.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = terrain_contour_lod.cpp; path = sources/terrain_contour_lod.cpp; sourceTree = "<group>"; };
@@ -3793,6 +3797,9 @@
 		63338AA62925C837E73B1819 /* terrain_generator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = terrain_generator.h; path = sources/terrain_generator.h; sourceTree = "<group>"; };
 		51A2FDDB6F21B07A34B423AD /* terrain_data.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = terrain_data.h; path = sources/terrain_data.h; sourceTree = "<group>"; };
 		54AA29B02F6544B8B8E5F78A /* terrain_editor_input.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = terrain_editor_input.h; path = sources/terrain_editor_input.h; sourceTree = "<group>"; };
+		29C2199EC33331C1B00ABA17 /* hand_cursor_math.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hand_cursor_math.h; path = sources/hand_cursor_math.h; sourceTree = "<group>"; };
+		9952E52436CA9F92FAB79CE6 /* hand_surface_query.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hand_surface_query.h; path = sources/hand_surface_query.h; sourceTree = "<group>"; };
+		DBE313CCACD45DE106FA97E1 /* editor_hand_cursor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = editor_hand_cursor.h; path = sources/editor_hand_cursor.h; sourceTree = "<group>"; };
 		194ADFBF28824D7EB00B7FA1 /* terrain_editor_ui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = terrain_editor_ui.h; path = sources/terrain_editor_ui.h; sourceTree = "<group>"; };
 		176C0543360837604D649707 /* terrain_lod_settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = terrain_lod_settings.h; path = sources/terrain_lod_settings.h; sourceTree = "<group>"; };
 		176C0543360837604D649708 /* terrain_editor_layout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = terrain_editor_layout.h; path = sources/terrain_editor_layout.h; sourceTree = "<group>"; };
@@ -5648,6 +5655,9 @@
 				8181964D5751251E6C090E86 /* shader_ocean_compose.vert */,
 				51A2FDDB6F21B07A34B423AD /* terrain_data.h */,
 				54AA29B02F6544B8B8E5F78A /* terrain_editor_input.h */,
+				29C2199EC33331C1B00ABA17 /* hand_cursor_math.h */,
+				9952E52436CA9F92FAB79CE6 /* hand_surface_query.h */,
+				DBE313CCACD45DE106FA97E1 /* editor_hand_cursor.h */,
 				194ADFBF28824D7EB00B7FA1 /* terrain_editor_ui.h */,
 				176C0543360837604D649707 /* terrain_lod_settings.h */,
 				176C0543360837604D649708 /* terrain_editor_layout.h */,
@@ -5665,6 +5675,7 @@
 				F5C471F769DF17A12B263574 /* terrain_mesh_builder.cpp */,
 				4DEFED68A5B412947862B94C /* terrain_generator.cpp */,
 				66C70768584848F3B918F38E /* terrain_editor_input.cpp */,
+				C65607AC244A83849408347E /* editor_hand_cursor.cpp */,
 				3B816DFE216B4DB491E703D2 /* terrain_editor_ui.cpp */,
 				96682956C6BB277E82714658 /* terrain_mesh_optimizer.cpp */,
 				227EAACBABA8673C5B5A194B /* terrain_contour_lod.cpp */,
@@ -8964,6 +8975,7 @@
 				99AE9B2E817848C8D2A7CEC3 /* terrain_mesh_builder.cpp in Sources */,
 				47538F6A6E315EB4AA5CE87D /* terrain_generator.cpp in Sources */,
 				4CD32EB5203847E08143D7B4 /* terrain_editor_input.cpp in Sources */,
+				D23A35C36CCDCD4A0868A844 /* editor_hand_cursor.cpp in Sources */,
 				412E1A24EEE14508AC2D772E /* terrain_editor_ui.cpp in Sources */,
 				796670BA5A37E16E2A2942B7 /* terrain_mesh_optimizer.cpp in Sources */,
 				04A761273C8AE9F59898A66B /* terrain_contour_lod.cpp in Sources */,
@@ -9060,6 +9072,7 @@
 				C2116A6F1A0ECF08DEF42171 /* terrain_mesh_builder.cpp in Sources */,
 				19D176F7048677D90CDE2A0F /* terrain_generator.cpp in Sources */,
 				90572C1B95BD497FB86F70F1 /* terrain_editor_input.cpp in Sources */,
+				B7B70470CA5B715823F5E0CA /* editor_hand_cursor.cpp in Sources */,
 				6B3C34CD3AE44D32B2372F13 /* terrain_editor_ui.cpp in Sources */,
 				C733EA9AF7DBCD856A95C32E /* terrain_mesh_optimizer.cpp in Sources */,
 				1ABE98FD71E31E52261A2395 /* terrain_contour_lod.cpp in Sources */,
@@ -9231,6 +9244,7 @@
 				F1099EF95894B08437FF9EAF /* terrain_mesh_builder.cpp in Sources */,
 				6BB61FCC0D07167ECB446AA0 /* terrain_generator.cpp in Sources */,
 				D86B731CA3A0464B832D48E6 /* terrain_editor_input.cpp in Sources */,
+				F3CCAF07B5D39E2DB28F90AE /* editor_hand_cursor.cpp in Sources */,
 				219173A80B2F415EAA69D07E /* terrain_editor_ui.cpp in Sources */,
 				EF010863257B34EFC808058B /* terrain_mesh_optimizer.cpp in Sources */,
 				3699DCB2AC182FF8769CD2E3 /* terrain_contour_lod.cpp in Sources */,

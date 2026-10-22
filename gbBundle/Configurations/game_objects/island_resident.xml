@@ -3,5 +3,6 @@
  <animations>
   <animation animation_filename="character_idle.fbx" animation_name="idle" start_index="0" end_index="299" animation_mask_filename=""/>
   <animation animation_filename="character_walking.fbx" animation_name="walk" start_index="0" end_index="30" animation_mask_filename=""/>
+  <animation animation_filename="character_wood_chop.fbx" animation_name="chop" start_index="0" end_index="155" animation_mask_filename=""/>
  </animations>
 </shape_3d>

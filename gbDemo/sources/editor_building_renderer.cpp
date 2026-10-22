@@ -44,7 +44,7 @@ struct EditorBuildingRenderer::implementation {
     std::shared_ptr<building_uniforms> aura_uniforms;
     uint32_t next_outline_id=12000000;
     entry make(BuildingType type){
-        entry result;result.type=type;result.shape=fabricator->create_shape_3d(configurations.at(static_cast<size_t>(type)));
+        entry result;result.type=type;result.shape=fabricator->create_shape_3d(configurations.at(static_cast<size_t>(type)));result.shape->tag="editor.building.preview";
         result.uniforms=result.shape->add_component<gb::ces_shader_uniforms_component>()->construct_uniforms_buffer<building_uniforms>(gb::ces_shader_uniforms_component::e_shader_uniform_mode::e_fragment,"building.preview",0);
         if(next_outline_id>=16777216u)throw std::overflow_error("Building outline identity limit reached");
         result.uniforms->set_outline_id(static_cast<float>(next_outline_id++));
@@ -76,7 +76,7 @@ struct EditorBuildingRenderer::implementation {
             auto found=instances.find(b.id);
             if(found!=instances.end()&&found->second.type!=b.type){root->remove_child(found->second.shape);instances.erase(found);found=instances.end();}
             if(found==instances.end())found=instances.emplace(b.id,make(b.type)).first;
-            auto& e=found->second;auto t=e.shape->get_component<gb::ces_transformation_3d_component>();
+            auto& e=found->second;e.shape->tag="island.building."+std::to_string(b.id);auto t=e.shape->get_component<gb::ces_transformation_3d_component>();
             t->set_position(glm::vec3(b.position[0],b.position[1],b.position[2]));t->set_rotation(glm::vec3(0,glm::degrees(b.yaw),0));e.uniforms->update(glm::vec4(0),view,camera);
         }
         const bool show=input.building_preview_visible();
@@ -107,6 +107,9 @@ struct EditorBuildingRenderer::implementation {
         }
         if(!show)return;
         const auto position=input.brush_position();const bool valid=state->can_place_building(position.x,position.z);
+        if(std::getenv("GB_BUILDING_PLACEMENT_TEST")){
+            std::cout<<"Building placement preview valid="<<valid<<" buildings="<<state->level.buildings.size()<<" surface_revision="<<state->building_surface_revision<<" terrain_revision="<<state->terrain_revision<<std::endl;
+        }
         const auto tint=valid?glm::vec4(.12f,1.f,.12f,.32f):glm::vec4(1.f,.035f,.015f,.38f);
         auto& preview=previews.at(static_cast<size_t>(state->selected_building));auto t=preview.shape->get_component<gb::ces_transformation_3d_component>();
         t->set_position(position);t->set_rotation(glm::vec3(0,glm::degrees(state->building_yaw),0));preview.uniforms->update(tint,view,camera);

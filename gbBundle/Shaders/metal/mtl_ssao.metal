@@ -20,7 +20,8 @@ fragment half4 fragment_shader_ss_ssao(common_v_output_t in [[stage_in]],
     float3 n = uniforms.ao_params.w > 0.5 ? ns.xyz * 2.0 - 1.0 : ns.xyz;
     float3 vp = (uniforms.mat_v * float4(p.xyz, 1.0)).xyz;
     float depth = -vp.z;
-    if (p.w <= 0.0 || ns.w <= 0.0 || dot(n,n) < 0.01 || depth <= 0.001 || uniforms.ao_params.z <= 0.0)
+    // Editor hand ID: exclude AO receivers and contributing samples.
+    if (p.w <= 0.0 || ns.w <= 0.0 || ns.w == 9000000.0 || dot(n,n) < 0.01 || depth <= 0.001 || uniforms.ao_params.z <= 0.0)
     {
         return half4(float4(1.0));
     }
@@ -40,7 +41,7 @@ fragment half4 fragment_shader_ss_ssao(common_v_output_t in [[stage_in]],
             float2 uv = in.texcoord + direction_vector*uv_radius*fraction;
             if (any(uv < float2(0.0)) || any(uv > float2(1.0))) continue;
             float4 q = positions.sample(ssao_nearest,uv);
-            if (q.w <= 0.0) continue;
+            if (q.w <= 0.0 || normals.sample(ssao_nearest,uv).w == 9000000.0) continue;
             float3 delta = (uniforms.mat_v * float4(q.xyz,1.0)).xyz - vp;
             float distance_value = length(delta);
             if (distance_value < 0.03 || distance_value >= radius) continue;

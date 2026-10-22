@@ -80,7 +80,7 @@ float island_sun_shadow(vec4 geometry,vec2 uv,float water_alpha){
   float delta=-(view*vec4(q,1)).z-scene.w;
   // Depth alone treats unrelated foreground as an occluder. Also require a
   // nearby world-space surface above the receiver's tangent plane.
-  if(scene.w>0.0&&id>=1.0&&delta>.005&&delta<.09&&
+  if(scene.w>0.0&&id>=1.0&&id!=9000000.0&&delta>.005&&delta<.09&&
      length(scene.xyz-q)<.12&&dot(scene.xyz-geometry.xyz,normal)>.04){
    float border=smoothstep(0.0,.04,min(min(sample_uv.x,sample_uv.y),min(1.0-sample_uv.x,1.0-sample_uv.y)));
    float contact=(1.0-smoothstep(.8,1.5,step_distance))*(1.0-smoothstep(.04,.09,delta));
@@ -110,11 +110,13 @@ vec3 atmosphere_scatter(vec3 color,vec3 ray,float distance){
 void main()
 {
     if(field_debug.x>0.0){vec4 f=texture2D(sampler_04,v_texcoord);vec3 c=vec3(clamp(f.x/8.0,0.0,1.0));if(field_debug.x==15.0){vec2 sides=texture2D(sampler_05,v_texcoord).rg;c=vec3(min(sides.r,sides.g));}if(field_debug.x==17.0)c=vec3(f.yz*.5+.5,0);attachment_01=vec4(c,0);return;}
-    float ao=texture2D(sampler_06,v_texcoord).r;
+    // Apply the full-resolution hand mask after upsampling AO, preventing edge bleed.
+    bool hand=texture2D(sampler_08,v_texcoord).w==9000000.0;
+    float ao=hand?1.0:texture2D(sampler_06,v_texcoord).r;
     if(field_debug.y>0.0){attachment_01=vec4(vec3(ao),0.0);return;}
     vec4 water=texture2D(sampler_02,v_texcoord),foam=texture2D(sampler_03,v_texcoord);
     vec4 geometry=texture2D(sampler_07,v_texcoord);
-    float shade=island_sun_shadow(geometry,v_texcoord,water.a);
+    float shade=hand?0.0:island_sun_shadow(geometry,v_texcoord,water.a);
     vec3 opaque=texture2D(sampler_01,v_texcoord).rgb*ao*mix(vec3(1),vec3(.55,.64,.78),shade*.9);
     vec3 color=mix(opaque,water.rgb,water.a);
     color=color*(1.0-foam.a)+foam.rgb;

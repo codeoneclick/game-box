@@ -11,6 +11,19 @@
 #include <algorithm>
 #include <vector>
 static void same_mesh(const game::terrain_mesh_data&,const game::terrain_mesh_data&);
+static void check_load_terrain_before_decorations(){
+ using namespace game;terrain_config config;config.resolution=128;config.world_size=256;config.island_size=128;config.water_size=256;
+ auto data=terrain_generator::generate(config);auto seed=terrain_mesh_builder::build(data);auto grass=terrain_mesh_builder::build_grass(seed,config);auto state=std::make_shared<TerrainEditorState>();state->initialize(data);state->consume_dirty();
+ int seed_builds=0;TerrainEditorRenderCache ordinary(state),streaming(state);for(auto* cache:{&ordinary,&streaming}){cache->initialize(seed,grass);cache->rebuild({},false);cache->set_seed_builder([&](const terrain_config& c){++seed_builds;return std::make_pair(terrain_mesh_builder::build(terrain_generator::generate(c)),std::vector<terrain_mesh_data>{});});}
+ bool grass_built=false,previewed=false;ordinary.set_seed_grass_builder([&](const terrain_mesh_data&,const terrain_config&){return grass;});streaming.set_seed_grass_builder([&](const terrain_mesh_data&,const terrain_config&){assert(previewed);grass_built=true;return grass;});
+ state->target_terrace=1;state->brush_size=8;state->paint(12,2);state->consume_dirty();++state->load_generation;
+ auto expected=ordinary.rebuild({},false);std::map<std::string,terrain_mesh_data> actual;
+ auto decorations=streaming.rebuild({},false,[&](std::vector<EditorRenderBatch> terrain){assert(!grass_built&&!terrain.empty());previewed=true;for(auto& batch:terrain){assert(batch.kind==EditorRenderBatch::Terrain);actual[batch.key]=std::move(batch.mesh);}});
+ assert(previewed&&grass_built&&seed_builds==0);for(auto& batch:decorations){assert(batch.kind!=EditorRenderBatch::Terrain);actual[batch.key]=std::move(batch.mesh);}
+ std::map<std::string,terrain_mesh_data> latest;for(auto& batch:expected)latest[batch.key]=std::move(batch.mesh);assert(actual.size()==latest.size());for(auto& item:latest)same_mesh(item.second,actual.at(item.first));
+ ++state->level.terrain.config.seed;++state->load_generation;ordinary.rebuild({},false);assert(seed_builds==1);
+ std::cout<<"Load publishes terrain before seed grass; reuses matching seed only; final geometry matches ordinary reload\n";
+}
 static void check_seed_zero_transition(){
  using namespace game;terrain_config config;config.resolution=128;config.world_size=256;config.island_size=128;config.water_size=256;
  auto data=terrain_generator::generate(config);auto seed=terrain_mesh_builder::build(data);auto state=std::make_shared<TerrainEditorState>();state->initialize(data);state->consume_dirty();TerrainEditorRenderCache cache(state);cache.initialize(seed,{});cache.rebuild({},false);
@@ -173,6 +186,7 @@ int main(){
  check_seed_contour_after_local_sculpt();
  check_seed_contour_after_local_sculpt(true);
  check_seed_zero_transition();
+ check_load_terrain_before_decorations();
  check_voxel_trees();
  // Exercise all 22 transport bits, including IDs beyond signed 16-bit range.
  for(uint32_t id:{0u,1000u,32768u,65535u,1048576u,(1u<<22)-1}){

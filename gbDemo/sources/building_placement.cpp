@@ -2,13 +2,15 @@
 #include <algorithm>
 #include <cmath>
 #include <set>
+#include <limits>
 #include <stdexcept>
 namespace game {
 namespace {
 using Point = std::array<double, 2>;
 Point local(float x, float z, float cx, float cz, float yaw) {
-  double c = std::cos(yaw), s = std::sin(yaw);
-  return {{c * (x - cx) - s * (z - cz), s * (x - cx) + c * (z - cz)}};
+  double c = std::cos(double(yaw)), s = std::sin(double(yaw));
+  const double dx = double(x) - cx, dz = double(z) - cz;
+  return {{c * dx - s * dz, s * dx + c * dz}};
 }
 std::array<Point, 4> corners(const EditorBuilding &b, float extra) {
   auto &d = building_definition(b.type);
@@ -161,7 +163,16 @@ bool BuildingSurfaceSupport::covers(float x, float z, float yaw, float w,
     covered += a;
   }
   double wanted = 4. * w * d;
-  return std::abs(covered - wanted) <= std::max(1e-7, wanted * 1e-7);
+  // Terrain vertices are floats: independently clipped chunk boundaries can
+  // overlap or separate by a few coordinate ULPs. Compare area within the
+  // corresponding perimeter error, rather than rejecting a visually flat seam.
+  // Real holes, overhangs and triangles at another height remain rejected.
+  const double coordinate_error = 4. * std::numeric_limits<float>::epsilon() *
+      std::max({1., std::abs(double(x)) + rx, std::abs(double(z)) + rz});
+  const double area_error = 4. * (double(w) + d) * coordinate_error +
+      4. * coordinate_error * coordinate_error;
+  return std::abs(covered - wanted) <=
+      std::max({1e-7, wanted * 1e-7, area_error});
 }
 bool BuildingSurfaceSupport::height_at(float x, float z, float &height) const {
   if (!std::isfinite(x) || !std::isfinite(z)) return false;

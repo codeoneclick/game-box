@@ -3,8 +3,10 @@
 #include "resident_navigation.h"
 #include "resident_behavior.h"
 namespace game {
+class TerrainEditorState;
 class ces_island_resident_system final:public gb::ces_base_system {
     std::vector<resident_navigation> m_navigations;
+    std::shared_ptr<TerrainEditorState> m_editor_state;
     std::vector<EditorStairs> m_stairs;
     terrain_config m_stairs_config;
     std::vector<resident_stair_link> m_stair_links;
@@ -21,6 +23,7 @@ protected:
 public:
     STTI_CLASS_GUID(ces_island_resident_system,gb::ces_base_system::g_guids_container)
     explicit ces_island_resident_system(std::vector<resident_navigation>);
+    void set_woodcutting_state(const std::shared_ptr<TerrainEditorState>& state){m_editor_state=state;}
     // Apply worker-built CPU navigation on the game-loop thread only.
     void apply_navigation(std::vector<resident_navigation>);
     void apply_stairs(const std::vector<EditorStairs>&,const terrain_config&);

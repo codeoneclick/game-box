@@ -1,6 +1,7 @@
 #include "terrain_editor_input.h"
 #include "terrain_editor_state.h"
 #include "terrain_editor_ui.h"
+#include "hand_cursor_math.h"
 #include "camera_3d.h"
 #include "ces_entity.h"
 #include <algorithm>
@@ -21,6 +22,27 @@ bool TerrainEditorInput::brush_visible() const {
 }
 bool TerrainEditorInput::pick(glm::vec3& hit) const {
     return has_pointer_ && pick_surface(pointer_, hit);
+}
+bool TerrainEditorInput::cursor_surface(glm::vec3& hit) const {
+    if(!has_pointer_||alt_||middle_||!ui_->root()->get_is_visible()||pointer_over_ui(pointer_))return false;
+    const auto viewport=camera_->get_viewport();
+    if(viewport.z<=0||viewport.w<=0||pointer_.x<viewport.x||pointer_.y<viewport.y||pointer_.x>=viewport.x+viewport.z||pointer_.y>=viewport.y+viewport.w)return false;
+    const glm::vec2 ndc(2.f*(pointer_.x-viewport.x)/viewport.z-1.f,1.f-2.f*(pointer_.y-viewport.y)/viewport.w);
+    const glm::vec4 far_point=glm::inverse(camera_->get_mat_p()*camera_->get_mat_v())*glm::vec4(ndc,1,1);
+    if(!std::isfinite(far_point.w)||std::abs(far_point.w)<.000001f)return false;
+    const auto origin=camera_->get_position();
+    const auto delta=glm::vec3(far_point)/far_point.w-origin;
+    if(glm::length(delta)<.000001f)return false;
+    const auto ray=glm::normalize(delta);
+    const float water=state_->level.terrain.config.water_y;
+    const bool ocean=hand_cursor_water_hit(origin,ray,water,camera_->get_far(),hit);
+    // Keep sculpt picking unchanged. Only the hovering hand chooses the ocean
+    // instead of submerged terrain, and can hover outside the logical grid.
+    if(has_hit_&&brush_.y>water&&std::abs(ray.y)>.000001f){
+        const float t=(brush_.y-origin.y)/ray.y;
+        if(t>0&&t<camera_->get_far()&&(!ocean||t<glm::length(hit-origin))){hit=origin+ray*t;return true;}
+    }
+    return ocean;
 }
 bool TerrainEditorInput::building_preview_visible() const {
     return state_->current_tool==TerrainEditorTool::Buildings && has_hit_ &&
