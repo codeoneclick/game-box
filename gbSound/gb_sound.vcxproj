@@ -276,4 +276,6 @@
   </ImportGroup>
   <ItemGroup><ClCompile Include="sources\rhythm_audio_transport.cpp"><ExceptionHandling>Sync</ExceptionHandling></ClCompile></ItemGroup>
   <ItemGroup><ClInclude Include="sources\rhythm_audio_transport.h" /></ItemGroup>
+  <ItemGroup><ClCompile Include="sources\rhythm_pcm.cpp"><ExceptionHandling>Sync</ExceptionHandling></ClCompile></ItemGroup>
+  <ItemGroup><ClInclude Include="sources\rhythm_pcm.h" /></ItemGroup>
 </Project>

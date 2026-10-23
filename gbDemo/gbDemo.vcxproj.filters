@@ -623,4 +623,13 @@
   <ItemGroup><ClCompile Include="sources\rhythm_track.cpp" /></ItemGroup>
   <ItemGroup><ClInclude Include="sources\rhythm_track.h" /></ItemGroup>
   <ItemGroup><ClInclude Include="sources\rhythm_key_action.h" /></ItemGroup>
+  <ItemGroup><ClCompile Include="sources\rhythm_calibration.cpp" /></ItemGroup>
+  <ItemGroup><ClInclude Include="sources\rhythm_calibration.h" /></ItemGroup>
+  <ItemGroup><ClCompile Include="sources\rhythm_ship_playback.cpp" /></ItemGroup>
+  <ItemGroup><ClInclude Include="sources\rhythm_ship_playback.h" /></ItemGroup>
+  <ItemGroup><ClCompile Include="sources\rhythm_track_catalog.cpp" /></ItemGroup>
+  <ItemGroup><ClInclude Include="sources\rhythm_track_catalog.h" /></ItemGroup>
+  <ItemGroup><ClCompile Include="sources\rhythm_track_loader.cpp" /></ItemGroup>
+  <ItemGroup><ClInclude Include="sources\rhythm_track_loader.h" /></ItemGroup>
+  <ItemGroup><ClInclude Include="sources\rhythm_json.h" /></ItemGroup>
 </Project>

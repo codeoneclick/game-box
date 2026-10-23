@@ -8,6 +8,11 @@ ask the user to supply BPM. Preserve the existing ocean, sky, gameplay and debug
 controls. This document specifies the next implementation increment, not a
 claim that MP3 playback or calibration is already implemented.
 
+Approved scope addition during implementation: Windows client window 680x960
+portrait, previous FPS/polygon statistics HUD and previous F8 Render Inspector.
+F1 continues to expose gameplay debug controls. Reuse the existing renderer
+statistics and inspector; keep ocean/sky sources unchanged.
+
 Deliver all three selectable songs, matching beat maps, playback-clock scoring,
 and persistent personal input calibration. No networking, downloads, arbitrary
 runtime beat detection, new renderer, or second audio/game framework.

@@ -52,4 +52,6 @@
   </ItemGroup>
   <ItemGroup><ClCompile Include="sources\rhythm_audio_transport.cpp" /></ItemGroup>
   <ItemGroup><ClInclude Include="sources\rhythm_audio_transport.h" /></ItemGroup>
+  <ItemGroup><ClCompile Include="sources\rhythm_pcm.cpp" /></ItemGroup>
+  <ItemGroup><ClInclude Include="sources\rhythm_pcm.h" /></ItemGroup>
 </Project>

@@ -11,18 +11,23 @@
 #include "graphics_context.h"
 #include "graphics_settings.h"
 #include "ocean_shader_uniforms.h"
+#include "render_debug_controller.h"
 #include "render_pipeline.h"
 #include "render_technique_ws.h"
 #include "rhythm_ship_environment.h"
 #include "rhythm_ship_input.h"
+#include "rhythm_ship_playback.h"
 #include "rhythm_ship_ui.h"
 #include "scene_fabricator.h"
 #include "ss_render_technique_custom_uniforms.h"
 #include "stylized_lighting_settings.h"
 #include "stylized_post_process_uniforms.h"
+#include "terrain_editor_state.h"
+#include "terrain_editor_ui.h"
 #include "texture.h"
 #include "window_impl.h"
 #include <cstdlib>
+#include <fstream>
 namespace game
 {
 struct rhythm_ship_scene::state
@@ -33,19 +38,17 @@ struct rhythm_ship_scene::state
     std::shared_ptr<FakeLeaderboard> bots = std::make_shared<FakeLeaderboard>();
     std::shared_ptr<RhythmShipDebugSettings> settings = std::make_shared<RhythmShipDebugSettings>();
     std::shared_ptr<RhythmShipUI> ui;
+    std::shared_ptr<RhythmShipPlayback> playback;
+    std::shared_ptr<TerrainEditorUI> inspector;
+    std::shared_ptr<RenderDebugController> render_debug;
     std::shared_ptr<ces_dance_crowd_system> crowd;
     RhythmShipEnvironment environment;
-    double last_beat = -10, last_log = -10;
+    double last_beat = -10, last_log = -10, last_clock = 0;
     bool last_leader = false;
     void restart(const RhythmTrack &t)
     {
-        RhythmTrack copy = t;
-        *session = RhythmSession(copy);
-        bots->restart();
-        last_beat = -10;
-        audio->start({copy.duration, resolve_rhythm_beats(copy), copy.audio_file});
-        audio->set_volume(settings->volume);
-        std::cout << "Rhythm restart bpm=" << copy.bpm << " " << audio->diagnostic() << std::endl;
+        playback->restart(t);
+        last_beat = last_log = -10;
     }
 };
 rhythm_ship_scene::~rhythm_ship_scene()
@@ -74,6 +77,28 @@ void rhythm_ship_scene::create()
     if (!loaded)
         std::cerr << "Rhythm config fallback: " << error << std::endl;
     s->session = std::make_shared<RhythmSession>(track);
+    std::vector<RhythmTrackEntry> catalog;
+    for (const auto &path :
+         {bundlepath() + "rhythm_ship_catalog.json",
+          std::string("../gbBundle/Configurations/rhythm_ship/rhythm_ship_catalog.json"),
+          std::string("rhythm_ship_catalog.json")})
+        if (load_rhythm_catalog(path, catalog, error))
+            break;
+    std::string preferences = graphics_settings_path();
+    preferences =
+        preferences.substr(0, preferences.find_last_of("/\\") + 1) + "RhythmAudioSettings.json";
+    if (const char *override_path = std::getenv("GB_RHYTHM_AUDIO_SETTINGS"))
+        preferences = override_path;
+    s->playback = std::make_shared<RhythmShipPlayback>(
+        s->session, s->audio, s->bots, catalog,
+        [](const std::string &name) {
+            for (const auto &path :
+                 {bundlepath() + name, std::string("../gbResources/") + name, name})
+                if (std::ifstream(path, std::ios::binary).good())
+                    return path;
+            return bundlepath() + name;
+        },
+        preferences);
     if (const char *n = std::getenv("GB_RHYTHM_CROWD_COUNT"))
         s->settings->crowd_count = glm::clamp(std::atoi(n), 30, 50);
     const auto resolution = get_transition()->get_window()->get_resolution_size_in_points();
@@ -86,13 +111,31 @@ void rhythm_ship_scene::create()
     camera->set_distance_to_look_at(glm::vec3(78, 65, 78));
     camera->get_mat_v();
     auto technique = add_component<gb::ces_render_technique_uniforms_component>();
-    auto saved_post=stylized_post_settings_from_environment();
-    auto saved_lighting=lighting_settings_from_environment();
+    auto saved_post = stylized_post_settings_from_environment();
+    auto saved_lighting = lighting_settings_from_environment();
     std::string graphics_error;
-    if(!load_graphics_settings(graphics_settings_path(),saved_post,saved_lighting,graphics_error))
-        std::cout<<"Rhythm graphics defaults: "<<graphics_error<<std::endl;
-    stylized_lighting_settings()=lighting_settings_from_environment(&saved_lighting);
-    auto post = std::make_shared<StylizedPostProcessSettings>(stylized_post_settings_from_environment(&saved_post));
+    if (!load_graphics_settings(graphics_settings_path(), saved_post, saved_lighting,
+                                graphics_error))
+        std::cout << "Rhythm graphics defaults: " << graphics_error << std::endl;
+    stylized_lighting_settings() = lighting_settings_from_environment(&saved_lighting);
+    auto post = std::make_shared<StylizedPostProcessSettings>(
+        stylized_post_settings_from_environment(&saved_post));
+    s->render_debug = std::make_shared<RenderDebugController>(
+        get_fabricator(),
+        get_transition()->get_system<gb::ces_render_system>()->get_render_pipeline(), post);
+    s->inspector = std::make_shared<TerrainEditorUI>(
+        get_fabricator(), std::make_shared<TerrainEditorState>(), resolution, true);
+    s->inspector->bind_post_settings(post);
+    s->inspector->bind_render_debug(s->render_debug->state());
+    s->inspector->set_graphics_save_callback([post] {
+        std::string error;
+        const bool saved = save_graphics_settings(graphics_settings_path(), *post,
+                                                  stylized_lighting_settings(), error);
+        if (!saved)
+            std::cerr << "Rhythm graphics save: " << error << std::endl;
+        return saved;
+    });
+    add_child(s->inspector->root());
     auto final = technique->construct_uniforms<stylized_post_process_uniforms>(
         gb::ces_render_technique_uniforms_component::e_shader_uniform_type_fragment, "final");
     auto output = technique->construct_uniforms<stylized_post_process_uniforms>(
@@ -122,22 +165,22 @@ void rhythm_ship_scene::create()
     get_transition()->add_system(shadows);
     s->environment =
         create_rhythm_ship_environment(get_fabricator(), shared_from_this(), get_transition());
-    s->environment.ocean->set_optics_intensity(glm::vec3(
-        post->enableWaterReflection?post->waterReflectionIntensity:0.f,
-        post->enableWaterRefraction?post->waterRefractionIntensity:0.f,
-        post->enableWaterCaustics?post->waterCausticsIntensity:0.f));
+    s->environment.ocean->set_optics_intensity(
+        glm::vec3(post->enableWaterReflection ? post->waterReflectionIntensity : 0.f,
+                  post->enableWaterRefraction ? post->waterRefractionIntensity : 0.f,
+                  post->enableWaterCaustics ? post->waterCausticsIntensity : 0.f));
     populate_rhythm_ship_crowd(get_fabricator(), shared_from_this());
     s->crowd = std::make_shared<ces_dance_crowd_system>(s->session, s->audio);
     s->crowd->set_active_count(s->settings->crowd_count);
     get_transition()->add_system(s->crowd);
     std::weak_ptr<state> weak = s;
-    s->ui = std::make_shared<RhythmShipUI>(get_fabricator(), s->session, s->bots, s->audio,
-                                           s->settings, resolution,
-                                           [weak](const RhythmTrack &t)
-                                           {
-                                               if (auto p = weak.lock())
-                                                   p->restart(t);
-                                           });
+    s->ui = std::make_shared<RhythmShipUI>(
+        get_fabricator(), s->session, s->bots, s->audio, s->settings, resolution,
+        [weak](const RhythmTrack &t) {
+            if (auto p = weak.lock())
+                p->restart(t);
+        },
+        s->playback);
     add_child(s->ui->root());
     if (const char *debug = std::getenv("GB_RHYTHM_DEBUG"))
         if (std::string(debug) == "1")
@@ -145,39 +188,66 @@ void rhythm_ship_scene::create()
     std::weak_ptr<RhythmShipUI> ui = s->ui;
     input_ = std::make_shared<RhythmShipInput>(
         s->session, s->audio,
-        [ui](glm::ivec2 p)
-        {
+        [ui, weak](glm::ivec2 p) {
+            if (auto s = weak.lock())
+                if (s->inspector->contains(p))
+                    return true;
             auto view = ui.lock();
             return view && view->contains(p);
         },
-        [weak]
-        {
+        [weak] {
             if (auto p = weak.lock())
                 p->restart(p->session->track());
         },
-        [ui]
-        {
+        [ui] {
             if (auto p = ui.lock())
                 p->toggle_debug();
+        },
+        [weak] {
+            if (auto p = weak.lock())
+                p->inspector->toggle_post_panel();
+        },
+        [weak](glm::ivec2 point, float delta) {
+            if (auto p = weak.lock())
+                p->inspector->scroll_render_debug(point, delta);
+        },
+        [weak](double time) {
+            if (auto p = weak.lock())
+                if (!p->inspector->post_panel_visible())
+                    p->playback->tap(time);
         });
     context_ = get_transition()->get_input_context();
     get_transition()->get_input_context()->add_listener(input_);
     bool manual_gamma = !gb::graphics_context::get_current_context()->is_output_srgb();
     auto action = gb::ces_entity::construct<gb::ces_entity>();
     action->add_component<gb::ces_action_component>()->set_update_callback(
-        [s, camera, post, final, output, manual_gamma,
-         resolution](const gb::ces_entity_shared_ptr &, float)
-        {
+        [s, camera, post, final, output, ao, manual_gamma,
+         resolution](const gb::ces_entity_shared_ptr &, float) {
+            s->playback->update();
             double t = s->audio->seconds();
+            if (t < s->last_clock)
+            {
+                s->last_log = s->last_beat = -10;
+            }
+            s->last_clock = t;
+            post->sanitize();
+            s->render_debug->update();
+            s->inspector->update();
+            s->ui->set_overlay_blocked(s->inspector->post_panel_visible());
+            s->environment.ocean->set_optics_intensity(
+                glm::vec3(post->enableWaterReflection ? post->waterReflectionIntensity : 0.f,
+                          post->enableWaterRefraction ? post->waterRefractionIntensity : 0.f,
+                          post->enableWaterCaustics ? post->waterCausticsIntensity : 0.f));
+            ao->set(glm::vec4(3, .06f, post->enableSSAO ? post->ssaoIntensity : 0, 1), "ao_params");
             camera->set_rotation(110 + std::sin(float(t) * .09f) * 1.1f);
             camera->get_mat_v();
             final->update(*post, camera->get_position(), camera->get_look_at(), camera->get_mat_v(),
                           camera->get_mat_p(), -.3f, manual_gamma);
             output->update(*post, camera->get_position(), camera->get_look_at(),
                            camera->get_mat_v(), camera->get_mat_p(), -.3f, manual_gamma);
-            if (s->audio->mode() != gb::al::RhythmAudioMode::initializing)
+            if (s->playback->scoring_active())
             {
-                s->session->update(t);
+                s->session->update(t, std::max(0.0, s->playback->calibration_offset()));
                 for (const auto &b : s->session->beat_events())
                 {
                     s->bots->on_beat(b.id);
@@ -218,7 +288,8 @@ void rhythm_ship_scene::create()
             }
         });
     add_child(action);
-    s->restart(track);
+    const char *requested = std::getenv("GB_RHYTHM_TRACK");
+    s->playback->select(requested ? static_cast<size_t>(std::max(0, std::atoi(requested))) : 0);
     std::cout << "Rhythm Ship initialized crowd=" << s->settings->crowd_count
               << " ocean=existing sky=existing" << std::endl;
 }

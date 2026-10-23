@@ -1,0 +1,5 @@
+Upstream: https://github.com/mackron/dr_libs
+Revision: 77f119c5b9663d9f0320676c1acc01b747408e6a
+File: dr_mp3.h
+License: MIT-0 or public domain, see end of header
+SHA256: 91F264E8559CC8CCECBCFC38ABC77FFF66533F5E95F666A4BA48238E69E190A4

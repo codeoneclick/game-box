@@ -46,7 +46,7 @@ def source(module,files,anchor):
             apple=re.sub(r'^.*?/\* '+re.escape(name)+r' in Sources \*/ =.*$',flags,apple,flags=re.M)
             pbx.write_text(apple,encoding='utf-8')
 source('gbDemo',sorted(set((ROOT/'gbDemo/sources').glob('rhythm_*.cpp'))|set((ROOT/'gbDemo/sources').glob('rhythm_*.h'))|set((ROOT/'gbDemo/sources').glob('fake_leaderboard.*'))|set((ROOT/'gbDemo/sources').glob('ces_dance_*.*'))),'island_demo_scene')
-source('gbSound',list((ROOT/'gbSound/sources').glob('rhythm_audio_transport.*')),'audio_engine')
+source('gbSound',list((ROOT/'gbSound/sources').glob('rhythm_*.*')),'audio_engine')
 pbx=ROOT/'gbDemo/gbDemo.xcodeproj/project.pbxproj'
 for p in (ROOT/'gbBundle').rglob('*'):
     if not p.is_file() or 'rhythm_ship' not in p.name:continue
@@ -55,3 +55,5 @@ for p in (ROOT/'gbBundle').rglob('*'):
     kind={'.png':'image.png','.wav':'audio.wav','.json':'text.json','.metal':'sourcecode.metal','.vert':'sourcecode.glsl','.frag':'sourcecode.glsl','.xml':'text.xml'}[suffix]
     clone_pbx(pbx,anchor,p.name,'../'+p.relative_to(ROOT).as_posix(),kind)
 print('Rhythm Ship project membership updated')
+for p in (ROOT/'gbResources').glob('*.mp3'):
+    clone_pbx(pbx,'rhythm_ship_metronome.wav',p.name,'../gbResources/'+p.name,'audio.mp3')

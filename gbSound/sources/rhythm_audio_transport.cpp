@@ -64,20 +64,24 @@ struct RhythmAudioTransport::implementation
     double duration = 0;
     mutable double last = 0;
     std::string diagnostic = "SILENT CLOCK";
-    std::vector<std::int16_t> pcm;
+    std::shared_ptr<const RhythmPCM> pcm;
 #if defined(_WIN32)
     HWAVEOUT device = nullptr;
     WAVEHDR header = {};
     bool prepared = false;
-    mutable std::uint32_t previous = 0;
-    mutable std::uint64_t wraps = 0;
+    mutable RhythmPositionCounter counter;
 #else
     ALuint source = 0, buffer = 0;
     mutable double cycle = 0, previous = 0;
 #endif
 };
-RhythmAudioTransport::RhythmAudioTransport() : impl_(new implementation) {}
-RhythmAudioTransport::~RhythmAudioTransport() { stop(); }
+RhythmAudioTransport::RhythmAudioTransport() : impl_(new implementation)
+{
+}
+RhythmAudioTransport::~RhythmAudioTransport()
+{
+    stop();
+}
 void RhythmAudioTransport::stop()
 {
     auto &p = *impl_;
@@ -92,8 +96,7 @@ void RhythmAudioTransport::stop()
     p.device = nullptr;
     p.prepared = false;
     p.header = {};
-    p.previous = 0;
-    p.wraps = 0;
+    p.counter.reset();
 #else
     if (p.source)
     {
@@ -106,25 +109,41 @@ void RhythmAudioTransport::stop()
     p.source = p.buffer = 0;
     p.cycle = p.previous = 0;
 #endif
-    p.pcm.clear();
+    p.pcm.reset();
     p.active = false;
     p.last = 0;
     p.mode = RhythmAudioMode::silent;
 }
 bool RhythmAudioTransport::start(const RhythmAudioConfig &c)
 {
-    stop();
-    auto &p = *impl_;
     try
     {
-        p.pcm = make_rhythm_pcm(c);
+        auto pcm = std::make_shared<RhythmPCM>();
+        pcm->sample_rate = rate;
+        pcm->channels = 1;
+        pcm->samples = make_rhythm_pcm(c);
+        return start_pcm(pcm, "PCM metronome / sample clock");
     }
     catch (const std::exception &e)
     {
-        p.diagnostic = e.what();
+        stop();
+        impl_->diagnostic = e.what();
         return false;
     }
-    p.duration = c.duration;
+}
+bool RhythmAudioTransport::start_pcm(std::shared_ptr<const RhythmPCM> pcm, const std::string &label)
+{
+    stop();
+    auto &p = *impl_;
+    if (!pcm || (pcm->channels != 1 && pcm->channels != 2) || pcm->sample_rate < 8000 ||
+        pcm->sample_rate > 192000 || pcm->samples.empty() || pcm->samples.size() % pcm->channels ||
+        pcm->duration() > 600 || pcm->samples.size() > 128 * 1024 * 1024 / 2)
+    {
+        p.diagnostic = "Invalid PCM format/size";
+        return false;
+    }
+    p.pcm = std::move(pcm);
+    p.duration = p.pcm->duration();
     p.origin = Clock::now();
     p.active = true;
     p.diagnostic = "SILENT CLOCK: audio device unavailable";
@@ -137,18 +156,18 @@ bool RhythmAudioTransport::start(const RhythmAudioConfig &c)
 #if defined(_WIN32)
     WAVEFORMATEX format = {};
     format.wFormatTag = WAVE_FORMAT_PCM;
-    format.nChannels = 1;
-    format.nSamplesPerSec = rate;
+    format.nChannels = static_cast<WORD>(p.pcm->channels);
+    format.nSamplesPerSec = p.pcm->sample_rate;
     format.wBitsPerSample = 16;
-    format.nBlockAlign = 2;
-    format.nAvgBytesPerSec = rate * 2;
+    format.nBlockAlign = static_cast<WORD>(p.pcm->channels * 2);
+    format.nAvgBytesPerSec = p.pcm->sample_rate * format.nBlockAlign;
     if (waveOutOpen(&p.device, WAVE_MAPPER, &format, 0, 0, CALLBACK_NULL) != MMSYSERR_NOERROR)
     {
         p.device = nullptr;
         return true;
     }
-    p.header.lpData = reinterpret_cast<LPSTR>(p.pcm.data());
-    p.header.dwBufferLength = static_cast<DWORD>(p.pcm.size() * 2);
+    p.header.lpData = reinterpret_cast<LPSTR>(const_cast<std::int16_t *>(p.pcm->samples.data()));
+    p.header.dwBufferLength = static_cast<DWORD>(p.pcm->samples.size() * 2);
     p.header.dwFlags = WHDR_BEGINLOOP | WHDR_ENDLOOP;
     p.header.dwLoops = 0xffffffff;
     if (waveOutPrepareHeader(p.device, &p.header, sizeof(p.header)) == MMSYSERR_NOERROR)
@@ -157,9 +176,7 @@ bool RhythmAudioTransport::start(const RhythmAudioConfig &c)
         if (waveOutWrite(p.device, &p.header, sizeof(p.header)) == MMSYSERR_NOERROR)
         {
             p.mode = RhythmAudioMode::playback;
-            p.diagnostic = c.audio_file.empty()
-                               ? "PCM metronome / sample clock"
-                               : "PCM metronome (configured external track unsupported on Windows)";
+            p.diagnostic = label;
             set_volume(p.volume);
             return true;
         }
@@ -181,8 +198,9 @@ bool RhythmAudioTransport::start(const RhythmAudioConfig &c)
     alGenSources(1, &p.source);
     if (alGetError() == AL_NO_ERROR && p.buffer && p.source)
     {
-        alBufferData(p.buffer, AL_FORMAT_MONO16, p.pcm.data(),
-                     static_cast<ALsizei>(p.pcm.size() * 2), rate);
+        alBufferData(p.buffer, p.pcm->channels == 2 ? AL_FORMAT_STEREO16 : AL_FORMAT_MONO16,
+                     p.pcm->samples.data(), static_cast<ALsizei>(p.pcm->samples.size() * 2),
+                     p.pcm->sample_rate);
         alSourcei(p.source, AL_BUFFER, p.buffer);
         alSourcei(p.source, AL_LOOPING, AL_TRUE);
         alSourcef(p.source, AL_GAIN, p.volume);
@@ -190,9 +208,7 @@ bool RhythmAudioTransport::start(const RhythmAudioConfig &c)
         if (alGetError() == AL_NO_ERROR)
         {
             p.mode = RhythmAudioMode::playback;
-            p.diagnostic = c.audio_file.empty()
-                               ? "OpenAL PCM / sample clock"
-                               : "OpenAL PCM metronome (external track unsupported)";
+            p.diagnostic = label;
             p.origin = Clock::now();
             return true;
         }
@@ -224,14 +240,17 @@ double RhythmAudioTransport::seconds() const
         position.wType = TIME_SAMPLES;
         if (waveOutGetPosition(p.device, &position, sizeof(position)) == MMSYSERR_NOERROR)
         {
-            std::uint32_t raw = position.wType == TIME_SAMPLES ? position.u.sample
-                                : position.wType == TIME_BYTES
-                                    ? position.u.cb / 2
-                                    : static_cast<std::uint32_t>(position.u.ms * 48);
-            if (raw < p.previous && p.previous - raw > 0x80000000u)
-                p.wraps += (1ull << 32);
-            p.previous = raw;
-            t = (p.wraps + raw) / double(rate);
+            if (position.wType == TIME_SAMPLES)
+                t = p.counter.seconds(position.u.sample, RhythmPositionUnit::frames,
+                                      p.pcm->sample_rate, p.pcm->channels);
+            else if (position.wType == TIME_BYTES)
+                t = p.counter.seconds(position.u.cb, RhythmPositionUnit::bytes, p.pcm->sample_rate,
+                                      p.pcm->channels);
+            else if (position.wType == TIME_MS)
+                t = p.counter.seconds(position.u.ms, RhythmPositionUnit::milliseconds,
+                                      p.pcm->sample_rate, p.pcm->channels);
+            else
+                t = p.last;
         }
         else
         {
@@ -265,7 +284,7 @@ double RhythmAudioTransport::seconds() const
         }
         else
         {
-            const double raw = sample / double(rate);
+            const double raw = sample / double(p.pcm->sample_rate);
             if (raw + p.duration * .5 < p.previous)
                 p.cycle += p.duration;
             // Hardware position is authoritative; wall time only disambiguates
@@ -295,7 +314,13 @@ void RhythmAudioTransport::set_volume(float v)
         alSourcef(p.source, AL_GAIN, p.volume);
 #endif
 }
-RhythmAudioMode RhythmAudioTransport::mode() const { return impl_->mode; }
-std::string RhythmAudioTransport::diagnostic() const { return impl_->diagnostic; }
+RhythmAudioMode RhythmAudioTransport::mode() const
+{
+    return impl_->mode;
+}
+std::string RhythmAudioTransport::diagnostic() const
+{
+    return impl_->diagnostic;
+}
 } // namespace al
 } // namespace gb

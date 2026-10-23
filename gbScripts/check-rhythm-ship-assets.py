@@ -1,6 +1,6 @@
 """Run with Python 3; checks canonical content and duplicated project membership."""
 from pathlib import Path
-import json,struct,wave,zlib,xml.etree.ElementTree as ET,re
+import json,struct,wave,zlib,xml.etree.ElementTree as ET,re,hashlib
 root=Path(__file__).resolve().parent.parent
 bundle=root/'gbBundle';by_name={}
 for p in bundle.rglob('*'):
@@ -43,6 +43,16 @@ for y in range(h):
 with wave.open(str(bundle/'Sounds/rhythm_ship_metronome.wav'),'rb') as wav:
     assert(wav.getnchannels(),wav.getsampwidth(),wav.getframerate(),wav.getnframes())==(1,2,48000,1440000)
 track=json.loads((bundle/'Configurations/rhythm_ship/rhythm_ship_track.json').read_text());assert track['bpm']==128 and track['duration']==30
+catalog=json.loads((bundle/'Configurations/rhythm_ship/rhythm_ship_catalog.json').read_text())['tracks']
+assert len(catalog)==4
+hashes=['5bef1859c4e99e61a14382b1957c12da721a89d78d5136f954bbfd5e1c87f96b','d418b4708d7ee87c65300da6c12b1a7510d09cfaa1c86baaa19296db390e054f','47ca495f806ea69ce2ce140a31729a5a052fb3721ebcc695b66aff6ebc517881']
+for entry,digest in zip(catalog,hashes):
+    t=json.loads((bundle/'Configurations/rhythm_ship'/entry['map']).read_text())
+    file=root/'gbResources'/t['audio_file']
+    assert hashlib.sha256(file.read_bytes()).hexdigest()==digest,file.name
+    assert pbx.count(f'/* {file.name} in Resources */ =')==3,file.name
+    beats=t['beats'];assert 0<=beats[0]<beats[-1]<t['duration']
+    assert min([b-a for a,b in zip(beats,beats[1:])]+[t['duration']-beats[-1]+beats[0]])>.26
 for name in ['solid','character']:
     material=ET.parse(bundle/f'Configurations/game_objects/materials/material.rhythm_ship_{name}.xml').getroot();assert material.get('technique_name')=='ws.base'
     for ext in ['vert','frag']:assert (bundle/f'Shaders/shader_rhythm_ship_{name}.{ext}').is_file()

@@ -22,7 +22,10 @@ struct RhythmScore
 {
     std::uint64_t score = 0, combo = 0, max_combo = 0, judgements = 0;
     double energy = .35;
-    double accuracy() const { return judgements ? 100.0 * earned / (100.0 * judgements) : 0; }
+    double accuracy() const
+    {
+        return judgements ? 100.0 * earned / (100.0 * judgements) : 0;
+    }
     std::uint64_t earned = 0;
 };
 class RhythmSession
@@ -45,17 +48,38 @@ class RhythmSession
     explicit RhythmSession(RhythmTrack);
     void restart();
     void enqueue_tap(double);
-    void update(double);
+    void update(double, double judgement_delay = 0);
     bool set_windows(RhythmWindows);
-    RhythmWindows windows() const { return windows_; }
+    RhythmWindows windows() const
+    {
+        return windows_;
+    }
     void set_energy(double);
-    const RhythmScore &score() const { return score_; }
-    const std::vector<RhythmBeat> &beat_events() const { return events_; }
-    RhythmJudgement last_judgement() const { return judgement_; }
-    double last_judgement_time() const { return judgement_time_; }
+    const RhythmScore &score() const
+    {
+        return score_;
+    }
+    const std::vector<RhythmBeat> &beat_events() const
+    {
+        return events_;
+    }
+    RhythmJudgement last_judgement() const
+    {
+        return judgement_;
+    }
+    double last_judgement_time() const
+    {
+        return judgement_time_;
+    }
     double beat_position(double seconds) const;
-    const RhythmTrack &track() const { return track_; }
-    void debug_lead(std::uint64_t n) { score_.score = n; }
+    const RhythmTrack &track() const
+    {
+        return track_;
+    }
+    void debug_lead(std::uint64_t n)
+    {
+        score_.score = n;
+    }
 };
 const char *rhythm_judgement_name(RhythmJudgement);
 } // namespace game

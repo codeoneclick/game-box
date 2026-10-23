@@ -126,7 +126,7 @@ void RhythmSession::tap(double t)
     else
         judge(RhythmJudgement::miss, t);
 }
-void RhythmSession::update(double t)
+void RhythmSession::update(double t, double judgement_delay)
 {
     events_.clear();
     if (!std::isfinite(t) || t < time_)
@@ -139,7 +139,8 @@ void RhythmSession::update(double t)
         tap(taps_[n++]);
     }
     taps_.erase(taps_.begin(), taps_.begin() + n);
-    expire(t);
+    expire(t -
+           std::max(0.0, std::min(.25, std::isfinite(judgement_delay) ? judgement_delay : 0.0)));
     while (beat(next_event_).time <= t)
     {
         events_.push_back(beat(next_event_++));

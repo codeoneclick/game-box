@@ -14,7 +14,7 @@ namespace game
 {
     game_conroller_win32::game_conroller_win32()
     {
-		glm::ivec2 resolution = glm::ivec2(1280, 720);
+		glm::ivec2 resolution = glm::ivec2(680, 960);
         std::shared_ptr<gb::window_impl> window = std::make_shared<gb::window_impl>((void*)&resolution);
         m_game_controller = std::make_shared<main_game_controller>(window);
     }

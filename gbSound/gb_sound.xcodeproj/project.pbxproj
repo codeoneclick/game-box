@@ -24,10 +24,13 @@
 		F36BF1F31EE164C5007DE9E9 /* ces_sound_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36BF1EF1EE164C5007DE9E9 /* ces_sound_component.cpp */; };
 		F36BF1F41EE164C5007DE9E9 /* ces_sound_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36BF1EF1EE164C5007DE9E9 /* ces_sound_component.cpp */; };
 		F36BF1F91EE16D8A007DE9E9 /* audio_engine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36BF1F71EE16D8A007DE9E9 /* audio_engine.cpp */; };
+		B1EF3226055C589CEF728B84 /* rhythm_pcm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A66D11709A6AEA284DF5C75 /* rhythm_pcm.cpp */; settings = {COMPILER_FLAGS = "-fexceptions -frtti"; }; };
 		8213F9E67A4C0C7B240F066C /* rhythm_audio_transport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BC4628A6193A92EA05D4AF2C /* rhythm_audio_transport.cpp */; settings = {COMPILER_FLAGS = "-fexceptions -frtti"; }; };
 		F36BF1FA1EE16D8A007DE9E9 /* audio_engine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36BF1F71EE16D8A007DE9E9 /* audio_engine.cpp */; };
+		D95B23E9CE9A536B03C78F36 /* rhythm_pcm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A66D11709A6AEA284DF5C75 /* rhythm_pcm.cpp */; settings = {COMPILER_FLAGS = "-fexceptions -frtti"; }; };
 		9BB8698926A62EFFF68335B5 /* rhythm_audio_transport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BC4628A6193A92EA05D4AF2C /* rhythm_audio_transport.cpp */; settings = {COMPILER_FLAGS = "-fexceptions -frtti"; }; };
 		F36BF1FC1EE16D8A007DE9E9 /* audio_engine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36BF1F71EE16D8A007DE9E9 /* audio_engine.cpp */; };
+		25649D50AEC021B9060C2F4F /* rhythm_pcm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A66D11709A6AEA284DF5C75 /* rhythm_pcm.cpp */; settings = {COMPILER_FLAGS = "-fexceptions -frtti"; }; };
 		EF0708234035C48179038816 /* rhythm_audio_transport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BC4628A6193A92EA05D4AF2C /* rhythm_audio_transport.cpp */; settings = {COMPILER_FLAGS = "-fexceptions -frtti"; }; };
 		F36DF34D1E953CF900EAE49B /* libgbCore-tvos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F36DF1EB1E953BFB00EAE49B /* libgbCore-tvos.a */; };
 		F3E62FBD1EE68B21002A174A /* audio_cache.mm in Sources */ = {isa = PBXBuildFile; fileRef = F36BF1FE1EE16D9B007DE9E9 /* audio_cache.mm */; };
@@ -151,8 +154,10 @@
 		F36BF1EF1EE164C5007DE9E9 /* ces_sound_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_sound_component.cpp; path = sources/ces_sound_component.cpp; sourceTree = SOURCE_ROOT; };
 		F36BF1F01EE164C5007DE9E9 /* ces_sound_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_sound_component.h; path = sources/ces_sound_component.h; sourceTree = SOURCE_ROOT; };
 		F36BF1F71EE16D8A007DE9E9 /* audio_engine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = audio_engine.cpp; path = sources/audio_engine.cpp; sourceTree = SOURCE_ROOT; };
+		7A66D11709A6AEA284DF5C75 /* rhythm_pcm.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = rhythm_pcm.cpp; path = sources/rhythm_pcm.cpp; sourceTree = SOURCE_ROOT; };
 		BC4628A6193A92EA05D4AF2C /* rhythm_audio_transport.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = rhythm_audio_transport.cpp; path = sources/rhythm_audio_transport.cpp; sourceTree = SOURCE_ROOT; };
 		F36BF1F81EE16D8A007DE9E9 /* audio_engine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = audio_engine.h; path = sources/audio_engine.h; sourceTree = SOURCE_ROOT; };
+		DD2DC99008FC05DDE3836926 /* rhythm_pcm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rhythm_pcm.h; path = sources/rhythm_pcm.h; sourceTree = SOURCE_ROOT; };
 		92925610538FAB443A4AEAC9 /* rhythm_audio_transport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rhythm_audio_transport.h; path = sources/rhythm_audio_transport.h; sourceTree = SOURCE_ROOT; };
 		F36BF1FD1EE16D9B007DE9E9 /* audio_cache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = audio_cache.h; path = sources/apple/audio_cache.h; sourceTree = SOURCE_ROOT; };
 		F36BF1FE1EE16D9B007DE9E9 /* audio_cache.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = audio_cache.mm; path = sources/apple/audio_cache.mm; sourceTree = SOURCE_ROOT; };
@@ -227,8 +232,10 @@
 			children = (
 				F36BF1F51EE16D76007DE9E9 /* core */,
 				F36BF1F81EE16D8A007DE9E9 /* audio_engine.h */,
+				DD2DC99008FC05DDE3836926 /* rhythm_pcm.h */,
 				92925610538FAB443A4AEAC9 /* rhythm_audio_transport.h */,
 				F36BF1F71EE16D8A007DE9E9 /* audio_engine.cpp */,
+				7A66D11709A6AEA284DF5C75 /* rhythm_pcm.cpp */,
 				BC4628A6193A92EA05D4AF2C /* rhythm_audio_transport.cpp */,
 				F320AC941DDA0F3300A60E4C /* ces managment */,
 				F36938351DCB425800AE6C53 /* common */,
@@ -486,6 +493,7 @@
 			files = (
 				F36BF1EB1EE164B6007DE9E9 /* ces_sound_system.cpp in Sources */,
 				F36BF1F91EE16D8A007DE9E9 /* audio_engine.cpp in Sources */,
+				B1EF3226055C589CEF728B84 /* rhythm_pcm.cpp in Sources */,
 				8213F9E67A4C0C7B240F066C /* rhythm_audio_transport.cpp in Sources */,
 				F3E62FD11EE6DC32002A174A /* audio_engine-inl.mm in Sources */,
 				F36BF1F11EE164C5007DE9E9 /* ces_sound_component.cpp in Sources */,
@@ -500,6 +508,7 @@
 			files = (
 				F36BF1EC1EE164B6007DE9E9 /* ces_sound_system.cpp in Sources */,
 				F36BF1FA1EE16D8A007DE9E9 /* audio_engine.cpp in Sources */,
+				D95B23E9CE9A536B03C78F36 /* rhythm_pcm.cpp in Sources */,
 				9BB8698926A62EFFF68335B5 /* rhythm_audio_transport.cpp in Sources */,
 				F3E62FD21EE6DC32002A174A /* audio_engine-inl.mm in Sources */,
 				F36BF1F21EE164C5007DE9E9 /* ces_sound_component.cpp in Sources */,
@@ -514,6 +523,7 @@
 			files = (
 				F36BF1EE1EE164B6007DE9E9 /* ces_sound_system.cpp in Sources */,
 				F36BF1FC1EE16D8A007DE9E9 /* audio_engine.cpp in Sources */,
+				25649D50AEC021B9060C2F4F /* rhythm_pcm.cpp in Sources */,
 				EF0708234035C48179038816 /* rhythm_audio_transport.cpp in Sources */,
 				926F26692269FE6D004659CC /* audio_engine-inl.mm in Sources */,
 				926F266A2269FE72004659CC /* audio_player.mm in Sources */,

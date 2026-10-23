@@ -1,0 +1,20 @@
+{
+  "tracks": [
+    {
+      "title": "Audioera - Stylish Trailer Percussion",
+      "map": "rhythm_ship_audioera.json"
+    },
+    {
+      "title": "Ikoliks - Uplifting Action Sport",
+      "map": "rhythm_ship_ikoliks.json"
+    },
+    {
+      "title": "Strawberry Candy - Sport Intense Metal",
+      "map": "rhythm_ship_strawberry.json"
+    },
+    {
+      "title": "Metronome / 128 BPM",
+      "map": "rhythm_ship_track.json"
+    }
+  ]
+}

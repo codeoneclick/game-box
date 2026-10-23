@@ -6,7 +6,8 @@ enum class RhythmKeyAction
     none,
     tap,
     restart,
-    debug
+    debug,
+    graphics
 };
 inline RhythmKeyAction rhythm_key_action(int key, bool apple)
 {
@@ -16,6 +17,8 @@ inline RhythmKeyAction rhythm_key_action(int key, bool apple)
         return RhythmKeyAction::restart;
     if (key == (apple ? 122 : 112))
         return RhythmKeyAction::debug;
+    if (key == (apple ? 100 : 119))
+        return RhythmKeyAction::graphics;
     return RhythmKeyAction::none;
 }
 } // namespace game

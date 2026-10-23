@@ -9,6 +9,17 @@
 using namespace game;
 int main()
 {
+    assert(rhythm_key_action(119, false) == RhythmKeyAction::graphics);
+    assert(rhythm_key_action(100, true) == RhythmKeyAction::graphics);
+    {
+        RhythmTrack delayed; delayed.duration=2;delayed.beats={.5,1};
+        RhythmSession calibrated(delayed);
+        calibrated.update(.70,.25); // A corrected late tap must not expire early.
+        calibrated.enqueue_tap(.5);
+        calibrated.update(.75,.25);
+        assert(calibrated.score().score==100);
+        assert(calibrated.beat_events().empty()); // Visual pulses stay on raw time.
+    }
     auto t = default_rhythm_track();
     assert(std::abs(rhythm_beat_at(t, 0).time - .46875) < 1e-9);
     assert(std::abs(rhythm_beat_at(t, 63).time - 30) < 1e-9);
@@ -87,6 +98,7 @@ int main()
                                               "{\"beats\":[1,31]}",
                                               "{\"offset\":null}",
                                               "not json",
+                                              "{\"bpm\":120} garbage",
                                               "[]",
                                               "42",
                                               "\"x\""};

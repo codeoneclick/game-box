@@ -1,11 +1,15 @@
 #include "rhythm_track.h"
+#include "rhythm_json.h"
 #include <cmath>
 #include <fstream>
 #include <jsoncpp-1.7.2/json/json.h>
 #include <stdexcept>
 namespace game
 {
-RhythmTrack default_rhythm_track() { return {}; }
+RhythmTrack default_rhythm_track()
+{
+    return {};
+}
 std::vector<double> resolve_rhythm_beats(const RhythmTrack &t)
 {
     if (!std::isfinite(t.bpm) || t.bpm <= 0 || t.bpm > 1000 || !std::isfinite(t.duration) ||
@@ -47,10 +51,8 @@ bool load_rhythm_track(const std::string &path, RhythmTrack &out, std::string &e
 {
     try
     {
-        std::ifstream f(path);
         Json::Value v;
-        Json::CharReaderBuilder r;
-        if (!f || !Json::parseFromStream(r, f, &v, &error))
+        if (!read_rhythm_json(path, v, error))
             throw std::invalid_argument("Cannot parse rhythm track: " + path);
         if (!v.isObject())
             throw std::invalid_argument("Rhythm track root must be an object");

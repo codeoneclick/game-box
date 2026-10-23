@@ -19,7 +19,7 @@ class TerrainEditorUI {
 public:
     TerrainEditorUI(const gb::scene_fabricator_shared_ptr& fabricator,
                     const std::shared_ptr<TerrainEditorState>& state,
-                    glm::ivec2 resolution);
+                    glm::ivec2 resolution, bool inspector_only = false);
     ~TerrainEditorUI();
     gb::ces_entity_shared_ptr root() const;
     void update();
@@ -31,6 +31,7 @@ public:
     void set_graphics_save_callback(std::function<bool()> callback);
     void bind_post_settings(std::shared_ptr<StylizedPostProcessSettings> settings);
     void toggle_post_panel();
+    bool post_panel_visible() const;
     void bind_render_debug(std::shared_ptr<RenderDebugState> state);
     void bind_terrain_lod_settings(std::shared_ptr<TerrainLodSettings> settings);
     bool scroll_render_debug(glm::ivec2 point, float delta);

@@ -1,4 +1,5 @@
 #pragma once
+#include "rhythm_pcm.h"
 #include <cstdint>
 #include <memory>
 #include <string>
@@ -30,6 +31,7 @@ class RhythmAudioTransport
     RhythmAudioTransport();
     ~RhythmAudioTransport();
     bool start(const RhythmAudioConfig &);
+    bool start_pcm(std::shared_ptr<const RhythmPCM>, const std::string &label);
     void stop();
     double seconds() const;
     void set_volume(float);

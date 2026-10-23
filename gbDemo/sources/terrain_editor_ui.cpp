@@ -247,6 +247,7 @@ struct TerrainEditorUI::implementation : std::enable_shared_from_this<implementa
     int last_target = -100;
     bool last_undo = false, last_redo = false, first_update = true;
 
+    bool inspector_only = false;
     implementation(const gb::scene_fabricator_shared_ptr& source,
                    const std::shared_ptr<TerrainEditorState>& model, glm::ivec2 size)
         : fabricator(source), controls(source), state(model),
@@ -830,6 +831,7 @@ struct TerrainEditorUI::implementation : std::enable_shared_from_this<implementa
     }
 
     void build() {
+        if(inspector_only) return;
         top = make_panel(glm::vec2(18, 18), glm::vec2(380, 76), "");
         // Keep the top row clear of the statistics HUD on narrower windows.
         const float toolbar_scale = terrain_editor_toolbar_scale(float(resolution.x),float(resolution.y));
@@ -1237,6 +1239,7 @@ struct TerrainEditorUI::implementation : std::enable_shared_from_this<implementa
     }
 
     void refresh() {
+        if(inspector_only) { refresh_post_panel(); return; }
         if(!entity->get_is_visible()) {
             if(rotation_focused) rotation_field->get_component<gb::ui::ces_textedit_component>()->focus = false;
             rotation_slider_active = false;
@@ -1402,8 +1405,9 @@ struct TerrainEditorUI::implementation : std::enable_shared_from_this<implementa
 };
 
 TerrainEditorUI::TerrainEditorUI(const gb::scene_fabricator_shared_ptr& fabricator,
-                               const std::shared_ptr<TerrainEditorState>& state, glm::ivec2 resolution)
-    : m_impl(std::make_shared<implementation>(fabricator, state, resolution)) { m_impl->build(); }
+                               const std::shared_ptr<TerrainEditorState>& state, glm::ivec2 resolution, bool inspector_only)
+    : m_impl(std::make_shared<implementation>(fabricator, state, resolution)) {
+    m_impl->inspector_only=inspector_only; m_impl->build(); }
 TerrainEditorUI::~TerrainEditorUI() = default;
 gb::ces_entity_shared_ptr TerrainEditorUI::root() const { return m_impl->entity; }
 void TerrainEditorUI::update() { m_impl->refresh(); }
@@ -1440,4 +1444,5 @@ void TerrainEditorUI::toggle_post_panel() {
     if(m_impl->post_visible && m_impl->rotation_focused) m_impl->rotation_field->get_component<gb::ui::ces_textedit_component>()->focus = false;
     m_impl->refresh();
 }
+bool TerrainEditorUI::post_panel_visible() const {return m_impl->post_visible;}
 }
