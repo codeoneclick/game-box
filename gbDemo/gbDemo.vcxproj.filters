@@ -632,4 +632,19 @@
   <ItemGroup><ClCompile Include="sources\rhythm_track_loader.cpp" /></ItemGroup>
   <ItemGroup><ClInclude Include="sources\rhythm_track_loader.h" /></ItemGroup>
   <ItemGroup><ClInclude Include="sources\rhythm_json.h" /></ItemGroup>
+  <ItemGroup><ClInclude Include="sources\rhythm_action.h" /></ItemGroup>
+  <ItemGroup><ClCompile Include="sources\rhythm_choreography.cpp" /></ItemGroup>
+  <ItemGroup><ClInclude Include="sources\rhythm_choreography.h" /></ItemGroup>
+  <ItemGroup><ClCompile Include="sources\rhythm_gesture.cpp" /></ItemGroup>
+  <ItemGroup><ClInclude Include="sources\rhythm_gesture.h" /></ItemGroup>
+  <ItemGroup><ClCompile Include="sources\rhythm_crowd_choreography.cpp" /></ItemGroup>
+  <ItemGroup><ClInclude Include="sources\rhythm_crowd_choreography.h" /></ItemGroup>
+  <ItemGroup><ClCompile Include="sources\rhythm_dance_pose.cpp" /></ItemGroup>
+  <ItemGroup><ClInclude Include="sources\rhythm_dance_pose.h" /></ItemGroup>
+  <ItemGroup><ClCompile Include="sources\rhythm_prompt_model.cpp" /></ItemGroup>
+  <ItemGroup><ClInclude Include="sources\rhythm_prompt_model.h" /></ItemGroup>
+  <ItemGroup><ClCompile Include="sources\rhythm_prompt_view.cpp" /></ItemGroup>
+  <ItemGroup><ClInclude Include="sources\rhythm_prompt_view.h" /></ItemGroup>
+  <ItemGroup><ClCompile Include="sources\rhythm_stage_state.cpp" /></ItemGroup>
+  <ItemGroup><ClInclude Include="sources\rhythm_stage_state.h" /></ItemGroup>
 </Project>

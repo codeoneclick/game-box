@@ -109,6 +109,14 @@ namespace gb
         }
     }
     
+    void input_context::input_focus_lost()
+    {
+        for (const auto& listener : m_listeners) listener->on_input_focus_lost();
+    }
+    void input_context::gr_cancelled(e_input_source source, ui32 index)
+    {
+        for (const auto& listener : m_listeners) listener->on_gr_cancelled(source, index);
+    }
     void input_context::gr_released(const glm::ivec2& touch_point,
                                     const glm::ivec2& touch_area_size,
                                     e_input_source input_source,

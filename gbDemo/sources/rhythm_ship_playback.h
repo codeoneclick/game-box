@@ -2,6 +2,7 @@
 #include "fake_leaderboard.h"
 #include "rhythm_audio_transport.h"
 #include "rhythm_calibration.h"
+#include "rhythm_choreography.h"
 #include "rhythm_session.h"
 #include "rhythm_track_catalog.h"
 #include "rhythm_track_loader.h"
@@ -22,6 +23,11 @@ class RhythmShipPlayback
     bool loading_ = false, calibrating_ = false;
     double offset_ = 0;
     RhythmCalibration calibration_;
+    RhythmTrack source_track_;
+    RhythmChoreographySettings choreography_;
+    std::uint64_t epoch_ = 0;
+    RhythmInput last_input_;
+    bool has_input_ = false;
     void publish(const RhythmTrack &, std::shared_ptr<const gb::al::RhythmPCM>);
     void finish_calibration();
 
@@ -35,6 +41,23 @@ class RhythmShipPlayback
     void restart(const RhythmTrack &);
     void update();
     void tap(double);
+    void input(RhythmInput);
+    bool last_input(RhythmInput &out) const
+    {
+        if (!has_input_)
+            return false;
+        out = last_input_;
+        return true;
+    }
+    bool apply_choreography(const RhythmChoreographySettings &, bool force_authored = false);
+    const RhythmChoreographySettings &choreography_settings() const
+    {
+        return choreography_;
+    }
+    std::uint64_t epoch() const
+    {
+        return epoch_;
+    }
     bool scoring_active() const
     {
         return !loading_ && !calibrating_;

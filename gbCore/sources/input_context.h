@@ -80,6 +80,10 @@ namespace gb
         
         // Wheel delta is measured in notches; fractional high-resolution input is preserved.
         virtual void on_gr_scrolled(const glm::ivec2&, const glm::ivec2&, f32) {}
+        // Cancellation precedes the legacy synthetic release on capture/focus loss.
+        // Default preserves existing listeners' release/cleanup behavior.
+        virtual void on_gr_cancelled(e_input_source, ui32) {}
+        virtual void on_input_focus_lost() {}
 
         virtual void on_key_up(i32 key) = 0;
         virtual void on_key_down(i32 key) = 0;
@@ -138,6 +142,8 @@ namespace gb
                         e_input_source input_source, ui32 index);
         
         void gr_scrolled(const glm::ivec2& point, const glm::ivec2& area_size, f32 delta);
+        void gr_cancelled(e_input_source source, ui32 index);
+        void input_focus_lost();
 
         void key_up(i32 key);
         void key_down(i32 key);

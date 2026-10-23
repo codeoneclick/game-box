@@ -4,6 +4,7 @@
 #include "ces_geometry_3d_component.h"
 #include "ces_transformation_3d_component.h"
 #include "configuration_accessor.h"
+#include "rhythm_dance_pose.h"
 #include "rhythm_ship_environment.h"
 #include "scene_fabricator.h"
 #include "shape_3d.h"
@@ -26,26 +27,32 @@ void ces_dance_crowd_system::on_feed(const gb::ces_entity_shared_ptr &, f32)
         return;
     double t = audio_->seconds(), phase = session_->beat_position(t) * 6.283185307;
     float energy = static_cast<float>(session_->score().energy);
-    enumerate_entities_with_components(
-        mask_,
-        [&](const gb::ces_entity_shared_ptr &e)
+    enumerate_entities_with_components(mask_, [&](const gb::ces_entity_shared_ptr &e) {
+        auto c = e->get_component<ces_dance_character_component>();
+        bool active = c->dj || c->index < count_;
+        e->visible = active;
+        e->visible_in_next_frame = active;
+        if (!active)
+            return;
+        auto p = c->base_position;
+        p.y += std::abs(std::sin(float(phase) + c->phase)) * (c->amplitude + energy * .2f);
+        p.x += std::sin(float(phase * .5) + c->phase) * .1f;
+        auto tr = e->get_component<gb::ces_transformation_3d_component>();
+        auto d = camera->get_position() - p;
+        float yaw = std::atan2(d.x, d.z);
+        RhythmDancePose pose;
+        if (!c->dj && choreography_ && (choreography_enabled_ || c->local_player))
         {
-            auto c = e->get_component<ces_dance_character_component>();
-            bool active = c->dj || c->index < count_;
-            e->visible = active;
-            e->visible_in_next_frame = active;
-            if (!active)
-                return;
-            auto p = c->base_position;
-            p.y += std::abs(std::sin(float(phase) + c->phase)) * (c->amplitude + energy * .2f);
-            p.x += std::sin(float(phase * .5) + c->phase) * .1f;
-            auto tr = e->get_component<gb::ces_transformation_3d_component>();
-            tr->set_position(p);
-            auto d = camera->get_position() - p;
-            tr->set_rotation(glm::vec3(0, std::atan2(d.x, d.z),
-                                       std::sin(float(phase * .5) * c->speed + c->phase) *
-                                           (.04f + .035f * energy)));
-        });
+            const auto state = choreography_->dancer_state(c->index, t);
+            pose = rhythm_dance_pose(state.action, t - state.start, state.strength);
+            p += glm::vec3(std::cos(yaw) * pose.x, pose.y, -std::sin(yaw) * pose.x);
+        }
+        tr->set_position(p);
+        tr->set_scale(glm::vec3(pose.scale_x, pose.scale_y, 1));
+        tr->set_rotation(glm::vec3(0, yaw,
+                                   pose.lean + std::sin(float(phase * .5) * c->speed + c->phase) *
+                                                   (.04f + .035f * energy)));
+    });
 }
 void populate_rhythm_ship_crowd(const gb::scene_fabricator_shared_ptr &fab,
                                 const gb::ces_entity_shared_ptr &root)

@@ -1,13 +1,8 @@
-# Rhythm Ship demo
+﻿# Rhythm Ship demo
 
-The default Windows demo now opens a stationary luxury liner in the existing
-ocean. The island/editor does not initialize. Ocean/sky shader and material
-sources are unchanged; saved lighting/water presentation preferences are reused.
-`GB_DEMO=island` selects the retained island demo.
-The Windows client window is portrait **680 x 960**. The HUD displays FPS,
-submitted polygons/frame (including render passes) and draw calls/frame.
+The default demo is a stationary ship with directional rhythm gameplay. The rectangular deck, daylight, ocean renderer and skybox are retained. Windows uses a **680 x 960 portrait** client area, with FPS, submitted polygons/frame and draw calls/frame in the bottom HUD. `GB_DEMO=island` selects the retained island.
 
-Build and launch from repository root:
+## Build and controls
 
 ```powershell
 ./gbScripts/build-gbDemo.ps1 -Configuration debug-client -Platform x64
@@ -16,173 +11,76 @@ Push-Location gbDemo
 Pop-Location
 ```
 
-Controls: Space or LMB taps; R restarts; F1 toggles development controls;
-F8 opens the previous Render Inspector with pass switches, attachment previews,
-lighting/post/water settings and Save. The inspector fits the portrait window;
-its mouse wheel scrolls the hovered column. Clicking
-HUD/debug controls does not tap. The panel offers BPM, volume, offset, three hit
-windows, energy, 30-50 dancers, stage intensity and four debug buttons. It uses
-native sliders, so no text focus or virtual keyboard is needed. Invalid timing
-edits retain the last valid values. Force Beat changes visuals only.
+- **Space / small left click:** Tap. **Arrow keys / mouse swipe:** Left, Right, Up, Down. There are no holds. Release the key before repeating it.
+- Mouse gestures begin outside UI controls. A swipe fires once on crossing 24 pixels with dominant axis at least 1.25 times the other axis. Up means decreasing screen Y. Small releases produce Tap; ambiguous diagonals cancel. Swipes use audio time at threshold crossing; taps use release time.
+- **R:** restart selected music using cached decoded PCM. **Prev / Next:** select nine Kulakovka tracks or the original metronome (entries 0 through 9).
+- **F1:** gameplay settings. **F8:** original Render Inspector, including pass switches, attachment previews, water/light/post settings and Save. Scroll the hovered column with the mouse wheel.
 
-Default: Audioera at 120 BPM, 40 dancers plus DJ. A preallocated pool supports 50. The player
-has a yellow ring and YOU label. Leading with a positive score adds a crown and
-STAR OF THE DANCE FLOOR. Ten seeded simulated rivals update once per beat.
+Loading, restarts, calibration changes, capture cancellation and F8 invalidate pending gestures. UI clicks do not become gameplay taps. Hidden/reopened F1 controls invalidate their captured interaction.
 
-Use `Prev` / `Next` to select Audioera (120 BPM), Ikoliks (107 BPM),
-Strawberry Candy (185 BPM), or the original metronome (128 BPM). Selection resets
-score and bots; R reuses the active decoded music. Loading freezes scoring and
-stale results cannot start a previous song. Missing/corrupt/mismatched audio
-falls back to the metronome with its own map and a visible diagnostic.
+## Gameplay and presentation
 
-Track catalog: `gbBundle/Configurations/rhythm_ship/rhythm_ship_catalog.json`.
-The original metronome configuration remains `rhythm_ship_track.json`.
-Fields: `track`, `bpm`, `offset` (seconds), `duration` (seconds), optional
-`audio_file`, optional strictly ordered `beats` array. Explicit times receive the
-offset. The initial windows require cyclic spacing greater than 260 ms. Defaults
-generate one beat per interval; loop endpoint beats are included once. Invalid
-or missing JSON logs a diagnostic and uses the default metronome.
+The compact indicator above the player's upper body shows the current command; its cyan ring contracts towards the beat. Smaller icons above it preview the next two commands (configurable 0–3). A diamond means Tap; arrows indicate direction. Resolved commands dim, and judgement feedback fades separately. Command ownership changes at the nearest-event midpoint, with exact ties going to the earlier event. The yellow player ring and YOU label identify the player.
 
-`RhythmSession` owns renderer-independent beat events, queued timestamped taps,
-judgements, score/combo/accuracy and clamped energy. Taps resolve before expiration
-at their timestamp. Each beat is scored once; missed deadlines reset combo.
-Windows are inclusive 40/80/130 ms, worth 100/70/30 points. Accuracy divides earned
-points by possible points across resolved beats and stray misses. Debug score
-override does not fabricate accuracy.
+Events form deterministic repeated musical phrases. Easy uses Tap/Left/Right with rests. Normal adds Up/Down and occasional eighth-note phrases. Hard uses more eighths and direction changes. Generated events and musical pulses are separate: higher difficulty does not accelerate the audio or stage beat clock.
 
-`RhythmAudioTransport` in gbSound plays local MP3s decoded by a pinned dr_mp3
-revision and can generate original PCM clicks. Windows playback
-uses WinMM and played-sample position, independently of frame time. An unavailable
-device uses labelled SILENT CLOCK mode and `steady_clock`. Apple source initializes
-the existing engine's OpenAL context and owns a synchronous PCM source/buffer with
-sample-position queries. Both output paths use the PCM's channel count/rate.
-Original MP3s remain under `gbResources`; build staging handles Windows copies,
-and Apple target resources reference the originals. No streaming/OGG is added.
+One event resolves once. Correct actions within inclusive **40/80/130 ms** windows earn Perfect/Great/Good and **100/70/30** points. A different direction produces **Wrong**, consumes the nearest event and resets combo; expired events produce Miss. Repeating an already resolved nearest event cannot skip ahead. Accuracy is earned points divided by possible points across judgements. Positive personal calibration is subtracted from input time once; music and visuals keep raw song time.
 
-`Calibrate` starts four count-in clicks followed by 24 taps. Use Space/click in
-time; a consistent run saves the median signed offset, while incomplete/noisy
-runs keep the old value. Cancel restores the selected song from its start.
-The manual slider adjusts -250 to +250 ms; Reset offset restores zero.
-Preferences are separate in `gbResources/RhythmAudioSettings.json` (ignored by
-Git). Positive means late taps and is subtracted once; visuals retain raw song
-time. This measures practical tap bias, not physical device latency. Calibration
-requires hearing the metronome; silent mode is useful for deterministic checks
-but cannot establish an audible timing preference.
+Temporary player poses follow each action and return to the original position. The 30–50 character crowd uses deterministic timing bias, occasional wrong actions and misses. Shared outcomes drive both poses and leaderboard; CrowdSync represents recent coordination. Directional strips/panels, Tap speaker pulses and a fixed three-slot floor-ring pool react without creating per-beat entities. The DJ retains an idle beat animation.
 
-Analysis, exact sample counts, loop seam decisions, decoder limits and known
-alignment uncertainty: [rhythm-ship-audio-analysis.md](rhythm-ship-audio-analysis.md).
+## F1 pages
 
-One queried ECS system animates upright pixel-art quads from the song clock.
-Eight shared costume meshes use one original nearest-filtered atlas. The DJ
-uses a riser behind the booth. Ordinary mesh/material APIs draw the deck, stage,
-panels, ring and crown; no renderer core changes or new lighting architecture.
-Speaker/panel pulses and oscillating strips consume beat state and energy.
+| Page | Controls |
+|---|---|
+| Gameplay | Easy/Normal/Hard, five action toggles, Generate Beatmap, five action test buttons, swipe threshold, crowd count, energy, Force Beat, Become Rank #1 |
+| Timing | Perfect/Great/Good windows, authored map offset, BPM for generated pulse maps |
+| Visuals | Indicator/crowd/directional stage toggles, volume, stage intensity, prompt lead, preview count |
+| Calibration | Start, Cancel, Reset offset, manual personal offset |
 
-Development environment variables:
+All-disabled action settings and invalid timing edits retain the last valid state. Difficulty/action changes validate a generated candidate before restarting music and resetting score. Explicit authored charts retain their actions until Generate Beatmap is deliberately requested. Action test buttons judge at current audio time, so an off-time test can result in Miss. Force Beat changes presentation only.
 
-- `GB_RHYTHM_TRACK=0..3`: initial catalog entry (default 0).
-- `GB_RHYTHM_AUDIO_SETTINGS=<path>`: alternative calibration preferences file.
+Calibration plays four count-in clicks, then collects 24 Space/click taps. A consistent run saves the median signed bias; noisy/incomplete runs retain the previous value. Cancel restores the selected song from its start. The manual range is -250 to +250 ms; positive means late taps. Preferences live separately in ignored `gbResources/RhythmAudioSettings.json`. This is practical tap bias, not physical device latency.
 
-- `GB_RHYTHM_SILENT=1`: force silent clock.
-- `GB_RHYTHM_CROWD_COUNT=30|40|50`: initial population.
-- `GB_RHYTHM_DEBUG=1`: open the debug panel on startup.
-- `GB_RHYTHM_DIAGNOSTICS=1`: log clock, score, combo, energy and leader state.
+## Beatmaps and audio
 
-Checks:
+Canonical catalog: `gbBundle/Configurations/rhythm_ship/rhythm_ship_catalog.json`. Source fingerprints, decoded frame counts and measured timing: `rhythm_ship_music.json` in the same directory. New MP3 filenames and bytes are preserved in `gbResources`; the old three-song resources are retired. Default: Active Sport, 160 BPM. Measurement notes: [rhythm-ship-audio-analysis.md](rhythm-ship-audio-analysis.md).
+
+An authored chart can separate musical pulse times from typed playable events:
+
+```json
+{
+  "track": "example", "bpm": 120, "duration": 8, "offset": 0,
+  "beats": [0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4],
+  "events": [
+    {"time": 1, "action": "Tap"},
+    {"time": 1.5, "action": "SwipeLeft"},
+    {"time": 2, "action": "SwipeRight"},
+    {"time": 2.25, "action": "SwipeUp"},
+    {"time": 2.5, "action": "SwipeDown"}
+  ]
+}
+```
+
+`audio_file` optionally names a local MP3 basename. Times are seconds; offset applies once to both timelines. Musical pulses must be ordered with cyclic spacing greater than 260 ms; playable events allow 60 ms, including the loop seam. Events must be finite, ordered and inside decoded duration, with at most 60,000 entries. Action spelling is exact. Explicit `events` override generation. Without events, `"choreography":"phrases"` requests phrase generation; absent or `"legacy"` preserves Tap-only beat compatibility. Missing `beats` generates the legacy BPM pulse. Invalid resources produce a diagnostic/fallback.
+
+`RhythmAudioTransport` in gbSound decodes with pinned dr_mp3 and plays PCM through WinMM on Windows, using played-sample position. Apple source owns an OpenAL PCM source/buffer on the existing audio context; it does not use asynchronous `audio_engine::play2d`. Only active PCM is cached. Missing/corrupt/mismatched music uses the metronome and its matching map. Device failure uses a labelled SILENT CLOCK with the selected map. No network music or streaming is involved.
+
+## Code ownership and verification
+
+Application rules stay in `gbDemo/sources/rhythm_*`: typed session/judgement, phrase generation, gestures, playback, prompt model/view, crowd outcomes, poses and stage state. `ces_dance_crowd_system` applies shared pose state through existing ECS. The native gbUI HUD uses existing sprite/label materials. Registration covers MSVC and all three Xcode targets through `gbScripts/register-rhythm-ship.py`. Engine input additions are default no-op cancellation/focus-loss notifications; Win32 sends them while retaining legacy synthetic release and modifier cleanup.
 
 ```powershell
 ./gbScripts/check-rhythm.ps1
 ./gbScripts/check-rhythm-audio.ps1
 ./gbScripts/check-rhythm-music.ps1
+./gbScripts/check-rhythm-gestures.ps1
+./gbScripts/check-rhythm-directional-runtime.ps1
 ./gbScripts/check-rhythm-controls.ps1
-python3 ./gbScripts/check-rhythm-ship-assets.py
+python3 gbScripts/check-rhythm-ship-assets.py
 ./gbScripts/check-rhythm-ship-runtime.ps1 -CrowdCount 50
 ./gbScripts/check-rhythm-ship-runtime.ps1 -Silent -DebugPanel
 ```
 
-Use Python 3; this machine's `python` resolves to Python 2.7. The bundled Blender
-5.2 Python executable was used for asset generation/checks. Original art/metronome
-can be regenerated with `gbScripts/create-rhythm-ship-assets.py`. Build staging
-includes WAV and MP3 assets. Runtime logs/captures are in ignored
-`gbDemo/output/rhythm-check/`.
+Use a real Python 3 (this machine's `python` is Python 2.7). Build staging copies canonical assets and removes exact retired staged basenames when absent from source. Logs/captures are ignored under `gbDemo/output/rhythm-check`. Environment options: `GB_RHYTHM_TRACK=0..9`, `GB_RHYTHM_CROWD_COUNT=30..50`, `GB_RHYTHM_DEBUG=1`, `GB_RHYTHM_DIAGNOSTICS=1`, `GB_RHYTHM_SILENT=1`, and `GB_RHYTHM_AUDIO_SETTINGS=<path>`.
 
-Verification recorded after final fixes: Windows Debug and Release builds;
-focused rhythm/audio checks; asset/project membership/compiler-flag checks;
-Vulkan 50-character Release PCM run and Debug silent run, real keyboard scoring,
-debug leader/energy buttons, rank gain/loss, multiframe captures and normal
-shutdown. Independent review's seven Important findings were addressed in one
-fix pass; details are in `rhythm-ship-progress.md`. A running playback
-clock was measured; audio audibility has not been independently heard/recorded.
-
-An additional retained-island check (`GB_DEMO=island`,
-`check-ocean-runtime.ps1 -CaptureName rhythm-retained-island -TimeoutSeconds 45`)
-initialized island residents/presentation but did not finish frame capture within
-45 seconds; normal shutdown was not verified in that check. Its runtime remains
-UNKNOWN; no island source or engine-core files were changed.
-
-Apple/Metal and dormant OpenGL builds/runtime remain UNKNOWN on this Windows
-machine; project membership and Metal source are provided. Server is unverified.
-The existing sky remains daytime. Art, ship geometry and effects are placeholders;
-there is no networking, buoyancy or movement. Real local MP3 playback and
-calibration are now implemented; current verification is recorded in
-`rhythm-mp3-progress.md`. Multiplayer synchronization remains future work.
-
-## Files changed
-
-- `.gitignore`
-- `docs/superpowers/specs/2026-10-22-rhythm-ship-design.md`
-- `gbDemo/gbDemo.vcxproj`
-- `gbDemo/gbDemo.vcxproj.filters`
-- `gbDemo/gbDemo.xcodeproj/project.pbxproj`
-- `gbDemo/sources/main_game_controller.cpp`
-- `gbScripts/build-gbDemo.ps1`
-- `gbSound/gb_sound.vcxproj`
-- `gbSound/gb_sound.vcxproj.filters`
-- `gbSound/gb_sound.xcodeproj/project.pbxproj`
-- `docs/rhythm-ship-demo.md`
-- `docs/rhythm-ship-progress.md`
-- `docs/superpowers/plans/2026-10-22-rhythm-ship.md`
-- `gbBundle/Configurations/game_objects/materials/material.rhythm_ship_character.xml`
-- `gbBundle/Configurations/game_objects/materials/material.rhythm_ship_solid.xml`
-- `gbBundle/Configurations/game_objects/rhythm_ship_character.xml`
-- `gbBundle/Configurations/game_objects/rhythm_ship_solid.xml`
-- `gbBundle/Configurations/rhythm_ship/rhythm_ship_track.json`
-- `gbBundle/Configurations/transitions/transition.rhythm_ship.xml`
-- `gbBundle/Shaders/metal/mtl_rhythm_ship.metal`
-- `gbBundle/Shaders/shader_rhythm_ship_character.frag`
-- `gbBundle/Shaders/shader_rhythm_ship_character.vert`
-- `gbBundle/Shaders/shader_rhythm_ship_solid.frag`
-- `gbBundle/Shaders/shader_rhythm_ship_solid.vert`
-- `gbBundle/Sounds/rhythm_ship_metronome.wav`
-- `gbBundle/Textures/rhythm_ship_characters.png`
-- `gbDemo/sources/ces_dance_character_component.cpp`
-- `gbDemo/sources/ces_dance_character_component.h`
-- `gbDemo/sources/ces_dance_crowd_system.cpp`
-- `gbDemo/sources/ces_dance_crowd_system.h`
-- `gbDemo/sources/fake_leaderboard.cpp`
-- `gbDemo/sources/fake_leaderboard.h`
-- `gbDemo/sources/rhythm_key_action.h`
-- `gbDemo/sources/rhythm_session.cpp`
-- `gbDemo/sources/rhythm_session.h`
-- `gbDemo/sources/rhythm_ship_environment.cpp`
-- `gbDemo/sources/rhythm_ship_environment.h`
-- `gbDemo/sources/rhythm_ship_input.cpp`
-- `gbDemo/sources/rhythm_ship_input.h`
-- `gbDemo/sources/rhythm_ship_scene.cpp`
-- `gbDemo/sources/rhythm_ship_scene.h`
-- `gbDemo/sources/rhythm_ship_transition.cpp`
-- `gbDemo/sources/rhythm_ship_transition.h`
-- `gbDemo/sources/rhythm_ship_ui.cpp`
-- `gbDemo/sources/rhythm_ship_ui.h`
-- `gbDemo/sources/rhythm_track.cpp`
-- `gbDemo/sources/rhythm_track.h`
-- `gbScripts/check-rhythm-audio.ps1`
-- `gbScripts/check-rhythm-ship-assets.py`
-- `gbScripts/check-rhythm-ship-runtime.ps1`
-- `gbScripts/check-rhythm.ps1`
-- `gbScripts/check_rhythm.cpp`
-- `gbScripts/check_rhythm_audio.cpp`
-- `gbScripts/create-rhythm-ship-assets.py`
-- `gbScripts/register-rhythm-ship.py`
-- `gbSound/sources/rhythm_audio_transport.cpp`
-- `gbSound/sources/rhythm_audio_transport.h`
+Current verification evidence and changed-file groups: [rhythm-gestures-progress.md](rhythm-gestures-progress.md). This Windows host does not verify Apple/Metal, dormant OpenGL or server. Audible alignment has not been independently heard/recorded. Retained island smoke previously timed out at 45 seconds; its runtime remains UNKNOWN. Art/geometry are placeholders; there is no networking, buoyancy or ship movement.

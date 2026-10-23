@@ -2,44 +2,61 @@
 #include "rhythm_pcm.h"
 #include <cassert>
 #include <chrono>
+#include <cmath>
 #include <cstdlib>
+#include <fstream>
 #include <iostream>
 #include <stdexcept>
 #include <thread>
-#include <fstream>
-#include <cmath>
 int main()
 {
     using namespace gb::al;
     RhythmPCM decoded;
     std::string decode_error;
-    assert(!decode_rhythm_mp3("missing.mp3",decoded,decode_error));
+    assert(!decode_rhythm_mp3("missing.mp3", decoded, decode_error));
     assert(!decode_error.empty());
     {
-        std::ifstream source("../../../gbResources/audioera-stylish-trailer-percussion-622881.mp3",std::ios::binary);
-        std::vector<char> bytes((std::istreambuf_iterator<char>(source)),std::istreambuf_iterator<char>());
-        assert(bytes.size()>10000);
-        {std::ofstream truncated("truncated.mp3",std::ios::binary);truncated.write(bytes.data(),bytes.size()/2);}
-        assert(!decode_rhythm_mp3("truncated.mp3",decoded,decode_error));
-        {std::ofstream invalid("invalid.mp3",std::ios::binary);invalid<<"this is not audio";}
-        assert(!decode_rhythm_mp3("invalid.mp3",decoded,decode_error));
+        std::ifstream source("../../../gbResources/kulakovka-active-sport-618585.mp3",
+                             std::ios::binary);
+        std::vector<char> bytes((std::istreambuf_iterator<char>(source)),
+                                std::istreambuf_iterator<char>());
+        assert(bytes.size() > 10000);
+        {
+            std::ofstream truncated("truncated.mp3", std::ios::binary);
+            truncated.write(bytes.data(), bytes.size() / 2);
+        }
+        assert(!decode_rhythm_mp3("truncated.mp3", decoded, decode_error));
+        {
+            std::ofstream invalid("invalid.mp3", std::ios::binary);
+            invalid << "this is not audio";
+        }
+        assert(!decode_rhythm_mp3("invalid.mp3", decoded, decode_error));
     }
     RhythmPositionCounter counter;
-    assert(std::abs(counter.seconds(176400,RhythmPositionUnit::bytes,44100,2)-1)<1e-9);
+    assert(std::abs(counter.seconds(176400, RhythmPositionUnit::bytes, 44100, 2) - 1) < 1e-9);
     counter.reset();
-    counter.seconds(0xfffffff0u,RhythmPositionUnit::frames,44100,2);
-    assert(counter.seconds(16,RhythmPositionUnit::frames,44100,2)>4294967296.0/44100);
+    counter.seconds(0xfffffff0u, RhythmPositionUnit::frames, 44100, 2);
+    assert(counter.seconds(16, RhythmPositionUnit::frames, 44100, 2) > 4294967296.0 / 44100);
     counter.reset();
-    assert(counter.seconds(44100,RhythmPositionUnit::frames,44100,2)==1);
-    assert(counter.seconds(1000,RhythmPositionUnit::milliseconds,44100,2)==1);
-    assert(counter.seconds(1100,RhythmPositionUnit::milliseconds,44100,2)==1.1);
-    for(const auto &file:{"audioera-stylish-trailer-percussion-622881.mp3", "ikoliks-uplifting-action-sport-energetic-rock-619094.mp3", "strawberry_candy-sport-intense-metal-fast-and-strong-622134.mp3"}) {
-        assert(decode_rhythm_mp3(std::string("../../../gbResources/")+file,decoded,decode_error));
-        assert(decoded.channels==2 && decoded.sample_rate==44100);
-        assert(decoded.duration()>79 && decoded.duration()<139);
-        std::ofstream raw(std::string(file)+".pcm",std::ios::binary);
-        raw.write(reinterpret_cast<const char*>(decoded.samples.data()),decoded.samples.size()*2);
-        std::cout<<file<<" decoded="<<decoded.duration()<<" frames="<<decoded.samples.size()/2<<std::endl;
+    assert(counter.seconds(44100, RhythmPositionUnit::frames, 44100, 2) == 1);
+    assert(counter.seconds(1000, RhythmPositionUnit::milliseconds, 44100, 2) == 1);
+    assert(counter.seconds(1100, RhythmPositionUnit::milliseconds, 44100, 2) == 1.1);
+    for (const auto &file :
+         {"kulakovka-active-sport-618585.mp3", "kulakovka-adrenaline-sport-620584.mp3",
+          "kulakovka-gym-motivation-620569.mp3", "kulakovka-retro-music-620580.mp3",
+          "kulakovka-summer-party-620566.mp3", "kulakovka-summertime-620526.mp3",
+          "kulakovka-synthwave-pop-620528.mp3", "kulakovka-upbeat-energetic-rock-614902.mp3",
+          "kulakovka-workout-620537.mp3"})
+    {
+        assert(
+            decode_rhythm_mp3(std::string("../../../gbResources/") + file, decoded, decode_error));
+        assert(decoded.channels == 2 && decoded.sample_rate == 44100);
+        assert(decoded.duration() > 99 && decoded.duration() < 178);
+        std::ofstream raw(std::string(file) + ".pcm", std::ios::binary);
+        raw.write(reinterpret_cast<const char *>(decoded.samples.data()),
+                  decoded.samples.size() * 2);
+        std::cout << file << " decoded=" << decoded.duration()
+                  << " frames=" << decoded.samples.size() / 2 << std::endl;
     }
     bool rejected = false;
     try

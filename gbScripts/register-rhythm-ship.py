@@ -48,6 +48,9 @@ def source(module,files,anchor):
 source('gbDemo',sorted(set((ROOT/'gbDemo/sources').glob('rhythm_*.cpp'))|set((ROOT/'gbDemo/sources').glob('rhythm_*.h'))|set((ROOT/'gbDemo/sources').glob('fake_leaderboard.*'))|set((ROOT/'gbDemo/sources').glob('ces_dance_*.*'))),'island_demo_scene')
 source('gbSound',list((ROOT/'gbSound/sources').glob('rhythm_*.*')),'audio_engine')
 pbx=ROOT/'gbDemo/gbDemo.xcodeproj/project.pbxproj'
+retired=['audioera-stylish-trailer-percussion-622881.mp3','ikoliks-uplifting-action-sport-energetic-rock-619094.mp3','strawberry_candy-sport-intense-metal-fast-and-strong-622134.mp3','rhythm_ship_audioera.json','rhythm_ship_ikoliks.json','rhythm_ship_strawberry.json']
+text=pbx.read_text(encoding='utf-8')
+pbx.write_text(''.join(line for line in text.splitlines(True) if not any('/* '+name in line for name in retired)),encoding='utf-8')
 for p in (ROOT/'gbBundle').rglob('*'):
     if not p.is_file() or 'rhythm_ship' not in p.name:continue
     suffix=p.suffix

@@ -42,6 +42,9 @@ struct rhythm_ship_scene::state
     std::shared_ptr<TerrainEditorUI> inspector;
     std::shared_ptr<RenderDebugController> render_debug;
     std::shared_ptr<ces_dance_crowd_system> crowd;
+    std::shared_ptr<RhythmCrowdChoreography> choreography =
+        std::make_shared<RhythmCrowdChoreography>();
+    std::uint64_t crowd_epoch = std::numeric_limits<std::uint64_t>::max();
     RhythmShipEnvironment environment;
     double last_beat = -10, last_log = -10, last_clock = 0;
     bool last_leader = false;
@@ -211,10 +214,26 @@ void rhythm_ship_scene::create()
             if (auto p = weak.lock())
                 p->inspector->scroll_render_debug(point, delta);
         },
-        [weak](double time) {
+        [weak](RhythmInput input) {
             if (auto p = weak.lock())
                 if (!p->inspector->post_panel_visible())
-                    p->playback->tap(time);
+                    p->playback->input(input);
+        },
+        [weak] {
+            if (auto p = weak.lock())
+                return p->playback->epoch();
+            return std::uint64_t(0);
+        },
+        [weak] {
+            if (auto p = weak.lock())
+                return !p->inspector->post_panel_visible() &&
+                       (p->playback->scoring_active() || p->playback->calibrating());
+            return false;
+        },
+        [weak] {
+            if (auto p = weak.lock())
+                return p->settings->presentation.swipe_threshold;
+            return 24.f;
         });
     context_ = get_transition()->get_input_context();
     get_transition()->get_input_context()->add_listener(input_);
@@ -225,6 +244,13 @@ void rhythm_ship_scene::create()
          resolution](const gb::ces_entity_shared_ptr &, float) {
             s->playback->update();
             double t = s->audio->seconds();
+            if (s->crowd_epoch != s->playback->epoch())
+            {
+                s->crowd_epoch = s->playback->epoch();
+                s->choreography->restart(1337);
+                s->environment.pulses = RhythmStagePulses();
+                s->last_beat = s->last_log = -10;
+            }
             if (t < s->last_clock)
             {
                 s->last_log = s->last_beat = -10;
@@ -250,13 +276,24 @@ void rhythm_ship_scene::create()
                 s->session->update(t, std::max(0.0, s->playback->calibration_offset()));
                 for (const auto &b : s->session->beat_events())
                 {
-                    s->bots->on_beat(b.id);
                     s->last_beat = b.time;
+                    if (b.id % 4 == 0)
+                        s->environment.pulses.trigger(b.time);
                 }
+                s->choreography->update(t, *s->session, s->settings->crowd_count);
+                RhythmInput local;
+                if (s->playback->last_input(local))
+                    s->choreography->local_input(local);
+                for (const auto &result : s->session->resolutions())
+                    s->choreography->local_resolution(result);
+                for (const auto &result : s->choreography->outcomes())
+                    s->bots->on_outcome(result.bot, result.id, result.state.judgement);
             }
             if (s->ui->consume_force_beat())
                 s->last_beat = t;
             s->crowd->set_active_count(s->settings->crowd_count);
+            s->crowd->set_choreography(s->choreography,
+                                       s->settings->presentation.crowd_choreography);
             auto ranks = s->bots->ranking(s->session->score().score);
             const bool leader = ranks[0].local && ranks[0].score > 0;
             if (leader != s->last_leader)
@@ -266,9 +303,15 @@ void rhythm_ship_scene::create()
                               << " score=" << s->session->score().score << std::endl;
                 s->last_leader = leader;
             }
+            const auto dancer = s->choreography->dancer_state(0, t);
+            const auto stage = rhythm_stage_state(
+                dancer.action, t - dancer.start, t - s->last_beat, s->session->score().energy,
+                s->choreography->sync(), s->settings->stage_intensity,
+                s->settings->presentation.stage_directional);
             update_rhythm_ship_effects(s->environment, t, s->last_beat, s->session->score().energy,
                                        s->settings->stage_intensity,
-                                       ranks[0].local && ranks[0].score > 0);
+                                       ranks[0].local && ranks[0].score > 0, stage);
+            s->ui->set_crowd_sync(s->choreography->sync());
             s->ui->update();
             const auto player_clip =
                 camera->get_mat_p() * camera->get_mat_v() * glm::vec4(0, 7.3f, 9, 1);

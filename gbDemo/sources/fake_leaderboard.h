@@ -5,6 +5,7 @@
 #include <vector>
 namespace game
 {
+enum class RhythmJudgement;
 struct RhythmRank
 {
     std::string name;
@@ -18,11 +19,13 @@ class FakeLeaderboard
     std::vector<RhythmRank> bots_;
     std::vector<double> skills_;
     std::uint64_t next_ = 0;
+    std::vector<std::uint64_t> outcomes_;
 
   public:
     explicit FakeLeaderboard(std::uint32_t seed = 1337);
     void restart();
     void on_beat(std::uint64_t);
+    void on_outcome(size_t bot, std::uint64_t event_id, RhythmJudgement);
     std::vector<RhythmRank> ranking(std::uint64_t) const;
     std::uint64_t highest_bot_score() const;
 };

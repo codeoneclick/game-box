@@ -10,9 +10,7 @@ import numpy as np
 ROOT=Path(__file__).resolve().parent.parent
 OUT=ROOT/'gbDemo/output/rhythm-check'
 CONFIG=ROOT/'gbBundle/Configurations/rhythm_ship'
-TRACKS=[('audioera','Audioera - Stylish Trailer Percussion','audioera-stylish-trailer-percussion-622881.mp3',120,.017),
-        ('ikoliks','Ikoliks - Uplifting Action Sport','ikoliks-uplifting-action-sport-energetic-rock-619094.mp3',107,.194),
-        ('strawberry','Strawberry Candy - Sport Intense Metal','strawberry_candy-sport-intense-metal-fast-and-strong-622134.mp3',185,.040)]
+MANIFEST=CONFIG/'rhythm_ship_music.json'
 
 def analyze(pcm,bpm):
     x=pcm.astype(np.float32).mean(axis=1).reshape(-1,4).mean(axis=1)/32768
@@ -37,15 +35,16 @@ def analyze(pcm,bpm):
     return sections
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--write-maps',action='store_true');args=parser.parse_args()
+    parser=argparse.ArgumentParser();parser.add_argument('--write-maps',action='store_true');parser.add_argument('--pcm-dir',type=Path,default=OUT);args=parser.parse_args()
     report=[];catalog=[]
-    for id,title,file,bpm,phase in TRACKS:
-        pcm=np.fromfile(OUT/(file+'.pcm'),dtype='<i2').reshape(-1,2)
+    for entry in json.loads(MANIFEST.read_text())['tracks']:
+        id,title,file,bpm,phase=(entry[k] for k in ['id','title','file','bpm','phase'])
+        pcm=np.fromfile(args.pcm_dir/(file+'.pcm'),dtype='<i2').reshape(-1,2)
         duration=len(pcm)/44100
         sections=analyze(pcm,bpm)
         beats=np.arange(phase,duration,60/bpm).tolist();omitted=[]
         while duration-beats[-1]+beats[0]<=.26:omitted.append(beats.pop())
-        config={'track':id,'audio_file':file,'bpm':bpm,'duration':duration,'offset':0,'beats':beats}
+        config={'track':id,'audio_file':file,'bpm':bpm,'duration':duration,'offset':0,'beats':beats,'choreography':'phrases'}
         map_file=f'rhythm_ship_{id}.json'
         if args.write_maps:(CONFIG/map_file).write_text(json.dumps(config,indent=2)+'\n')
         catalog.append({'title':title,'map':map_file})

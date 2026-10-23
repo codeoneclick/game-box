@@ -8,6 +8,7 @@ namespace game
 {
 struct RhythmShipDebugSettings
 {
+    RhythmPresentationSettings presentation;
     float volume = .65f, stage_intensity = 1;
     int crowd_count = 40;
 };
@@ -25,6 +26,7 @@ class RhythmShipUI
     gb::ces_entity_shared_ptr root() const;
     void update();
     void set_player_position(glm::vec2);
+    void set_crowd_sync(double);
     void toggle_debug();
     void set_overlay_blocked(bool);
     bool contains(glm::ivec2) const;

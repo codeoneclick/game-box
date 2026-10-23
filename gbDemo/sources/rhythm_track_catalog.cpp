@@ -61,6 +61,7 @@ bool prepare_rhythm_track(const RhythmTrackEntry &e, double duration, RhythmTrac
         auto t = e.track;
         t.duration = duration;
         resolve_rhythm_beats(t);
+        resolve_rhythm_events(t);
         out = t;
         error.clear();
         return true;

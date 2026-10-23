@@ -1,4 +1,5 @@
 #include "fake_leaderboard.h"
+#include "rhythm_action.h"
 #include "rhythm_key_action.h"
 #include "rhythm_session.h"
 #include "rhythm_track.h"
@@ -9,15 +10,44 @@
 using namespace game;
 int main()
 {
+    {
+        RhythmTrack typed;
+        typed.duration = 3;
+        typed.beats = {.5, 1, 1.5, 2, 2.5};
+        typed.events = {RhythmEvent(1, RhythmAction::SwipeLeft),
+                        RhythmEvent(1.2, RhythmAction::SwipeRight)};
+        RhythmSession moves(typed);
+        moves.enqueue_input(RhythmInput(1.09, RhythmAction::SwipeRight));
+        moves.update(1.09);
+        assert(moves.last_judgement() == RhythmJudgement::wrong && moves.score().wrong_count == 1);
+        moves.enqueue_input(RhythmInput(1.09, RhythmAction::SwipeLeft));
+        moves.update(1.09);
+        assert(moves.score().judgements == 1);
+        moves.enqueue_input(RhythmInput(1.2, RhythmAction::SwipeRight));
+        moves.update(1.2);
+        assert(moves.score().score == 100 && moves.score().combo == 1);
+        moves.restart();
+        moves.enqueue_input(RhythmInput(1.1, RhythmAction::SwipeRight));
+        moves.update(1.1);
+        assert(moves.last_judgement() ==
+               RhythmJudgement::wrong); // exact tie belongs to earlier event
+        moves.restart();
+        moves.update(1.5);
+        assert(moves.score().miss_count == 2);
+        for (const auto &event : moves.resolutions())
+            assert(!event.has_input);
+    }
     assert(rhythm_key_action(119, false) == RhythmKeyAction::graphics);
     assert(rhythm_key_action(100, true) == RhythmKeyAction::graphics);
     {
-        RhythmTrack delayed; delayed.duration=2;delayed.beats={.5,1};
+        RhythmTrack delayed;
+        delayed.duration = 2;
+        delayed.beats = {.5, 1};
         RhythmSession calibrated(delayed);
-        calibrated.update(.70,.25); // A corrected late tap must not expire early.
+        calibrated.update(.70, .25); // A corrected late tap must not expire early.
         calibrated.enqueue_tap(.5);
-        calibrated.update(.75,.25);
-        assert(calibrated.score().score==100);
+        calibrated.update(.75, .25);
+        assert(calibrated.score().score == 100);
         assert(calibrated.beat_events().empty()); // Visual pulses stay on raw time.
     }
     auto t = default_rhythm_track();

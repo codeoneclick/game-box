@@ -1,16 +1,40 @@
 {
   "tracks": [
     {
-      "title": "Audioera - Stylish Trailer Percussion",
-      "map": "rhythm_ship_audioera.json"
+      "title": "Active Sport",
+      "map": "rhythm_ship_active_sport.json"
     },
     {
-      "title": "Ikoliks - Uplifting Action Sport",
-      "map": "rhythm_ship_ikoliks.json"
+      "title": "Adrenaline Sport",
+      "map": "rhythm_ship_adrenaline_sport.json"
     },
     {
-      "title": "Strawberry Candy - Sport Intense Metal",
-      "map": "rhythm_ship_strawberry.json"
+      "title": "Gym Motivation",
+      "map": "rhythm_ship_gym_motivation.json"
+    },
+    {
+      "title": "Retro Music",
+      "map": "rhythm_ship_retro_music.json"
+    },
+    {
+      "title": "Summer Party",
+      "map": "rhythm_ship_summer_party.json"
+    },
+    {
+      "title": "Summertime",
+      "map": "rhythm_ship_summertime.json"
+    },
+    {
+      "title": "Synthwave Pop",
+      "map": "rhythm_ship_synthwave_pop.json"
+    },
+    {
+      "title": "Upbeat Energetic Rock",
+      "map": "rhythm_ship_upbeat_energetic_rock.json"
+    },
+    {
+      "title": "Workout",
+      "map": "rhythm_ship_workout.json"
     },
     {
       "title": "Metronome / 128 BPM",

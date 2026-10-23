@@ -42,7 +42,10 @@ class rhythm_glow_uniforms final : public gb::ces_shader_uniforms_component::sha
         value_ = m_uniforms["stage_glow"]->get_vec4();
         return &value_;
     }
-    ui32 get_values_size() override { return sizeof(value_); }
+    ui32 get_values_size() override
+    {
+        return sizeof(value_);
+    }
 };
 } // namespace
 gb::mesh_3d_shared_ptr rhythm_upload_mesh(const terrain_mesh_data &data, const std::string &id)
@@ -128,10 +131,9 @@ terrain_mesh_data quad()
     return m;
 }
 } // namespace
-RhythmShipEnvironment
-create_rhythm_ship_environment(const gb::scene_fabricator_shared_ptr &fab,
-                               const gb::ces_entity_shared_ptr &root,
-                               const gb::game_transition_shared_ptr &transition)
+RhythmShipEnvironment create_rhythm_ship_environment(
+    const gb::scene_fabricator_shared_ptr &fab, const gb::ces_entity_shared_ptr &root,
+    const gb::game_transition_shared_ptr &transition)
 {
     RhythmShipEnvironment e;
     ocean_settings settings;
@@ -175,8 +177,7 @@ create_rhythm_ship_environment(const gb::scene_fabricator_shared_ptr &fab,
     }
     auto water_config = std::static_pointer_cast<gb::shape_3d_configuration>(
         fab->get_configuration_accessor()->get_shape_3d_configuration("ocean.xml"));
-    auto add_water = [&](const terrain_mesh_data &data, const std::string &id, bool horizon)
-    {
+    auto add_water = [&](const terrain_mesh_data &data, const std::string &id, bool horizon) {
         auto water = gb::ces_entity::construct<gb::shape_3d>();
         water->tag = id;
         water->get_component<gb::ces_geometry_3d_component>()->set_mesh(
@@ -293,6 +294,18 @@ create_rhythm_ship_environment(const gb::scene_fabricator_shared_ptr &fab,
     }
     e.ring = rhythm_shape(fab, root, ring, "rhythm.you.ring", "rhythm_ship_solid.xml");
     e.ring->position = glm::vec3(0, 3.57f, 9);
+    for (size_t i = 0; i < e.floor_pulses.size(); ++i)
+    {
+        auto pulse_mesh = ring;
+        for (auto &v : pulse_mesh.vertices)
+            v.color = {{38, 210, 255, 255}};
+        e.floor_pulses[i] =
+            rhythm_shape(fab, root, pulse_mesh, "rhythm.floor.pulse." + std::to_string(i),
+                         "rhythm_ship_solid.xml");
+        e.floor_pulses[i]->position = glm::vec3(0, 3.59f, -1);
+        e.floor_pulses[i]->visible = false;
+        e.floor_pulses[i]->visible_in_next_frame = false;
+    }
     terrain_mesh_data crown;
     box(crown, {0, 0, 0}, {1.5f, .25f, .3f}, {255, 209, 45, 255});
     for (int i = -1; i <= 1; ++i)
@@ -303,14 +316,15 @@ create_rhythm_ship_environment(const gb::scene_fabricator_shared_ptr &fab,
     return e;
 }
 void update_rhythm_ship_effects(RhythmShipEnvironment &e, double t, double last, double energy,
-                                float intensity, bool leader)
+                                float intensity, bool leader, const RhythmStageFrame &frame)
 {
     float p = static_cast<float>(std::exp(-std::max(0., t - last) * 9));
     for (auto s : e.speakers)
-        s->scale = glm::vec3(1 + .05f * p * intensity);
+        s->scale = glm::vec3(1 + (.05f * p + .08f * frame.speaker) * intensity);
     for (size_t i = 0; i < e.panels.size(); ++i)
     {
-        e.panels[i]->scale = glm::vec3(1, .65f + (.25f + energy * .5f) * p * intensity, 1);
+        e.panels[i]->scale =
+            glm::vec3(1, (.65f + (.25f + energy * .5f) * p * intensity) * frame.vertical, 1);
         auto glow = e.panels[i]->get_component<gb::ces_shader_uniforms_component>()->get_uniforms(
             gb::ces_shader_uniforms_component::e_shader_uniform_mode::e_fragment, "rhythm.glow", 0);
         glow->set(glm::vec4(intensity * (.1f + float(energy) * .6f + p * .4f +
@@ -328,7 +342,26 @@ void update_rhythm_ship_effects(RhythmShipEnvironment &e, double t, double last,
             ->get_component<gb::ces_shader_uniforms_component>()
             ->get_uniforms(gb::ces_shader_uniforms_component::e_shader_uniform_mode::e_fragment,
                            "rhythm.glow", 0)
-            ->set(glm::vec4(intensity * (float(energy) + p * .5f), 0, 0, 0), "stage_glow");
+            ->set(glm::vec4(frame.glow * (1 + .35f * frame.sweep * (i < 4 ? -1.f : 1.f)), 0, 0, 0),
+                  "stage_glow");
+        e.strips[i]->rotation =
+            glm::vec3(0, .1f * std::sin(float(t) * .8f + i) + frame.sweep * .3f, 0);
+    }
+    for (size_t i = 0; i < e.floor_pulses.size(); ++i)
+    {
+        const auto pulse = e.pulses.sample(i, t);
+        auto shape = e.floor_pulses[i];
+        shape->visible = pulse.active;
+        shape->visible_in_next_frame = pulse.active;
+        if (pulse.active)
+        {
+            shape->scale =
+                glm::vec3(pulse.scale * frame.floor_scale, 1, pulse.scale * frame.floor_scale);
+            shape->get_component<gb::ces_shader_uniforms_component>()
+                ->get_uniforms(gb::ces_shader_uniforms_component::e_shader_uniform_mode::e_fragment,
+                               "rhythm.glow", 0)
+                ->set(glm::vec4(frame.glow * pulse.opacity, 0, 0, 0), "stage_glow");
+        }
     }
     e.ring->scale = glm::vec3(1 + (leader ? .2f : .07f) * p);
     e.crown->visible = leader;

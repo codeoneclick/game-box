@@ -27,16 +27,35 @@ RhythmShipPlayback::RhythmShipPlayback(std::shared_ptr<RhythmSession> s,
 void RhythmShipPlayback::publish(const RhythmTrack &track,
                                  std::shared_ptr<const gb::al::RhythmPCM> pcm)
 {
+    auto candidate = track;
+    if (candidate.generated_choreography)
+    {
+        candidate.events.clear();
+        std::string error;
+        RhythmTrack generated;
+        if (!generate_rhythm_choreography(candidate, choreography_, generated, error))
+        {
+            notice_ = error;
+            return;
+        }
+        source_track_ = candidate;
+        candidate = std::move(generated);
+    }
+    else
+        source_track_ = candidate;
     const auto windows = session_->windows();
+    RhythmSession prepared(candidate);
+    prepared.set_windows(windows);
     audio_->stop();
-    *session_ = RhythmSession(track);
-    session_->set_windows(windows);
+    *session_ = std::move(prepared);
     bots_->restart();
     bool started =
         pcm ? audio_->start_pcm(pcm, "MP3 / " + std::to_string(pcm->sample_rate) + " Hz / " +
                                          std::to_string(pcm->channels) + " ch / sample clock")
             : audio_->start({track.duration, resolve_rhythm_beats(track), ""});
     loading_ = false;
+    ++epoch_;
+    has_input_ = false;
     if (!started)
         status_ = "Audio start failed: " + audio_->diagnostic();
     std::cout << "Rhythm restart bpm=" << track.bpm << " id=" << track.id
@@ -44,6 +63,8 @@ void RhythmShipPlayback::publish(const RhythmTrack &track,
 }
 void RhythmShipPlayback::select(size_t index)
 {
+    ++epoch_;
+    has_input_ = false;
     notice_.clear();
     calibrating_ = false;
     generation_ = 0;
@@ -105,7 +126,9 @@ void RhythmShipPlayback::update()
             status_ = "Metronome fallback";
             notice_ = "Cannot load selected MP3: " + error;
             std::cerr << "Rhythm fallback: " << error << std::endl;
-            publish(default_rhythm_track(), nullptr);
+            auto fallback = default_rhythm_track();
+            fallback.generated_choreography = true;
+            publish(fallback, nullptr);
         }
     }
     if (calibrating_ && audio_->seconds() > 14)
@@ -113,18 +136,61 @@ void RhythmShipPlayback::update()
 }
 void RhythmShipPlayback::tap(double raw)
 {
+    input(RhythmInput(raw, RhythmAction::Tap));
+}
+void RhythmShipPlayback::input(RhythmInput value)
+{
+    const double raw = value.time;
     if (calibrating_)
     {
+        if (value.action != RhythmAction::Tap)
+            return;
         calibration_.tap(raw);
         if (calibration_.progress() == 24)
             finish_calibration();
         return;
     }
     if (scoring_active())
-        session_->enqueue_tap(raw - offset_);
+    {
+        last_input_ = value;
+        has_input_ = true;
+        value.time -= offset_;
+        session_->enqueue_input(value);
+    }
+}
+bool RhythmShipPlayback::apply_choreography(const RhythmChoreographySettings &settings,
+                                            bool force_authored)
+{
+    auto source = loading_ ? catalog_[selected_].track : source_track_;
+    if (source.id.empty())
+        source = catalog_[selected_].track;
+    if (!source.generated_choreography && !source.events.empty() && !force_authored)
+    {
+        notice_ = "Authored events: use Generate to replace";
+        return false;
+    }
+    source.events.clear();
+    source.generated_choreography = true;
+    RhythmTrack generated;
+    std::string error;
+    if (!generate_rhythm_choreography(source, settings, generated, error))
+    {
+        notice_ = error;
+        return false;
+    }
+    choreography_ = settings;
+    notice_.clear();
+    if (force_authored)
+        catalog_[selected_].track = source;
+    if (loading_ || calibrating_)
+        return true;
+    publish(source, active_pcm_);
+    return true;
 }
 void RhythmShipPlayback::begin_calibration()
 {
+    ++epoch_;
+    has_input_ = false;
     generation_ = 0;
     loading_ = false;
     calibrating_ = true;

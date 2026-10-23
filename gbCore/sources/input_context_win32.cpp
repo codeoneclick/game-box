@@ -48,6 +48,7 @@ namespace gb
         glm::ivec2 current_touch_point(static_cast<short>(LOWORD(param_l)),
                                       static_cast<short>(HIWORD(param_l)));
         const auto cancel_drag = [&]() {
+            input_context->gr_cancelled(e_input_source_mouse_left, 0);
             const auto point = input_context->get_previous_touch_point();
             if (input_context->m_is_left_tapped)
                 input_context->gr_released(point, input_context->get_touch_area_size(), e_input_source_mouse_left, 0);
@@ -173,7 +174,7 @@ namespace gb
         case WM_KILLFOCUS:
         {
             cancel_drag();
-            if(message==WM_KILLFOCUS){input_context->key_up(VK_SHIFT);input_context->key_up(VK_CONTROL);input_context->key_up(VK_MENU);}
+            if(message==WM_KILLFOCUS){input_context->input_focus_lost();input_context->key_up(VK_SHIFT);input_context->key_up(VK_CONTROL);input_context->key_up(VK_MENU);}
             if (message != WM_CAPTURECHANGED && GetCapture() == hwnd) ReleaseCapture();
             return 0;
         }

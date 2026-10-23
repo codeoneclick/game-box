@@ -63,6 +63,14 @@ $resourcesRoot = Join-Path $workspaceRoot "gbResources"
 $sharedResourcesRoot = Join-Path $workspaceRoot "gbWin32SharedResources"
 $resourceExtensions = @(".xml", ".json", ".vert", ".frag", ".ani", ".png", ".gb3dmesh", ".gb3danim", ".fbx", ".ttf", ".otf", ".tmx", ".tsx", ".mp3", ".wav", ".fcl")
 New-Item -ItemType Directory -Path $sharedResourcesRoot -Force | Out-Null
+$retiredRhythmMusic = @('audioera-stylish-trailer-percussion-622881.mp3','ikoliks-uplifting-action-sport-energetic-rock-619094.mp3','strawberry_candy-sport-intense-metal-fast-and-strong-622134.mp3','rhythm_ship_audioera.json','rhythm_ship_ikoliks.json','rhythm_ship_strawberry.json')
+foreach($retiredName in $retiredRhythmMusic) {
+    $retiredTarget=[IO.Path]::GetFullPath((Join-Path $sharedResourcesRoot $retiredName))
+    if([IO.Path]::GetDirectoryName($retiredTarget) -ne [IO.Path]::GetFullPath($sharedResourcesRoot)){throw 'Invalid retired asset target'}
+    if(-not (Test-Path -LiteralPath (Join-Path $resourcesRoot $retiredName)) -and
+       -not (Get-ChildItem -LiteralPath $bundleRoot -Recurse -File -Filter $retiredName) -and
+       (Test-Path -LiteralPath $retiredTarget)) {Remove-Item -LiteralPath $retiredTarget}
+}
 foreach ($resourceRoot in @($bundleRoot, $resourcesRoot)) {
     Get-ChildItem -LiteralPath $resourceRoot -Recurse -File | Where-Object {
         $resourceExtensions -contains $_.Extension.ToLowerInvariant()

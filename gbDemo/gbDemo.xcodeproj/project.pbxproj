@@ -1844,6 +1844,13 @@
 		F30077D91F31D5AB009F2EDF /* gameplay_ui_fabricator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30077D51F31D5AB009F2EDF /* gameplay_ui_fabricator.cpp */; };
 		8638B3B979F79844E57A53E3 /* island_demo_transition.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 495B23FBF83B7F62D692ED84 /* island_demo_transition.cpp */; };
 		3BD65F14146803E94800A595 /* island_demo_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5897808789A96CB284D27F2 /* island_demo_scene.cpp */; };
+		C52D5D7484A8E66CBD8367D8 /* rhythm_stage_state.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AB7310F62CE1CE6173C90D3 /* rhythm_stage_state.cpp */; settings = {COMPILER_FLAGS = "-fexceptions -frtti"; }; };
+		731E14E3332BF68A32E64B24 /* rhythm_prompt_view.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6228F9D9686A74F941206448 /* rhythm_prompt_view.cpp */; settings = {COMPILER_FLAGS = "-fexceptions -frtti"; }; };
+		92345DB2D3C6C04B0371AADC /* rhythm_prompt_model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4D119E4F9BC64B99EC79F7AF /* rhythm_prompt_model.cpp */; settings = {COMPILER_FLAGS = "-fexceptions -frtti"; }; };
+		9F2A042AC69ECC8D5A6C4DA9 /* rhythm_dance_pose.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E16DF8EBC6FA22FEA2859B2 /* rhythm_dance_pose.cpp */; settings = {COMPILER_FLAGS = "-fexceptions -frtti"; }; };
+		13E30950927FF17183724C43 /* rhythm_crowd_choreography.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2813621C82419E3D3FF0D5AD /* rhythm_crowd_choreography.cpp */; settings = {COMPILER_FLAGS = "-fexceptions -frtti"; }; };
+		3EDBD0B061B0DB5725C3A4B0 /* rhythm_gesture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8D0BB64E9E4100178E3F5D /* rhythm_gesture.cpp */; settings = {COMPILER_FLAGS = "-fexceptions -frtti"; }; };
+		01A5AF7C108F7DEBF89FB0BE /* rhythm_choreography.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B2E6FA7EB745A7074A0F801C /* rhythm_choreography.cpp */; settings = {COMPILER_FLAGS = "-fexceptions -frtti"; }; };
 		A6BE771938585FCF3542482F /* rhythm_track_loader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56808D1550E6E0F1B7900213 /* rhythm_track_loader.cpp */; settings = {COMPILER_FLAGS = "-fexceptions -frtti"; }; };
 		49B0B216C7A65E6367B1B43A /* rhythm_track_catalog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9422521B4671A3C45B9FEA7A /* rhythm_track_catalog.cpp */; settings = {COMPILER_FLAGS = "-fexceptions -frtti"; }; };
 		EBF9FBCD821674EFF05802DC /* rhythm_ship_playback.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23D02AE141E047AD7972FBCB /* rhythm_ship_playback.cpp */; settings = {COMPILER_FLAGS = "-fexceptions -frtti"; }; };
@@ -1872,6 +1879,13 @@
 		39BA01A8EE4C4B54BA4E1C68 /* terrain_editor_state.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B63B241D02AE4F93BEACF5A2 /* terrain_editor_state.cpp */; };
 		9F323B2BF9A326883CB952F5 /* island_demo_transition.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 495B23FBF83B7F62D692ED84 /* island_demo_transition.cpp */; };
 		DB3AEB3B8BEEA676FBD158B8 /* island_demo_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5897808789A96CB284D27F2 /* island_demo_scene.cpp */; };
+		141B7B0E7D0EF83613D34926 /* rhythm_stage_state.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AB7310F62CE1CE6173C90D3 /* rhythm_stage_state.cpp */; settings = {COMPILER_FLAGS = "-fexceptions -frtti"; }; };
+		7987D66BA9D97150DCE42EDE /* rhythm_prompt_view.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6228F9D9686A74F941206448 /* rhythm_prompt_view.cpp */; settings = {COMPILER_FLAGS = "-fexceptions -frtti"; }; };
+		4A002273B7C87F6AA3FEA23D /* rhythm_prompt_model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4D119E4F9BC64B99EC79F7AF /* rhythm_prompt_model.cpp */; settings = {COMPILER_FLAGS = "-fexceptions -frtti"; }; };
+		8E04D2015F267230BF4F3067 /* rhythm_dance_pose.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E16DF8EBC6FA22FEA2859B2 /* rhythm_dance_pose.cpp */; settings = {COMPILER_FLAGS = "-fexceptions -frtti"; }; };
+		DFC3739A097B2140DF238FCA /* rhythm_crowd_choreography.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2813621C82419E3D3FF0D5AD /* rhythm_crowd_choreography.cpp */; settings = {COMPILER_FLAGS = "-fexceptions -frtti"; }; };
+		446FABB1D0EACC34A556E393 /* rhythm_gesture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8D0BB64E9E4100178E3F5D /* rhythm_gesture.cpp */; settings = {COMPILER_FLAGS = "-fexceptions -frtti"; }; };
+		7B4A70E45B77569A66D56E3F /* rhythm_choreography.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B2E6FA7EB745A7074A0F801C /* rhythm_choreography.cpp */; settings = {COMPILER_FLAGS = "-fexceptions -frtti"; }; };
 		C341451451B2973E1310EDE2 /* rhythm_track_loader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56808D1550E6E0F1B7900213 /* rhythm_track_loader.cpp */; settings = {COMPILER_FLAGS = "-fexceptions -frtti"; }; };
 		3E3E2A08330EC36471E90BC4 /* rhythm_track_catalog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9422521B4671A3C45B9FEA7A /* rhythm_track_catalog.cpp */; settings = {COMPILER_FLAGS = "-fexceptions -frtti"; }; };
 		C1E56584AB5417FE2D941673 /* rhythm_ship_playback.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23D02AE141E047AD7972FBCB /* rhythm_ship_playback.cpp */; settings = {COMPILER_FLAGS = "-fexceptions -frtti"; }; };
@@ -1965,6 +1979,13 @@
 		F36DF2341E953C5600EAE49B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 21B4033B1B7A09FD003382AB /* main.m */; };
 		841E3E1FA27165DA0DAFD154 /* island_demo_transition.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 495B23FBF83B7F62D692ED84 /* island_demo_transition.cpp */; };
 		765A97409E0F787A56310C2B /* island_demo_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5897808789A96CB284D27F2 /* island_demo_scene.cpp */; };
+		C9DFB24D07687ECD21C250CA /* rhythm_stage_state.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AB7310F62CE1CE6173C90D3 /* rhythm_stage_state.cpp */; settings = {COMPILER_FLAGS = "-fexceptions -frtti"; }; };
+		F59A1FEC63D1B2F41B164C5F /* rhythm_prompt_view.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6228F9D9686A74F941206448 /* rhythm_prompt_view.cpp */; settings = {COMPILER_FLAGS = "-fexceptions -frtti"; }; };
+		98FD741A450B2EBFFC8F4695 /* rhythm_prompt_model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4D119E4F9BC64B99EC79F7AF /* rhythm_prompt_model.cpp */; settings = {COMPILER_FLAGS = "-fexceptions -frtti"; }; };
+		610C10CE40D491BE3A14EC9F /* rhythm_dance_pose.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E16DF8EBC6FA22FEA2859B2 /* rhythm_dance_pose.cpp */; settings = {COMPILER_FLAGS = "-fexceptions -frtti"; }; };
+		829C1BAA4F8A022D897B8197 /* rhythm_crowd_choreography.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2813621C82419E3D3FF0D5AD /* rhythm_crowd_choreography.cpp */; settings = {COMPILER_FLAGS = "-fexceptions -frtti"; }; };
+		DD71F8BFBF6072DC85FC459D /* rhythm_gesture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8D0BB64E9E4100178E3F5D /* rhythm_gesture.cpp */; settings = {COMPILER_FLAGS = "-fexceptions -frtti"; }; };
+		E30ADCFDA191B47F6EB4A985 /* rhythm_choreography.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B2E6FA7EB745A7074A0F801C /* rhythm_choreography.cpp */; settings = {COMPILER_FLAGS = "-fexceptions -frtti"; }; };
 		13EE41BF10A9F45F50E84CDF /* rhythm_track_loader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56808D1550E6E0F1B7900213 /* rhythm_track_loader.cpp */; settings = {COMPILER_FLAGS = "-fexceptions -frtti"; }; };
 		6B768D5F2D8B3B5020BAC4AB /* rhythm_track_catalog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9422521B4671A3C45B9FEA7A /* rhythm_track_catalog.cpp */; settings = {COMPILER_FLAGS = "-fexceptions -frtti"; }; };
 		B5375ECC02A2533ED0F0AC87 /* rhythm_ship_playback.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23D02AE141E047AD7972FBCB /* rhythm_ship_playback.cpp */; settings = {COMPILER_FLAGS = "-fexceptions -frtti"; }; };
@@ -2118,10 +2139,17 @@
 		5D5CA43DD412DDEEF1E9D4D8 /* island_terrain.xml in Resources */ = {isa = PBXBuildFile; fileRef = B03BBCAEAF0EADAC4962DAA0 /* island_terrain.xml */; };
 		811844F0FF0C444788CF330D /* sky.island.cubemap.xml in Resources */ = {isa = PBXBuildFile; fileRef = C243D3CD6E24459BB9085876 /* sky.island.cubemap.xml */; };
 		D128960F4B2E4730A0D52ACD /* island_sky.xml in Resources */ = {isa = PBXBuildFile; fileRef = 882034754D674A9D95ACCF42 /* island_sky.xml */; };
-		785B1EF2F3D0B3233DE86E90 /* rhythm_ship_strawberry.json in Resources */ = {isa = PBXBuildFile; fileRef = EA45C0B522C3E1DF3274AD79 /* rhythm_ship_strawberry.json */; };
-		5C7C8AB8CA0BFB83A2E97A69 /* rhythm_ship_ikoliks.json in Resources */ = {isa = PBXBuildFile; fileRef = 19AA53C7D8A774FC13BB3828 /* rhythm_ship_ikoliks.json */; };
+		03993048D5634C31406DF533 /* rhythm_ship_workout.json in Resources */ = {isa = PBXBuildFile; fileRef = B875F189B2C1ECAFFF1843C1 /* rhythm_ship_workout.json */; };
+		A6887B2DD24972225F8FE6F0 /* rhythm_ship_upbeat_energetic_rock.json in Resources */ = {isa = PBXBuildFile; fileRef = 8CC5FE98BAB65F006F097964 /* rhythm_ship_upbeat_energetic_rock.json */; };
+		78FB6B3F014FFB67BDF85007 /* rhythm_ship_synthwave_pop.json in Resources */ = {isa = PBXBuildFile; fileRef = 3CBB60AC67AEA1DD969CEB40 /* rhythm_ship_synthwave_pop.json */; };
+		8E2ABBE33A49B1547B31A163 /* rhythm_ship_summer_party.json in Resources */ = {isa = PBXBuildFile; fileRef = 6DF08859385CCE21EA7F488C /* rhythm_ship_summer_party.json */; };
+		EAC8E90B36145CBDBAB8FB02 /* rhythm_ship_summertime.json in Resources */ = {isa = PBXBuildFile; fileRef = E6ECEEF4B629FC64F01FAD1C /* rhythm_ship_summertime.json */; };
+		AF23BD3F2AA10E18B1C14B79 /* rhythm_ship_retro_music.json in Resources */ = {isa = PBXBuildFile; fileRef = 4EE4C32CB6D951B8E554847D /* rhythm_ship_retro_music.json */; };
+		20970E09D48B292A6486FEDB /* rhythm_ship_music.json in Resources */ = {isa = PBXBuildFile; fileRef = 796B1CD0292AFE90073D233E /* rhythm_ship_music.json */; };
+		938C3937BE244AB4543569CE /* rhythm_ship_gym_motivation.json in Resources */ = {isa = PBXBuildFile; fileRef = 0CF9753C739839A718458E48 /* rhythm_ship_gym_motivation.json */; };
+		238F2C508BDCD38B7C160944 /* rhythm_ship_adrenaline_sport.json in Resources */ = {isa = PBXBuildFile; fileRef = 9A5E061F3B0A9B4772A9C761 /* rhythm_ship_adrenaline_sport.json */; };
+		CCBA43A8AB355BDA61A6057E /* rhythm_ship_active_sport.json in Resources */ = {isa = PBXBuildFile; fileRef = 4BEACB28F50AF3E85DA5ADD9 /* rhythm_ship_active_sport.json */; };
 		CC4C7D214E3C5480D652397B /* rhythm_ship_catalog.json in Resources */ = {isa = PBXBuildFile; fileRef = D6721F6C79BB8C171F521726 /* rhythm_ship_catalog.json */; };
-		5E4CDD06F2187CADF3649EB2 /* rhythm_ship_audioera.json in Resources */ = {isa = PBXBuildFile; fileRef = D951411C3EB0B55594734810 /* rhythm_ship_audioera.json */; };
 		C87C353F103B230B46BDA7D2 /* material.rhythm_ship_solid.xml in Resources */ = {isa = PBXBuildFile; fileRef = 81BFCBBA86C9107314431147 /* material.rhythm_ship_solid.xml */; };
 		CCF01A7280C58240E15714A7 /* material.rhythm_ship_character.xml in Resources */ = {isa = PBXBuildFile; fileRef = F12154223DE761F57A1DAC33 /* material.rhythm_ship_character.xml */; };
 		58450F54AC07A7CEA1ED62EB /* transition.rhythm_ship.xml in Resources */ = {isa = PBXBuildFile; fileRef = 73F390CEE695C1FBB3DF0AE3 /* transition.rhythm_ship.xml */; };
@@ -2130,19 +2158,32 @@
 		BEA13A18E4F8E0836388B443 /* rhythm_ship_character.xml in Resources */ = {isa = PBXBuildFile; fileRef = 091909D7FE7A04B2C2395AFC /* rhythm_ship_character.xml */; };
 		7F9DB47110F42301AF303862 /* rhythm_ship_characters.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BFAC996D03F675D927DFED5 /* rhythm_ship_characters.png */; };
 		18574B56CE917799D9BEBDEF /* rhythm_ship_metronome.wav in Resources */ = {isa = PBXBuildFile; fileRef = F8C3AEBD01FA88A3FAE198B3 /* rhythm_ship_metronome.wav */; };
-		BA2818C85729B5A17C41AB81 /* strawberry_candy-sport-intense-metal-fast-and-strong-622134.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 18BA51C456A7B2565C50D080 /* strawberry_candy-sport-intense-metal-fast-and-strong-622134.mp3 */; };
-		003BBAD1581AF5A6B2B68776 /* ikoliks-uplifting-action-sport-energetic-rock-619094.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B365FC90B3463A35C1DD00F1 /* ikoliks-uplifting-action-sport-energetic-rock-619094.mp3 */; };
-		B3C28E5797D7F54F343C3E79 /* audioera-stylish-trailer-percussion-622881.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C47DBCC88EDBD5660F932975 /* audioera-stylish-trailer-percussion-622881.mp3 */; };
+		F944A0EA0D3F6BB3D9817DDC /* kulakovka-workout-620537.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A8277BCA6DAEEDF1B21BBC77 /* kulakovka-workout-620537.mp3 */; };
+		113C9A38CAC7EF6D0B66905F /* kulakovka-upbeat-energetic-rock-614902.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 414F694980FB6E21853B5793 /* kulakovka-upbeat-energetic-rock-614902.mp3 */; };
+		515CD1AAA734C828BBD2A001 /* kulakovka-synthwave-pop-620528.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2437E03ADBA3B7B692F595E4 /* kulakovka-synthwave-pop-620528.mp3 */; };
+		339E398EEFA7AC8012EF719A /* kulakovka-summertime-620526.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C0DFA9C3A942F8CB7FCE2217 /* kulakovka-summertime-620526.mp3 */; };
+		51DA06EC83CDFEEF4DF45B4D /* kulakovka-summer-party-620566.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E45D5559C1EABD87197299AC /* kulakovka-summer-party-620566.mp3 */; };
+		B6E7378210A4F0BB58B91D88 /* kulakovka-retro-music-620580.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3AA0490BCEE091C111346063 /* kulakovka-retro-music-620580.mp3 */; };
+		50E74E4684BD03957C933B60 /* kulakovka-gym-motivation-620569.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9C696599F4279C0275465EA3 /* kulakovka-gym-motivation-620569.mp3 */; };
+		D36867F615FAE4BA81C467A4 /* kulakovka-adrenaline-sport-620584.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FE6E83158132E71D2F4A91E9 /* kulakovka-adrenaline-sport-620584.mp3 */; };
+		8223649EE39CC69091298907 /* kulakovka-active-sport-618585.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F92E1C629A4212D33695320B /* kulakovka-active-sport-618585.mp3 */; };
 		47730ED7CB114787A22DB0B1 /* grass_interaction.xml in Resources */ = {isa = PBXBuildFile; fileRef = 30C9129D41F64D179DA8B002 /* grass_interaction.xml */; };
 		E92AA30E67FA46FAA12BAA6A /* blob_shadow.xml in Resources */ = {isa = PBXBuildFile; fileRef = C073847474E54F2BAE2729DB /* blob_shadow.xml */; };
 		999F44B6691B49518D591A45 /* editor_brush.xml in Resources */ = {isa = PBXBuildFile; fileRef = 02679E7269A843299EE7EDC2 /* editor_brush.xml */; };
 		5B3D06B0F005F0501B8D6216 /* island_terrain.xml in Resources */ = {isa = PBXBuildFile; fileRef = B03BBCAEAF0EADAC4962DAA0 /* island_terrain.xml */; };
 		4103E36FB3E546E2B653A8B9 /* sky.island.cubemap.xml in Resources */ = {isa = PBXBuildFile; fileRef = C243D3CD6E24459BB9085876 /* sky.island.cubemap.xml */; };
 		8C699CDBD90048ABB6EBC3E2 /* island_sky.xml in Resources */ = {isa = PBXBuildFile; fileRef = 882034754D674A9D95ACCF42 /* island_sky.xml */; };
-		F3C1AC9470CA4E3434A8D244 /* rhythm_ship_strawberry.json in Resources */ = {isa = PBXBuildFile; fileRef = EA45C0B522C3E1DF3274AD79 /* rhythm_ship_strawberry.json */; };
-		5684D7812DF8AE70C369D9C7 /* rhythm_ship_ikoliks.json in Resources */ = {isa = PBXBuildFile; fileRef = 19AA53C7D8A774FC13BB3828 /* rhythm_ship_ikoliks.json */; };
+		B7ED24128259627883918F48 /* rhythm_ship_workout.json in Resources */ = {isa = PBXBuildFile; fileRef = B875F189B2C1ECAFFF1843C1 /* rhythm_ship_workout.json */; };
+		31B40544498E4588336E3714 /* rhythm_ship_upbeat_energetic_rock.json in Resources */ = {isa = PBXBuildFile; fileRef = 8CC5FE98BAB65F006F097964 /* rhythm_ship_upbeat_energetic_rock.json */; };
+		7B16AD2E52BCD1FA53DCE8F2 /* rhythm_ship_synthwave_pop.json in Resources */ = {isa = PBXBuildFile; fileRef = 3CBB60AC67AEA1DD969CEB40 /* rhythm_ship_synthwave_pop.json */; };
+		DC4024FCAA5CDDA2D79ACF22 /* rhythm_ship_summer_party.json in Resources */ = {isa = PBXBuildFile; fileRef = 6DF08859385CCE21EA7F488C /* rhythm_ship_summer_party.json */; };
+		345557BF953BD24E00F25805 /* rhythm_ship_summertime.json in Resources */ = {isa = PBXBuildFile; fileRef = E6ECEEF4B629FC64F01FAD1C /* rhythm_ship_summertime.json */; };
+		EBF909328AECC4C5BEF3B14B /* rhythm_ship_retro_music.json in Resources */ = {isa = PBXBuildFile; fileRef = 4EE4C32CB6D951B8E554847D /* rhythm_ship_retro_music.json */; };
+		398E7EDE32622EE8BE3D9E1D /* rhythm_ship_music.json in Resources */ = {isa = PBXBuildFile; fileRef = 796B1CD0292AFE90073D233E /* rhythm_ship_music.json */; };
+		F23E032D0030C0639EF0EE92 /* rhythm_ship_gym_motivation.json in Resources */ = {isa = PBXBuildFile; fileRef = 0CF9753C739839A718458E48 /* rhythm_ship_gym_motivation.json */; };
+		D176C56A4DE165D58C2DA62F /* rhythm_ship_adrenaline_sport.json in Resources */ = {isa = PBXBuildFile; fileRef = 9A5E061F3B0A9B4772A9C761 /* rhythm_ship_adrenaline_sport.json */; };
+		105C324EF00740F7AC1FA3B6 /* rhythm_ship_active_sport.json in Resources */ = {isa = PBXBuildFile; fileRef = 4BEACB28F50AF3E85DA5ADD9 /* rhythm_ship_active_sport.json */; };
 		C7277CCD34D975A4D33728E4 /* rhythm_ship_catalog.json in Resources */ = {isa = PBXBuildFile; fileRef = D6721F6C79BB8C171F521726 /* rhythm_ship_catalog.json */; };
-		0A07C9E3A4C2E1A2D20D6933 /* rhythm_ship_audioera.json in Resources */ = {isa = PBXBuildFile; fileRef = D951411C3EB0B55594734810 /* rhythm_ship_audioera.json */; };
 		9E50EE970A86147B6FAE4AAB /* material.rhythm_ship_solid.xml in Resources */ = {isa = PBXBuildFile; fileRef = 81BFCBBA86C9107314431147 /* material.rhythm_ship_solid.xml */; };
 		D033C92BE30328D07774E5EB /* material.rhythm_ship_character.xml in Resources */ = {isa = PBXBuildFile; fileRef = F12154223DE761F57A1DAC33 /* material.rhythm_ship_character.xml */; };
 		3405BE2C2D903141D4FA96B9 /* transition.rhythm_ship.xml in Resources */ = {isa = PBXBuildFile; fileRef = 73F390CEE695C1FBB3DF0AE3 /* transition.rhythm_ship.xml */; };
@@ -2151,19 +2192,32 @@
 		904C272306E9C8868BF81552 /* rhythm_ship_character.xml in Resources */ = {isa = PBXBuildFile; fileRef = 091909D7FE7A04B2C2395AFC /* rhythm_ship_character.xml */; };
 		65F1850EC7543B947883D200 /* rhythm_ship_characters.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BFAC996D03F675D927DFED5 /* rhythm_ship_characters.png */; };
 		A1A525B06731AA2DB72A4A17 /* rhythm_ship_metronome.wav in Resources */ = {isa = PBXBuildFile; fileRef = F8C3AEBD01FA88A3FAE198B3 /* rhythm_ship_metronome.wav */; };
-		4333ADA77253E9F5EF627A73 /* strawberry_candy-sport-intense-metal-fast-and-strong-622134.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 18BA51C456A7B2565C50D080 /* strawberry_candy-sport-intense-metal-fast-and-strong-622134.mp3 */; };
-		7561D7B87057512A597836ED /* ikoliks-uplifting-action-sport-energetic-rock-619094.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B365FC90B3463A35C1DD00F1 /* ikoliks-uplifting-action-sport-energetic-rock-619094.mp3 */; };
-		369058681C9AF979C030FEE2 /* audioera-stylish-trailer-percussion-622881.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C47DBCC88EDBD5660F932975 /* audioera-stylish-trailer-percussion-622881.mp3 */; };
+		64EE85F841D957AB0EE046F1 /* kulakovka-workout-620537.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A8277BCA6DAEEDF1B21BBC77 /* kulakovka-workout-620537.mp3 */; };
+		6C3D0E9E2FBC9B2F9579918A /* kulakovka-upbeat-energetic-rock-614902.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 414F694980FB6E21853B5793 /* kulakovka-upbeat-energetic-rock-614902.mp3 */; };
+		01BE9755C538980EF5C5547C /* kulakovka-synthwave-pop-620528.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2437E03ADBA3B7B692F595E4 /* kulakovka-synthwave-pop-620528.mp3 */; };
+		03A0C14E04702569E98AAE2F /* kulakovka-summertime-620526.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C0DFA9C3A942F8CB7FCE2217 /* kulakovka-summertime-620526.mp3 */; };
+		810C176E19B16783A8207584 /* kulakovka-summer-party-620566.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E45D5559C1EABD87197299AC /* kulakovka-summer-party-620566.mp3 */; };
+		16391EEBFC7794F1747EEEFF /* kulakovka-retro-music-620580.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3AA0490BCEE091C111346063 /* kulakovka-retro-music-620580.mp3 */; };
+		5D7D7D6C98186E0A8A2C9654 /* kulakovka-gym-motivation-620569.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9C696599F4279C0275465EA3 /* kulakovka-gym-motivation-620569.mp3 */; };
+		4E798E898AED0809BC3AF8E8 /* kulakovka-adrenaline-sport-620584.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FE6E83158132E71D2F4A91E9 /* kulakovka-adrenaline-sport-620584.mp3 */; };
+		5D7CEE1AAD2E722AABD24822 /* kulakovka-active-sport-618585.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F92E1C629A4212D33695320B /* kulakovka-active-sport-618585.mp3 */; };
 		DDD1823051984764868E6448 /* grass_interaction.xml in Resources */ = {isa = PBXBuildFile; fileRef = 30C9129D41F64D179DA8B002 /* grass_interaction.xml */; };
 		F0AAA0EAF175444E8F4D8E76 /* blob_shadow.xml in Resources */ = {isa = PBXBuildFile; fileRef = C073847474E54F2BAE2729DB /* blob_shadow.xml */; };
 		8A3D307EED144B5E8E82B81C /* editor_brush.xml in Resources */ = {isa = PBXBuildFile; fileRef = 02679E7269A843299EE7EDC2 /* editor_brush.xml */; };
 		7797B99E12487F962EA127DE /* island_terrain.xml in Resources */ = {isa = PBXBuildFile; fileRef = B03BBCAEAF0EADAC4962DAA0 /* island_terrain.xml */; };
 		1E8E523C795E455180F795C3 /* sky.island.cubemap.xml in Resources */ = {isa = PBXBuildFile; fileRef = C243D3CD6E24459BB9085876 /* sky.island.cubemap.xml */; };
 		57C0B357E3FD4FBDB9CC6F87 /* island_sky.xml in Resources */ = {isa = PBXBuildFile; fileRef = 882034754D674A9D95ACCF42 /* island_sky.xml */; };
-		68210D7275D5413BD6A4DCA1 /* rhythm_ship_strawberry.json in Resources */ = {isa = PBXBuildFile; fileRef = EA45C0B522C3E1DF3274AD79 /* rhythm_ship_strawberry.json */; };
-		EF82A3EF2BFBEB006345FC40 /* rhythm_ship_ikoliks.json in Resources */ = {isa = PBXBuildFile; fileRef = 19AA53C7D8A774FC13BB3828 /* rhythm_ship_ikoliks.json */; };
+		12E9651819AB478D6E1B0593 /* rhythm_ship_workout.json in Resources */ = {isa = PBXBuildFile; fileRef = B875F189B2C1ECAFFF1843C1 /* rhythm_ship_workout.json */; };
+		AAFEDFB4F5410D0FEBA00A50 /* rhythm_ship_upbeat_energetic_rock.json in Resources */ = {isa = PBXBuildFile; fileRef = 8CC5FE98BAB65F006F097964 /* rhythm_ship_upbeat_energetic_rock.json */; };
+		EEE0A739A729C03ED9D40D48 /* rhythm_ship_synthwave_pop.json in Resources */ = {isa = PBXBuildFile; fileRef = 3CBB60AC67AEA1DD969CEB40 /* rhythm_ship_synthwave_pop.json */; };
+		0D9941D797AEF439BA88A04D /* rhythm_ship_summer_party.json in Resources */ = {isa = PBXBuildFile; fileRef = 6DF08859385CCE21EA7F488C /* rhythm_ship_summer_party.json */; };
+		1C9CDF50F72A23BFB4030B9B /* rhythm_ship_summertime.json in Resources */ = {isa = PBXBuildFile; fileRef = E6ECEEF4B629FC64F01FAD1C /* rhythm_ship_summertime.json */; };
+		C6FE7CE47E2C695BFC8F9071 /* rhythm_ship_retro_music.json in Resources */ = {isa = PBXBuildFile; fileRef = 4EE4C32CB6D951B8E554847D /* rhythm_ship_retro_music.json */; };
+		481D1E828139C07003484F52 /* rhythm_ship_music.json in Resources */ = {isa = PBXBuildFile; fileRef = 796B1CD0292AFE90073D233E /* rhythm_ship_music.json */; };
+		CFEF6C63D92654353347516C /* rhythm_ship_gym_motivation.json in Resources */ = {isa = PBXBuildFile; fileRef = 0CF9753C739839A718458E48 /* rhythm_ship_gym_motivation.json */; };
+		6A08D5A6447B34BCD8EE4EAF /* rhythm_ship_adrenaline_sport.json in Resources */ = {isa = PBXBuildFile; fileRef = 9A5E061F3B0A9B4772A9C761 /* rhythm_ship_adrenaline_sport.json */; };
+		1F73F4DA036065AC62F8F5AA /* rhythm_ship_active_sport.json in Resources */ = {isa = PBXBuildFile; fileRef = 4BEACB28F50AF3E85DA5ADD9 /* rhythm_ship_active_sport.json */; };
 		F31B78F26C5619655E7C64D1 /* rhythm_ship_catalog.json in Resources */ = {isa = PBXBuildFile; fileRef = D6721F6C79BB8C171F521726 /* rhythm_ship_catalog.json */; };
-		3E74A866D4EBF65F62538939 /* rhythm_ship_audioera.json in Resources */ = {isa = PBXBuildFile; fileRef = D951411C3EB0B55594734810 /* rhythm_ship_audioera.json */; };
 		36728D9AC2381782AF879B0A /* material.rhythm_ship_solid.xml in Resources */ = {isa = PBXBuildFile; fileRef = 81BFCBBA86C9107314431147 /* material.rhythm_ship_solid.xml */; };
 		A8819A0AB76CAD108C08B7F0 /* material.rhythm_ship_character.xml in Resources */ = {isa = PBXBuildFile; fileRef = F12154223DE761F57A1DAC33 /* material.rhythm_ship_character.xml */; };
 		FFB9B6F37B0804A05970CA53 /* transition.rhythm_ship.xml in Resources */ = {isa = PBXBuildFile; fileRef = 73F390CEE695C1FBB3DF0AE3 /* transition.rhythm_ship.xml */; };
@@ -2172,9 +2226,15 @@
 		61EA496BA846BADABF0F22FE /* rhythm_ship_character.xml in Resources */ = {isa = PBXBuildFile; fileRef = 091909D7FE7A04B2C2395AFC /* rhythm_ship_character.xml */; };
 		3A2E982FCAA162BA415FDB64 /* rhythm_ship_characters.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BFAC996D03F675D927DFED5 /* rhythm_ship_characters.png */; };
 		1CE21B46792EFCD6C8984161 /* rhythm_ship_metronome.wav in Resources */ = {isa = PBXBuildFile; fileRef = F8C3AEBD01FA88A3FAE198B3 /* rhythm_ship_metronome.wav */; };
-		B2054402D93ACD05602E0C3B /* strawberry_candy-sport-intense-metal-fast-and-strong-622134.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 18BA51C456A7B2565C50D080 /* strawberry_candy-sport-intense-metal-fast-and-strong-622134.mp3 */; };
-		E596573D98A279E54181359C /* ikoliks-uplifting-action-sport-energetic-rock-619094.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B365FC90B3463A35C1DD00F1 /* ikoliks-uplifting-action-sport-energetic-rock-619094.mp3 */; };
-		0AFF6D675AA38199D0AEC7E9 /* audioera-stylish-trailer-percussion-622881.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C47DBCC88EDBD5660F932975 /* audioera-stylish-trailer-percussion-622881.mp3 */; };
+		1278D4A5A998B15769354855 /* kulakovka-workout-620537.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A8277BCA6DAEEDF1B21BBC77 /* kulakovka-workout-620537.mp3 */; };
+		3C56A7E8BA037D015D71A786 /* kulakovka-upbeat-energetic-rock-614902.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 414F694980FB6E21853B5793 /* kulakovka-upbeat-energetic-rock-614902.mp3 */; };
+		130D29CB320DEAEC66461A32 /* kulakovka-synthwave-pop-620528.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2437E03ADBA3B7B692F595E4 /* kulakovka-synthwave-pop-620528.mp3 */; };
+		F81F8ED650D7461820BD900C /* kulakovka-summertime-620526.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C0DFA9C3A942F8CB7FCE2217 /* kulakovka-summertime-620526.mp3 */; };
+		73FADF743C293E9151E496F1 /* kulakovka-summer-party-620566.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E45D5559C1EABD87197299AC /* kulakovka-summer-party-620566.mp3 */; };
+		D3CC8028093EA00326CD3DA2 /* kulakovka-retro-music-620580.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3AA0490BCEE091C111346063 /* kulakovka-retro-music-620580.mp3 */; };
+		A83977A27A4455A498E9B10C /* kulakovka-gym-motivation-620569.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9C696599F4279C0275465EA3 /* kulakovka-gym-motivation-620569.mp3 */; };
+		B71CBAF2D2EF162DE4E6A838 /* kulakovka-adrenaline-sport-620584.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FE6E83158132E71D2F4A91E9 /* kulakovka-adrenaline-sport-620584.mp3 */; };
+		931368A25C24EFE377DCF718 /* kulakovka-active-sport-618585.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F92E1C629A4212D33695320B /* kulakovka-active-sport-618585.mp3 */; };
 		619C7BA5E20A4BB3A135FD26 /* grass_interaction.xml in Resources */ = {isa = PBXBuildFile; fileRef = 30C9129D41F64D179DA8B002 /* grass_interaction.xml */; };
 		A89A1E63820843619196A8D9 /* blob_shadow.xml in Resources */ = {isa = PBXBuildFile; fileRef = C073847474E54F2BAE2729DB /* blob_shadow.xml */; };
 		777C6ED7854E4C9684047C67 /* editor_brush.xml in Resources */ = {isa = PBXBuildFile; fileRef = 02679E7269A843299EE7EDC2 /* editor_brush.xml */; };
@@ -3879,6 +3939,13 @@
 		F30077D61F31D5AB009F2EDF /* gameplay_ui_fabricator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = gameplay_ui_fabricator.h; path = sources/gameplay_ui_fabricator.h; sourceTree = "<group>"; };
 		495B23FBF83B7F62D692ED84 /* island_demo_transition.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = island_demo_transition.cpp; path = sources/island_demo_transition.cpp; sourceTree = "<group>"; };
 		C5897808789A96CB284D27F2 /* island_demo_scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = island_demo_scene.cpp; path = sources/island_demo_scene.cpp; sourceTree = "<group>"; };
+		2AB7310F62CE1CE6173C90D3 /* rhythm_stage_state.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = rhythm_stage_state.cpp; path = sources/rhythm_stage_state.cpp; sourceTree = "<group>"; };
+		6228F9D9686A74F941206448 /* rhythm_prompt_view.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = rhythm_prompt_view.cpp; path = sources/rhythm_prompt_view.cpp; sourceTree = "<group>"; };
+		4D119E4F9BC64B99EC79F7AF /* rhythm_prompt_model.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = rhythm_prompt_model.cpp; path = sources/rhythm_prompt_model.cpp; sourceTree = "<group>"; };
+		0E16DF8EBC6FA22FEA2859B2 /* rhythm_dance_pose.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = rhythm_dance_pose.cpp; path = sources/rhythm_dance_pose.cpp; sourceTree = "<group>"; };
+		2813621C82419E3D3FF0D5AD /* rhythm_crowd_choreography.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = rhythm_crowd_choreography.cpp; path = sources/rhythm_crowd_choreography.cpp; sourceTree = "<group>"; };
+		2C8D0BB64E9E4100178E3F5D /* rhythm_gesture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = rhythm_gesture.cpp; path = sources/rhythm_gesture.cpp; sourceTree = "<group>"; };
+		B2E6FA7EB745A7074A0F801C /* rhythm_choreography.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = rhythm_choreography.cpp; path = sources/rhythm_choreography.cpp; sourceTree = "<group>"; };
 		56808D1550E6E0F1B7900213 /* rhythm_track_loader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = rhythm_track_loader.cpp; path = sources/rhythm_track_loader.cpp; sourceTree = "<group>"; };
 		9422521B4671A3C45B9FEA7A /* rhythm_track_catalog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = rhythm_track_catalog.cpp; path = sources/rhythm_track_catalog.cpp; sourceTree = "<group>"; };
 		23D02AE141E047AD7972FBCB /* rhythm_ship_playback.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = rhythm_ship_playback.cpp; path = sources/rhythm_ship_playback.cpp; sourceTree = "<group>"; };
@@ -3907,6 +3974,14 @@
 		B63B241D02AE4F93BEACF5A2 /* terrain_editor_state.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = terrain_editor_state.cpp; path = sources/terrain_editor_state.cpp; sourceTree = "<group>"; };
 		8271FCB224C8AF33F10EC176 /* island_demo_transition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = island_demo_transition.h; path = sources/island_demo_transition.h; sourceTree = "<group>"; };
 		D8378A514422E4D0C849A183 /* island_demo_scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = island_demo_scene.h; path = sources/island_demo_scene.h; sourceTree = "<group>"; };
+		F5337B412568E32DCBC6C01B /* rhythm_stage_state.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rhythm_stage_state.h; path = sources/rhythm_stage_state.h; sourceTree = "<group>"; };
+		4E928D72FA48DB68786FEF03 /* rhythm_prompt_view.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rhythm_prompt_view.h; path = sources/rhythm_prompt_view.h; sourceTree = "<group>"; };
+		A77B4FB8AAA0241722EBF2A8 /* rhythm_prompt_model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rhythm_prompt_model.h; path = sources/rhythm_prompt_model.h; sourceTree = "<group>"; };
+		07C5E3FB877B2E44690393DF /* rhythm_dance_pose.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rhythm_dance_pose.h; path = sources/rhythm_dance_pose.h; sourceTree = "<group>"; };
+		B08435715C32B9BF920EDEC5 /* rhythm_crowd_choreography.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rhythm_crowd_choreography.h; path = sources/rhythm_crowd_choreography.h; sourceTree = "<group>"; };
+		1A304A4473A51A3A36B0FFC5 /* rhythm_gesture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rhythm_gesture.h; path = sources/rhythm_gesture.h; sourceTree = "<group>"; };
+		E8D01A5AD56760A9CD2974D8 /* rhythm_choreography.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rhythm_choreography.h; path = sources/rhythm_choreography.h; sourceTree = "<group>"; };
+		0079ADD574584DA3132E3B15 /* rhythm_action.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rhythm_action.h; path = sources/rhythm_action.h; sourceTree = "<group>"; };
 		B14EF0B419692A3ACE5980B0 /* rhythm_json.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rhythm_json.h; path = sources/rhythm_json.h; sourceTree = "<group>"; };
 		C11FD5C0A4F0667D8F543A5C /* rhythm_track_loader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rhythm_track_loader.h; path = sources/rhythm_track_loader.h; sourceTree = "<group>"; };
 		46935C835DB5A613DAC875DF /* rhythm_track_catalog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rhythm_track_catalog.h; path = sources/rhythm_track_catalog.h; sourceTree = "<group>"; };
@@ -4024,10 +4099,17 @@
 		B03BBCAEAF0EADAC4962DAA0 /* island_terrain.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = island_terrain.xml; path = ../gbBundle/Configurations/game_objects/island_terrain.xml; sourceTree = "<group>"; };
 		C243D3CD6E24459BB9085876 /* sky.island.cubemap.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = sky.island.cubemap.xml; path = ../gbBundle/Configurations/game_objects/sky.island.cubemap.xml; sourceTree = "<group>"; };
 		882034754D674A9D95ACCF42 /* island_sky.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = island_sky.xml; path = ../gbBundle/Configurations/game_objects/island_sky.xml; sourceTree = "<group>"; };
-		EA45C0B522C3E1DF3274AD79 /* rhythm_ship_strawberry.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = rhythm_ship_strawberry.json; path = ../gbBundle/Configurations/rhythm_ship/rhythm_ship_strawberry.json; sourceTree = "<group>"; };
-		19AA53C7D8A774FC13BB3828 /* rhythm_ship_ikoliks.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = rhythm_ship_ikoliks.json; path = ../gbBundle/Configurations/rhythm_ship/rhythm_ship_ikoliks.json; sourceTree = "<group>"; };
+		B875F189B2C1ECAFFF1843C1 /* rhythm_ship_workout.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = rhythm_ship_workout.json; path = ../gbBundle/Configurations/rhythm_ship/rhythm_ship_workout.json; sourceTree = "<group>"; };
+		8CC5FE98BAB65F006F097964 /* rhythm_ship_upbeat_energetic_rock.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = rhythm_ship_upbeat_energetic_rock.json; path = ../gbBundle/Configurations/rhythm_ship/rhythm_ship_upbeat_energetic_rock.json; sourceTree = "<group>"; };
+		3CBB60AC67AEA1DD969CEB40 /* rhythm_ship_synthwave_pop.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = rhythm_ship_synthwave_pop.json; path = ../gbBundle/Configurations/rhythm_ship/rhythm_ship_synthwave_pop.json; sourceTree = "<group>"; };
+		6DF08859385CCE21EA7F488C /* rhythm_ship_summer_party.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = rhythm_ship_summer_party.json; path = ../gbBundle/Configurations/rhythm_ship/rhythm_ship_summer_party.json; sourceTree = "<group>"; };
+		E6ECEEF4B629FC64F01FAD1C /* rhythm_ship_summertime.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = rhythm_ship_summertime.json; path = ../gbBundle/Configurations/rhythm_ship/rhythm_ship_summertime.json; sourceTree = "<group>"; };
+		4EE4C32CB6D951B8E554847D /* rhythm_ship_retro_music.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = rhythm_ship_retro_music.json; path = ../gbBundle/Configurations/rhythm_ship/rhythm_ship_retro_music.json; sourceTree = "<group>"; };
+		796B1CD0292AFE90073D233E /* rhythm_ship_music.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = rhythm_ship_music.json; path = ../gbBundle/Configurations/rhythm_ship/rhythm_ship_music.json; sourceTree = "<group>"; };
+		0CF9753C739839A718458E48 /* rhythm_ship_gym_motivation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = rhythm_ship_gym_motivation.json; path = ../gbBundle/Configurations/rhythm_ship/rhythm_ship_gym_motivation.json; sourceTree = "<group>"; };
+		9A5E061F3B0A9B4772A9C761 /* rhythm_ship_adrenaline_sport.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = rhythm_ship_adrenaline_sport.json; path = ../gbBundle/Configurations/rhythm_ship/rhythm_ship_adrenaline_sport.json; sourceTree = "<group>"; };
+		4BEACB28F50AF3E85DA5ADD9 /* rhythm_ship_active_sport.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = rhythm_ship_active_sport.json; path = ../gbBundle/Configurations/rhythm_ship/rhythm_ship_active_sport.json; sourceTree = "<group>"; };
 		D6721F6C79BB8C171F521726 /* rhythm_ship_catalog.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = rhythm_ship_catalog.json; path = ../gbBundle/Configurations/rhythm_ship/rhythm_ship_catalog.json; sourceTree = "<group>"; };
-		D951411C3EB0B55594734810 /* rhythm_ship_audioera.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = rhythm_ship_audioera.json; path = ../gbBundle/Configurations/rhythm_ship/rhythm_ship_audioera.json; sourceTree = "<group>"; };
 		81BFCBBA86C9107314431147 /* material.rhythm_ship_solid.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.rhythm_ship_solid.xml; path = ../gbBundle/Configurations/game_objects/materials/material.rhythm_ship_solid.xml; sourceTree = "<group>"; };
 		F12154223DE761F57A1DAC33 /* material.rhythm_ship_character.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.rhythm_ship_character.xml; path = ../gbBundle/Configurations/game_objects/materials/material.rhythm_ship_character.xml; sourceTree = "<group>"; };
 		73F390CEE695C1FBB3DF0AE3 /* transition.rhythm_ship.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = transition.rhythm_ship.xml; path = ../gbBundle/Configurations/transitions/transition.rhythm_ship.xml; sourceTree = "<group>"; };
@@ -4036,9 +4118,15 @@
 		091909D7FE7A04B2C2395AFC /* rhythm_ship_character.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = rhythm_ship_character.xml; path = ../gbBundle/Configurations/game_objects/rhythm_ship_character.xml; sourceTree = "<group>"; };
 		9BFAC996D03F675D927DFED5 /* rhythm_ship_characters.png */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = image.png; name = rhythm_ship_characters.png; path = ../gbBundle/Textures/rhythm_ship_characters.png; sourceTree = "<group>"; };
 		F8C3AEBD01FA88A3FAE198B3 /* rhythm_ship_metronome.wav */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = audio.wav; name = rhythm_ship_metronome.wav; path = ../gbBundle/Sounds/rhythm_ship_metronome.wav; sourceTree = "<group>"; };
-		18BA51C456A7B2565C50D080 /* strawberry_candy-sport-intense-metal-fast-and-strong-622134.mp3 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = audio.mp3; name = strawberry_candy-sport-intense-metal-fast-and-strong-622134.mp3; path = ../gbResources/strawberry_candy-sport-intense-metal-fast-and-strong-622134.mp3; sourceTree = "<group>"; };
-		B365FC90B3463A35C1DD00F1 /* ikoliks-uplifting-action-sport-energetic-rock-619094.mp3 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = audio.mp3; name = ikoliks-uplifting-action-sport-energetic-rock-619094.mp3; path = ../gbResources/ikoliks-uplifting-action-sport-energetic-rock-619094.mp3; sourceTree = "<group>"; };
-		C47DBCC88EDBD5660F932975 /* audioera-stylish-trailer-percussion-622881.mp3 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = audio.mp3; name = audioera-stylish-trailer-percussion-622881.mp3; path = ../gbResources/audioera-stylish-trailer-percussion-622881.mp3; sourceTree = "<group>"; };
+		A8277BCA6DAEEDF1B21BBC77 /* kulakovka-workout-620537.mp3 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = audio.mp3; name = kulakovka-workout-620537.mp3; path = ../gbResources/kulakovka-workout-620537.mp3; sourceTree = "<group>"; };
+		414F694980FB6E21853B5793 /* kulakovka-upbeat-energetic-rock-614902.mp3 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = audio.mp3; name = kulakovka-upbeat-energetic-rock-614902.mp3; path = ../gbResources/kulakovka-upbeat-energetic-rock-614902.mp3; sourceTree = "<group>"; };
+		2437E03ADBA3B7B692F595E4 /* kulakovka-synthwave-pop-620528.mp3 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = audio.mp3; name = kulakovka-synthwave-pop-620528.mp3; path = ../gbResources/kulakovka-synthwave-pop-620528.mp3; sourceTree = "<group>"; };
+		C0DFA9C3A942F8CB7FCE2217 /* kulakovka-summertime-620526.mp3 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = audio.mp3; name = kulakovka-summertime-620526.mp3; path = ../gbResources/kulakovka-summertime-620526.mp3; sourceTree = "<group>"; };
+		E45D5559C1EABD87197299AC /* kulakovka-summer-party-620566.mp3 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = audio.mp3; name = kulakovka-summer-party-620566.mp3; path = ../gbResources/kulakovka-summer-party-620566.mp3; sourceTree = "<group>"; };
+		3AA0490BCEE091C111346063 /* kulakovka-retro-music-620580.mp3 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = audio.mp3; name = kulakovka-retro-music-620580.mp3; path = ../gbResources/kulakovka-retro-music-620580.mp3; sourceTree = "<group>"; };
+		9C696599F4279C0275465EA3 /* kulakovka-gym-motivation-620569.mp3 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = audio.mp3; name = kulakovka-gym-motivation-620569.mp3; path = ../gbResources/kulakovka-gym-motivation-620569.mp3; sourceTree = "<group>"; };
+		FE6E83158132E71D2F4A91E9 /* kulakovka-adrenaline-sport-620584.mp3 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = audio.mp3; name = kulakovka-adrenaline-sport-620584.mp3; path = ../gbResources/kulakovka-adrenaline-sport-620584.mp3; sourceTree = "<group>"; };
+		F92E1C629A4212D33695320B /* kulakovka-active-sport-618585.mp3 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = audio.mp3; name = kulakovka-active-sport-618585.mp3; path = ../gbResources/kulakovka-active-sport-618585.mp3; sourceTree = "<group>"; };
 		30C9129D41F64D179DA8B002 /* grass_interaction.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = grass_interaction.xml; path = ../gbBundle/Configurations/game_objects/grass_interaction.xml; sourceTree = "<group>"; };
 		C073847474E54F2BAE2729DB /* blob_shadow.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = blob_shadow.xml; path = ../gbBundle/Configurations/game_objects/blob_shadow.xml; sourceTree = "<group>"; };
 		02679E7269A843299EE7EDC2 /* editor_brush.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = editor_brush.xml; path = ../gbBundle/Configurations/game_objects/editor_brush.xml; sourceTree = "<group>"; };
@@ -5031,10 +5119,17 @@
 				4A854EE14CA64A18A81F131A /* GraphicsSettings.json */,
 				C243D3CD6E24459BB9085876 /* sky.island.cubemap.xml */,
 				882034754D674A9D95ACCF42 /* island_sky.xml */,
-				EA45C0B522C3E1DF3274AD79 /* rhythm_ship_strawberry.json */,
-				19AA53C7D8A774FC13BB3828 /* rhythm_ship_ikoliks.json */,
+				B875F189B2C1ECAFFF1843C1 /* rhythm_ship_workout.json */,
+				8CC5FE98BAB65F006F097964 /* rhythm_ship_upbeat_energetic_rock.json */,
+				3CBB60AC67AEA1DD969CEB40 /* rhythm_ship_synthwave_pop.json */,
+				6DF08859385CCE21EA7F488C /* rhythm_ship_summer_party.json */,
+				E6ECEEF4B629FC64F01FAD1C /* rhythm_ship_summertime.json */,
+				4EE4C32CB6D951B8E554847D /* rhythm_ship_retro_music.json */,
+				796B1CD0292AFE90073D233E /* rhythm_ship_music.json */,
+				0CF9753C739839A718458E48 /* rhythm_ship_gym_motivation.json */,
+				9A5E061F3B0A9B4772A9C761 /* rhythm_ship_adrenaline_sport.json */,
+				4BEACB28F50AF3E85DA5ADD9 /* rhythm_ship_active_sport.json */,
 				D6721F6C79BB8C171F521726 /* rhythm_ship_catalog.json */,
-				D951411C3EB0B55594734810 /* rhythm_ship_audioera.json */,
 				81BFCBBA86C9107314431147 /* material.rhythm_ship_solid.xml */,
 				F12154223DE761F57A1DAC33 /* material.rhythm_ship_character.xml */,
 				73F390CEE695C1FBB3DF0AE3 /* transition.rhythm_ship.xml */,
@@ -5043,9 +5138,15 @@
 				091909D7FE7A04B2C2395AFC /* rhythm_ship_character.xml */,
 				9BFAC996D03F675D927DFED5 /* rhythm_ship_characters.png */,
 				F8C3AEBD01FA88A3FAE198B3 /* rhythm_ship_metronome.wav */,
-				18BA51C456A7B2565C50D080 /* strawberry_candy-sport-intense-metal-fast-and-strong-622134.mp3 */,
-				B365FC90B3463A35C1DD00F1 /* ikoliks-uplifting-action-sport-energetic-rock-619094.mp3 */,
-				C47DBCC88EDBD5660F932975 /* audioera-stylish-trailer-percussion-622881.mp3 */,
+				A8277BCA6DAEEDF1B21BBC77 /* kulakovka-workout-620537.mp3 */,
+				414F694980FB6E21853B5793 /* kulakovka-upbeat-energetic-rock-614902.mp3 */,
+				2437E03ADBA3B7B692F595E4 /* kulakovka-synthwave-pop-620528.mp3 */,
+				C0DFA9C3A942F8CB7FCE2217 /* kulakovka-summertime-620526.mp3 */,
+				E45D5559C1EABD87197299AC /* kulakovka-summer-party-620566.mp3 */,
+				3AA0490BCEE091C111346063 /* kulakovka-retro-music-620580.mp3 */,
+				9C696599F4279C0275465EA3 /* kulakovka-gym-motivation-620569.mp3 */,
+				FE6E83158132E71D2F4A91E9 /* kulakovka-adrenaline-sport-620584.mp3 */,
+				F92E1C629A4212D33695320B /* kulakovka-active-sport-618585.mp3 */,
 				30C9129D41F64D179DA8B002 /* grass_interaction.xml */,
 				C073847474E54F2BAE2729DB /* blob_shadow.xml */,
 				02679E7269A843299EE7EDC2 /* editor_brush.xml */,
@@ -5740,6 +5841,14 @@
 				92B5852F21539B15008AA8BB /* ui_editor_scene.h */,
 				8271FCB224C8AF33F10EC176 /* island_demo_transition.h */,
 				D8378A514422E4D0C849A183 /* island_demo_scene.h */,
+				F5337B412568E32DCBC6C01B /* rhythm_stage_state.h */,
+				4E928D72FA48DB68786FEF03 /* rhythm_prompt_view.h */,
+				A77B4FB8AAA0241722EBF2A8 /* rhythm_prompt_model.h */,
+				07C5E3FB877B2E44690393DF /* rhythm_dance_pose.h */,
+				B08435715C32B9BF920EDEC5 /* rhythm_crowd_choreography.h */,
+				1A304A4473A51A3A36B0FFC5 /* rhythm_gesture.h */,
+				E8D01A5AD56760A9CD2974D8 /* rhythm_choreography.h */,
+				0079ADD574584DA3132E3B15 /* rhythm_action.h */,
 				B14EF0B419692A3ACE5980B0 /* rhythm_json.h */,
 				C11FD5C0A4F0667D8F543A5C /* rhythm_track_loader.h */,
 				46935C835DB5A613DAC875DF /* rhythm_track_catalog.h */,
@@ -5855,6 +5964,13 @@
 				D58EFA2717A64446B05E0958 /* terrain_editor_state.h */,
 				495B23FBF83B7F62D692ED84 /* island_demo_transition.cpp */,
 				C5897808789A96CB284D27F2 /* island_demo_scene.cpp */,
+				2AB7310F62CE1CE6173C90D3 /* rhythm_stage_state.cpp */,
+				6228F9D9686A74F941206448 /* rhythm_prompt_view.cpp */,
+				4D119E4F9BC64B99EC79F7AF /* rhythm_prompt_model.cpp */,
+				0E16DF8EBC6FA22FEA2859B2 /* rhythm_dance_pose.cpp */,
+				2813621C82419E3D3FF0D5AD /* rhythm_crowd_choreography.cpp */,
+				2C8D0BB64E9E4100178E3F5D /* rhythm_gesture.cpp */,
+				B2E6FA7EB745A7074A0F801C /* rhythm_choreography.cpp */,
 				56808D1550E6E0F1B7900213 /* rhythm_track_loader.cpp */,
 				9422521B4671A3C45B9FEA7A /* rhythm_track_catalog.cpp */,
 				23D02AE141E047AD7972FBCB /* rhythm_ship_playback.cpp */,
@@ -6792,10 +6908,17 @@
 				65E030B970414FC2A9C20D7F /* GraphicsSettings.json in Resources */,
 				811844F0FF0C444788CF330D /* sky.island.cubemap.xml in Resources */,
 				D128960F4B2E4730A0D52ACD /* island_sky.xml in Resources */,
-				785B1EF2F3D0B3233DE86E90 /* rhythm_ship_strawberry.json in Resources */,
-				5C7C8AB8CA0BFB83A2E97A69 /* rhythm_ship_ikoliks.json in Resources */,
+				03993048D5634C31406DF533 /* rhythm_ship_workout.json in Resources */,
+				A6887B2DD24972225F8FE6F0 /* rhythm_ship_upbeat_energetic_rock.json in Resources */,
+				78FB6B3F014FFB67BDF85007 /* rhythm_ship_synthwave_pop.json in Resources */,
+				8E2ABBE33A49B1547B31A163 /* rhythm_ship_summer_party.json in Resources */,
+				EAC8E90B36145CBDBAB8FB02 /* rhythm_ship_summertime.json in Resources */,
+				AF23BD3F2AA10E18B1C14B79 /* rhythm_ship_retro_music.json in Resources */,
+				20970E09D48B292A6486FEDB /* rhythm_ship_music.json in Resources */,
+				938C3937BE244AB4543569CE /* rhythm_ship_gym_motivation.json in Resources */,
+				238F2C508BDCD38B7C160944 /* rhythm_ship_adrenaline_sport.json in Resources */,
+				CCBA43A8AB355BDA61A6057E /* rhythm_ship_active_sport.json in Resources */,
 				CC4C7D214E3C5480D652397B /* rhythm_ship_catalog.json in Resources */,
-				5E4CDD06F2187CADF3649EB2 /* rhythm_ship_audioera.json in Resources */,
 				C87C353F103B230B46BDA7D2 /* material.rhythm_ship_solid.xml in Resources */,
 				CCF01A7280C58240E15714A7 /* material.rhythm_ship_character.xml in Resources */,
 				58450F54AC07A7CEA1ED62EB /* transition.rhythm_ship.xml in Resources */,
@@ -6804,9 +6927,15 @@
 				BEA13A18E4F8E0836388B443 /* rhythm_ship_character.xml in Resources */,
 				7F9DB47110F42301AF303862 /* rhythm_ship_characters.png in Resources */,
 				18574B56CE917799D9BEBDEF /* rhythm_ship_metronome.wav in Resources */,
-				BA2818C85729B5A17C41AB81 /* strawberry_candy-sport-intense-metal-fast-and-strong-622134.mp3 in Resources */,
-				003BBAD1581AF5A6B2B68776 /* ikoliks-uplifting-action-sport-energetic-rock-619094.mp3 in Resources */,
-				B3C28E5797D7F54F343C3E79 /* audioera-stylish-trailer-percussion-622881.mp3 in Resources */,
+				F944A0EA0D3F6BB3D9817DDC /* kulakovka-workout-620537.mp3 in Resources */,
+				113C9A38CAC7EF6D0B66905F /* kulakovka-upbeat-energetic-rock-614902.mp3 in Resources */,
+				515CD1AAA734C828BBD2A001 /* kulakovka-synthwave-pop-620528.mp3 in Resources */,
+				339E398EEFA7AC8012EF719A /* kulakovka-summertime-620526.mp3 in Resources */,
+				51DA06EC83CDFEEF4DF45B4D /* kulakovka-summer-party-620566.mp3 in Resources */,
+				B6E7378210A4F0BB58B91D88 /* kulakovka-retro-music-620580.mp3 in Resources */,
+				50E74E4684BD03957C933B60 /* kulakovka-gym-motivation-620569.mp3 in Resources */,
+				D36867F615FAE4BA81C467A4 /* kulakovka-adrenaline-sport-620584.mp3 in Resources */,
+				8223649EE39CC69091298907 /* kulakovka-active-sport-618585.mp3 in Resources */,
 				47730ED7CB114787A22DB0B1 /* grass_interaction.xml in Resources */,
 				E92AA30E67FA46FAA12BAA6A /* blob_shadow.xml in Resources */,
 				999F44B6691B49518D591A45 /* editor_brush.xml in Resources */,
@@ -7598,10 +7727,17 @@
 				804B7F40AD2541FA9AC8B640 /* GraphicsSettings.json in Resources */,
 				4103E36FB3E546E2B653A8B9 /* sky.island.cubemap.xml in Resources */,
 				8C699CDBD90048ABB6EBC3E2 /* island_sky.xml in Resources */,
-				F3C1AC9470CA4E3434A8D244 /* rhythm_ship_strawberry.json in Resources */,
-				5684D7812DF8AE70C369D9C7 /* rhythm_ship_ikoliks.json in Resources */,
+				B7ED24128259627883918F48 /* rhythm_ship_workout.json in Resources */,
+				31B40544498E4588336E3714 /* rhythm_ship_upbeat_energetic_rock.json in Resources */,
+				7B16AD2E52BCD1FA53DCE8F2 /* rhythm_ship_synthwave_pop.json in Resources */,
+				DC4024FCAA5CDDA2D79ACF22 /* rhythm_ship_summer_party.json in Resources */,
+				345557BF953BD24E00F25805 /* rhythm_ship_summertime.json in Resources */,
+				EBF909328AECC4C5BEF3B14B /* rhythm_ship_retro_music.json in Resources */,
+				398E7EDE32622EE8BE3D9E1D /* rhythm_ship_music.json in Resources */,
+				F23E032D0030C0639EF0EE92 /* rhythm_ship_gym_motivation.json in Resources */,
+				D176C56A4DE165D58C2DA62F /* rhythm_ship_adrenaline_sport.json in Resources */,
+				105C324EF00740F7AC1FA3B6 /* rhythm_ship_active_sport.json in Resources */,
 				C7277CCD34D975A4D33728E4 /* rhythm_ship_catalog.json in Resources */,
-				0A07C9E3A4C2E1A2D20D6933 /* rhythm_ship_audioera.json in Resources */,
 				9E50EE970A86147B6FAE4AAB /* material.rhythm_ship_solid.xml in Resources */,
 				D033C92BE30328D07774E5EB /* material.rhythm_ship_character.xml in Resources */,
 				3405BE2C2D903141D4FA96B9 /* transition.rhythm_ship.xml in Resources */,
@@ -7610,9 +7746,15 @@
 				904C272306E9C8868BF81552 /* rhythm_ship_character.xml in Resources */,
 				65F1850EC7543B947883D200 /* rhythm_ship_characters.png in Resources */,
 				A1A525B06731AA2DB72A4A17 /* rhythm_ship_metronome.wav in Resources */,
-				4333ADA77253E9F5EF627A73 /* strawberry_candy-sport-intense-metal-fast-and-strong-622134.mp3 in Resources */,
-				7561D7B87057512A597836ED /* ikoliks-uplifting-action-sport-energetic-rock-619094.mp3 in Resources */,
-				369058681C9AF979C030FEE2 /* audioera-stylish-trailer-percussion-622881.mp3 in Resources */,
+				64EE85F841D957AB0EE046F1 /* kulakovka-workout-620537.mp3 in Resources */,
+				6C3D0E9E2FBC9B2F9579918A /* kulakovka-upbeat-energetic-rock-614902.mp3 in Resources */,
+				01BE9755C538980EF5C5547C /* kulakovka-synthwave-pop-620528.mp3 in Resources */,
+				03A0C14E04702569E98AAE2F /* kulakovka-summertime-620526.mp3 in Resources */,
+				810C176E19B16783A8207584 /* kulakovka-summer-party-620566.mp3 in Resources */,
+				16391EEBFC7794F1747EEEFF /* kulakovka-retro-music-620580.mp3 in Resources */,
+				5D7D7D6C98186E0A8A2C9654 /* kulakovka-gym-motivation-620569.mp3 in Resources */,
+				4E798E898AED0809BC3AF8E8 /* kulakovka-adrenaline-sport-620584.mp3 in Resources */,
+				5D7CEE1AAD2E722AABD24822 /* kulakovka-active-sport-618585.mp3 in Resources */,
 				DDD1823051984764868E6448 /* grass_interaction.xml in Resources */,
 				F0AAA0EAF175444E8F4D8E76 /* blob_shadow.xml in Resources */,
 				8A3D307EED144B5E8E82B81C /* editor_brush.xml in Resources */,
@@ -8407,10 +8549,17 @@
 				AB1554A700CA44B8AEBD09BF /* GraphicsSettings.json in Resources */,
 				1E8E523C795E455180F795C3 /* sky.island.cubemap.xml in Resources */,
 				57C0B357E3FD4FBDB9CC6F87 /* island_sky.xml in Resources */,
-				68210D7275D5413BD6A4DCA1 /* rhythm_ship_strawberry.json in Resources */,
-				EF82A3EF2BFBEB006345FC40 /* rhythm_ship_ikoliks.json in Resources */,
+				12E9651819AB478D6E1B0593 /* rhythm_ship_workout.json in Resources */,
+				AAFEDFB4F5410D0FEBA00A50 /* rhythm_ship_upbeat_energetic_rock.json in Resources */,
+				EEE0A739A729C03ED9D40D48 /* rhythm_ship_synthwave_pop.json in Resources */,
+				0D9941D797AEF439BA88A04D /* rhythm_ship_summer_party.json in Resources */,
+				1C9CDF50F72A23BFB4030B9B /* rhythm_ship_summertime.json in Resources */,
+				C6FE7CE47E2C695BFC8F9071 /* rhythm_ship_retro_music.json in Resources */,
+				481D1E828139C07003484F52 /* rhythm_ship_music.json in Resources */,
+				CFEF6C63D92654353347516C /* rhythm_ship_gym_motivation.json in Resources */,
+				6A08D5A6447B34BCD8EE4EAF /* rhythm_ship_adrenaline_sport.json in Resources */,
+				1F73F4DA036065AC62F8F5AA /* rhythm_ship_active_sport.json in Resources */,
 				F31B78F26C5619655E7C64D1 /* rhythm_ship_catalog.json in Resources */,
-				3E74A866D4EBF65F62538939 /* rhythm_ship_audioera.json in Resources */,
 				36728D9AC2381782AF879B0A /* material.rhythm_ship_solid.xml in Resources */,
 				A8819A0AB76CAD108C08B7F0 /* material.rhythm_ship_character.xml in Resources */,
 				FFB9B6F37B0804A05970CA53 /* transition.rhythm_ship.xml in Resources */,
@@ -8419,9 +8568,15 @@
 				61EA496BA846BADABF0F22FE /* rhythm_ship_character.xml in Resources */,
 				3A2E982FCAA162BA415FDB64 /* rhythm_ship_characters.png in Resources */,
 				1CE21B46792EFCD6C8984161 /* rhythm_ship_metronome.wav in Resources */,
-				B2054402D93ACD05602E0C3B /* strawberry_candy-sport-intense-metal-fast-and-strong-622134.mp3 in Resources */,
-				E596573D98A279E54181359C /* ikoliks-uplifting-action-sport-energetic-rock-619094.mp3 in Resources */,
-				0AFF6D675AA38199D0AEC7E9 /* audioera-stylish-trailer-percussion-622881.mp3 in Resources */,
+				1278D4A5A998B15769354855 /* kulakovka-workout-620537.mp3 in Resources */,
+				3C56A7E8BA037D015D71A786 /* kulakovka-upbeat-energetic-rock-614902.mp3 in Resources */,
+				130D29CB320DEAEC66461A32 /* kulakovka-synthwave-pop-620528.mp3 in Resources */,
+				F81F8ED650D7461820BD900C /* kulakovka-summertime-620526.mp3 in Resources */,
+				73FADF743C293E9151E496F1 /* kulakovka-summer-party-620566.mp3 in Resources */,
+				D3CC8028093EA00326CD3DA2 /* kulakovka-retro-music-620580.mp3 in Resources */,
+				A83977A27A4455A498E9B10C /* kulakovka-gym-motivation-620569.mp3 in Resources */,
+				B71CBAF2D2EF162DE4E6A838 /* kulakovka-adrenaline-sport-620584.mp3 in Resources */,
+				931368A25C24EFE377DCF718 /* kulakovka-active-sport-618585.mp3 in Resources */,
 				619C7BA5E20A4BB3A135FD26 /* grass_interaction.xml in Resources */,
 				A89A1E63820843619196A8D9 /* blob_shadow.xml in Resources */,
 				777C6ED7854E4C9684047C67 /* editor_brush.xml in Resources */,
@@ -9232,6 +9387,13 @@
 				F3ED657F1F22264C0047F89D /* ces_scene_state_automat_component.cpp in Sources */,
 				8638B3B979F79844E57A53E3 /* island_demo_transition.cpp in Sources */,
 				3BD65F14146803E94800A595 /* island_demo_scene.cpp in Sources */,
+				C52D5D7484A8E66CBD8367D8 /* rhythm_stage_state.cpp in Sources */,
+				731E14E3332BF68A32E64B24 /* rhythm_prompt_view.cpp in Sources */,
+				92345DB2D3C6C04B0371AADC /* rhythm_prompt_model.cpp in Sources */,
+				9F2A042AC69ECC8D5A6C4DA9 /* rhythm_dance_pose.cpp in Sources */,
+				13E30950927FF17183724C43 /* rhythm_crowd_choreography.cpp in Sources */,
+				3EDBD0B061B0DB5725C3A4B0 /* rhythm_gesture.cpp in Sources */,
+				01A5AF7C108F7DEBF89FB0BE /* rhythm_choreography.cpp in Sources */,
 				A6BE771938585FCF3542482F /* rhythm_track_loader.cpp in Sources */,
 				49B0B216C7A65E6367B1B43A /* rhythm_track_catalog.cpp in Sources */,
 				EBF9FBCD821674EFF05802DC /* rhythm_ship_playback.cpp in Sources */,
@@ -9344,6 +9506,13 @@
 				2102EB481B7D2D9000F20197 /* main_game_controller.cpp in Sources */,
 				9F323B2BF9A326883CB952F5 /* island_demo_transition.cpp in Sources */,
 				DB3AEB3B8BEEA676FBD158B8 /* island_demo_scene.cpp in Sources */,
+				141B7B0E7D0EF83613D34926 /* rhythm_stage_state.cpp in Sources */,
+				7987D66BA9D97150DCE42EDE /* rhythm_prompt_view.cpp in Sources */,
+				4A002273B7C87F6AA3FEA23D /* rhythm_prompt_model.cpp in Sources */,
+				8E04D2015F267230BF4F3067 /* rhythm_dance_pose.cpp in Sources */,
+				DFC3739A097B2140DF238FCA /* rhythm_crowd_choreography.cpp in Sources */,
+				446FABB1D0EACC34A556E393 /* rhythm_gesture.cpp in Sources */,
+				7B4A70E45B77569A66D56E3F /* rhythm_choreography.cpp in Sources */,
 				C341451451B2973E1310EDE2 /* rhythm_track_loader.cpp in Sources */,
 				3E3E2A08330EC36471E90BC4 /* rhythm_track_catalog.cpp in Sources */,
 				C1E56584AB5417FE2D941673 /* rhythm_ship_playback.cpp in Sources */,
@@ -9531,6 +9700,13 @@
 				92E7370322BCFCC200EC0C5E /* gameplay_constants_helper.cpp in Sources */,
 				841E3E1FA27165DA0DAFD154 /* island_demo_transition.cpp in Sources */,
 				765A97409E0F787A56310C2B /* island_demo_scene.cpp in Sources */,
+				C9DFB24D07687ECD21C250CA /* rhythm_stage_state.cpp in Sources */,
+				F59A1FEC63D1B2F41B164C5F /* rhythm_prompt_view.cpp in Sources */,
+				98FD741A450B2EBFFC8F4695 /* rhythm_prompt_model.cpp in Sources */,
+				610C10CE40D491BE3A14EC9F /* rhythm_dance_pose.cpp in Sources */,
+				829C1BAA4F8A022D897B8197 /* rhythm_crowd_choreography.cpp in Sources */,
+				DD71F8BFBF6072DC85FC459D /* rhythm_gesture.cpp in Sources */,
+				E30ADCFDA191B47F6EB4A985 /* rhythm_choreography.cpp in Sources */,
 				13EE41BF10A9F45F50E84CDF /* rhythm_track_loader.cpp in Sources */,
 				6B768D5F2D8B3B5020BAC4AB /* rhythm_track_catalog.cpp in Sources */,
 				B5375ECC02A2533ED0F0AC87 /* rhythm_ship_playback.cpp in Sources */,

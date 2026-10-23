@@ -44,8 +44,16 @@ with wave.open(str(bundle/'Sounds/rhythm_ship_metronome.wav'),'rb') as wav:
     assert(wav.getnchannels(),wav.getsampwidth(),wav.getframerate(),wav.getnframes())==(1,2,48000,1440000)
 track=json.loads((bundle/'Configurations/rhythm_ship/rhythm_ship_track.json').read_text());assert track['bpm']==128 and track['duration']==30
 catalog=json.loads((bundle/'Configurations/rhythm_ship/rhythm_ship_catalog.json').read_text())['tracks']
-assert len(catalog)==4
-hashes=['5bef1859c4e99e61a14382b1957c12da721a89d78d5136f954bbfd5e1c87f96b','d418b4708d7ee87c65300da6c12b1a7510d09cfaa1c86baaa19296db390e054f','47ca495f806ea69ce2ce140a31729a5a052fb3721ebcc695b66aff6ebc517881']
+assert len(catalog)==10
+for retired in ['audioera-stylish-trailer-percussion-622881.mp3',
+                'ikoliks-uplifting-action-sport-energetic-rock-619094.mp3',
+                'strawberry_candy-sport-intense-metal-fast-and-strong-622134.mp3',
+                'rhythm_ship_audioera.json','rhythm_ship_ikoliks.json','rhythm_ship_strawberry.json']:
+    assert retired not in pbx,('Retired Xcode resource',retired)
+    assert not (root/'gbResources'/retired).exists(),retired
+    assert not (bundle/'Configurations/rhythm_ship'/retired).exists(),retired
+manifest=json.loads((bundle/'Configurations/rhythm_ship/rhythm_ship_music.json').read_text())['tracks']
+hashes=[entry['sha256'] for entry in manifest]
 for entry,digest in zip(catalog,hashes):
     t=json.loads((bundle/'Configurations/rhythm_ship'/entry['map']).read_text())
     file=root/'gbResources'/t['audio_file']

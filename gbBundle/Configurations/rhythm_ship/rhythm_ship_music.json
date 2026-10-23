@@ -1,0 +1,252 @@
+{
+  "tracks": [
+    {
+      "id": "active_sport",
+      "title": "Active Sport",
+      "file": "kulakovka-active-sport-618585.mp3",
+      "bpm": 160,
+      "phase": 0.011,
+      "duration": 110.4195918367347,
+      "frames": 4869504,
+      "rate": 44100,
+      "channels": 2,
+      "sha256": "8961cec1edbac462fb18884a1dfd2dada4553313e278204346f4ad5a8485ecc2",
+      "section_phases": [
+        0.008,
+        0.013000000000000001,
+        0.012,
+        0.01,
+        0.012,
+        0.011,
+        0.014
+      ],
+      "tempo_acf": {
+        "80.0": 0.7775708042744857,
+        "160": 0.8361785283907315,
+        "320": 0.6396174610961143
+      }
+    },
+    {
+      "id": "adrenaline_sport",
+      "title": "Adrenaline Sport",
+      "file": "kulakovka-adrenaline-sport-620584.mp3",
+      "bpm": 139,
+      "phase": 0.231,
+      "duration": 136.2808163265306,
+      "frames": 6009984,
+      "rate": 44100,
+      "channels": 2,
+      "sha256": "7052146996ffdf88fcbd584abe2e952fb86f118877061700ca9a30b9be01158a",
+      "section_phases": [
+        0.231,
+        0.011,
+        0.232,
+        0.231,
+        0.011,
+        0.23,
+        0.232,
+        0.231
+      ],
+      "tempo_acf": {
+        "69.5": 0.6581894778928148,
+        "139": 0.7326110517057123,
+        "278": 0.5234769350175025
+      }
+    },
+    {
+      "id": "gym_motivation",
+      "title": "Gym Motivation",
+      "file": "kulakovka-gym-motivation-620569.mp3",
+      "bpm": 98,
+      "phase": 0.021,
+      "duration": 151.87591836734694,
+      "frames": 6697728,
+      "rate": 44100,
+      "channels": 2,
+      "sha256": "8610834a516172a50338f22c6a3dabaf933c9bd5ac883ded7f963439ba3faeec",
+      "section_phases": [
+        0.019,
+        0.47500000000000003,
+        0.024,
+        0.015,
+        0.013000000000000001,
+        0.024,
+        0.026000000000000002,
+        0.025,
+        0.321
+      ],
+      "tempo_acf": {
+        "49.0": 0.7817969690565649,
+        "98": 0.8008363290513755,
+        "196": 0.7155314965096448
+      }
+    },
+    {
+      "id": "retro_music",
+      "title": "Retro Music",
+      "file": "kulakovka-retro-music-620580.mp3",
+      "bpm": 98,
+      "phase": 0.012,
+      "duration": 159.3730612244898,
+      "frames": 7028352,
+      "rate": 44100,
+      "channels": 2,
+      "sha256": "f9a00cd035ce18b5315d9ad0327fca1a5ad828072cda38f85989c592a8eed4b4",
+      "section_phases": [
+        0.47200000000000003,
+        0.011,
+        0.011,
+        0.011,
+        0.011,
+        0.011,
+        0.013000000000000001,
+        0.012,
+        0.012,
+        0.012
+      ],
+      "tempo_acf": {
+        "49.0": 0.8377422237966469,
+        "98": 0.8558721462169478,
+        "196": 0.7839381204951466
+      }
+    },
+    {
+      "id": "summer_party",
+      "title": "Summer Party",
+      "file": "kulakovka-summer-party-620566.mp3",
+      "bpm": 122,
+      "phase": 0.258,
+      "duration": 163.5526530612245,
+      "frames": 7212672,
+      "rate": 44100,
+      "channels": 2,
+      "sha256": "5658adf81a83c77485ba14f413c67fd2631a9c9daba51d5bbbf07113c72ece91",
+      "section_phases": [
+        0.41000000000000003,
+        0.01,
+        0.255,
+        0.258,
+        0.256,
+        0.259,
+        0.257,
+        0.258,
+        0.258,
+        0.262
+      ],
+      "tempo_acf": {
+        "61.0": 0.7890161608007976,
+        "122": 0.7393239476274288,
+        "244": 0.7529352210979259
+      }
+    },
+    {
+      "id": "summertime",
+      "title": "Summertime",
+      "file": "kulakovka-summertime-620526.mp3",
+      "bpm": 120,
+      "phase": 0.01,
+      "duration": 100.31020408163265,
+      "frames": 4423680,
+      "rate": 44100,
+      "channels": 2,
+      "sha256": "f722ebe3d9f3c0c7864176beddc784575f1fddff1135c3e65f369738ac852158",
+      "section_phases": [
+        0.01,
+        0.012,
+        0.006,
+        0.011,
+        0.012,
+        0.007
+      ],
+      "tempo_acf": {
+        "60.0": 0.7834495004841964,
+        "120": 0.7075525623852874,
+        "240": 0.6358873102159175
+      }
+    },
+    {
+      "id": "synthwave_pop",
+      "title": "Synthwave Pop",
+      "file": "kulakovka-synthwave-pop-620528.mp3",
+      "bpm": 96,
+      "phase": 0.01,
+      "duration": 143.77795918367346,
+      "frames": 6340608,
+      "rate": 44100,
+      "channels": 2,
+      "sha256": "6a2324ee5fdb1b509f7edac9f9d5f7afe2be732b54f53749b816189c1a8ff14e",
+      "section_phases": [
+        0.165,
+        0.008,
+        0.008,
+        0.01,
+        0.012,
+        0.012,
+        0.01,
+        0.166,
+        0.166
+      ],
+      "tempo_acf": {
+        "48.0": 0.8451714168188865,
+        "96": 0.825189938762262,
+        "192": 0.7239116729550569
+      }
+    },
+    {
+      "id": "upbeat_energetic_rock",
+      "title": "Upbeat Energetic Rock",
+      "file": "kulakovka-upbeat-energetic-rock-614902.mp3",
+      "bpm": 145,
+      "phase": 0.01,
+      "duration": 108.4604081632653,
+      "frames": 4783104,
+      "rate": 44100,
+      "channels": 2,
+      "sha256": "03221990c9f442feb25d5423c01eb1c49d518f096528aefc88ff61b30dabb0a6",
+      "section_phases": [
+        0.222,
+        0.011,
+        0.009000000000000001,
+        0.22,
+        0.01,
+        0.012,
+        0.223
+      ],
+      "tempo_acf": {
+        "72.5": 0.6023933953402685,
+        "145": 0.6184324079558629,
+        "290": 0.5689617611917012
+      }
+    },
+    {
+      "id": "workout",
+      "title": "Workout",
+      "file": "kulakovka-workout-620537.mp3",
+      "bpm": 156,
+      "phase": 0.02,
+      "duration": 176.58775510204083,
+      "frames": 7787520,
+      "rate": 44100,
+      "channels": 2,
+      "sha256": "cc0c250cf18841c2ed8785cd780df0fa1ea9c0ce6d359c242f7269e1508833f9",
+      "section_phases": [
+        0.017,
+        0.023,
+        0.017,
+        0.021,
+        0.02,
+        0.02,
+        0.02,
+        0.019,
+        0.022,
+        0.019,
+        0.024
+      ],
+      "tempo_acf": {
+        "78.0": 0.49412778479914715,
+        "156": 0.40319459077230935,
+        "312": 0.294643052051119
+      }
+    }
+  ]
+}

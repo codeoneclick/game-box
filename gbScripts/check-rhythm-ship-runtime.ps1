@@ -1,4 +1,4 @@
-param([ValidateSet('debug-client','release-client')][string]$Configuration='debug-client',[int]$TimeoutSeconds=35,[switch]$Silent,[ValidateSet(30,40,50)][int]$CrowdCount=40,[switch]$DebugPanel,[ValidateRange(0,3)][int]$Track=0,[switch]$GraphicsPanel)
+param([ValidateSet('debug-client','release-client')][string]$Configuration='debug-client',[int]$TimeoutSeconds=60,[switch]$Silent,[ValidateSet(30,40,50)][int]$CrowdCount=40,[switch]$DebugPanel,[ValidateRange(0,9)][int]$Track=0,[switch]$GraphicsPanel)
 $ErrorActionPreference='Stop'
 if(-not ('RhythmWindow' -as [type])){Add-Type @'
 using System;using System.Text;using System.Runtime.InteropServices;
@@ -32,7 +32,7 @@ try {
   $log=Get-Content "$capture/runtime.log" -Raw -ErrorAction SilentlyContinue
   if($started -lt 0 -and $log -match 'Rhythm Ship initialized'){$started=$timer.Elapsed.TotalSeconds}
   if($started -ge 0){$elapsed=$timer.Elapsed.TotalSeconds-$started;$w=[RhythmWindow]::Find($demo.Id);if($elapsed -gt 1 -and $elapsed -lt 6 -and $elapsed -gt $tap*.14){[RhythmWindow]::Key($w,32);$tap++}
-   if($DebugPanel -and -not $debugClicked -and $elapsed -gt 4){[RhythmWindow]::Click($w,300,600);[RhythmWindow]::Click($w,100,600);[RhythmWindow]::Click($w,300,565);$debugClicked=$true}
+   if($DebugPanel -and -not $debugClicked -and $elapsed -gt 4){[RhythmWindow]::Click($w,440,384);[RhythmWindow]::Click($w,250,384);[RhythmWindow]::Click($w,100,384);$debugClicked=$true}
    if($GraphicsPanel -and -not $graphicsShown -and $elapsed -gt 5){[RhythmWindow]::Key($w,119);$graphicsShown=$true}
    if($elapsed -gt 7 -and $log -match 'Saved image:.*400\.ppm'){break}
   }
