@@ -2,6 +2,7 @@
 #include "camera_2d.h"
 #include "camera_3d.h"
 #include "ces_action_component.h"
+#include "ces_dance_character_component.h"
 #include "ces_dance_crowd_system.h"
 #include "ces_ocean_system.h"
 #include "ces_render_system.h"
@@ -14,6 +15,7 @@
 #include "render_debug_controller.h"
 #include "render_pipeline.h"
 #include "render_technique_ws.h"
+#include "rhythm_dance_pose.h"
 #include "rhythm_ship_environment.h"
 #include "rhythm_ship_input.h"
 #include "rhythm_ship_playback.h"
@@ -173,6 +175,8 @@ void rhythm_ship_scene::create()
                   post->enableWaterRefraction ? post->waterRefractionIntensity : 0.f,
                   post->enableWaterCaustics ? post->waterCausticsIntensity : 0.f));
     populate_rhythm_ship_crowd(get_fabricator(), shared_from_this());
+    const auto player = get_child("rhythm.dancer.0")
+                            ->get_component<ces_dance_character_component>();
     s->crowd = std::make_shared<ces_dance_crowd_system>(s->session, s->playback);
     s->crowd->set_active_count(s->settings->crowd_count);
     get_transition()->add_system(s->crowd);
@@ -240,7 +244,7 @@ void rhythm_ship_scene::create()
     bool manual_gamma = !gb::graphics_context::get_current_context()->is_output_srgb();
     auto action = gb::ces_entity::construct<gb::ces_entity>();
     action->add_component<gb::ces_action_component>()->set_update_callback(
-        [s, camera, post, final, output, ao, manual_gamma,
+        [s, player, camera, post, final, output, ao, manual_gamma,
          resolution](const gb::ces_entity_shared_ptr &, float) {
             s->playback->update();
             double t = s->playback->song_seconds();
@@ -313,13 +317,17 @@ void rhythm_ship_scene::create()
                                        s->settings->stage_intensity,
                                        ranks[0].local && ranks[0].score > 0, stage);
             s->ui->set_crowd_sync(s->choreography->sync());
-            // Fixed stage anchor in front of the booth, independent of player steps.
+            // Use the current pose rather than the previous frame's ECS transform:
+            // the action callback runs before the crowd system applies this pose.
+            const auto pose = rhythm_dance_pose(dancer.action, t - dancer.start, dancer.strength);
+            const auto player_head = player->base_position +
+                glm::vec3(pose.x, pose.y + 3.2f * pose.scale_y, pose.z);
             const auto prompt_clip =
-                camera->get_mat_p() * camera->get_mat_v() * glm::vec4(0, 8.f, -23.f, 1);
+                camera->get_mat_p() * camera->get_mat_v() * glm::vec4(player_head, 1);
             s->ui->set_prompt_position(
                 prompt_clip.w > 0
                     ? glm::vec2((prompt_clip.x / prompt_clip.w * .5f + .5f) * resolution.x,
-                                (.5f - prompt_clip.y / prompt_clip.w * .5f) * resolution.y)
+                                (.5f - prompt_clip.y / prompt_clip.w * .5f) * resolution.y - 120.f)
                     : glm::vec2(-1000));
             s->ui->update();
             if (std::getenv("GB_RHYTHM_DIAGNOSTICS") && t - s->last_log >= 1)

@@ -71,3 +71,9 @@ Checks: synthetic known-attack/silence/shifted-PCM regression, native C++ domain
 Windows Vulkan Debug/Release builds PASS (`accents-av-final-debug-build.log`, `accents-av-final-release-build.log`). Final Adrenaline native Debug/Release with 50 dancers, typed keyboard scoring, portrait captures and normal shutdown PASS (`accents-final-native.log`, `accents-final-release-native.log`). The old Tap-only smoke failed on the directional introduction; the harness now accepts a generated `-InputChart` and sends its actual actions. F1/F8 inspector and directional/cancellation flows PASS (`accents-final-panels-native.log`, `accents-final-directional-native.log`); fresh Adrenaline capture inspected. Output logs/captures remain ignored under `gbDemo/output/rhythm-check`. Apple/Metal, dormant OpenGL and server remain unverified.
 
 Final full native calibration flow PASS (`accents-final-controls-native.log`): track switching, 24 taps, save, reset, cancel and normal shutdown. Final `git diff --check` PASS.
+
+## 2026-10-24: action indicator above the player
+
+Moved the existing action prompt from the DJ booth to the local player's projected head position. It follows the current shared dance pose and uses 120 screen pixels of clearance so feedback/phrase/combo text stays above the character. The projection uses the current pose because the scene action callback precedes the crowd ECS transform update. Existing screen bounds and prompt rendering are retained.
+
+Verification: Windows Vulkan debug-client and release-client x64 builds PASS; Adrenaline native run with 50 dancers and typed chart input PASS (scoring, portrait captures, normal shutdown). Fresh 160-frame capture inspected for player alignment and text clearance. `git diff --check` PASS. Apple/Metal and OpenGL remain unverified.
