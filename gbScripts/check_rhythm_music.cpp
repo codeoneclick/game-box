@@ -3,10 +3,12 @@
 #include "rhythm_track_catalog.h"
 #include "rhythm_track_loader.h"
 #include <algorithm>
+#include <array>
 #include <cassert>
 #include <chrono>
 #include <cmath>
 #include <fstream>
+#include <iomanip>
 #include <iostream>
 #include <thread>
 using namespace game;
@@ -31,20 +33,45 @@ int main()
     {
         auto beats = resolve_rhythm_beats(e.track);
         assert(!beats.empty());
-        // Adrenaline's measured bass/kick grid is near 11ms, not the 231ms offbeat accent.
-        if (e.track.id == "adrenaline_sport")
-            assert(std::abs(beats.front() - .011) < .012);
         RhythmTrack choreography;
         assert(generate_rhythm_choreography(e.track, RhythmChoreographySettings(), choreography,
                                             error));
+        const auto acoustic = resolve_rhythm_accents(e.track);
         for (const auto &action : resolve_rhythm_events(choreography))
         {
-            auto beat = std::lower_bound(beats.begin(), beats.end(), action.time - 1e-8);
-            assert(beat != beats.end() && std::abs(*beat - action.time) < 1e-7);
+            if (!acoustic.empty())
+            {
+                auto accent =
+                    std::lower_bound(acoustic.begin(), acoustic.end(), action.time - 1e-8,
+                                     [](const RhythmEvent &e, double t) { return e.time < t; });
+                assert(accent != acoustic.end() && std::abs(accent->time - action.time) < 1e-7 &&
+                       accent->action == action.action);
+            }
+            else
+            {
+                auto beat = std::lower_bound(beats.begin(), beats.end(), action.time - 1e-8);
+                assert(beat != beats.end() && std::abs(*beat - action.time) < 1e-7);
+            }
         }
+        std::array<unsigned, 5> counts{};
+        std::ofstream chart("playable-" + e.track.id + ".json");
+        chart << "[";
+        for (size_t i = 0; i < choreography.events.size(); ++i)
+        {
+            const auto &action = choreography.events[i];
+            ++counts[static_cast<unsigned>(action.action)];
+            if (i)
+                chart << ",";
+            chart << "{\"time\":" << std::setprecision(10) << action.time << ",\"action\":\""
+                  << rhythm_action_name(action.action) << "\"}";
+        }
+        chart << "]";
+        std::cout << "Playable " << e.track.id << " events=" << choreography.events.size()
+                  << " Tap/L/R/U/D=" << counts[0] << "/" << counts[1] << "/" << counts[2] << "/"
+                  << counts[3] << "/" << counts[4] << std::endl;
         if (!e.track.audio_file.empty())
         {
-            assert(beats.front() < 60 / e.track.bpm && beats.back() < e.track.duration);
+            assert(!acoustic.empty() && beats.back() < e.track.duration);
             RhythmTrack prepared;
             assert(prepare_rhythm_track(e, e.track.duration, prepared, error));
             assert(!prepare_rhythm_track(e, e.track.duration / 2, prepared, error));
@@ -53,29 +80,29 @@ int main()
     std::ofstream("bad-catalog.json") << "[]";
     assert(!load_rhythm_catalog("bad-catalog.json", catalog, error) && catalog.size() == 10);
     RhythmCalibration calibration;
-    for (double bias : {.080, -.060})
+    for (double bias : {.080, -.060, .300, .600, -.600})
     {
         calibration.begin();
         calibration.tap(.5); // count-in, ignored
         for (int i = 0; i < 24; ++i)
         {
-            calibration.tap((4 + i) * .5 + bias);
-            calibration.tap((4 + i) * .5 + bias); // duplicate ignored
+            calibration.tap((4 + i) * 1.5 + bias);
+            calibration.tap((4 + i) * 1.5 + bias); // duplicate ignored
         }
         auto result = calibration.finish();
         assert(result.accepted && std::abs(result.offset - bias) < 1e-8);
     }
     calibration.begin();
     for (int i = 0; i < 24; ++i)
-        calibration.tap((4 + i) * .5 + (i % 2 ? .15 : -.15));
+        calibration.tap((4 + i) * 1.5 + (i % 2 ? .15 : -.15));
     assert(!calibration.finish().accepted);
     calibration.begin();
     for (int i = 0; i < 10; ++i)
-        calibration.tap((4 + i) * .5 + .08);
+        calibration.tap((4 + i) * 1.5 + .08);
     assert(!calibration.finish().accepted);
     calibration.begin();
     for (int i = 0; i < 24; ++i)
-        calibration.tap((4 + i) * .5 + (i == 5 ? .24 : .08));
+        calibration.tap((4 + i) * 1.5 + (i == 5 ? .24 : .08));
     assert(calibration.finish().accepted && std::abs(calibration.finish().offset - .08) < 1e-8);
     double offset = .03;
     assert(save_rhythm_calibration("calibration-check.json", .08, error));
@@ -136,9 +163,10 @@ int main()
         }
         assert(playback.scoring_active() && session->track().id == "active_sport");
         assert(playback.set_calibration_offset(.08));
-        const double calibrated_first = resolve_rhythm_events(session->track()).front().time + .08;
-        playback.tap(calibrated_first);
-        session->update(calibrated_first, .08);
+        const auto first = resolve_rhythm_events(session->track()).front();
+        const double calibrated_first = first.time + .08;
+        playback.input(RhythmInput(calibrated_first, first.action));
+        session->update(playback.raw_to_song_time(calibrated_first));
         assert(session->score().score == 100);
         const auto epoch = playback.epoch();
         auto invalid_settings = playback.choreography_settings();
@@ -163,7 +191,7 @@ int main()
         playback.begin_calibration();
         assert(!playback.scoring_active());
         for (int i = 0; i < 24; ++i)
-            playback.tap((4 + i) * .5 - .06);
+            playback.tap((4 + i) * 1.5 - .06);
         assert(playback.scoring_active() && playback.calibration_offset() < 0 &&
                session->score().score == 0);
         playback.select(2);
@@ -195,6 +223,35 @@ int main()
             std::this_thread::sleep_for(std::chrono::milliseconds(10));
         }
         assert(session->track().generated_choreography && session->track().events.size() > 1);
+    }
+    {
+        auto restricted = std::vector<RhythmTrackEntry>{catalog.back(), catalog.front()};
+        restricted[1].track.events.clear();
+        restricted[1].track.accents = {RhythmEvent(2, RhythmAction::SwipeDown)};
+        restricted[1].track.generated_choreography = true;
+        auto session = std::make_shared<RhythmSession>(default_rhythm_track());
+        auto audio = std::make_shared<gb::al::RhythmAudioTransport>();
+        auto bots = std::make_shared<FakeLeaderboard>();
+        RhythmShipPlayback playback(
+            session, audio, bots, restricted,
+            [](const std::string &name) { return "../../../gbResources/" + name; },
+            "restricted-calibration.json");
+        playback.select(0);
+        auto settings = RhythmChoreographySettings();
+        settings.enabled_actions = 1;
+        assert(playback.apply_choreography(settings));
+        playback.select(1);
+        for (int i = 0;
+             i < 200 && playback.status().find("No playable audio accents") == std::string::npos;
+             ++i)
+        {
+            playback.update();
+            std::this_thread::sleep_for(std::chrono::milliseconds(10));
+        }
+        assert(!playback.scoring_active());
+        settings.enabled_actions = 1u << static_cast<unsigned>(RhythmAction::SwipeDown);
+        assert(playback.apply_choreography(settings));
+        assert(playback.scoring_active() && session->track().id == restricted[1].track.id);
     }
     std::cout << "Music catalog, calibration and loader checks passed\n";
 }

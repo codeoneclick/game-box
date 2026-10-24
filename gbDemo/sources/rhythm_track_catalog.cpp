@@ -62,6 +62,7 @@ bool prepare_rhythm_track(const RhythmTrackEntry &e, double duration, RhythmTrac
         t.duration = duration;
         resolve_rhythm_beats(t);
         resolve_rhythm_events(t);
+        resolve_rhythm_accents(t);
         out = t;
         error.clear();
         return true;

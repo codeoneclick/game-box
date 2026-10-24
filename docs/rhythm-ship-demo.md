@@ -1,4 +1,4 @@
-﻿# Rhythm Ship demo
+п»ї# Rhythm Ship demo
 
 The default demo is a stationary ship with directional rhythm gameplay. The rectangular deck, daylight, ocean renderer and skybox are retained. Windows uses a **680 x 960 portrait** client area, with FPS, submitted polygons/frame and draw calls/frame in the bottom HUD. `GB_DEMO=island` selects the retained island.
 
@@ -20,26 +20,26 @@ Loading, restarts, calibration changes, capture cancellation and F8 invalidate p
 
 ## Gameplay and presentation
 
-The compact indicator in front of the DJ booth shows the current command; its cyan ring contracts towards the beat, then the icon flashes white on the target. Smaller icons above it preview the next two commands (configurable 0–3). A filled circle means Tap; arrows indicate direction. Resolved commands dim, and judgement feedback fades separately. Command ownership changes at the nearest-event midpoint, with exact ties going to the earlier event, independently of hit-window expiry. Ring progress starts from the actual cue start rather than assuming its entire two-second lead was visible. The yellow player ring and YOU label identify the player.
+The compact indicator in front of the DJ booth shows the current command; its cyan ring contracts towards the beat, then the icon flashes white on the target. Smaller icons above it preview the next two commands (configurable 0вЂ“3). A filled circle means Tap; arrows indicate direction. Resolved commands dim, and judgement feedback fades separately. Command ownership changes at the nearest-event midpoint, with exact ties going to the earlier event, independently of hit-window expiry. Ring progress starts from the actual cue start rather than assuming its entire two-second lead was visible. The yellow player ring and YOU label identify the player.
 
-Events form deterministic repeated phrases on the authored musical grid, with bursts and rests rather than a fixed command interval. After four pulses of preparation, default Normal begins with Tap/Tap/Tap on successive beats, rests five beats, then Up. At Adrenaline Sport's 139 BPM that rest is approximately 2.16 seconds. Other phrases mix taps and spaced directional commands; trailing rests avoid fast direction changes at phrase boundaries. Easy stretches the phrases and uses Tap/Left/Right. Hard retains quarter/eighth-note phrases for deliberate challenge. Generated events and musical pulses are separate; difficulty does not accelerate audio. Prompt lead defaults to two seconds. These are designed patterns on the measured grid, not a transcription of every musical fill.
+MP3 actions are selected from measured attacks and changes in the recording's energy and timbre. Their exact source timestamps are preserved: no repeating action template or fixed BPM interval places these commands. Short Tap groups and longer rests follow available accents; difficulty filters strength and density and leaves recovery time around swipes. The initial 1.5 seconds allow preparation. Easy disables Up/Down. Legacy maps and the metronome retain their synthetic fallback. Prompt lead defaults to two seconds. Direction suggestions use energy, timbre and stereo changes; this is a heuristic transcription, not a semantic identification of every musical drop.
 
-One event resolves once. Correct actions within inclusive **±90/180/300 ms** windows earn Perfect/Great/Good and **100/70/30** points. The default full acceptance interval is up to 600 ms; in dense series the nearest event owns overlapping windows. F1 Timing sliders permit windows up to 500 ms. A different direction produces **Wrong**, consumes the nearest event and resets combo; expired events produce Miss. Repeating an already resolved nearest event cannot skip ahead. Accuracy is earned points divided by possible points across judgements. Positive personal calibration is subtracted from input time once; music and visuals keep raw song time.
+One event resolves once. Correct actions within inclusive **В±90/180/300 ms** windows earn Perfect/Great/Good and **100/70/30** points. The default full acceptance interval is up to 600 ms; in dense series the nearest event owns overlapping windows. F1 Timing sliders permit windows up to 500 ms. A different direction produces **Wrong**, consumes the nearest event and resets combo; expired events produce Miss. Repeating an already resolved nearest event cannot skip ahead. Accuracy is earned points divided by possible points across judgements. Positive AV calibration is subtracted once from raw endpoint time for prompts, player movement, crowd and judgement. The audio itself continues unchanged. Changing this offset restarts the chart and clears pending inputs.
 
-Swipes produce one step along the deck: Left/Right along ship X, Up towards the DJ booth (-Z), Down away from it (+Z). Each step reaches its accent in 100 ms, settles for 80 ms and returns by 550 ms; offsets always derive from the character's anchor, so movement cannot accumulate. Tap's small vertical bounce peaks in 60 ms and returns by 240 ms, keeping tap series distinct. The 30–50 character crowd uses a stable individual reaction delay from 0 to 330 ms, with occasional wrong actions and misses. Shared delayed outcomes drive poses and leaderboard; delays beyond the Good window count as misses. CrowdSync represents recent coordination. Directional strips/panels, Tap speaker pulses and a fixed three-slot floor-ring pool react without creating per-beat entities. The DJ retains an idle beat animation.
+Swipes produce one step along the deck: Left/Right along ship X, Up towards the DJ booth (-Z), Down away from it (+Z). Each step reaches its accent in 100 ms, settles for 80 ms and returns by 550 ms; offsets always derive from the character's anchor, so movement cannot accumulate. Tap's small vertical bounce peaks in 60 ms and returns by 240 ms, keeping tap series distinct. The 30вЂ“50 character crowd uses a stable individual reaction delay from 0 to 330 ms, with occasional wrong actions and misses. Shared delayed outcomes drive poses and leaderboard; delays beyond the Good window count as misses. CrowdSync represents recent coordination. Directional strips/panels, Tap speaker pulses and a fixed three-slot floor-ring pool react without creating per-beat entities. The DJ retains an idle beat animation.
 
 ## F1 pages
 
 | Page | Controls |
 |---|---|
-| Gameplay | Easy/Normal/Hard, five action toggles, Generate Beatmap, five action test buttons, swipe threshold, crowd count, energy, Force Beat, Become Rank #1 |
+| Gameplay | Easy/Normal/Hard, five action toggles, Refresh accents, five action test buttons, swipe threshold, crowd count, energy, Force Beat, Become Rank #1 |
 | Timing | Perfect/Great/Good windows, authored map offset, BPM for generated pulse maps |
 | Visuals | Indicator/crowd/directional stage toggles, volume, stage intensity, prompt lead, preview count |
-| Calibration | Start, Cancel, Reset offset, manual personal offset |
+| Calibration | Start, Cancel, Reset offset, manual AV sync offset |
 
-All-disabled action settings and invalid timing edits retain the last valid state. Difficulty/action changes validate a generated candidate before restarting music and resetting score. Explicit authored charts retain their actions until Generate Beatmap is deliberately requested. Action test buttons judge at current audio time, so an off-time test can result in Miss. Force Beat changes presentation only.
+All-disabled action settings and invalid timing edits retain the last valid state. Difficulty/action changes validate a generated candidate before restarting music and resetting score. Explicit authored charts retain their actions until Refresh accents is deliberately requested. Action test buttons judge at current audio time, so an off-time test can result in Miss. Force Beat changes presentation only.
 
-Calibration plays four count-in clicks, then collects 24 Space/click taps. A consistent run saves the median signed bias; noisy/incomplete runs retain the previous value. Cancel restores the selected song from its start. The manual range is -250 to +250 ms; positive means late taps. Preferences live separately in ignored `gbResources/RhythmAudioSettings.json`. This is practical tap bias, not physical device latency.
+Calibration plays four count-in clicks, then collects 24 Space/click taps at 1.5-second intervals. Tap to the heard clicks, including when using Bluetooth. A consistent run saves the median signed bias; noisy/incomplete runs retain the previous value. Cancel restores the selected song from its start. The manual AV sync range is -600 to +600 ms; positive values delay visual cues to the heard sound. Preferences live separately in ignored `gbResources/RhythmAudioSettings.json`, with an initial offset of zero. This measures combined device and tapping bias; physical Bluetooth latency cannot be inferred from the Windows endpoint sample position alone.
 
 ## Beatmaps and audio
 
@@ -61,23 +61,27 @@ An authored chart can separate musical pulse times from typed playable events:
 }
 ```
 
-`audio_file` optionally names a local MP3 basename. Times are seconds; offset applies once to both timelines. Musical pulses must be ordered with cyclic spacing greater than 260 ms; playable events allow 60 ms, including the loop seam. Events must be finite, ordered and inside decoded duration, with at most 60,000 entries. Action spelling is exact. Explicit `events` override generation. Without events, `"choreography":"phrases"` requests phrase generation; absent or `"legacy"` preserves Tap-only beat compatibility. Missing `beats` generates the legacy BPM pulse. Invalid resources produce a diagnostic/fallback.
+`audio_file` optionally names a local MP3 basename. Times are seconds; offset applies once to both timelines. Musical pulses must be ordered with cyclic spacing greater than 260 ms; playable events allow 60 ms, including the loop seam. Events must be finite, ordered and inside decoded duration, with at most 60,000 entries. Action spelling is exact. Explicit `events` override generation. Without events, `"choreography":"accents"` selects from a required `accents` array of `{ "time": 1.83, "action": "Tap", "strength": 0.8 }` entries. Strength is finite and in [0,1]. `"choreography":"phrases"` requests the legacy phrase generator; absent or `"legacy"` preserves Tap-only beat compatibility. Missing `beats` generates the legacy BPM pulse. Invalid resources produce a diagnostic/fallback.
 
 `RhythmAudioTransport` in gbSound decodes with pinned dr_mp3 and plays PCM through WinMM on Windows, using played-sample position. Apple source owns an OpenAL PCM source/buffer on the existing audio context; it does not use asynchronous `audio_engine::play2d`. Only active PCM is cached. Missing/corrupt/mismatched music uses the metronome and its matching map. Device failure uses a labelled SILENT CLOCK with the selected map. No network music or streaming is involved.
 
 ## Code ownership and verification
 
-Application rules stay in `gbDemo/sources/rhythm_*`: typed session/judgement, phrase generation, gestures, playback, prompt model/view, crowd outcomes, poses and stage state. `ces_dance_crowd_system` applies shared pose state through existing ECS. The native gbUI HUD uses existing sprite/label materials. Registration covers MSVC and all three Xcode targets through `gbScripts/register-rhythm-ship.py`. Engine input additions are default no-op cancellation/focus-loss notifications; Win32 sends them while retaining legacy synthetic release and modifier cleanup.
+Application rules stay in `gbDemo/sources/rhythm_*`: typed session/judgement, accent selection and legacy phrase generation, gestures, playback, prompt model/view, crowd outcomes, poses and stage state. `ces_dance_crowd_system` applies shared pose state through existing ECS. The native gbUI HUD uses existing sprite/label materials. Registration covers MSVC and all three Xcode targets through `gbScripts/register-rhythm-ship.py`. Engine input additions are default no-op cancellation/focus-loss notifications; Win32 sends them while retaining legacy synthetic release and modifier cleanup.
 
 ```powershell
 ./gbScripts/check-rhythm.ps1
 ./gbScripts/check-rhythm-audio.ps1
 ./gbScripts/check-rhythm-music.ps1
 ./gbScripts/check-rhythm-gestures.ps1
+./gbScripts/check-rhythm-sync.ps1
+python3 gbScripts/check-rhythm-accents.py
 ./gbScripts/check-rhythm-directional-runtime.ps1
 ./gbScripts/check-rhythm-controls.ps1
 python3 gbScripts/check-rhythm-ship-assets.py
 ./gbScripts/check-rhythm-ship-runtime.ps1 -CrowdCount 50
+# After check-rhythm-music.ps1 exports generated input evidence:
+./gbScripts/check-rhythm-ship-runtime.ps1 -CrowdCount 50 -Track 1 -InputChart gbDemo/output/rhythm-check/playable-adrenaline_sport.json
 ./gbScripts/check-rhythm-ship-runtime.ps1 -Silent -DebugPanel
 ```
 

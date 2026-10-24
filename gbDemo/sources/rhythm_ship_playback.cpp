@@ -1,4 +1,5 @@
 #include "rhythm_ship_playback.h"
+#include <algorithm>
 #include <cmath>
 #include <cstdlib>
 #include <iostream>
@@ -35,6 +36,15 @@ void RhythmShipPlayback::publish(const RhythmTrack &track,
         RhythmTrack generated;
         if (!generate_rhythm_choreography(candidate, choreography_, generated, error))
         {
+            // Decoding is finished even when the enabled actions filter out the
+            // entire chart. Keep its source and cached PCM for a settings retry,
+            // but never score against the previously published track.
+            source_track_ = candidate;
+            loading_ = false;
+            chart_ready_ = false;
+            audio_->stop();
+            has_input_ = false;
+            ++epoch_;
             notice_ = error;
             return;
         }
@@ -54,6 +64,7 @@ void RhythmShipPlayback::publish(const RhythmTrack &track,
                                          std::to_string(pcm->channels) + " ch / sample clock")
             : audio_->start({track.duration, resolve_rhythm_beats(track), ""});
     loading_ = false;
+    chart_ready_ = true;
     ++epoch_;
     has_input_ = false;
     if (!started)
@@ -64,6 +75,7 @@ void RhythmShipPlayback::publish(const RhythmTrack &track,
 void RhythmShipPlayback::select(size_t index)
 {
     ++epoch_;
+    chart_ready_ = false;
     has_input_ = false;
     notice_.clear();
     calibrating_ = false;
@@ -131,8 +143,17 @@ void RhythmShipPlayback::update()
             publish(fallback, nullptr);
         }
     }
-    if (calibrating_ && audio_->seconds() > 14)
+    if (calibrating_ &&
+        audio_->seconds() > (RhythmCalibration::count_in_pulses + RhythmCalibration::tap_count -
+                             1) * RhythmCalibration::pulse_interval +
+                                RhythmCalibration::maximum_offset + .1)
         finish_calibration();
+}
+double RhythmShipPlayback::song_seconds() const
+{
+    // Calibration must observe the uncorrected click clock to measure its delay.
+    const double raw = audio_->seconds();
+    return calibrating_ ? raw : std::max(0.0, raw_to_song_time(raw));
 }
 void RhythmShipPlayback::tap(double raw)
 {
@@ -146,15 +167,15 @@ void RhythmShipPlayback::input(RhythmInput value)
         if (value.action != RhythmAction::Tap)
             return;
         calibration_.tap(raw);
-        if (calibration_.progress() == 24)
+        if (calibration_.progress() == RhythmCalibration::tap_count)
             finish_calibration();
         return;
     }
     if (scoring_active())
     {
+        value.time = raw_to_song_time(raw);
         last_input_ = value;
         has_input_ = true;
-        value.time -= offset_;
         session_->enqueue_input(value);
     }
 }
@@ -198,9 +219,10 @@ void RhythmShipPlayback::begin_calibration()
     calibration_.begin();
     audio_->stop();
     std::vector<double> beats;
-    for (int i = 0; i < 28; ++i)
-        beats.push_back(i * .5);
-    audio_->start({16, beats, ""});
+    const int pulses = RhythmCalibration::count_in_pulses + RhythmCalibration::tap_count;
+    for (int i = 0; i < pulses; ++i)
+        beats.push_back(i * RhythmCalibration::pulse_interval);
+    audio_->start({pulses * RhythmCalibration::pulse_interval, beats, ""});
     status_ = "Calibration";
     if (std::getenv("GB_RHYTHM_DIAGNOSTICS"))
         std::cout << "Rhythm calibration begin" << std::endl;
@@ -242,8 +264,22 @@ bool RhythmShipPlayback::set_calibration_offset(double offset)
         notice_ = error;
         return false;
     }
+    const bool changed = offset_ != offset;
     offset_ = offset;
     notice_.clear();
+    if (changed)
+    {
+        // A new mapping can move time backwards. Restart both audio and scoring
+        // instead of letting the session's monotonic guard freeze presentation.
+        has_input_ = false;
+        if (!loading_ && !calibrating_)
+        {
+            const auto track = source_track_.id.empty() ? session_->track() : source_track_;
+            publish(track, active_pcm_);
+        }
+        else
+            ++epoch_;
+    }
     if (std::getenv("GB_RHYTHM_DIAGNOSTICS"))
         std::cout << "Rhythm calibration saved offset_ms=" << offset * 1000 << std::endl;
     return true;
@@ -253,9 +289,11 @@ std::string RhythmShipPlayback::status() const
     if (calibrating_)
     {
         const double t = audio_->seconds();
-        return t < 1.75 ? "CALIBRATION: listen to 4 count-in clicks"
-                        : "CALIBRATION: SPACE / CLICK  " + std::to_string(calibration_.progress()) +
-                              " / 24";
+        return t < RhythmCalibration::count_in_pulses * RhythmCalibration::pulse_interval -
+                           RhythmCalibration::maximum_offset
+                   ? "CALIBRATION: listen to 4 slow count-in clicks"
+                   : "CALIBRATION: SPACE / CLICK  " + std::to_string(calibration_.progress()) +
+                         " / 24";
     }
     return status_ + (notice_.empty() ? "" : " | " + notice_);
 }

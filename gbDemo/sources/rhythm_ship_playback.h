@@ -20,7 +20,7 @@ class RhythmShipPlayback
     std::string pcm_id_, preferences_, status_, notice_;
     size_t selected_ = 0;
     std::uint64_t generation_ = 0;
-    bool loading_ = false, calibrating_ = false;
+    bool loading_ = false, calibrating_ = false, chart_ready_ = false;
     double offset_ = 0;
     RhythmCalibration calibration_;
     RhythmTrack source_track_;
@@ -60,7 +60,7 @@ class RhythmShipPlayback
     }
     bool scoring_active() const
     {
-        return !loading_ && !calibrating_;
+        return chart_ready_ && !loading_ && !calibrating_;
     }
     bool calibrating() const
     {
@@ -73,6 +73,13 @@ class RhythmShipPlayback
     {
         return offset_;
     }
+    // Input timestamps and presentation share this conversion. Negative song time
+    // is retained for input rejection during the initial output-latency interval.
+    double raw_to_song_time(double raw) const
+    {
+        return raw - offset_;
+    }
+    double song_seconds() const;
     std::string status() const;
 };
 } // namespace game

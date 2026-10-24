@@ -1,4 +1,5 @@
 #include "rhythm_choreography.h"
+#include <algorithm>
 #include <array>
 #include <stdexcept>
 namespace game
@@ -16,6 +17,66 @@ bool generate_rhythm_choreography(const RhythmTrack &source,
             throw std::invalid_argument("Enable at least one action for this difficulty");
         if (static_cast<unsigned>(settings.difficulty) > 2)
             throw std::invalid_argument("Invalid difficulty");
+        if (!source.accents.empty())
+        {
+            const auto accents = resolve_rhythm_accents(source);
+            auto result = source;
+            result.events.clear();
+            result.generated_choreography = true;
+            const bool easy = settings.difficulty == RhythmDifficulty::Easy;
+            const bool hard = settings.difficulty == RhythmDifficulty::Hard;
+            const double minimum_strength = easy ? .60 : hard ? .20 : .35;
+            std::vector<double> recent;
+            unsigned phrase = 0, step = 0;
+            for (size_t i = 0; i < accents.size(); ++i)
+            {
+                auto event = accents[i];
+                if (event.time < 1.5 || event.strength < minimum_strength ||
+                    !(enabled & (1u << static_cast<unsigned>(event.action))))
+                    continue;
+                const bool tap = event.action == RhythmAction::Tap;
+                const double spacing = easy ? .50 : hard ? (tap ? .20 : .42) : (tap ? .30 : .65);
+                const double previous =
+                    result.events.empty() ? -10 : result.events.back().time + source.offset;
+                const bool previous_tap =
+                    result.events.empty() || result.events.back().action == RhythmAction::Tap;
+                const double recovery =
+                    previous_tap ? spacing : std::max(spacing, hard ? .35 : .50);
+                if (event.time - previous < recovery - 1e-9)
+                    continue;
+                // Reserve the next recovery interval for a materially stronger
+                // accent rather than filling it with a preceding weak transient.
+                bool stronger = false;
+                for (size_t j = i + 1;
+                     j < accents.size() && accents[j].time - event.time < (hard ? .35 : .65); ++j)
+                    if (accents[j].strength > event.strength + .15 &&
+                        (enabled & (1u << static_cast<unsigned>(accents[j].action))))
+                        stronger = true;
+                if (stronger)
+                    continue;
+                recent.erase(std::remove_if(recent.begin(), recent.end(),
+                                            [&](double t) { return event.time - t > 1.5; }),
+                             recent.end());
+                if (recent.size() >= static_cast<size_t>(hard ? 5 : 3))
+                    continue;
+                if (event.time - previous > .9)
+                {
+                    ++phrase;
+                    step = 0;
+                }
+                event.phrase_id = phrase;
+                event.phrase_step = step++;
+                recent.push_back(event.time);
+                event.time -= source.offset;
+                result.events.push_back(event);
+            }
+            if (result.events.empty())
+                throw std::invalid_argument("No playable audio accents for these settings");
+            resolve_rhythm_events(result);
+            out = std::move(result);
+            error.clear();
+            return true;
+        }
         const auto beats = resolve_rhythm_beats(source);
         auto result = source;
         result.events.clear();

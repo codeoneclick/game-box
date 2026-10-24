@@ -15,6 +15,12 @@ class RhythmCalibration
     std::vector<int> pulses_;
 
   public:
+    // The spacing exceeds twice the supported delay, avoiding half-second
+    // phase wrapping on Bluetooth output while retaining all 24 measurements.
+    static constexpr double pulse_interval = 1.5;
+    static constexpr double maximum_offset = .6;
+    static constexpr int count_in_pulses = 4;
+    static constexpr int tap_count = 24;
     void begin()
     {
         errors_.clear();

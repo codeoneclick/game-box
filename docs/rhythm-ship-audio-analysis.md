@@ -1,40 +1,47 @@
-﻿# Local MP3 analysis — current nine-song pack
+# Audio accents and Bluetooth timing
 
-Nine user-supplied Kulakovka MP3s replace the previous three songs. Original filenames and bytes are preserved in `gbResources`. The canonical source SHA-256 fingerprints, runtime-decoded frame counts, section phases and tempo autocorrelation evidence are in `gbBundle/Configurations/rhythm_ship/rhythm_ship_music.json`. The catalog contains these nine songs plus the original metronome. Active Sport is selected by default.
+The nine user-supplied Kulakovka MP3 files are unchanged. Source hashes, decoded frame counts and descriptive tempo analysis remain in `gbBundle/Configurations/rhythm_ship/rhythm_ship_music.json`. Active Sport is the default; Adrenaline Sport is entry 1. Runtime PCM is stereo PCM16 at 44100 Hz, decoded by the pinned dr_mp3 implementation.
 
-| Source | BPM | Sample frames | Duration (s) | First pulse (s) |
-|---|---:|---:|---:|---:|
-| kulakovka-active-sport-618585.mp3 | 160 | 4869504 | 110.419591837 | 0.011 |
-| kulakovka-adrenaline-sport-620584.mp3 | 139 | 6009984 | 136.280816327 | 0.011 |
-| kulakovka-gym-motivation-620569.mp3 | 98 | 6697728 | 151.875918367 | 0.021 |
-| kulakovka-retro-music-620580.mp3 | 98 | 7028352 | 159.373061224 | 0.012 |
-| kulakovka-summer-party-620566.mp3 | 122 | 7212672 | 163.552653061 | 0.258 |
-| kulakovka-summertime-620526.mp3 | 120 | 4423680 | 100.310204082 | 0.010 |
-| kulakovka-synthwave-pop-620528.mp3 | 96 | 6340608 | 143.777959184 | 0.010 |
-| kulakovka-upbeat-energetic-rock-614902.mp3 | 145 | 4783104 | 108.460408163 | 0.010 |
-| kulakovka-workout-620537.mp3 | 156 | 7787520 | 176.587755102 | 0.020 |
+## What places an action
 
-All decode to stereo PCM16 at 44100 Hz with the exact shipped dr_mp3 decoder. Decoder revision/provenance are in `gbSound/libraries/dr_mp3/PROVENANCE.txt`. Asset verification checks source hashes against the manifest and verifies target resource membership; no replacement encoding or renaming is performed.
+The previous fixed-tempo phase grid and repeated choreography templates did not represent the track's actual accents. All nine canonical music maps now use `"choreography":"accents"` and measured source candidates, each with time, action and strength. Informational BPM and the older phase audit do not place playable actions.
 
-## Evidence and reproduction
+`gbScripts/rhythm_audio_accents.py` computes positive logarithmic spectral flux in bass, mid and high bands. Analysis uses 512-sample Hann windows at approximately 11025 Hz with 64-sample hops (about 5.8 ms), adaptive thresholds and local peaks. Each candidate is refined around the spectral peak with a 1 ms energy-rise hop. Silence rejection and 130 ms nonmaximum suppression remove quiet/duplicate candidates. This refinement matters: a centred spectral window can peak before the audible attack.
+
+Energy contrast before/after an attack suggests a rise or reentry; timbre and stereo changes suggest directional accents. Neighbouring ordinary drum attacks become Tap groups. These are acoustic heuristics, not semantic ground truth about drops, and action balance is not forced. Maps retain per-candidate energy/timbre evidence and source provenance.
+
+The C++ generator selects stronger candidates, filters disabled directions, limits bursts and leaves recovery time around swipes. It preserves every selected source timestamp and action; no random seed, BPM quantization or repeating action table changes them. This permits irregular Tap groups and rests. Explicit authored `events` remain authoritative. Metronome/legacy maps keep their compatibility path.
+
+## Shared clock and Bluetooth
+
+Previously personal calibration shifted judgement input only. Prompts and dancers still followed raw endpoint time, so calibration could not align the visible action with delayed Bluetooth sound.
+
+Now song time is endpoint time minus the saved AV offset. Prompts, local movement, crowd and scoring use that same timeline. Input is corrected once at the playback boundary. A changed offset restarts playback/chart state and clears pending inputs. Calibration itself deliberately uses raw time.
+
+A scratch Windows WASAPI loopback probe detected 13/13 known clicks from 0.5 to 6.5 seconds. WinMM position matched the Windows Bluetooth endpoint onset within +1.485 to +1.577 ms (mean 1.514 ms), with residual drift 0.0077 ms/s. The roughly 221 ms endpoint startup delay was already followed by the sample counter. This supports leaving the transport implementation unchanged. Evidence is ignored under `gbDemo/output/rhythm-check/clock-probe`.
+
+**Endpoint loopback does not measure the physical speaker's acoustic Bluetooth delay.** No independent physical listening/recording verification was performed. Use F1 Calibration: four slow count-in clicks, then 24 taps to the heard clicks, spaced 1.5 seconds apart. The saved median includes device and tapping bias and shifts the entire visual/scoring timeline. Manual AV sync allows -600 to +600 ms. Default remains zero; no guessed Bluetooth offset is inserted.
+
+## Reproduction and checks
+
+Use Python 3 with NumPy (this machine's bare `python` is Python 2.7; Blender 5.2's bundled Python was used).
 
 ```powershell
 ./gbScripts/check-rhythm-audio.ps1
-python3 gbScripts/analyze-rhythm-mp3.py
+python3 gbScripts/check-rhythm-accents.py
+python3 gbScripts/analyze-rhythm-mp3.py --write-maps
+./gbScripts/check-rhythm-music.ps1
+./gbScripts/check-rhythm-gestures.ps1
+./gbScripts/check-rhythm-sync.ps1
+python3 gbScripts/check-rhythm-ship-assets.py
 ```
 
-Use Python 3 with NumPy; this machine's unqualified `python` is Python 2.7. Blender 5.2's bundled Python includes NumPy and was used here. The audio checker emits runtime-decoded `<original>.mp3.pcm` files under ignored `gbDemo/output/rhythm-check`. The analyzer writes `runtime-mp3-analysis.json` and click-overlay WAV snippets for introduction/middle/ending sections. `--pcm-dir` selects another PCM directory; `--write-maps` deliberately regenerates the nine canonical maps and catalog using the manifest's selected tempo/phase.
+The audio checker emits runtime-decoded PCM under ignored `gbDemo/output/rhythm-check`. `--pcm-dir` selects another directory. `--write-maps` deliberately updates all nine source maps from these PCM files. Without it, the analyzer only writes ignored evidence/overlays. Historical grid overlays diagnose phase families; they do not validate current playable accents.
 
-Tempo selection compared onset autocorrelation at candidate half/main/double rates. Phase estimation downmixes runtime PCM, averages groups of four samples, then uses 1024-sample Hann windows with 128-sample hops at 11025 Hz. Positive logarithmic spectral flux in bass/mid bands locates phase peaks in independent 15-second sections. The manifest retains the section evidence rather than claiming all sections have an identical accent.
-
-These are practical grid estimates, **not sample-accurate musical ground truth**. Analysis hops are about 11.6 ms. Intro transients, breakdowns, syncopation and half/double-time families can favor different peaks. Adrenaline Sport alternates around 11 ms and 231 ms (approximately half a 139 BPM beat). After a user-reported mismatch, its map was shifted 220 ms earlier to the 11 ms bass/kick family. The original blended-band majority had favored the offbeat spectral accent. Low-band-only peak searches favor 15–40 ms across large sections; 11 ms has stronger bass support than 231 ms in the introduction and over the full track. The manifest retains the earlier section evidence and the new bass audit. The canonical analyzer now reports selected-grid versus half-beat bass strength (about 1.152 versus 0.848 for Adrenaline), independently of its phase-search loop. This supports the phase-family correction without establishing sample-perfect kick timing. Summer Party still uses the half-beat accent around 258 ms at 122 BPM. A fixed-tempo map does not model every fill or local tempo drift.
-
-Overlay files are available for human listening, but audible alignment was not independently heard/recorded here, and no physical output latency was measured. Authored-map offset and separate personal tap calibration provide correction without shifting music or confusing map phase with user/device bias.
+Synthetic waveform checks verify arbitrary known attacks within 25 ms, silence without generated commands, and matching time shifts after shifting the PCM. Native C++ checks verify exact selected-event identity against source candidates across all nine maps, compatibility, difficulty/masks and publication failure recovery. Sync checks cover signed AV offsets through +/-600 ms, a shared prompt/pose/judge timeline, epoch resets, calibration and version-1 preferences. These compile checks are not an engine-owned unit test suite or proof of perceptual musical quality.
 
 ## Loop and failure behavior
 
-Musical pulse maps contain explicit times strictly before decoded end. The generator omits final pulses when necessary to retain more than 260 ms between musical pulses across the seam. Playable phrase events independently enforce at least 60 ms cyclic spacing. Playback repeats the entire decoded file without stretching or trimming; authored endings/silence can cause a musical gap. No seamless-edit claim is made.
+Musical pulses are measured strong attacks with cyclic spacing over 260 ms. Playable events are independently validated, including loop seams. Playback repeats the full original file without stretching/trimming; authored silence/endings can leave a gap. No seamless-edit claim is made.
 
-The strict decoder accepts ordinary framed Layer III mono/stereo, ID3v2 at the start and ID3v1 at the end. Free-format streams, changing channel/rate streams and other trailing metadata are rejected. Partial frames and declared-length truncation fail. A CBR stream cut exactly at a whole-frame boundary without a declared length cannot be identified as incomplete from framing alone; authored-duration reconciliation also checks the selected song and revalidates typed events against actual decoded duration.
-
-Limits: 64 MiB encoded, 128 MiB decoded, 600 seconds. Only active PCM is cached; one bounded in-flight decode can coexist until its worker finishes. Missing/corrupt/mismatched music switches to a visibly labelled metronome and matching map. Device failure uses a labelled silent clock with the selected map. Native Apple output has source/project membership coverage only on this Windows host.
+Decoder limits remain 64 MiB encoded, 128 MiB decoded, 600 seconds. Only active PCM is cached; one bounded in-flight decode may coexist. Missing/corrupt/mismatched music uses the labelled metronome and matching map; device failure uses a labelled silent clock. Failed chart publication disables scoring and ends loading while retaining decoded PCM so corrected action settings can recover. Apple/Metal and dormant OpenGL are not verified by this Windows Vulkan work.

@@ -1,11 +1,13 @@
 """Analyze PCM emitted by check-rhythm-audio.ps1 using the runtime dr_mp3 decoder.
 
 Requires Python 3 + NumPy. Original MP3s are read only. --write-maps updates
-canonical maps using the verified pulse choices; evidence is written to output.
+canonical maps from measured PCM accents; evidence is written to output.
+Tempo/phase grid analysis remains descriptive and does not place gameplay actions.
 """
 from pathlib import Path
 import argparse, hashlib, json, wave
 import numpy as np
+from rhythm_audio_accents import extract_accents
 
 ROOT=Path(__file__).resolve().parent.parent
 OUT=ROOT/'gbDemo/output/rhythm-check'
@@ -47,15 +49,22 @@ def main():
         pcm=np.fromfile(args.pcm_dir/(file+'.pcm'),dtype='<i2').reshape(-1,2)
         duration=len(pcm)/44100
         sections,bass=analyze(pcm,bpm,phase)
-        beats=np.arange(phase,duration,60/bpm).tolist();omitted=[]
+        acoustic=extract_accents(pcm,44100)
+        pulses=[]
+        for accent in sorted(acoustic['accents'],key=lambda a:-a['strength']):
+            if all(abs(accent['time']-t)>.27 for t in pulses):pulses.append(accent['time'])
+        beats=sorted(pulses);omitted=[]
+        if not beats:raise ValueError('No acoustic attacks: '+file)
         while duration-beats[-1]+beats[0]<=.26:omitted.append(beats.pop())
-        config={'track':id,'audio_file':file,'bpm':bpm,'duration':duration,'offset':0,'beats':beats,'choreography':'phrases'}
+        config={'track':id,'audio_file':file,'bpm':bpm,'duration':duration,'offset':0,'beats':beats,
+                'choreography':'accents','accents':acoustic['accents'],
+                'analysis':dict(acoustic['report'],source_sha256=hashlib.sha256((ROOT/'gbResources'/file).read_bytes()).hexdigest())}
         map_file=f'rhythm_ship_{id}.json'
         if args.write_maps:(CONFIG/map_file).write_text(json.dumps(config,indent=2)+'\n')
         catalog.append({'title':title,'map':map_file})
         row={'file':file,'sha256':hashlib.sha256((ROOT/'gbResources'/file).read_bytes()).hexdigest(),
              'rate':44100,'channels':2,'frames':len(pcm),'duration':duration,'bpm':bpm,'phase':phase,
-             'section_phases':sections,'bass_phase_evidence':bass,'omitted_seam_beats':omitted}
+             'section_phases':sections,'bass_phase_evidence':bass,'accent_analysis':acoustic['report'],'omitted_seam_beats':omitted}
         report.append(row);print(json.dumps(row),flush=True)
         # Portable click overlays for human listening. Audio is output-only and
         # never shipped as a substitute for the user's MP3 files.

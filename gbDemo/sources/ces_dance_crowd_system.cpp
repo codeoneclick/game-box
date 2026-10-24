@@ -6,6 +6,7 @@
 #include "configuration_accessor.h"
 #include "rhythm_dance_pose.h"
 #include "rhythm_ship_environment.h"
+#include "rhythm_ship_playback.h"
 #include "scene_fabricator.h"
 #include "shape_3d.h"
 #include "shape_3d_configuration.h"
@@ -13,8 +14,8 @@
 namespace game
 {
 ces_dance_crowd_system::ces_dance_crowd_system(std::shared_ptr<RhythmSession> s,
-                                               std::shared_ptr<gb::al::RhythmAudioTransport> a)
-    : session_(s), audio_(a)
+                                               std::shared_ptr<RhythmShipPlayback> playback)
+    : session_(s), playback_(playback)
 {
     set_order(4);
     add_required_component_guid(mask_, ces_dance_character_component::class_guid());
@@ -25,7 +26,7 @@ void ces_dance_crowd_system::on_feed(const gb::ces_entity_shared_ptr &, f32)
     auto camera = get_current_camera_3d();
     if (!camera)
         return;
-    double t = audio_->seconds(), phase = session_->beat_position(t) * 6.283185307;
+    double t = playback_->song_seconds(), phase = session_->beat_position(t) * 6.283185307;
     float energy = static_cast<float>(session_->score().energy);
     enumerate_entities_with_components(mask_, [&](const gb::ces_entity_shared_ptr &e) {
         auto c = e->get_component<ces_dance_character_component>();
@@ -35,7 +36,9 @@ void ces_dance_crowd_system::on_feed(const gb::ces_entity_shared_ptr &, f32)
         if (!active)
             return;
         auto p = c->base_position;
-        p.y += std::abs(std::sin(float(phase) + c->phase)) * (c->amplitude + energy * .2f);
+        const bool idle = c->dj || (!choreography_enabled_ && !c->local_player);
+        if (idle)
+            p.y += std::abs(std::sin(float(phase) + c->phase)) * (c->amplitude + energy * .2f);
         auto tr = e->get_component<gb::ces_transformation_3d_component>();
         auto d = camera->get_position() - p;
         float yaw = std::atan2(d.x, d.z);
@@ -48,10 +51,11 @@ void ces_dance_crowd_system::on_feed(const gb::ces_entity_shared_ptr &, f32)
         }
         tr->set_position(p);
         tr->set_scale(glm::vec3(pose.scale_x, pose.scale_y, 1));
-        tr->set_rotation(
-            glm::vec3(0, glm::degrees(yaw),
-                      glm::degrees(pose.lean + std::sin(float(phase * .5) * c->speed + c->phase) *
-                                                   (.04f + .035f * energy))));
+        tr->set_rotation(glm::vec3(
+            0, glm::degrees(yaw),
+            glm::degrees(pose.lean + (idle ? std::sin(float(phase * .5) * c->speed + c->phase) *
+                                                 (.04f + .035f * energy)
+                                           : 0))));
     });
 }
 void populate_rhythm_ship_crowd(const gb::scene_fabricator_shared_ptr &fab,

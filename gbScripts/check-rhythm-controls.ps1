@@ -27,7 +27,7 @@ try {
  $demo=Start-Process -FilePath (Join-Path $repoRoot "gbDemo/output/$Configuration/x64/gb_demo.exe") -WorkingDirectory (Join-Path $repoRoot 'gbDemo') -WindowStyle Hidden -RedirectStandardOutput "$out/runtime.log" -RedirectStandardError "$out/errors.log" -PassThru
  $null=$demo.Handle
  $timer=[Diagnostics.Stopwatch]::StartNew();$state=0;$stateTime=0.;$pulse=0
- while(-not $demo.HasExited -and $timer.Elapsed.TotalSeconds -lt 40){
+ while(-not $demo.HasExited -and $timer.Elapsed.TotalSeconds -lt 70){
   $log=Get-Content "$out/runtime.log" -Raw -ErrorAction SilentlyContinue
   $w=[RhythmControlsWindow]::Find($demo.Id);$now=$timer.Elapsed.TotalSeconds
   if($state -eq 0 -and $log -match 'id=active_sport') {[RhythmControlsWindow]::Click($w,130,860);$state=1}
@@ -36,7 +36,7 @@ try {
   elseif($state -eq 20 -and $now-$stateTime -gt .5) {[RhythmControlsWindow]::Click($w,575,163);$stateTime=$now;$state=21}
   elseif($state -eq 21 -and $now-$stateTime -gt .5) {[RhythmControlsWindow]::Click($w,110,268);$state=3}
   elseif($state -eq 3 -and $log -match 'Rhythm calibration begin') {$stateTime=$now;$state=4}
-  elseif($state -eq 4 -and $pulse -lt 24 -and $now-$stateTime -ge 2.08+$pulse*.5) {[RhythmControlsWindow]::Key($w,32);$pulse++}
+  elseif($state -eq 4 -and $pulse -lt 24 -and $now-$stateTime -ge 6.08+$pulse*1.5) {[RhythmControlsWindow]::Key($w,32);$pulse++}
   elseif($state -eq 4 -and $pulse -eq 24 -and $log -match 'calibration accepted=1') {[RhythmControlsWindow]::Click($w,430,268);$stateTime=$now;$state=5}
   elseif($state -eq 5 -and $now-$stateTime -gt 1) {
    $settings=Get-Content $prefs -Raw | ConvertFrom-Json

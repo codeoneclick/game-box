@@ -1,15 +1,15 @@
 #pragma once
 #include "ces_base_system.h"
-#include "rhythm_audio_transport.h"
 #include "rhythm_crowd_choreography.h"
 #include "rhythm_session.h"
 namespace game
 {
+class RhythmShipPlayback;
 class ces_dance_crowd_system : public gb::ces_base_system
 {
     std::bitset<std::numeric_limits<ui8>::max()> mask_;
     std::shared_ptr<RhythmSession> session_;
-    std::shared_ptr<gb::al::RhythmAudioTransport> audio_;
+    std::shared_ptr<RhythmShipPlayback> playback_;
     int count_ = 40;
     std::shared_ptr<RhythmCrowdChoreography> choreography_;
     bool choreography_enabled_ = true;
@@ -26,7 +26,7 @@ class ces_dance_crowd_system : public gb::ces_base_system
   public:
     STTI_CLASS_GUID(ces_dance_crowd_system, gb::ces_base_system::g_guids_container)
     ces_dance_crowd_system(std::shared_ptr<RhythmSession>,
-                           std::shared_ptr<gb::al::RhythmAudioTransport>);
+                           std::shared_ptr<RhythmShipPlayback>);
     void set_active_count(int n)
     {
         count_ = glm::clamp(n, 30, 50);

@@ -63,6 +63,7 @@ std::vector<RhythmEvent> resolve_rhythm_events(const RhythmTrack &t)
     {
         e.time += t.offset;
         if (!std::isfinite(e.time) || e.time < 0 || e.time >= t.duration ||
+            !std::isfinite(e.strength) || e.strength < 0 || e.strength > 1 ||
             static_cast<unsigned>(e.action) >= 5 ||
             (!result.empty() && e.time - result.back().time < .060 - 1e-9))
             throw std::invalid_argument("Invalid/too dense rhythm events");
@@ -71,6 +72,15 @@ std::vector<RhythmEvent> resolve_rhythm_events(const RhythmTrack &t)
     if (t.duration - result.back().time + result.front().time < .060 - 1e-9)
         throw std::invalid_argument("Dense event loop seam");
     return result;
+}
+std::vector<RhythmEvent> resolve_rhythm_accents(const RhythmTrack &t)
+{
+    if (t.accents.empty())
+        return {};
+    auto source = t;
+    source.events = t.accents;
+    source.accents.clear();
+    return resolve_rhythm_events(source);
 }
 bool load_rhythm_track(const std::string &path, RhythmTrack &out, std::string &error)
 {
@@ -114,26 +124,37 @@ bool load_rhythm_track(const std::string &path, RhythmTrack &out, std::string &e
         if (v.isMember("choreography"))
         {
             if (!v["choreography"].isString() || (v["choreography"].asString() != "phrases" &&
-                                                  v["choreography"].asString() != "legacy"))
+                                                  v["choreography"].asString() != "legacy" &&
+                                                  v["choreography"].asString() != "accents"))
                 throw std::invalid_argument("Invalid choreography mode");
-            t.generated_choreography = v["choreography"].asString() == "phrases";
+            t.generated_choreography = v["choreography"].asString() != "legacy";
         }
-        if (v.isMember("events"))
-        {
-            if (!v["events"].isArray() || v["events"].empty() || v["events"].size() > 60000)
+        auto parse_events = [&](const char *key, std::vector<RhythmEvent> &output) {
+            if (!v.isMember(key))
+                return;
+            if (!v[key].isArray() || v[key].empty() || v[key].size() > 60000)
                 throw std::invalid_argument("Invalid event list");
-            for (const auto &e : v["events"])
+            for (const auto &e : v[key])
             {
                 RhythmAction a;
                 if (!e.isObject() || !e["time"].isNumeric() || !e["action"].isString() ||
                     !parse_rhythm_action(e["action"].asString(), a))
                     throw std::invalid_argument("Invalid event");
-                t.events.push_back(RhythmEvent(e["time"].asDouble(), a));
+                if (e.isMember("strength") && !e["strength"].isNumeric())
+                    throw std::invalid_argument("Invalid accent strength");
+                output.push_back(
+                    RhythmEvent(e["time"].asDouble(), a, 0, 0, 0, e.get("strength", 1).asDouble()));
             }
-            t.generated_choreography = false; // Explicit authored events are authoritative.
-        }
+        };
+        parse_events("accents", t.accents);
+        parse_events("events", t.events);
+        if (v.get("choreography", "").asString() == "accents" && t.accents.empty())
+            throw std::invalid_argument("Missing audio accents");
+        if (!t.events.empty())
+            t.generated_choreography = false; // Authored charts remain authoritative.
         resolve_rhythm_beats(t);
         resolve_rhythm_events(t);
+        resolve_rhythm_accents(t);
         out = t;
         error.clear();
         return true;

@@ -20,18 +20,19 @@ double median(std::vector<double> v)
 }
 bool valid(double v)
 {
-    return std::isfinite(v) && std::abs(v) <= .25;
+    return std::isfinite(v) && std::abs(v) <= RhythmCalibration::maximum_offset + 1e-9;
 }
 } // namespace
 void RhythmCalibration::tap(double t)
 {
-    if (!std::isfinite(t) || t < 1.75 || t > 13.75)
+    if (!std::isfinite(t) || t < count_in_pulses * pulse_interval - maximum_offset - 1e-9 ||
+        t > (count_in_pulses + tap_count - 1) * pulse_interval + maximum_offset + 1e-9)
         return;
-    const int pulse = static_cast<int>(std::floor(t / .5 + .5));
-    if (pulse < 4 || pulse >= 28 ||
+    const int pulse = static_cast<int>(std::floor(t / pulse_interval + .5));
+    if (pulse < count_in_pulses || pulse >= count_in_pulses + tap_count ||
         std::find(pulses_.begin(), pulses_.end(), pulse) != pulses_.end())
         return;
-    const double error = t - pulse * .5;
+    const double error = t - pulse * pulse_interval;
     if (!valid(error))
         return;
     pulses_.push_back(pulse);
@@ -41,7 +42,7 @@ RhythmCalibrationResult RhythmCalibration::finish() const
 {
     RhythmCalibrationResult r;
     r.diagnostic = "Incomplete: tap all 24 pulses";
-    if (errors_.size() < 24)
+    if (errors_.size() < tap_count)
         return r;
     const double center = median(errors_);
     std::vector<double> deviations;

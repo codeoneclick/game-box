@@ -203,7 +203,7 @@ struct RhythmShipUI::implementation : std::enable_shared_from_this<implementatio
                 static_cast<RhythmDifficulty>((static_cast<unsigned>(s.difficulty) + 1) % 3);
             p.playback->apply_choreography(s);
         });
-        button(game, 230, 6, 180, "Generate Beatmap", [](implementation &p) {
+        button(game, 230, 6, 180, "Refresh accents", [](implementation &p) {
             p.playback->apply_choreography(p.playback->choreography_settings(), true);
         });
         const char *names[] = {"TAP", "LEFT", "RIGHT", "UP", "DOWN"};
@@ -336,7 +336,7 @@ struct RhythmShipUI::implementation : std::enable_shared_from_this<implementatio
                 p.settings->presentation.preview_count = static_cast<int>(std::round(v));
             });
         auto cal = pages[3];
-        label(cal, 16, 10, "Listen to four count-in clicks, then TAP 24 times with SPACE or click.",
+        label(cal, 16, 10, "Four slow count-in clicks, then TAP 24 times (SPACE/click, about 42s).",
               12);
         button(cal, 16, 53, 160, "Calibrate",
                [](implementation &p) { p.playback->begin_calibration(); });
@@ -348,14 +348,14 @@ struct RhythmShipUI::implementation : std::enable_shared_from_this<implementatio
         });
         calibration = label(cal, 16, 105, "", 13);
         slider(
-            cal, 157, "Personal offset ms", -250, 250,
+            cal, 157, "AV sync ms", -600, 600,
             [](implementation &p) { return p.playback->calibration_offset() * 1000; },
             [](implementation &p, double v) {
                 if (!p.playback->calibrating())
                     p.playback->set_calibration_offset(v / 1000);
             });
         label(cal, 16, 216,
-              "Positive = late taps. Personal offset never shifts the music or visuals.", 11);
+              "Positive delays cues to heard audio. Changing AV sync restarts the song.", 11);
         debug_info = label(debug, 14, 590, "", 11);
         prompt = std::make_shared<RhythmPromptView>(fab);
         root->add_child(prompt->root());
@@ -439,7 +439,7 @@ bool RhythmShipUI::consume_force_beat()
 void RhythmShipUI::update()
 {
     auto &p = *impl_;
-    const double t = p.audio->seconds();
+    const double t = p.playback->song_seconds();
     auto state = rhythm_prompt_state(*p.session, t, p.settings->presentation.prompt_lead,
                                      p.settings->presentation.preview_count);
     p.prompt->update(state, p.anchor, p.size,

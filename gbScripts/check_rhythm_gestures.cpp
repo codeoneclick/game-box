@@ -14,6 +14,29 @@ using namespace game;
 int main()
 {
     {
+        RhythmTrack acoustic;
+        acoustic.duration = 12;
+        std::string error;
+        std::ofstream("accent-map.json")
+            << R"({"duration":12,"bpm":120,"choreography":"accents","accents":[{"time":1.83,"action":"Tap","strength":0.8},{"time":2.26,"action":"Tap","strength":0.85},{"time":2.69,"action":"Tap","strength":0.9},{"time":4.81,"action":"SwipeDown","strength":1},{"time":5.93,"action":"SwipeRight","strength":0.9}]})";
+        assert(load_rhythm_track("accent-map.json", acoustic, error));
+        RhythmTrack chart;
+        assert(generate_rhythm_choreography(acoustic, RhythmChoreographySettings(), chart, error));
+        assert(chart.events.size() == 5);
+        assert(chart.events.front().time == 1.83 && chart.events[3].time == 4.81);
+        assert(chart.events[0].action == RhythmAction::Tap &&
+               chart.events[3].action == RhythmAction::SwipeDown);
+        auto settings = RhythmChoreographySettings();
+        settings.seed = 999;
+        RhythmTrack again;
+        assert(generate_rhythm_choreography(acoustic, settings, again, error));
+        assert(again.events[0].time == chart.events[0].time &&
+               again.events[3].action == chart.events[3].action);
+        std::ofstream("accent-map.json")
+            << R"({"duration":12,"choreography":"accents","accents":[{"time":1,"action":"Tap","strength":2}]})";
+        assert(!load_rhythm_track("accent-map.json", again, error));
+    }
+    {
         RhythmTrack parsed;
         std::string error;
         std::ofstream("typed-map.json")

@@ -43,9 +43,10 @@ struct RhythmEvent
     std::uint64_t beat_index;
     std::uint32_t phrase_id;
     unsigned phrase_step;
+    double strength;
     RhythmEvent(double t = 0, RhythmAction a = RhythmAction::Tap, std::uint64_t b = 0,
-                std::uint32_t p = 0, unsigned step = 0)
-        : time(t), action(a), beat_index(b), phrase_id(p), phrase_step(step)
+                std::uint32_t p = 0, unsigned step = 0, double s = 1)
+        : time(t), action(a), beat_index(b), phrase_id(p), phrase_step(step), strength(s)
     {
     }
 };

@@ -93,3 +93,6 @@ gbDemo/output/woodcutting/
 
 /gbDemo/output/rhythm-check/
 /gbResources/RhythmAudioSettings.json*
+
+# Python analysis tool caches
+/gbScripts/__pycache__/

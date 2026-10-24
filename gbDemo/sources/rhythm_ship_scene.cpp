@@ -173,7 +173,7 @@ void rhythm_ship_scene::create()
                   post->enableWaterRefraction ? post->waterRefractionIntensity : 0.f,
                   post->enableWaterCaustics ? post->waterCausticsIntensity : 0.f));
     populate_rhythm_ship_crowd(get_fabricator(), shared_from_this());
-    s->crowd = std::make_shared<ces_dance_crowd_system>(s->session, s->audio);
+    s->crowd = std::make_shared<ces_dance_crowd_system>(s->session, s->playback);
     s->crowd->set_active_count(s->settings->crowd_count);
     get_transition()->add_system(s->crowd);
     std::weak_ptr<state> weak = s;
@@ -243,13 +243,14 @@ void rhythm_ship_scene::create()
         [s, camera, post, final, output, ao, manual_gamma,
          resolution](const gb::ces_entity_shared_ptr &, float) {
             s->playback->update();
-            double t = s->audio->seconds();
+            double t = s->playback->song_seconds();
             if (s->crowd_epoch != s->playback->epoch())
             {
                 s->crowd_epoch = s->playback->epoch();
                 s->choreography->restart(1337);
                 s->environment.pulses = RhythmStagePulses();
                 s->last_beat = s->last_log = -10;
+                s->last_clock = t;
             }
             if (t < s->last_clock)
             {
@@ -273,7 +274,7 @@ void rhythm_ship_scene::create()
                            camera->get_mat_v(), camera->get_mat_p(), -.3f, manual_gamma);
             if (s->playback->scoring_active())
             {
-                s->session->update(t, std::max(0.0, s->playback->calibration_offset()));
+                s->session->update(t);
                 for (const auto &b : s->session->beat_events())
                 {
                     s->last_beat = b.time;

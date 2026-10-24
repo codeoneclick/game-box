@@ -1,4 +1,4 @@
-param([ValidateSet('debug-client','release-client')][string]$Configuration='debug-client',[int]$TimeoutSeconds=60,[switch]$Silent,[ValidateSet(30,40,50)][int]$CrowdCount=40,[switch]$DebugPanel,[ValidateRange(0,9)][int]$Track=0,[switch]$GraphicsPanel)
+param([ValidateSet('debug-client','release-client')][string]$Configuration='debug-client',[int]$TimeoutSeconds=60,[switch]$Silent,[ValidateSet(30,40,50)][int]$CrowdCount=40,[switch]$DebugPanel,[ValidateRange(0,9)][int]$Track=0,[switch]$GraphicsPanel,[string]$InputChart='')
 $ErrorActionPreference='Stop'
 if(-not ('RhythmWindow' -as [type])){Add-Type @'
 using System;using System.Text;using System.Runtime.InteropServices;
@@ -14,6 +14,9 @@ public static class RhythmWindow {
 }
 '@}
 $repoRoot=Split-Path -Parent $PSScriptRoot
+$notes=if($InputChart){@(Get-Content -LiteralPath $InputChart -Raw | ConvertFrom-Json)}else{@()}
+$noteIndex=0;$reportedTime=-1.;$songTimer=[Diagnostics.Stopwatch]::StartNew()
+$actionKeys=@{Tap=32;SwipeLeft=37;SwipeRight=39;SwipeUp=38;SwipeDown=40}
 $kind=if($Configuration -eq 'debug-client'){'debug'}else{'release'}
 $capture=Join-Path $repoRoot ('gbDemo/output/rhythm-check/runtime-'+$kind+'-'+$CrowdCount+'-'+$Silent+'-'+$DebugPanel+'-track'+$Track+'-f8'+$GraphicsPanel)
 New-Item -ItemType Directory -Force $capture | Out-Null
@@ -31,7 +34,12 @@ try {
  while(-not $demo.HasExited -and $timer.Elapsed.TotalSeconds -lt $TimeoutSeconds){
   $log=Get-Content "$capture/runtime.log" -Raw -ErrorAction SilentlyContinue
   if($started -lt 0 -and $log -match 'Rhythm Ship initialized'){$started=$timer.Elapsed.TotalSeconds}
-  if($started -ge 0){$elapsed=$timer.Elapsed.TotalSeconds-$started;$w=[RhythmWindow]::Find($demo.Id);if($elapsed -gt 1 -and $elapsed -lt 6 -and $elapsed -gt $tap*.14){[RhythmWindow]::Key($w,32);$tap++}
+  if($started -ge 0){$elapsed=$timer.Elapsed.TotalSeconds-$started;$w=[RhythmWindow]::Find($demo.Id)
+   if($notes.Count){
+    $times=[regex]::Matches($log,'Rhythm time=([0-9.]+)')
+    if($times.Count){$latest=[double]::Parse($times[$times.Count-1].Groups[1].Value,[Globalization.CultureInfo]::InvariantCulture);if($latest -ne $reportedTime){$reportedTime=$latest;$songTimer.Restart()}}
+    if($reportedTime -ge 0){$songTime=$reportedTime+$songTimer.Elapsed.TotalSeconds;while($noteIndex -lt $notes.Count -and $notes[$noteIndex].time -le $songTime){$note=$notes[$noteIndex++];if($note.time -ge $songTime-.2){[RhythmWindow]::Key($w,$actionKeys[$note.action])}}}
+   }elseif($elapsed -gt 1 -and $elapsed -lt 6 -and $elapsed -gt $tap*.14){[RhythmWindow]::Key($w,32);$tap++}
    if($DebugPanel -and -not $debugClicked -and $elapsed -gt 4){[RhythmWindow]::Click($w,440,384);[RhythmWindow]::Click($w,250,384);[RhythmWindow]::Click($w,100,384);$debugClicked=$true}
    if($GraphicsPanel -and -not $graphicsShown -and $elapsed -gt 5){[RhythmWindow]::Key($w,119);$graphicsShown=$true}
    if($elapsed -gt 7 -and $log -match 'Saved image:.*400\.ppm'){break}
