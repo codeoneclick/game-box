@@ -82,9 +82,9 @@ struct RhythmPromptView::implementation
             icon.arrow[1] = bar(icon.root, glm::vec2(-5, -9), glm::vec2(5, 17), .785398f, color);
             icon.arrow[2] = bar(icon.root, glm::vec2(5, -9), glm::vec2(5, 17), -.785398f, color);
         }
-        phrase = label(glm::vec2(-65, 85), "", 10);
-        feedback = label(glm::vec2(-45, 28), "", 16);
-        combo = label(glm::vec2(-40, 106), "", 12);
+        phrase = label(glm::vec2(55, -6), "", 10);
+        feedback = label(glm::vec2(-45, 38), "", 16);
+        combo = label(glm::vec2(55, 12), "", 12);
         float depth = -.3f;
         std::function<void(const gb::ces_entity_shared_ptr &)> prepare =
             [&](const gb::ces_entity_shared_ptr &n) {
@@ -141,7 +141,7 @@ void RhythmPromptView::update(const RhythmPromptState &state, glm::vec2 anchor, 
         return;
     p.root->position =
         glm::clamp(anchor, glm::vec2(90, 150), glm::vec2(viewport.x - 90, viewport.y - 230));
-    const float radius = static_cast<float>(1.25 - state.progress * .95);
+    const float radius = static_cast<float>(1.25 - state.progress * .60);
     p.ring->scale = glm::vec2(radius);
     p.icon(p.icons[0], state.current.event.action, true);
     const auto current_color = state.beat_pulse > .5
@@ -151,8 +151,8 @@ void RhythmPromptView::update(const RhythmPromptState &state, glm::vec2 anchor, 
         strip->color = current_color;
     for (auto arrow : p.icons[0].arrow)
         arrow->color = current_color;
-    p.icons[0].root->scale = glm::vec2(.85f + .25f * static_cast<float>(state.progress) +
-                                       .18f * static_cast<float>(state.beat_pulse));
+    p.icons[0].root->scale = glm::vec2(2.4f * (.85f + .25f * static_cast<float>(state.progress) +
+                                            .18f * static_cast<float>(state.beat_pulse)));
     for (size_t i = 1; i < 4; ++i)
         p.icon(p.icons[i],
                i <= state.preview.size() ? state.preview[i - 1].event.action : RhythmAction::Tap,

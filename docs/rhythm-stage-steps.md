@@ -74,6 +74,12 @@ Final full native calibration flow PASS (`accents-final-controls-native.log`): t
 
 ## 2026-10-24: action indicator above the player
 
-Moved the existing action prompt from the DJ booth to the local player's projected head position. It follows the current shared dance pose and uses 120 screen pixels of clearance so feedback/phrase/combo text stays above the character. The projection uses the current pose because the scene action callback precedes the crowd ECS transform update. Existing screen bounds and prompt rendering are retained.
+Moved the existing action prompt from the DJ booth to the local player's projected head position. It follows the current shared dance pose and initially used 120 screen pixels of clearance so feedback/phrase/combo text stays above the character. The projection uses the current pose because the scene action callback precedes the crowd ECS transform update. Existing screen bounds and prompt rendering are retained.
 
 Verification: Windows Vulkan debug-client and release-client x64 builds PASS; Adrenaline native run with 50 dancers and typed chart input PASS (scoring, portrait captures, normal shutdown). Fresh 160-frame capture inspected for player alignment and text clearance. `git diff --check` PASS. Apple/Metal and OpenGL remain unverified.
+
+### Screenshot adjustment
+
+Moved the prompt down 75 screen pixels (45 pixels above the projected head) to match the marked reference. Main action icon scale is 2.4 times its previous size; the timing ring now keeps sufficient minimum radius around it. Phrase/combo labels sit to the right so lowering the prompt does not put them over the player. Preview sizes remain unchanged.
+
+Verification: Debug/Release Windows Vulkan builds PASS; native Adrenaline flow PASS; fresh capture inspected against the requested lower placement. git diff --check PASS. Other backends remain unverified.

@@ -327,7 +327,7 @@ void rhythm_ship_scene::create()
             s->ui->set_prompt_position(
                 prompt_clip.w > 0
                     ? glm::vec2((prompt_clip.x / prompt_clip.w * .5f + .5f) * resolution.x,
-                                (.5f - prompt_clip.y / prompt_clip.w * .5f) * resolution.y - 120.f)
+                                (.5f - prompt_clip.y / prompt_clip.w * .5f) * resolution.y - 45.f)
                     : glm::vec2(-1000));
             s->ui->update();
             if (std::getenv("GB_RHYTHM_DIAGNOSTICS") && t - s->last_log >= 1)
