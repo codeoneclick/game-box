@@ -12,7 +12,7 @@ OUT=ROOT/'gbDemo/output/rhythm-check'
 CONFIG=ROOT/'gbBundle/Configurations/rhythm_ship'
 MANIFEST=CONFIG/'rhythm_ship_music.json'
 
-def analyze(pcm,bpm):
+def analyze(pcm,bpm,phase):
     x=pcm.astype(np.float32).mean(axis=1).reshape(-1,4).mean(axis=1)/32768
     rate=11025;hop=128;n=1024
     frames=np.lib.stride_tricks.sliding_window_view(x,n)[::hop]
@@ -28,11 +28,16 @@ def analyze(pcm,bpm):
     period=60/bpm;sections=[]
     for start in np.arange(3,times[-1]-15,15):
         phases=np.arange(0,period,.001);strength=[]
-        for phase in phases:
-            grid=np.arange(phase,times[-1],period);grid=grid[(grid>=start)&(grid<start+15)]
+        for candidate_phase in phases:
+            grid=np.arange(candidate_phase,times[-1],period);grid=grid[(grid>=start)&(grid<start+15)]
             strength.append(float(np.mean(np.interp(grid,times,y))))
         sections.append({'start':float(start),'phase':float(phases[np.argmax(strength)])})
-    return sections
+    grid=np.arange(phase,times[-1],period)
+    alternate=np.arange((phase+period*.5)%period,times[-1],period)
+    bass={'selected_phase':phase,
+          'selected_strength':float(np.mean(np.interp(grid,times,bands[0]))),
+          'half_beat_strength':float(np.mean(np.interp(alternate,times,bands[0])))}
+    return sections,bass
 
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--write-maps',action='store_true');parser.add_argument('--pcm-dir',type=Path,default=OUT);args=parser.parse_args()
@@ -41,7 +46,7 @@ def main():
         id,title,file,bpm,phase=(entry[k] for k in ['id','title','file','bpm','phase'])
         pcm=np.fromfile(args.pcm_dir/(file+'.pcm'),dtype='<i2').reshape(-1,2)
         duration=len(pcm)/44100
-        sections=analyze(pcm,bpm)
+        sections,bass=analyze(pcm,bpm,phase)
         beats=np.arange(phase,duration,60/bpm).tolist();omitted=[]
         while duration-beats[-1]+beats[0]<=.26:omitted.append(beats.pop())
         config={'track':id,'audio_file':file,'bpm':bpm,'duration':duration,'offset':0,'beats':beats,'choreography':'phrases'}
@@ -50,7 +55,7 @@ def main():
         catalog.append({'title':title,'map':map_file})
         row={'file':file,'sha256':hashlib.sha256((ROOT/'gbResources'/file).read_bytes()).hexdigest(),
              'rate':44100,'channels':2,'frames':len(pcm),'duration':duration,'bpm':bpm,'phase':phase,
-             'section_phases':sections,'omitted_seam_beats':omitted}
+             'section_phases':sections,'bass_phase_evidence':bass,'omitted_seam_beats':omitted}
         report.append(row);print(json.dumps(row),flush=True)
         # Portable click overlays for human listening. Audio is output-only and
         # never shipped as a substitute for the user's MP3 files.

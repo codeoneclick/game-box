@@ -6,6 +6,7 @@ struct RhythmPromptState
 {
     bool visible = false;
     double progress = 0, feedback_alpha = 0;
+    double beat_pulse = 0;
     RhythmScheduledEvent current;
     std::vector<RhythmScheduledEvent> preview;
     RhythmJudgement feedback = RhythmJudgement::none;

@@ -22,7 +22,7 @@ bool generate_rhythm_choreography(const RhythmTrack &source,
         result.generated_choreography = true;
         using A = RhythmAction;
         const std::array<std::vector<A>, 7> phrases = {
-            {{A::Tap, A::Tap, A::SwipeRight, A::Tap},
+            {{A::Tap, A::Tap, A::Tap, A::SwipeUp},
              {A::SwipeLeft, A::SwipeRight, A::SwipeLeft, A::SwipeRight},
              {A::Tap, A::Tap, A::SwipeUp, A::SwipeUp},
              {A::Tap, A::Tap, A::Tap, A::SwipeDown},
@@ -30,6 +30,14 @@ bool generate_rhythm_choreography(const RhythmTrack &source,
              {A::SwipeLeft, A::SwipeRight, A::SwipeUp, A::SwipeDown},
              {A::Tap, A::SwipeRight, A::Tap, A::SwipeLeft, A::Tap, A::SwipeRight, A::Tap,
               A::SwipeDown}}};
+        // Beat offsets within a phrase: short same-action series,
+        // deliberate rests, and more space before a change of direction.
+        const std::array<std::array<size_t, 4>, 6> offsets = {{{{0, 1, 2, 7}},
+                                                               {{0, 2, 4, 6}},
+                                                               {{0, 1, 4, 6}},
+                                                               {{0, 1, 2, 7}},
+                                                               {{0, 2, 4, 6}},
+                                                               {{0, 2, 4, 6}}}};
         unsigned hash = settings.seed;
         for (unsigned char c : source.id)
             hash = (hash ^ c) * 16777619u;
@@ -41,7 +49,7 @@ bool generate_rhythm_choreography(const RhythmTrack &source,
             const bool easy = settings.difficulty == RhythmDifficulty::Easy;
             const bool hard = settings.difficulty == RhythmDifficulty::Hard;
             const bool fast = hard && phrase % 2 == 1;
-            const size_t stride = easy ? 3 : hard ? 1 : 2;
+            const size_t stride = easy ? 2 : 1;
             unsigned pattern = fast ? 6 : (hash + phrase) % 6;
             if (phrase == 0)
                 pattern = 0; // A recognizable, readable introduction.
@@ -53,7 +61,9 @@ bool generate_rhythm_choreography(const RhythmTrack &source,
             const auto &actions = phrases[pattern];
             for (size_t step = 0; step < actions.size(); ++step)
             {
-                size_t index = beat + (fast ? step / 2 : step * stride);
+                size_t index = beat + (fast   ? step / 2
+                                       : hard ? step
+                                              : offsets[pattern][step] * stride);
                 if (index >= beats.size())
                     break;
                 double time = beats[index];
@@ -76,7 +86,9 @@ bool generate_rhythm_choreography(const RhythmTrack &source,
                 result.events.push_back(RhythmEvent(time - source.offset, action, index, phrase,
                                                     static_cast<unsigned>(step)));
             }
-            beat += 4 * stride;
+            // Leave a trailing rest so an Up/Down at step 7 is not immediately
+            // followed by another directional command at a phrase boundary.
+            beat += hard ? 4 : 12 * stride;
             ++phrase;
         }
         while (!result.events.empty() &&

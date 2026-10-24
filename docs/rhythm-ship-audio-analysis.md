@@ -5,7 +5,7 @@ Nine user-supplied Kulakovka MP3s replace the previous three songs. Original fil
 | Source | BPM | Sample frames | Duration (s) | First pulse (s) |
 |---|---:|---:|---:|---:|
 | kulakovka-active-sport-618585.mp3 | 160 | 4869504 | 110.419591837 | 0.011 |
-| kulakovka-adrenaline-sport-620584.mp3 | 139 | 6009984 | 136.280816327 | 0.231 |
+| kulakovka-adrenaline-sport-620584.mp3 | 139 | 6009984 | 136.280816327 | 0.011 |
 | kulakovka-gym-motivation-620569.mp3 | 98 | 6697728 | 151.875918367 | 0.021 |
 | kulakovka-retro-music-620580.mp3 | 98 | 7028352 | 159.373061224 | 0.012 |
 | kulakovka-summer-party-620566.mp3 | 122 | 7212672 | 163.552653061 | 0.258 |
@@ -27,7 +27,7 @@ Use Python 3 with NumPy; this machine's unqualified `python` is Python 2.7. Blen
 
 Tempo selection compared onset autocorrelation at candidate half/main/double rates. Phase estimation downmixes runtime PCM, averages groups of four samples, then uses 1024-sample Hann windows with 128-sample hops at 11025 Hz. Positive logarithmic spectral flux in bass/mid bands locates phase peaks in independent 15-second sections. The manifest retains the section evidence rather than claiming all sections have an identical accent.
 
-These are practical grid estimates, **not sample-accurate musical ground truth**. Analysis hops are about 11.6 ms. Intro transients, breakdowns, syncopation and half/double-time families can favor different peaks. Adrenaline Sport alternates around 11 ms and 231 ms (approximately half a 139 BPM beat); the map selects the recurring 231 ms phase. Summer Party uses the half-beat accent around 258 ms at 122 BPM. Other tracks mostly favor the near-zero phase, with section variation retained in the manifest. A fixed-tempo map does not model every fill or local tempo drift.
+These are practical grid estimates, **not sample-accurate musical ground truth**. Analysis hops are about 11.6 ms. Intro transients, breakdowns, syncopation and half/double-time families can favor different peaks. Adrenaline Sport alternates around 11 ms and 231 ms (approximately half a 139 BPM beat). After a user-reported mismatch, its map was shifted 220 ms earlier to the 11 ms bass/kick family. The original blended-band majority had favored the offbeat spectral accent. Low-band-only peak searches favor 15–40 ms across large sections; 11 ms has stronger bass support than 231 ms in the introduction and over the full track. The manifest retains the earlier section evidence and the new bass audit. The canonical analyzer now reports selected-grid versus half-beat bass strength (about 1.152 versus 0.848 for Adrenaline), independently of its phase-search loop. This supports the phase-family correction without establishing sample-perfect kick timing. Summer Party still uses the half-beat accent around 258 ms at 122 BPM. A fixed-tempo map does not model every fill or local tempo drift.
 
 Overlay files are available for human listening, but audible alignment was not independently heard/recorded here, and no physical output latency was measured. Authored-map offset and separate personal tap calibration provide correction without shifting music or confusing map phase with user/device bias.
 

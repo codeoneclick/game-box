@@ -12,16 +12,21 @@ RhythmDancePose rhythm_dance_pose(RhythmAction action, double age, float strengt
     const float hit = static_cast<float>(std::sin(age / .55 * 3.141592653589793)) * power;
     if (action == RhythmAction::Tap)
     {
-        p.y = .3f * hit;
-        p.scale_y = 1 - .1f * hit;
-        p.scale_x = 1 + .08f * hit;
+        // A quick attack makes the visible accent follow the input, not a late
+        // midpoint of a long sine animation. Three taps remain visually distinct.
+        if (age >= .24)
+            return p;
+        const float tap = power * static_cast<float>(age < .06 ? age / .06 : (.24 - age) / .18);
+        p.y = .3f * tap;
+        p.scale_y = 1 - .1f * tap;
+        p.scale_x = 1 + .08f * tap;
     }
     else
     {
-        // Step out in 180ms, settle for 100ms, then return smoothly by 550ms.
-        float u = age < .18   ? static_cast<float>(age / .18)
-                  : age < .28 ? 1.f
-                              : static_cast<float>((.55 - age) / .27);
+        // Step accent in 100ms, settle for 80ms, return to the anchor by 550ms.
+        float u = age < .10   ? static_cast<float>(age / .10)
+                  : age < .18 ? 1.f
+                              : static_cast<float>((.55 - age) / .37);
         u = std::max(0.f, std::min(1.f, u));
         const float step = 1.5f * u * u * (3 - 2 * u) * power;
         if (action == RhythmAction::SwipeLeft)

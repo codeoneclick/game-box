@@ -76,10 +76,16 @@ int main()
     assert(generate_rhythm_choreography(source, settings, hard, error));
     assert(generate_rhythm_choreography(source, settings, again, error));
     assert(easy.events.size() < normal.events.size() && normal.events.size() < hard.events.size());
-    // Normal keeps a complete early/late input window and enough time for a full step.
+    // Keep preparation before the first musical phrase.
     assert(normal.events.front().time >= 2);
-    for (size_t i = 1; i < normal.events.size(); ++i)
-        assert(normal.events[i].time - normal.events[i - 1].time >= 1 - 1e-9);
+    // A musical phrase can have a short Tap series followed by a real rest.
+    assert(normal.events[0].action == RhythmAction::Tap &&
+           normal.events[1].action == RhythmAction::Tap &&
+           normal.events[2].action == RhythmAction::Tap);
+    assert(std::abs(normal.events[1].time - normal.events[0].time - .5) < 1e-9);
+    assert(std::abs(normal.events[2].time - normal.events[1].time - .5) < 1e-9);
+    assert(normal.events[3].action == RhythmAction::SwipeUp &&
+           normal.events[3].time - normal.events[2].time >= 2);
     {
         RhythmTrack fast;
         fast.duration = 16;
@@ -88,9 +94,22 @@ int main()
         RhythmChoreographySettings defaults;
         assert(generate_rhythm_choreography(fast, defaults, relaxed, error));
         RhythmSession s(relaxed);
-        const auto first = relaxed.events[0];
-        assert(relaxed.events[1].time - first.time >= .75 - 1e-9);
-        assert(s.upcoming(first.time + .29, 1)[0].id == 0);
+        const auto first = relaxed.events[2];
+        const double second = relaxed.events[3].time;
+        const double midpoint = (first.time + second) * .5;
+        // Expiry tolerance must not shift command changes off the musical midpoint.
+        assert(s.upcoming(first.time + .31, 1)[0].id == 2);
+        assert(s.upcoming(midpoint, 1)[0].id == 2);
+        assert(s.upcoming(midpoint + .0001, 1)[0].id == 3);
+        const auto cue = rhythm_prompt_state(s, midpoint + .0001, 2, 2);
+        assert(cue.progress < .001);
+        const auto hit = rhythm_prompt_state(s, second, 2, 2);
+        assert(std::abs(hit.progress - 1) < 1e-9);
+        assert(hit.beat_pulse == 1);
+        assert(rhythm_prompt_state(s, second - .01, 2, 2).beat_pulse == 0);
+        assert(rhythm_prompt_state(s, second + .15, 2, 2).beat_pulse == 0);
+        assert(second - first.time >= 1.8);
+        assert(s.upcoming(first.time + .29, 1)[0].id == 2);
         s.enqueue_input(RhythmInput(first.time + .29, first.action));
         s.update(first.time + .29);
         assert(s.last_judgement() == RhythmJudgement::good);
@@ -130,6 +149,11 @@ int main()
         const auto returned = rhythm_dance_pose(static_cast<RhythmAction>(i), .55, 1);
         assert(returned.x == 0 && returned.y == 0 && returned.z == 0);
     }
+    // The dance accent follows the input promptly instead of peaking 275ms later.
+    assert(rhythm_dance_pose(RhythmAction::Tap, .06, 1).y >
+           rhythm_dance_pose(RhythmAction::Tap, .20, 1).y);
+    assert(rhythm_dance_pose(RhythmAction::Tap, .25, 1).y == 0);
+    assert(rhythm_dance_pose(RhythmAction::SwipeRight, .10, 1).x > 1.4f);
     RhythmSession choreography(normal);
     {
         RhythmTrack delayed;

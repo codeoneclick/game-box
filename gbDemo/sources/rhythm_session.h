@@ -80,6 +80,10 @@ class RhythmSession
         return true;
     }
     std::vector<RhythmScheduledEvent> upcoming(double raw_time, size_t count) const;
+    RhythmScheduledEvent scheduled_event(std::uint64_t id) const
+    {
+        return action_at(id);
+    }
     void update(double, double judgement_delay = 0);
     bool set_windows(RhythmWindows);
     RhythmWindows windows() const

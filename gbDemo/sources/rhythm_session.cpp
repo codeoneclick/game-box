@@ -43,10 +43,9 @@ std::vector<RhythmScheduledEvent> RhythmSession::upcoming(double t, size_t count
     std::uint64_t start = loop * actions_.size();
     if (loop)
         start -= actions_.size();
-    // The command changes when judgement ownership changes. Keep the earlier
-    // event at an exact midpoint, matching tap()'s tie rule.
-    while (action_at(start).event.time + windows_.good < t ||
-           (action_at(start).event.time + action_at(start + 1).event.time) * .5 < t - 1e-9)
+    // Musical command ownership is independent of the tolerance/expiry window.
+    // Keep the earlier event at an exact midpoint, matching tap()'s tie rule.
+    while ((action_at(start).event.time + action_at(start + 1).event.time) * .5 < t - 1e-9)
         ++start;
     for (size_t i = 0; i < count; ++i)
         out.push_back(action_at(start + i));

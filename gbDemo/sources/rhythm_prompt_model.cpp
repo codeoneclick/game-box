@@ -17,7 +17,17 @@ RhythmPromptState rhythm_prompt_state(const RhythmSession &session, double t, do
         out.current = future[0];
         const double dt = out.current.event.time - t;
         out.visible = dt <= lead;
-        out.progress = std::max(0., std::min(1., 1 - dt / lead));
+        double start = std::max(0., out.current.event.time - lead);
+        if (out.current.id)
+        {
+            const double previous = session.scheduled_event(out.current.id - 1).event.time;
+            start = std::max(start, (previous + out.current.event.time) * .5);
+        }
+        const double approach = std::max(.001, out.current.event.time - start);
+        out.progress = std::max(0., std::min(1., 1 - dt / approach));
+        const double age = -dt;
+        if (age >= 0 && age < .12)
+            out.beat_pulse = std::exp(-age * 25);
         for (size_t i = 1; i < future.size(); ++i)
             out.preview.push_back(future[i]);
         out.phrase = "PHRASE " + std::to_string(out.current.event.phrase_id + 1) + "  /  " +

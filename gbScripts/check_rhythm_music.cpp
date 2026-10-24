@@ -2,6 +2,7 @@
 #include "rhythm_ship_playback.h"
 #include "rhythm_track_catalog.h"
 #include "rhythm_track_loader.h"
+#include <algorithm>
 #include <cassert>
 #include <chrono>
 #include <cmath>
@@ -30,6 +31,17 @@ int main()
     {
         auto beats = resolve_rhythm_beats(e.track);
         assert(!beats.empty());
+        // Adrenaline's measured bass/kick grid is near 11ms, not the 231ms offbeat accent.
+        if (e.track.id == "adrenaline_sport")
+            assert(std::abs(beats.front() - .011) < .012);
+        RhythmTrack choreography;
+        assert(generate_rhythm_choreography(e.track, RhythmChoreographySettings(), choreography,
+                                            error));
+        for (const auto &action : resolve_rhythm_events(choreography))
+        {
+            auto beat = std::lower_bound(beats.begin(), beats.end(), action.time - 1e-8);
+            assert(beat != beats.end() && std::abs(*beat - action.time) < 1e-7);
+        }
         if (!e.track.audio_file.empty())
         {
             assert(beats.front() < 60 / e.track.bpm && beats.back() < e.track.duration);

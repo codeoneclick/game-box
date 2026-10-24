@@ -35,3 +35,25 @@ New regression checks reproduced old default-window and fast-command behavior be
 Windows Debug and Release builds pass (relaxed-timing-debug-build.log, relaxed-timing-release-build.log). Asset/project checks pass. Native runtime results are recorded below. Logs remain ignored output artifacts. Apple/Metal, OpenGL and server remain unverified.
 
 Native Vulkan Debug and Release runs with 50 characters, advancing PCM clock, keyboard scoring, 680x960 captures and normal shutdown: PASS (relaxed-timing-debug-runtime.log, relaxed-timing-release-runtime.log). Debug silent F1/F8 inspector flow: PASS (relaxed-timing-inspector.log). Final git diff --check: PASS.
+
+## Musical alignment and playable phrase rhythms — 2026-10-24
+
+User identified Adrenaline Sport as the worst mismatch and clarified that action sequences may be irregular (Tap/Tap/Tap, a rest, then Up), with reproduction of the music more important than a fixed command interval.
+
+Diagnosed and corrected three separate causes:
+- Visual command switching used the Good expiry deadline. Expanding it to 300 ms shifted the visual transition between musical subdivisions. Visual ownership now uses only nearest-event midpoints, matching judgement selection, independently of tolerance. The ring normalizes from the actual cue/ownership start, so it resets fully and contracts on the target instead of appearing already mostly closed. A 120 ms white icon pulse marks the target audio time.
+- Adrenaline's 139 BPM grid had selected a 231 ms half-beat spectral accent. Low-frequency analysis of original runtime-decoded PCM supports the 11–40 ms kick family; the selected map now starts at 11 ms, 220 ms earlier. The manifest retains original mixed-band sections and the new bass audit. Canonical analyzer selected-grid bass strength is about 1.152 vs 0.848 on its half-beat counterpart. This is signal evidence for the phase family, not independent audible confirmation or sample-perfect kick annotation. Other tracks' phases and original MP3 bytes are preserved.
+- Tap animation had peaked 275 ms after the input. Its accent now peaks in 60 ms and returns by 240 ms, so consecutive taps remain distinct. Step accent reaches its displacement in 100 ms, holds 80 ms and still returns to the anchor by 550 ms. Bot reaction delays remain unchanged.
+
+Normal now uses designed beat-offset patterns with Tap series and rests within a 12-beat phrase. Intro: Tap at offsets 0/1/2, Up at 7, then a trailing rest before the next phrase. The gap before Up is about 2.16 s on Adrenaline Sport. Direction changes have breathing room; Easy stretches patterns; Hard retains its quarter/eighth challenge. These are patterns on the measured musical grid, not automatic transcription of every instrument/fill. Wider acceptance windows remain; nearest ownership divides overlapping windows in rapid series.
+
+Verification:
+- RED then GREEN for independence from Good expiry, full ring restart/target convergence and target pulse; phrase series/rests; quick Tap/step response; Adrenaline phase fixture.
+- check-rhythm-gestures.ps1, check-rhythm.ps1 and check-rhythm-music.ps1: PASS. The catalog check verifies every generated Normal action is exactly on a resolved musical beat for all nine songs and the metronome.
+- Canonical PCM analyzer rerun for all nine songs; selected-phase evidence matches manifest phases. Review found a phase-search variable shadowing bug in the new audit report; reproduced RED, renamed search variable and verified all nine selected-phase reports GREEN. It never affected runtime map generation.
+- Windows Debug/Release builds PASS (music-sync-debug-build.log, music-sync-release-build.log). Debug Adrenaline with 50 dancers, running PCM clock, scoring, portrait multiframe capture and normal close PASS (music-sync-adrenaline-debug.log); image inspected. Native directional/cancellation/F8/F1 capture/focus-loss checks PASS (music-sync-directional.log).
+- Asset/project/hash checks PASS. Independent source review plus targeted audit-fix review: no remaining Important findings.
+
+Output reports, overlay WAVs and logs remain ignored under gbDemo/output/rhythm-check. Audible alignment on the user's output device remains unconfirmed; no audio loopback/listening measurement was available. Apple/Metal, OpenGL and server remain unverified.
+
+Final Release Adrenaline 50-character runtime and Debug silent F1/F8 inspector flow PASS (music-sync-adrenaline-release.log, music-sync-inspector.log), including normal shutdown. Final git diff --check PASS.

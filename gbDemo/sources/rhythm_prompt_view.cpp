@@ -144,12 +144,15 @@ void RhythmPromptView::update(const RhythmPromptState &state, glm::vec2 anchor, 
     const float radius = static_cast<float>(1.25 - state.progress * .95);
     p.ring->scale = glm::vec2(radius);
     p.icon(p.icons[0], state.current.event.action, true);
-    const auto current_color = glm::u8vec4(255, 210, 72, state.current.resolved ? 65 : 255);
+    const auto current_color = state.beat_pulse > .5
+                                   ? glm::u8vec4(255, 255, 255, 255)
+                                   : glm::u8vec4(255, 210, 72, state.current.resolved ? 65 : 255);
     for (auto strip : p.icons[0].tap_fill)
         strip->color = current_color;
     for (auto arrow : p.icons[0].arrow)
         arrow->color = current_color;
-    p.icons[0].root->scale = glm::vec2(.85f + .25f * static_cast<float>(state.progress));
+    p.icons[0].root->scale = glm::vec2(.85f + .25f * static_cast<float>(state.progress) +
+                                       .18f * static_cast<float>(state.beat_pulse));
     for (size_t i = 1; i < 4; ++i)
         p.icon(p.icons[i],
                i <= state.preview.size() ? state.preview[i - 1].event.action : RhythmAction::Tap,

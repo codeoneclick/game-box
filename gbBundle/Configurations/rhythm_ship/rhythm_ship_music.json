@@ -31,7 +31,7 @@
       "title": "Adrenaline Sport",
       "file": "kulakovka-adrenaline-sport-620584.mp3",
       "bpm": 139,
-      "phase": 0.231,
+      "phase": 0.011,
       "duration": 136.2808163265306,
       "frames": 6009984,
       "rate": 44100,
@@ -51,7 +51,52 @@
         "69.5": 0.6581894778928148,
         "139": 0.7326110517057123,
         "278": 0.5234769350175025
-      }
+      },
+      "phase_basis": "Bass/kick grid; previous 0.231 s grid followed the half-beat accent",
+      "bass_audit": [
+        {
+          "start": 0,
+          "end": 136,
+          "bass_peak": 0.027,
+          "old_phase_strength": 0.9155020967865334,
+          "kick_phase_strength": 1.147709790527028
+        },
+        {
+          "start": 0,
+          "end": 15,
+          "bass_peak": 0.024,
+          "old_phase_strength": 0.8069799218443269,
+          "kick_phase_strength": 1.0761325158833304
+        },
+        {
+          "start": 18,
+          "end": 30,
+          "bass_peak": 0.027,
+          "old_phase_strength": 0.9642248800079126,
+          "kick_phase_strength": 1.7757352081682876
+        },
+        {
+          "start": 63,
+          "end": 75,
+          "bass_peak": 0.015,
+          "old_phase_strength": 0.7262691756380643,
+          "kick_phase_strength": 2.1011520995501183
+        },
+        {
+          "start": 0,
+          "end": 60,
+          "bass_peak": 0.04,
+          "old_phase_strength": 0.8760616949087126,
+          "kick_phase_strength": 1.1242451355738772
+        },
+        {
+          "start": 60,
+          "end": 136,
+          "bass_peak": 0.021,
+          "old_phase_strength": 0.9466510505423122,
+          "kick_phase_strength": 1.166136835942214
+        }
+      ]
     },
     {
       "id": "gym_motivation",
