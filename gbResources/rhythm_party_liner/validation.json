@@ -1,0 +1,40 @@
+{
+  "source_sha256": "12b5a096f5753a6221605d6d1f505f3533e747080d9cc5d9eaec9b9ef69d5145",
+  "cubes": 2290,
+  "triangles": 27480,
+  "groups": 34,
+  "atlas": [
+    128,
+    128
+  ],
+  "native_bounds_match": true,
+  "stage_stairs_connected": true,
+  "bounds": {
+    "min": [
+      -31.299999237060547,
+      -16.0,
+      -160.16000366210938
+    ],
+    "max": [
+      31.299999237060547,
+      50.599998474121094,
+      50.15999984741211
+    ]
+  },
+  "dance_clearance": {
+    "obstacles": [],
+    "x": [
+      -17.9,
+      17.9
+    ],
+    "z": [
+      -19.9,
+      27.9
+    ],
+    "clear_y": [
+      3.88,
+      7.15
+    ]
+  },
+  "preview_only": "Sun, fill lights and blue ocean plane are not part of the bbmodel."
+}

@@ -1,0 +1,383 @@
+{
+  "version": "5.2.2",
+  "format": "free",
+  "cubes": 2290,
+  "triangles": 27480,
+  "groups": [
+    {
+      "name": "rhythm_party_liner",
+      "cubes": 0
+    },
+    {
+      "name": "hull",
+      "cubes": 386
+    },
+    {
+      "name": "decks",
+      "cubes": 59
+    },
+    {
+      "name": "superstructure",
+      "cubes": 93
+    },
+    {
+      "name": "funnels",
+      "cubes": 0
+    },
+    {
+      "name": "lifeboats",
+      "cubes": 0
+    },
+    {
+      "name": "railings",
+      "cubes": 424
+    },
+    {
+      "name": "lamps",
+      "cubes": 306
+    },
+    {
+      "name": "dance_floor",
+      "cubes": 1
+    },
+    {
+      "name": "stage",
+      "cubes": 6
+    },
+    {
+      "name": "dj_console",
+      "cubes": 17
+    },
+    {
+      "name": "speakers",
+      "cubes": 0
+    },
+    {
+      "name": "screen",
+      "cubes": 2
+    },
+    {
+      "name": "stairs",
+      "cubes": 50
+    },
+    {
+      "name": "props",
+      "cubes": 73
+    },
+    {
+      "name": "emissive_surfaces",
+      "cubes": 0
+    },
+    {
+      "name": "warm_windows",
+      "cubes": 200
+    },
+    {
+      "name": "festoon_bulbs",
+      "cubes": 168
+    },
+    {
+      "name": "dance_tiles",
+      "cubes": 192
+    },
+    {
+      "name": "stage_neon",
+      "cubes": 131
+    },
+    {
+      "name": "console_leds",
+      "cubes": 11
+    },
+    {
+      "name": "funnel_1",
+      "cubes": 15
+    },
+    {
+      "name": "funnel_2",
+      "cubes": 15
+    },
+    {
+      "name": "funnel_3",
+      "cubes": 15
+    },
+    {
+      "name": "lifeboat_port_61",
+      "cubes": 13
+    },
+    {
+      "name": "lifeboat_port_81",
+      "cubes": 13
+    },
+    {
+      "name": "lifeboat_port_101",
+      "cubes": 13
+    },
+    {
+      "name": "lifeboat_port_121",
+      "cubes": 13
+    },
+    {
+      "name": "lifeboat_starboard_61",
+      "cubes": 13
+    },
+    {
+      "name": "lifeboat_starboard_81",
+      "cubes": 13
+    },
+    {
+      "name": "lifeboat_starboard_101",
+      "cubes": 13
+    },
+    {
+      "name": "lifeboat_starboard_121",
+      "cubes": 13
+    },
+    {
+      "name": "speaker_left",
+      "cubes": 11
+    },
+    {
+      "name": "speaker_right",
+      "cubes": 11
+    }
+  ],
+  "bounds": {
+    "min": [
+      -31.299999998658894,
+      -16,
+      -160.15999999642372
+    ],
+    "max": [
+      31.299999998658894,
+      50.6,
+      50.15999999642372
+    ]
+  },
+  "palette": [
+    {
+      "name": "hull",
+      "color": "#18212d",
+      "index": 0
+    },
+    {
+      "name": "hull_alt",
+      "color": "#202c39",
+      "index": 1
+    },
+    {
+      "name": "keel",
+      "color": "#812e3d",
+      "index": 2
+    },
+    {
+      "name": "keel_alt",
+      "color": "#9e3848",
+      "index": 3
+    },
+    {
+      "name": "ivory",
+      "color": "#eee6d5",
+      "index": 4
+    },
+    {
+      "name": "ivory_shadow",
+      "color": "#c7c8c0",
+      "index": 5
+    },
+    {
+      "name": "teak",
+      "color": "#b98a59",
+      "index": 6
+    },
+    {
+      "name": "teak_light",
+      "color": "#cda773",
+      "index": 7
+    },
+    {
+      "name": "gold",
+      "color": "#cda45b",
+      "index": 8
+    },
+    {
+      "name": "dark_metal",
+      "color": "#263446",
+      "index": 9
+    },
+    {
+      "name": "window",
+      "color": "#173d50",
+      "index": 10
+    },
+    {
+      "name": "window_glow",
+      "color": "#ffe1a1",
+      "index": 11
+    },
+    {
+      "name": "funnel",
+      "color": "#d79a42",
+      "index": 12
+    },
+    {
+      "name": "funnel_shade",
+      "color": "#b57c32",
+      "index": 13
+    },
+    {
+      "name": "black",
+      "color": "#101826",
+      "index": 14
+    },
+    {
+      "name": "speaker",
+      "color": "#28273a",
+      "index": 15
+    },
+    {
+      "name": "magenta",
+      "color": "#ed4bae",
+      "index": 16
+    },
+    {
+      "name": "cyan",
+      "color": "#4ddce7",
+      "index": 17
+    },
+    {
+      "name": "violet",
+      "color": "#9264df",
+      "index": 18
+    },
+    {
+      "name": "pink_light",
+      "color": "#ff9fdf",
+      "index": 19
+    },
+    {
+      "name": "floor_dark",
+      "color": "#35394f",
+      "index": 20
+    },
+    {
+      "name": "floor_blue",
+      "color": "#73c9df",
+      "index": 21
+    },
+    {
+      "name": "floor_pink",
+      "color": "#d57ec8",
+      "index": 22
+    },
+    {
+      "name": "floor_white",
+      "color": "#dacdf0",
+      "index": 23
+    },
+    {
+      "name": "leaf",
+      "color": "#467641",
+      "index": 24
+    },
+    {
+      "name": "leaf_light",
+      "color": "#73964d",
+      "index": 25
+    },
+    {
+      "name": "trunk",
+      "color": "#84603f",
+      "index": 26
+    },
+    {
+      "name": "cushion",
+      "color": "#bd634b",
+      "index": 27
+    },
+    {
+      "name": "red",
+      "color": "#bd424e",
+      "index": 28
+    },
+    {
+      "name": "brass_shadow",
+      "color": "#8c6b3e",
+      "index": 29
+    },
+    {
+      "name": "warm_light",
+      "color": "#ffe9ba",
+      "index": 30
+    },
+    {
+      "name": "screen_dark",
+      "color": "#241a42",
+      "index": 31
+    },
+    {
+      "name": "sun_orange",
+      "color": "#ffab58",
+      "index": 32
+    },
+    {
+      "name": "screen_purple",
+      "color": "#633e88",
+      "index": 33
+    },
+    {
+      "name": "waterline",
+      "color": "#0f1825",
+      "index": 34
+    },
+    {
+      "name": "deck_trim",
+      "color": "#e5d7b5",
+      "index": 35
+    },
+    {
+      "name": "cream",
+      "color": "#fff1cd",
+      "index": 36
+    },
+    {
+      "name": "cap_highlight",
+      "color": "#354153",
+      "index": 37
+    },
+    {
+      "name": "lifeboat",
+      "color": "#f6f0dd",
+      "index": 38
+    },
+    {
+      "name": "lifeboat_inside",
+      "color": "#8e6550",
+      "index": 39
+    }
+  ],
+  "units": "1 Blockbench unit = 1 planned game world unit",
+  "deck_y": 3.55,
+  "dance_surface_y": 3.86,
+  "play_area": {
+    "x": [
+      -18,
+      18
+    ],
+    "z": [
+      -20,
+      28
+    ]
+  },
+  "stage": {
+    "x": [
+      -18,
+      18
+    ],
+    "z": [
+      -38,
+      -24
+    ],
+    "surface_y": 6.55
+  },
+  "note": "Static art only; emission groups are material annotations, not runtime lights."
+}

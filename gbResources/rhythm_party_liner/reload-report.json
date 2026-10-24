@@ -1,0 +1,49 @@
+{
+  "version": "5.2.2",
+  "cubes": 2290,
+  "groups": [
+    "rhythm_party_liner",
+    "hull",
+    "decks",
+    "superstructure",
+    "funnels",
+    "lifeboats",
+    "railings",
+    "lamps",
+    "dance_floor",
+    "stage",
+    "dj_console",
+    "speakers",
+    "screen",
+    "stairs",
+    "props",
+    "emissive_surfaces",
+    "warm_windows",
+    "festoon_bulbs",
+    "dance_tiles",
+    "stage_neon",
+    "console_leds",
+    "funnel_1",
+    "funnel_2",
+    "funnel_3",
+    "lifeboat_port_61",
+    "lifeboat_port_81",
+    "lifeboat_port_101",
+    "lifeboat_port_121",
+    "lifeboat_starboard_61",
+    "lifeboat_starboard_81",
+    "lifeboat_starboard_101",
+    "lifeboat_starboard_121",
+    "speaker_left",
+    "speaker_right"
+  ],
+  "textures": [
+    {
+      "name": "palette.png",
+      "width": 128,
+      "height": 128,
+      "error": 0
+    }
+  ],
+  "format": "free"
+}
