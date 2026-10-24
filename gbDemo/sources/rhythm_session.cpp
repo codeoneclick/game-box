@@ -83,7 +83,7 @@ void RhythmSession::set_energy(double e)
 bool RhythmSession::set_windows(RhythmWindows w)
 {
     if (!std::isfinite(w.perfect) || !std::isfinite(w.great) || !std::isfinite(w.good) ||
-        w.perfect <= 0 || w.great < w.perfect || w.good < w.great || w.good > .250)
+        w.perfect <= 0 || w.great < w.perfect || w.good < w.great || w.good > .500)
         return false;
     windows_ = w;
     return true;

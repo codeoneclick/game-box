@@ -32,7 +32,7 @@ int main()
         assert(moves.last_judgement() ==
                RhythmJudgement::wrong); // exact tie belongs to earlier event
         moves.restart();
-        moves.update(1.5);
+        moves.update(1.51);
         assert(moves.score().miss_count == 2);
         for (const auto &event : moves.resolutions())
             assert(!event.has_input);
@@ -56,13 +56,13 @@ int main()
     assert(std::abs(rhythm_beat_at(t, 64).time - 30.46875) < 1e-9);
     t.duration = 2;
     t.beats = {1};
-    for (auto c : {std::make_pair(.040, 100), std::make_pair(.080, 70), std::make_pair(.130, 30),
-                   std::make_pair(.131, 0)})
+    for (auto c : {std::make_pair(.090, 100), std::make_pair(.180, 70), std::make_pair(.300, 30),
+                   std::make_pair(.301, 0)})
         for (int sign : {-1, 1})
         {
             RhythmSession s(t);
             s.enqueue_tap(1 + sign * c.first);
-            s.update(1.2);
+            s.update(1.4);
             assert(s.score().score == c.second);
         }
     RhythmSession s(t);
@@ -72,7 +72,7 @@ int main()
     s.enqueue_tap(1.01);
     s.update(1.5);
     assert(s.score().score == 100);
-    s.update(3.2);
+    s.update(3.4);
     assert(s.score().combo == 0 && s.score().judgements == 2);
     s.restart();
     assert(s.score().score == 0 && s.score().energy == .35);
@@ -144,9 +144,9 @@ int main()
     zero.enqueue_tap(0);
     zero.update(0);
     assert(zero.score().score == 100);
-    zero.update(.63);
+    zero.update(.80);
     assert(zero.score().judgements == 1); // inclusive Good deadline
-    zero.update(.631);
+    zero.update(.801);
     assert(zero.score().judgements == 2);
     auto old = zero.score().judgements;
     zero.update(.1);

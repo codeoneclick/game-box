@@ -1,4 +1,4 @@
-﻿# Rhythm Ship stage prompt and anchored steps — 2026-10-24
+# Rhythm Ship stage prompt and anchored steps — 2026-10-24
 
 User correction to f2adde7d: move the action prompt from the player to the front of the DJ booth; Tap must be a circle; four swipes must produce steps along the deck and return to the character's anchor; every bot uses its own 0–330 ms reaction delay.
 
@@ -23,3 +23,15 @@ Checks:
 Logs/captures are ignored under gbDemo/output/rhythm-check. Apple/Metal, dormant OpenGL and server builds/runtime remain unverified on this Windows host. Audio content/transport and ocean/skybox/stage geometry were not changed.
 
 Final Release Vulkan 50-character runtime and Release native directional/cancellation/UI/focus-loss checks also passed (stage-step-final-release-runtime.log, stage-step-final-release-input.log), including normal shutdown.
+
+## More forgiving rhythm timing — 2026-10-24
+
+User reported that actions changed too quickly and were too hard to hit. Normal now schedules one command every two musical pulses, with no eighth-note bursts (0.75–1.25 seconds between actions across the nine-song pack). Easy uses one every three pulses; Hard retains its deliberate quarter/eighth challenge. Generated charts allow four musical pulses of preparation before the first action. Music BPM and the separate visual beat clock are unchanged.
+
+Default judgement windows increased from +/-40/80/130 ms to +/-90/180/300 ms: the full accepted interval is now 600 ms. Timing sliders and validation allow manual windows up to 500 ms. Prompt lead increased from 1.25 to 2 seconds. The current icon still uses the same ownership boundaries as judgement; Normal's slower spacing allows the entire default acceptance window without a competing next action. Explicit authored event timing is preserved.
+
+New regression checks reproduced old default-window and fast-command behavior before the changes. After changes, check-rhythm.ps1 and check-rhythm-gestures.ps1 pass, including early/late inclusive score boundaries, expiry, Normal 160 BPM spacing >=750 ms, accepted late +290 ms input with matching current prompt, preparation, and adjustable windows. check-rhythm-music.ps1 passes; its calibration check now derives the first generated event instead of assuming an immediate startup note. Source review found no actionable issues.
+
+Windows Debug and Release builds pass (relaxed-timing-debug-build.log, relaxed-timing-release-build.log). Asset/project checks pass. Native runtime results are recorded below. Logs remain ignored output artifacts. Apple/Metal, OpenGL and server remain unverified.
+
+Native Vulkan Debug and Release runs with 50 characters, advancing PCM clock, keyboard scoring, 680x960 captures and normal shutdown: PASS (relaxed-timing-debug-runtime.log, relaxed-timing-release-runtime.log). Debug silent F1/F8 inspector flow: PASS (relaxed-timing-inspector.log). Final git diff --check: PASS.

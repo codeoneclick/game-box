@@ -33,14 +33,15 @@ bool generate_rhythm_choreography(const RhythmTrack &source,
         unsigned hash = settings.seed;
         for (unsigned char c : source.id)
             hash = (hash ^ c) * 16777619u;
-        size_t beat = 0;
+        // Let the player hear four musical pulses before the first command.
+        size_t beat = beats.size() > 4 ? 4 : 0;
         unsigned phrase = 0;
         while (beat < beats.size())
         {
             const bool easy = settings.difficulty == RhythmDifficulty::Easy;
-            const bool fast =
-                !easy &&
-                (settings.difficulty == RhythmDifficulty::Hard ? phrase % 2 == 1 : phrase % 4 == 3);
+            const bool hard = settings.difficulty == RhythmDifficulty::Hard;
+            const bool fast = hard && phrase % 2 == 1;
+            const size_t stride = easy ? 3 : hard ? 1 : 2;
             unsigned pattern = fast ? 6 : (hash + phrase) % 6;
             if (phrase == 0)
                 pattern = 0; // A recognizable, readable introduction.
@@ -52,7 +53,7 @@ bool generate_rhythm_choreography(const RhythmTrack &source,
             const auto &actions = phrases[pattern];
             for (size_t step = 0; step < actions.size(); ++step)
             {
-                size_t index = beat + (fast ? step / 2 : easy ? (step / 2) * 3 + step % 2 : step);
+                size_t index = beat + (fast ? step / 2 : step * stride);
                 if (index >= beats.size())
                     break;
                 double time = beats[index];
@@ -75,7 +76,7 @@ bool generate_rhythm_choreography(const RhythmTrack &source,
                 result.events.push_back(RhythmEvent(time - source.offset, action, index, phrase,
                                                     static_cast<unsigned>(step)));
             }
-            beat += easy ? 6 : 4;
+            beat += 4 * stride;
             ++phrase;
         }
         while (!result.events.empty() &&

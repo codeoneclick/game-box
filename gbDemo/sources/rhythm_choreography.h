@@ -16,7 +16,7 @@ struct RhythmChoreographySettings
 };
 struct RhythmPresentationSettings
 {
-    double prompt_lead = 1.25;
+    double prompt_lead = 2.0;
     int preview_count = 2;
     float swipe_threshold = 24;
     bool beat_visualization = true, crowd_choreography = true, stage_directional = true;

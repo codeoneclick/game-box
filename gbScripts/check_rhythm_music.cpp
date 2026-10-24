@@ -124,8 +124,9 @@ int main()
         }
         assert(playback.scoring_active() && session->track().id == "active_sport");
         assert(playback.set_calibration_offset(.08));
-        playback.tap(.091);
-        session->update(.091, .08);
+        const double calibrated_first = resolve_rhythm_events(session->track()).front().time + .08;
+        playback.tap(calibrated_first);
+        session->update(calibrated_first, .08);
         assert(session->score().score == 100);
         const auto epoch = playback.epoch();
         auto invalid_settings = playback.choreography_settings();

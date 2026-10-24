@@ -76,6 +76,28 @@ int main()
     assert(generate_rhythm_choreography(source, settings, hard, error));
     assert(generate_rhythm_choreography(source, settings, again, error));
     assert(easy.events.size() < normal.events.size() && normal.events.size() < hard.events.size());
+    // Normal keeps a complete early/late input window and enough time for a full step.
+    assert(normal.events.front().time >= 2);
+    for (size_t i = 1; i < normal.events.size(); ++i)
+        assert(normal.events[i].time - normal.events[i - 1].time >= 1 - 1e-9);
+    {
+        RhythmTrack fast;
+        fast.duration = 16;
+        fast.bpm = 160;
+        RhythmTrack relaxed;
+        RhythmChoreographySettings defaults;
+        assert(generate_rhythm_choreography(fast, defaults, relaxed, error));
+        RhythmSession s(relaxed);
+        const auto first = relaxed.events[0];
+        assert(relaxed.events[1].time - first.time >= .75 - 1e-9);
+        assert(s.upcoming(first.time + .29, 1)[0].id == 0);
+        s.enqueue_input(RhythmInput(first.time + .29, first.action));
+        s.update(first.time + .29);
+        assert(s.last_judgement() == RhythmJudgement::good);
+        assert(RhythmPresentationSettings().prompt_lead >= 2);
+        assert(s.set_windows(RhythmWindows(.1, .2, .4)));
+        assert(!s.set_windows(RhythmWindows(.1, .2, .501)));
+    }
     assert(hard.events.size() == again.events.size());
     for (size_t i = 0; i < hard.events.size(); ++i)
         assert(hard.events[i].time == again.events[i].time &&
@@ -152,8 +174,9 @@ int main()
     assert(points_a == points_b && a.sync() >= 0 && a.sync() <= 1 && a.sync() == b.sync());
     a.update(8, choreography, 40);
     assert(a.outcomes().empty());
-    auto p1 = rhythm_prompt_state(choreography, 1, 1.25, 2);
-    auto p2 = rhythm_prompt_state(choreography, 1.05, 1.25, 8);
+    const auto first_prompt = normal.events.front().time;
+    auto p1 = rhythm_prompt_state(choreography, first_prompt - .5, 2, 2);
+    auto p2 = rhythm_prompt_state(choreography, first_prompt - .45, 2, 8);
     assert(p1.visible && p2.progress >= p1.progress && p2.preview.size() <= 3);
     auto hidden = rhythm_prompt_state(choreography, -1, 1.25, 2);
     assert(!hidden.visible);

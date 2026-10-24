@@ -15,7 +15,7 @@ enum class RhythmJudgement
 struct RhythmWindows
 {
     double perfect, great, good;
-    RhythmWindows(double p = .040, double g = .080, double d = .130) : perfect(p), great(g), good(d)
+    RhythmWindows(double p = .090, double g = .180, double d = .300) : perfect(p), great(g), good(d)
     {
     }
 };

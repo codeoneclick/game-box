@@ -247,7 +247,7 @@ struct RhythmShipUI::implementation : std::enable_shared_from_this<implementatio
         {
             const char *names[] = {"Perfect ms", "Great ms", "Good ms"};
             slider(
-                timing, 20 + i * 52.f, names[i], 5, 250,
+                timing, 20 + i * 52.f, names[i], 5, 500,
                 [i](implementation &p) {
                     auto w = p.session->windows();
                     return (i == 0 ? w.perfect : i == 1 ? w.great : w.good) * 1000;

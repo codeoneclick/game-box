@@ -9,7 +9,7 @@ RhythmPromptState rhythm_prompt_state(const RhythmSession &session, double t, do
     RhythmPromptState out;
     if (!std::isfinite(t) || t < 0)
         return out;
-    lead = std::isfinite(lead) ? std::max(.25, std::min(3., lead)) : 1.25;
+    lead = std::isfinite(lead) ? std::max(.25, std::min(3., lead)) : 2.0;
     count = std::max(0, std::min(3, count));
     const auto future = session.upcoming(t, static_cast<size_t>(count + 1));
     if (!future.empty())
