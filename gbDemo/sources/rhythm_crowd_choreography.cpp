@@ -63,7 +63,10 @@ void RhythmCrowdChoreography::update(double t, const RhythmSession &session, int
                              mix(static_cast<std::uint32_t>(bot + 1) * 37);
             const double skill = .65 + random01(seed_ + static_cast<std::uint32_t>(bot)) * .32;
             const double chance = random01(key);
-            const double bias = (random01(key + 1) - .5) * (.035 + (1 - skill) * .3);
+            // Each dancer has a stable, nonnegative reaction delay for this run.
+            // The same delayed outcome drives both motion and leaderboard scoring.
+            const double delay =
+                .33 * random01(seed_ ^ mix(static_cast<std::uint32_t>(bot + 1) * 37));
             RhythmBotOutcome out;
             out.bot = bot;
             out.id = id;
@@ -73,18 +76,18 @@ void RhythmCrowdChoreography::update(double t, const RhythmSession &session, int
             if (wrong)
                 out.state.action = static_cast<RhythmAction>(
                     (static_cast<unsigned>(event.action) + 1 + (mix(key + 3) % 4)) % 5);
-            out.state.judgement = missing                             ? RhythmJudgement::miss
-                                  : wrong                             ? RhythmJudgement::wrong
-                                  : std::abs(bias) <= windows.perfect ? RhythmJudgement::perfect
-                                  : std::abs(bias) <= windows.great   ? RhythmJudgement::great
-                                  : std::abs(bias) <= windows.good    ? RhythmJudgement::good
-                                                                      : RhythmJudgement::miss;
-            const double due = event.time + (missing ? windows.good : bias);
+            out.state.judgement = missing                    ? RhythmJudgement::miss
+                                  : wrong                    ? RhythmJudgement::wrong
+                                  : delay <= windows.perfect ? RhythmJudgement::perfect
+                                  : delay <= windows.great   ? RhythmJudgement::great
+                                  : delay <= windows.good    ? RhythmJudgement::good
+                                                             : RhythmJudgement::miss;
+            const double due = event.time + delay;
             if (due > t + 1e-9)
                 break;
             ++next_[bot];
             out.state.start = due;
-            out.state.strength = missing ? .18f : wrong ? .4f : 1.f;
+            out.state.strength = missing ? .6f : wrong ? .8f : 1.f;
             states_[bot + 1] = out.state;
             outcomes_.push_back(out);
             record(id, bot + 1, out.points() > 0);

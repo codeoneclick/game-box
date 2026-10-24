@@ -415,7 +415,7 @@ void RhythmShipUI::set_overlay_blocked(bool blocked)
     p.root->visible_in_next_frame = !blocked;
     p.visibility();
 }
-void RhythmShipUI::set_player_position(glm::vec2 position)
+void RhythmShipUI::set_prompt_position(glm::vec2 position)
 {
     impl_->anchor = position;
 }

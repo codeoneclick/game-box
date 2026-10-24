@@ -25,7 +25,7 @@ class RhythmShipUI
                  std::shared_ptr<RhythmShipPlayback> playback = {});
     gb::ces_entity_shared_ptr root() const;
     void update();
-    void set_player_position(glm::vec2);
+    void set_prompt_position(glm::vec2);
     void set_crowd_sync(double);
     void toggle_debug();
     void set_overlay_blocked(bool);

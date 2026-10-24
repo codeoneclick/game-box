@@ -5,6 +5,7 @@
 #include "rhythm_prompt_model.h"
 #include "rhythm_session.h"
 #include "rhythm_stage_state.h"
+#include <algorithm>
 #include <cassert>
 #include <cmath>
 #include <fstream>
@@ -93,17 +94,47 @@ int main()
     {
         auto pose = rhythm_dance_pose(static_cast<RhythmAction>(i), .15, 1);
         auto end = rhythm_dance_pose(static_cast<RhythmAction>(i), 1, 1);
-        assert(end.x == 0 && end.y == 0 && end.scale_y == 1 && end.lean == 0);
+        assert(end.x == 0 && end.y == 0 && end.z == 0 && end.scale_y == 1 && end.lean == 0);
         if (i == 1)
             assert(pose.x < 0);
         if (i == 2)
             assert(pose.x > 0);
+        if (i == 3 || i == 4)
+            assert(pose.scale_y == 1 && pose.y < .2f);
         if (i == 3)
-            assert(pose.y > 0);
+            assert(pose.z < 0 && pose.x == 0);
         if (i == 4)
-            assert(pose.scale_y < 1);
+            assert(pose.z > 0 && pose.x == 0);
+        const auto returned = rhythm_dance_pose(static_cast<RhythmAction>(i), .55, 1);
+        assert(returned.x == 0 && returned.y == 0 && returned.z == 0);
     }
     RhythmSession choreography(normal);
+    {
+        RhythmTrack delayed;
+        delayed.duration = 4;
+        delayed.beats = {1, 2};
+        delayed.events = {RhythmEvent(1, RhythmAction::SwipeLeft),
+                          RhythmEvent(2, RhythmAction::SwipeRight)};
+        RhythmSession s(delayed);
+        RhythmCrowdChoreography crowd;
+        crowd.restart(42);
+        crowd.update(.999, s, 50);
+        assert(crowd.outcomes().empty());
+        crowd.update(1.34, s, 50);
+        assert(crowd.outcomes().size() == 49);
+        std::array<double, 49> delays{};
+        for (const auto &o : crowd.outcomes())
+        {
+            delays[o.bot] = o.state.start - 1;
+            assert(delays[o.bot] >= 0 && delays[o.bot] <= .33);
+        }
+        crowd.update(2.34, s, 50);
+        assert(crowd.outcomes().size() == 49);
+        for (const auto &o : crowd.outcomes())
+            assert(std::abs(o.state.start - 2 - delays[o.bot]) < 1e-9);
+        auto bounds = std::minmax_element(delays.begin(), delays.end());
+        assert(*bounds.second - *bounds.first > .2);
+    }
     RhythmCrowdChoreography a, b;
     a.restart(42);
     b.restart(42);

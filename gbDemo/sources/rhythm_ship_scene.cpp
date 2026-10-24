@@ -312,13 +312,15 @@ void rhythm_ship_scene::create()
                                        s->settings->stage_intensity,
                                        ranks[0].local && ranks[0].score > 0, stage);
             s->ui->set_crowd_sync(s->choreography->sync());
+            // Fixed stage anchor in front of the booth, independent of player steps.
+            const auto prompt_clip =
+                camera->get_mat_p() * camera->get_mat_v() * glm::vec4(0, 8.f, -23.f, 1);
+            s->ui->set_prompt_position(
+                prompt_clip.w > 0
+                    ? glm::vec2((prompt_clip.x / prompt_clip.w * .5f + .5f) * resolution.x,
+                                (.5f - prompt_clip.y / prompt_clip.w * .5f) * resolution.y)
+                    : glm::vec2(-1000));
             s->ui->update();
-            const auto player_clip =
-                camera->get_mat_p() * camera->get_mat_v() * glm::vec4(0, 7.3f, 9, 1);
-            if (player_clip.w > 0)
-                s->ui->set_player_position(
-                    glm::vec2((player_clip.x / player_clip.w * .5f + .5f) * resolution.x,
-                              (.5f - player_clip.y / player_clip.w * .5f) * resolution.y));
             if (std::getenv("GB_RHYTHM_DIAGNOSTICS") && t - s->last_log >= 1)
             {
                 s->last_log = t;

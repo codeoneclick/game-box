@@ -15,7 +15,8 @@ struct RhythmPromptView::implementation
     struct Icon
     {
         gb::game_object_2d_shared_ptr root;
-        gb::sprite_shared_ptr tap;
+        gb::game_object_2d_shared_ptr tap;
+        std::vector<gb::sprite_shared_ptr> tap_fill;
         std::array<gb::sprite_shared_ptr, 3> arrow;
     };
     std::array<Icon, 4> icons;
@@ -29,7 +30,8 @@ struct RhythmPromptView::implementation
         s->size = size;
         s->pivot = glm::vec2(.5f);
         s->position = p;
-        s->rotation = rotation;
+        // This engine's vendored GLM rotate() takes degrees; layout uses radians.
+        s->rotation = glm::degrees(rotation);
         s->color = color;
         parent->add_child(s);
         return s;
@@ -66,7 +68,16 @@ struct RhythmPromptView::implementation
                 icon.root->scale = glm::vec2(.45f);
             }
             const auto color = i ? glm::u8vec4(160, 180, 230, 200) : glm::u8vec4(255, 210, 72, 255);
-            icon.tap = bar(icon.root, glm::vec2(0), glm::vec2(14), .785398f, color);
+            icon.tap = gb::ces_entity::construct<gb::game_object_2d>();
+            icon.root->add_child(icon.tap);
+            // Filled circle from horizontal strips; reuses the native flat material.
+            for (int row = 0; row < 20; ++row)
+            {
+                const float y = row - 9.5f;
+                const float width = 2 * std::sqrt(100.f - y * y);
+                icon.tap_fill.push_back(
+                    bar(icon.tap, glm::vec2(0, y), glm::vec2(width, 1), 0, color));
+            }
             icon.arrow[0] = bar(icon.root, glm::vec2(0, 2), glm::vec2(5, 27), 0, color);
             icon.arrow[1] = bar(icon.root, glm::vec2(-5, -9), glm::vec2(5, 17), .785398f, color);
             icon.arrow[2] = bar(icon.root, glm::vec2(5, -9), glm::vec2(5, 17), -.785398f, color);
@@ -101,9 +112,9 @@ struct RhythmPromptView::implementation
             s->visible = !tap;
             s->visible_in_next_frame = !tap;
         }
-        i.root->rotation = action == RhythmAction::SwipeLeft    ? -1.5707963f
-                           : action == RhythmAction::SwipeRight ? 1.5707963f
-                           : action == RhythmAction::SwipeDown  ? 3.14159265f
+        i.root->rotation = action == RhythmAction::SwipeLeft    ? -90.f
+                           : action == RhythmAction::SwipeRight ? 90.f
+                           : action == RhythmAction::SwipeDown  ? 180.f
                                                                 : 0;
     }
 };
@@ -128,13 +139,14 @@ void RhythmPromptView::update(const RhythmPromptState &state, glm::vec2 anchor, 
     p.root->visible_in_next_frame = show;
     if (!show)
         return;
-    p.root->position = glm::clamp(anchor - glm::vec2(0, 35), glm::vec2(90, 150),
-                                  glm::vec2(viewport.x - 90, viewport.y - 230));
+    p.root->position =
+        glm::clamp(anchor, glm::vec2(90, 150), glm::vec2(viewport.x - 90, viewport.y - 230));
     const float radius = static_cast<float>(1.25 - state.progress * .95);
     p.ring->scale = glm::vec2(radius);
     p.icon(p.icons[0], state.current.event.action, true);
     const auto current_color = glm::u8vec4(255, 210, 72, state.current.resolved ? 65 : 255);
-    p.icons[0].tap->color = current_color;
+    for (auto strip : p.icons[0].tap_fill)
+        strip->color = current_color;
     for (auto arrow : p.icons[0].arrow)
         arrow->color = current_color;
     p.icons[0].root->scale = glm::vec2(.85f + .25f * static_cast<float>(state.progress));
